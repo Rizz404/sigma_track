@@ -107,3 +107,114 @@ enum AssetCondition {
   @override
   String toString() => value;
 }
+
+enum NotificationType {
+  maintenance('MAINTENANCE'),
+  warranty('WARRANTY'),
+  statusChange('STATUS_CHANGE'),
+  movement('MOVEMENT'),
+  issueReport('ISSUE_REPORT');
+
+  const NotificationType(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static NotificationType fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return NotificationType.values.firstWhere(
+      (type) => type.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid NotificationType value: $value'),
+    );
+  }
+
+  static NotificationType fromString(String value) {
+    return NotificationType.values.firstWhere(
+      (type) => type.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid NotificationType value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static NotificationType fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum ScanMethodType {
+  dataMatrix('DATA_MATRIX'),
+  manualInput('MANUAL_INPUT');
+
+  const ScanMethodType(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static ScanMethodType fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return ScanMethodType.values.firstWhere(
+      (method) => method.value == value,
+      orElse: () => throw ArgumentError('Invalid ScanMethodType value: $value'),
+    );
+  }
+
+  static ScanMethodType fromString(String value) {
+    return ScanMethodType.values.firstWhere(
+      (method) => method.value == value,
+      orElse: () => throw ArgumentError('Invalid ScanMethodType value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static ScanMethodType fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum ScanResultType {
+  success('Success'),
+  invalidID('Invalid ID'),
+  assetNotFound('Asset Not Found');
+
+  const ScanResultType(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static ScanResultType fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return ScanResultType.values.firstWhere(
+      (result) => result.value == value,
+      orElse: () => throw ArgumentError('Invalid ScanResultType value: $value'),
+    );
+  }
+
+  static ScanResultType fromString(String value) {
+    return ScanResultType.values.firstWhere(
+      (result) => result.value == value,
+      orElse: () => throw ArgumentError('Invalid ScanResultType value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static ScanResultType fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
