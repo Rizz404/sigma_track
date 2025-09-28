@@ -218,3 +218,150 @@ enum ScanResultType {
   @override
   String toString() => value;
 }
+
+enum MaintenanceScheduleType {
+  preventive('Preventive'),
+  corrective('Corrective');
+
+  const MaintenanceScheduleType(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static MaintenanceScheduleType fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return MaintenanceScheduleType.values.firstWhere(
+      (type) => type.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid MaintenanceScheduleType value: $value'),
+    );
+  }
+
+  static MaintenanceScheduleType fromString(String value) {
+    return MaintenanceScheduleType.values.firstWhere(
+      (type) => type.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid MaintenanceScheduleType value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static MaintenanceScheduleType fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum ScheduleStatus {
+  scheduled('Scheduled'),
+  completed('Completed'),
+  cancelled('Cancelled');
+
+  const ScheduleStatus(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static ScheduleStatus fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return ScheduleStatus.values.firstWhere(
+      (status) => status.value == value,
+      orElse: () => throw ArgumentError('Invalid ScheduleStatus value: $value'),
+    );
+  }
+
+  static ScheduleStatus fromString(String value) {
+    return ScheduleStatus.values.firstWhere(
+      (status) => status.value == value,
+      orElse: () => throw ArgumentError('Invalid ScheduleStatus value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static ScheduleStatus fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum IssuePriority {
+  low('Low'),
+  medium('Medium'),
+  high('High'),
+  critical('Critical');
+
+  const IssuePriority(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static IssuePriority fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return IssuePriority.values.firstWhere(
+      (priority) => priority.value == value,
+      orElse: () => throw ArgumentError('Invalid IssuePriority value: $value'),
+    );
+  }
+
+  static IssuePriority fromString(String value) {
+    return IssuePriority.values.firstWhere(
+      (priority) => priority.value == value,
+      orElse: () => throw ArgumentError('Invalid IssuePriority value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static IssuePriority fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum IssueStatus {
+  open('Open'),
+  inProgress('In Progress'),
+  resolved('Resolved'),
+  closed('Closed');
+
+  const IssueStatus(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static IssueStatus fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return IssueStatus.values.firstWhere(
+      (status) => status.value == value,
+      orElse: () => throw ArgumentError('Invalid IssueStatus value: $value'),
+    );
+  }
+
+  static IssueStatus fromString(String value) {
+    return IssueStatus.values.firstWhere(
+      (status) => status.value == value,
+      orElse: () => throw ArgumentError('Invalid IssueStatus value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static IssueStatus fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}

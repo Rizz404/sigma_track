@@ -137,7 +137,7 @@ class AssetMovementRecentStats extends Equatable {
   final String? fromUser;
   final String? toUser;
   final String movedBy;
-  final String movementDate;
+  final DateTime movementDate;
   final String movementType;
 
   const AssetMovementRecentStats({

@@ -1,0 +1,167 @@
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
+import 'package:sigma_track/feature/user/data/models/user_model.dart';
+
+class IssueReportModel extends Equatable {
+  final String id;
+  final String assetId;
+  final String reportedById;
+  final DateTime reportedDate;
+  final String issueType;
+  final IssuePriority priority;
+  final IssueStatus status;
+  final DateTime? resolvedDate;
+  final String? resolvedById;
+  final String title;
+  final String? description;
+  final String? resolutionNotes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final List<IssueReportTranslationModel> translations;
+  final AssetModel asset;
+  final UserModel reportedBy;
+  final UserModel? resolvedBy;
+
+  const IssueReportModel({
+    required this.id,
+    required this.assetId,
+    required this.reportedById,
+    required this.reportedDate,
+    required this.issueType,
+    required this.priority,
+    required this.status,
+    this.resolvedDate,
+    this.resolvedById,
+    required this.title,
+    this.description,
+    this.resolutionNotes,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.translations,
+    required this.asset,
+    required this.reportedBy,
+    this.resolvedBy,
+  });
+
+  @override
+  List<Object?> get props => [
+    id,
+    assetId,
+    reportedById,
+    reportedDate,
+    issueType,
+    priority,
+    status,
+    resolvedDate,
+    resolvedById,
+    title,
+    description,
+    resolutionNotes,
+    createdAt,
+    updatedAt,
+    translations,
+    asset,
+    reportedBy,
+    resolvedBy,
+  ];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'assetId': assetId,
+      'reportedById': reportedById,
+      'reportedDate': reportedDate.millisecondsSinceEpoch,
+      'issueType': issueType,
+      'priority': priority.toJson(),
+      'status': status.toJson(),
+      'resolvedDate': resolvedDate?.millisecondsSinceEpoch,
+      'resolvedById': resolvedById,
+      'title': title,
+      'description': description,
+      'resolutionNotes': resolutionNotes,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'translations': translations.map((x) => x.toMap()).toList(),
+      'asset': asset.toMap(),
+      'reportedBy': reportedBy.toMap(),
+      'resolvedBy': resolvedBy?.toMap(),
+    };
+  }
+
+  factory IssueReportModel.fromMap(Map<String, dynamic> map) {
+    return IssueReportModel(
+      id: map['id'] ?? '',
+      assetId: map['assetId'] ?? '',
+      reportedById: map['reportedById'] ?? '',
+      reportedDate: DateTime.fromMillisecondsSinceEpoch(map['reportedDate']),
+      issueType: map['issueType'] ?? '',
+      priority: IssuePriority.fromJson(map['priority']),
+      status: IssueStatus.fromJson(map['status']),
+      resolvedDate: map['resolvedDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['resolvedDate'])
+          : null,
+      resolvedById: map['resolvedById'],
+      title: map['title'] ?? '',
+      description: map['description'],
+      resolutionNotes: map['resolutionNotes'],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      translations: List<IssueReportTranslationModel>.from(
+        map['translations']?.map((x) => IssueReportTranslationModel.fromMap(x)),
+      ),
+      asset: AssetModel.fromMap(map['asset']),
+      reportedBy: UserModel.fromMap(map['reportedBy']),
+      resolvedBy: map['resolvedBy'] != null
+          ? UserModel.fromMap(map['resolvedBy'])
+          : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory IssueReportModel.fromJson(String source) =>
+      IssueReportModel.fromMap(json.decode(source));
+}
+
+class IssueReportTranslationModel extends Equatable {
+  final String langCode;
+  final String title;
+  final String? description;
+  final String? resolutionNotes;
+
+  const IssueReportTranslationModel({
+    required this.langCode,
+    required this.title,
+    this.description,
+    this.resolutionNotes,
+  });
+
+  @override
+  List<Object?> get props => [langCode, title, description, resolutionNotes];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'langCode': langCode,
+      'title': title,
+      'description': description,
+      'resolutionNotes': resolutionNotes,
+    };
+  }
+
+  factory IssueReportTranslationModel.fromMap(Map<String, dynamic> map) {
+    return IssueReportTranslationModel(
+      langCode: map['langCode'] ?? '',
+      title: map['title'] ?? '',
+      description: map['description'],
+      resolutionNotes: map['resolutionNotes'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory IssueReportTranslationModel.fromJson(String source) =>
+      IssueReportTranslationModel.fromMap(json.decode(source));
+}

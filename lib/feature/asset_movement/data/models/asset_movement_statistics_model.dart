@@ -248,7 +248,7 @@ class AssetMovementRecentStatsModel {
   final String? fromUser;
   final String? toUser;
   final String movedBy;
-  final String movementDate;
+  final DateTime movementDate;
   final String movementType;
 
   const AssetMovementRecentStatsModel({
@@ -273,7 +273,7 @@ class AssetMovementRecentStatsModel {
     String? fromUser,
     String? toUser,
     String? movedBy,
-    String? movementDate,
+    DateTime? movementDate,
     String? movementType,
   }) {
     return AssetMovementRecentStatsModel(
@@ -300,7 +300,7 @@ class AssetMovementRecentStatsModel {
       'fromUser': fromUser,
       'toUser': toUser,
       'movedBy': movedBy,
-      'movementDate': movementDate,
+      'movementDate': movementDate.toIso8601String(),
       'movementType': movementType,
     };
   }
@@ -315,7 +315,7 @@ class AssetMovementRecentStatsModel {
       fromUser: map['fromUser'] as String?,
       toUser: map['toUser'] as String?,
       movedBy: map['movedBy'] as String,
-      movementDate: map['movementDate'] as String,
+      movementDate: DateTime.parse(map['movementDate'] as String),
       movementType: map['movementType'] as String,
     );
   }
@@ -366,8 +366,8 @@ class AssetMovementSummaryStatisticsModel {
   final String mostActiveUser;
   final double averageMovementsPerDay;
   final double averageMovementsPerAsset;
-  final String latestMovementDate;
-  final String earliestMovementDate;
+  final DateTime latestMovementDate;
+  final DateTime earliestMovementDate;
   final int uniqueAssetsWithMovements;
   final int uniqueLocationsInvolved;
   final int uniqueUsersInvolved;
@@ -399,8 +399,8 @@ class AssetMovementSummaryStatisticsModel {
     String? mostActiveUser,
     double? averageMovementsPerDay,
     double? averageMovementsPerAsset,
-    String? latestMovementDate,
-    String? earliestMovementDate,
+    DateTime? latestMovementDate,
+    DateTime? earliestMovementDate,
     int? uniqueAssetsWithMovements,
     int? uniqueLocationsInvolved,
     int? uniqueUsersInvolved,
@@ -438,8 +438,8 @@ class AssetMovementSummaryStatisticsModel {
       'mostActiveUser': mostActiveUser,
       'averageMovementsPerDay': averageMovementsPerDay,
       'averageMovementsPerAsset': averageMovementsPerAsset,
-      'latestMovementDate': latestMovementDate,
-      'earliestMovementDate': earliestMovementDate,
+      'latestMovementDate': latestMovementDate.toIso8601String(),
+      'earliestMovementDate': earliestMovementDate.toIso8601String(),
       'uniqueAssetsWithMovements': uniqueAssetsWithMovements,
       'uniqueLocationsInvolved': uniqueLocationsInvolved,
       'uniqueUsersInvolved': uniqueUsersInvolved,
@@ -459,8 +459,10 @@ class AssetMovementSummaryStatisticsModel {
       mostActiveUser: map['mostActiveUser'] as String,
       averageMovementsPerDay: map['averageMovementsPerDay'] as double,
       averageMovementsPerAsset: map['averageMovementsPerAsset'] as double,
-      latestMovementDate: map['latestMovementDate'] as String,
-      earliestMovementDate: map['earliestMovementDate'] as String,
+      latestMovementDate: DateTime.parse(map['latestMovementDate'] as String),
+      earliestMovementDate: DateTime.parse(
+        map['earliestMovementDate'] as String,
+      ),
       uniqueAssetsWithMovements: map['uniqueAssetsWithMovements'] as int,
       uniqueLocationsInvolved: map['uniqueLocationsInvolved'] as int,
       uniqueUsersInvolved: map['uniqueUsersInvolved'] as int,

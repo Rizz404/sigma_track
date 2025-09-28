@@ -203,12 +203,12 @@ class RegistrationTrendModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'date': date.millisecondsSinceEpoch, 'count': count};
+    return {'date': date.toIso8601String(), 'count': count};
   }
 
   factory RegistrationTrendModel.fromMap(Map<String, dynamic> map) {
     return RegistrationTrendModel(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      date: DateTime.parse(map['date']),
       count: map['count']?.toInt() ?? 0,
     );
   }

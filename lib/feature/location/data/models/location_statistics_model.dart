@@ -254,7 +254,7 @@ class GeographicStatisticsModel extends Equatable {
 }
 
 class LocationCreationTrendModel extends Equatable {
-  final String date;
+  final DateTime date;
   final int count;
 
   const LocationCreationTrendModel({required this.date, required this.count});
@@ -262,7 +262,7 @@ class LocationCreationTrendModel extends Equatable {
   @override
   List<Object> get props => [date, count];
 
-  LocationCreationTrendModel copyWith({String? date, int? count}) {
+  LocationCreationTrendModel copyWith({DateTime? date, int? count}) {
     return LocationCreationTrendModel(
       date: date ?? this.date,
       count: count ?? this.count,
@@ -270,12 +270,12 @@ class LocationCreationTrendModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'date': date, 'count': count};
+    return {'date': date.toIso8601String(), 'count': count};
   }
 
   factory LocationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return LocationCreationTrendModel(
-      date: map['date'] ?? '',
+      date: DateTime.parse(map['date'] ?? ''),
       count: map['count']?.toInt() ?? 0,
     );
   }

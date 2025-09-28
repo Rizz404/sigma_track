@@ -211,7 +211,7 @@ class NotificationStatusStatisticsModel extends Equatable {
 }
 
 class NotificationCreationTrendModel extends Equatable {
-  final String date;
+  final DateTime date;
   final int count;
 
   const NotificationCreationTrendModel({
@@ -222,7 +222,7 @@ class NotificationCreationTrendModel extends Equatable {
   @override
   List<Object> get props => [date, count];
 
-  NotificationCreationTrendModel copyWith({String? date, int? count}) {
+  NotificationCreationTrendModel copyWith({DateTime? date, int? count}) {
     return NotificationCreationTrendModel(
       date: date ?? this.date,
       count: count ?? this.count,
@@ -230,12 +230,12 @@ class NotificationCreationTrendModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'date': date, 'count': count};
+    return {'date': date.toIso8601String(), 'count': count};
   }
 
   factory NotificationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return NotificationCreationTrendModel(
-      date: map['date'] ?? '',
+      date: DateTime.parse(map['date'] ?? ''),
       count: map['count']?.toInt() ?? 0,
     );
   }
@@ -256,8 +256,8 @@ class NotificationSummaryStatisticsModel extends Equatable {
   final double unreadPercentage;
   final String mostCommonType;
   final double averageNotificationsPerDay;
-  final String latestCreationDate;
-  final String earliestCreationDate;
+  final DateTime latestCreationDate;
+  final DateTime earliestCreationDate;
 
   const NotificationSummaryStatisticsModel({
     required this.totalNotifications,
@@ -286,8 +286,8 @@ class NotificationSummaryStatisticsModel extends Equatable {
     double? unreadPercentage,
     String? mostCommonType,
     double? averageNotificationsPerDay,
-    String? latestCreationDate,
-    String? earliestCreationDate,
+    DateTime? latestCreationDate,
+    DateTime? earliestCreationDate,
   }) {
     return NotificationSummaryStatisticsModel(
       totalNotifications: totalNotifications ?? this.totalNotifications,
@@ -308,8 +308,8 @@ class NotificationSummaryStatisticsModel extends Equatable {
       'unreadPercentage': unreadPercentage,
       'mostCommonType': mostCommonType,
       'averageNotificationsPerDay': averageNotificationsPerDay,
-      'latestCreationDate': latestCreationDate,
-      'earliestCreationDate': earliestCreationDate,
+      'latestCreationDate': latestCreationDate.toIso8601String(),
+      'earliestCreationDate': earliestCreationDate.toIso8601String(),
     };
   }
 
@@ -321,8 +321,8 @@ class NotificationSummaryStatisticsModel extends Equatable {
       mostCommonType: map['mostCommonType'] ?? '',
       averageNotificationsPerDay:
           map['averageNotificationsPerDay']?.toDouble() ?? 0.0,
-      latestCreationDate: map['latestCreationDate'] ?? '',
-      earliestCreationDate: map['earliestCreationDate'] ?? '',
+      latestCreationDate: DateTime.parse(map['latestCreationDate'] ?? ''),
+      earliestCreationDate: DateTime.parse(map['earliestCreationDate'] ?? ''),
     );
   }
 

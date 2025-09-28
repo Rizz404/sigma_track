@@ -127,14 +127,12 @@ extension NotificationStatusStatisticsEntityMapper
 extension NotificationCreationTrendModelMapper
     on NotificationCreationTrendModel {
   NotificationCreationTrend toEntity() =>
-      NotificationCreationTrend(date: DateTime.parse(date), count: count);
+      NotificationCreationTrend(date: date, count: count);
 }
 
 extension NotificationCreationTrendEntityMapper on NotificationCreationTrend {
-  NotificationCreationTrendModel toModel() => NotificationCreationTrendModel(
-    date: date.toIso8601String(),
-    count: count,
-  );
+  NotificationCreationTrendModel toModel() =>
+      NotificationCreationTrendModel(date: date, count: count);
 }
 
 extension NotificationSummaryStatisticsModelMapper
@@ -145,8 +143,8 @@ extension NotificationSummaryStatisticsModelMapper
     unreadPercentage: unreadPercentage,
     mostCommonType: mostCommonType,
     averageNotificationsPerDay: averageNotificationsPerDay,
-    latestCreationDate: DateTime.parse(latestCreationDate),
-    earliestCreationDate: DateTime.parse(earliestCreationDate),
+    latestCreationDate: latestCreationDate,
+    earliestCreationDate: earliestCreationDate,
   );
 }
 
@@ -159,7 +157,7 @@ extension NotificationSummaryStatisticsEntityMapper
         unreadPercentage: unreadPercentage,
         mostCommonType: mostCommonType,
         averageNotificationsPerDay: averageNotificationsPerDay,
-        latestCreationDate: latestCreationDate.toIso8601String(),
-        earliestCreationDate: earliestCreationDate.toIso8601String(),
+        latestCreationDate: latestCreationDate,
+        earliestCreationDate: earliestCreationDate,
       );
 }

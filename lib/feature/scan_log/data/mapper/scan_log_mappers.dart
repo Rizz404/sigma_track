@@ -107,12 +107,11 @@ extension ScanGeographicStatisticsEntityMapper on ScanGeographicStatistics {
 }
 
 extension ScanTrendModelMapper on ScanTrendModel {
-  ScanTrend toEntity() => ScanTrend(date: DateTime.parse(date), count: count);
+  ScanTrend toEntity() => ScanTrend(date: date, count: count);
 }
 
 extension ScanTrendEntityMapper on ScanTrend {
-  ScanTrendModel toModel() =>
-      ScanTrendModel(date: date.toIso8601String(), count: count);
+  ScanTrendModel toModel() => ScanTrendModel(date: date, count: count);
 }
 
 extension ScannerStatisticsModelMapper on ScannerStatisticsModel {
@@ -132,8 +131,8 @@ extension ScanLogSummaryStatisticsModelMapper on ScanLogSummaryStatisticsModel {
     scansWithCoordinates: scansWithCoordinates,
     coordinatesPercentage: coordinatesPercentage,
     averageScansPerDay: averageScansPerDay,
-    latestScanDate: DateTime.parse(latestScanDate),
-    earliestScanDate: DateTime.parse(earliestScanDate),
+    latestScanDate: latestScanDate,
+    earliestScanDate: earliestScanDate,
   );
 }
 
@@ -144,7 +143,7 @@ extension ScanLogSummaryStatisticsEntityMapper on ScanLogSummaryStatistics {
     scansWithCoordinates: scansWithCoordinates,
     coordinatesPercentage: coordinatesPercentage,
     averageScansPerDay: averageScansPerDay,
-    latestScanDate: latestScanDate.toIso8601String(),
-    earliestScanDate: earliestScanDate.toIso8601String(),
+    latestScanDate: latestScanDate,
+    earliestScanDate: earliestScanDate,
   );
 }

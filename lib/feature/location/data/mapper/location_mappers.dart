@@ -126,12 +126,12 @@ extension GeographicStatisticsEntityMapper on GeographicStatistics {
 
 extension LocationCreationTrendModelMapper on LocationCreationTrendModel {
   LocationCreationTrend toEntity() =>
-      LocationCreationTrend(date: DateTime.parse(date), count: count);
+      LocationCreationTrend(date: date, count: count);
 }
 
 extension LocationCreationTrendEntityMapper on LocationCreationTrend {
   LocationCreationTrendModel toModel() =>
-      LocationCreationTrendModel(date: date.toIso8601String(), count: count);
+      LocationCreationTrendModel(date: date, count: count);
 }
 
 extension LocationSummaryStatisticsModelMapper

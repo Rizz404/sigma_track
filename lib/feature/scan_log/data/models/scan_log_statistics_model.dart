@@ -246,7 +246,7 @@ class ScanGeographicStatisticsModel extends Equatable {
 }
 
 class ScanTrendModel extends Equatable {
-  final String date;
+  final DateTime date;
   final int count;
 
   const ScanTrendModel({required this.date, required this.count});
@@ -254,17 +254,17 @@ class ScanTrendModel extends Equatable {
   @override
   List<Object> get props => [date, count];
 
-  ScanTrendModel copyWith({String? date, int? count}) {
+  ScanTrendModel copyWith({DateTime? date, int? count}) {
     return ScanTrendModel(date: date ?? this.date, count: count ?? this.count);
   }
 
   Map<String, dynamic> toMap() {
-    return {'date': date, 'count': count};
+    return {'date': date.toIso8601String(), 'count': count};
   }
 
   factory ScanTrendModel.fromMap(Map<String, dynamic> map) {
     return ScanTrendModel(
-      date: map['date'] ?? '',
+      date: DateTime.parse(map['date'] ?? ''),
       count: map['count']?.toInt() ?? 0,
     );
   }
@@ -320,8 +320,8 @@ class ScanLogSummaryStatisticsModel extends Equatable {
   final int scansWithCoordinates;
   final double coordinatesPercentage;
   final double averageScansPerDay;
-  final String latestScanDate;
-  final String earliestScanDate;
+  final DateTime latestScanDate;
+  final DateTime earliestScanDate;
 
   const ScanLogSummaryStatisticsModel({
     required this.totalScans,
@@ -350,8 +350,8 @@ class ScanLogSummaryStatisticsModel extends Equatable {
     int? scansWithCoordinates,
     double? coordinatesPercentage,
     double? averageScansPerDay,
-    String? latestScanDate,
-    String? earliestScanDate,
+    DateTime? latestScanDate,
+    DateTime? earliestScanDate,
   }) {
     return ScanLogSummaryStatisticsModel(
       totalScans: totalScans ?? this.totalScans,
@@ -372,8 +372,8 @@ class ScanLogSummaryStatisticsModel extends Equatable {
       'scansWithCoordinates': scansWithCoordinates,
       'coordinatesPercentage': coordinatesPercentage,
       'averageScansPerDay': averageScansPerDay,
-      'latestScanDate': latestScanDate,
-      'earliestScanDate': earliestScanDate,
+      'latestScanDate': latestScanDate.toIso8601String(),
+      'earliestScanDate': earliestScanDate.toIso8601String(),
     };
   }
 
@@ -384,8 +384,8 @@ class ScanLogSummaryStatisticsModel extends Equatable {
       scansWithCoordinates: map['scansWithCoordinates']?.toInt() ?? 0,
       coordinatesPercentage: map['coordinatesPercentage']?.toDouble() ?? 0.0,
       averageScansPerDay: map['averageScansPerDay']?.toDouble() ?? 0.0,
-      latestScanDate: map['latestScanDate'] ?? '',
-      earliestScanDate: map['earliestScanDate'] ?? '',
+      latestScanDate: DateTime.parse(map['latestScanDate'] ?? ''),
+      earliestScanDate: DateTime.parse(map['earliestScanDate'] ?? ''),
     );
   }
 
