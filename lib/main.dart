@@ -6,7 +6,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:beamer/beamer.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
+import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
@@ -73,17 +75,18 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final botToastBuilder = BotToastInit();
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "Sigma Track",
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       builder: (context, child) => botToastBuilder(context, child),
-      // TODO: Add router configuration
-      // routerConfig: appRouter.config(
-      //   navigatorObservers: () => [BotToastNavigatorObserver()],
-      // ),
+      routerDelegate: AppRouter.routerDelegate,
+      routeInformationParser: BeamerParser(),
+      backButtonDispatcher: BeamerBackButtonDispatcher(
+        delegate: AppRouter.routerDelegate,
+      ),
 
       // * Localization Configuration
       localizationsDelegates: const [
