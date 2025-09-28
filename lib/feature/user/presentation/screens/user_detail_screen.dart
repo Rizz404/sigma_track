@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+
+class UserDetailScreen extends StatelessWidget {
+  final User user;
+
+  const UserDetailScreen({super.key, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ScreenWrapper(child: Center(child: AppText('UserDetailScreen'))),
+    );
+  }
+}
