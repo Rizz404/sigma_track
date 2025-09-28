@@ -18,6 +18,18 @@ class MaintenanceRecordTranslationModel extends Equatable {
   @override
   List<Object?> get props => [langCode, title, notes];
 
+  MaintenanceRecordTranslationModel copyWith({
+    String? langCode,
+    String? title,
+    String? notes,
+  }) {
+    return MaintenanceRecordTranslationModel(
+      langCode: langCode ?? this.langCode,
+      title: title ?? this.title,
+      notes: notes ?? this.notes,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {'langCode': langCode, 'title': title, 'notes': notes};
   }
@@ -34,6 +46,10 @@ class MaintenanceRecordTranslationModel extends Equatable {
 
   factory MaintenanceRecordTranslationModel.fromJson(String source) =>
       MaintenanceRecordTranslationModel.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'MaintenanceRecordTranslationModel(langCode: $langCode, title: $title, notes: $notes)';
 }
 
 class MaintenanceScheduleModel extends Equatable {
@@ -43,6 +59,10 @@ class MaintenanceScheduleModel extends Equatable {
 
   @override
   List<Object> get props => [id];
+
+  MaintenanceScheduleModel copyWith({String? id}) {
+    return MaintenanceScheduleModel(id: id ?? this.id);
+  }
 
   Map<String, dynamic> toMap() {
     return {'id': id};
@@ -56,6 +76,9 @@ class MaintenanceScheduleModel extends Equatable {
 
   factory MaintenanceScheduleModel.fromJson(String source) =>
       MaintenanceScheduleModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'MaintenanceScheduleModel(id: $id)';
 }
 
 class MaintenanceRecordModel extends Equatable {
@@ -112,6 +135,42 @@ class MaintenanceRecordModel extends Equatable {
     performedByUser,
   ];
 
+  MaintenanceRecordModel copyWith({
+    String? id,
+    String? scheduleId,
+    String? assetId,
+    DateTime? maintenanceDate,
+    String? performedByUserId,
+    String? performedByVendor,
+    double? actualCost,
+    String? title,
+    String? notes,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<MaintenanceRecordTranslationModel>? translations,
+    MaintenanceScheduleModel? schedule,
+    AssetModel? asset,
+    UserModel? performedByUser,
+  }) {
+    return MaintenanceRecordModel(
+      id: id ?? this.id,
+      scheduleId: scheduleId ?? this.scheduleId,
+      assetId: assetId ?? this.assetId,
+      maintenanceDate: maintenanceDate ?? this.maintenanceDate,
+      performedByUserId: performedByUserId ?? this.performedByUserId,
+      performedByVendor: performedByVendor ?? this.performedByVendor,
+      actualCost: actualCost ?? this.actualCost,
+      title: title ?? this.title,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      translations: translations ?? this.translations,
+      schedule: schedule ?? this.schedule,
+      asset: asset ?? this.asset,
+      performedByUser: performedByUser ?? this.performedByUser,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -166,4 +225,9 @@ class MaintenanceRecordModel extends Equatable {
 
   factory MaintenanceRecordModel.fromJson(String source) =>
       MaintenanceRecordModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'MaintenanceRecordModel(id: $id, scheduleId: $scheduleId, assetId: $assetId, maintenanceDate: $maintenanceDate, performedByUserId: $performedByUserId, performedByVendor: $performedByVendor, actualCost: $actualCost, title: $title, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, schedule: $schedule, asset: $asset, performedByUser: $performedByUser)';
+  }
 }

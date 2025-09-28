@@ -68,6 +68,48 @@ class IssueReportModel extends Equatable {
     resolvedBy,
   ];
 
+  IssueReportModel copyWith({
+    String? id,
+    String? assetId,
+    String? reportedById,
+    DateTime? reportedDate,
+    String? issueType,
+    IssuePriority? priority,
+    IssueStatus? status,
+    DateTime? resolvedDate,
+    String? resolvedById,
+    String? title,
+    String? description,
+    String? resolutionNotes,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<IssueReportTranslationModel>? translations,
+    AssetModel? asset,
+    UserModel? reportedBy,
+    UserModel? resolvedBy,
+  }) {
+    return IssueReportModel(
+      id: id ?? this.id,
+      assetId: assetId ?? this.assetId,
+      reportedById: reportedById ?? this.reportedById,
+      reportedDate: reportedDate ?? this.reportedDate,
+      issueType: issueType ?? this.issueType,
+      priority: priority ?? this.priority,
+      status: status ?? this.status,
+      resolvedDate: resolvedDate ?? this.resolvedDate,
+      resolvedById: resolvedById ?? this.resolvedById,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      resolutionNotes: resolutionNotes ?? this.resolutionNotes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      translations: translations ?? this.translations,
+      asset: asset ?? this.asset,
+      reportedBy: reportedBy ?? this.reportedBy,
+      resolvedBy: resolvedBy ?? this.resolvedBy,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -124,6 +166,11 @@ class IssueReportModel extends Equatable {
 
   factory IssueReportModel.fromJson(String source) =>
       IssueReportModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'IssueReportModel(id: $id, assetId: $assetId, reportedById: $reportedById, reportedDate: $reportedDate, issueType: $issueType, priority: $priority, status: $status, resolvedDate: $resolvedDate, resolvedById: $resolvedById, title: $title, description: $description, resolutionNotes: $resolutionNotes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, asset: $asset, reportedBy: $reportedBy, resolvedBy: $resolvedBy)';
+  }
 }
 
 class IssueReportTranslationModel extends Equatable {
@@ -141,6 +188,20 @@ class IssueReportTranslationModel extends Equatable {
 
   @override
   List<Object?> get props => [langCode, title, description, resolutionNotes];
+
+  IssueReportTranslationModel copyWith({
+    String? langCode,
+    String? title,
+    String? description,
+    String? resolutionNotes,
+  }) {
+    return IssueReportTranslationModel(
+      langCode: langCode ?? this.langCode,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      resolutionNotes: resolutionNotes ?? this.resolutionNotes,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -164,4 +225,8 @@ class IssueReportTranslationModel extends Equatable {
 
   factory IssueReportTranslationModel.fromJson(String source) =>
       IssueReportTranslationModel.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'IssueReportTranslationModel(langCode: $langCode, title: $title, description: $description, resolutionNotes: $resolutionNotes)';
 }

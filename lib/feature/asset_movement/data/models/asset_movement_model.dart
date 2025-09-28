@@ -175,13 +175,21 @@ class AssetMovementModel extends Equatable {
 
   factory AssetMovementModel.fromJson(String source) =>
       AssetMovementModel.fromMap(jsonDecode(source));
+
+  @override
+  String toString() {
+    return 'AssetMovementModel(id: $id, assetID: $assetID, fromLocationID: $fromLocationID, toLocationID: $toLocationID, fromUserID: $fromUserID, toUserID: $toUserID, movedByID: $movedByID, movementDate: $movementDate, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, asset: $asset, fromLocation: $fromLocation, toLocation: $toLocation, fromUser: $fromUser, toUser: $toUser, movedBy: $movedBy)';
+  }
 }
 
-class AssetMovementTranslationModel {
+class AssetMovementTranslationModel extends Equatable {
   final String langCode;
   final String? notes;
 
   const AssetMovementTranslationModel({required this.langCode, this.notes});
+
+  @override
+  List<Object?> get props => [langCode, notes];
 
   AssetMovementTranslationModel copyWith({String? langCode, String? notes}) {
     return AssetMovementTranslationModel(
@@ -205,4 +213,8 @@ class AssetMovementTranslationModel {
 
   factory AssetMovementTranslationModel.fromJson(String source) =>
       AssetMovementTranslationModel.fromMap(jsonDecode(source));
+
+  @override
+  String toString() =>
+      'AssetMovementTranslationModel(langCode: $langCode, notes: $notes)';
 }

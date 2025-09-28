@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 class ApiErrorResponse extends Equatable {
   final String status;
   final String message;
-  final List<ValidationError>? errors;
+  final List<ApiValidationError>? errors;
 
   const ApiErrorResponse({
     required this.status,
@@ -17,7 +17,7 @@ class ApiErrorResponse extends Equatable {
   ApiErrorResponse copyWith({
     String? status,
     String? message,
-    ValueGetter<List<ValidationError>?>? errors,
+    ValueGetter<List<ApiValidationError>?>? errors,
   }) {
     return ApiErrorResponse(
       status: status ?? this.status,
@@ -39,8 +39,8 @@ class ApiErrorResponse extends Equatable {
       status: map['status'] ?? '',
       message: map['message'] ?? '',
       errors: map['errors'] != null
-          ? List<ValidationError>.from(
-              map['errors']?.map((x) => ValidationError.fromMap(x)),
+          ? List<ApiValidationError>.from(
+              map['errors']?.map((x) => ApiValidationError.fromMap(x)),
             )
           : null,
     );
@@ -59,26 +59,26 @@ class ApiErrorResponse extends Equatable {
   List<Object?> get props => [status, message, errors];
 }
 
-class ValidationError extends Equatable {
+class ApiValidationError extends Equatable {
   final String field;
   final String tag;
   final String value;
   final String message;
 
-  const ValidationError({
+  const ApiValidationError({
     required this.field,
     required this.tag,
     required this.value,
     required this.message,
   });
 
-  ValidationError copyWith({
+  ApiValidationError copyWith({
     String? field,
     String? tag,
     String? value,
     String? message,
   }) {
-    return ValidationError(
+    return ApiValidationError(
       field: field ?? this.field,
       tag: tag ?? this.tag,
       value: value ?? this.value,
@@ -90,8 +90,8 @@ class ValidationError extends Equatable {
     return {'field': field, 'tag': tag, 'value': value, 'message': message};
   }
 
-  factory ValidationError.fromMap(Map<String, dynamic> map) {
-    return ValidationError(
+  factory ApiValidationError.fromMap(Map<String, dynamic> map) {
+    return ApiValidationError(
       field: map['field'] ?? '',
       tag: map['tag'] ?? '',
       value: map['value'] ?? '',
@@ -101,12 +101,12 @@ class ValidationError extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory ValidationError.fromJson(String source) =>
-      ValidationError.fromMap(json.decode(source));
+  factory ApiValidationError.fromJson(String source) =>
+      ApiValidationError.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'ValidationError(field: $field, tag: $tag, value: $value, message: $message)';
+    return 'ApiValidationError(field: $field, tag: $tag, value: $value, message: $message)';
   }
 
   @override

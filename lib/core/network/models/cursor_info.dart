@@ -3,59 +3,37 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class CursorInfo extends Equatable {
-  final int total;
-  final int perPage;
-  final int currentPage;
-  final int totalPages;
-  final bool hasPrevPage;
+  final String nextCursor;
   final bool hasNextPage;
+  final int perPage;
 
   const CursorInfo({
-    required this.total,
-    required this.perPage,
-    required this.currentPage,
-    required this.totalPages,
-    required this.hasPrevPage,
+    required this.nextCursor,
     required this.hasNextPage,
+    required this.perPage,
   });
 
-  CursorInfo copyWith({
-    int? total,
-    int? perPage,
-    int? currentPage,
-    int? totalPages,
-    bool? hasPrevPage,
-    bool? hasNextPage,
-  }) {
+  CursorInfo copyWith({String? nextCursor, bool? hasNextPage, int? perPage}) {
     return CursorInfo(
-      total: total ?? this.total,
-      perPage: perPage ?? this.perPage,
-      currentPage: currentPage ?? this.currentPage,
-      totalPages: totalPages ?? this.totalPages,
-      hasPrevPage: hasPrevPage ?? this.hasPrevPage,
+      nextCursor: nextCursor ?? this.nextCursor,
       hasNextPage: hasNextPage ?? this.hasNextPage,
+      perPage: perPage ?? this.perPage,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'total': total,
-      'perPage': perPage,
-      'currentPage': currentPage,
-      'totalPages': totalPages,
-      'hasPrevPage': hasPrevPage,
+      'nextCursor': nextCursor,
       'hasNextPage': hasNextPage,
+      'perPage': perPage,
     };
   }
 
   factory CursorInfo.fromMap(Map<String, dynamic> map) {
     return CursorInfo(
-      total: map['total']?.toInt() ?? 0,
-      perPage: map['perPage']?.toInt() ?? 0,
-      currentPage: map['currentPage']?.toInt() ?? 0,
-      totalPages: map['totalPages']?.toInt() ?? 0,
-      hasPrevPage: map['hasPrevPage'] ?? false,
+      nextCursor: map['nextCursor'] ?? '',
       hasNextPage: map['hasNextPage'] ?? false,
+      perPage: map['perPage']?.toInt() ?? 0,
     );
   }
 
@@ -65,12 +43,9 @@ class CursorInfo extends Equatable {
       CursorInfo.fromMap(json.decode(source));
 
   @override
-  String toString() {
-    return 'CursorInfo(total: $total, perPage: $perPage, currentPage: $currentPage, totalPages: $totalPages, hasPrevPage: $hasPrevPage, hasNextPage: $hasNextPage)';
-  }
+  String toString() =>
+      'CursorInfo(nextCursor: $nextCursor, hasNextPage: $hasNextPage, perPage: $perPage)';
 
   @override
-  List<Object> get props {
-    return [total, perPage, currentPage, totalPages, hasPrevPage, hasNextPage];
-  }
+  List<Object> get props => [nextCursor, hasNextPage, perPage];
 }
