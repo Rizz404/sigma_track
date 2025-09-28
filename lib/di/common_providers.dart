@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
+import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -33,8 +34,6 @@ final dioClientProvider = Provider<DioClient>((ref) {
   final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
   final dioClient = DioClient(_dio, _sessionStorageService);
 
-  // * Watch locale provider.
-  // This will re-create the DioClient whenever the locale changes.
   final currentLocale = ref.watch(localeProvider);
   dioClient.updateLocale(currentLocale);
 
@@ -43,6 +42,10 @@ final dioClientProvider = Provider<DioClient>((ref) {
 
 final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
   LocaleNotifier.new,
+);
+
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
+  ThemeNotifier.new,
 );
 
 class LocaleNotifier extends Notifier<Locale> {
@@ -81,6 +84,44 @@ class LocaleNotifier extends Notifier<Locale> {
     try {
       await _languageStorageService.removeLocale();
       state = L10n.supportedLocales.first;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+
+class ThemeNotifier extends Notifier<ThemeMode> {
+  late ThemeStorageService _themeStorageService;
+
+  @override
+  ThemeMode build() {
+    _themeStorageService = ref.watch(themeStorageServiceProvider);
+    Future.microtask(() => _loadThemeMode());
+    return ThemeMode.system;
+  }
+
+  Future<void> _loadThemeMode() async {
+    try {
+      final themeMode = await _themeStorageService.getThemeMode();
+      state = themeMode;
+    } catch (e) {
+      state = ThemeMode.system;
+    }
+  }
+
+  Future<void> changeTheme(ThemeMode newThemeMode) async {
+    try {
+      await _themeStorageService.setThemeMode(newThemeMode);
+      state = newThemeMode;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> resetTheme() async {
+    try {
+      await _themeStorageService.removeThemeMode();
+      state = ThemeMode.system;
     } catch (e) {
       rethrow;
     }

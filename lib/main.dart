@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
+import 'package:sigma_track/core/themes/app_theme.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -69,15 +70,17 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final appRouter = ref.watch(appRouterProvider);
     final currentLocale = ref.watch(localeProvider);
-    // final themeMode = ref.watch(themeProvider);
+    final themeMode = ref.watch(themeProvider);
     final botToastBuilder = BotToastInit();
 
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Sigma Track",
-      // theme: AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       builder: (context, child) => botToastBuilder(context, child),
+      // TODO: Add router configuration
       // routerConfig: appRouter.config(
       //   navigatorObservers: () => [BotToastNavigatorObserver()],
       // ),
@@ -94,7 +97,7 @@ class MyApp extends ConsumerWidget {
 
       // * Locale Resolution Strategy
       localeResolutionCallback: (locale, supportedLocales) {
-        // If device locale is supported, use it
+        // * If device locale is supported, use it
         if (locale != null) {
           for (var supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode &&
@@ -103,7 +106,7 @@ class MyApp extends ConsumerWidget {
             }
           }
 
-          // If exact match not found, try language code only
+          // * If exact match not found, try language code only
           for (var supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode) {
               return supportedLocale;
@@ -111,7 +114,7 @@ class MyApp extends ConsumerWidget {
           }
         }
 
-        // Fallback to first supported locale (should be 'en')
+        // * Fallback to first supported locale (should be 'en')
         return supportedLocales.first;
       },
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sigma_track/core/constants/locale_key_constant.dart';
+import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
 abstract class LanguageStorageService {
@@ -17,7 +17,7 @@ class LanguageStorageServiceImpl implements LanguageStorageService {
   @override
   Future<Locale> getLocale() async {
     final localeString = _sharedPreferences.getString(
-      LocaleKeyConstant.localeKey,
+      StorageKeyConstant.localeKey,
     );
 
     if (localeString != null) {
@@ -45,7 +45,7 @@ class LanguageStorageServiceImpl implements LanguageStorageService {
   Future<void> setLocale(Locale locale) async {
     if (L10n.supportedLocales.contains(locale)) {
       await _sharedPreferences.setString(
-        LocaleKeyConstant.localeKey,
+        StorageKeyConstant.localeKey,
         locale.toString(),
       );
     } else {
@@ -55,6 +55,6 @@ class LanguageStorageServiceImpl implements LanguageStorageService {
 
   @override
   Future<void> removeLocale() async {
-    await _sharedPreferences.remove(LocaleKeyConstant.localeKey);
+    await _sharedPreferences.remove(StorageKeyConstant.localeKey);
   }
 }
