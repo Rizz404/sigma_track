@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
-import 'package:sigma_track/core/services/session_storage_services.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/common_providers.dart';
 

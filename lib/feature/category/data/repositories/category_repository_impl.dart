@@ -1,6 +1,8 @@
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/mappers/cursor_mapper.dart';
+import 'package:sigma_track/core/mappers/pagination_mapper.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
 import 'package:sigma_track/feature/category/data/datasources/category_remote_datasource.dart';
 import 'package:sigma_track/feature/category/data/mapper/category_mappers.dart';
@@ -67,14 +69,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
         OffsetPaginatedSuccess(
           message: response.message,
           data: categories,
-          pagination: Pagination(
-            total: response.pagination.total,
-            perPage: response.pagination.perPage,
-            currentPage: response.pagination.currentPage,
-            totalPages: response.pagination.totalPages,
-            hasPrevPage: response.pagination.hasPrevPage,
-            hasNextPage: response.pagination.hasNextPage,
-          ),
+          pagination: response.pagination.toEntity(),
         ),
       );
     } on ApiErrorResponse catch (apiError) {
@@ -148,11 +143,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
         CursorPaginatedSuccess(
           message: response.message,
           data: categories,
-          cursor: Cursor(
-            nextCursor: response.cursor!.nextCursor,
-            hasNextPage: response.cursor!.hasNextPage,
-            perPage: response.cursor!.perPage,
-          ),
+          cursor: response.cursor.toEntity(),
         ),
       );
     } on ApiErrorResponse catch (apiError) {

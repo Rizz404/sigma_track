@@ -1,6 +1,8 @@
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/mappers/cursor_mapper.dart';
+import 'package:sigma_track/core/mappers/pagination_mapper.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
 import 'package:sigma_track/feature/location/data/datasources/location_remote_datasource.dart';
 import 'package:sigma_track/feature/location/data/mapper/location_mappers.dart';
@@ -65,14 +67,7 @@ class LocationRepositoryImpl implements LocationRepository {
         OffsetPaginatedSuccess(
           message: response.message,
           data: locations,
-          pagination: Pagination(
-            total: response.pagination.total,
-            perPage: response.pagination.perPage,
-            currentPage: response.pagination.currentPage,
-            totalPages: response.pagination.totalPages,
-            hasPrevPage: response.pagination.hasPrevPage,
-            hasNextPage: response.pagination.hasNextPage,
-          ),
+          pagination: response.pagination.toEntity(),
         ),
       );
     } on ApiErrorResponse catch (apiError) {
@@ -143,11 +138,7 @@ class LocationRepositoryImpl implements LocationRepository {
         CursorPaginatedSuccess(
           message: response.message,
           data: locations,
-          cursor: Cursor(
-            nextCursor: response.cursor!.nextCursor,
-            hasNextPage: response.cursor!.hasNextPage,
-            perPage: response.cursor!.perPage,
-          ),
+          cursor: response.cursor.toEntity(),
         ),
       );
     } on ApiErrorResponse catch (apiError) {

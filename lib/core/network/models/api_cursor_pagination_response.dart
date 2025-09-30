@@ -5,13 +5,13 @@ import 'package:sigma_track/core/network/models/cursor_info.dart';
 
 class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>>
     with EquatableMixin {
-  final CursorInfo? cursor;
+  final CursorInfo cursor;
 
   const ApiCursorPaginationResponse({
     required super.status,
     required super.message,
     required super.data,
-    this.cursor,
+    required this.cursor,
   }) : super();
 
   factory ApiCursorPaginationResponse.fromMap(
@@ -28,9 +28,7 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>>
       data: (map['data'] as List<dynamic>)
           .map((item) => fromJsonT(item))
           .toList(),
-      cursor: cursorData != null
-          ? CursorInfo.fromMap(cursorData as Map<String, dynamic>)
-          : null,
+      cursor: CursorInfo.fromMap(cursorData as Map<String, dynamic>),
     );
   }
 
@@ -61,7 +59,7 @@ class ApiCursorPaginationResponse<T> extends ApiResponse<List<T>>
       'status': status,
       'message': message,
       'data': data,
-      'cursor': cursor?.toMap(),
+      'cursor': cursor.toMap(),
     };
   }
 }

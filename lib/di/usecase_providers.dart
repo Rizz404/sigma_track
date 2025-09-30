@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sigma_track/di/datasource_providers.dart';
+import 'package:sigma_track/di/repository_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/get_current_auth_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';

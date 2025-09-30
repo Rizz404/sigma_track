@@ -1,0 +1,34 @@
+import 'package:fpdart/src/either.dart';
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record_statistics.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_record_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_record_by_id_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
+
+abstract class MaintenanceRecordRepository {
+  Future<Either<Failure, ItemSuccess<MaintenanceRecord>>>
+  createMaintenanceRecord(CreateMaintenanceRecordUsecaseParams params);
+  Future<Either<Failure, OffsetPaginatedSuccess<MaintenanceRecord>>>
+  getMaintenanceRecords(GetMaintenanceRecordsUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<MaintenanceRecordStatistics>>>
+  getMaintenanceRecordsStatistics();
+  Future<Either<Failure, CursorPaginatedSuccess<MaintenanceRecord>>>
+  getMaintenanceRecordsCursor(GetMaintenanceRecordsCursorUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceRecords();
+  Future<Either<Failure, ItemSuccess<bool>>> checkMaintenanceRecordExists(
+    CheckMaintenanceRecordExistsUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<MaintenanceRecord>>>
+  getMaintenanceRecordById(GetMaintenanceRecordByIdUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<MaintenanceRecord>>>
+  updateMaintenanceRecord(UpdateMaintenanceRecordUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<dynamic>>> deleteMaintenanceRecord(
+    DeleteMaintenanceRecordUsecaseParams params,
+  );
+}
