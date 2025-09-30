@@ -23,6 +23,7 @@ class ApiConstant {
   // * Authentication
   static const String authRegister = '$authPrefix/register';
   static const String authLogin = '$authPrefix/login';
+  static const String authForgotPassword = '$authPrefix/forgot-password';
 
   // * Users
   static const String createUser = userPrefix;

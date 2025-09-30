@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
+import 'package:sigma_track/di/datasource_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -31,8 +32,8 @@ final dioProvider = Provider<Dio>((ref) {
 
 final dioClientProvider = Provider<DioClient>((ref) {
   final _dio = ref.watch(dioProvider);
-  final _sessionStorageService = ref.watch(sessionStorageServiceProvider);
-  final dioClient = DioClient(_dio, _sessionStorageService);
+  final _authLocalDatasource = ref.watch(authLocalDatasourceProvider);
+  final dioClient = DioClient(_dio, _authLocalDatasource);
 
   final currentLocale = ref.watch(localeProvider);
   dioClient.updateLocale(currentLocale);
