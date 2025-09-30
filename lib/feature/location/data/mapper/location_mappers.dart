@@ -39,7 +39,10 @@ extension LocationEntityMapper on Location {
 
 extension LocationTranslationModelMapper on LocationTranslationModel {
   LocationTranslation toEntity() {
-    return LocationTranslation(langCode: langCode, locationName: locationName);
+    return LocationTranslation(
+      langCode: langCode,
+      locationName: locationName,
+    );
   }
 }
 
@@ -88,40 +91,49 @@ extension LocationCountStatisticsEntityMapper on LocationCountStatistics {
 }
 
 extension BuildingStatisticsModelMapper on BuildingStatisticsModel {
-  BuildingStatistics toEntity() =>
-      BuildingStatistics(building: building, count: count);
+  BuildingStatistics toEntity() => BuildingStatistics(
+        building: building,
+        count: count,
+      );
 }
 
 extension BuildingStatisticsEntityMapper on BuildingStatistics {
-  BuildingStatisticsModel toModel() =>
-      BuildingStatisticsModel(building: building, count: count);
+  BuildingStatisticsModel toModel() => BuildingStatisticsModel(
+        building: building,
+        count: count,
+      );
 }
 
 extension FloorStatisticsModelMapper on FloorStatisticsModel {
-  FloorStatistics toEntity() => FloorStatistics(floor: floor, count: count);
+  FloorStatistics toEntity() => FloorStatistics(
+        floor: floor,
+        count: count,
+      );
 }
 
 extension FloorStatisticsEntityMapper on FloorStatistics {
-  FloorStatisticsModel toModel() =>
-      FloorStatisticsModel(floor: floor, count: count);
+  FloorStatisticsModel toModel() => FloorStatisticsModel(
+        floor: floor,
+        count: count,
+      );
 }
 
 extension GeographicStatisticsModelMapper on GeographicStatisticsModel {
   GeographicStatistics toEntity() => GeographicStatistics(
-    withCoordinates: withCoordinates,
-    withoutCoordinates: withoutCoordinates,
-    averageLatitude: averageLatitude,
-    averageLongitude: averageLongitude,
-  );
+        withCoordinates: withCoordinates,
+        withoutCoordinates: withoutCoordinates,
+        averageLatitude: averageLatitude,
+        averageLongitude: averageLongitude,
+      );
 }
 
 extension GeographicStatisticsEntityMapper on GeographicStatistics {
   GeographicStatisticsModel toModel() => GeographicStatisticsModel(
-    withCoordinates: withCoordinates,
-    withoutCoordinates: withoutCoordinates,
-    averageLatitude: averageLatitude,
-    averageLongitude: averageLongitude,
-  );
+        withCoordinates: withCoordinates,
+        withoutCoordinates: withoutCoordinates,
+        averageLatitude: averageLatitude,
+        averageLongitude: averageLongitude,
+      );
 }
 
 extension LocationCreationTrendModelMapper on LocationCreationTrendModel {
@@ -134,41 +146,40 @@ extension LocationCreationTrendEntityMapper on LocationCreationTrend {
       LocationCreationTrendModel(date: date, count: count);
 }
 
-extension LocationSummaryStatisticsModelMapper
-    on LocationSummaryStatisticsModel {
+extension LocationSummaryStatisticsModelMapper on LocationSummaryStatisticsModel {
   LocationSummaryStatistics toEntity() => LocationSummaryStatistics(
-    totalLocations: totalLocations,
-    locationsWithBuilding: locationsWithBuilding,
-    locationsWithoutBuilding: locationsWithoutBuilding,
-    locationsWithFloor: locationsWithFloor,
-    locationsWithoutFloor: locationsWithoutFloor,
-    locationsWithCoordinates: locationsWithCoordinates,
-    coordinatesPercentage: coordinatesPercentage,
-    buildingPercentage: buildingPercentage,
-    floorPercentage: floorPercentage,
-    totalBuildings: totalBuildings,
-    totalFloors: totalFloors,
-    averageLocationsPerDay: averageLocationsPerDay,
-    latestCreationDate: DateTime.parse(latestCreationDate),
-    earliestCreationDate: DateTime.parse(earliestCreationDate),
-  );
+        totalLocations: totalLocations,
+        locationsWithBuilding: locationsWithBuilding,
+        locationsWithoutBuilding: locationsWithoutBuilding,
+        locationsWithFloor: locationsWithFloor,
+        locationsWithoutFloor: locationsWithoutFloor,
+        locationsWithCoordinates: locationsWithCoordinates,
+        coordinatesPercentage: coordinatesPercentage,
+        buildingPercentage: buildingPercentage,
+        floorPercentage: floorPercentage,
+        totalBuildings: totalBuildings,
+        totalFloors: totalFloors,
+        averageLocationsPerDay: averageLocationsPerDay,
+        latestCreationDate: DateTime.parse(latestCreationDate),
+        earliestCreationDate: DateTime.parse(earliestCreationDate),
+      );
 }
 
 extension LocationSummaryStatisticsEntityMapper on LocationSummaryStatistics {
   LocationSummaryStatisticsModel toModel() => LocationSummaryStatisticsModel(
-    totalLocations: totalLocations,
-    locationsWithBuilding: locationsWithBuilding,
-    locationsWithoutBuilding: locationsWithoutBuilding,
-    locationsWithFloor: locationsWithFloor,
-    locationsWithoutFloor: locationsWithoutFloor,
-    locationsWithCoordinates: locationsWithCoordinates,
-    coordinatesPercentage: coordinatesPercentage,
-    buildingPercentage: buildingPercentage,
-    floorPercentage: floorPercentage,
-    totalBuildings: totalBuildings,
-    totalFloors: totalFloors,
-    averageLocationsPerDay: averageLocationsPerDay,
-    latestCreationDate: latestCreationDate.toIso8601String(),
-    earliestCreationDate: earliestCreationDate.toIso8601String(),
-  );
+        totalLocations: totalLocations,
+        locationsWithBuilding: locationsWithBuilding,
+        locationsWithoutBuilding: locationsWithoutBuilding,
+        locationsWithFloor: locationsWithFloor,
+        locationsWithoutFloor: locationsWithoutFloor,
+        locationsWithCoordinates: locationsWithCoordinates,
+        coordinatesPercentage: coordinatesPercentage,
+        buildingPercentage: buildingPercentage,
+        floorPercentage: floorPercentage,
+        totalBuildings: totalBuildings,
+        totalFloors: totalFloors,
+        averageLocationsPerDay: averageLocationsPerDay,
+        latestCreationDate: latestCreationDate.toIso8601String(),
+        earliestCreationDate: earliestCreationDate.toIso8601String(),
+      );
 }
