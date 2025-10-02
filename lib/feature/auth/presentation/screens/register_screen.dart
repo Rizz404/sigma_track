@@ -4,14 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/extensions/navigation_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
-import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
-import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_providers.dart';
+import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/auth/presentation/validators/register_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -23,6 +24,32 @@ class RegisterScreen extends ConsumerStatefulWidget {
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // * Listen to auth state changes untuk auto redirect
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
+        next.whenData((state) {
+          if (!state.isError && state.message.isNotEmpty) {
+            AppToast.success(state.message);
+            context.toLogin();
+          } else if (state.isError &&
+              state.message.isNotEmpty &&
+              previous?.value?.message != state.message) {
+            AppToast.error(state.message);
+          }
+        });
+
+        next.whenOrNull(
+          error: (error, stack) {
+            AppToast.error(error.toString());
+          },
+        );
+      });
+    });
+  }
 
   Future<void> _handleRegister() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
@@ -40,41 +67,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
       if (mounted) {
         context.loaderOverlay.hide();
-
-        final authState = ref.read(authNotifierProvider);
-
-        authState.when(
-          data: (state) {
-            if (state.status == AuthStatus.authenticated) {
-              this.logPresentation('Registration successful: ${state.message}');
-              // TODO: Navigate to home or dashboard
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: context.semantic.success,
-                ),
-              );
-            } else {
-              this.logPresentation('Registration failed: ${state.message}');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: context.semantic.error,
-                ),
-              );
-            }
-          },
-          loading: () {},
-          error: (error, stack) {
-            this.logError('Registration error', error, stack);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(error.toString()),
-                backgroundColor: context.semantic.error,
-              ),
-            );
-          },
-        );
       }
     }
   }
@@ -83,20 +75,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   Widget build(BuildContext context) {
     return LoaderOverlay(
       child: Scaffold(
-        appBar: AppBar(
-          title: const AppText(
-            'Register',
-            style: AppTextStyle.titleLarge,
-            fontWeight: FontWeight.bold,
-          ),
-          backgroundColor: context.colorScheme.surface,
-          elevation: 0,
-        ),
+        appBar: const CustomAppBar(title: 'Register'),
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

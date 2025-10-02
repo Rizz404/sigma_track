@@ -26,7 +26,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     final result = await _getCurrentAuthUsecase.call(NoParams());
 
     return result.fold(
-      (failure) => AuthState.unauthenticated(message: failure.message),
+      (failure) =>
+          AuthState.unauthenticated(message: failure.message, isError: true),
       (success) => AuthState.authenticated(
         user: success.data!.user.toEntity(),
         message: success.message ?? "User authenticated",
@@ -41,7 +42,9 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(AuthState.unauthenticated(message: failure.message));
+        state = AsyncData(
+          AuthState.unauthenticated(message: failure.message, isError: true),
+        );
       },
       (success) {
         state = AsyncData(
@@ -61,7 +64,9 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(AuthState.unauthenticated(message: failure.message));
+        state = AsyncData(
+          AuthState.unauthenticated(message: failure.message, isError: true),
+        );
       },
       (success) {
         state = AsyncData(
@@ -81,11 +86,16 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(AuthState.unauthenticated(message: failure.message));
+        state = AsyncData(
+          AuthState.unauthenticated(message: failure.message, isError: true),
+        );
       },
       (success) {
         state = AsyncData(
-          AuthState.unauthenticated(message: success.message ?? "Email sent"),
+          AuthState.unauthenticated(
+            message: success.message ?? "Email sent",
+            isError: false,
+          ),
         );
       },
     );
@@ -96,7 +106,7 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     try {
       state = AsyncData(
-        AuthState.unauthenticated(message: "Logout successful"),
+        AuthState.unauthenticated(message: "Logout successful", isError: false),
       );
     } catch (e) {
       state = AsyncError(e, StackTrace.current);
