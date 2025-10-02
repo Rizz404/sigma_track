@@ -63,14 +63,19 @@ extension BeamerNavigationExtension on BuildContext {
 
   // User
   void toHome() => navigateTo(RouteConstant.home);
-  void toProfile() => navigateTo(RouteConstant.profile);
-  void toEditProfile() => navigateTo(RouteConstant.editProfile);
   void toScanAsset() => navigateTo(RouteConstant.scanAsset);
   void toMyAssets() => navigateTo(RouteConstant.myAssets);
   void toMyNotifications() => navigateTo(RouteConstant.myNotifications);
+  void toUserDetailProfile() => navigateTo(RouteConstant.userDetailProfile);
+  void toUserUpdateProfile() => navigateTo(RouteConstant.userUpdateProfile);
 
   // Admin
   void toAdminDashboard() => navigateTo(RouteConstant.adminDashboard);
+  void toAdminScanAsset() => navigateTo(RouteConstant.adminScanAsset);
+  void toAdminUserDetailProfile() =>
+      navigateTo(RouteConstant.adminUserDetailProfile);
+  void toAdminUserUpdateProfile() =>
+      navigateTo(RouteConstant.adminUserUpdateProfile);
   void toAdminAssets() => navigateTo(RouteConstant.adminAssets);
   void toAdminAssetUpsert({String? assetId}) => navigateTo(
     assetId != null

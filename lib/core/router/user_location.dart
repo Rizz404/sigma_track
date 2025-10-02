@@ -5,17 +5,18 @@ import 'package:sigma_track/feature/asset/presentation/screens/scan_asset_screen
 import 'package:sigma_track/feature/asset/presentation/screens/user/my_list_assets_screen.dart';
 import 'package:sigma_track/feature/home/presentation/screens/user/home_screen.dart';
 import 'package:sigma_track/feature/notification/presentation/screens/user/my_list_notifications_screen.dart';
+import 'package:sigma_track/feature/user/presentation/screens/user_detail_profile_screen.dart';
 
 /// Handles user-related routes (User-only screens)
 class UserLocation extends BeamLocation<BeamState> {
   @override
   List<Pattern> get pathPatterns => [
     RouteConstant.home,
-    RouteConstant.profile,
-    RouteConstant.editProfile,
     RouteConstant.scanAsset,
     RouteConstant.myAssets,
     RouteConstant.myNotifications,
+    RouteConstant.userDetailProfile,
+    RouteConstant.userUpdateProfile,
     RouteConstant.assetDetail,
     RouteConstant.assetMovementDetail,
     RouteConstant.assetMovementUpsert,
@@ -52,6 +53,17 @@ class UserLocation extends BeamLocation<BeamState> {
           key: ValueKey('scan-asset'),
           title: 'Scan Asset - Sigma Track',
           child: ScanAssetScreen(),
+        ),
+      );
+    }
+
+    // User Detail Profile
+    if (state.uri.path == RouteConstant.userDetailProfile) {
+      pages.add(
+        const BeamPage(
+          key: ValueKey('user-detail-profile'),
+          title: 'My Profile - Sigma Track',
+          child: UserDetailProfileScreen(),
         ),
       );
     }

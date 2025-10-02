@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/asset_upsert_screen.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/list_assets_screen.dart';
+import 'package:sigma_track/feature/asset/presentation/screens/scan_asset_screen.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/screens/admin/list_asset_movements_screen.dart';
 import 'package:sigma_track/feature/category/presentation/screens/admin/list_categories_screen.dart';
 import 'package:sigma_track/feature/dashboard/presentation/screens/admin/dashboard_screen.dart';
@@ -13,6 +14,7 @@ import 'package:sigma_track/feature/notification/presentation/screens/admin/list
 import 'package:sigma_track/feature/scan_log/presentation/screens/admin/list_scan_logs_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/admin/list_users_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/admin/user_upsert_screen.dart';
+import 'package:sigma_track/feature/user/presentation/screens/user_detail_profile_screen.dart';
 
 /// Handles admin-related routes (Admin-only list/management screens)
 class AdminLocation extends BeamLocation<BeamState> {
@@ -20,6 +22,9 @@ class AdminLocation extends BeamLocation<BeamState> {
   List<Pattern> get pathPatterns => [
     RouteConstant.admin,
     RouteConstant.adminDashboard,
+    RouteConstant.adminScanAsset,
+    RouteConstant.adminUserDetailProfile,
+    RouteConstant.adminUserUpdateProfile,
     RouteConstant.adminAssets,
     RouteConstant.adminAssetUpsert,
     RouteConstant.adminAssetMovements,
@@ -62,6 +67,28 @@ class AdminLocation extends BeamLocation<BeamState> {
     if (state.uri.path == RouteConstant.admin ||
         state.uri.path == RouteConstant.adminDashboard) {
       return pages;
+    }
+
+    // Admin Scan Asset
+    if (state.uri.path == RouteConstant.adminScanAsset) {
+      pages.add(
+        const BeamPage(
+          key: ValueKey('admin-scan-asset'),
+          title: 'Scan Asset - Sigma Track',
+          child: ScanAssetScreen(),
+        ),
+      );
+    }
+
+    // Admin User Detail Profile
+    if (state.uri.path == RouteConstant.adminUserDetailProfile) {
+      pages.add(
+        const BeamPage(
+          key: ValueKey('admin-user-detail-profile'),
+          title: 'My Profile - Sigma Track',
+          child: UserDetailProfileScreen(),
+        ),
+      );
     }
 
     // Admin Assets

@@ -9,31 +9,51 @@ class RouteConstant {
 
   // ==================== USER ROUTES ====================
   static const String home = '/';
-  static const String profile = '/profile';
-  static const String editProfile = '/profile/edit';
   static const String scanAsset = '/scan-asset';
   static const String myAssets = '/my-assets';
   static const String myNotifications = '/my-notifications';
+  static const String userDetailProfile = '/user/profile/detail';
+  static const String userUpdateProfile = '/user/profile/update';
 
-  // ==================== USER DETAIL ROUTES ====================
+  // ==================== SHARED DETAIL ROUTES (User & Admin with different prefix) ====================
+  // Asset
   static const String assetDetail = '/asset/:assetId';
+
+  // Asset Movement
   static const String assetMovementDetail = '/asset-movement/:movementId';
   static const String assetMovementUpsert = '/asset-movement/upsert';
+
+  // Category
   static const String categoryDetail = '/category/:categoryId';
   static const String categoryUpsert = '/category/upsert';
+
+  // Location
   static const String locationDetail = '/location/:locationId';
   static const String locationUpsert = '/location/upsert';
+
+  // Maintenance
   static const String maintenanceDetail = '/maintenance/:maintenanceId';
   static const String maintenanceUpsert = '/maintenance/upsert';
+
+  // Issue Report
   static const String issueReportDetail = '/issue-report/:issueReportId';
   static const String issueReportUpsert = '/issue-report/upsert';
+
+  // Notification
   static const String notificationDetail = '/notification/:notificationId';
+
+  // Scan Log
   static const String scanLogDetail = '/scan-log/:scanLogId';
+
+  // User
   static const String userDetail = '/user/:userId';
 
   // ==================== ADMIN ROUTES ====================
   static const String admin = '/admin';
   static const String adminDashboard = '/admin/dashboard';
+  static const String adminScanAsset = '/admin/scan-asset';
+  static const String adminUserDetailProfile = '/admin/user/profile/detail';
+  static const String adminUserUpdateProfile = '/admin/user/profile/update';
 
   // Admin List Routes (Admin Only)
   static const String adminAssets = '/admin/assets';
