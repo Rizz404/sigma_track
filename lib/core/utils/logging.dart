@@ -1,6 +1,6 @@
 // Core logger utilities
 export 'logger.dart';
-export 'logger_extensions.dart';
+export '../extensions/logger_extension.dart';
 export 'talker_config.dart';
 
 // Main logger instance for easy access

@@ -40,3 +40,12 @@ extension ThemeExtension on BuildContext {
   /// Get semantic colors (same for both themes)
   SemanticColors get semantic => AppColors.semantic;
 }
+
+/// Extension for easy access to theme-aware colors
+extension ThemeColors on BuildContext {
+  AppColorsTheme get colors {
+    return Theme.of(this).brightness == Brightness.light
+        ? AppColorsTheme.light()
+        : AppColorsTheme.dark();
+  }
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sigma_track/core/router/app_router.dart';
+import 'package:sigma_track/core/extensions/navigation_extension.dart';
 
 class AdminShell extends StatefulWidget {
   final Widget child;

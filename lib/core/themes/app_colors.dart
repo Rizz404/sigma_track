@@ -176,15 +176,6 @@ class SemanticColors {
   final Color infoDark = const Color.fromRGBO(37, 99, 235, 1);
 }
 
-/// Extension for easy access to theme-aware colors
-extension ThemeColors on BuildContext {
-  AppColorsTheme get colors {
-    return Theme.of(this).brightness == Brightness.light
-        ? AppColorsTheme.light()
-        : AppColorsTheme.dark();
-  }
-}
-
 /// Theme-aware color wrapper
 class AppColorsTheme {
   final Color background;
