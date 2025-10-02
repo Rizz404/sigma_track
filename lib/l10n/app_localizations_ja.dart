@@ -7,4 +7,16 @@ import 'app_localizations.dart';
 /// The translations for Japanese (`ja`).
 class L10nJa extends L10n {
   L10nJa([String locale = 'ja']) : super(locale);
+
+  @override
+  String get home => 'ホーム';
+
+  @override
+  String get dashboard => 'ダッシュボード';
+
+  @override
+  String get scanAsset => '資産をスキャン';
+
+  @override
+  String get profile => 'プロフィール';
 }

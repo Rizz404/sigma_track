@@ -1,23 +1,22 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/navigation_extension.dart';
 
-class AdminShell extends StatefulWidget {
+class AdminShell extends StatelessWidget {
   final Widget child;
 
   const AdminShell({super.key, required this.child});
 
-  @override
-  State<AdminShell> createState() => _AdminShellState();
-}
+  int _getCurrentIndex(BuildContext context) {
+    final currentPath = Beamer.of(context).configuration.location;
+    if (currentPath == RouteConstant.adminScanAsset) return 1;
+    if (currentPath == RouteConstant.adminUserDetailProfile) return 2;
+    return 0; // Default: Dashboard
+  }
 
-class _AdminShellState extends State<AdminShell> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
+  void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
         context.toAdminDashboard();
@@ -37,29 +36,29 @@ class _AdminShellState extends State<AdminShell> {
       body: Row(
         children: [
           NavigationRail(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onItemTapped,
+            selectedIndex: _getCurrentIndex(context),
+            onDestinationSelected: (index) => _onItemTapped(context, index),
             labelType: NavigationRailLabelType.all,
-            destinations: const [
+            destinations: [
               NavigationRailDestination(
-                icon: Icon(Icons.dashboard_outlined),
-                selectedIcon: Icon(Icons.dashboard),
-                label: Text('Dashboard'),
+                icon: const Icon(Icons.dashboard_outlined),
+                selectedIcon: const Icon(Icons.dashboard),
+                label: Text(context.l10n.dashboard),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.qr_code_scanner_outlined),
-                selectedIcon: Icon(Icons.qr_code_scanner),
-                label: Text('Scan Asset'),
+                icon: const Icon(Icons.qr_code_scanner_outlined),
+                selectedIcon: const Icon(Icons.qr_code_scanner),
+                label: Text(context.l10n.scanAsset),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.person_outline),
-                selectedIcon: Icon(Icons.person),
-                label: Text('Profile'),
+                icon: const Icon(Icons.person_outline),
+                selectedIcon: const Icon(Icons.person),
+                label: Text(context.l10n.profile),
               ),
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          Expanded(child: widget.child),
+          Expanded(child: child),
         ],
       ),
     );

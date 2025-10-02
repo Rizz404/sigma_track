@@ -1,23 +1,22 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/navigation_extension.dart';
 
-class UserShell extends StatefulWidget {
+class UserShell extends StatelessWidget {
   final Widget child;
 
   const UserShell({super.key, required this.child});
 
-  @override
-  State<UserShell> createState() => _UserShellState();
-}
+  int _getCurrentIndex(BuildContext context) {
+    final currentPath = Beamer.of(context).configuration.location;
+    if (currentPath == RouteConstant.scanAsset) return 1;
+    if (currentPath == RouteConstant.userDetailProfile) return 2;
+    return 0; // Default: Home
+  }
 
-class _UserShellState extends State<UserShell> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
+  void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
         context.toHome();
@@ -34,25 +33,25 @@ class _UserShellState extends State<UserShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.child,
+      body: child,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onItemTapped,
-        destinations: const [
+        selectedIndex: _getCurrentIndex(context),
+        onDestinationSelected: (index) => _onItemTapped(context, index),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home),
+            label: context.l10n.home,
           ),
           NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner_outlined),
-            selectedIcon: Icon(Icons.qr_code_scanner),
-            label: 'Scan Asset',
+            icon: const Icon(Icons.qr_code_scanner_outlined),
+            selectedIcon: const Icon(Icons.qr_code_scanner),
+            label: context.l10n.scanAsset,
           ),
           NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person_outline),
+            selectedIcon: const Icon(Icons.person),
+            label: context.l10n.profile,
           ),
         ],
       ),

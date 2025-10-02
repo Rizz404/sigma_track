@@ -1,3 +1,7 @@
 {
-  "@@locale": "ja"
+  "@@locale": "ja",
+  "home": "ホーム",
+  "dashboard": "ダッシュボード",
+  "scanAsset": "資産をスキャン",
+  "profile": "プロフィール"
 }

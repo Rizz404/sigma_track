@@ -15,6 +15,12 @@ import 'package:sigma_track/feature/scan_log/presentation/screens/admin/list_sca
 import 'package:sigma_track/feature/user/presentation/screens/admin/list_users_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/admin/user_upsert_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/user_detail_profile_screen.dart';
+import 'package:sigma_track/shared/presentation/widgets/admin_shell.dart';
+
+// TODO: Import detail/upsert screens when implementing data fetching
+// import 'package:sigma_track/feature/asset/presentation/screens/asset_detail_screen.dart';
+// import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_detail_screen.dart';
+// ... dst
 
 /// Handles admin-related routes (Admin-only list/management screens)
 class AdminLocation extends BeamLocation<BeamState> {
@@ -55,41 +61,31 @@ class AdminLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     final pages = <BeamPage>[
-      // Always add dashboard as base
-      const BeamPage(
-        key: ValueKey('admin-dashboard'),
+      // Always add dashboard as base with AdminShell wrapper
+      BeamPage(
+        key: const ValueKey('admin-dashboard'),
         title: 'Admin Dashboard - Sigma Track',
-        child: DashboardScreen(),
+        child: AdminShell(
+          child: Builder(
+            builder: (context) {
+              // Return different screens based on route
+              if (state.uri.path == RouteConstant.adminScanAsset) {
+                return const ScanAssetScreen();
+              } else if (state.uri.path ==
+                  RouteConstant.adminUserDetailProfile) {
+                return const UserDetailProfileScreen();
+              }
+              // Default: Dashboard
+              return const DashboardScreen();
+            },
+          ),
+        ),
       ),
     ];
 
-    // Dashboard only
-    if (state.uri.path == RouteConstant.admin ||
-        state.uri.path == RouteConstant.adminDashboard) {
-      return pages;
-    }
-
-    // Admin Scan Asset
-    if (state.uri.path == RouteConstant.adminScanAsset) {
-      pages.add(
-        const BeamPage(
-          key: ValueKey('admin-scan-asset'),
-          title: 'Scan Asset - Sigma Track',
-          child: ScanAssetScreen(),
-        ),
-      );
-    }
-
-    // Admin User Detail Profile
-    if (state.uri.path == RouteConstant.adminUserDetailProfile) {
-      pages.add(
-        const BeamPage(
-          key: ValueKey('admin-user-detail-profile'),
-          title: 'My Profile - Sigma Track',
-          child: UserDetailProfileScreen(),
-        ),
-      );
-    }
+    // ========== ADMIN MANAGEMENT ROUTES (FULLSCREEN) ==========
+    // * Route management lainnya tetap sebagai pages terpisah (fullscreen)
+    // * Tidak menggunakan AdminShell karena butuh lebih banyak ruang
 
     // Admin Assets
     if (state.uri.path == RouteConstant.adminAssets) {
@@ -194,6 +190,218 @@ class AdminLocation extends BeamLocation<BeamState> {
           key: ValueKey('admin-notifications'),
           title: 'Notifications Management - Sigma Track',
           child: ListNotificationsScreen(),
+        ),
+      );
+    }
+
+    // ========== ADMIN PROFILE ROUTES (FULLSCREEN) ==========
+
+    // Admin User Update Profile
+    if (state.uri.path == RouteConstant.adminUserUpdateProfile) {
+      // TODO: Fetch current user data and pass to UserUpdateProfileScreen
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-user-update-profile'),
+          title: 'Update Profile - Sigma Track',
+          child: Container(), // ! Placeholder - implement user fetching
+        ),
+      );
+    }
+
+    // ========== ADMIN DETAIL/UPSERT ROUTES (FULLSCREEN) ==========
+    // * Screen detail/upsert dengan prefix /admin
+    // TODO: Implementasi detail screens membutuhkan data fetching dari parameter
+
+    // Admin Asset Detail
+    if (state.uri.path.startsWith('/admin/asset/') &&
+        state.pathParameters.containsKey('assetId')) {
+      // TODO: Fetch asset data by assetId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-asset-detail-${state.pathParameters['assetId']}',
+          ),
+          title: 'Asset Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Asset Movement Detail
+    if (state.uri.path.startsWith('/admin/asset-movement/') &&
+        state.pathParameters.containsKey('movementId')) {
+      // TODO: Fetch asset movement by movementId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-asset-movement-detail-${state.pathParameters['movementId']}',
+          ),
+          title: 'Asset Movement Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Asset Movement Upsert
+    if (state.uri.path == RouteConstant.adminAssetMovementUpsert) {
+      // TODO: Implement asset movement upsert
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-asset-movement-upsert'),
+          title: 'Asset Movement - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Category Detail
+    if (state.uri.path.startsWith('/admin/category/') &&
+        state.pathParameters.containsKey('categoryId')) {
+      // TODO: Fetch category by categoryId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-category-detail-${state.pathParameters['categoryId']}',
+          ),
+          title: 'Category Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Category Upsert
+    if (state.uri.path == RouteConstant.adminCategoryUpsert) {
+      // TODO: Implement category upsert
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-category-upsert'),
+          title: 'Category - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Location Detail
+    if (state.uri.path.startsWith('/admin/location/') &&
+        state.pathParameters.containsKey('locationId')) {
+      // TODO: Fetch location by locationId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-location-detail-${state.pathParameters['locationId']}',
+          ),
+          title: 'Location Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Location Upsert
+    if (state.uri.path == RouteConstant.adminLocationUpsert) {
+      // TODO: Implement location upsert
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-location-upsert'),
+          title: 'Location - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Maintenance Detail
+    if (state.uri.path.startsWith('/admin/maintenance/') &&
+        state.pathParameters.containsKey('maintenanceId')) {
+      // TODO: Fetch maintenance by maintenanceId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-maintenance-detail-${state.pathParameters['maintenanceId']}',
+          ),
+          title: 'Maintenance Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Maintenance Upsert
+    if (state.uri.path == RouteConstant.adminMaintenanceUpsert) {
+      // TODO: Implement maintenance upsert
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-maintenance-upsert'),
+          title: 'Maintenance - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Issue Report Detail
+    if (state.uri.path.startsWith('/admin/issue-report/') &&
+        state.pathParameters.containsKey('issueReportId')) {
+      // TODO: Fetch issue report by issueReportId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-issue-report-detail-${state.pathParameters['issueReportId']}',
+          ),
+          title: 'Issue Report Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Issue Report Upsert
+    if (state.uri.path == RouteConstant.adminIssueReportUpsert) {
+      // TODO: Implement issue report upsert
+      pages.add(
+        BeamPage(
+          key: const ValueKey('admin-issue-report-upsert'),
+          title: 'Issue Report - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Notification Detail
+    if (state.uri.path.startsWith('/admin/notification/') &&
+        state.pathParameters.containsKey('notificationId')) {
+      // TODO: Fetch notification by notificationId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-notification-detail-${state.pathParameters['notificationId']}',
+          ),
+          title: 'Notification Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin Scan Log Detail
+    if (state.uri.path.startsWith('/admin/scan-log/') &&
+        state.pathParameters.containsKey('scanLogId')) {
+      // TODO: Fetch scan log by scanLogId
+      pages.add(
+        BeamPage(
+          key: ValueKey(
+            'admin-scan-log-detail-${state.pathParameters['scanLogId']}',
+          ),
+          title: 'Scan Log Detail - Sigma Track',
+          child: Container(), // ! Placeholder
+        ),
+      );
+    }
+
+    // Admin User Detail
+    if (state.uri.path.startsWith('/admin/user/') &&
+        state.pathParameters.containsKey('userId') &&
+        !state.uri.path.contains('profile')) {
+      // TODO: Fetch user by userId
+      pages.add(
+        BeamPage(
+          key: ValueKey('admin-user-detail-${state.pathParameters['userId']}'),
+          title: 'User Detail - Sigma Track',
+          child: Container(), // ! Placeholder
         ),
       );
     }

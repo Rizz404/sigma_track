@@ -98,6 +98,30 @@ abstract class L10n {
     Locale('id'),
     Locale('ja'),
   ];
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// No description provided for @scanAsset.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Asset'**
+  String get scanAsset;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

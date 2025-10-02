@@ -1,3 +1,7 @@
 {
-  "@@locale": "en"
+  "@@locale": "en",
+  "home": "Home",
+  "dashboard": "Dashboard",
+  "scanAsset": "Scan Asset",
+  "profile": "Profile"
 }

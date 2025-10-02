@@ -7,4 +7,16 @@ import 'app_localizations.dart';
 /// The translations for English (`en`).
 class L10nEn extends L10n {
   L10nEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get scanAsset => 'Scan Asset';
+
+  @override
+  String get profile => 'Profile';
 }
