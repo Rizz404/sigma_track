@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 
 enum AppTextFieldType {
   email,
@@ -11,7 +13,7 @@ enum AppTextFieldType {
   priceJP,
   priceUS,
   url,
-  multiline
+  multiline,
 }
 
 class AppTextField extends StatefulWidget {
@@ -56,7 +58,9 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final isPassword = widget.type == AppTextFieldType.password;
-    final isMultiline = widget.type == AppTextFieldType.multiline || (widget.maxLines != null && widget.maxLines! > 1);
+    final isMultiline =
+        widget.type == AppTextFieldType.multiline ||
+        (widget.maxLines != null && widget.maxLines! > 1);
 
     // Menentukan keyboard type berdasarkan enum
     TextInputType getKeyboardType() {
@@ -102,19 +106,14 @@ class _AppTextFieldState extends State<AppTextField> {
         case AppTextFieldType.number:
           return [FilteringTextInputFormatter.digitsOnly];
         case AppTextFieldType.priceJP:
-          return [
-            FilteringTextInputFormatter.digitsOnly,
-            _JPPriceFormatter(),
-          ];
+          return [FilteringTextInputFormatter.digitsOnly, _JPPriceFormatter()];
         case AppTextFieldType.priceUS:
           return [
             FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
             _USPriceFormatter(),
           ];
         case AppTextFieldType.phone:
-          return [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9+\-\s\(\)]')),
-          ];
+          return [FilteringTextInputFormatter.allow(RegExp(r'[0-9+\-\s\(\)]'))];
         default:
           return [];
       }
@@ -149,18 +148,46 @@ class _AppTextFieldState extends State<AppTextField> {
         prefixText: getPrefixText(),
         suffixText: widget.suffixText,
         prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon ?? (isPassword
-            ? IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-              )
-            : null),
+        suffixIcon:
+            widget.suffixIcon ??
+            (isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                : null),
+        filled: true,
+        fillColor: context.colors.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.semantic.error, width: 1),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.semantic.error, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
       ),
       validator: widget.validator,
     );

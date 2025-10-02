@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class AppDropdownItem<T> {
@@ -44,8 +46,6 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     Widget dropdown = FormBuilderDropdown<T>(
       name: name,
       initialValue: initialValue,
@@ -75,48 +75,38 @@ class AppDropdown<T> extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText ?? 'Select option',
-        hintStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+        hintStyle: context.textTheme.bodyMedium?.copyWith(
+          color: context.colors.textTertiary,
         ),
         prefixIcon: prefixIcon,
         filled: true,
-        fillColor:
-            fillColor ?? theme.colorScheme.surface.withValues(alpha: 0.8),
+        fillColor: fillColor ?? context.colors.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
+          borderSide: BorderSide(color: context.colors.primary, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.1),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.disabled, width: 1),
         ),
         contentPadding:
             contentPadding ??
             const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
-      style: theme.textTheme.bodyMedium?.copyWith(
-        color: theme.colorScheme.onSurface,
+      style: context.textTheme.bodyMedium?.copyWith(
+        color: context.colors.textPrimary,
       ),
-      dropdownColor: theme.colorScheme.surface,
-      iconEnabledColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-      iconDisabledColor: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+      dropdownColor: context.colors.surface,
+      iconEnabledColor: context.colors.textSecondary,
+      iconDisabledColor: context.colors.textDisabled,
     );
 
     if (width != null) {

@@ -42,7 +42,9 @@ class AppTimePicker extends StatelessWidget {
               suffixIcon: const Icon(Icons.access_time),
               filled: !enabled,
               fillColor: !enabled
-                  ? context.colorScheme.surfaceContainerHighest.withOpacity(0.5)
+                  ? context.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.5,
+                    )
                   : null,
             ),
             child: Text(
@@ -50,7 +52,7 @@ class AppTimePicker extends StatelessWidget {
               style: TextStyle(
                 color: enabled
                     ? null
-                    : context.colorScheme.onSurface.withOpacity(0.5),
+                    : context.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ),

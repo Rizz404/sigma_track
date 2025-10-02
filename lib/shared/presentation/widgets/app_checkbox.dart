@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 
 class AppCheckbox extends StatelessWidget {
   final String name;
@@ -21,6 +22,8 @@ class AppCheckbox extends StatelessWidget {
       validator: validator,
       controlAffinity: ListTileControlAffinity.leading,
       contentPadding: EdgeInsets.zero,
+      activeColor: context.colors.primary,
+      checkColor: context.colors.textOnPrimary,
     );
   }
 }

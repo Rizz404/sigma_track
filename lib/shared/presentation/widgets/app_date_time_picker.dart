@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 
 class AppDateTimePicker extends StatelessWidget {
   final String name;
@@ -42,6 +44,32 @@ class AppDateTimePicker extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         suffixIcon: Icon(icon ?? _defaultIcon),
+        filled: true,
+        fillColor: context.colors.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.colors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.semantic.error, width: 1),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: context.semantic.error, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
       ),
       validator: validator,
       initialValue: initialValue,

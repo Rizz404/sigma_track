@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 enum AppButtonVariant { filled, outlined, text }
@@ -48,16 +50,16 @@ class AppButton extends StatelessWidget {
           fg: theme.colorScheme.onSecondary,
         ),
         AppButtonColor.success: (
-          bg: const Color(0xFF28A745), // Success green
-          fg: Colors.white,
+          bg: context.semantic.success,
+          fg: context.colors.textOnPrimary,
         ),
         AppButtonColor.error: (
           bg: theme.colorScheme.error,
           fg: theme.colorScheme.onError,
         ),
         AppButtonColor.warning: (
-          bg: const Color(0xFFFFC107), // Warning yellow
-          fg: Colors.black87, // Dark text for yellow background
+          bg: context.semantic.warning,
+          fg: context.colors.textPrimary,
         ),
         AppButtonColor.neutral: (
           bg: theme.colorScheme.surfaceContainerHighest,

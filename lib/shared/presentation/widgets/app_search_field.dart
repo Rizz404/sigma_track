@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/themes/app_colors.dart';
 
 class AppSearchField extends StatefulWidget {
   final String name;
@@ -66,8 +68,6 @@ class _AppSearchFieldState extends State<AppSearchField> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return FormBuilderTextField(
       key: _fieldKey,
       name: widget.name,
@@ -79,59 +79,42 @@ class _AppSearchFieldState extends State<AppSearchField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText ?? 'Search...',
-        hintStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+        hintStyle: context.textTheme.bodyMedium?.copyWith(
+          color: context.colors.textTertiary,
         ),
         prefixIcon:
             widget.prefixIcon ??
-            Icon(
-              Icons.search,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-            ),
+            Icon(Icons.search, color: context.colors.textSecondary),
         suffixIcon: widget.showClearButton && _hasText
             ? IconButton(
-                icon: Icon(
-                  Icons.clear,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
+                icon: Icon(Icons.clear, color: context.colors.textSecondary),
                 onPressed: widget.enabled ? _clearText : null,
                 tooltip: 'Clear',
               )
             : null,
         filled: true,
-        fillColor:
-            widget.fillColor ??
-            theme.colorScheme.surface.withValues(alpha: 0.8),
+        fillColor: widget.fillColor ?? context.colors.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
+          borderSide: BorderSide(color: context.colors.primary, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.1),
-            width: 1,
-          ),
+          borderSide: BorderSide(color: context.colors.disabled, width: 1),
         ),
         contentPadding:
             widget.contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
-      style: theme.textTheme.bodyMedium,
+      style: context.textTheme.bodyMedium,
     );
   }
 }

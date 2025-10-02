@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
 
 class AppRadioGroup<T extends Object> extends StatelessWidget {
   final String name;
@@ -21,15 +22,14 @@ class AppRadioGroup<T extends Object> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return FormBuilderRadioGroup<T>(
       name: name,
       decoration: InputDecoration(
         labelText: label,
         border: InputBorder.none,
         contentPadding: EdgeInsets.zero,
-        labelStyle: theme.textTheme.bodyLarge?.copyWith(
-          color: theme.inputDecorationTheme.labelStyle?.color,
+        labelStyle: context.textTheme.bodyLarge?.copyWith(
+          color: context.theme.inputDecorationTheme.labelStyle?.color,
         ),
       ),
       validator: validator,

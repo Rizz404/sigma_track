@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
 
 enum AppTextStyle {
   displayLarge,
@@ -52,7 +53,7 @@ class AppText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = context.textTheme;
 
     TextStyle getBaseStyle() {
       if (customStyle != null) return customStyle!;
