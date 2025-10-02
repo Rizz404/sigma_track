@@ -7,17 +7,17 @@ import 'package:sigma_track/core/network/models/api_cursor_pagination_response.d
 import 'package:sigma_track/core/network/models/api_error_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/services/auth_service.dart';
 import 'package:sigma_track/core/utils/logger.dart';
-import 'package:sigma_track/feature/auth/data/datasources/auth_local_datasource.dart';
 
 class DioClient {
   final Dio _dio;
   final LocaleInterceptor _localeInterceptor;
   final AuthInterceptor _authInterceptor;
 
-  DioClient(this._dio, AuthLocalDatasource authLocalDatasource)
+  DioClient(this._dio, AuthService authService)
     : _localeInterceptor = LocaleInterceptor(),
-      _authInterceptor = AuthInterceptor(authLocalDatasource) {
+      _authInterceptor = AuthInterceptor(authService) {
     _dio
       ..options.baseUrl = ApiConstant.baseUrl
       ..options.connectTimeout = const Duration(

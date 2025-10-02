@@ -5,8 +5,13 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class AssetMovementUpsertScreen extends StatelessWidget {
   final AssetMovement? assetMovement;
+  final String? assetMovementId;
 
-  const AssetMovementUpsertScreen({super.key, this.assetMovement});
+  const AssetMovementUpsertScreen({
+    super.key,
+    this.assetMovement,
+    this.assetMovementId,
+  });
 
   @override
   Widget build(BuildContext context) {

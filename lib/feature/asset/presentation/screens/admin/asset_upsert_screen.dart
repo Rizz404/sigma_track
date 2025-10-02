@@ -5,8 +5,9 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class AssetUpsertScreen extends StatelessWidget {
   final Asset? asset;
+  final String? assetId;
 
-  const AssetUpsertScreen({super.key, this.asset});
+  const AssetUpsertScreen({super.key, this.asset, this.assetId});
 
   @override
   Widget build(BuildContext context) {

@@ -5,8 +5,13 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class MaintenanceUpsertScreen extends StatelessWidget {
   final MaintenanceRecord? maintenanceRecord;
+  final String? maintenanceId;
 
-  const MaintenanceUpsertScreen({super.key, this.maintenanceRecord});
+  const MaintenanceUpsertScreen({
+    super.key,
+    this.maintenanceRecord,
+    this.maintenanceId,
+  });
 
   @override
   Widget build(BuildContext context) {

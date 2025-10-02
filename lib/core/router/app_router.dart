@@ -1,181 +1,183 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:sigma_track/core/constants/route_constants.dart';
-import 'package:sigma_track/feature/auth/presentation/screens/login_screen.dart';
-import 'package:sigma_track/feature/auth/presentation/screens/register_screen.dart';
-import 'package:sigma_track/feature/auth/presentation/screens/forgot_password_screen.dart';
-import 'package:sigma_track/feature/home/presentation/screens/home_screen.dart';
-import 'package:sigma_track/feature/dashboard/presentation/screens/dashboard_screen.dart';
-import 'package:sigma_track/feature/profile/presentation/screens/profile_screen.dart';
-import 'package:sigma_track/feature/profile/presentation/screens/edit_profile_screen.dart';
-import 'package:sigma_track/feature/asset/presentation/screens/scan_asset_screen.dart';
-import 'package:sigma_track/feature/asset/presentation/screens/asset_detail_screen.dart';
-import 'package:sigma_track/feature/asset/presentation/screens/admin/list_assets_screen.dart';
-import 'package:sigma_track/feature/asset/presentation/screens/user/my_list_assets_screen.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_detail_screen.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_upsert_screen.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/screens/admin/list_asset_movements_screen.dart';
-import 'package:sigma_track/feature/category/presentation/screens/category_detail_screen.dart';
-import 'package:sigma_track/feature/category/presentation/screens/category_upsert_screen.dart';
-import 'package:sigma_track/feature/category/presentation/screens/admin/list_categories_screen.dart';
-import 'package:sigma_track/feature/issue_report/presentation/screens/issue_report_detail_screen.dart';
-import 'package:sigma_track/feature/issue_report/presentation/screens/issue_report_upsert_screen.dart';
-import 'package:sigma_track/feature/issue_report/presentation/screens/admin/list_issue_reports_screen.dart';
-import 'package:sigma_track/feature/location/presentation/screens/location_detail_screen.dart';
-import 'package:sigma_track/feature/location/presentation/screens/location_upsert_screen.dart';
-import 'package:sigma_track/feature/location/presentation/screens/admin/list_locations_screen.dart';
-import 'package:sigma_track/feature/maintenance/presentation/screens/maintenance_detail_screen.dart';
-import 'package:sigma_track/feature/maintenance/presentation/screens/maintenance_upsert_screen.dart';
-import 'package:sigma_track/feature/maintenance/presentation/screens/admin/list_maintenances_screen.dart';
-import 'package:sigma_track/feature/notification/presentation/screens/notification_detail_screen.dart';
-import 'package:sigma_track/feature/notification/presentation/screens/admin/list_notifications_screen.dart';
-import 'package:sigma_track/feature/notification/presentation/screens/user/my_list_notifications_screen.dart';
-import 'package:sigma_track/feature/scan_log/presentation/screens/scan_log_detail_screen.dart';
-import 'package:sigma_track/feature/scan_log/presentation/screens/admin/list_scan_logs_screen.dart';
-import 'package:sigma_track/feature/user/presentation/screens/user_detail_screen.dart';
-import 'package:sigma_track/feature/user/presentation/screens/user_upsert_screen.dart';
-import 'package:sigma_track/feature/user/presentation/screens/admin/list_users_screen.dart';
+import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/router/admin_location.dart';
+import 'package:sigma_track/core/router/auth_location.dart';
+import 'package:sigma_track/core/router/user_location.dart';
 
 class AppRouter {
-  static final BeamerDelegate routerDelegate = BeamerDelegate(
-    initialPath: loginRoute, // Start with login
-    locationBuilder: RoutesLocationBuilder(
-      routes: {
-        // Root route
-        '/': (context, state, data) => const LoginScreen(),
+  static BeamerDelegate createRouterDelegate({
+    required bool Function() isAuthenticated,
+    required bool Function() isAdmin,
+  }) {
+    return BeamerDelegate(
+      initialPath: RouteConstant.home,
+      locationBuilder: BeamerLocationBuilder(
+        beamLocations: [AuthLocation(), UserLocation(), AdminLocation()],
+      ),
+      guards: [
+        BeamGuard(
+          pathPatterns: [
+            RouteConstant.login,
+            RouteConstant.register,
+            RouteConstant.forgotPassword,
+          ],
+          guardNonMatching: true,
+          check: (context, location) => isAuthenticated(),
+          beamToNamed: (origin, target) => RouteConstant.login,
+        ),
+        BeamGuard(
+          pathPatterns: [RouteConstant.admin + '/*'],
+          check: (context, location) => isAdmin(),
+          beamToNamed: (origin, target) => RouteConstant.home,
+        ),
+      ],
+    );
+  }
+}
 
-        // Auth Routes
-        loginRoute: (context, state, data) => const LoginScreen(),
-        registerRoute: (context, state, data) => const RegisterScreen(),
-        forgotPasswordRoute: (context, state, data) =>
-            const ForgotPasswordScreen(),
-
-        // Main Routes
-        homeRoute: (context, state, data) =>
-            const HomeScreen(), // User main screen
-        dashboardRoute: (context, state, data) =>
-            const DashboardScreen(), // Admin main screen
-        // Profile Routes (Shared)
-        profileRoute: (context, state, data) => const ProfileScreen(),
-        editProfileRoute: (context, state, data) => const EditProfileScreen(),
-
-        // Asset Routes
-        scanAssetRoute: (context, state, data) =>
-            const ScanAssetScreen(), // User bottom nav
-        assetDetailRoute: (context, state, data) =>
-            AssetDetailScreen(asset: data as dynamic),
-        // Admin Asset Routes
-        adminAssetListRoute: (context, state, data) => const ListAssetsScreen(),
-        // User Asset Routes
-        userAssetListRoute: (context, state, data) =>
-            const MyListAssetsScreen(),
-
-        // Asset Movement Routes
-        assetMovementDetailRoute: (context, state, data) =>
-            AssetMovementDetailScreen(assetMovement: data as dynamic),
-        assetMovementUpsertRoute: (context, state, data) =>
-            const AssetMovementUpsertScreen(),
-        // Admin Asset Movement Routes
-        adminAssetMovementListRoute: (context, state, data) =>
-            const ListAssetMovementsScreen(),
-
-        // Category Routes
-        categoryDetailRoute: (context, state, data) =>
-            CategoryDetailScreen(category: data as dynamic),
-        categoryUpsertRoute: (context, state, data) =>
-            const CategoryUpsertScreen(),
-        // Admin Category Routes
-        adminCategoryListRoute: (context, state, data) =>
-            const ListCategoriesScreen(),
-
-        // Issue Report Routes
-        issueReportDetailRoute: (context, state, data) =>
-            IssueReportDetailScreen(issueReport: data as dynamic),
-        issueReportUpsertRoute: (context, state, data) =>
-            const IssueReportUpsertScreen(),
-        // Admin Issue Report Routes
-        adminIssueReportListRoute: (context, state, data) =>
-            const ListIssueReportsScreen(),
-
-        // Location Routes
-        locationDetailRoute: (context, state, data) =>
-            LocationDetailScreen(location: data as dynamic),
-        locationUpsertRoute: (context, state, data) =>
-            const LocationUpsertScreen(),
-        // Admin Location Routes
-        adminLocationListRoute: (context, state, data) =>
-            const ListLocationsScreen(),
-
-        // Maintenance Routes
-        maintenanceDetailRoute: (context, state, data) =>
-            MaintenanceDetailScreen(maintenanceRecord: data as dynamic),
-        maintenanceUpsertRoute: (context, state, data) =>
-            const MaintenanceUpsertScreen(),
-        // Admin Maintenance Routes
-        adminMaintenanceListRoute: (context, state, data) =>
-            const ListMaintenancesScreen(),
-
-        // Notification Routes
-        notificationDetailRoute: (context, state, data) =>
-            NotificationDetailScreen(notification: data as dynamic),
-        // Admin Notification Routes
-        adminNotificationListRoute: (context, state, data) =>
-            const ListNotificationsScreen(),
-        // User Notification Routes
-        userNotificationListRoute: (context, state, data) =>
-            const MyListNotificationsScreen(),
-
-        // Scan Log Routes
-        scanLogDetailRoute: (context, state, data) =>
-            ScanLogDetailScreen(scanLog: data as dynamic),
-        // Admin Scan Log Routes
-        adminScanLogListRoute: (context, state, data) =>
-            const ListScanLogsScreen(), // Admin bottom nav
-        // User Routes
-        userDetailRoute: (context, state, data) =>
-            UserDetailScreen(user: data as dynamic),
-        userUpsertRoute: (context, state, data) => const UserUpsertScreen(),
-        // Admin User Routes
-        adminUserListRoute: (context, state, data) => const ListUsersScreen(),
-      },
-    ),
-  );
-
-  static MaterialApp get app => MaterialApp.router(
-    routerDelegate: routerDelegate,
-    routeInformationParser: BeamerParser(),
-    backButtonDispatcher: BeamerBackButtonDispatcher(delegate: routerDelegate),
-  );
-
-  // Helper methods for navigation
-  static void navigateToHome() {
-    routerDelegate.beamToNamed(homeRoute);
+extension BeamerNavigationExtension on BuildContext {
+  void navigateTo(String path, {Object? data}) {
+    beamToNamed(path, data: data);
   }
 
-  static void navigateToDashboard() {
-    routerDelegate.beamToNamed(dashboardRoute);
+  void navigateToReplacement(String path, {Object? data}) {
+    beamToReplacementNamed(path, data: data);
   }
 
-  static void navigateToLogin() {
-    routerDelegate.beamToNamed(loginRoute);
-  }
-
-  // Navigation for User (Bottom Navigation)
-  // - Home Screen (homeRoute)
-  // - Scan Asset Screen (scanAssetRoute)
-  // - Profile Screen (profileRoute)
-
-  // Navigation for Admin (Bottom Navigation)
-  // - Dashboard Screen (dashboardRoute)
-  // - Scan Log List Screen (adminScanLogListRoute)
-  // - Profile Screen (profileRoute)
-
-  // Redirect after successful login
-  static void redirectAfterLogin({required bool isAdmin}) {
-    if (isAdmin) {
-      navigateToDashboard(); // Admin -> Dashboard
-    } else {
-      navigateToHome(); // User -> Home
+  void navigateBack() {
+    final beamer = Beamer.of(this);
+    if (beamer.canBeamBack) {
+      beamer.beamBack();
     }
   }
+
+  Future<bool> pop() {
+    return Beamer.of(this).popRoute();
+  }
+
+  // Auth
+  void toLogin() => navigateTo(RouteConstant.login);
+  void toRegister() => navigateTo(RouteConstant.register);
+  void toForgotPassword() => navigateTo(RouteConstant.forgotPassword);
+
+  // User
+  void toHome() => navigateTo(RouteConstant.home);
+  void toProfile() => navigateTo(RouteConstant.profile);
+  void toEditProfile() => navigateTo(RouteConstant.editProfile);
+  void toScanAsset() => navigateTo(RouteConstant.scanAsset);
+  void toMyAssets() => navigateTo(RouteConstant.myAssets);
+  void toMyNotifications() => navigateTo(RouteConstant.myNotifications);
+
+  // Admin
+  void toAdminDashboard() => navigateTo(RouteConstant.adminDashboard);
+  void toAdminAssets() => navigateTo(RouteConstant.adminAssets);
+  void toAdminAssetUpsert({String? assetId}) => navigateTo(
+    assetId != null
+        ? RouteConstant.getAdminAssetDetailPath(assetId)
+        : RouteConstant.adminAssetUpsert,
+  );
+  void toAdminAssetMovements() => navigateTo(RouteConstant.adminAssetMovements);
+  void toAdminCategories() => navigateTo(RouteConstant.adminCategories);
+  void toAdminLocations() => navigateTo(RouteConstant.adminLocations);
+  void toAdminUsers() => navigateTo(RouteConstant.adminUsers);
+  void toAdminUserUpsert({String? userId}) => navigateTo(
+    userId != null
+        ? RouteConstant.getAdminUserDetailPath(userId)
+        : RouteConstant.adminUserUpsert,
+  );
+  void toAdminMaintenances() => navigateTo(RouteConstant.adminMaintenances);
+  void toAdminIssueReports() => navigateTo(RouteConstant.adminIssueReports);
+  void toAdminScanLogs() => navigateTo(RouteConstant.adminScanLogs);
+  void toAdminNotifications() => navigateTo(RouteConstant.adminNotifications);
+
+  // Admin Detail Routes
+  void toAdminAssetDetail(String assetId) =>
+      navigateTo(RouteConstant.getAdminAssetDetailPath(assetId));
+  void toAdminAssetMovementDetail(String movementId) =>
+      navigateTo(RouteConstant.getAdminAssetMovementDetailPath(movementId));
+  void toAdminAssetMovementUpsert({String? movementId}) => navigateTo(
+    movementId != null
+        ? RouteConstant.getAdminAssetMovementDetailPath(movementId)
+        : RouteConstant.adminAssetMovementUpsert,
+  );
+  void toAdminCategoryDetail(String categoryId) =>
+      navigateTo(RouteConstant.getAdminCategoryDetailPath(categoryId));
+  void toAdminCategoryUpsert({String? categoryId}) => navigateTo(
+    categoryId != null
+        ? RouteConstant.getAdminCategoryDetailPath(categoryId)
+        : RouteConstant.adminCategoryUpsert,
+  );
+  void toAdminLocationDetail(String locationId) =>
+      navigateTo(RouteConstant.getAdminLocationDetailPath(locationId));
+  void toAdminLocationUpsert({String? locationId}) => navigateTo(
+    locationId != null
+        ? RouteConstant.getAdminLocationDetailPath(locationId)
+        : RouteConstant.adminLocationUpsert,
+  );
+  void toAdminMaintenanceDetail(String maintenanceId) =>
+      navigateTo(RouteConstant.getAdminMaintenanceDetailPath(maintenanceId));
+  void toAdminMaintenanceUpsert({String? maintenanceId}) => navigateTo(
+    maintenanceId != null
+        ? RouteConstant.getAdminMaintenanceDetailPath(maintenanceId)
+        : RouteConstant.adminMaintenanceUpsert,
+  );
+  void toAdminIssueReportDetail(String issueReportId) =>
+      navigateTo(RouteConstant.getAdminIssueReportDetailPath(issueReportId));
+  void toAdminIssueReportUpsert({String? issueReportId}) => navigateTo(
+    issueReportId != null
+        ? RouteConstant.getAdminIssueReportDetailPath(issueReportId)
+        : RouteConstant.adminIssueReportUpsert,
+  );
+  void toAdminNotificationDetail(String notificationId) =>
+      navigateTo(RouteConstant.getAdminNotificationDetailPath(notificationId));
+  void toAdminScanLogDetail(String scanLogId) =>
+      navigateTo(RouteConstant.getAdminScanLogDetailPath(scanLogId));
+  void toAdminUserDetail(String userId) =>
+      navigateTo(RouteConstant.getAdminUserDetailPath(userId));
+
+  // User Detail Routes
+  void toAssetDetail(String assetId) =>
+      navigateTo(RouteConstant.getAssetDetailPath(assetId));
+  void toAssetMovementDetail(String movementId) =>
+      navigateTo(RouteConstant.getAssetMovementDetailPath(movementId));
+  void toAssetMovementUpsert({String? movementId}) => navigateTo(
+    movementId != null
+        ? RouteConstant.getAssetMovementDetailPath(movementId)
+        : RouteConstant.assetMovementUpsert,
+  );
+  void toCategoryDetail(String categoryId) =>
+      navigateTo(RouteConstant.getCategoryDetailPath(categoryId));
+  void toCategoryUpsert({String? categoryId}) => navigateTo(
+    categoryId != null
+        ? RouteConstant.getCategoryDetailPath(categoryId)
+        : RouteConstant.categoryUpsert,
+  );
+  void toLocationDetail(String locationId) =>
+      navigateTo(RouteConstant.getLocationDetailPath(locationId));
+  void toLocationUpsert({String? locationId}) => navigateTo(
+    locationId != null
+        ? RouteConstant.getLocationDetailPath(locationId)
+        : RouteConstant.locationUpsert,
+  );
+  void toMaintenanceDetail(String maintenanceId) =>
+      navigateTo(RouteConstant.getMaintenanceDetailPath(maintenanceId));
+  void toMaintenanceUpsert({String? maintenanceId}) => navigateTo(
+    maintenanceId != null
+        ? RouteConstant.getMaintenanceDetailPath(maintenanceId)
+        : RouteConstant.maintenanceUpsert,
+  );
+  void toIssueReportDetail(String issueReportId) =>
+      navigateTo(RouteConstant.getIssueReportDetailPath(issueReportId));
+  void toIssueReportUpsert({String? issueReportId}) => navigateTo(
+    issueReportId != null
+        ? RouteConstant.getIssueReportDetailPath(issueReportId)
+        : RouteConstant.issueReportUpsert,
+  );
+  void toNotificationDetail(String notificationId) =>
+      navigateTo(RouteConstant.getNotificationDetailPath(notificationId));
+  void toScanLogDetail(String scanLogId) =>
+      navigateTo(RouteConstant.getScanLogDetailPath(scanLogId));
+  void toUserDetail(String userId) =>
+      navigateTo(RouteConstant.getUserDetailPath(userId));
 }

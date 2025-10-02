@@ -1,0 +1,6 @@
+- Selalu gunakan extension dari lib/core/extensions jika memungkinkan
+- Harus selalu menggunakan style dari lib/core/themes, jangan pernah buat warna secara static
+- Jika membuat comment usahakan pakai prinsip better comment dari extension vscode
+- Selalu pakai const jika memungkinkan
+- Response di github copilot chat jangan bertele-tele, cukup beritahu apa yang diubah saja, jangan dijelaskan secara mendetail kecuali aku memang bertanya
+- Ubah semua log yang pakai print atau semacamnya menjadi pakai logger lihat lengkap cara menggunakannya di sini lib/core/utils

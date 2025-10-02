@@ -1,13 +1,17 @@
+import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
+import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
+import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
@@ -32,8 +36,8 @@ final dioProvider = Provider<Dio>((ref) {
 
 final dioClientProvider = Provider<DioClient>((ref) {
   final _dio = ref.watch(dioProvider);
-  final _authLocalDatasource = ref.watch(authLocalDatasourceProvider);
-  final dioClient = DioClient(_dio, _authLocalDatasource);
+  final _authService = ref.watch(authServiceProvider);
+  final dioClient = DioClient(_dio, _authService);
 
   final currentLocale = ref.watch(localeProvider);
   dioClient.updateLocale(currentLocale);
@@ -48,6 +52,43 @@ final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
 final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
   ThemeNotifier.new,
 );
+
+final currentUserProvider = FutureProvider<UserModel?>((ref) async {
+  final authLocalDatasource = ref.watch(authLocalDatasourceProvider);
+  return authLocalDatasource.getUser();
+});
+
+final isAuthenticatedProvider = FutureProvider<bool>((ref) async {
+  final authService = ref.watch(authServiceProvider);
+  final token = await authService.getAccessToken();
+  return token != null;
+});
+
+final isAdminProvider = FutureProvider<bool>((ref) async {
+  final user = await ref.watch(currentUserProvider.future);
+  return user?.role == UserRole.admin;
+});
+
+final routerDelegateProvider = Provider<BeamerDelegate>((ref) {
+  return AppRouter.createRouterDelegate(
+    isAuthenticated: () {
+      final asyncValue = ref.read(isAuthenticatedProvider);
+      return asyncValue.when(
+        data: (isAuth) => isAuth,
+        loading: () => false,
+        error: (_, __) => false,
+      );
+    },
+    isAdmin: () {
+      final asyncValue = ref.read(isAdminProvider);
+      return asyncValue.when(
+        data: (isAdmin) => isAdmin,
+        loading: () => false,
+        error: (_, __) => false,
+      );
+    },
+  );
+});
 
 class LocaleNotifier extends Notifier<Locale> {
   late LanguageStorageService _languageStorageService;

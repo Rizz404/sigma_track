@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:beamer/beamer.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
-import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
@@ -70,9 +69,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final appRouter = ref.watch(appRouterProvider);
     final currentLocale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeProvider);
+    final routerDelegate = ref.watch(routerDelegateProvider);
     final botToastBuilder = BotToastInit();
 
     return MaterialApp.router(
@@ -82,10 +81,10 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       builder: (context, child) => botToastBuilder(context, child),
-      routerDelegate: AppRouter.routerDelegate,
+      routerDelegate: routerDelegate,
       routeInformationParser: BeamerParser(),
       backButtonDispatcher: BeamerBackButtonDispatcher(
-        delegate: AppRouter.routerDelegate,
+        delegate: routerDelegate,
       ),
 
       // * Localization Configuration

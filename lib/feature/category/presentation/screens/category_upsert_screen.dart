@@ -5,8 +5,9 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class CategoryUpsertScreen extends StatelessWidget {
   final Category? category;
+  final String? categoryId;
 
-  const CategoryUpsertScreen({super.key, this.category});
+  const CategoryUpsertScreen({super.key, this.category, this.categoryId});
 
   @override
   Widget build(BuildContext context) {

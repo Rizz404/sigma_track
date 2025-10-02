@@ -5,8 +5,13 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class IssueReportUpsertScreen extends StatelessWidget {
   final IssueReport? issueReport;
+  final String? issueReportId;
 
-  const IssueReportUpsertScreen({super.key, this.issueReport});
+  const IssueReportUpsertScreen({
+    super.key,
+    this.issueReport,
+    this.issueReportId,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:sigma_track/feature/auth/data/datasources/auth_local_datasource.dart';
+import 'package:sigma_track/core/services/auth_service.dart';
 
 class AuthInterceptor extends Interceptor {
-  final AuthLocalDatasource _authLocalDatasource;
+  final AuthService _authService;
 
-  AuthInterceptor(this._authLocalDatasource);
+  AuthInterceptor(this._authService);
 
   @override
   void onRequest(
@@ -13,7 +13,7 @@ class AuthInterceptor extends Interceptor {
   ) async {
     try {
       // Get the access token from secure storage
-      final token = await _authLocalDatasource.getAccessToken();
+      final token = await _authService.getAccessToken();
 
       if (token != null && token.isNotEmpty) {
         // Add the Bearer token to the Authorization header
@@ -45,8 +45,7 @@ class AuthInterceptor extends Interceptor {
   /// Clear authentication data when token is invalid
   Future<void> _clearAuthData() async {
     try {
-      await _authLocalDatasource.deleteAccessToken();
-      await _authLocalDatasource.deleteUser();
+      await _authService.clearAuthData();
     } catch (e) {
       print('Error clearing auth data: $e');
     }

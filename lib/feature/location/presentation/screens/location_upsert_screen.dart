@@ -5,8 +5,9 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class LocationUpsertScreen extends StatelessWidget {
   final Location? location;
+  final String? locationId;
 
-  const LocationUpsertScreen({super.key, this.location});
+  const LocationUpsertScreen({super.key, this.location, this.locationId});
 
   @override
   Widget build(BuildContext context) {
