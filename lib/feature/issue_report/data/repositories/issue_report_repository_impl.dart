@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.da
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report_statistics.dart';
 import 'package:sigma_track/feature/issue_report/domain/repositories/issue_report_repository.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/check_issue_report_exists_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/count_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/create_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/delete_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
@@ -126,9 +127,13 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countIssueReports() async {
+  Future<Either<Failure, ItemSuccess<int>>> countIssueReports(
+    CountIssueReportsUsecaseParams params,
+  ) async {
     try {
-      final response = await _issueReportRemoteDatasource.countIssueReports();
+      final response = await _issueReportRemoteDatasource.countIssueReports(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

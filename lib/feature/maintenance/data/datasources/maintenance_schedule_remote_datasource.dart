@@ -6,6 +6,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule_model.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule_statistics_model.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_schedule_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
@@ -25,7 +26,9 @@ abstract class MaintenanceScheduleRemoteDatasource {
   getMaintenanceSchedulesCursor(
     GetMaintenanceSchedulesCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countMaintenanceSchedules();
+  Future<ApiResponse<int>> countMaintenanceSchedules(
+    CountMaintenanceSchedulesUsecaseParams params,
+  );
   Future<ApiResponse<bool>> checkMaintenanceScheduleExists(
     CheckMaintenanceScheduleExistsUsecaseParams params,
   );
@@ -109,11 +112,14 @@ class MaintenanceScheduleRemoteDatasourceImpl
   }
 
   @override
-  Future<ApiResponse<int>> countMaintenanceSchedules() async {
+  Future<ApiResponse<int>> countMaintenanceSchedules(
+    CountMaintenanceSchedulesUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countMaintenanceSchedules,
         fromJson: (json) => json as int,
+        queryParameters: params.toMap(),
       );
       return response;
     } catch (e) {

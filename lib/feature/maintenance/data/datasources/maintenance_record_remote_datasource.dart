@@ -6,6 +6,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_record_model.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_record_statistics_model.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_record_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
@@ -23,7 +24,9 @@ abstract class MaintenanceRecordRemoteDatasource {
   getMaintenanceRecordsStatistics();
   Future<ApiCursorPaginationResponse<MaintenanceRecordModel>>
   getMaintenanceRecordsCursor(GetMaintenanceRecordsCursorUsecaseParams params);
-  Future<ApiResponse<int>> countMaintenanceRecords();
+  Future<ApiResponse<int>> countMaintenanceRecords(
+    CountMaintenanceRecordsUsecaseParams params,
+  );
   Future<ApiResponse<bool>> checkMaintenanceRecordExists(
     CheckMaintenanceRecordExistsUsecaseParams params,
   );
@@ -107,11 +110,14 @@ class MaintenanceRecordRemoteDatasourceImpl
   }
 
   @override
-  Future<ApiResponse<int>> countMaintenanceRecords() async {
+  Future<ApiResponse<int>> countMaintenanceRecords(
+    CountMaintenanceRecordsUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countMaintenanceRecords,
         fromJson: (json) => json as int,
+        queryParameters: params.toMap(),
       );
       return response;
     } catch (e) {

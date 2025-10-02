@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_reco
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record_statistics.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_record_repository.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_record_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
@@ -154,10 +155,12 @@ class MaintenanceRecordRepositoryImpl implements MaintenanceRecordRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceRecords() async {
+  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceRecords(
+    CountMaintenanceRecordsUsecaseParams params,
+  ) async {
     try {
       final response = await _maintenanceRecordRemoteDatasource
-          .countMaintenanceRecords();
+          .countMaintenanceRecords(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

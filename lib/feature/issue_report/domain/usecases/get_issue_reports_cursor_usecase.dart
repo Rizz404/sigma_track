@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
-
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/repositories/issue_report_repository.dart';
 
@@ -25,60 +28,142 @@ class GetIssueReportsCursorUsecase
 }
 
 class GetIssueReportsCursorUsecaseParams extends Equatable {
-  final int? limit;
-  final String? cursor;
   final String? search;
-  final String? sortBy;
-  final String? sortOrder;
   final String? assetId;
-  final String? reportedById;
-  final String? resolvedById;
+  final String? reportedBy;
+  final String? resolvedBy;
   final String? issueType;
-  final String? priority;
-  final String? status;
+  final IssuePriority? priority;
+  final IssueStatus? status;
+  final bool? isResolved;
+  final String? dateFrom;
+  final String? dateTo;
+  final IssueReportSortBy? sortBy;
+  final SortOrder? sortOrder;
+  final String? cursor;
+  final int? limit;
 
   const GetIssueReportsCursorUsecaseParams({
-    this.limit,
-    this.cursor,
     this.search,
-    this.sortBy,
-    this.sortOrder,
     this.assetId,
-    this.reportedById,
-    this.resolvedById,
+    this.reportedBy,
+    this.resolvedBy,
     this.issueType,
     this.priority,
     this.status,
+    this.isResolved,
+    this.dateFrom,
+    this.dateTo,
+    this.sortBy,
+    this.sortOrder,
+    this.cursor,
+    this.limit,
   });
 
-  Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{};
-    if (limit != null) map['limit'] = limit;
-    if (cursor != null) map['cursor'] = cursor;
-    if (search != null) map['search'] = search;
-    if (sortBy != null) map['sortBy'] = sortBy;
-    if (sortOrder != null) map['sortOrder'] = sortOrder;
-    if (assetId != null) map['assetId'] = assetId;
-    if (reportedById != null) map['reportedById'] = reportedById;
-    if (resolvedById != null) map['resolvedById'] = resolvedById;
-    if (issueType != null) map['issueType'] = issueType;
-    if (priority != null) map['priority'] = priority;
-    if (status != null) map['status'] = status;
-    return map;
+  GetIssueReportsCursorUsecaseParams copyWith({
+    String? search,
+    String? assetId,
+    String? reportedBy,
+    String? resolvedBy,
+    String? issueType,
+    IssuePriority? priority,
+    IssueStatus? status,
+    bool? isResolved,
+    String? dateFrom,
+    String? dateTo,
+    IssueReportSortBy? sortBy,
+    SortOrder? sortOrder,
+    String? cursor,
+    int? limit,
+  }) {
+    return GetIssueReportsCursorUsecaseParams(
+      search: search ?? this.search,
+      assetId: assetId ?? this.assetId,
+      reportedBy: reportedBy ?? this.reportedBy,
+      resolvedBy: resolvedBy ?? this.resolvedBy,
+      issueType: issueType ?? this.issueType,
+      priority: priority ?? this.priority,
+      status: status ?? this.status,
+      isResolved: isResolved ?? this.isResolved,
+      dateFrom: dateFrom ?? this.dateFrom,
+      dateTo: dateTo ?? this.dateTo,
+      sortBy: sortBy ?? this.sortBy,
+      sortOrder: sortOrder ?? this.sortOrder,
+      cursor: cursor ?? this.cursor,
+      limit: limit ?? this.limit,
+    );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      if (search != null) 'search': search,
+      if (assetId != null) 'assetId': assetId,
+      if (reportedBy != null) 'reportedBy': reportedBy,
+      if (resolvedBy != null) 'resolvedBy': resolvedBy,
+      if (issueType != null) 'issueType': issueType,
+      if (priority != null) 'priority': priority!.value,
+      if (status != null) 'status': status!.value,
+      if (isResolved != null) 'isResolved': isResolved,
+      if (dateFrom != null) 'dateFrom': dateFrom,
+      if (dateTo != null) 'dateTo': dateTo,
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (cursor != null) 'cursor': cursor,
+      if (limit != null) 'limit': limit,
+    };
+  }
+
+  factory GetIssueReportsCursorUsecaseParams.fromMap(Map<String, dynamic> map) {
+    return GetIssueReportsCursorUsecaseParams(
+      search: map['search'],
+      assetId: map['assetId'],
+      reportedBy: map['reportedBy'],
+      resolvedBy: map['resolvedBy'],
+      issueType: map['issueType'],
+      priority: map['priority'] != null
+          ? IssuePriority.fromString(map['priority'])
+          : null,
+      status: map['status'] != null
+          ? IssueStatus.fromString(map['status'])
+          : null,
+      isResolved: map['isResolved'],
+      dateFrom: map['dateFrom'],
+      dateTo: map['dateTo'],
+      sortBy: map['sortBy'] != null
+          ? IssueReportSortBy.fromString(map['sortBy'])
+          : null,
+      sortOrder: map['sortOrder'] != null
+          ? SortOrder.fromString(map['sortOrder'])
+          : null,
+      cursor: map['cursor'],
+      limit: map['limit']?.toInt(),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory GetIssueReportsCursorUsecaseParams.fromJson(String source) =>
+      GetIssueReportsCursorUsecaseParams.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'GetIssueReportsCursorUsecaseParams(search: $search, assetId: $assetId, reportedBy: $reportedBy, resolvedBy: $resolvedBy, issueType: $issueType, priority: $priority, status: $status, isResolved: $isResolved, dateFrom: $dateFrom, dateTo: $dateTo, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
 
   @override
   List<Object?> get props => [
-    limit,
-    cursor,
     search,
-    sortBy,
-    sortOrder,
     assetId,
-    reportedById,
-    resolvedById,
+    reportedBy,
+    resolvedBy,
     issueType,
     priority,
     status,
+    isResolved,
+    dateFrom,
+    dateTo,
+    sortBy,
+    sortOrder,
+    cursor,
+    limit,
   ];
 }

@@ -4,6 +4,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule_statistics.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_schedule_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
@@ -22,7 +23,9 @@ abstract class MaintenanceScheduleRepository {
   getMaintenanceSchedulesCursor(
     GetMaintenanceSchedulesCursorUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceSchedules();
+  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceSchedules(
+    CountMaintenanceSchedulesUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<bool>>> checkMaintenanceScheduleExists(
     CheckMaintenanceScheduleExistsUsecaseParams params,
   );

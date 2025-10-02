@@ -6,6 +6,7 @@ import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart'
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -25,7 +26,9 @@ abstract class AssetRepository {
   Future<Either<Failure, CursorPaginatedSuccess<Asset>>> getAssetsCursor(
     GetAssetsCursorUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<int>>> countAssets();
+  Future<Either<Failure, ItemSuccess<int>>> countAssets(
+    CountAssetsUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<Asset>>> getAssetByTag(
     GetAssetByTagUsecaseParams params,
   );

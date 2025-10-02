@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movemen
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement_statistics.dart';
 import 'package:sigma_track/feature/asset_movement/domain/repositories/asset_movement_repository.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
@@ -154,10 +155,13 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countAssetMovements() async {
+  Future<Either<Failure, ItemSuccess<int>>> countAssetMovements(
+    CountAssetMovementsUsecaseParams params,
+  ) async {
     try {
-      final response = await _assetMovementRemoteDatasource
-          .countAssetMovements();
+      final response = await _assetMovementRemoteDatasource.countAssetMovements(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

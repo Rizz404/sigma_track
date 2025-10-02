@@ -4,6 +4,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement_statistics.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
@@ -22,7 +23,9 @@ abstract class AssetMovementRepository {
   getAssetMovementsStatistics();
   Future<Either<Failure, CursorPaginatedSuccess<AssetMovement>>>
   getAssetMovementsCursor(GetAssetMovementsCursorUsecaseParams params);
-  Future<Either<Failure, ItemSuccess<int>>> countAssetMovements();
+  Future<Either<Failure, ItemSuccess<int>>> countAssetMovements(
+    CountAssetMovementsUsecaseParams params,
+  );
   Future<Either<Failure, OffsetPaginatedSuccess<AssetMovement>>>
   getAssetMovementsByAssetId(GetAssetMovementsByAssetIdUsecaseParams params);
   Future<Either<Failure, ItemSuccess<bool>>> checkAssetMovementExists(

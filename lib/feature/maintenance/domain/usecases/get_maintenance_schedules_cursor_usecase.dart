@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
-
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
@@ -31,45 +31,73 @@ class GetMaintenanceSchedulesCursorUsecase
 }
 
 class GetMaintenanceSchedulesCursorUsecaseParams extends Equatable {
-  final String? cursor;
-  final int limit;
   final String? search;
-  final String? sortBy;
-  final String? sortOrder;
   final String? assetId;
   final MaintenanceScheduleType? maintenanceType;
   final ScheduleStatus? status;
-  final String? createdById;
-  final DateTime? startDate;
-  final DateTime? endDate;
+  final String? createdBy;
+  final String? fromDate;
+  final String? toDate;
+  final MaintenanceScheduleSortBy? sortBy;
+  final SortOrder? sortOrder;
+  final String? cursor;
+  final int? limit;
 
-  GetMaintenanceSchedulesCursorUsecaseParams({
-    this.cursor,
-    this.limit = 10,
+  const GetMaintenanceSchedulesCursorUsecaseParams({
     this.search,
-    this.sortBy,
-    this.sortOrder,
     this.assetId,
     this.maintenanceType,
     this.status,
-    this.createdById,
-    this.startDate,
-    this.endDate,
+    this.createdBy,
+    this.fromDate,
+    this.toDate,
+    this.sortBy,
+    this.sortOrder,
+    this.cursor,
+    this.limit,
   });
+
+  GetMaintenanceSchedulesCursorUsecaseParams copyWith({
+    String? search,
+    String? assetId,
+    MaintenanceScheduleType? maintenanceType,
+    ScheduleStatus? status,
+    String? createdBy,
+    String? fromDate,
+    String? toDate,
+    MaintenanceScheduleSortBy? sortBy,
+    SortOrder? sortOrder,
+    String? cursor,
+    int? limit,
+  }) {
+    return GetMaintenanceSchedulesCursorUsecaseParams(
+      search: search ?? this.search,
+      assetId: assetId ?? this.assetId,
+      maintenanceType: maintenanceType ?? this.maintenanceType,
+      status: status ?? this.status,
+      createdBy: createdBy ?? this.createdBy,
+      fromDate: fromDate ?? this.fromDate,
+      toDate: toDate ?? this.toDate,
+      sortBy: sortBy ?? this.sortBy,
+      sortOrder: sortOrder ?? this.sortOrder,
+      cursor: cursor ?? this.cursor,
+      limit: limit ?? this.limit,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
-      if (cursor != null) 'cursor': cursor,
-      'limit': limit,
       if (search != null) 'search': search,
-      if (sortBy != null) 'sortBy': sortBy,
-      if (sortOrder != null) 'sortOrder': sortOrder,
       if (assetId != null) 'assetId': assetId,
-      if (maintenanceType != null) 'maintenanceType': maintenanceType!.name,
-      if (status != null) 'status': status!.name,
-      if (createdById != null) 'createdById': createdById,
-      if (startDate != null) 'startDate': startDate!.toIso8601String(),
-      if (endDate != null) 'endDate': endDate!.toIso8601String(),
+      if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
+      if (status != null) 'status': status!.value,
+      if (createdBy != null) 'createdBy': createdBy,
+      if (fromDate != null) 'fromDate': fromDate,
+      if (toDate != null) 'toDate': toDate,
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (cursor != null) 'cursor': cursor,
+      if (limit != null) 'limit': limit,
     };
   }
 
@@ -77,23 +105,25 @@ class GetMaintenanceSchedulesCursorUsecaseParams extends Equatable {
     Map<String, dynamic> map,
   ) {
     return GetMaintenanceSchedulesCursorUsecaseParams(
-      cursor: map['cursor'],
-      limit: map['limit']?.toInt() ?? 10,
       search: map['search'],
-      sortBy: map['sortBy'],
-      sortOrder: map['sortOrder'],
       assetId: map['assetId'],
       maintenanceType: map['maintenanceType'] != null
-          ? MaintenanceScheduleType.values.byName(map['maintenanceType'])
+          ? MaintenanceScheduleType.fromString(map['maintenanceType'])
           : null,
       status: map['status'] != null
-          ? ScheduleStatus.values.byName(map['status'])
+          ? ScheduleStatus.fromString(map['status'])
           : null,
-      createdById: map['createdById'],
-      startDate: map['startDate'] != null
-          ? DateTime.parse(map['startDate'])
+      createdBy: map['createdBy'],
+      fromDate: map['fromDate'],
+      toDate: map['toDate'],
+      sortBy: map['sortBy'] != null
+          ? MaintenanceScheduleSortBy.fromString(map['sortBy'])
           : null,
-      endDate: map['endDate'] != null ? DateTime.parse(map['endDate']) : null,
+      sortOrder: map['sortOrder'] != null
+          ? SortOrder.fromString(map['sortOrder'])
+          : null,
+      cursor: map['cursor'],
+      limit: map['limit']?.toInt(),
     );
   }
 
@@ -103,17 +133,21 @@ class GetMaintenanceSchedulesCursorUsecaseParams extends Equatable {
       GetMaintenanceSchedulesCursorUsecaseParams.fromMap(json.decode(source));
 
   @override
+  String toString() =>
+      'GetMaintenanceSchedulesCursorUsecaseParams(search: $search, assetId: $assetId, maintenanceType: $maintenanceType, status: $status, createdBy: $createdBy, fromDate: $fromDate, toDate: $toDate, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
+
+  @override
   List<Object?> get props => [
-    cursor,
-    limit,
     search,
-    sortBy,
-    sortOrder,
     assetId,
     maintenanceType,
     status,
-    createdById,
-    startDate,
-    endDate,
+    createdBy,
+    fromDate,
+    toDate,
+    sortBy,
+    sortOrder,
+    cursor,
+    limit,
   ];
 }

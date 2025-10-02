@@ -6,6 +6,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/feature/asset_movement/data/models/asset_movement_model.dart';
 import 'package:sigma_track/feature/asset_movement/data/models/asset_movement_statistics_model.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
@@ -25,7 +26,9 @@ abstract class AssetMovementRemoteDatasource {
   getAssetMovementsStatistics();
   Future<ApiCursorPaginationResponse<AssetMovementModel>>
   getAssetMovementsCursor(GetAssetMovementsCursorUsecaseParams params);
-  Future<ApiResponse<int>> countAssetMovements();
+  Future<ApiResponse<int>> countAssetMovements(
+    CountAssetMovementsUsecaseParams params,
+  );
   Future<ApiOffsetPaginationResponse<AssetMovementModel>>
   getAssetMovementsByAssetId(GetAssetMovementsByAssetIdUsecaseParams params);
   Future<ApiResponse<bool>> checkAssetMovementExists(
@@ -110,11 +113,14 @@ class AssetMovementRemoteDatasourceImpl
   }
 
   @override
-  Future<ApiResponse<int>> countAssetMovements() async {
+  Future<ApiResponse<int>> countAssetMovements(
+    CountAssetMovementsUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countAssetMovements,
         fromJson: (json) => json as int,
+        queryParameters: params.toMap(),
       );
       return response;
     } catch (e) {

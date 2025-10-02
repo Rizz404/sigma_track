@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dar
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -25,7 +26,7 @@ abstract class AssetRemoteDatasource {
   Future<ApiCursorPaginationResponse<AssetModel>> getAssetsCursor(
     GetAssetsCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countAssets();
+  Future<ApiResponse<int>> countAssets(CountAssetsUsecaseParams params);
   Future<ApiResponse<AssetModel>> getAssetByTag(
     GetAssetByTagUsecaseParams params,
   );
@@ -112,10 +113,11 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<int>> countAssets() async {
+  Future<ApiResponse<int>> countAssets(CountAssetsUsecaseParams params) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countAssets,
+        queryParameters: params.toMap(),
         fromJson: (json) => json as int,
       );
       return response;

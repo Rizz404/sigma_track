@@ -4,6 +4,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record_statistics.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_record_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
@@ -20,7 +21,9 @@ abstract class MaintenanceRecordRepository {
   getMaintenanceRecordsStatistics();
   Future<Either<Failure, CursorPaginatedSuccess<MaintenanceRecord>>>
   getMaintenanceRecordsCursor(GetMaintenanceRecordsCursorUsecaseParams params);
-  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceRecords();
+  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceRecords(
+    CountMaintenanceRecordsUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<bool>>> checkMaintenanceRecordExists(
     CheckMaintenanceRecordExistsUsecaseParams params,
   );

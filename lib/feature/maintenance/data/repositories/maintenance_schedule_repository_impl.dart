@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_sche
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule_statistics.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_schedule_repository.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_schedule_exists_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
@@ -158,10 +159,12 @@ class MaintenanceScheduleRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceSchedules() async {
+  Future<Either<Failure, ItemSuccess<int>>> countMaintenanceSchedules(
+    CountMaintenanceSchedulesUsecaseParams params,
+  ) async {
     try {
       final response = await _maintenanceScheduleRemoteDatasource
-          .countMaintenanceSchedules();
+          .countMaintenanceSchedules(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

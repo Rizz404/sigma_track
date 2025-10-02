@@ -12,6 +12,7 @@ import 'package:sigma_track/feature/asset/domain/repositories/asset_repository.d
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -117,9 +118,11 @@ class AssetRepositoryImpl implements AssetRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countAssets() async {
+  Future<Either<Failure, ItemSuccess<int>>> countAssets(
+    CountAssetsUsecaseParams params,
+  ) async {
     try {
-      final response = await _assetRemoteDatasource.countAssets();
+      final response = await _assetRemoteDatasource.countAssets(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

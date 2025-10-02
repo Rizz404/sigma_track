@@ -4,6 +4,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report_statistics.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/check_issue_report_exists_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/count_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/create_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/delete_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
@@ -24,7 +25,9 @@ abstract class IssueReportRepository {
   getIssueReportsStatistics();
   Future<Either<Failure, CursorPaginatedSuccess<IssueReport>>>
   getIssueReportsCursor(GetIssueReportsCursorUsecaseParams params);
-  Future<Either<Failure, ItemSuccess<int>>> countIssueReports();
+  Future<Either<Failure, ItemSuccess<int>>> countIssueReports(
+    CountIssueReportsUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<bool>>> checkIssueReportExists(
     CheckIssueReportExistsUsecaseParams params,
   );

@@ -187,3 +187,255 @@ enum ScanLogSortBy {
   @override
   String toString() => value;
 }
+
+enum AssetSortBy {
+  assetTag('asset_tag'),
+  assetName('asset_name'),
+  brand('brand'),
+  model('model'),
+  serialNumber('serial_number'),
+  purchaseDate('purchase_date'),
+  purchasePrice('purchase_price'),
+  vendorName('vendor_name'),
+  warrantyEnd('warranty_end'),
+  status('status'),
+  conditionStatus('condition_status'),
+  createdAt('created_at'),
+  updatedAt('updated_at');
+
+  const AssetSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static AssetSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return AssetSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
+    );
+  }
+
+  static AssetSortBy fromString(String value) {
+    return AssetSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static AssetSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum AssetMovementSortBy {
+  movementDate('movement_date'),
+  movementdate('movementdate'),
+  createdAt('created_at'),
+  createdat('createdat'),
+  updatedAt('updated_at'),
+  updatedat('updatedat');
+
+  const AssetMovementSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static AssetMovementSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return AssetMovementSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
+    );
+  }
+
+  static AssetMovementSortBy fromString(String value) {
+    return AssetMovementSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static AssetMovementSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum IssueReportSortBy {
+  reportedDate('reported_date'),
+  resolvedDate('resolved_date'),
+  issueType('issue_type'),
+  priority('priority'),
+  status('status'),
+  title('title'),
+  description('description'),
+  createdAt('created_at'),
+  updatedAt('updated_at');
+
+  const IssueReportSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static IssueReportSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return IssueReportSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid IssueReportSortBy value: $value'),
+    );
+  }
+
+  static IssueReportSortBy fromString(String value) {
+    return IssueReportSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid IssueReportSortBy value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static IssueReportSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum MaintenanceScheduleSortBy {
+  scheduledDate('scheduled_date'),
+  title('title'),
+  createdAt('created_at'),
+  updatedAt('updated_at');
+
+  const MaintenanceScheduleSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static MaintenanceScheduleSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return MaintenanceScheduleSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError(
+        'Invalid MaintenanceScheduleSortBy value: $value',
+      ),
+    );
+  }
+
+  static MaintenanceScheduleSortBy fromString(String value) {
+    return MaintenanceScheduleSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError(
+        'Invalid MaintenanceScheduleSortBy value: $value',
+      ),
+    );
+  }
+
+  String toJson() => value;
+
+  static MaintenanceScheduleSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum MaintenanceRecordSortBy {
+  maintenanceDate('maintenance_date'),
+  title('title'),
+  createdAt('created_at'),
+  updatedAt('updated_at');
+
+  const MaintenanceRecordSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static MaintenanceRecordSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return MaintenanceRecordSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid MaintenanceRecordSortBy value: $value'),
+    );
+  }
+
+  static MaintenanceRecordSortBy fromString(String value) {
+    return MaintenanceRecordSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () =>
+          throw ArgumentError('Invalid MaintenanceRecordSortBy value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static MaintenanceRecordSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
+
+enum UserSortBy {
+  name('name'),
+  fullName('full_name'),
+  email('email'),
+  role('role'),
+  employeeId('employee_id'),
+  isActive('is_active'),
+  createdAt('created_at'),
+  updatedAt('updated_at');
+
+  const UserSortBy(this.value);
+
+  final String value;
+
+  Map<String, dynamic> toMap() {
+    return {'value': value};
+  }
+
+  static UserSortBy fromMap(Map<String, dynamic> map) {
+    final value = map['value'] as String;
+    return UserSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
+    );
+  }
+
+  static UserSortBy fromString(String value) {
+    return UserSortBy.values.firstWhere(
+      (field) => field.value == value,
+      orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
+    );
+  }
+
+  String toJson() => value;
+
+  static UserSortBy fromJson(String json) => fromString(json);
+
+  @override
+  String toString() => value;
+}
