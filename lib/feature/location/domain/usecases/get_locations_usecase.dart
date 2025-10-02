@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/domain/repositories/location_repository.dart';
@@ -24,37 +25,57 @@ class GetLocationsUsecase
 }
 
 class GetLocationsUsecaseParams extends Equatable {
-  final int? page;
-  final int? limit;
   final String? search;
-  final String? sortBy;
-  final String? sortOrder;
+  final LocationSortBy? sortBy;
+  final SortOrder? sortOrder;
+  final int? limit;
+  final int? offset;
 
   GetLocationsUsecaseParams({
-    this.page,
-    this.limit,
     this.search,
     this.sortBy,
     this.sortOrder,
+    this.limit,
+    this.offset,
   });
+
+  GetLocationsUsecaseParams copyWith({
+    String? search,
+    LocationSortBy? sortBy,
+    SortOrder? sortOrder,
+    int? limit,
+    int? offset,
+  }) {
+    return GetLocationsUsecaseParams(
+      search: search ?? this.search,
+      sortBy: sortBy ?? this.sortBy,
+      sortOrder: sortOrder ?? this.sortOrder,
+      limit: limit ?? this.limit,
+      offset: offset ?? this.offset,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
-      'page': page,
-      'limit': limit,
-      'search': search,
-      'sortBy': sortBy,
-      'sortOrder': sortOrder,
+      if (search != null) 'search': search,
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (limit != null) 'limit': limit,
+      if (offset != null) 'offset': offset,
     };
   }
 
   factory GetLocationsUsecaseParams.fromMap(Map<String, dynamic> map) {
     return GetLocationsUsecaseParams(
-      page: map['page']?.toInt(),
-      limit: map['limit']?.toInt(),
       search: map['search'],
-      sortBy: map['sortBy'],
-      sortOrder: map['sortOrder'],
+      sortBy: map['sortBy'] != null
+          ? LocationSortBy.fromString(map['sortBy'])
+          : null,
+      sortOrder: map['sortOrder'] != null
+          ? SortOrder.fromString(map['sortOrder'])
+          : null,
+      limit: map['limit']?.toInt(),
+      offset: map['offset']?.toInt(),
     );
   }
 
@@ -64,5 +85,9 @@ class GetLocationsUsecaseParams extends Equatable {
       GetLocationsUsecaseParams.fromMap(json.decode(source));
 
   @override
-  List<Object?> get props => [page, limit, search, sortBy, sortOrder];
+  String toString() =>
+      'GetLocationsUsecaseParams(search: $search, sortBy: $sortBy, sortOrder: $sortOrder, limit: $limit, offset: $offset)';
+
+  @override
+  List<Object?> get props => [search, sortBy, sortOrder, limit, offset];
 }

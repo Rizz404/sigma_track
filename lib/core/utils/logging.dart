@@ -4,7 +4,7 @@ export 'logger_extensions.dart';
 export 'talker_config.dart';
 
 // Main logger instance for easy access
-import 'logger.dart';
+import 'package:sigma_track/core/utils/logger.dart';
 
 // Export the global logger instance
 final appLogger = logger;

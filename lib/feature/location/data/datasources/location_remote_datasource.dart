@@ -7,6 +7,7 @@ import 'package:sigma_track/feature/location/data/models/location_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_statistics_model.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/count_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/create_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/delete_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
@@ -26,7 +27,7 @@ abstract class LocationRemoteDatasource {
   Future<ApiCursorPaginationResponse<LocationModel>> getLocationsCursor(
     GetLocationsCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countLocations();
+  Future<ApiResponse<int>> countLocations(CountLocationsUsecaseParams params);
   Future<ApiResponse<LocationModel>> getLocationByCode(
     GetLocationByCodeUsecaseParams params,
   );
@@ -114,10 +115,13 @@ class LocationRemoteDatasourceImpl implements LocationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<int>> countLocations() async {
+  Future<ApiResponse<int>> countLocations(
+    CountLocationsUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countLocations,
+        queryParameters: params.toMap(),
         fromJson: (json) => json as int,
       );
       return response;

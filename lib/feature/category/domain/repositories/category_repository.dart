@@ -5,6 +5,7 @@ import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/domain/entities/category_statistics.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_exists_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/create_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
@@ -25,7 +26,9 @@ abstract class CategoryRepository {
   Future<Either<Failure, CursorPaginatedSuccess<Category>>> getCategoriesCursor(
     GetCategoriesCursorUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<int>>> countCategories();
+  Future<Either<Failure, ItemSuccess<int>>> countCategories(
+    CountCategoriesUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<Category>>> getCategoryByCode(
     GetCategoryByCodeUsecaseParams params,
   );

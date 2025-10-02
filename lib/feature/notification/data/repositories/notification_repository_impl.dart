@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/notification/domain/entities/notification.da
 import 'package:sigma_track/feature/notification/domain/entities/notification_statistics.dart';
 import 'package:sigma_track/feature/notification/domain/repositories/notification_repository.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/check_notification_exists_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/count_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/delete_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
@@ -124,9 +125,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countNotifications() async {
+  Future<Either<Failure, ItemSuccess<int>>> countNotifications(
+    CountNotificationsUsecaseParams params,
+  ) async {
     try {
-      final response = await _notificationRemoteDatasource.countNotifications();
+      final response = await _notificationRemoteDatasource.countNotifications(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

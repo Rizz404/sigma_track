@@ -6,6 +6,6 @@ class ListUsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ScreenWrapper(child: Text('ListUsersScreen')));
+    return const Scaffold(body: ScreenWrapper(child: Text('ListUsersScreen')));
   }
 }

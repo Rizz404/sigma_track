@@ -10,7 +10,7 @@ import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log_statistics.dart';
 import 'package:sigma_track/feature/scan_log/domain/repositories/scan_log_repository.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/check_scan_log_exists_usecase.dart';
-
+import 'package:sigma_track/feature/scan_log/domain/usecases/count_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/delete_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
@@ -113,9 +113,11 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countScanLogs() async {
+  Future<Either<Failure, ItemSuccess<int>>> countScanLogs(
+    CountScanLogsUsecaseParams params,
+  ) async {
     try {
-      final response = await _scanLogRemoteDatasource.countScanLogs();
+      final response = await _scanLogRemoteDatasource.countScanLogs(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

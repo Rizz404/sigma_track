@@ -11,6 +11,7 @@ import 'package:sigma_track/feature/category/domain/entities/category_statistics
 import 'package:sigma_track/feature/category/domain/repositories/category_repository.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_exists_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/create_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
@@ -171,9 +172,11 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countCategories() async {
+  Future<Either<Failure, ItemSuccess<int>>> countCategories(
+    CountCategoriesUsecaseParams params,
+  ) async {
     try {
-      final response = await _categoryRemoteDatasource.countCategories();
+      final response = await _categoryRemoteDatasource.countCategories(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {

@@ -5,6 +5,7 @@ import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/domain/entities/location_statistics.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/count_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/create_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/delete_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
@@ -25,7 +26,9 @@ abstract class LocationRepository {
   Future<Either<Failure, CursorPaginatedSuccess<Location>>> getLocationsCursor(
     GetLocationsCursorUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<int>>> countLocations();
+  Future<Either<Failure, ItemSuccess<int>>> countLocations(
+    CountLocationsUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<Location>>> getLocationByCode(
     GetLocationByCodeUsecaseParams params,
   );

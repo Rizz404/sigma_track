@@ -11,6 +11,7 @@ import 'package:sigma_track/feature/location/domain/entities/location_statistics
 import 'package:sigma_track/feature/location/domain/repositories/location_repository.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/count_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/create_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/delete_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
@@ -166,9 +167,11 @@ class LocationRepositoryImpl implements LocationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<int>>> countLocations() async {
+  Future<Either<Failure, ItemSuccess<int>>> countLocations(
+    CountLocationsUsecaseParams params,
+  ) async {
     try {
-      final response = await _locationRemoteDatasource.countLocations();
+      final response = await _locationRemoteDatasource.countLocations(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {

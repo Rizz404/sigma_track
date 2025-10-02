@@ -6,6 +6,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/feature/notification/data/models/notification_model.dart';
 import 'package:sigma_track/feature/notification/data/models/notification_statistics_model.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/check_notification_exists_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/count_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/delete_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
@@ -26,7 +27,9 @@ abstract class NotificationRemoteDatasource {
   Future<ApiCursorPaginationResponse<NotificationModel>> getNotificationsCursor(
     GetNotificationsCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countNotifications();
+  Future<ApiResponse<int>> countNotifications(
+    CountNotificationsUsecaseParams params,
+  );
   Future<ApiResponse<bool>> checkNotificationExists(
     CheckNotificationExistsUsecaseParams params,
   );
@@ -116,10 +119,13 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<int>> countNotifications() async {
+  Future<ApiResponse<int>> countNotifications(
+    CountNotificationsUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countNotifications,
+        queryParameters: params.toMap(),
         fromJson: (json) => json as int,
       );
       return response;

@@ -6,7 +6,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/feature/scan_log/data/models/scan_log_model.dart';
 import 'package:sigma_track/feature/scan_log/data/models/scan_log_statistics_model.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/check_scan_log_exists_usecase.dart';
-
+import 'package:sigma_track/feature/scan_log/domain/usecases/count_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/delete_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
@@ -26,7 +26,7 @@ abstract class ScanLogRemoteDatasource {
   Future<ApiCursorPaginationResponse<ScanLogModel>> getScanLogsCursor(
     GetScanLogsCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countScanLogs();
+  Future<ApiResponse<int>> countScanLogs(CountScanLogsUsecaseParams params);
   Future<ApiOffsetPaginationResponse<ScanLogModel>> getScanLogsByUserId(
     GetScanLogsByUserIdUsecaseParams params,
   );
@@ -109,10 +109,13 @@ class ScanLogRemoteDatasourceImpl implements ScanLogRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<int>> countScanLogs() async {
+  Future<ApiResponse<int>> countScanLogs(
+    CountScanLogsUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countScanLogs,
+        queryParameters: params.toMap(),
         fromJson: (json) => json as int,
       );
       return response;

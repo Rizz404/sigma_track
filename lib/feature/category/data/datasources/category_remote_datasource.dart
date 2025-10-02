@@ -7,6 +7,7 @@ import 'package:sigma_track/feature/category/data/models/category_model.dart';
 import 'package:sigma_track/feature/category/data/models/category_statistics_model.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_exists_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/create_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
@@ -26,7 +27,7 @@ abstract class CategoryRemoteDatasource {
   Future<ApiCursorPaginationResponse<CategoryModel>> getCategoriesCursor(
     GetCategoriesCursorUsecaseParams params,
   );
-  Future<ApiResponse<int>> countCategories();
+  Future<ApiResponse<int>> countCategories(CountCategoriesUsecaseParams params);
   Future<ApiResponse<CategoryModel>> getCategoryByCode(
     GetCategoryByCodeUsecaseParams params,
   );
@@ -114,10 +115,13 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<int>> countCategories() async {
+  Future<ApiResponse<int>> countCategories(
+    CountCategoriesUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.get(
         ApiConstant.countCategories,
+        queryParameters: params.toMap(),
         fromJson: (json) => json as int,
       );
       return response;

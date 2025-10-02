@@ -72,12 +72,14 @@ class CreateAssetUsecaseParams extends Equatable {
     if (brand != null) map['brand'] = brand;
     if (model != null) map['model'] = model;
     if (serialNumber != null) map['serialNumber'] = serialNumber;
-    if (purchaseDate != null)
+    if (purchaseDate != null) {
       map['purchaseDate'] = purchaseDate!.millisecondsSinceEpoch;
+    }
     if (purchasePrice != null) map['purchasePrice'] = purchasePrice;
     if (vendorName != null) map['vendorName'] = vendorName;
-    if (warrantyEnd != null)
+    if (warrantyEnd != null) {
       map['warrantyEnd'] = warrantyEnd!.millisecondsSinceEpoch;
+    }
     if (locationID != null) map['locationId'] = locationID;
     if (assignedToID != null) map['assignedToId'] = assignedToID;
 

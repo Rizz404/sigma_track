@@ -4,6 +4,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification_statistics.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/check_notification_exists_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/count_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/delete_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
@@ -23,7 +24,9 @@ abstract class NotificationRepository {
   getNotificationsStatistics();
   Future<Either<Failure, CursorPaginatedSuccess<Notification>>>
   getNotificationsCursor(GetNotificationsCursorUsecaseParams params);
-  Future<Either<Failure, ItemSuccess<int>>> countNotifications();
+  Future<Either<Failure, ItemSuccess<int>>> countNotifications(
+    CountNotificationsUsecaseParams params,
+  );
   Future<Either<Failure, ItemSuccess<bool>>> checkNotificationExists(
     CheckNotificationExistsUsecaseParams params,
   );
