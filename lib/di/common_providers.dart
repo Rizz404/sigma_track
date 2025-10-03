@@ -1,8 +1,8 @@
-import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
@@ -67,6 +67,14 @@ final isAuthenticatedProvider = FutureProvider<bool>((ref) async {
 final isAdminProvider = FutureProvider<bool>((ref) async {
   final user = await ref.watch(currentUserProvider.future);
   return user?.role == UserRole.admin;
+});
+
+// * Router Provider
+final routerProvider = Provider<GoRouter>((ref) {
+  final isAuthenticated = ref.watch(isAuthenticatedProvider).value ?? false;
+  final isAdmin = ref.watch(isAdminProvider).value ?? false;
+
+  return AppRouter(isAuthenticated: isAuthenticated, isAdmin: isAdmin).router;
 });
 
 class LocaleNotifier extends Notifier<Locale> {

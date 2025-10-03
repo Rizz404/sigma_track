@@ -47,7 +47,6 @@ dependencies:
   form_builder_validators: ^11.2.0
   flutter_cache_manager: ^3.4.1
   google_fonts: ^6.3.2
-  beamer: ^1.7.0
   image_picker: ^1.2.0
   path: ^1.9.1
   path_provider: ^2.1.5
@@ -75,6 +74,7 @@ dependencies:
   loader_overlay: ^5.0.0
   flutter_localizations:
     sdk: flutter
+  go_router: ^16.2.4
 
 dev_dependencies:
   flutter_test:

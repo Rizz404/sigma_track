@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -27,28 +29,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
-  void initState() {
-    super.initState();
-    // * Listen to auth state changes untuk auto redirect
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
-        next.whenData((state) {
-          if (!state.isError && state.message.isNotEmpty) {
-            AppToast.success(state.message);
-          } else if (state.isError &&
-              state.message.isNotEmpty &&
-              previous?.value?.message != state.message) {
-            AppToast.error(state.message);
-          }
-        });
-
-        next.whenOrNull(
-          error: (error, stack) {
-            AppToast.error(error.toString());
-          },
-        );
-      });
+  void dispose() {
+    _formKey.currentState?.fields.forEach((key, field) {
+      field.dispose();
     });
+    super.dispose();
   }
 
   Future<void> _handleForgotPassword() async {
@@ -71,9 +56,27 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // * Listen to auth state changes untuk auto redirect
+    ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
+      next.whenData((state) {
+        if (!state.isError && state.message.isNotEmpty) {
+          AppToast.success(state.message);
+        } else if (state.isError &&
+            state.message.isNotEmpty &&
+            previous?.value?.message != state.message) {
+          AppToast.error(state.message);
+        }
+      });
+
+      next.whenOrNull(
+        error: (error, stack) {
+          AppToast.error(error.toString());
+        },
+      );
+    });
+
     return LoaderOverlay(
       child: Scaffold(
-        appBar: const CustomAppBar(title: 'Forgot Password'),
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
@@ -128,7 +131,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => context.push(RouteConstant.login),
                         child: AppText(
                           'Login',
                           style: AppTextStyle.bodyMedium,

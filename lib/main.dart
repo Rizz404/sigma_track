@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:beamer/beamer.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
 import 'package:sigma_track/di/common_providers.dart';
@@ -71,6 +70,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLocale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeProvider);
+    final router = ref.watch(routerProvider);
     final botToastBuilder = BotToastInit();
 
     return MaterialApp.router(
@@ -80,6 +80,9 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       builder: (context, child) => botToastBuilder(context, child),
+
+      // * Router Configuration
+      routerConfig: router,
 
       // * Localization Configuration
       localizationsDelegates: const [
