@@ -3,10 +3,10 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 class ScanLog extends Equatable {
   final String id;
-  final String? assetID;
+  final String? assetId;
   final String scannedValue;
   final ScanMethodType scanMethod;
-  final String scannedByID;
+  final String scannedById;
   final DateTime scanTimestamp;
   final double? scanLocationLat;
   final double? scanLocationLng;
@@ -14,10 +14,10 @@ class ScanLog extends Equatable {
 
   const ScanLog({
     required this.id,
-    this.assetID,
+    this.assetId,
     required this.scannedValue,
     required this.scanMethod,
-    required this.scannedByID,
+    required this.scannedById,
     required this.scanTimestamp,
     this.scanLocationLat,
     this.scanLocationLng,
@@ -28,10 +28,10 @@ class ScanLog extends Equatable {
   List<Object?> get props {
     return [
       id,
-      assetID,
+      assetId,
       scannedValue,
       scanMethod,
-      scannedByID,
+      scannedById,
       scanTimestamp,
       scanLocationLat,
       scanLocationLng,

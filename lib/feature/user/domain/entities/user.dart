@@ -7,10 +7,10 @@ class User extends Equatable {
   final String email;
   final String fullName;
   final UserRole role;
-  final String? employeeID;
+  final String? employeeId;
   final String preferredLang;
   final bool isActive;
-  final String? avatarURL;
+  final String? avatarUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -20,10 +20,10 @@ class User extends Equatable {
     required this.email,
     required this.fullName,
     required this.role,
-    this.employeeID,
+    this.employeeId,
     required this.preferredLang,
     required this.isActive,
-    required this.avatarURL,
+    required this.avatarUrl,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -36,10 +36,10 @@ class User extends Equatable {
       email,
       fullName,
       role,
-      employeeID,
+      employeeId,
       preferredLang,
       isActive,
-      avatarURL,
+      avatarUrl,
       createdAt,
       updatedAt,
     ];

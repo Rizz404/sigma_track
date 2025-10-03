@@ -9,7 +9,7 @@ class Asset extends Equatable {
   final String assetTag;
   final String dataMatrixImageUrl;
   final String assetName;
-  final String categoryID;
+  final String categoryId;
   final String? brand;
   final String? model;
   final String? serialNumber;
@@ -19,8 +19,8 @@ class Asset extends Equatable {
   final DateTime? warrantyEnd;
   final AssetStatus status;
   final AssetCondition condition;
-  final String? locationID;
-  final String? assignedToID;
+  final String? locationId;
+  final String? assignedToId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final Category? category;
@@ -32,7 +32,7 @@ class Asset extends Equatable {
     required this.assetTag,
     required this.dataMatrixImageUrl,
     required this.assetName,
-    required this.categoryID,
+    required this.categoryId,
     this.brand,
     this.model,
     this.serialNumber,
@@ -42,8 +42,8 @@ class Asset extends Equatable {
     this.warrantyEnd,
     required this.status,
     required this.condition,
-    this.locationID,
-    this.assignedToID,
+    this.locationId,
+    this.assignedToId,
     required this.createdAt,
     required this.updatedAt,
     this.category,
@@ -58,7 +58,7 @@ class Asset extends Equatable {
       assetTag,
       dataMatrixImageUrl,
       assetName,
-      categoryID,
+      categoryId,
       brand,
       model,
       serialNumber,
@@ -68,8 +68,8 @@ class Asset extends Equatable {
       warrantyEnd,
       status,
       condition,
-      locationID,
-      assignedToID,
+      locationId,
+      assignedToId,
       createdAt,
       updatedAt,
       category,

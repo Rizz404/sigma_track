@@ -1,7 +1,7 @@
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
-import 'package:sigma_track/feature/auth/data/models/auth_model.dart';
+import 'package:sigma_track/feature/auth/data/models/login_response_model.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
@@ -9,7 +9,7 @@ import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 abstract class AuthRemoteDatasource {
   Future<ApiResponse<UserModel>> register(RegisterUsecaseParams params);
-  Future<ApiResponse<AuthModel>> login(LoginUsecaseParams params);
+  Future<ApiResponse<LoginResponseModel>> login(LoginUsecaseParams params);
   Future<ApiResponse<dynamic>> forgotPassword(
     ForgotPasswordUsecaseParams params,
   );
@@ -35,12 +35,14 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<AuthModel>> login(LoginUsecaseParams params) async {
+  Future<ApiResponse<LoginResponseModel>> login(
+    LoginUsecaseParams params,
+  ) async {
     try {
       final response = await _dioClient.post(
         ApiConstant.authLogin,
         data: params.toMap(),
-        fromJson: (json) => AuthModel.fromMap(json),
+        fromJson: (json) => LoginResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {

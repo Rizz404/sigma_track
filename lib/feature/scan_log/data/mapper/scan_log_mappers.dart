@@ -7,10 +7,10 @@ extension ScanLogModelMapper on ScanLogModel {
   ScanLog toEntity() {
     return ScanLog(
       id: id,
-      assetID: assetID,
+      assetId: assetId,
       scannedValue: scannedValue,
       scanMethod: scanMethod,
-      scannedByID: scannedByID,
+      scannedById: scannedById,
       scanTimestamp: scanTimestamp,
       scanLocationLat: scanLocationLat,
       scanLocationLng: scanLocationLng,
@@ -23,10 +23,10 @@ extension ScanLogEntityMapper on ScanLog {
   ScanLogModel toModel() {
     return ScanLogModel(
       id: id,
-      assetID: assetID,
+      assetId: assetId,
       scannedValue: scannedValue,
       scanMethod: scanMethod,
-      scannedByID: scannedByID,
+      scannedById: scannedById,
       scanTimestamp: scanTimestamp,
       scanLocationLat: scanLocationLat,
       scanLocationLng: scanLocationLng,
@@ -116,12 +116,12 @@ extension ScanTrendEntityMapper on ScanTrend {
 
 extension ScannerStatisticsModelMapper on ScannerStatisticsModel {
   ScannerStatistics toEntity() =>
-      ScannerStatistics(userID: userID, count: count);
+      ScannerStatistics(userId: userId, count: count);
 }
 
 extension ScannerStatisticsEntityMapper on ScannerStatistics {
   ScannerStatisticsModel toModel() =>
-      ScannerStatisticsModel(userID: userID, count: count);
+      ScannerStatisticsModel(userId: userId, count: count);
 }
 
 extension ScanLogSummaryStatisticsModelMapper on ScanLogSummaryStatisticsModel {

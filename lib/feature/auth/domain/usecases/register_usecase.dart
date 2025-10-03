@@ -24,34 +24,34 @@ class RegisterUsecase
 }
 
 class RegisterUsecaseParams extends Equatable {
-  final String username;
+  final String name;
   final String email;
   final String password;
   RegisterUsecaseParams({
-    required this.username,
+    required this.name,
     required this.email,
     required this.password,
   });
 
   RegisterUsecaseParams copyWith({
-    String? username,
+    String? name,
     String? email,
     String? password,
   }) {
     return RegisterUsecaseParams(
-      username: username ?? this.username,
+      name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {'username': username, 'email': email, 'password': password};
+    return {'name': name, 'email': email, 'password': password};
   }
 
   factory RegisterUsecaseParams.fromMap(Map<String, dynamic> map) {
     return RegisterUsecaseParams(
-      username: map['username'] ?? '',
+      name: map['name'] ?? '',
       email: map['email'] ?? '',
       password: map['password'] ?? '',
     );
@@ -64,8 +64,8 @@ class RegisterUsecaseParams extends Equatable {
 
   @override
   String toString() =>
-      'RegisterUsecaseParams(username: $username, email: $email, password: $password)';
+      'RegisterUsecaseParams(name: $name, email: $email, password: $password)';
 
   @override
-  List<Object> get props => [username, email, password];
+  List<Object> get props => [name, email, password];
 }

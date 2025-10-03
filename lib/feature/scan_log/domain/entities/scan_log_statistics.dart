@@ -85,13 +85,13 @@ class ScanTrend extends Equatable {
 }
 
 class ScannerStatistics extends Equatable {
-  final String userID;
+  final String userId;
   final int count;
 
-  const ScannerStatistics({required this.userID, required this.count});
+  const ScannerStatistics({required this.userId, required this.count});
 
   @override
-  List<Object> get props => [userID, count];
+  List<Object> get props => [userId, count];
 }
 
 class ScanLogSummaryStatistics extends Equatable {

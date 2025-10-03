@@ -26,22 +26,22 @@ class CreateNotificationUsecase
 }
 
 class CreateNotificationUsecaseParams extends Equatable {
-  final String userID;
-  final String? relatedAssetID;
+  final String userId;
+  final String? relatedAssetId;
   final NotificationType type;
   final List<CreateNotificationTranslation> translations;
 
   CreateNotificationUsecaseParams({
-    required this.userID,
-    this.relatedAssetID,
+    required this.userId,
+    this.relatedAssetId,
     required this.type,
     required this.translations,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'userId': userID,
-      'relatedAssetId': relatedAssetID,
+      'userId': userId,
+      'relatedAssetId': relatedAssetId,
       'type': type.toJson(),
       'translations': translations.map((x) => x.toMap()).toList(),
     };
@@ -49,8 +49,8 @@ class CreateNotificationUsecaseParams extends Equatable {
 
   factory CreateNotificationUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CreateNotificationUsecaseParams(
-      userID: map['userId'] ?? '',
-      relatedAssetID: map['relatedAssetId'],
+      userId: map['userId'] ?? '',
+      relatedAssetId: map['relatedAssetId'],
       type: NotificationType.fromJson(map['type']),
       translations: List<CreateNotificationTranslation>.from(
         map['translations']?.map(
@@ -66,7 +66,7 @@ class CreateNotificationUsecaseParams extends Equatable {
       CreateNotificationUsecaseParams.fromMap(json.decode(source));
 
   @override
-  List<Object?> get props => [userID, relatedAssetID, type, translations];
+  List<Object?> get props => [userId, relatedAssetId, type, translations];
 }
 
 class CreateNotificationTranslation extends Equatable {

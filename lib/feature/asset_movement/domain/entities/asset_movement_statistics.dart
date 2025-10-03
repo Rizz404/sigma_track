@@ -44,24 +44,24 @@ class AssetMovementCountStatistics extends Equatable {
 }
 
 class AssetMovementByAssetStats extends Equatable {
-  final String assetID;
+  final String assetId;
   final String assetTag;
   final String assetName;
   final int movementCount;
 
   const AssetMovementByAssetStats({
-    required this.assetID,
+    required this.assetId,
     required this.assetTag,
     required this.assetName,
     required this.movementCount,
   });
 
   @override
-  List<Object?> get props => [assetID, assetTag, assetName, movementCount];
+  List<Object?> get props => [assetId, assetTag, assetName, movementCount];
 }
 
 class AssetMovementByLocationStats extends Equatable {
-  final String locationID;
+  final String locationId;
   final String locationCode;
   final String locationName;
   final int incomingCount;
@@ -69,7 +69,7 @@ class AssetMovementByLocationStats extends Equatable {
   final int netMovement;
 
   const AssetMovementByLocationStats({
-    required this.locationID,
+    required this.locationId,
     required this.locationCode,
     required this.locationName,
     required this.incomingCount,
@@ -79,7 +79,7 @@ class AssetMovementByLocationStats extends Equatable {
 
   @override
   List<Object?> get props => [
-    locationID,
+    locationId,
     locationCode,
     locationName,
     incomingCount,
@@ -89,18 +89,18 @@ class AssetMovementByLocationStats extends Equatable {
 }
 
 class AssetMovementByUserStats extends Equatable {
-  final String userID;
+  final String userId;
   final String userName;
   final int movementCount;
 
   const AssetMovementByUserStats({
-    required this.userID,
+    required this.userId,
     required this.userName,
     required this.movementCount,
   });
 
   @override
-  List<Object?> get props => [userID, userName, movementCount];
+  List<Object?> get props => [userId, userName, movementCount];
 }
 
 class AssetMovementTypeStatistics extends Equatable {

@@ -11,10 +11,10 @@ class UserModel extends Equatable {
   final String email;
   final String fullName;
   final UserRole role;
-  final String? employeeID;
+  final String? employeeId;
   final String preferredLang;
   final bool isActive;
-  final String? avatarURL;
+  final String? avatarUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -24,10 +24,10 @@ class UserModel extends Equatable {
     required this.email,
     required this.fullName,
     required this.role,
-    this.employeeID,
+    this.employeeId,
     required this.preferredLang,
     required this.isActive,
-    required this.avatarURL,
+    required this.avatarUrl,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -40,10 +40,10 @@ class UserModel extends Equatable {
       email,
       fullName,
       role,
-      employeeID,
+      employeeId,
       preferredLang,
       isActive,
-      avatarURL,
+      avatarUrl,
       createdAt,
       updatedAt,
     ];
@@ -55,10 +55,10 @@ class UserModel extends Equatable {
     String? email,
     String? fullName,
     UserRole? role,
-    ValueGetter<String?>? employeeID,
+    ValueGetter<String?>? employeeId,
     String? preferredLang,
     bool? isActive,
-    ValueGetter<String?>? avatarURL,
+    ValueGetter<String?>? avatarUrl,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -68,10 +68,10 @@ class UserModel extends Equatable {
       email: email ?? this.email,
       fullName: fullName ?? this.fullName,
       role: role ?? this.role,
-      employeeID: employeeID != null ? employeeID() : this.employeeID,
+      employeeId: employeeId != null ? employeeId() : this.employeeId,
       preferredLang: preferredLang ?? this.preferredLang,
       isActive: isActive ?? this.isActive,
-      avatarURL: avatarURL != null ? avatarURL() : this.avatarURL,
+      avatarUrl: avatarUrl != null ? avatarUrl() : this.avatarUrl,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -83,13 +83,13 @@ class UserModel extends Equatable {
       'name': name,
       'email': email,
       'fullName': fullName,
-      'role': role.toMap(),
-      'employeeID': employeeID,
+      'role': role.value,
+      'employeeId': employeeId,
       'preferredLang': preferredLang,
       'isActive': isActive,
-      'avatarURL': avatarURL,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'avatarUrl': avatarUrl,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
     };
   }
 
@@ -99,13 +99,13 @@ class UserModel extends Equatable {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       fullName: map['fullName'] ?? '',
-      role: UserRole.fromMap(map['role']),
-      employeeID: map['employeeID'],
+      role: UserRole.fromString(map['role']),
+      employeeId: map['employeeId'],
       preferredLang: map['preferredLang'] ?? '',
       isActive: map['isActive'] ?? false,
-      avatarURL: map['avatarURL'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      avatarUrl: map['avatarUrl'],
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 
@@ -116,6 +116,6 @@ class UserModel extends Equatable {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, fullName: $fullName, role: $role, employeeID: $employeeID, preferredLang: $preferredLang, isActive: $isActive, avatarURL: $avatarURL, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(id: $id, name: $name, email: $email, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }

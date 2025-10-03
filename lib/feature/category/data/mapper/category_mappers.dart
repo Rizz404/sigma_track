@@ -7,7 +7,7 @@ extension CategoryModelMapper on CategoryModel {
   Category toEntity() {
     return Category(
       id: id,
-      parentID: parentID,
+      parentId: parentId,
       categoryCode: categoryCode,
       categoryName: categoryName,
       description: description,
@@ -23,7 +23,7 @@ extension CategoryEntityMapper on Category {
   CategoryModel toModel() {
     return CategoryModel(
       id: id,
-      parentID: parentID,
+      parentId: parentId,
       categoryCode: categoryCode,
       categoryName: categoryName,
       description: description,

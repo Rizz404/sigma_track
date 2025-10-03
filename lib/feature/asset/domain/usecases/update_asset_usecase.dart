@@ -29,7 +29,7 @@ class UpdateAssetUsecaseParams extends Equatable {
   final String? assetTag;
   final String? dataMatrixImageUrl;
   final String? assetName;
-  final String? categoryID;
+  final String? categoryId;
   final String? brand;
   final String? model;
   final String? serialNumber;
@@ -39,15 +39,15 @@ class UpdateAssetUsecaseParams extends Equatable {
   final DateTime? warrantyEnd;
   final AssetStatus? status;
   final AssetCondition? condition;
-  final String? locationID;
-  final String? assignedToID;
+  final String? locationId;
+  final String? assignedToId;
 
   UpdateAssetUsecaseParams({
     required this.id,
     this.assetTag,
     this.dataMatrixImageUrl,
     this.assetName,
-    this.categoryID,
+    this.categoryId,
     this.brand,
     this.model,
     this.serialNumber,
@@ -57,8 +57,8 @@ class UpdateAssetUsecaseParams extends Equatable {
     this.warrantyEnd,
     this.status,
     this.condition,
-    this.locationID,
-    this.assignedToID,
+    this.locationId,
+    this.assignedToId,
   });
 
   Map<String, dynamic> toMap() {
@@ -69,7 +69,7 @@ class UpdateAssetUsecaseParams extends Equatable {
       map['dataMatrixImageUrl'] = dataMatrixImageUrl;
     }
     if (assetName != null) map['assetName'] = assetName;
-    if (categoryID != null) map['categoryId'] = categoryID;
+    if (categoryId != null) map['categoryId'] = categoryId;
     if (brand != null) map['brand'] = brand;
     if (model != null) map['model'] = model;
     if (serialNumber != null) map['serialNumber'] = serialNumber;
@@ -83,8 +83,8 @@ class UpdateAssetUsecaseParams extends Equatable {
     }
     if (status != null) map['status'] = status!.toJson();
     if (condition != null) map['condition'] = condition!.toJson();
-    if (locationID != null) map['locationId'] = locationID;
-    if (assignedToID != null) map['assignedToId'] = assignedToID;
+    if (locationId != null) map['locationId'] = locationId;
+    if (assignedToId != null) map['assignedToId'] = assignedToId;
 
     return map;
   }
@@ -95,7 +95,7 @@ class UpdateAssetUsecaseParams extends Equatable {
       assetTag: map['assetTag'],
       dataMatrixImageUrl: map['dataMatrixImageUrl'],
       assetName: map['assetName'],
-      categoryID: map['categoryId'],
+      categoryId: map['categoryId'],
       brand: map['brand'],
       model: map['model'],
       serialNumber: map['serialNumber'],
@@ -113,8 +113,8 @@ class UpdateAssetUsecaseParams extends Equatable {
       condition: map['condition'] != null
           ? AssetCondition.fromJson(map['condition'])
           : null,
-      locationID: map['locationId'],
-      assignedToID: map['assignedToId'],
+      locationId: map['locationId'],
+      assignedToId: map['assignedToId'],
     );
   }
 
@@ -129,7 +129,7 @@ class UpdateAssetUsecaseParams extends Equatable {
     assetTag,
     dataMatrixImageUrl,
     assetName,
-    categoryID,
+    categoryId,
     brand,
     model,
     serialNumber,
@@ -139,7 +139,7 @@ class UpdateAssetUsecaseParams extends Equatable {
     warrantyEnd,
     status,
     condition,
-    locationID,
-    assignedToID,
+    locationId,
+    assignedToId,
   ];
 }

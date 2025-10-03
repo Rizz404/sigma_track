@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
@@ -27,6 +28,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  List<ValidationError>? validationErrors;
 
   @override
   void dispose() {
@@ -60,8 +62,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     // * Listen to auth state changes untuk auto redirect
     ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
       next.whenData((state) {
-        if (!state.isError && state.status == AuthStatus.authenticated) {
-          AppToast.success(state.message);
+        if (state.status == AuthStatus.authenticated) {
+          AppToast.success(state.success?.message ?? 'Login successful');
           // * Redirect berdasarkan role user
           final isAdmin = state.user?.role == UserRole.admin;
           if (isAdmin) {
@@ -69,10 +71,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           } else {
             context.go(RouteConstant.home);
           }
-        } else if (state.isError &&
-            state.message.isNotEmpty &&
-            previous?.value?.message != state.message) {
-          AppToast.error(state.message);
+        } else if (state.status == AuthStatus.unauthenticated &&
+            state.failure != null) {
+          if (state.failure is ValidationFailure) {
+            setState(
+              () => validationErrors =
+                  (state.failure as ValidationFailure).errors,
+            );
+          } else {
+            AppToast.error(state.failure!.message);
+          }
         }
       });
 
@@ -149,6 +157,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
+
+                  // * Validation errors
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: validationErrors!
+                          .map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: AppText(
+                                e.message,
+                                color: context.semantic.error,
+                                style: AppTextStyle.bodySmall,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
 
                   // * Login button
                   AppButton(

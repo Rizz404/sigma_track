@@ -11,7 +11,7 @@ class AssetModel extends Equatable {
   final String assetTag;
   final String dataMatrixImageUrl;
   final String assetName;
-  final String categoryID;
+  final String categoryId;
   final String? brand;
   final String? model;
   final String? serialNumber;
@@ -21,8 +21,8 @@ class AssetModel extends Equatable {
   final DateTime? warrantyEnd;
   final AssetStatus status;
   final AssetCondition condition;
-  final String? locationID;
-  final String? assignedToID;
+  final String? locationId;
+  final String? assignedToId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final CategoryModel? category;
@@ -34,7 +34,7 @@ class AssetModel extends Equatable {
     required this.assetTag,
     required this.dataMatrixImageUrl,
     required this.assetName,
-    required this.categoryID,
+    required this.categoryId,
     this.brand,
     this.model,
     this.serialNumber,
@@ -44,8 +44,8 @@ class AssetModel extends Equatable {
     this.warrantyEnd,
     required this.status,
     required this.condition,
-    this.locationID,
-    this.assignedToID,
+    this.locationId,
+    this.assignedToId,
     required this.createdAt,
     required this.updatedAt,
     this.category,
@@ -60,7 +60,7 @@ class AssetModel extends Equatable {
       assetTag,
       dataMatrixImageUrl,
       assetName,
-      categoryID,
+      categoryId,
       brand,
       model,
       serialNumber,
@@ -70,8 +70,8 @@ class AssetModel extends Equatable {
       warrantyEnd,
       status,
       condition,
-      locationID,
-      assignedToID,
+      locationId,
+      assignedToId,
       createdAt,
       updatedAt,
       category,
@@ -85,7 +85,7 @@ class AssetModel extends Equatable {
     String? assetTag,
     String? dataMatrixImageUrl,
     String? assetName,
-    String? categoryID,
+    String? categoryId,
     String? brand,
     String? model,
     String? serialNumber,
@@ -95,8 +95,8 @@ class AssetModel extends Equatable {
     DateTime? warrantyEnd,
     AssetStatus? status,
     AssetCondition? condition,
-    String? locationID,
-    String? assignedToID,
+    String? locationId,
+    String? assignedToId,
     DateTime? createdAt,
     DateTime? updatedAt,
     CategoryModel? category,
@@ -108,7 +108,7 @@ class AssetModel extends Equatable {
       assetTag: assetTag ?? this.assetTag,
       dataMatrixImageUrl: dataMatrixImageUrl ?? this.dataMatrixImageUrl,
       assetName: assetName ?? this.assetName,
-      categoryID: categoryID ?? this.categoryID,
+      categoryId: categoryId ?? this.categoryId,
       brand: brand ?? this.brand,
       model: model ?? this.model,
       serialNumber: serialNumber ?? this.serialNumber,
@@ -118,8 +118,8 @@ class AssetModel extends Equatable {
       warrantyEnd: warrantyEnd ?? this.warrantyEnd,
       status: status ?? this.status,
       condition: condition ?? this.condition,
-      locationID: locationID ?? this.locationID,
-      assignedToID: assignedToID ?? this.assignedToID,
+      locationId: locationId ?? this.locationId,
+      assignedToId: assignedToId ?? this.assignedToId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       category: category ?? this.category,
@@ -134,7 +134,7 @@ class AssetModel extends Equatable {
       'assetTag': assetTag,
       'dataMatrixImageUrl': dataMatrixImageUrl,
       'assetName': assetName,
-      'categoryId': categoryID,
+      'categoryId': categoryId,
       'brand': brand,
       'model': model,
       'serialNumber': serialNumber,
@@ -144,8 +144,8 @@ class AssetModel extends Equatable {
       'warrantyEnd': warrantyEnd?.millisecondsSinceEpoch,
       'status': status.toJson(),
       'condition': condition.toJson(),
-      'locationId': locationID,
-      'assignedToId': assignedToID,
+      'locationId': locationId,
+      'assignedToId': assignedToId,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'category': category?.toMap(),
@@ -160,7 +160,7 @@ class AssetModel extends Equatable {
       assetTag: map['assetTag'] ?? '',
       dataMatrixImageUrl: map['dataMatrixImageUrl'] ?? '',
       assetName: map['assetName'] ?? '',
-      categoryID: map['categoryId'] ?? '',
+      categoryId: map['categoryId'] ?? '',
       brand: map['brand'],
       model: map['model'],
       serialNumber: map['serialNumber'],
@@ -174,8 +174,8 @@ class AssetModel extends Equatable {
           : null,
       status: AssetStatus.fromJson(map['status']),
       condition: AssetCondition.fromJson(map['condition']),
-      locationID: map['locationId'],
-      assignedToID: map['assignedToId'],
+      locationId: map['locationId'],
+      assignedToId: map['assignedToId'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
       category: map['category'] != null
@@ -197,6 +197,6 @@ class AssetModel extends Equatable {
 
   @override
   String toString() {
-    return 'AssetModel(id: $id, assetTag: $assetTag, dataMatrixImageUrl: $dataMatrixImageUrl, assetName: $assetName, categoryID: $categoryID, brand: $brand, model: $model, serialNumber: $serialNumber, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, vendorName: $vendorName, warrantyEnd: $warrantyEnd, status: $status, condition: $condition, locationID: $locationID, assignedToID: $assignedToID, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, location: $location, assignedTo: $assignedTo)';
+    return 'AssetModel(id: $id, assetTag: $assetTag, dataMatrixImageUrl: $dataMatrixImageUrl, assetName: $assetName, categoryId: $categoryId, brand: $brand, model: $model, serialNumber: $serialNumber, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, vendorName: $vendorName, warrantyEnd: $warrantyEnd, status: $status, condition: $condition, locationId: $locationId, assignedToId: $assignedToId, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, location: $location, assignedTo: $assignedTo)';
   }
 }

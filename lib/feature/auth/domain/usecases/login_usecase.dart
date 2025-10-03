@@ -5,16 +5,17 @@ import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
-import 'package:sigma_track/feature/auth/domain/entities/auth.dart';
+import 'package:sigma_track/feature/auth/domain/entities/login_response.dart';
 import 'package:sigma_track/feature/auth/domain/repositories/auth_repository.dart';
 
-class LoginUsecase implements Usecase<ItemSuccess<Auth>, LoginUsecaseParams> {
+class LoginUsecase
+    implements Usecase<ItemSuccess<LoginResponse>, LoginUsecaseParams> {
   final AuthRepository _authRepository;
 
   LoginUsecase(this._authRepository);
 
   @override
-  Future<Either<Failure, ItemSuccess<Auth>>> call(
+  Future<Either<Failure, ItemSuccess<LoginResponse>>> call(
     LoginUsecaseParams params,
   ) async {
     return await _authRepository.login(params);

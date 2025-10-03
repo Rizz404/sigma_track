@@ -7,12 +7,12 @@ import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 class AssetMovementModel extends Equatable {
   final String id;
-  final String assetID;
-  final String? fromLocationID;
-  final String? toLocationID;
-  final String? fromUserID;
-  final String? toUserID;
-  final String movedByID;
+  final String assetId;
+  final String? fromLocationId;
+  final String? toLocationId;
+  final String? fromUserId;
+  final String? toUserId;
+  final String movedById;
   final DateTime movementDate;
   final String? notes;
   final DateTime createdAt;
@@ -27,12 +27,12 @@ class AssetMovementModel extends Equatable {
 
   const AssetMovementModel({
     required this.id,
-    required this.assetID,
-    this.fromLocationID,
-    this.toLocationID,
-    this.fromUserID,
-    this.toUserID,
-    required this.movedByID,
+    required this.assetId,
+    this.fromLocationId,
+    this.toLocationId,
+    this.fromUserId,
+    this.toUserId,
+    required this.movedById,
     required this.movementDate,
     this.notes,
     required this.createdAt,
@@ -49,12 +49,12 @@ class AssetMovementModel extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    assetID,
-    fromLocationID,
-    toLocationID,
-    fromUserID,
-    toUserID,
-    movedByID,
+    assetId,
+    fromLocationId,
+    toLocationId,
+    fromUserId,
+    toUserId,
+    movedById,
     movementDate,
     notes,
     createdAt,
@@ -70,12 +70,12 @@ class AssetMovementModel extends Equatable {
 
   AssetMovementModel copyWith({
     String? id,
-    String? assetID,
-    String? fromLocationID,
-    String? toLocationID,
-    String? fromUserID,
-    String? toUserID,
-    String? movedByID,
+    String? assetId,
+    String? fromLocationId,
+    String? toLocationId,
+    String? fromUserId,
+    String? toUserId,
+    String? movedById,
     DateTime? movementDate,
     String? notes,
     DateTime? createdAt,
@@ -90,12 +90,12 @@ class AssetMovementModel extends Equatable {
   }) {
     return AssetMovementModel(
       id: id ?? this.id,
-      assetID: assetID ?? this.assetID,
-      fromLocationID: fromLocationID ?? this.fromLocationID,
-      toLocationID: toLocationID ?? this.toLocationID,
-      fromUserID: fromUserID ?? this.fromUserID,
-      toUserID: toUserID ?? this.toUserID,
-      movedByID: movedByID ?? this.movedByID,
+      assetId: assetId ?? this.assetId,
+      fromLocationId: fromLocationId ?? this.fromLocationId,
+      toLocationId: toLocationId ?? this.toLocationId,
+      fromUserId: fromUserId ?? this.fromUserId,
+      toUserId: toUserId ?? this.toUserId,
+      movedById: movedById ?? this.movedById,
       movementDate: movementDate ?? this.movementDate,
       notes: notes ?? this.notes,
       createdAt: createdAt ?? this.createdAt,
@@ -113,12 +113,12 @@ class AssetMovementModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'assetId': assetID,
-      'fromLocationId': fromLocationID,
-      'toLocationId': toLocationID,
-      'fromUserId': fromUserID,
-      'toUserId': toUserID,
-      'movedById': movedByID,
+      'assetId': assetId,
+      'fromLocationId': fromLocationId,
+      'toLocationId': toLocationId,
+      'fromUserId': fromUserId,
+      'toUserId': toUserId,
+      'movedById': movedById,
       'movementDate': movementDate.millisecondsSinceEpoch,
       'notes': notes,
       'createdAt': createdAt.millisecondsSinceEpoch,
@@ -136,12 +136,12 @@ class AssetMovementModel extends Equatable {
   factory AssetMovementModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementModel(
       id: map['id'] as String,
-      assetID: map['assetId'] as String,
-      fromLocationID: map['fromLocationId'] as String?,
-      toLocationID: map['toLocationId'] as String?,
-      fromUserID: map['fromUserId'] as String?,
-      toUserID: map['toUserId'] as String?,
-      movedByID: map['movedById'] as String,
+      assetId: map['assetId'] as String,
+      fromLocationId: map['fromLocationId'] as String?,
+      toLocationId: map['toLocationId'] as String?,
+      fromUserId: map['fromUserId'] as String?,
+      toUserId: map['toUserId'] as String?,
+      movedById: map['movedById'] as String,
       movementDate: DateTime.fromMillisecondsSinceEpoch(map['movementDate']),
       notes: map['notes'] as String?,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
@@ -178,7 +178,7 @@ class AssetMovementModel extends Equatable {
 
   @override
   String toString() {
-    return 'AssetMovementModel(id: $id, assetID: $assetID, fromLocationID: $fromLocationID, toLocationID: $toLocationID, fromUserID: $fromUserID, toUserID: $toUserID, movedByID: $movedByID, movementDate: $movementDate, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, asset: $asset, fromLocation: $fromLocation, toLocation: $toLocation, fromUser: $fromUser, toUser: $toUser, movedBy: $movedBy)';
+    return 'AssetMovementModel(id: $id, assetId: $assetId, fromLocationId: $fromLocationId, toLocationId: $toLocationId, fromUserId: $fromUserId, toUserId: $toUserId, movedById: $movedById, movementDate: $movementDate, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, asset: $asset, fromLocation: $fromLocation, toLocation: $toLocation, fromUser: $fromUser, toUser: $toUser, movedBy: $movedBy)';
   }
 }
 

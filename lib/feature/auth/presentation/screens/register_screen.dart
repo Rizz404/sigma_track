@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -27,6 +28,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  List<ValidationError>? validationErrors;
 
   @override
   void dispose() {
@@ -43,7 +45,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       final formValues = _formKey.currentState!.value;
 
       final params = RegisterUsecaseParams(
-        username: (formValues['username'] as String).trim(),
+        name: (formValues['name'] as String).trim(),
         email: (formValues['email'] as String).trim(),
         password: formValues['password'] as String,
       );
@@ -61,14 +63,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     // * Listen to auth state changes untuk auto redirect
     ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
       next.whenData((state) {
-        if (!state.isError && state.status == AuthStatus.authenticated) {
-          AppToast.success(state.message);
+        if (state.status == AuthStatus.authenticated) {
+          AppToast.success(state.success?.message ?? 'Registration successful');
           // * Redirect berdasarkan role user
           context.go(RouteConstant.login);
-        } else if (state.isError &&
-            state.message.isNotEmpty &&
-            previous?.value?.message != state.message) {
-          AppToast.error(state.message);
+        } else if (state.status == AuthStatus.unauthenticated &&
+            state.failure != null) {
+          if (state.failure is ValidationFailure) {
+            setState(
+              () => validationErrors =
+                  (state.failure as ValidationFailure).errors,
+            );
+          } else {
+            AppToast.error(state.failure!.message);
+          }
         }
       });
 
@@ -103,13 +111,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 32),
 
-                  // * Username field
+                  // * Name field
                   AppTextField(
-                    name: 'username',
-                    label: 'Username',
-                    placeHolder: 'Enter your username',
+                    name: 'name',
+                    label: 'Name',
+                    placeHolder: 'Enter your name',
                     type: AppTextFieldType.text,
-                    validator: RegisterValidator.validateUsername,
+                    validator: RegisterValidator.validateName,
                     prefixIcon: Icon(
                       Icons.person_outline,
                       color: context.colorScheme.primary,
@@ -146,26 +154,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   const SizedBox(height: 16),
 
                   // * Confirm password field
-                  FormBuilderField<String>(
+                  AppTextField(
                     name: 'confirmPassword',
+                    label: 'Confirm Password',
+                    placeHolder: 'Re-enter your password',
+                    type: AppTextFieldType.password,
                     validator: (value) =>
                         RegisterValidator.validateConfirmPassword(
                           value,
                           _formKey.currentState?.fields['password']?.value,
                         ),
-                    builder: (field) {
-                      return AppTextField(
-                        name: 'confirmPassword',
-                        label: 'Confirm Password',
-                        placeHolder: 'Re-enter your password',
-                        type: AppTextFieldType.password,
-                        validator: (value) => field.errorText,
-                        prefixIcon: Icon(
-                          Icons.lock_outline,
-                          color: context.colorScheme.primary,
-                        ),
-                      );
-                    },
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: context.colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(height: 24),
 
@@ -190,14 +192,33 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                         const SizedBox(height: 4),
-                        _buildRequirement('At least 8 characters'),
-                        _buildRequirement('One uppercase letter'),
-                        _buildRequirement('One lowercase letter'),
-                        _buildRequirement('One number'),
+                        _buildRequirement('Just make the password man!'),
+                        // _buildRequirement('At least 8 characters'),
+                        // _buildRequirement('One uppercase letter'),
+                        // _buildRequirement('One lowercase letter'),
+                        // _buildRequirement('One number'),
                       ],
                     ),
                   ),
                   const SizedBox(height: 32),
+
+                  // * Validation errors
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: validationErrors!
+                          .map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: AppText(
+                                e.message,
+                                color: context.semantic.error,
+                                style: AppTextStyle.bodySmall,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
 
                   // * Register button
                   AppButton(

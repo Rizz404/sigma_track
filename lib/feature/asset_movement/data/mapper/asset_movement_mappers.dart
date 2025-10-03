@@ -22,12 +22,12 @@ extension AssetMovementModelMapper on AssetMovementModel {
   AssetMovement toEntity() {
     return AssetMovement(
       id: id,
-      assetID: assetID,
-      fromLocationID: fromLocationID,
-      toLocationID: toLocationID,
-      fromUserID: fromUserID,
-      toUserID: toUserID,
-      movedByID: movedByID,
+      assetId: assetId,
+      fromLocationId: fromLocationId,
+      toLocationId: toLocationId,
+      fromUserId: fromUserId,
+      toUserId: toUserId,
+      movedById: movedById,
       movementDate: movementDate,
       notes: notes,
       createdAt: createdAt,
@@ -47,12 +47,12 @@ extension AssetMovementEntityMapper on AssetMovement {
   AssetMovementModel toModel() {
     return AssetMovementModel(
       id: id,
-      assetID: assetID,
-      fromLocationID: fromLocationID,
-      toLocationID: toLocationID,
-      fromUserID: fromUserID,
-      toUserID: toUserID,
-      movedByID: movedByID,
+      assetId: assetId,
+      fromLocationId: fromLocationId,
+      toLocationId: toLocationId,
+      fromUserId: fromUserId,
+      toUserId: toUserId,
+      movedById: movedById,
       movementDate: movementDate,
       notes: notes,
       createdAt: createdAt,
@@ -117,7 +117,7 @@ extension AssetMovementCountStatisticsEntityMapper
 extension AssetMovementByAssetStatsModelMapper
     on AssetMovementByAssetStatsModel {
   AssetMovementByAssetStats toEntity() => AssetMovementByAssetStats(
-    assetID: assetID,
+    assetId: assetId,
     assetTag: assetTag,
     assetName: assetName,
     movementCount: movementCount,
@@ -126,7 +126,7 @@ extension AssetMovementByAssetStatsModelMapper
 
 extension AssetMovementByAssetStatsEntityMapper on AssetMovementByAssetStats {
   AssetMovementByAssetStatsModel toModel() => AssetMovementByAssetStatsModel(
-    assetID: assetID,
+    assetId: assetId,
     assetTag: assetTag,
     assetName: assetName,
     movementCount: movementCount,
@@ -136,7 +136,7 @@ extension AssetMovementByAssetStatsEntityMapper on AssetMovementByAssetStats {
 extension AssetMovementByLocationStatsModelMapper
     on AssetMovementByLocationStatsModel {
   AssetMovementByLocationStats toEntity() => AssetMovementByLocationStats(
-    locationID: locationID,
+    locationId: locationId,
     locationCode: locationCode,
     locationName: locationName,
     incomingCount: incomingCount,
@@ -149,7 +149,7 @@ extension AssetMovementByLocationStatsEntityMapper
     on AssetMovementByLocationStats {
   AssetMovementByLocationStatsModel toModel() =>
       AssetMovementByLocationStatsModel(
-        locationID: locationID,
+        locationId: locationId,
         locationCode: locationCode,
         locationName: locationName,
         incomingCount: incomingCount,
@@ -160,7 +160,7 @@ extension AssetMovementByLocationStatsEntityMapper
 
 extension AssetMovementByUserStatsModelMapper on AssetMovementByUserStatsModel {
   AssetMovementByUserStats toEntity() => AssetMovementByUserStats(
-    userID: userID,
+    userId: userId,
     userName: userName,
     movementCount: movementCount,
   );
@@ -168,7 +168,7 @@ extension AssetMovementByUserStatsModelMapper on AssetMovementByUserStatsModel {
 
 extension AssetMovementByUserStatsEntityMapper on AssetMovementByUserStats {
   AssetMovementByUserStatsModel toModel() => AssetMovementByUserStatsModel(
-    userID: userID,
+    userId: userId,
     userName: userName,
     movementCount: movementCount,
   );

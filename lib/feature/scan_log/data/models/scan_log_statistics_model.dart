@@ -279,28 +279,28 @@ class ScanTrendModel extends Equatable {
 }
 
 class ScannerStatisticsModel extends Equatable {
-  final String userID;
+  final String userId;
   final int count;
 
-  const ScannerStatisticsModel({required this.userID, required this.count});
+  const ScannerStatisticsModel({required this.userId, required this.count});
 
   @override
-  List<Object> get props => [userID, count];
+  List<Object> get props => [userId, count];
 
-  ScannerStatisticsModel copyWith({String? userID, int? count}) {
+  ScannerStatisticsModel copyWith({String? userId, int? count}) {
     return ScannerStatisticsModel(
-      userID: userID ?? this.userID,
+      userId: userId ?? this.userId,
       count: count ?? this.count,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {'userId': userID, 'count': count};
+    return {'userId': userId, 'count': count};
   }
 
   factory ScannerStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScannerStatisticsModel(
-      userID: map['userId'] ?? '',
+      userId: map['userId'] ?? '',
       count: map['count']?.toInt() ?? 0,
     );
   }
@@ -311,7 +311,7 @@ class ScannerStatisticsModel extends Equatable {
       ScannerStatisticsModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'ScannerStatisticsModel(userID: $userID, count: $count)';
+  String toString() => 'ScannerStatisticsModel(userId: $userId, count: $count)';
 }
 
 class ScanLogSummaryStatisticsModel extends Equatable {

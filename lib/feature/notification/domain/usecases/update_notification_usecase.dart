@@ -27,16 +27,16 @@ class UpdateNotificationUsecase
 
 class UpdateNotificationUsecaseParams extends Equatable {
   final String id;
-  final String? userID;
-  final String? relatedAssetID;
+  final String? userId;
+  final String? relatedAssetId;
   final NotificationType? type;
   final bool? isRead;
   final List<UpdateNotificationTranslation>? translations;
 
   UpdateNotificationUsecaseParams({
     required this.id,
-    this.userID,
-    this.relatedAssetID,
+    this.userId,
+    this.relatedAssetId,
     this.type,
     this.isRead,
     this.translations,
@@ -44,8 +44,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    if (userID != null) map['userId'] = userID;
-    if (relatedAssetID != null) map['relatedAssetId'] = relatedAssetID;
+    if (userId != null) map['userId'] = userId;
+    if (relatedAssetId != null) map['relatedAssetId'] = relatedAssetId;
     if (type != null) map['type'] = type!.toJson();
     if (isRead != null) map['isRead'] = isRead;
     if (translations != null) {
@@ -57,8 +57,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
   factory UpdateNotificationUsecaseParams.fromMap(Map<String, dynamic> map) {
     return UpdateNotificationUsecaseParams(
       id: map['id'] ?? '',
-      userID: map['userId'],
-      relatedAssetID: map['relatedAssetId'],
+      userId: map['userId'],
+      relatedAssetId: map['relatedAssetId'],
       type: map['type'] != null ? NotificationType.fromJson(map['type']) : null,
       isRead: map['isRead'],
       translations: map['translations'] != null
@@ -79,8 +79,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    userID,
-    relatedAssetID,
+    userId,
+    relatedAssetId,
     type,
     isRead,
     translations,

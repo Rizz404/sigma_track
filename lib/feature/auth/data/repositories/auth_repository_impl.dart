@@ -6,6 +6,7 @@ import 'package:sigma_track/feature/auth/data/datasources/auth_local_datasource.
 import 'package:sigma_track/feature/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:sigma_track/feature/auth/data/mapper/auth_mappers.dart';
 import 'package:sigma_track/feature/auth/domain/entities/auth.dart';
+import 'package:sigma_track/feature/auth/domain/entities/login_response.dart';
 import 'package:sigma_track/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
@@ -52,18 +53,18 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<Auth>>> login(
+  Future<Either<Failure, ItemSuccess<LoginResponse>>> login(
     LoginUsecaseParams params,
   ) async {
     try {
       final response = await _authRemoteDatasource.login(params);
-      final auth = response.data.toEntity();
+      final loginResponse = response.data.toEntity();
 
-      await _authLocalDatasource.saveAccessToken(auth.accessToken);
-      await _authLocalDatasource.saveRefreshToken(auth.refreshToken);
+      await _authLocalDatasource.saveAccessToken(loginResponse.accessToken);
+      await _authLocalDatasource.saveRefreshToken(loginResponse.refreshToken);
       await _authLocalDatasource.saveUser(response.data.user);
 
-      return Right(ItemSuccess(message: response.message, data: auth));
+      return Right(ItemSuccess(message: response.message, data: loginResponse));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {
         return Left(
@@ -126,10 +127,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final refreshToken = await _authLocalDatasource.getRefreshToken();
       final userModel = await _authLocalDatasource.getUser();
 
-      if (accessToken == null || refreshToken == null || userModel == null) {
-        return const Left(NetworkFailure(message: 'User not authenticated'));
-      }
-
+      // * Auth dengan nullable fields, jadi bisa return Auth kosong/partial
       final auth = Auth(
         user: userModel,
         accessToken: accessToken,
@@ -137,7 +135,12 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       return Right(
-        ItemSuccess(message: 'Authentication data retrieved', data: auth),
+        ItemSuccess(
+          message: auth.isAuthenticated
+              ? 'Authentication data retrieved'
+              : 'No authentication data',
+          data: auth,
+        ),
       );
     } catch (e) {
       return Left(

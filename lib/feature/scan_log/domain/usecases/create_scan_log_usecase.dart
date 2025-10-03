@@ -24,20 +24,20 @@ class CreateScanLogUsecase
 }
 
 class CreateScanLogUsecaseParams extends Equatable {
-  final String? assetID;
+  final String? assetId;
   final String scannedValue;
   final ScanMethodType scanMethod;
-  final String scannedByID;
+  final String scannedById;
   final DateTime scanTimestamp;
   final double? scanLocationLat;
   final double? scanLocationLng;
   final ScanResultType scanResult;
 
   CreateScanLogUsecaseParams({
-    this.assetID,
+    this.assetId,
     required this.scannedValue,
     required this.scanMethod,
-    required this.scannedByID,
+    required this.scannedById,
     required this.scanTimestamp,
     this.scanLocationLat,
     this.scanLocationLng,
@@ -46,10 +46,10 @@ class CreateScanLogUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'assetID': assetID,
+      'assetID': assetId,
       'scannedValue': scannedValue,
       'scanMethod': scanMethod.value,
-      'scannedByID': scannedByID,
+      'scannedByID': scannedById,
       'scanTimestamp': scanTimestamp.toIso8601String(),
       'scanLocationLat': scanLocationLat,
       'scanLocationLng': scanLocationLng,
@@ -59,13 +59,13 @@ class CreateScanLogUsecaseParams extends Equatable {
 
   factory CreateScanLogUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CreateScanLogUsecaseParams(
-      assetID: map['assetID'],
+      assetId: map['assetID'],
       scannedValue: map['scannedValue'] ?? '',
       scanMethod: ScanMethodType.values.firstWhere(
         (e) => e.value == map['scanMethod'],
         orElse: () => ScanMethodType.dataMatrix,
       ),
-      scannedByID: map['scannedByID'] ?? '',
+      scannedById: map['scannedByID'] ?? '',
       scanTimestamp: DateTime.parse(map['scanTimestamp']),
       scanLocationLat: map['scanLocationLat']?.toDouble(),
       scanLocationLng: map['scanLocationLng']?.toDouble(),
@@ -82,20 +82,20 @@ class CreateScanLogUsecaseParams extends Equatable {
       CreateScanLogUsecaseParams.fromMap(json.decode(source));
 
   CreateScanLogUsecaseParams copyWith({
-    String? assetID,
+    String? assetId,
     String? scannedValue,
     ScanMethodType? scanMethod,
-    String? scannedByID,
+    String? scannedById,
     DateTime? scanTimestamp,
     double? scanLocationLat,
     double? scanLocationLng,
     ScanResultType? scanResult,
   }) {
     return CreateScanLogUsecaseParams(
-      assetID: assetID ?? this.assetID,
+      assetId: assetId ?? this.assetId,
       scannedValue: scannedValue ?? this.scannedValue,
       scanMethod: scanMethod ?? this.scanMethod,
-      scannedByID: scannedByID ?? this.scannedByID,
+      scannedById: scannedById ?? this.scannedById,
       scanTimestamp: scanTimestamp ?? this.scanTimestamp,
       scanLocationLat: scanLocationLat ?? this.scanLocationLat,
       scanLocationLng: scanLocationLng ?? this.scanLocationLng,
@@ -106,10 +106,10 @@ class CreateScanLogUsecaseParams extends Equatable {
   @override
   List<Object?> get props {
     return [
-      assetID,
+      assetId,
       scannedValue,
       scanMethod,
-      scannedByID,
+      scannedById,
       scanTimestamp,
       scanLocationLat,
       scanLocationLng,

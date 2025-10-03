@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class CategoryModel extends Equatable {
   final String id;
-  final String parentID;
+  final String parentId;
   final String categoryCode;
   final String categoryName;
   final String description;
@@ -15,7 +15,7 @@ class CategoryModel extends Equatable {
 
   const CategoryModel({
     required this.id,
-    required this.parentID,
+    required this.parentId,
     required this.categoryCode,
     required this.categoryName,
     required this.description,
@@ -29,7 +29,7 @@ class CategoryModel extends Equatable {
   List<Object> get props {
     return [
       id,
-      parentID,
+      parentId,
       categoryCode,
       categoryName,
       description,
@@ -42,7 +42,7 @@ class CategoryModel extends Equatable {
 
   CategoryModel copyWith({
     String? id,
-    String? parentID,
+    String? parentId,
     String? categoryCode,
     String? categoryName,
     String? description,
@@ -53,7 +53,7 @@ class CategoryModel extends Equatable {
   }) {
     return CategoryModel(
       id: id ?? this.id,
-      parentID: parentID ?? this.parentID,
+      parentId: parentId ?? this.parentId,
       categoryCode: categoryCode ?? this.categoryCode,
       categoryName: categoryName ?? this.categoryName,
       description: description ?? this.description,
@@ -67,7 +67,7 @@ class CategoryModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'parentID': parentID,
+      'parentID': parentId,
       'categoryCode': categoryCode,
       'categoryName': categoryName,
       'description': description,
@@ -81,7 +81,7 @@ class CategoryModel extends Equatable {
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'] ?? '',
-      parentID: map['parentID'] ?? '',
+      parentId: map['parentID'] ?? '',
       categoryCode: map['categoryCode'] ?? '',
       categoryName: map['categoryName'] ?? '',
       description: map['description'] ?? '',
@@ -103,7 +103,7 @@ class CategoryModel extends Equatable {
 
   @override
   String toString() {
-    return 'CategoryModel(id: $id, parentID: $parentID, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, children: $children, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
+    return 'CategoryModel(id: $id, parentId: $parentId, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, children: $children, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
   }
 }
 

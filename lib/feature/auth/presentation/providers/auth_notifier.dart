@@ -26,12 +26,18 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     final result = await _getCurrentAuthUsecase.call(NoParams());
 
     return result.fold(
-      (failure) =>
-          AuthState.unauthenticated(message: failure.message, isError: true),
-      (success) => AuthState.authenticated(
-        user: success.data!.user.toEntity(),
-        message: success.message ?? "User authenticated",
-      ),
+      (failure) => AuthState.unauthenticated(failure: failure),
+      (success) {
+        final auth = success.data!;
+        // * Auth punya nullable fields, check isAuthenticated
+        if (!auth.isAuthenticated) {
+          return AuthState.unauthenticated();
+        }
+        return AuthState.authenticated(
+          user: auth.user!.toEntity(),
+          success: success,
+        );
+      },
     );
   }
 
@@ -42,16 +48,11 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(
-          AuthState.unauthenticated(message: failure.message, isError: true),
-        );
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
       (success) {
         state = AsyncData(
-          AuthState.authenticated(
-            user: success.data,
-            message: success.message ?? "Registration successful",
-          ),
+          AuthState.authenticated(user: success.data, success: success),
         );
       },
     );
@@ -64,15 +65,13 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(
-          AuthState.unauthenticated(message: failure.message, isError: true),
-        );
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
       (success) {
         state = AsyncData(
           AuthState.authenticated(
             user: success.data!.user.toEntity(),
-            message: success.message ?? "Login successful",
+            success: success,
           ),
         );
       },
@@ -86,17 +85,10 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
 
     result.fold(
       (failure) {
-        state = AsyncData(
-          AuthState.unauthenticated(message: failure.message, isError: true),
-        );
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
       (success) {
-        state = AsyncData(
-          AuthState.unauthenticated(
-            message: success.message ?? "Email sent",
-            isError: false,
-          ),
-        );
+        state = AsyncData(AuthState.unauthenticated(success: success));
       },
     );
   }
@@ -105,9 +97,7 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     state = const AsyncLoading();
 
     try {
-      state = AsyncData(
-        AuthState.unauthenticated(message: "Logout successful", isError: false),
-      );
+      state = AsyncData(AuthState.unauthenticated());
     } catch (e) {
       state = AsyncError(e, StackTrace.current);
     }

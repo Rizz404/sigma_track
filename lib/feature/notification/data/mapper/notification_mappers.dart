@@ -7,8 +7,8 @@ extension NotificationModelMapper on NotificationModel {
   Notification toEntity() {
     return Notification(
       id: id,
-      userID: userID,
-      relatedAssetID: relatedAssetID,
+      userId: userId,
+      relatedAssetId: relatedAssetId,
       type: type,
       isRead: isRead,
       createdAt: createdAt,
@@ -23,8 +23,8 @@ extension NotificationEntityMapper on Notification {
   NotificationModel toModel() {
     return NotificationModel(
       id: id,
-      userID: userID,
-      relatedAssetID: relatedAssetID,
+      userId: userId,
+      relatedAssetId: relatedAssetId,
       type: type,
       isRead: isRead,
       createdAt: createdAt,

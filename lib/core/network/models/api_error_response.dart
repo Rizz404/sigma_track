@@ -35,12 +35,15 @@ class ApiErrorResponse extends Equatable {
   }
 
   factory ApiErrorResponse.fromMap(Map<String, dynamic> map) {
+    // * Mendukung "error" (singular) dan "errors" (plural) dari API
+    final errorList = map['errors'] ?? map['error'];
+
     return ApiErrorResponse(
       status: map['status'] ?? '',
       message: map['message'] ?? '',
-      errors: map['errors'] != null
+      errors: errorList != null
           ? List<ApiValidationError>.from(
-              map['errors']?.map((x) => ApiValidationError.fromMap(x)),
+              errorList?.map((x) => ApiValidationError.fromMap(x)),
             )
           : null,
     );

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/domain/success.dart';
 
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
@@ -8,50 +10,46 @@ enum AuthStatus { authenticated, unauthenticated }
 class AuthState extends Equatable {
   final AuthStatus status;
   final User? user;
-  final String message;
-  final bool isError;
+  final ItemSuccess? success;
+  final Failure? failure;
 
-  AuthState({
+  const AuthState({
     required this.status,
     this.user,
-    required this.message,
-    this.isError = false,
+    this.success,
+    this.failure,
   });
 
-  factory AuthState.authenticated({User? user, required String message}) {
+  factory AuthState.authenticated({User? user, ItemSuccess? success}) {
     return AuthState(
       status: AuthStatus.authenticated,
       user: user,
-      message: message,
-      isError: false,
+      success: success,
     );
   }
 
-  factory AuthState.unauthenticated({
-    required String message,
-    bool isError = false,
-  }) {
+  factory AuthState.unauthenticated({Failure? failure, ItemSuccess? success}) {
     return AuthState(
       status: AuthStatus.unauthenticated,
-      message: message,
-      isError: isError,
+      failure: failure,
+      success: success,
     );
   }
 
   AuthState copyWith({
     AuthStatus? status,
     ValueGetter<User?>? user,
-    ValueGetter<String>? message,
-    ValueGetter<bool>? isError,
+    ValueGetter<ItemSuccess?>? success,
+    ValueGetter<Failure?>? failure,
   }) {
     return AuthState(
       status: status ?? this.status,
       user: user != null ? user() : this.user,
-      message: message != null ? message() : this.message,
-      isError: isError != null ? isError() : this.isError,
+      success: success != null ? success() : this.success,
+      failure: failure != null ? failure() : this.failure,
     );
   }
 
   @override
-  List<Object?> get props => [status, user, message, isError];
+  List<Object?> get props => [status, user, success, failure];
 }

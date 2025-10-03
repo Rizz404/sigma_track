@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Category extends Equatable {
   final String id;
-  final String parentID;
+  final String parentId;
   final String categoryCode;
   final String categoryName;
   final String description;
@@ -13,7 +13,7 @@ class Category extends Equatable {
 
   const Category({
     required this.id,
-    required this.parentID,
+    required this.parentId,
     required this.categoryCode,
     required this.categoryName,
     required this.description,
@@ -27,7 +27,7 @@ class Category extends Equatable {
   List<Object> get props {
     return [
       id,
-      parentID,
+      parentId,
       categoryCode,
       categoryName,
       description,

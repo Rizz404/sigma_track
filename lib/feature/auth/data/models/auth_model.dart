@@ -1,35 +1,40 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
+/// Model untuk authentication state aplikasi
+/// Semua field nullable untuk support logout state
 class AuthModel extends Equatable {
-  final UserModel user;
-  final String accessToken;
-  final String refreshToken;
+  final UserModel? user;
+  final String? accessToken;
+  final String? refreshToken;
 
-  AuthModel({
-    required this.user,
-    required this.accessToken,
-    required this.refreshToken,
-  });
+  const AuthModel({this.user, this.accessToken, this.refreshToken});
+
+  /// Empty auth untuk unauthenticated state
+  const AuthModel.empty()
+    : user = null,
+      accessToken = null,
+      refreshToken = null;
 
   AuthModel copyWith({
-    UserModel? user,
-    String? accessToken,
-    String? refreshToken,
+    ValueGetter<UserModel?>? user,
+    ValueGetter<String?>? accessToken,
+    ValueGetter<String?>? refreshToken,
   }) {
     return AuthModel(
-      user: user ?? this.user,
-      accessToken: accessToken ?? this.accessToken,
-      refreshToken: refreshToken ?? this.refreshToken,
+      user: user != null ? user() : this.user,
+      accessToken: accessToken != null ? accessToken() : this.accessToken,
+      refreshToken: refreshToken != null ? refreshToken() : this.refreshToken,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'user': user.toMap(),
+      'user': user?.toMap(),
       'accessToken': accessToken,
       'refreshToken': refreshToken,
     };
@@ -37,9 +42,9 @@ class AuthModel extends Equatable {
 
   factory AuthModel.fromMap(Map<String, dynamic> map) {
     return AuthModel(
-      user: UserModel.fromMap(map['user']),
-      accessToken: map['accessToken'] ?? '',
-      refreshToken: map['refreshToken'] ?? '',
+      user: map['user'] != null ? UserModel.fromMap(map['user']) : null,
+      accessToken: map['accessToken'],
+      refreshToken: map['refreshToken'],
     );
   }
 
@@ -53,5 +58,5 @@ class AuthModel extends Equatable {
       'AuthModel(user: $user, accessToken: $accessToken, refreshToken: $refreshToken)';
 
   @override
-  List<Object> get props => [user, accessToken, refreshToken];
+  List<Object?> get props => [user, accessToken, refreshToken];
 }

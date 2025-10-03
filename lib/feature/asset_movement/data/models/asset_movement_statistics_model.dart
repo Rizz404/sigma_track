@@ -24,26 +24,26 @@ class AssetMovementCountStatisticsModel {
 }
 
 class AssetMovementByAssetStatsModel {
-  final String assetID;
+  final String assetId;
   final String assetTag;
   final String assetName;
   final int movementCount;
 
   const AssetMovementByAssetStatsModel({
-    required this.assetID,
+    required this.assetId,
     required this.assetTag,
     required this.assetName,
     required this.movementCount,
   });
 
   AssetMovementByAssetStatsModel copyWith({
-    String? assetID,
+    String? assetId,
     String? assetTag,
     String? assetName,
     int? movementCount,
   }) {
     return AssetMovementByAssetStatsModel(
-      assetID: assetID ?? this.assetID,
+      assetId: assetId ?? this.assetId,
       assetTag: assetTag ?? this.assetTag,
       assetName: assetName ?? this.assetName,
       movementCount: movementCount ?? this.movementCount,
@@ -52,7 +52,7 @@ class AssetMovementByAssetStatsModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'assetId': assetID,
+      'assetId': assetId,
       'assetTag': assetTag,
       'assetName': assetName,
       'movementCount': movementCount,
@@ -61,7 +61,7 @@ class AssetMovementByAssetStatsModel {
 
   factory AssetMovementByAssetStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByAssetStatsModel(
-      assetID: map['assetId'] as String,
+      assetId: map['assetId'] as String,
       assetTag: map['assetTag'] as String,
       assetName: map['assetName'] as String,
       movementCount: map['movementCount'] as int,
@@ -75,7 +75,7 @@ class AssetMovementByAssetStatsModel {
 }
 
 class AssetMovementByLocationStatsModel {
-  final String locationID;
+  final String locationId;
   final String locationCode;
   final String locationName;
   final int incomingCount;
@@ -83,7 +83,7 @@ class AssetMovementByLocationStatsModel {
   final int netMovement;
 
   const AssetMovementByLocationStatsModel({
-    required this.locationID,
+    required this.locationId,
     required this.locationCode,
     required this.locationName,
     required this.incomingCount,
@@ -92,7 +92,7 @@ class AssetMovementByLocationStatsModel {
   });
 
   AssetMovementByLocationStatsModel copyWith({
-    String? locationID,
+    String? locationId,
     String? locationCode,
     String? locationName,
     int? incomingCount,
@@ -100,7 +100,7 @@ class AssetMovementByLocationStatsModel {
     int? netMovement,
   }) {
     return AssetMovementByLocationStatsModel(
-      locationID: locationID ?? this.locationID,
+      locationId: locationId ?? this.locationId,
       locationCode: locationCode ?? this.locationCode,
       locationName: locationName ?? this.locationName,
       incomingCount: incomingCount ?? this.incomingCount,
@@ -111,7 +111,7 @@ class AssetMovementByLocationStatsModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'locationId': locationID,
+      'locationId': locationId,
       'locationCode': locationCode,
       'locationName': locationName,
       'incomingCount': incomingCount,
@@ -122,7 +122,7 @@ class AssetMovementByLocationStatsModel {
 
   factory AssetMovementByLocationStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByLocationStatsModel(
-      locationID: map['locationId'] as String,
+      locationId: map['locationId'] as String,
       locationCode: map['locationCode'] as String,
       locationName: map['locationName'] as String,
       incomingCount: map['incomingCount'] as int,
@@ -138,23 +138,23 @@ class AssetMovementByLocationStatsModel {
 }
 
 class AssetMovementByUserStatsModel {
-  final String userID;
+  final String userId;
   final String userName;
   final int movementCount;
 
   const AssetMovementByUserStatsModel({
-    required this.userID,
+    required this.userId,
     required this.userName,
     required this.movementCount,
   });
 
   AssetMovementByUserStatsModel copyWith({
-    String? userID,
+    String? userId,
     String? userName,
     int? movementCount,
   }) {
     return AssetMovementByUserStatsModel(
-      userID: userID ?? this.userID,
+      userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       movementCount: movementCount ?? this.movementCount,
     );
@@ -162,7 +162,7 @@ class AssetMovementByUserStatsModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'userId': userID,
+      'userId': userId,
       'userName': userName,
       'movementCount': movementCount,
     };
@@ -170,7 +170,7 @@ class AssetMovementByUserStatsModel {
 
   factory AssetMovementByUserStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByUserStatsModel(
-      userID: map['userId'] as String,
+      userId: map['userId'] as String,
       userName: map['userName'] as String,
       movementCount: map['movementCount'] as int,
     );

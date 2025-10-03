@@ -5,10 +5,10 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 class ScanLogModel extends Equatable {
   final String id;
-  final String? assetID;
+  final String? assetId;
   final String scannedValue;
   final ScanMethodType scanMethod;
-  final String scannedByID;
+  final String scannedById;
   final DateTime scanTimestamp;
   final double? scanLocationLat;
   final double? scanLocationLng;
@@ -16,10 +16,10 @@ class ScanLogModel extends Equatable {
 
   const ScanLogModel({
     required this.id,
-    this.assetID,
+    this.assetId,
     required this.scannedValue,
     required this.scanMethod,
-    required this.scannedByID,
+    required this.scannedById,
     required this.scanTimestamp,
     this.scanLocationLat,
     this.scanLocationLng,
@@ -30,10 +30,10 @@ class ScanLogModel extends Equatable {
   List<Object?> get props {
     return [
       id,
-      assetID,
+      assetId,
       scannedValue,
       scanMethod,
-      scannedByID,
+      scannedById,
       scanTimestamp,
       scanLocationLat,
       scanLocationLng,
@@ -43,10 +43,10 @@ class ScanLogModel extends Equatable {
 
   ScanLogModel copyWith({
     String? id,
-    String? assetID,
+    String? assetId,
     String? scannedValue,
     ScanMethodType? scanMethod,
-    String? scannedByID,
+    String? scannedById,
     DateTime? scanTimestamp,
     double? scanLocationLat,
     double? scanLocationLng,
@@ -54,10 +54,10 @@ class ScanLogModel extends Equatable {
   }) {
     return ScanLogModel(
       id: id ?? this.id,
-      assetID: assetID ?? this.assetID,
+      assetId: assetId ?? this.assetId,
       scannedValue: scannedValue ?? this.scannedValue,
       scanMethod: scanMethod ?? this.scanMethod,
-      scannedByID: scannedByID ?? this.scannedByID,
+      scannedById: scannedById ?? this.scannedById,
       scanTimestamp: scanTimestamp ?? this.scanTimestamp,
       scanLocationLat: scanLocationLat ?? this.scanLocationLat,
       scanLocationLng: scanLocationLng ?? this.scanLocationLng,
@@ -68,10 +68,10 @@ class ScanLogModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'assetId': assetID,
+      'assetId': assetId,
       'scannedValue': scannedValue,
       'scanMethod': scanMethod.toJson(),
-      'scannedById': scannedByID,
+      'scannedById': scannedById,
       'scanTimestamp': scanTimestamp.millisecondsSinceEpoch,
       'scanLocationLat': scanLocationLat,
       'scanLocationLng': scanLocationLng,
@@ -82,10 +82,10 @@ class ScanLogModel extends Equatable {
   factory ScanLogModel.fromMap(Map<String, dynamic> map) {
     return ScanLogModel(
       id: map['id'] ?? '',
-      assetID: map['assetId'],
+      assetId: map['assetId'],
       scannedValue: map['scannedValue'] ?? '',
       scanMethod: ScanMethodType.fromJson(map['scanMethod']),
-      scannedByID: map['scannedById'] ?? '',
+      scannedById: map['scannedById'] ?? '',
       scanTimestamp: DateTime.fromMillisecondsSinceEpoch(map['scanTimestamp']),
       scanLocationLat: map['scanLocationLat']?.toDouble(),
       scanLocationLng: map['scanLocationLng']?.toDouble(),
@@ -100,6 +100,6 @@ class ScanLogModel extends Equatable {
 
   @override
   String toString() {
-    return 'ScanLogModel(id: $id, assetID: $assetID, scannedValue: $scannedValue, scanMethod: $scanMethod, scannedByID: $scannedByID, scanTimestamp: $scanTimestamp, scanLocationLat: $scanLocationLat, scanLocationLng: $scanLocationLng, scanResult: $scanResult)';
+    return 'ScanLogModel(id: $id, assetId: $assetId, scannedValue: $scannedValue, scanMethod: $scanMethod, scannedById: $scannedById, scanTimestamp: $scanTimestamp, scanLocationLat: $scanLocationLat, scanLocationLng: $scanLocationLng, scanResult: $scanResult)';
   }
 }

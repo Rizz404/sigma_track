@@ -5,8 +5,8 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 class NotificationModel extends Equatable {
   final String id;
-  final String userID;
-  final String? relatedAssetID;
+  final String userId;
+  final String? relatedAssetId;
   final NotificationType type;
   final bool isRead;
   final DateTime createdAt;
@@ -16,8 +16,8 @@ class NotificationModel extends Equatable {
 
   const NotificationModel({
     required this.id,
-    required this.userID,
-    this.relatedAssetID,
+    required this.userId,
+    this.relatedAssetId,
     required this.type,
     required this.isRead,
     required this.createdAt,
@@ -30,8 +30,8 @@ class NotificationModel extends Equatable {
   List<Object?> get props {
     return [
       id,
-      userID,
-      relatedAssetID,
+      userId,
+      relatedAssetId,
       type,
       isRead,
       createdAt,
@@ -43,8 +43,8 @@ class NotificationModel extends Equatable {
 
   NotificationModel copyWith({
     String? id,
-    String? userID,
-    String? relatedAssetID,
+    String? userId,
+    String? relatedAssetId,
     NotificationType? type,
     bool? isRead,
     DateTime? createdAt,
@@ -54,8 +54,8 @@ class NotificationModel extends Equatable {
   }) {
     return NotificationModel(
       id: id ?? this.id,
-      userID: userID ?? this.userID,
-      relatedAssetID: relatedAssetID ?? this.relatedAssetID,
+      userId: userId ?? this.userId,
+      relatedAssetId: relatedAssetId ?? this.relatedAssetId,
       type: type ?? this.type,
       isRead: isRead ?? this.isRead,
       createdAt: createdAt ?? this.createdAt,
@@ -68,8 +68,8 @@ class NotificationModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'userId': userID,
-      'relatedAssetId': relatedAssetID,
+      'userId': userId,
+      'relatedAssetId': relatedAssetId,
       'type': type.toJson(),
       'isRead': isRead,
       'createdAt': createdAt.millisecondsSinceEpoch,
@@ -82,8 +82,8 @@ class NotificationModel extends Equatable {
   factory NotificationModel.fromMap(Map<String, dynamic> map) {
     return NotificationModel(
       id: map['id'] ?? '',
-      userID: map['userId'] ?? '',
-      relatedAssetID: map['relatedAssetId'],
+      userId: map['userId'] ?? '',
+      relatedAssetId: map['relatedAssetId'],
       type: NotificationType.fromJson(map['type']),
       isRead: map['isRead'] ?? false,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
@@ -104,7 +104,7 @@ class NotificationModel extends Equatable {
 
   @override
   String toString() {
-    return 'NotificationModel(id: $id, userID: $userID, relatedAssetID: $relatedAssetID, type: $type, isRead: $isRead, createdAt: $createdAt, title: $title, message: $message, translations: $translations)';
+    return 'NotificationModel(id: $id, userId: $userId, relatedAssetId: $relatedAssetId, type: $type, isRead: $isRead, createdAt: $createdAt, title: $title, message: $message, translations: $translations)';
   }
 }
 
