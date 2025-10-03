@@ -21,23 +21,21 @@ class RouteConstant {
 
   // Asset Movement
   static const String assetMovementDetail = '/asset-movement/:movementId';
-  static const String assetMovementUpsert = '/asset-movement/upsert';
 
   // Category
   static const String categoryDetail = '/category/:categoryId';
-  static const String categoryUpsert = '/category/upsert';
 
   // Location
   static const String locationDetail = '/location/:locationId';
-  static const String locationUpsert = '/location/upsert';
 
-  // Maintenance
-  static const String maintenanceDetail = '/maintenance/:maintenanceId';
-  static const String maintenanceUpsert = '/maintenance/upsert';
+  // Maintenance (split: schedule & record)
+  static const String maintenanceScheduleDetail =
+      '/maintenance-schedule/:maintenanceId';
+  static const String maintenanceRecordDetail =
+      '/maintenance-record/:maintenanceId';
 
   // Issue Report
   static const String issueReportDetail = '/issue-report/:issueReportId';
-  static const String issueReportUpsert = '/issue-report/upsert';
 
   // Notification
   static const String notificationDetail = '/notification/:notificationId';
@@ -63,29 +61,46 @@ class RouteConstant {
   static const String adminLocations = '/admin/locations';
   static const String adminUsers = '/admin/users';
   static const String adminUserUpsert = '/admin/user/upsert';
-  static const String adminMaintenances = '/admin/maintenances';
+  static const String adminMaintenanceSchedules =
+      '/admin/maintenance-schedules';
+  static const String adminMaintenanceRecords = '/admin/maintenance-records';
   static const String adminIssueReports = '/admin/issue-reports';
   static const String adminScanLogs = '/admin/scan-logs';
   static const String adminNotifications = '/admin/notifications';
 
-  // Admin Detail Routes (Admin with prefix)
+  // Admin Detail + Upsert Routes
   static const String adminAssetDetail = '/admin/asset/:assetId';
   static const String adminAssetMovementDetail =
       '/admin/asset-movement/:movementId';
   static const String adminAssetMovementUpsert = '/admin/asset-movement/upsert';
+
   static const String adminCategoryDetail = '/admin/category/:categoryId';
   static const String adminCategoryUpsert = '/admin/category/upsert';
+
   static const String adminLocationDetail = '/admin/location/:locationId';
   static const String adminLocationUpsert = '/admin/location/upsert';
-  static const String adminMaintenanceDetail =
-      '/admin/maintenance/:maintenanceId';
-  static const String adminMaintenanceUpsert = '/admin/maintenance/upsert';
+
+  // Maintenance Schedule
+  static const String adminMaintenanceScheduleDetail =
+      '/admin/maintenance-schedule/:maintenanceId';
+  static const String adminMaintenanceScheduleUpsert =
+      '/admin/maintenance-schedule/upsert';
+
+  // Maintenance Record
+  static const String adminMaintenanceRecordDetail =
+      '/admin/maintenance-record/:maintenanceId';
+  static const String adminMaintenanceRecordUpsert =
+      '/admin/maintenance-record/upsert';
+
   static const String adminIssueReportDetail =
       '/admin/issue-report/:issueReportId';
   static const String adminIssueReportUpsert = '/admin/issue-report/upsert';
+
   static const String adminNotificationDetail =
       '/admin/notification/:notificationId';
+
   static const String adminScanLogDetail = '/admin/scan-log/:scanLogId';
+
   static const String adminUserDetail = '/admin/user/:userId';
 
   // ==================== HELPER METHODS ====================
@@ -98,8 +113,10 @@ class RouteConstant {
       '/category/$categoryId';
   static String getLocationDetailPath(String locationId) =>
       '/location/$locationId';
-  static String getMaintenanceDetailPath(String maintenanceId) =>
-      '/maintenance/$maintenanceId';
+  static String getMaintenanceScheduleDetailPath(String maintenanceId) =>
+      '/maintenance-schedule/$maintenanceId';
+  static String getMaintenanceRecordDetailPath(String maintenanceId) =>
+      '/maintenance-record/$maintenanceId';
   static String getIssueReportDetailPath(String issueReportId) =>
       '/issue-report/$issueReportId';
   static String getNotificationDetailPath(String notificationId) =>
@@ -117,8 +134,12 @@ class RouteConstant {
       '/admin/category/$categoryId';
   static String getAdminLocationDetailPath(String locationId) =>
       '/admin/location/$locationId';
-  static String getAdminMaintenanceDetailPath(String maintenanceId) =>
-      '/admin/maintenance/$maintenanceId';
+
+  static String getAdminMaintenanceScheduleDetailPath(String maintenanceId) =>
+      '/admin/maintenance-schedule/$maintenanceId';
+  static String getAdminMaintenanceRecordDetailPath(String maintenanceId) =>
+      '/admin/maintenance-record/$maintenanceId';
+
   static String getAdminIssueReportDetailPath(String issueReportId) =>
       '/admin/issue-report/$issueReportId';
   static String getAdminNotificationDetailPath(String notificationId) =>

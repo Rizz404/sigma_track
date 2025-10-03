@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sigma_track/core/extensions/navigation_extension.dart';
+
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
@@ -34,7 +34,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         next.whenData((state) {
           if (!state.isError && state.status == AuthStatus.authenticated) {
             AppToast.success(state.message);
-            context.toHome();
           } else if (state.isError &&
               state.message.isNotEmpty &&
               previous?.value?.message != state.message) {
@@ -129,9 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
-                      onTap: () {
-                        context.toForgotPassword();
-                      },
+                      onTap: () {},
                       child: AppText(
                         'Forgot Password?',
                         style: AppTextStyle.bodySmall,
@@ -160,9 +157,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          context.toRegister();
-                        },
+                        onTap: () {},
                         child: AppText(
                           'Register',
                           style: AppTextStyle.bodyMedium,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sigma_track/core/extensions/navigation_extension.dart';
+
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -35,7 +35,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         next.whenData((state) {
           if (!state.isError && state.message.isNotEmpty) {
             AppToast.success(state.message);
-            context.toLogin();
           } else if (state.isError &&
               state.message.isNotEmpty &&
               previous?.value?.message != state.message) {
@@ -129,9 +128,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          context.toLogin();
-                        },
+                        onTap: () {},
                         child: AppText(
                           'Login',
                           style: AppTextStyle.bodyMedium,

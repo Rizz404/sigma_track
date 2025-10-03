@@ -69,27 +69,6 @@ final isAdminProvider = FutureProvider<bool>((ref) async {
   return user?.role == UserRole.admin;
 });
 
-final routerDelegateProvider = Provider<BeamerDelegate>((ref) {
-  return AppRouter.createRouterDelegate(
-    isAuthenticated: () {
-      final asyncValue = ref.read(isAuthenticatedProvider);
-      return asyncValue.when(
-        data: (isAuth) => isAuth,
-        loading: () => false,
-        error: (_, __) => false,
-      );
-    },
-    isAdmin: () {
-      final asyncValue = ref.read(isAdminProvider);
-      return asyncValue.when(
-        data: (isAdmin) => isAdmin,
-        loading: () => false,
-        error: (_, __) => false,
-      );
-    },
-  );
-});
-
 class LocaleNotifier extends Notifier<Locale> {
   late LanguageStorageService _languageStorageService;
 
