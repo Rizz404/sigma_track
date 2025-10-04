@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class UserStatisticsModel extends Equatable {
   final UserCountStatisticsModel total;
   final UserStatusStatisticsModel byStatus;
@@ -50,15 +52,27 @@ class UserStatisticsModel extends Equatable {
 
   factory UserStatisticsModel.fromMap(Map<String, dynamic> map) {
     return UserStatisticsModel(
-      total: UserCountStatisticsModel.fromMap(map['total']),
-      byStatus: UserStatusStatisticsModel.fromMap(map['byStatus']),
-      byRole: UserRoleStatisticsModel.fromMap(map['byRole']),
-      registrationTrends: List<RegistrationTrendModel>.from(
-        map['registrationTrends']?.map(
-          (x) => RegistrationTrendModel.fromMap(x),
-        ),
+      total: UserCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
       ),
-      summary: UserSummaryStatisticsModel.fromMap(map['summary']),
+      byStatus: UserStatusStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byStatus'),
+      ),
+      byRole: UserRoleStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byRole'),
+      ),
+      registrationTrends: List<RegistrationTrendModel>.from(
+        map
+                .getFieldOrNull<List<dynamic>>('registrationTrends')
+                ?.map(
+                  (x) =>
+                      RegistrationTrendModel.fromMap(x as Map<String, dynamic>),
+                ) ??
+            [],
+      ),
+      summary: UserSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -90,7 +104,9 @@ class UserCountStatisticsModel extends Equatable {
   }
 
   factory UserCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return UserCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return UserCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -127,8 +143,8 @@ class UserStatusStatisticsModel extends Equatable {
 
   factory UserStatusStatisticsModel.fromMap(Map<String, dynamic> map) {
     return UserStatusStatisticsModel(
-      active: map['active']?.toInt() ?? 0,
-      inactive: map['inactive']?.toInt() ?? 0,
+      active: map.getFieldOrNull<int>('active') ?? 0,
+      inactive: map.getFieldOrNull<int>('inactive') ?? 0,
     );
   }
 
@@ -170,9 +186,9 @@ class UserRoleStatisticsModel extends Equatable {
 
   factory UserRoleStatisticsModel.fromMap(Map<String, dynamic> map) {
     return UserRoleStatisticsModel(
-      admin: map['admin']?.toInt() ?? 0,
-      staff: map['staff']?.toInt() ?? 0,
-      employee: map['employee']?.toInt() ?? 0,
+      admin: map.getFieldOrNull<int>('admin') ?? 0,
+      staff: map.getFieldOrNull<int>('staff') ?? 0,
+      employee: map.getFieldOrNull<int>('employee') ?? 0,
     );
   }
 
@@ -208,8 +224,8 @@ class RegistrationTrendModel extends Equatable {
 
   factory RegistrationTrendModel.fromMap(Map<String, dynamic> map) {
     return RegistrationTrendModel(
-      date: DateTime.parse(map['date']),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -305,20 +321,19 @@ class UserSummaryStatisticsModel extends Equatable {
 
   factory UserSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return UserSummaryStatisticsModel(
-      totalUsers: map['totalUsers']?.toInt() ?? 0,
-      activeUsersPercentage: map['activeUsersPercentage']?.toDouble() ?? 0.0,
+      totalUsers: map.getFieldOrNull<int>('totalUsers') ?? 0,
+      activeUsersPercentage:
+          map.getFieldOrNull<double>('activeUsersPercentage') ?? 0.0,
       inactiveUsersPercentage:
-          map['inactiveUsersPercentage']?.toDouble() ?? 0.0,
-      adminPercentage: map['adminPercentage']?.toDouble() ?? 0.0,
-      staffPercentage: map['staffPercentage']?.toDouble() ?? 0.0,
-      employeePercentage: map['employeePercentage']?.toDouble() ?? 0.0,
-      averageUsersPerDay: map['averageUsersPerDay']?.toDouble() ?? 0.0,
-      latestRegistrationDate: DateTime.fromMillisecondsSinceEpoch(
-        map['latestRegistrationDate'],
-      ),
-      earliestRegistrationDate: DateTime.fromMillisecondsSinceEpoch(
-        map['earliestRegistrationDate'],
-      ),
+          map.getFieldOrNull<double>('inactiveUsersPercentage') ?? 0.0,
+      adminPercentage: map.getFieldOrNull<double>('adminPercentage') ?? 0.0,
+      staffPercentage: map.getFieldOrNull<double>('staffPercentage') ?? 0.0,
+      employeePercentage:
+          map.getFieldOrNull<double>('employeePercentage') ?? 0.0,
+      averageUsersPerDay:
+          map.getFieldOrNull<double>('averageUsersPerDay') ?? 0.0,
+      latestRegistrationDate: map.getDateTime('latestRegistrationDate'),
+      earliestRegistrationDate: map.getDateTime('earliestRegistrationDate'),
     );
   }
 

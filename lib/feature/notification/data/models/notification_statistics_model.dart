@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class NotificationStatisticsModel extends Equatable {
   final NotificationCountStatisticsModel total;
   final NotificationTypeStatisticsModel byType;
@@ -48,15 +50,28 @@ class NotificationStatisticsModel extends Equatable {
 
   factory NotificationStatisticsModel.fromMap(Map<String, dynamic> map) {
     return NotificationStatisticsModel(
-      total: NotificationCountStatisticsModel.fromMap(map['total']),
-      byType: NotificationTypeStatisticsModel.fromMap(map['byType']),
-      byStatus: NotificationStatusStatisticsModel.fromMap(map['byStatus']),
-      creationTrends: List<NotificationCreationTrendModel>.from(
-        map['creationTrends']?.map(
-          (x) => NotificationCreationTrendModel.fromMap(x),
-        ),
+      total: NotificationCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
       ),
-      summary: NotificationSummaryStatisticsModel.fromMap(map['summary']),
+      byType: NotificationTypeStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byType'),
+      ),
+      byStatus: NotificationStatusStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byStatus'),
+      ),
+      creationTrends: List<NotificationCreationTrendModel>.from(
+        map
+                .getFieldOrNull<List<dynamic>>('creationTrends')
+                ?.map(
+                  (x) => NotificationCreationTrendModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
+      ),
+      summary: NotificationSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -88,7 +103,9 @@ class NotificationCountStatisticsModel extends Equatable {
   }
 
   factory NotificationCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return NotificationCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return NotificationCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

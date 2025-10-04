@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class CategoryModel extends Equatable {
   final String id;
   final String parentId;
@@ -80,18 +82,30 @@ class CategoryModel extends Equatable {
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] ?? '',
-      parentId: map['parentID'] ?? '',
-      categoryCode: map['categoryCode'] ?? '',
-      categoryName: map['categoryName'] ?? '',
-      description: map['description'] ?? '',
+      id: map.getField<String>('id'),
+      parentId: map.getField<String>('parentID'),
+      categoryCode: map.getField<String>('categoryCode'),
+      categoryName: map.getField<String>('categoryName'),
+      description: map.getField<String>('description'),
       children: List<CategoryModel>.from(
-        map['children']?.map((x) => CategoryModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('children')
+                ?.map(
+                  (x) => CategoryModel.fromMap(x as Map<String, dynamic>),
+                ) ??
+            [],
       ),
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      updatedAt: DateTime.parse(map['updatedAt'] as String),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
       translations: List<CategoryTranslationModel>.from(
-        map['translations']?.map((x) => CategoryTranslationModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => CategoryTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
     );
   }
@@ -143,9 +157,9 @@ class CategoryTranslationModel extends Equatable {
 
   factory CategoryTranslationModel.fromMap(Map<String, dynamic> map) {
     return CategoryTranslationModel(
-      langCode: map['langCode'] ?? '',
-      categoryName: map['categoryName'] ?? '',
-      description: map['description'] ?? '',
+      langCode: map.getField<String>('langCode'),
+      categoryName: map.getField<String>('categoryName'),
+      description: map.getField<String>('description'),
     );
   }
 

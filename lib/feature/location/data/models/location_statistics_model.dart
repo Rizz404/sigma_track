@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class LocationStatisticsModel extends Equatable {
   final LocationCountStatisticsModel total;
   final List<BuildingStatisticsModel> byBuilding;
@@ -60,20 +62,44 @@ class LocationStatisticsModel extends Equatable {
 
   factory LocationStatisticsModel.fromMap(Map<String, dynamic> map) {
     return LocationStatisticsModel(
-      total: LocationCountStatisticsModel.fromMap(map['total']),
+      total: LocationCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
+      ),
       byBuilding: List<BuildingStatisticsModel>.from(
-        map['byBuilding']?.map((x) => BuildingStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byBuilding')
+                ?.map(
+                  (x) => BuildingStatisticsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       byFloor: List<FloorStatisticsModel>.from(
-        map['byFloor']?.map((x) => FloorStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byFloor')
+                ?.map(
+                  (x) =>
+                      FloorStatisticsModel.fromMap(x as Map<String, dynamic>),
+                ) ??
+            [],
       ),
-      geographic: GeographicStatisticsModel.fromMap(map['geographic']),
+      geographic: GeographicStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('geographic'),
+      ),
       creationTrends: List<LocationCreationTrendModel>.from(
-        map['creationTrends']?.map(
-          (x) => LocationCreationTrendModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('creationTrends')
+                ?.map(
+                  (x) => LocationCreationTrendModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
-      summary: LocationSummaryStatisticsModel.fromMap(map['summary']),
+      summary: LocationSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -105,7 +131,9 @@ class LocationCountStatisticsModel extends Equatable {
   }
 
   factory LocationCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return LocationCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return LocationCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

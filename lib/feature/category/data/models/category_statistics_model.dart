@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class CategoryStatisticsModel extends Equatable {
   final CategoryCountStatisticsModel total;
   final CategoryHierarchyStatisticsModel byHierarchy;
@@ -43,14 +45,25 @@ class CategoryStatisticsModel extends Equatable {
 
   factory CategoryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return CategoryStatisticsModel(
-      total: CategoryCountStatisticsModel.fromMap(map['total']),
-      byHierarchy: CategoryHierarchyStatisticsModel.fromMap(map['byHierarchy']),
-      creationTrends: List<CategoryCreationTrendModel>.from(
-        map['creationTrends']?.map(
-          (x) => CategoryCreationTrendModel.fromMap(x),
-        ),
+      total: CategoryCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
       ),
-      summary: CategorySummaryStatisticsModel.fromMap(map['summary']),
+      byHierarchy: CategoryHierarchyStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byHierarchy'),
+      ),
+      creationTrends: List<CategoryCreationTrendModel>.from(
+        map
+                .getFieldOrNull<List<dynamic>>('creationTrends')
+                ?.map(
+                  (x) => CategoryCreationTrendModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
+      ),
+      summary: CategorySummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -82,7 +95,9 @@ class CategoryCountStatisticsModel extends Equatable {
   }
 
   factory CategoryCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return CategoryCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return CategoryCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

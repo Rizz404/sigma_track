@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
@@ -135,39 +136,46 @@ class AssetMovementModel extends Equatable {
 
   factory AssetMovementModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementModel(
-      id: map['id'] as String,
-      assetId: map['assetId'] as String,
-      fromLocationId: map['fromLocationId'] as String?,
-      toLocationId: map['toLocationId'] as String?,
-      fromUserId: map['fromUserId'] as String?,
-      toUserId: map['toUserId'] as String?,
-      movedById: map['movedById'] as String,
-      movementDate: DateTime.fromMillisecondsSinceEpoch(map['movementDate']),
-      notes: map['notes'] as String?,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      id: map.getField<String>('id'),
+      assetId: map.getField<String>('assetId'),
+      fromLocationId: map.getFieldOrNull<String>('fromLocationId'),
+      toLocationId: map.getFieldOrNull<String>('toLocationId'),
+      fromUserId: map.getFieldOrNull<String>('fromUserId'),
+      toUserId: map.getFieldOrNull<String>('toUserId'),
+      movedById: map.getField<String>('movedById'),
+      movementDate: map.getDateTime('movementDate'),
+      notes: map.getFieldOrNull<String>('notes'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
       translations: List<AssetMovementTranslationModel>.from(
-        (map['translations'] as List<dynamic>)
-            .map<AssetMovementTranslationModel>(
-              (x) => AssetMovementTranslationModel.fromMap(
-                x as Map<String, dynamic>,
-              ),
-            ),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map<AssetMovementTranslationModel>(
+                  (x) => AssetMovementTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
-      asset: AssetModel.fromMap(map['asset'] as Map<String, dynamic>),
-      fromLocation: map['fromLocation'] != null
-          ? LocationModel.fromMap(map['fromLocation'] as Map<String, dynamic>)
+      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      fromLocation:
+          map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null
+          ? LocationModel.fromMap(
+              map.getField<Map<String, dynamic>>('fromLocation'),
+            )
           : null,
-      toLocation: map['toLocation'] != null
-          ? LocationModel.fromMap(map['toLocation'] as Map<String, dynamic>)
+      toLocation: map.getFieldOrNull<Map<String, dynamic>>('toLocation') != null
+          ? LocationModel.fromMap(
+              map.getField<Map<String, dynamic>>('toLocation'),
+            )
           : null,
-      fromUser: map['fromUser'] != null
-          ? UserModel.fromMap(map['fromUser'] as Map<String, dynamic>)
+      fromUser: map.getFieldOrNull<Map<String, dynamic>>('fromUser') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('fromUser'))
           : null,
-      toUser: map['toUser'] != null
-          ? UserModel.fromMap(map['toUser'] as Map<String, dynamic>)
+      toUser: map.getFieldOrNull<Map<String, dynamic>>('toUser') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('toUser'))
           : null,
-      movedBy: UserModel.fromMap(map['movedBy'] as Map<String, dynamic>),
+      movedBy: UserModel.fromMap(map.getField<Map<String, dynamic>>('movedBy')),
     );
   }
 
@@ -204,8 +212,8 @@ class AssetMovementTranslationModel extends Equatable {
 
   factory AssetMovementTranslationModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementTranslationModel(
-      langCode: map['langCode'] as String,
-      notes: map['notes'] as String?,
+      langCode: map.getField<String>('langCode'),
+      notes: map.getFieldOrNull<String>('notes'),
     );
   }
 

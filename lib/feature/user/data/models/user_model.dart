@@ -89,7 +89,7 @@ class UserModel extends Equatable {
       'name': name,
       'email': email,
       'fullName': fullName,
-      'role': role.value,
+      'role': role.toString(),
       'employeeId': employeeId,
       'preferredLang': preferredLang,
       'isActive': isActive,

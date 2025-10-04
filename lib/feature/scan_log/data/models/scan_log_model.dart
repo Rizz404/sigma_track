@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class ScanLogModel extends Equatable {
   final String id;
   final String? assetId;
@@ -81,15 +83,15 @@ class ScanLogModel extends Equatable {
 
   factory ScanLogModel.fromMap(Map<String, dynamic> map) {
     return ScanLogModel(
-      id: map['id'] ?? '',
-      assetId: map['assetId'],
-      scannedValue: map['scannedValue'] ?? '',
-      scanMethod: ScanMethodType.fromJson(map['scanMethod']),
-      scannedById: map['scannedById'] ?? '',
-      scanTimestamp: DateTime.fromMillisecondsSinceEpoch(map['scanTimestamp']),
-      scanLocationLat: map['scanLocationLat']?.toDouble(),
-      scanLocationLng: map['scanLocationLng']?.toDouble(),
-      scanResult: ScanResultType.fromJson(map['scanResult']),
+      id: map.getField<String>('id'),
+      assetId: map.getFieldOrNull<String>('assetId'),
+      scannedValue: map.getField<String>('scannedValue'),
+      scanMethod: ScanMethodType.fromJson(map.getField<String>('scanMethod')),
+      scannedById: map.getField<String>('scannedById'),
+      scanTimestamp: map.getDateTime('scanTimestamp'),
+      scanLocationLat: map.getFieldOrNull<double>('scanLocationLat'),
+      scanLocationLng: map.getFieldOrNull<double>('scanLocationLng'),
+      scanResult: ScanResultType.fromJson(map.getField<String>('scanResult')),
     );
   }
 

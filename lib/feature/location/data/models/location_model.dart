@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class LocationModel extends Equatable {
   final String id;
   final String locationName;
@@ -86,17 +88,24 @@ class LocationModel extends Equatable {
 
   factory LocationModel.fromMap(Map<String, dynamic> map) {
     return LocationModel(
-      id: map['id'] ?? '',
-      locationName: map['locationName'] ?? '',
-      locationCode: map['locationCode'] ?? '',
-      building: map['building'],
-      floor: map['floor'],
-      latitude: map['latitude']?.toDouble(),
-      longitude: map['longitude']?.toDouble(),
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      updatedAt: DateTime.parse(map['updatedAt'] as String),
+      id: map.getField<String>('id'),
+      locationName: map.getField<String>('locationName'),
+      locationCode: map.getField<String>('locationCode'),
+      building: map.getFieldOrNull<String>('building'),
+      floor: map.getFieldOrNull<String>('floor'),
+      latitude: map.getFieldOrNull<double>('latitude'),
+      longitude: map.getFieldOrNull<double>('longitude'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
       translations: List<LocationTranslationModel>.from(
-        map['translations']?.map((x) => LocationTranslationModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => LocationTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
     );
   }
@@ -137,8 +146,8 @@ class LocationTranslationModel extends Equatable {
 
   factory LocationTranslationModel.fromMap(Map<String, dynamic> map) {
     return LocationTranslationModel(
-      langCode: map['langCode'] ?? '',
-      locationName: map['locationName'] ?? '',
+      langCode: map.getField<String>('langCode'),
+      locationName: map.getField<String>('locationName'),
     );
   }
 

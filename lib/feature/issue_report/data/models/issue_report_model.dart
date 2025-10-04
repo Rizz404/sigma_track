@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -135,29 +136,38 @@ class IssueReportModel extends Equatable {
 
   factory IssueReportModel.fromMap(Map<String, dynamic> map) {
     return IssueReportModel(
-      id: map['id'] ?? '',
-      assetId: map['assetId'] ?? '',
-      reportedById: map['reportedById'] ?? '',
-      reportedDate: DateTime.fromMillisecondsSinceEpoch(map['reportedDate']),
-      issueType: map['issueType'] ?? '',
-      priority: IssuePriority.fromJson(map['priority']),
-      status: IssueStatus.fromJson(map['status']),
-      resolvedDate: map['resolvedDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['resolvedDate'])
+      id: map.getField<String>('id'),
+      assetId: map.getField<String>('assetId'),
+      reportedById: map.getField<String>('reportedById'),
+      reportedDate: map.getDateTime('reportedDate'),
+      issueType: map.getField<String>('issueType'),
+      priority: IssuePriority.fromJson(map.getField<String>('priority')),
+      status: IssueStatus.fromJson(map.getField<String>('status')),
+      resolvedDate: map.getFieldOrNull<int>('resolvedDate') != null
+          ? map.getDateTime('resolvedDate')
           : null,
-      resolvedById: map['resolvedById'],
-      title: map['title'] ?? '',
-      description: map['description'],
-      resolutionNotes: map['resolutionNotes'],
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      updatedAt: DateTime.parse(map['updatedAt'] as String),
+      resolvedById: map.getFieldOrNull<String>('resolvedById'),
+      title: map.getField<String>('title'),
+      description: map.getFieldOrNull<String>('description'),
+      resolutionNotes: map.getFieldOrNull<String>('resolutionNotes'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
       translations: List<IssueReportTranslationModel>.from(
-        map['translations']?.map((x) => IssueReportTranslationModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => IssueReportTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
-      asset: AssetModel.fromMap(map['asset']),
-      reportedBy: UserModel.fromMap(map['reportedBy']),
-      resolvedBy: map['resolvedBy'] != null
-          ? UserModel.fromMap(map['resolvedBy'])
+      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      reportedBy: UserModel.fromMap(
+        map.getField<Map<String, dynamic>>('reportedBy'),
+      ),
+      resolvedBy: map.getFieldOrNull<Map<String, dynamic>>('resolvedBy') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('resolvedBy'))
           : null,
     );
   }
@@ -214,10 +224,10 @@ class IssueReportTranslationModel extends Equatable {
 
   factory IssueReportTranslationModel.fromMap(Map<String, dynamic> map) {
     return IssueReportTranslationModel(
-      langCode: map['langCode'] ?? '',
-      title: map['title'] ?? '',
-      description: map['description'],
-      resolutionNotes: map['resolutionNotes'],
+      langCode: map.getField<String>('langCode'),
+      title: map.getField<String>('title'),
+      description: map.getFieldOrNull<String>('description'),
+      resolutionNotes: map.getFieldOrNull<String>('resolutionNotes'),
     );
   }
 

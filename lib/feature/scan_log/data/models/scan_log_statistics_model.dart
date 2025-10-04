@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class ScanLogStatisticsModel extends Equatable {
   final ScanLogCountStatisticsModel total;
   final List<ScanMethodStatisticsModel> byMethod;
@@ -67,21 +69,52 @@ class ScanLogStatisticsModel extends Equatable {
 
   factory ScanLogStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanLogStatisticsModel(
-      total: ScanLogCountStatisticsModel.fromMap(map['total']),
+      total: ScanLogCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
+      ),
       byMethod: List<ScanMethodStatisticsModel>.from(
-        map['byMethod']?.map((x) => ScanMethodStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byMethod')
+                ?.map(
+                  (x) => ScanMethodStatisticsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       byResult: List<ScanResultStatisticsModel>.from(
-        map['byResult']?.map((x) => ScanResultStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byResult')
+                ?.map(
+                  (x) => ScanResultStatisticsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
-      geographic: ScanGeographicStatisticsModel.fromMap(map['geographic']),
+      geographic: ScanGeographicStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('geographic'),
+      ),
       scanTrends: List<ScanTrendModel>.from(
-        map['scanTrends']?.map((x) => ScanTrendModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('scanTrends')
+                ?.map(
+                  (x) => ScanTrendModel.fromMap(x as Map<String, dynamic>),
+                ) ??
+            [],
       ),
       topScanners: List<ScannerStatisticsModel>.from(
-        map['topScanners']?.map((x) => ScannerStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('topScanners')
+                ?.map(
+                  (x) =>
+                      ScannerStatisticsModel.fromMap(x as Map<String, dynamic>),
+                ) ??
+            [],
       ),
-      summary: ScanLogSummaryStatisticsModel.fromMap(map['summary']),
+      summary: ScanLogSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -113,7 +146,9 @@ class ScanLogCountStatisticsModel extends Equatable {
   }
 
   factory ScanLogCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return ScanLogCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return ScanLogCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

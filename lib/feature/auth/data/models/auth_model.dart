@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 /// Model untuk authentication state aplikasi
@@ -42,9 +43,11 @@ class AuthModel extends Equatable {
 
   factory AuthModel.fromMap(Map<String, dynamic> map) {
     return AuthModel(
-      user: map['user'] != null ? UserModel.fromMap(map['user']) : null,
-      accessToken: map['accessToken'],
-      refreshToken: map['refreshToken'],
+      user: map.getFieldOrNull<Map<String, dynamic>>('user') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('user'))
+          : null,
+      accessToken: map.getFieldOrNull<String>('accessToken'),
+      refreshToken: map.getFieldOrNull<String>('refreshToken'),
     );
   }
 

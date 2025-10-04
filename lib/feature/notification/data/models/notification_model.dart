@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class NotificationModel extends Equatable {
   final String id;
   final String userId;
@@ -81,18 +83,23 @@ class NotificationModel extends Equatable {
 
   factory NotificationModel.fromMap(Map<String, dynamic> map) {
     return NotificationModel(
-      id: map['id'] ?? '',
-      userId: map['userId'] ?? '',
-      relatedAssetId: map['relatedAssetId'],
-      type: NotificationType.fromJson(map['type']),
-      isRead: map['isRead'] ?? false,
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      title: map['title'] ?? '',
-      message: map['message'] ?? '',
+      id: map.getField<String>('id'),
+      userId: map.getField<String>('userId'),
+      relatedAssetId: map.getFieldOrNull<String>('relatedAssetId'),
+      type: NotificationType.fromJson(map.getField<String>('type')),
+      isRead: map.getFieldOrNull<bool>('isRead') ?? false,
+      createdAt: map.getDateTime('createdAt'),
+      title: map.getField<String>('title'),
+      message: map.getField<String>('message'),
       translations: List<NotificationTranslationModel>.from(
-        map['translations']?.map(
-          (x) => NotificationTranslationModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => NotificationTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
     );
   }
@@ -140,9 +147,9 @@ class NotificationTranslationModel extends Equatable {
 
   factory NotificationTranslationModel.fromMap(Map<String, dynamic> map) {
     return NotificationTranslationModel(
-      langCode: map['langCode'] ?? '',
-      title: map['title'] ?? '',
-      message: map['message'] ?? '',
+      langCode: map.getField<String>('langCode'),
+      title: map.getField<String>('title'),
+      message: map.getField<String>('message'),
     );
   }
 

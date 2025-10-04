@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/category/data/models/category_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
@@ -156,36 +157,40 @@ class AssetModel extends Equatable {
 
   factory AssetModel.fromMap(Map<String, dynamic> map) {
     return AssetModel(
-      id: map['id'] ?? '',
-      assetTag: map['assetTag'] ?? '',
-      dataMatrixImageUrl: map['dataMatrixImageUrl'] ?? '',
-      assetName: map['assetName'] ?? '',
-      categoryId: map['categoryId'] ?? '',
-      brand: map['brand'],
-      model: map['model'],
-      serialNumber: map['serialNumber'],
-      purchaseDate: map['purchaseDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['purchaseDate'])
+      id: map.getField<String>('id'),
+      assetTag: map.getField<String>('assetTag'),
+      dataMatrixImageUrl: map.getField<String>('dataMatrixImageUrl'),
+      assetName: map.getField<String>('assetName'),
+      categoryId: map.getField<String>('categoryId'),
+      brand: map.getFieldOrNull<String>('brand'),
+      model: map.getFieldOrNull<String>('model'),
+      serialNumber: map.getFieldOrNull<String>('serialNumber'),
+      purchaseDate: map.getFieldOrNull<int>('purchaseDate') != null
+          ? map.getDateTime('purchaseDate')
           : null,
-      purchasePrice: map['purchasePrice']?.toDouble(),
-      vendorName: map['vendorName'],
-      warrantyEnd: map['warrantyEnd'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['warrantyEnd'])
+      purchasePrice: map.getFieldOrNull<double>('purchasePrice'),
+      vendorName: map.getFieldOrNull<String>('vendorName'),
+      warrantyEnd: map.getFieldOrNull<int>('warrantyEnd') != null
+          ? map.getDateTime('warrantyEnd')
           : null,
-      status: AssetStatus.fromJson(map['status']),
-      condition: AssetCondition.fromJson(map['condition']),
-      locationId: map['locationId'],
-      assignedToId: map['assignedToId'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
-      category: map['category'] != null
-          ? CategoryModel.fromMap(map['category'])
+      status: AssetStatus.fromJson(map.getField<String>('status')),
+      condition: AssetCondition.fromJson(map.getField<String>('condition')),
+      locationId: map.getFieldOrNull<String>('locationId'),
+      assignedToId: map.getFieldOrNull<String>('assignedToId'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
+      category: map.getFieldOrNull<Map<String, dynamic>>('category') != null
+          ? CategoryModel.fromMap(
+              map.getField<Map<String, dynamic>>('category'),
+            )
           : null,
-      location: map['location'] != null
-          ? LocationModel.fromMap(map['location'])
+      location: map.getFieldOrNull<Map<String, dynamic>>('location') != null
+          ? LocationModel.fromMap(
+              map.getField<Map<String, dynamic>>('location'),
+            )
           : null,
-      assignedTo: map['assignedTo'] != null
-          ? UserModel.fromMap(map['assignedTo'])
+      assignedTo: map.getFieldOrNull<Map<String, dynamic>>('assignedTo') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('assignedTo'))
           : null,
     );
   }

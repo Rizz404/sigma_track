@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -36,9 +37,9 @@ class MaintenanceRecordTranslationModel extends Equatable {
 
   factory MaintenanceRecordTranslationModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceRecordTranslationModel(
-      langCode: map['langCode'] ?? '',
-      title: map['title'] ?? '',
-      notes: map['notes'],
+      langCode: map.getField<String>('langCode'),
+      title: map.getField<String>('title'),
+      notes: map.getFieldOrNull<String>('notes'),
     );
   }
 
@@ -69,7 +70,7 @@ class MaintenanceScheduleModel extends Equatable {
   }
 
   factory MaintenanceScheduleModel.fromMap(Map<String, dynamic> map) {
-    return MaintenanceScheduleModel(id: map['id'] ?? '');
+    return MaintenanceScheduleModel(id: map.getField<String>('id'));
   }
 
   String toJson() => json.encode(toMap());
@@ -193,30 +194,38 @@ class MaintenanceRecordModel extends Equatable {
 
   factory MaintenanceRecordModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceRecordModel(
-      id: map['id'] ?? '',
-      scheduleId: map['scheduleId'],
-      assetId: map['assetId'] ?? '',
-      maintenanceDate: DateTime.fromMillisecondsSinceEpoch(
-        map['maintenanceDate'],
-      ),
-      performedByUserId: map['performedByUserId'],
-      performedByVendor: map['performedByVendor'],
-      actualCost: map['actualCost']?.toDouble(),
-      title: map['title'] ?? '',
-      notes: map['notes'],
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      updatedAt: DateTime.parse(map['updatedAt'] as String),
+      id: map.getField<String>('id'),
+      scheduleId: map.getFieldOrNull<String>('scheduleId'),
+      assetId: map.getField<String>('assetId'),
+      maintenanceDate: map.getDateTime('maintenanceDate'),
+      performedByUserId: map.getFieldOrNull<String>('performedByUserId'),
+      performedByVendor: map.getFieldOrNull<String>('performedByVendor'),
+      actualCost: map.getFieldOrNull<double>('actualCost'),
+      title: map.getField<String>('title'),
+      notes: map.getFieldOrNull<String>('notes'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
       translations: List<MaintenanceRecordTranslationModel>.from(
-        map['translations']?.map(
-          (x) => MaintenanceRecordTranslationModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => MaintenanceRecordTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
-      schedule: map['schedule'] != null
-          ? MaintenanceScheduleModel.fromMap(map['schedule'])
+      schedule: map.getFieldOrNull<Map<String, dynamic>>('schedule') != null
+          ? MaintenanceScheduleModel.fromMap(
+              map.getField<Map<String, dynamic>>('schedule'),
+            )
           : null,
-      asset: AssetModel.fromMap(map['asset']),
-      performedByUser: map['performedByUser'] != null
-          ? UserModel.fromMap(map['performedByUser'])
+      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      performedByUser:
+          map.getFieldOrNull<Map<String, dynamic>>('performedByUser') != null
+          ? UserModel.fromMap(
+              map.getField<Map<String, dynamic>>('performedByUser'),
+            )
           : null,
     );
   }

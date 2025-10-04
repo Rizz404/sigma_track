@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -27,9 +28,9 @@ class MaintenanceScheduleTranslationModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceScheduleTranslationModel(
-      langCode: map['langCode'] ?? '',
-      title: map['title'] ?? '',
-      description: map['description'],
+      langCode: map.getField<String>('langCode'),
+      title: map.getField<String>('title'),
+      description: map.getFieldOrNull<String>('description'),
     );
   }
 
@@ -107,23 +108,32 @@ class MaintenanceScheduleModel extends Equatable {
 
   factory MaintenanceScheduleModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceScheduleModel(
-      id: map['id'] ?? '',
-      assetId: map['assetId'] ?? '',
-      maintenanceType: MaintenanceScheduleType.fromJson(map['maintenanceType']),
-      scheduledDate: DateTime.fromMillisecondsSinceEpoch(map['scheduledDate']),
-      frequencyMonths: map['frequencyMonths']?.toInt(),
-      status: ScheduleStatus.fromJson(map['status']),
-      createdById: map['createdById'] ?? '',
-      createdAt: DateTime.parse(map['createdAt'] as String),
-      title: map['title'] ?? '',
-      description: map['description'],
-      translations: List<MaintenanceScheduleTranslationModel>.from(
-        map['translations']?.map(
-          (x) => MaintenanceScheduleTranslationModel.fromMap(x),
-        ),
+      id: map.getField<String>('id'),
+      assetId: map.getField<String>('assetId'),
+      maintenanceType: MaintenanceScheduleType.fromJson(
+        map.getField<String>('maintenanceType'),
       ),
-      asset: AssetModel.fromMap(map['asset']),
-      createdBy: UserModel.fromMap(map['createdBy']),
+      scheduledDate: map.getDateTime('scheduledDate'),
+      frequencyMonths: map.getFieldOrNull<int>('frequencyMonths'),
+      status: ScheduleStatus.fromJson(map.getField<String>('status')),
+      createdById: map.getField<String>('createdById'),
+      createdAt: map.getDateTime('createdAt'),
+      title: map.getField<String>('title'),
+      description: map.getFieldOrNull<String>('description'),
+      translations: List<MaintenanceScheduleTranslationModel>.from(
+        map
+                .getFieldOrNull<List<dynamic>>('translations')
+                ?.map(
+                  (x) => MaintenanceScheduleTranslationModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
+      ),
+      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      createdBy: UserModel.fromMap(
+        map.getField<Map<String, dynamic>>('createdBy'),
+      ),
     );
   }
 

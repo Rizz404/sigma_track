@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 /// Model untuk response API login
@@ -39,9 +40,9 @@ class LoginResponseModel extends Equatable {
 
   factory LoginResponseModel.fromMap(Map<String, dynamic> map) {
     return LoginResponseModel(
-      user: UserModel.fromMap(map['user']),
-      accessToken: map['accessToken'] ?? '',
-      refreshToken: map['refreshToken'] ?? '',
+      user: UserModel.fromMap(map.getField<Map<String, dynamic>>('user')),
+      accessToken: map.getField<String>('accessToken'),
+      refreshToken: map.getField<String>('refreshToken'),
     );
   }
 
