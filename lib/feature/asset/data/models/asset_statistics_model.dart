@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/category/data/models/category_statistics_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_statistics_model.dart';
 
@@ -86,26 +87,45 @@ class AssetStatisticsModel extends Equatable {
 
   factory AssetStatisticsModel.fromMap(Map<String, dynamic> map) {
     return AssetStatisticsModel(
-      total: AssetCountStatisticsModel.fromMap(map['total']),
-      byStatus: AssetStatusStatisticsModel.fromMap(map['byStatus']),
-      byCondition: AssetConditionStatisticsModel.fromMap(map['byCondition']),
+      total: AssetCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
+      ),
+      byStatus: AssetStatusStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byStatus'),
+      ),
+      byCondition: AssetConditionStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byCondition'),
+      ),
       byCategory: List<CategoryStatisticsModel>.from(
-        map['byCategory']?.map((x) => CategoryStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byCategory')
+                ?.map((x) => CategoryStatisticsModel.fromMap(x)) ??
+            [],
       ),
       byLocation: List<LocationStatisticsModel>.from(
-        map['byLocation']?.map((x) => LocationStatisticsModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('byLocation')
+                ?.map((x) => LocationStatisticsModel.fromMap(x)) ??
+            [],
       ),
-      byAssignment: AssetAssignmentStatisticsModel.fromMap(map['byAssignment']),
+      byAssignment: AssetAssignmentStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byAssignment'),
+      ),
       valueStatistics: AssetValueStatisticsModel.fromMap(
-        map['valueStatistics'],
+        map.getField<Map<String, dynamic>>('valueStatistics'),
       ),
       warrantyStatistics: AssetWarrantyStatisticsModel.fromMap(
-        map['warrantyStatistics'],
+        map.getField<Map<String, dynamic>>('warrantyStatistics'),
       ),
       creationTrends: List<AssetCreationTrendModel>.from(
-        map['creationTrends']?.map((x) => AssetCreationTrendModel.fromMap(x)),
+        map
+                .getFieldOrNull<List<dynamic>>('creationTrends')
+                ?.map((x) => AssetCreationTrendModel.fromMap(x)) ??
+            [],
       ),
-      summary: AssetSummaryStatisticsModel.fromMap(map['summary']),
+      summary: AssetSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 

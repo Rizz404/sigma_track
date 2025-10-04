@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class PaginationInfo extends Equatable {
   final int total;
   final int perPage;
@@ -50,12 +52,12 @@ class PaginationInfo extends Equatable {
 
   factory PaginationInfo.fromMap(Map<String, dynamic> map) {
     return PaginationInfo(
-      total: map['total']?.toInt() ?? 0,
-      perPage: map['perPage']?.toInt() ?? 0,
-      currentPage: map['currentPage']?.toInt() ?? 0,
-      totalPages: map['totalPages']?.toInt() ?? 0,
-      hasPrevPage: map['hasPrevPage'] ?? false,
-      hasNextPage: map['hasNextPage'] ?? false,
+      total: map.getFieldOrNull<int>('total') ?? 0,
+      perPage: map.getFieldOrNull<int>('perPage') ?? 0,
+      currentPage: map.getFieldOrNull<int>('currentPage') ?? 0,
+      totalPages: map.getFieldOrNull<int>('totalPages') ?? 0,
+      hasPrevPage: map.getFieldOrNull<bool>('hasPrevPage') ?? false,
+      hasNextPage: map.getFieldOrNull<bool>('hasNextPage') ?? false,
     );
   }
 

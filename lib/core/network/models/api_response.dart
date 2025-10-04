@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class ApiResponse<T> extends Equatable {
   final String status;
   final String message;
@@ -25,10 +27,8 @@ class ApiResponse<T> extends Equatable {
     T Function(dynamic json)? fromJsonT,
   ) {
     return ApiResponse<T>(
-      status: (map['status'] as String?) ?? 'unknown',
-      message: map['message'] is String
-          ? map['message']
-          : (map['message']?.toString() ?? 'Unknown message'),
+      status: map.getFieldOrNull<String>('status') ?? 'unknown',
+      message: map.getFieldOrNull<String>('message') ?? 'Unknown message',
       data: fromJsonT != null ? fromJsonT(map['data']) : map['data'] as T,
     );
   }

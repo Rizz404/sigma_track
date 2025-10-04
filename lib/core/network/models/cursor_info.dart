@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class CursorInfo extends Equatable {
   final String nextCursor;
   final bool hasNextPage;
@@ -31,9 +33,9 @@ class CursorInfo extends Equatable {
 
   factory CursorInfo.fromMap(Map<String, dynamic> map) {
     return CursorInfo(
-      nextCursor: map['nextCursor'] ?? '',
-      hasNextPage: map['hasNextPage'] ?? false,
-      perPage: map['perPage']?.toInt() ?? 0,
+      nextCursor: map.getFieldOrNull<String>('nextCursor') ?? '',
+      hasNextPage: map.getFieldOrNull<bool>('hasNextPage') ?? false,
+      perPage: map.getFieldOrNull<int>('perPage') ?? 0,
     );
   }
 

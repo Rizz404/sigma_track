@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class ApiErrorResponse extends Equatable {
   final String status;
   final String message;
@@ -39,8 +41,8 @@ class ApiErrorResponse extends Equatable {
     final errorList = map['errors'] ?? map['error'];
 
     return ApiErrorResponse(
-      status: map['status'] ?? '',
-      message: map['message'] ?? '',
+      status: map.getFieldOrNull<String>('status') ?? '',
+      message: map.getFieldOrNull<String>('message') ?? '',
       errors: errorList != null
           ? List<ApiValidationError>.from(
               errorList?.map((x) => ApiValidationError.fromMap(x)),
@@ -95,10 +97,10 @@ class ApiValidationError extends Equatable {
 
   factory ApiValidationError.fromMap(Map<String, dynamic> map) {
     return ApiValidationError(
-      field: map['field'] ?? '',
-      tag: map['tag'] ?? '',
-      value: map['value'] ?? '',
-      message: map['message'] ?? '',
+      field: map.getFieldOrNull<String>('field') ?? '',
+      tag: map.getFieldOrNull<String>('tag') ?? '',
+      value: map.getFieldOrNull<String>('value') ?? '',
+      message: map.getFieldOrNull<String>('message') ?? '',
     );
   }
 

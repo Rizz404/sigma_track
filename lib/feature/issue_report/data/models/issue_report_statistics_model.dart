@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class IssueReportStatisticsModel extends Equatable {
   final IssueReportCountStatisticsModel total;
   final IssueReportPriorityStatisticsModel byPriority;
@@ -42,16 +44,27 @@ class IssueReportStatisticsModel extends Equatable {
 
   factory IssueReportStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportStatisticsModel(
-      total: IssueReportCountStatisticsModel.fromMap(map['total']),
-      byPriority: IssueReportPriorityStatisticsModel.fromMap(map['byPriority']),
-      byStatus: IssueReportStatusStatisticsModel.fromMap(map['byStatus']),
-      byType: IssueReportTypeStatisticsModel.fromMap(map['byType']),
-      creationTrends: List<IssueReportCreationTrendModel>.from(
-        map['creationTrends']?.map(
-          (x) => IssueReportCreationTrendModel.fromMap(x),
-        ),
+      total: IssueReportCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
       ),
-      summary: IssueReportSummaryStatisticsModel.fromMap(map['summary']),
+      byPriority: IssueReportPriorityStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byPriority'),
+      ),
+      byStatus: IssueReportStatusStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byStatus'),
+      ),
+      byType: IssueReportTypeStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byType'),
+      ),
+      creationTrends: List<IssueReportCreationTrendModel>.from(
+        map
+                .getFieldOrNull<List<dynamic>>('creationTrends')
+                ?.map((x) => IssueReportCreationTrendModel.fromMap(x)) ??
+            [],
+      ),
+      summary: IssueReportSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -74,7 +87,9 @@ class IssueReportCountStatisticsModel extends Equatable {
   }
 
   factory IssueReportCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return IssueReportCountStatisticsModel(count: map['count']?.toInt() ?? 0);
+    return IssueReportCountStatisticsModel(
+      count: map.getFieldOrNull<int>('count') ?? 0,
+    );
   }
 
   String toJson() => json.encode(toMap());

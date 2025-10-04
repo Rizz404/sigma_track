@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
 class MaintenanceScheduleStatisticsModel extends Equatable {
   final MaintenanceScheduleCountStatisticsModel total;
@@ -55,38 +56,51 @@ class MaintenanceScheduleStatisticsModel extends Equatable {
 
   factory MaintenanceScheduleStatisticsModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceScheduleStatisticsModel(
-      total: MaintenanceScheduleCountStatisticsModel.fromMap(map['total']),
-      byType: MaintenanceTypeStatisticsModel.fromMap(map['byType']),
+      total: MaintenanceScheduleCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
+      ),
+      byType: MaintenanceTypeStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('byType'),
+      ),
       byStatus: MaintenanceScheduleStatusStatisticsModel.fromMap(
-        map['byStatus'],
+        map.getField<Map<String, dynamic>>('byStatus'),
       ),
       byAsset: List<AssetMaintenanceScheduleStatisticsModel>.from(
-        map['byAsset']?.map(
-          (x) => AssetMaintenanceScheduleStatisticsModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byAsset')
+                ?.map(
+                  (x) => AssetMaintenanceScheduleStatisticsModel.fromMap(x),
+                ) ??
+            [],
       ),
       byCreator: List<UserMaintenanceScheduleStatisticsModel>.from(
-        map['byCreator']?.map(
-          (x) => UserMaintenanceScheduleStatisticsModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byCreator')
+                ?.map(
+                  (x) => UserMaintenanceScheduleStatisticsModel.fromMap(x),
+                ) ??
+            [],
       ),
       upcomingSchedule: List<UpcomingMaintenanceScheduleModel>.from(
-        map['upcomingSchedule']?.map(
-          (x) => UpcomingMaintenanceScheduleModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('upcomingSchedule')
+                ?.map((x) => UpcomingMaintenanceScheduleModel.fromMap(x)) ??
+            [],
       ),
       overdueSchedule: List<OverdueMaintenanceScheduleModel>.from(
-        map['overdueSchedule']?.map(
-          (x) => OverdueMaintenanceScheduleModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('overdueSchedule')
+                ?.map((x) => OverdueMaintenanceScheduleModel.fromMap(x)) ??
+            [],
       ),
       frequencyTrends: List<MaintenanceFrequencyTrendModel>.from(
-        map['frequencyTrends']?.map(
-          (x) => MaintenanceFrequencyTrendModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('frequencyTrends')
+                ?.map((x) => MaintenanceFrequencyTrendModel.fromMap(x)) ??
+            [],
       ),
       summary: MaintenanceScheduleSummaryStatisticsModel.fromMap(
-        map['summary'],
+        map.getField<Map<String, dynamic>>('summary'),
       ),
     );
   }

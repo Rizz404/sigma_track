@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+
 class AssetMovementCountStatisticsModel {
   final int count;
 
@@ -14,7 +16,7 @@ class AssetMovementCountStatisticsModel {
   }
 
   factory AssetMovementCountStatisticsModel.fromMap(Map<String, dynamic> map) {
-    return AssetMovementCountStatisticsModel(count: map['count'] as int);
+    return AssetMovementCountStatisticsModel(count: map.getField<int>('count'));
   }
 
   String toJson() => jsonEncode(toMap());
@@ -61,10 +63,10 @@ class AssetMovementByAssetStatsModel {
 
   factory AssetMovementByAssetStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByAssetStatsModel(
-      assetId: map['assetId'] as String,
-      assetTag: map['assetTag'] as String,
-      assetName: map['assetName'] as String,
-      movementCount: map['movementCount'] as int,
+      assetId: map.getField<String>('assetId'),
+      assetTag: map.getField<String>('assetTag'),
+      assetName: map.getField<String>('assetName'),
+      movementCount: map.getField<int>('movementCount'),
     );
   }
 
@@ -122,12 +124,12 @@ class AssetMovementByLocationStatsModel {
 
   factory AssetMovementByLocationStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByLocationStatsModel(
-      locationId: map['locationId'] as String,
-      locationCode: map['locationCode'] as String,
-      locationName: map['locationName'] as String,
-      incomingCount: map['incomingCount'] as int,
-      outgoingCount: map['outgoingCount'] as int,
-      netMovement: map['netMovement'] as int,
+      locationId: map.getField<String>('locationId'),
+      locationCode: map.getField<String>('locationCode'),
+      locationName: map.getField<String>('locationName'),
+      incomingCount: map.getField<int>('incomingCount'),
+      outgoingCount: map.getField<int>('outgoingCount'),
+      netMovement: map.getField<int>('netMovement'),
     );
   }
 
@@ -170,9 +172,9 @@ class AssetMovementByUserStatsModel {
 
   factory AssetMovementByUserStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementByUserStatsModel(
-      userId: map['userId'] as String,
-      userName: map['userName'] as String,
-      movementCount: map['movementCount'] as int,
+      userId: map.getField<String>('userId'),
+      userName: map.getField<String>('userName'),
+      movementCount: map.getField<int>('movementCount'),
     );
   }
 
@@ -225,11 +227,11 @@ class AssetMovementTypeStatisticsModel {
 
   factory AssetMovementTypeStatisticsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementTypeStatisticsModel(
-      locationToLocation: map['locationToLocation'] as int,
-      locationToUser: map['locationToUser'] as int,
-      userToLocation: map['userToLocation'] as int,
-      userToUser: map['userToUser'] as int,
-      newAsset: map['newAsset'] as int,
+      locationToLocation: map.getField<int>('locationToLocation'),
+      locationToUser: map.getField<int>('locationToUser'),
+      userToLocation: map.getField<int>('userToLocation'),
+      userToUser: map.getField<int>('userToUser'),
+      newAsset: map.getField<int>('newAsset'),
     );
   }
 
@@ -307,16 +309,16 @@ class AssetMovementRecentStatsModel {
 
   factory AssetMovementRecentStatsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementRecentStatsModel(
-      id: map['id'] as String,
-      assetTag: map['assetTag'] as String,
-      assetName: map['assetName'] as String,
-      fromLocation: map['fromLocation'] as String?,
-      toLocation: map['toLocation'] as String?,
-      fromUser: map['fromUser'] as String?,
-      toUser: map['toUser'] as String?,
-      movedBy: map['movedBy'] as String,
-      movementDate: DateTime.parse(map['movementDate'] as String),
-      movementType: map['movementType'] as String,
+      id: map.getField<String>('id'),
+      assetTag: map.getField<String>('assetTag'),
+      assetName: map.getField<String>('assetName'),
+      fromLocation: map.getFieldOrNull<String>('fromLocation'),
+      toLocation: map.getFieldOrNull<String>('toLocation'),
+      fromUser: map.getFieldOrNull<String>('fromUser'),
+      toUser: map.getFieldOrNull<String>('toUser'),
+      movedBy: map.getField<String>('movedBy'),
+      movementDate: map.getDateTime('movementDate'),
+      movementType: map.getField<String>('movementType'),
     );
   }
 
@@ -345,8 +347,8 @@ class AssetMovementTrendModel {
 
   factory AssetMovementTrendModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementTrendModel(
-      date: map['date'] as String,
-      count: map['count'] as int,
+      date: map.getField<String>('date'),
+      count: map.getField<int>('count'),
     );
   }
 
@@ -450,22 +452,22 @@ class AssetMovementSummaryStatisticsModel {
     Map<String, dynamic> map,
   ) {
     return AssetMovementSummaryStatisticsModel(
-      totalMovements: map['totalMovements'] as int,
-      movementsToday: map['movementsToday'] as int,
-      movementsThisWeek: map['movementsThisWeek'] as int,
-      movementsThisMonth: map['movementsThisMonth'] as int,
-      mostActiveAsset: map['mostActiveAsset'] as String,
-      mostActiveLocation: map['mostActiveLocation'] as String,
-      mostActiveUser: map['mostActiveUser'] as String,
-      averageMovementsPerDay: map['averageMovementsPerDay'] as double,
-      averageMovementsPerAsset: map['averageMovementsPerAsset'] as double,
-      latestMovementDate: DateTime.parse(map['latestMovementDate'] as String),
-      earliestMovementDate: DateTime.parse(
-        map['earliestMovementDate'] as String,
+      totalMovements: map.getField<int>('totalMovements'),
+      movementsToday: map.getField<int>('movementsToday'),
+      movementsThisWeek: map.getField<int>('movementsThisWeek'),
+      movementsThisMonth: map.getField<int>('movementsThisMonth'),
+      mostActiveAsset: map.getField<String>('mostActiveAsset'),
+      mostActiveLocation: map.getField<String>('mostActiveLocation'),
+      mostActiveUser: map.getField<String>('mostActiveUser'),
+      averageMovementsPerDay: map.getField<double>('averageMovementsPerDay'),
+      averageMovementsPerAsset: map.getField<double>(
+        'averageMovementsPerAsset',
       ),
-      uniqueAssetsWithMovements: map['uniqueAssetsWithMovements'] as int,
-      uniqueLocationsInvolved: map['uniqueLocationsInvolved'] as int,
-      uniqueUsersInvolved: map['uniqueUsersInvolved'] as int,
+      latestMovementDate: map.getDateTime('latestMovementDate'),
+      earliestMovementDate: map.getDateTime('earliestMovementDate'),
+      uniqueAssetsWithMovements: map.getField<int>('uniqueAssetsWithMovements'),
+      uniqueLocationsInvolved: map.getField<int>('uniqueLocationsInvolved'),
+      uniqueUsersInvolved: map.getField<int>('uniqueUsersInvolved'),
     );
   }
 
@@ -534,46 +536,63 @@ class AssetMovementStatisticsModel {
   factory AssetMovementStatisticsModel.fromMap(Map<String, dynamic> map) {
     return AssetMovementStatisticsModel(
       total: AssetMovementCountStatisticsModel.fromMap(
-        map['total'] as Map<String, dynamic>,
+        map.getField<Map<String, dynamic>>('total'),
       ),
       byAsset: List<AssetMovementByAssetStatsModel>.from(
-        (map['byAsset'] as List<dynamic>).map<AssetMovementByAssetStatsModel>(
-          (x) =>
-              AssetMovementByAssetStatsModel.fromMap(x as Map<String, dynamic>),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byAsset')
+                ?.map<AssetMovementByAssetStatsModel>(
+                  (x) => AssetMovementByAssetStatsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       byLocation: List<AssetMovementByLocationStatsModel>.from(
-        (map['byLocation'] as List<dynamic>)
-            .map<AssetMovementByLocationStatsModel>(
-              (x) => AssetMovementByLocationStatsModel.fromMap(
-                x as Map<String, dynamic>,
-              ),
-            ),
+        map
+                .getFieldOrNull<List<dynamic>>('byLocation')
+                ?.map<AssetMovementByLocationStatsModel>(
+                  (x) => AssetMovementByLocationStatsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       byUser: List<AssetMovementByUserStatsModel>.from(
-        (map['byUser'] as List<dynamic>).map<AssetMovementByUserStatsModel>(
-          (x) =>
-              AssetMovementByUserStatsModel.fromMap(x as Map<String, dynamic>),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byUser')
+                ?.map<AssetMovementByUserStatsModel>(
+                  (x) => AssetMovementByUserStatsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       byMovementType: AssetMovementTypeStatisticsModel.fromMap(
-        map['byMovementType'] as Map<String, dynamic>,
+        map.getField<Map<String, dynamic>>('byMovementType'),
       ),
       recentMovements: List<AssetMovementRecentStatsModel>.from(
-        (map['recentMovements'] as List<dynamic>)
-            .map<AssetMovementRecentStatsModel>(
-              (x) => AssetMovementRecentStatsModel.fromMap(
-                x as Map<String, dynamic>,
-              ),
-            ),
+        map
+                .getFieldOrNull<List<dynamic>>('recentMovements')
+                ?.map<AssetMovementRecentStatsModel>(
+                  (x) => AssetMovementRecentStatsModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       movementTrends: List<AssetMovementTrendModel>.from(
-        (map['movementTrends'] as List<dynamic>).map<AssetMovementTrendModel>(
-          (x) => AssetMovementTrendModel.fromMap(x as Map<String, dynamic>),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('movementTrends')
+                ?.map<AssetMovementTrendModel>(
+                  (x) => AssetMovementTrendModel.fromMap(
+                    x as Map<String, dynamic>,
+                  ),
+                ) ??
+            [],
       ),
       summary: AssetMovementSummaryStatisticsModel.fromMap(
-        map['summary'] as Map<String, dynamic>,
+        map.getField<Map<String, dynamic>>('summary'),
       ),
     );
   }

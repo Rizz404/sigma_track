@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/core/network/models/pagination_info.dart';
 
@@ -19,10 +20,8 @@ class ApiOffsetPaginationResponse<T> extends ApiResponse<List<T>>
     T Function(dynamic json) fromJsonT,
   ) {
     return ApiOffsetPaginationResponse<T>(
-      status: (map['status'] as String?) ?? 'unknown',
-      message: map['message'] is String
-          ? map['message']
-          : (map['message']?.toString() ?? 'Unknown message'),
+      status: map.getFieldOrNull<String>('status') ?? 'unknown',
+      message: map.getFieldOrNull<String>('message') ?? 'Unknown message',
       data: (map['data'] as List<dynamic>)
           .map((item) => fromJsonT(item))
           .toList(),
