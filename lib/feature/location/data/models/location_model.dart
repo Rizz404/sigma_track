@@ -93,8 +93,8 @@ class LocationModel extends Equatable {
       floor: map['floor'],
       latitude: map['latitude']?.toDouble(),
       longitude: map['longitude']?.toDouble(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
+      updatedAt: DateTime.parse(map['updatedAt'] as String),
       translations: List<LocationTranslationModel>.from(
         map['translations']?.map((x) => LocationTranslationModel.fromMap(x)),
       ),

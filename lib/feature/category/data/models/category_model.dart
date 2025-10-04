@@ -88,8 +88,8 @@ class CategoryModel extends Equatable {
       children: List<CategoryModel>.from(
         map['children']?.map((x) => CategoryModel.fromMap(x)),
       ),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
+      updatedAt: DateTime.parse(map['updatedAt'] as String),
       translations: List<CategoryTranslationModel>.from(
         map['translations']?.map((x) => CategoryTranslationModel.fromMap(x)),
       ),

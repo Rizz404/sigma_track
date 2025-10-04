@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
 class UserModel extends Equatable {
   final String id;
@@ -15,6 +16,7 @@ class UserModel extends Equatable {
   final String preferredLang;
   final bool isActive;
   final String? avatarUrl;
+  final String? fcmToken;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -28,6 +30,7 @@ class UserModel extends Equatable {
     required this.preferredLang,
     required this.isActive,
     required this.avatarUrl,
+    this.fcmToken,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -44,6 +47,7 @@ class UserModel extends Equatable {
       preferredLang,
       isActive,
       avatarUrl,
+      fcmToken,
       createdAt,
       updatedAt,
     ];
@@ -59,6 +63,7 @@ class UserModel extends Equatable {
     String? preferredLang,
     bool? isActive,
     ValueGetter<String?>? avatarUrl,
+    ValueGetter<String?>? fcmToken,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -72,6 +77,7 @@ class UserModel extends Equatable {
       preferredLang: preferredLang ?? this.preferredLang,
       isActive: isActive ?? this.isActive,
       avatarUrl: avatarUrl != null ? avatarUrl() : this.avatarUrl,
+      fcmToken: fcmToken != null ? fcmToken() : this.fcmToken,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -83,29 +89,31 @@ class UserModel extends Equatable {
       'name': name,
       'email': email,
       'fullName': fullName,
-      'role': role.value,
+      'role': role.toMap(),
       'employeeId': employeeId,
       'preferredLang': preferredLang,
       'isActive': isActive,
       'avatarUrl': avatarUrl,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'FCMToken': fcmToken,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      fullName: map['fullName'] ?? '',
-      role: UserRole.fromString(map['role']),
-      employeeId: map['employeeId'],
-      preferredLang: map['preferredLang'] ?? '',
-      isActive: map['isActive'] ?? false,
-      avatarUrl: map['avatarUrl'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
+      id: map.getField<String>('id'),
+      name: map.getField<String>('name'),
+      email: map.getField<String>('email'),
+      fullName: map.getField<String>('fullName'),
+      role: UserRole.fromString(map.getField<String>('role')),
+      employeeId: map.getFieldOrNull<String>('employeeId'),
+      preferredLang: map.getField<String>('preferredLang'),
+      isActive: map.getField<bool>('isActive'),
+      avatarUrl: map.getFieldOrNull<String>('avatarUrl'),
+      fcmToken: map.getFieldOrNull<String>('FCMToken'),
+      createdAt: map.getDateTime('createdAt'),
+      updatedAt: map.getDateTime('updatedAt'),
     );
   }
 
@@ -116,6 +124,6 @@ class UserModel extends Equatable {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(id: $id, name: $name, email: $email, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, fcmToken: $fcmToken, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }

@@ -149,8 +149,8 @@ class IssueReportModel extends Equatable {
       title: map['title'] ?? '',
       description: map['description'],
       resolutionNotes: map['resolutionNotes'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
+      updatedAt: DateTime.parse(map['updatedAt'] as String),
       translations: List<IssueReportTranslationModel>.from(
         map['translations']?.map((x) => IssueReportTranslationModel.fromMap(x)),
       ),

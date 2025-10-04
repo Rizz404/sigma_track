@@ -6,15 +6,23 @@ import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/get_current_auth_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/logout_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
+
+/// * Global Auth Notifier Provider
+/// * Dipindahkan ke DI layer karena dibutuhkan oleh router & global concerns
+final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, AuthState>(
+  AuthNotifier.new,
+);
 
 class AuthNotifier extends AsyncNotifier<AuthState> {
   late GetCurrentAuthUsecase _getCurrentAuthUsecase;
   late LoginUsecase _loginUsecase;
   late RegisterUsecase _registerUsecase;
   late ForgotPasswordUsecase _forgotPasswordUsecase;
+  late LogoutUsecase _logoutUsecase;
 
   @override
   FutureOr<AuthState> build() async {
@@ -22,6 +30,7 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     _loginUsecase = ref.read(loginUsecaseProvider);
     _registerUsecase = ref.read(registerUsecaseProvider);
     _forgotPasswordUsecase = ref.read(forgotPasswordUsecaseProvider);
+    _logoutUsecase = ref.read(logoutUsecaseProvider);
 
     final result = await _getCurrentAuthUsecase.call(NoParams());
 
@@ -96,10 +105,15 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   Future<void> logout() async {
     state = const AsyncLoading();
 
-    try {
-      state = AsyncData(AuthState.unauthenticated());
-    } catch (e) {
-      state = AsyncError(e, StackTrace.current);
-    }
+    final result = await _logoutUsecase.call(NoParams());
+
+    result.fold(
+      (failure) {
+        state = const AsyncData(AuthState(status: AuthStatus.authenticated));
+      },
+      (success) {
+        state = AsyncData(AuthState.unauthenticated());
+      },
+    );
   }
 }

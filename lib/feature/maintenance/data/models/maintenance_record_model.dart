@@ -204,8 +204,8 @@ class MaintenanceRecordModel extends Equatable {
       actualCost: map['actualCost']?.toDouble(),
       title: map['title'] ?? '',
       notes: map['notes'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
+      updatedAt: DateTime.parse(map['updatedAt'] as String),
       translations: List<MaintenanceRecordTranslationModel>.from(
         map['translations']?.map(
           (x) => MaintenanceRecordTranslationModel.fromMap(x),

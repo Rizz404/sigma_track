@@ -114,7 +114,7 @@ class MaintenanceScheduleModel extends Equatable {
       frequencyMonths: map['frequencyMonths']?.toInt(),
       status: ScheduleStatus.fromJson(map['status']),
       createdById: map['createdById'] ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
       title: map['title'] ?? '',
       description: map['description'],
       translations: List<MaintenanceScheduleTranslationModel>.from(

@@ -19,4 +19,5 @@ abstract class AuthRepository {
     ForgotPasswordUsecaseParams params,
   );
   Future<Either<Failure, ItemSuccess<Auth>>> getCurrentAuth();
+  Future<Either<Failure, ActionSuccess>> logout();
 }

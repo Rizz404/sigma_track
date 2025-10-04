@@ -3,6 +3,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_statistics_model.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
@@ -57,6 +58,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<UserModel>> createUser(
     CreateUserUsecaseParams params,
   ) async {
+    this.logData('createUser called');
     try {
       final response = await _dioClient.post(
         ApiConstant.createUser,
@@ -73,6 +75,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiOffsetPaginationResponse<UserModel>> getUsers(
     GetUsersUsecaseParams params,
   ) async {
+    this.logData('getUsers called');
     try {
       final response = await _dioClient.getWithOffset(
         ApiConstant.getUsers,
@@ -87,6 +90,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
 
   @override
   Future<ApiResponse<UserStatisticsModel>> getUsersStatistics() async {
+    this.logData('getUsersStatistics called');
     try {
       final response = await _dioClient.get(
         ApiConstant.getUsersStatistics,
@@ -102,6 +106,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiCursorPaginationResponse<UserModel>> getUsersCursor(
     GetUsersCursorUsecaseParams params,
   ) async {
+    this.logData('getUsersCursor called');
     try {
       final response = await _dioClient.getWithCursor(
         ApiConstant.getUsersCursor,
@@ -116,6 +121,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
 
   @override
   Future<ApiResponse<int>> countUsers(CountUsersUsecaseParams params) async {
+    this.logData('countUsers called');
     try {
       final response = await _dioClient.get(
         ApiConstant.countUsers,
@@ -132,6 +138,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<UserModel>> getUserByName(
     GetUserByNameUsecaseParams params,
   ) async {
+    this.logData('getUserByName called');
     try {
       final response = await _dioClient.get(
         ApiConstant.getUserByName(params.name),
@@ -147,6 +154,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<UserModel>> getUserByEmail(
     GetUserByEmailUsecaseParams params,
   ) async {
+    this.logData('getUserByEmail called');
     try {
       final response = await _dioClient.get(
         ApiConstant.getUserByEmail(params.email),
@@ -162,6 +170,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<bool>> checkUserNameExists(
     CheckUserNameExistsUsecaseParams params,
   ) async {
+    this.logData('checkUserNameExists called');
     try {
       final response = await _dioClient.get(
         ApiConstant.checkUserNameExists(params.name),
@@ -177,6 +186,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<bool>> checkUserEmailExists(
     CheckUserEmailExistsUsecaseParams params,
   ) async {
+    this.logData('checkUserEmailExists called');
     try {
       final response = await _dioClient.get(
         ApiConstant.checkUserEmailExists(params.email),
@@ -192,6 +202,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<bool>> checkUserExists(
     CheckUserExistsUsecaseParams params,
   ) async {
+    this.logData('checkUserExists called');
     try {
       final response = await _dioClient.get(
         ApiConstant.checkUserExists(params.id),
@@ -207,6 +218,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<UserModel>> getUserById(
     GetUserByIdUsecaseParams params,
   ) async {
+    this.logData('getUserById called');
     try {
       final response = await _dioClient.get(
         ApiConstant.getUserById(params.id),
@@ -222,6 +234,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<UserModel>> updateUser(
     UpdateUserUsecaseParams params,
   ) async {
+    this.logData('updateUser called');
     try {
       final response = await _dioClient.patch(
         ApiConstant.updateUser(params.id),
@@ -238,6 +251,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteUser(
     DeleteUserUsecaseParams params,
   ) async {
+    this.logData('deleteUser called');
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteUser(params.id),

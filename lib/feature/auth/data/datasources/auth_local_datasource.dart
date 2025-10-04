@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
-import 'package:sigma_track/core/utils/logger.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 abstract class AuthLocalDatasource {
@@ -34,7 +34,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
     final token = await _flutterSecureStorage.read(
       key: StorageKeyConstant.accessTokenKey,
     );
-    logger.logData(
+    this.logData(
       'GET accessToken: ${token != null ? 'Token exists' : 'No token'}',
     );
     return token;
@@ -46,13 +46,13 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       key: StorageKeyConstant.accessTokenKey,
       value: token,
     );
-    logger.logData('SAVE accessToken: Token saved successfully');
+    this.logData('SAVE accessToken: Token saved successfully');
   }
 
   @override
   Future<void> deleteAccessToken() async {
     await _flutterSecureStorage.delete(key: StorageKeyConstant.accessTokenKey);
-    logger.logData('DELETE accessToken');
+    this.logData('DELETE accessToken');
   }
 
   @override
@@ -60,7 +60,7 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
     final token = await _flutterSecureStorage.read(
       key: StorageKeyConstant.refreshTokenKey,
     );
-    logger.logData(
+    this.logData(
       'GET refreshToken: ${token != null ? 'Token exists' : 'No token'}',
     );
     return token;
@@ -72,13 +72,13 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       key: StorageKeyConstant.refreshTokenKey,
       value: token,
     );
-    logger.logData('SAVE refreshToken: Token saved successfully');
+    this.logData('SAVE refreshToken: Token saved successfully');
   }
 
   @override
   Future<void> deleteRefreshToken() async {
     await _flutterSecureStorage.delete(key: StorageKeyConstant.refreshTokenKey);
-    logger.logData('DELETE refreshToken');
+    this.logData('DELETE refreshToken');
   }
 
   @override
@@ -89,11 +89,11 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
 
     if (userJson != null) {
       final userModelJson = UserModel.fromJson(jsonDecode(userJson));
-      logger.logData('GET user: UserModel found: ${userModelJson.name}');
+      this.logData('GET user: UserModel found: ${userModelJson.name}');
       return userModelJson;
     }
 
-    logger.logData('GET user: No user found');
+    this.logData('GET user: No user found');
     return null;
   }
 
@@ -103,12 +103,12 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       StorageKeyConstant.userKey,
       jsonEncode(userModel.toJson()),
     );
-    logger.logData('SAVE user: UserModel saved: ${userModel.name}');
+    this.logData('SAVE user: UserModel saved: ${userModel.name}');
   }
 
   @override
   Future<void> deleteUser() async {
     await _sharedPreferencesWithCache.remove(StorageKeyConstant.userKey);
-    logger.logData('DELETE user');
+    this.logData('DELETE user');
   }
 }

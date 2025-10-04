@@ -1,6 +1,7 @@
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/auth/data/models/login_response_model.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
@@ -22,6 +23,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
   @override
   Future<ApiResponse<UserModel>> register(RegisterUsecaseParams params) async {
+    this.logData('register called');
     try {
       final response = await _dioClient.post(
         ApiConstant.authRegister,
@@ -38,6 +40,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<LoginResponseModel>> login(
     LoginUsecaseParams params,
   ) async {
+    this.logData('login called');
     try {
       final response = await _dioClient.post(
         ApiConstant.authLogin,
@@ -54,6 +57,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<ApiResponse<dynamic>> forgotPassword(
     ForgotPasswordUsecaseParams params,
   ) async {
+    this.logData('forgotPassword called');
     try {
       final response = await _dioClient.post(
         ApiConstant.authForgotPassword,

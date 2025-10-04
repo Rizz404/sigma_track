@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 
 /// * Admin Shell dengan bottom navigation untuk Dashboard, Scan, dan Profile
 class AdminShell extends StatelessWidget {
@@ -11,7 +13,9 @@ class AdminShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: navigationShell,
+      endDrawer: const AppEndDrawer(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) {

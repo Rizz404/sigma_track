@@ -86,7 +86,7 @@ class NotificationModel extends Equatable {
       relatedAssetId: map['relatedAssetId'],
       type: NotificationType.fromJson(map['type']),
       isRead: map['isRead'] ?? false,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      createdAt: DateTime.parse(map['createdAt'] as String),
       title: map['title'] ?? '',
       message: map['message'] ?? '',
       translations: List<NotificationTranslationModel>.from(

@@ -6,17 +6,16 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
-import 'package:sigma_track/feature/auth/presentation/providers/auth_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/auth/presentation/validators/login_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
-import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -64,13 +63,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       next.whenData((state) {
         if (state.status == AuthStatus.authenticated) {
           AppToast.success(state.success?.message ?? 'Login successful');
-          // * Redirect berdasarkan role user
-          final isAdmin = state.user?.role == UserRole.admin;
-          if (isAdmin) {
-            context.go(RouteConstant.adminDashboard);
-          } else {
-            context.go(RouteConstant.home);
-          }
+          // * Router akan otomatis redirect via _handleRedirect di app_router.dart
         } else if (state.status == AuthStatus.unauthenticated &&
             state.failure != null) {
           if (state.failure is ValidationFailure) {
@@ -79,6 +72,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   (state.failure as ValidationFailure).errors,
             );
           } else {
+            this.logPresentation(state.failure!.message);
             AppToast.error(state.failure!.message);
           }
         }

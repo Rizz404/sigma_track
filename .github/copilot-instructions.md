@@ -91,3 +91,8 @@ ElevatedButton(
 - Akses i18n: context.l10n
 - Logger: import core/utils/logging.dart, pakai this.logInfo/logError/logData/logDomain/logPresentation/logService
 - Hindari warna statis; pakai theme/colors yang tersedia
+
+8) Dokumentasi & penjelasan kode
+- Hindari membuat file .md terpisah kecuali diminta eksplisit
+- Hindari penjelasan panjang tentang "mengapa" kecuali benar-benar critical
+- Code should be self-explanatory; komentar hanya untuk context tambahan

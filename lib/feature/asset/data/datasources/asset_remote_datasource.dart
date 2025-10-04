@@ -3,6 +3,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
@@ -55,6 +56,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
   Future<ApiResponse<AssetModel>> createAsset(
     CreateAssetUsecaseParams params,
   ) async {
+    this.logData('createAsset called');
     try {
       final response = await _dioClient.post(
         ApiConstant.createAsset,
@@ -71,6 +73,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
   Future<ApiOffsetPaginationResponse<AssetModel>> getAssets(
     GetAssetsUsecaseParams params,
   ) async {
+    this.logData('getAssets called');
     try {
       final response = await _dioClient.getWithOffset(
         ApiConstant.getAssets,
@@ -85,6 +88,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
 
   @override
   Future<ApiResponse<AssetStatisticsModel>> getAssetsStatistics() async {
+    this.logData('getAssetsStatistics called');
     try {
       final response = await _dioClient.get(
         ApiConstant.getAssetsStatistics,
@@ -100,6 +104,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
   Future<ApiCursorPaginationResponse<AssetModel>> getAssetsCursor(
     GetAssetsCursorUsecaseParams params,
   ) async {
+    this.logData('getAssetsCursor called');
     try {
       final response = await _dioClient.getWithCursor(
         ApiConstant.getAssetsCursor,

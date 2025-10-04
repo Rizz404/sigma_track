@@ -3,30 +3,19 @@ enum SortOrder {
   desc('desc');
 
   const SortOrder(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static SortOrder fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return SortOrder.values.firstWhere(
-      (order) => order.value == value,
-      orElse: () => throw ArgumentError('Invalid SortOrder value: $value'),
-    );
-  }
+  static SortOrder fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static SortOrder fromString(String value) {
-    return SortOrder.values.firstWhere(
-      (order) => order.value == value,
-      orElse: () => throw ArgumentError('Invalid SortOrder value: $value'),
-    );
-  }
+  static SortOrder fromString(String value) => SortOrder.values.firstWhere(
+    (order) => order.value == value,
+    orElse: () => throw ArgumentError('Invalid SortOrder value: $value'),
+  );
 
   String toJson() => value;
-
   static SortOrder fromJson(String json) => fromString(json);
 
   @override
@@ -34,37 +23,28 @@ enum SortOrder {
 }
 
 enum CategorySortBy {
-  categoryCode('category_code'),
+  categoryCode('categoryCode'),
   name('name'),
-  categoryName('category_name'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  categoryName('categoryName'),
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const CategorySortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static CategorySortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return CategorySortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid CategorySortBy value: $value'),
-    );
-  }
+  static CategorySortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static CategorySortBy fromString(String value) {
-    return CategorySortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid CategorySortBy value: $value'),
-    );
-  }
+  static CategorySortBy fromString(String value) =>
+      CategorySortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid CategorySortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static CategorySortBy fromJson(String json) => fromString(json);
 
   @override
@@ -72,39 +52,30 @@ enum CategorySortBy {
 }
 
 enum LocationSortBy {
-  locationCode('location_code'),
+  locationCode('locationCode'),
   name('name'),
-  locationName('location_name'),
+  locationName('locationName'),
   building('building'),
   floor('floor'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const LocationSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static LocationSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return LocationSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid LocationSortBy value: $value'),
-    );
-  }
+  static LocationSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static LocationSortBy fromString(String value) {
-    return LocationSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid LocationSortBy value: $value'),
-    );
-  }
+  static LocationSortBy fromString(String value) =>
+      LocationSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid LocationSortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static LocationSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -113,38 +84,27 @@ enum LocationSortBy {
 
 enum NotificationSortBy {
   type('type'),
-  isRead('is_read'),
-  createdAt('created_at'),
+  isRead('isRead'),
+  createdAt('createdAt'),
   title('title'),
   message('message');
 
   const NotificationSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static NotificationSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return NotificationSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid NotificationSortBy value: $value'),
-    );
-  }
+  static NotificationSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static NotificationSortBy fromString(String value) {
-    return NotificationSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid NotificationSortBy value: $value'),
-    );
-  }
+  static NotificationSortBy fromString(String value) =>
+      NotificationSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid NotificationSortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static NotificationSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -152,36 +112,27 @@ enum NotificationSortBy {
 }
 
 enum ScanLogSortBy {
-  scanTimestamp('scan_timestamp'),
-  scannedValue('scanned_value'),
-  scanMethod('scan_method'),
-  scanResult('scan_result');
+  scanTimestamp('scanTimestamp'),
+  scannedValue('scannedValue'),
+  scanMethod('scanMethod'),
+  scanResult('scanResult');
 
   const ScanLogSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static ScanLogSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return ScanLogSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanLogSortBy value: $value'),
-    );
-  }
+  static ScanLogSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static ScanLogSortBy fromString(String value) {
-    return ScanLogSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanLogSortBy value: $value'),
-    );
-  }
+  static ScanLogSortBy fromString(String value) =>
+      ScanLogSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid ScanLogSortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static ScanLogSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -189,45 +140,34 @@ enum ScanLogSortBy {
 }
 
 enum AssetSortBy {
-  assetTag('asset_tag'),
-  assetName('asset_name'),
+  assetTag('assetTag'),
+  assetName('assetName'),
   brand('brand'),
   model('model'),
-  serialNumber('serial_number'),
-  purchaseDate('purchase_date'),
-  purchasePrice('purchase_price'),
-  vendorName('vendor_name'),
-  warrantyEnd('warranty_end'),
+  serialNumber('serialNumber'),
+  purchaseDate('purchaseDate'),
+  purchasePrice('purchasePrice'),
+  vendorName('vendorName'),
+  warrantyEnd('warrantyEnd'),
   status('status'),
-  conditionStatus('condition_status'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  conditionStatus('conditionStatus'),
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const AssetSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static AssetSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return AssetSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
-    );
-  }
+  static AssetSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static AssetSortBy fromString(String value) {
-    return AssetSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
-    );
-  }
+  static AssetSortBy fromString(String value) => AssetSortBy.values.firstWhere(
+    (f) => f.value == value,
+    orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
+  );
 
   String toJson() => value;
-
   static AssetSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -235,40 +175,29 @@ enum AssetSortBy {
 }
 
 enum AssetMovementSortBy {
-  movementDate('movement_date'),
+  movementDate('movementDate'),
   movementdate('movementdate'),
-  createdAt('created_at'),
+  createdAt('createdAt'),
   createdat('createdat'),
-  updatedAt('updated_at'),
+  updatedAt('updatedAt'),
   updatedat('updatedat');
 
   const AssetMovementSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static AssetMovementSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return AssetMovementSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
-    );
-  }
+  static AssetMovementSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static AssetMovementSortBy fromString(String value) {
-    return AssetMovementSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
-    );
-  }
+  static AssetMovementSortBy fromString(String value) =>
+      AssetMovementSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static AssetMovementSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -276,43 +205,32 @@ enum AssetMovementSortBy {
 }
 
 enum IssueReportSortBy {
-  reportedDate('reported_date'),
-  resolvedDate('resolved_date'),
-  issueType('issue_type'),
+  reportedDate('reportedDate'),
+  resolvedDate('resolvedDate'),
+  issueType('issueType'),
   priority('priority'),
   status('status'),
   title('title'),
   description('description'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const IssueReportSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static IssueReportSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return IssueReportSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid IssueReportSortBy value: $value'),
-    );
-  }
+  static IssueReportSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static IssueReportSortBy fromString(String value) {
-    return IssueReportSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid IssueReportSortBy value: $value'),
-    );
-  }
+  static IssueReportSortBy fromString(String value) =>
+      IssueReportSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () =>
+            throw ArgumentError('Invalid IssueReportSortBy value: $value'),
+      );
 
   String toJson() => value;
-
   static IssueReportSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -320,40 +238,28 @@ enum IssueReportSortBy {
 }
 
 enum MaintenanceScheduleSortBy {
-  scheduledDate('scheduled_date'),
+  scheduledDate('scheduledDate'),
   title('title'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const MaintenanceScheduleSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static MaintenanceScheduleSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return MaintenanceScheduleSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError(
-        'Invalid MaintenanceScheduleSortBy value: $value',
-      ),
-    );
-  }
+  static MaintenanceScheduleSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static MaintenanceScheduleSortBy fromString(String value) {
-    return MaintenanceScheduleSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError(
-        'Invalid MaintenanceScheduleSortBy value: $value',
-      ),
-    );
-  }
+  static MaintenanceScheduleSortBy fromString(String value) =>
+      MaintenanceScheduleSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () => throw ArgumentError(
+          'Invalid MaintenanceScheduleSortBy value: $value',
+        ),
+      );
 
   String toJson() => value;
-
   static MaintenanceScheduleSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -361,38 +267,28 @@ enum MaintenanceScheduleSortBy {
 }
 
 enum MaintenanceRecordSortBy {
-  maintenanceDate('maintenance_date'),
+  maintenanceDate('maintenanceDate'),
   title('title'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const MaintenanceRecordSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static MaintenanceRecordSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return MaintenanceRecordSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid MaintenanceRecordSortBy value: $value'),
-    );
-  }
+  static MaintenanceRecordSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static MaintenanceRecordSortBy fromString(String value) {
-    return MaintenanceRecordSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid MaintenanceRecordSortBy value: $value'),
-    );
-  }
+  static MaintenanceRecordSortBy fromString(String value) =>
+      MaintenanceRecordSortBy.values.firstWhere(
+        (f) => f.value == value,
+        orElse: () => throw ArgumentError(
+          'Invalid MaintenanceRecordSortBy value: $value',
+        ),
+      );
 
   String toJson() => value;
-
   static MaintenanceRecordSortBy fromJson(String json) => fromString(json);
 
   @override
@@ -401,39 +297,28 @@ enum MaintenanceRecordSortBy {
 
 enum UserSortBy {
   name('name'),
-  fullName('full_name'),
+  fullName('fullName'),
   email('email'),
   role('role'),
-  employeeId('employee_id'),
-  isActive('is_active'),
-  createdAt('created_at'),
-  updatedAt('updated_at');
+  employeeId('employeeId'),
+  isActive('isActive'),
+  createdAt('createdAt'),
+  updatedAt('updatedAt');
 
   const UserSortBy(this.value);
-
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
+  Map<String, dynamic> toMap() => {'value': value};
 
-  static UserSortBy fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return UserSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
-    );
-  }
+  static UserSortBy fromMap(Map<String, dynamic> map) =>
+      fromString(map['value'] as String);
 
-  static UserSortBy fromString(String value) {
-    return UserSortBy.values.firstWhere(
-      (field) => field.value == value,
-      orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
-    );
-  }
+  static UserSortBy fromString(String value) => UserSortBy.values.firstWhere(
+    (f) => f.value == value,
+    orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
+  );
 
   String toJson() => value;
-
   static UserSortBy fromJson(String json) => fromString(json);
 
   @override

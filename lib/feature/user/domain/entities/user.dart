@@ -11,6 +11,7 @@ class User extends Equatable {
   final String preferredLang;
   final bool isActive;
   final String? avatarUrl;
+  final String? fcmToken;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -24,6 +25,7 @@ class User extends Equatable {
     required this.preferredLang,
     required this.isActive,
     required this.avatarUrl,
+    required this.fcmToken,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -40,6 +42,7 @@ class User extends Equatable {
       preferredLang,
       isActive,
       avatarUrl,
+      fcmToken,
       createdAt,
       updatedAt,
     ];

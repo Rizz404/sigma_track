@@ -15,6 +15,7 @@ extension UserModelMapper on UserModel {
       preferredLang: preferredLang,
       isActive: isActive,
       avatarUrl: avatarUrl,
+      fcmToken: fcmToken,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -33,6 +34,7 @@ extension UserEntityMapper on User {
       preferredLang: preferredLang,
       isActive: isActive,
       avatarUrl: avatarUrl,
+      fcmToken: fcmToken,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );

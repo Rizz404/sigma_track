@@ -3,6 +3,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/scan_log/data/models/scan_log_model.dart';
 import 'package:sigma_track/feature/scan_log/data/models/scan_log_statistics_model.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/check_scan_log_exists_usecase.dart';
@@ -51,6 +52,7 @@ class ScanLogRemoteDatasourceImpl implements ScanLogRemoteDatasource {
   Future<ApiResponse<ScanLogModel>> createScanLog(
     CreateScanLogUsecaseParams params,
   ) async {
+    this.logData('createScanLog called');
     try {
       final response = await _dioClient.post(
         ApiConstant.createScanLog,

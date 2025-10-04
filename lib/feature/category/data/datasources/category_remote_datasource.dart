@@ -3,6 +3,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/category/data/models/category_model.dart';
 import 'package:sigma_track/feature/category/data/models/category_statistics_model.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
@@ -57,6 +58,7 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
   Future<ApiResponse<CategoryModel>> createCategory(
     CreateCategoryUsecaseParams params,
   ) async {
+    this.logData('createCategory called');
     try {
       final response = await _dioClient.post(
         ApiConstant.createCategory,
@@ -73,6 +75,7 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
   Future<ApiOffsetPaginationResponse<CategoryModel>> getCategories(
     GetCategoriesUsecaseParams params,
   ) async {
+    this.logData('getCategories called');
     try {
       final response = await _dioClient.getWithOffset(
         ApiConstant.getCategories,

@@ -148,4 +148,19 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> logout() async {
+    try {
+      await _authLocalDatasource.deleteAccessToken();
+      await _authLocalDatasource.deleteRefreshToken();
+      await _authLocalDatasource.deleteUser();
+
+      return const Right(ActionSuccess(message: 'Logout successfull'));
+    } catch (e) {
+      return Left(
+        NetworkFailure(message: 'Failed to get auth data: ${e.toString()}'),
+      );
+    }
+  }
 }

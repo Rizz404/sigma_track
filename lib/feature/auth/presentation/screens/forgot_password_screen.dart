@@ -8,14 +8,13 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
-import 'package:sigma_track/feature/auth/presentation/providers/auth_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/auth/presentation/validators/forgot_password_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
-import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
