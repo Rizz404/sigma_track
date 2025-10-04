@@ -2,6 +2,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/auth/data/datasources/auth_local_datasource.dart';
 import 'package:sigma_track/feature/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:sigma_track/feature/auth/data/mapper/auth_mappers.dart';
@@ -152,15 +153,16 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, ActionSuccess>> logout() async {
     try {
+      this.logData('Logout: Starting logout process');
       await _authLocalDatasource.deleteAccessToken();
       await _authLocalDatasource.deleteRefreshToken();
       await _authLocalDatasource.deleteUser();
+      this.logData('Logout: Successfully cleared all auth data');
 
-      return const Right(ActionSuccess(message: 'Logout successfull'));
-    } catch (e) {
-      return Left(
-        NetworkFailure(message: 'Failed to get auth data: ${e.toString()}'),
-      );
+      return const Right(ActionSuccess(message: 'Logout successful'));
+    } catch (e, s) {
+      this.logError('Logout failed', e, s);
+      return Left(NetworkFailure(message: 'Failed to logout: ${e.toString()}'));
     }
   }
 }

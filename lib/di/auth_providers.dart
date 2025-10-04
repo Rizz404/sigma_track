@@ -103,29 +103,28 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   }
 
   // * Seperti ini tidak apa-apa
-  Future<void> logout() async {
-    state = const AsyncLoading();
-
-    try {
-      state = AsyncData(AuthState.unauthenticated());
-    } catch (e) {
-      state = AsyncError(e, StackTrace.current);
-    }
-  }
-
-  // * Seperti ini error
   // Future<void> logout() async {
   //   state = const AsyncLoading();
 
-  //   final result = await _logoutUsecase.call(NoParams());
-
-  //   result.fold(
-  //     (failure) {
-  //       state = const AsyncData(AuthState(status: AuthStatus.authenticated));
-  //     },
-  //     (success) {
-  //       state = AsyncData(AuthState.unauthenticated());
-  //     },
-  //   );
+  //   try {
+  //     state = AsyncData(AuthState.unauthenticated());
+  //   } catch (e) {
+  //     state = AsyncError(e, StackTrace.current);
+  //   }
   // }
+
+  Future<void> logout() async {
+    state = const AsyncLoading();
+
+    final result = await _logoutUsecase.call(NoParams());
+
+    result.fold(
+      (failure) {
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
+      },
+      (success) {
+        state = AsyncData(AuthState.unauthenticated());
+      },
+    );
+  }
 }

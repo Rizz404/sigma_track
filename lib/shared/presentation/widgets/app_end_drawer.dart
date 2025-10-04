@@ -6,6 +6,7 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/di/auth_providers.dart';
+import 'package:sigma_track/di/auth_providers_refresh_listenable.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 
@@ -486,8 +487,9 @@ class AppEndDrawer extends ConsumerWidget {
         width: double.infinity,
         child: FilledButton.icon(
           onPressed: () {
-            context.pop();
+            Navigator.of(context).pop();
             ref.read(authNotifierProvider.notifier).logout();
+            // ref.read(authNotifierRefreshListenableProvider.notifier).logout();
           },
           icon: const Icon(Icons.logout),
           label: const Text('Logout'),

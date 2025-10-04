@@ -60,11 +60,13 @@ class AppRouter {
   final bool isAuthenticated;
   final bool isAdmin;
 
-  static final GlobalKey<NavigatorState> _rootNavigatorKey =
-      GlobalKey<NavigatorState>(debugLabel: 'root');
-  static final GlobalKey<NavigatorState> _userShellNavigatorKey =
+  // * Non-static keys agar bisa recreate tanpa conflict
+  final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
+    debugLabel: 'root',
+  );
+  final GlobalKey<NavigatorState> _userShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'userShell');
-  static final GlobalKey<NavigatorState> _adminShellNavigatorKey =
+  final GlobalKey<NavigatorState> _adminShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'adminShell');
 
   late final GoRouter router = GoRouter(

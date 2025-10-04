@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
+import 'package:sigma_track/di/auth_providers_refresh_listenable.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -71,6 +72,7 @@ class MyApp extends ConsumerWidget {
     final currentLocale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeProvider);
     final router = ref.watch(routerProvider);
+    // final router = ref.watch(routerRefreshListenableProvider);
     final botToastBuilder = BotToastInit();
 
     return MaterialApp.router(
