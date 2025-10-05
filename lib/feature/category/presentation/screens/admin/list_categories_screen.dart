@@ -15,6 +15,7 @@ import 'package:sigma_track/feature/category/presentation/widgets/category_card.
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -73,8 +74,8 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => _OptionsBottomSheet(
-        onCreateCategory: () {
+      builder: (context) => AppListOptionsBottomSheet(
+        onCreate: () {
           Navigator.pop(context);
           context.push(RouteConstant.adminCategoryUpsert);
           this.logPresentation('Create category pressed');
@@ -87,30 +88,154 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
           });
           AppToast.info('Select categories to delete');
         },
-        onShowFilterSort: _showFilterSortBottomSheet,
+        filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        createTitle: 'Create Category',
+        createSubtitle: 'Add a new category',
+        selectManyTitle: 'Select Many',
+        selectManySubtitle: 'Select multiple categories to delete',
+        filterSortTitle: 'Filter & Sort',
+        filterSortSubtitle: 'Customize category display',
       ),
     );
   }
 
-  void _showFilterSortBottomSheet() {
-    Navigator.pop(context);
+  Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(categoriesProvider).categoriesFilter;
 
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: context.colors.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) => _FilterSortBottomSheet(
-        currentFilter: currentFilter,
-        onApply: (filter) {
-          Navigator.pop(context);
-          ref.read(categoriesProvider.notifier).updateFilter(filter);
-          AppToast.success('Filter applied');
-        },
-        formKey: _filterFormKey,
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 16,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+        ),
+        child: FormBuilder(
+          key: _filterFormKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: context.colors.border,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              const AppText(
+                'Filter & Sort',
+                style: AppTextStyle.titleLarge,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 24),
+              AppDropdown<String>(
+                name: 'sortBy',
+                label: 'Sort By',
+                initialValue: currentFilter.sortBy?.value,
+                items: const [
+                  AppDropdownItem(
+                    value: 'categoryName',
+                    label: 'Category Name',
+                    icon: Icon(Icons.sort_by_alpha, size: 18),
+                  ),
+                  AppDropdownItem(
+                    value: 'categoryCode',
+                    label: 'Category Code',
+                    icon: Icon(Icons.code, size: 18),
+                  ),
+                  AppDropdownItem(
+                    value: 'createdAt',
+                    label: 'Created Date',
+                    icon: Icon(Icons.calendar_today, size: 18),
+                  ),
+                  AppDropdownItem(
+                    value: 'updatedAt',
+                    label: 'Updated Date',
+                    icon: Icon(Icons.update, size: 18),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'sortOrder',
+                label: 'Sort Order',
+                initialValue: currentFilter.sortOrder?.value,
+                items: const [
+                  AppDropdownItem(
+                    value: 'asc',
+                    label: 'Ascending',
+                    icon: Icon(Icons.arrow_upward, size: 18),
+                  ),
+                  AppDropdownItem(
+                    value: 'desc',
+                    label: 'Descending',
+                    icon: Icon(Icons.arrow_downward, size: 18),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              AppCheckbox(
+                name: 'hasParent',
+                title: AppText('Has Parent'),
+                initialValue: currentFilter.hasParent == true,
+              ),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      text: 'Reset',
+                      color: AppButtonColor.secondary,
+                      onPressed: () {
+                        _filterFormKey.currentState?.reset();
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: AppButton(
+                      text: 'Apply',
+                      onPressed: () {
+                        if (_filterFormKey.currentState?.saveAndValidate() ??
+                            false) {
+                          final formData = _filterFormKey.currentState!.value;
+                          final sortByStr = formData['sortBy'] as String?;
+                          final sortOrderStr = formData['sortOrder'] as String?;
+                          final hasParentChecked =
+                              formData['hasParent'] as bool? ?? false;
+
+                          final hasParentValue = hasParentChecked ? true : null;
+
+                          final newFilter = CategoriesFilter(
+                            search: currentFilter.search,
+                            sortBy: sortByStr != null
+                                ? CategorySortBy.fromString(sortByStr)
+                                : null,
+                            sortOrder: sortOrderStr != null
+                                ? SortOrder.fromString(sortOrderStr)
+                                : null,
+                            hasParent: hasParentValue,
+                          );
+
+                          Navigator.pop(context);
+                          ref
+                              .read(categoriesProvider.notifier)
+                              .updateFilter(newFilter);
+                          AppToast.success('Filter applied');
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -190,26 +315,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     });
 
     return Scaffold(
-      appBar: _isSelectMode
-          ? AppBar(
-              title: AppText(
-                '${_selectedCategoryIds.length} selected',
-                color: context.colorScheme.surface,
-              ),
-              backgroundColor: context.colorScheme.primary,
-              leading: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: _cancelSelectMode,
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: _deleteSelectedCategories,
-                ),
-                const SizedBox(width: 8),
-              ],
-            )
-          : const CustomAppBar(title: 'Category Management'),
+      appBar: const CustomAppBar(title: 'Category Management'),
       body: ScreenWrapper(
         child: Column(
           children: [
@@ -250,6 +356,48 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                     )
                   : const Icon(Icons.menu),
             ),
+      bottomNavigationBar: _isSelectMode ? _buildSelectionBar(context) : null,
+    );
+  }
+
+  Widget _buildSelectionBar(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colorScheme.primary,
+        boxShadow: [
+          BoxShadow(
+            color: context.colorScheme.shadow.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: SafeArea(
+        child: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: _cancelSelectMode,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: AppText(
+                '${_selectedCategoryIds.length} selected',
+                style: AppTextStyle.titleMedium,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            AppButton(
+              text: 'Delete',
+              color: AppButtonColor.error,
+              isFullWidth: false,
+              onPressed: _deleteSelectedCategories,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -338,6 +486,18 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
             onSelect: _isSelectMode
                 ? (_) => _toggleSelectCategory(category.id)
                 : null,
+            onLongPress: isSkeleton
+                ? null
+                : () {
+                    if (!_isSelectMode) {
+                      setState(() {
+                        _isSelectMode = true;
+                        _selectedCategoryIds.clear();
+                        _selectedCategoryIds.add(category.id);
+                      });
+                      AppToast.info('Long press to select more categories');
+                    }
+                  },
             onTap: isSkeleton || _isSelectMode
                 ? null
                 : () {
@@ -350,285 +510,6 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
           ),
         );
       },
-    );
-  }
-}
-
-class _OptionsBottomSheet extends StatelessWidget {
-  final VoidCallback onCreateCategory;
-  final VoidCallback onSelectMany;
-  final VoidCallback onShowFilterSort;
-
-  const _OptionsBottomSheet({
-    required this.onCreateCategory,
-    required this.onSelectMany,
-    required this.onShowFilterSort,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: context.colors.border,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 24),
-            AppText(
-              'Options',
-              style: AppTextStyle.titleLarge,
-              fontWeight: FontWeight.bold,
-            ),
-            const SizedBox(height: 24),
-            _OptionTile(
-              icon: Icons.add_circle_outline,
-              title: 'Create Category',
-              subtitle: 'Add a new category',
-              onTap: onCreateCategory,
-            ),
-            const SizedBox(height: 12),
-            _OptionTile(
-              icon: Icons.checklist,
-              title: 'Select Many',
-              subtitle: 'Select multiple categories to delete',
-              onTap: onSelectMany,
-            ),
-            const SizedBox(height: 12),
-            _OptionTile(
-              icon: Icons.filter_list,
-              title: 'Filter & Sort',
-              subtitle: 'Customize category display',
-              onTap: onShowFilterSort,
-            ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _OptionTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  const _OptionTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(color: context.colors.border),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: context.colorScheme.primaryContainer.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(icon, color: context.colorScheme.primary),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    title,
-                    style: AppTextStyle.titleSmall,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  const SizedBox(height: 4),
-                  AppText(
-                    subtitle,
-                    style: AppTextStyle.bodySmall,
-                    color: context.colors.textSecondary,
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: context.colors.textTertiary,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FilterSortBottomSheet extends StatelessWidget {
-  final CategoriesFilter currentFilter;
-  final Function(CategoriesFilter) onApply;
-  final GlobalKey<FormBuilderState> formKey;
-
-  const _FilterSortBottomSheet({
-    required this.currentFilter,
-    required this.onApply,
-    required this.formKey,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          top: 16,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-        ),
-        child: FormBuilder(
-          key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: context.colors.border,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
-                style: AppTextStyle.titleLarge,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 24),
-              AppDropdown<String>(
-                name: 'sortBy',
-                label: 'Sort By',
-                initialValue: currentFilter.sortBy?.value ?? 'createdAt',
-                items: const [
-                  AppDropdownItem(
-                    value: 'categoryName',
-                    label: 'Category Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'categoryCode',
-                    label: 'Category Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              AppDropdown<String>(
-                name: 'sortOrder',
-                label: 'Sort Order',
-                initialValue: currentFilter.sortOrder?.value ?? 'desc',
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              AppCheckbox(
-                name: 'hasParent',
-                title: AppText('Has Parent'),
-                initialValue: currentFilter.hasParent == true,
-              ),
-              const SizedBox(height: 32),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      text: 'Reset',
-                      variant: AppButtonVariant.outlined,
-                      onPressed: () {
-                        formKey.currentState?.reset();
-                        onApply(CategoriesFilter());
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    flex: 2,
-                    child: AppButton(
-                      text: 'Apply',
-                      onPressed: () {
-                        // * Save form first to get updated values
-                        formKey.currentState?.save();
-                        final formData = formKey.currentState?.value;
-
-                        if (formData != null) {
-                          final sortByStr = formData['sortBy'] as String?;
-                          final sortOrderStr = formData['sortOrder'] as String?;
-                          final hasParentChecked =
-                              formData['hasParent'] as bool? ?? false;
-
-                          final hasParentValue = hasParentChecked ? true : null;
-
-                          final newFilter = CategoriesFilter(
-                            search: currentFilter.search,
-                            sortBy: sortByStr != null
-                                ? CategorySortBy.fromString(sortByStr)
-                                : null,
-                            sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
-                                : null,
-                            hasParent: hasParentValue,
-                          );
-
-                          onApply(newFilter);
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

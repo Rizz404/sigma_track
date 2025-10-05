@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -32,8 +29,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final titleWidget = AppText(
       title ?? 'Sigma Track',
-      color: context.colorScheme.surface,
+      style: AppTextStyle.titleMedium,
     );
+
+    // * MenuButton hanya ditampilkan jika actions kosong
     final menuButton = Builder(
       builder: (innerContext) => IconButton(
         icon: const Icon(Icons.menu),
@@ -44,21 +43,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
 
-    final allActions = [
-      if (actions != null) ...actions!,
-      menuButton,
-      const SizedBox(width: 4),
-    ];
-
-    if (Platform.isIOS) {
-      return CupertinoNavigationBar(
-        middle: titleWidget,
-        trailing: Row(mainAxisSize: MainAxisSize.min, children: allActions),
-        automaticallyImplyLeading: automaticLeading,
-        leading: leading,
-        backgroundColor: backgroundColor,
-      );
-    }
+    final allActions = actions != null
+        ? actions
+        : [menuButton, const SizedBox(width: 4)];
 
     return AppBar(
       title: titleWidget,

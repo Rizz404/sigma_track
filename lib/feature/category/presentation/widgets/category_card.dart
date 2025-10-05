@@ -9,6 +9,7 @@ class CategoryCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback? onTap;
   final ValueChanged<bool?>? onSelect;
+  final VoidCallback? onLongPress;
 
   const CategoryCard({
     super.key,
@@ -17,6 +18,7 @@ class CategoryCard extends StatelessWidget {
     this.isSelected = false,
     this.onTap,
     this.onSelect,
+    this.onLongPress,
   });
 
   @override
@@ -39,6 +41,7 @@ class CategoryCard extends StatelessWidget {
         onTap: isDisabled
             ? null
             : (onSelect != null ? () => onSelect!(!isSelected) : onTap),
+        onLongPress: isDisabled ? null : onLongPress,
         borderRadius: BorderRadius.circular(12),
         child: Opacity(
           opacity: isDisabled ? 0.5 : 1.0,
