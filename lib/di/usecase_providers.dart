@@ -121,6 +121,21 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_curso
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_statistics_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_usecase.dart';
 
+// ===== USER USECASES =====
+import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/count_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_user_by_email_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_users_statistics_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
+
 // =============================================
 // AUTH USECASE PROVIDERS
 // =============================================
@@ -792,4 +807,75 @@ final getScanLogsStatisticsUsecaseProvider =
 final getScanLogsUsecaseProvider = Provider<GetScanLogsUsecase>((ref) {
   final scanLogRepository = ref.read(scanLogRepositoryProvider);
   return GetScanLogsUsecase(scanLogRepository);
+});
+
+// ===== USER USECASE PROVIDERS =====
+final checkUserEmailExistsUsecaseProvider =
+    Provider<CheckUserEmailExistsUsecase>((ref) {
+      final userRepository = ref.read(userRepositoryProvider);
+      return CheckUserEmailExistsUsecase(userRepository);
+    });
+
+final checkUserExistsUsecaseProvider = Provider<CheckUserExistsUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return CheckUserExistsUsecase(userRepository);
+});
+
+final checkUserNameExistsUsecaseProvider = Provider<CheckUserNameExistsUsecase>(
+  (ref) {
+    final userRepository = ref.read(userRepositoryProvider);
+    return CheckUserNameExistsUsecase(userRepository);
+  },
+);
+
+final countUsersUsecaseProvider = Provider<CountUsersUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return CountUsersUsecase(userRepository);
+});
+
+final createUserUsecaseProvider = Provider<CreateUserUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return CreateUserUsecase(userRepository);
+});
+
+final deleteUserUsecaseProvider = Provider<DeleteUserUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return DeleteUserUsecase(userRepository);
+});
+
+final getUserByEmailUsecaseProvider = Provider<GetUserByEmailUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUserByEmailUsecase(userRepository);
+});
+
+final getUserByIdUsecaseProvider = Provider<GetUserByIdUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUserByIdUsecase(userRepository);
+});
+
+final getUserByNameUsecaseProvider = Provider<GetUserByNameUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUserByNameUsecase(userRepository);
+});
+
+final getUsersCursorUsecaseProvider = Provider<GetUsersCursorUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUsersCursorUsecase(userRepository);
+});
+
+final getUsersStatisticsUsecaseProvider = Provider<GetUsersStatisticsUsecase>((
+  ref,
+) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUsersStatisticsUsecase(userRepository);
+});
+
+final getUsersUsecaseProvider = Provider<GetUsersUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetUsersUsecase(userRepository);
+});
+
+final updateUserUsecaseProvider = Provider<UpdateUserUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return UpdateUserUsecase(userRepository);
 });

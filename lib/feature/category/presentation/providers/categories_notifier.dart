@@ -84,7 +84,7 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
 
   Future<void> updateFilter(CategoriesFilter newFilter) async {
     this.logPresentation(
-      'Updating filter - received: sortBy=${newFilter.sortBy}, sortOrder=${newFilter.sortOrder}, hasParent=${newFilter.hasParent}',
+      'Updating filter - received: sortBy=${newFilter.sortBy}, sortOrder=${newFilter.sortOrder}, hasParent=${newFilter.hasParent}, parentId=${newFilter.parentId}',
     );
 
     // * Preserve search from current filter

@@ -25,6 +25,10 @@ import 'package:sigma_track/feature/issue_report/domain/repositories/issue_repor
 import 'package:sigma_track/feature/location/data/repositories/location_repository_impl.dart';
 import 'package:sigma_track/feature/location/domain/repositories/location_repository.dart';
 
+// User Repository
+import 'package:sigma_track/feature/user/data/repositories/user_repository_impl.dart';
+import 'package:sigma_track/feature/user/domain/repositories/user_repository.dart';
+
 // Maintenance Repositories
 import 'package:sigma_track/feature/maintenance/data/repositories/maintenance_record_repository_impl.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_record_repository.dart';
@@ -80,6 +84,12 @@ final issueReportRepositoryProvider = Provider<IssueReportRepository>((ref) {
 final locationRepositoryProvider = Provider<LocationRepository>((ref) {
   final _locationRemoteDatasource = ref.watch(locationRemoteDatasourceProvider);
   return LocationRepositoryImpl(_locationRemoteDatasource);
+});
+
+// ===== LOCATION REPOSITORY =====
+final userRepositoryProvider = Provider<UserRepository>((ref) {
+  final _userRemoteDatasource = ref.watch(userRemoteDatasourceProvider);
+  return UserRepositoryImpl(_userRemoteDatasource);
 });
 
 // ===== MAINTENANCE REPOSITORIES =====

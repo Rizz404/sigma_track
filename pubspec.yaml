@@ -75,6 +75,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   go_router: ^16.2.4
+  dropdown_search: ^6.0.2
 
 dev_dependencies:
   flutter_test:

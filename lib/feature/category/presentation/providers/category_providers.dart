@@ -6,3 +6,9 @@ final categoriesProvider =
     AutoDisposeNotifierProvider<CategoriesNotifier, CategoriesState>(
       CategoriesNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final categoriesSearchProvider =
+    AutoDisposeNotifierProvider<CategoriesNotifier, CategoriesState>(
+      CategoriesNotifier.new,
+    );

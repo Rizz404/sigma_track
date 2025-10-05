@@ -8,6 +8,9 @@ import 'package:sigma_track/feature/auth/data/datasources/auth_remote_datasource
 // Asset Datasources
 import 'package:sigma_track/feature/asset/data/datasources/asset_remote_datasource.dart';
 
+// User Datasources
+import 'package:sigma_track/feature/user/data/datasources/user_remote_datasource.dart';
+
 // Asset Movement Datasources
 import 'package:sigma_track/feature/asset_movement/data/datasources/asset_movement_remote_datasource.dart';
 
@@ -59,6 +62,12 @@ final assetMovementRemoteDatasourceProvider =
       final _dioClient = ref.watch(dioClientProvider);
       return AssetMovementRemoteDatasourceImpl(_dioClient);
     });
+
+// ===== USER DATASOURCES =====
+final userRemoteDatasourceProvider = Provider<UserRemoteDatasource>((ref) {
+  final _dioClient = ref.watch(dioClientProvider);
+  return UserRemoteDatasourceImpl(_dioClient);
+});
 
 // ===== CATEGORY DATASOURCES =====
 final categoryRemoteDatasourceProvider = Provider<CategoryRemoteDatasource>((

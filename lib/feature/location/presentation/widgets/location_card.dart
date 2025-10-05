@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
-import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
-class CategoryCard extends StatelessWidget {
-  final Category category;
+class LocationCard extends StatelessWidget {
+  final Location location;
   final bool isDisabled;
   final bool isSelected;
   final VoidCallback? onTap;
   final ValueChanged<bool?>? onSelect;
   final VoidCallback? onLongPress;
 
-  const CategoryCard({
+  const LocationCard({
     super.key,
-    required this.category,
+    required this.location,
     this.isDisabled = false,
     this.isSelected = false,
     this.onTap,
@@ -67,7 +67,7 @@ class CategoryCard extends StatelessWidget {
                   ),
                 if (onSelect != null) const SizedBox(height: 8),
                 AppText(
-                  category.categoryName,
+                  location.locationName,
                   style: AppTextStyle.titleMedium,
                   fontWeight: FontWeight.w600,
                   maxLines: 1,
@@ -75,12 +75,25 @@ class CategoryCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 AppText(
-                  category.categoryCode,
+                  location.locationCode,
                   style: AppTextStyle.bodySmall,
                   color: context.colors.textSecondary,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
+                if (location.building != null || location.floor != null) ...[
+                  const SizedBox(height: 4),
+                  AppText(
+                    [
+                      if (location.building != null) location.building!,
+                      if (location.floor != null) 'Floor ${location.floor}',
+                    ].join(' • '),
+                    style: AppTextStyle.labelSmall,
+                    color: context.colors.textSecondary,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ],
             ),
           ),

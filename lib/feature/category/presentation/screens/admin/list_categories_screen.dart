@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
@@ -15,13 +17,13 @@ import 'package:sigma_track/feature/category/presentation/widgets/category_card.
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_dropdown_search.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:go_router/go_router.dart';
 
 class ListCategoriesScreen extends ConsumerStatefulWidget {
   const ListCategoriesScreen({super.key});
@@ -181,8 +183,59 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
               const SizedBox(height: 16),
               AppCheckbox(
                 name: 'hasParent',
-                title: AppText('Has Parent'),
+                title: const AppText('Has Parent'),
                 initialValue: currentFilter.hasParent == true,
+              ),
+              const SizedBox(height: 16),
+              AppDropdownSearch<Category>(
+                name: 'parentId',
+                label: 'Filter by Parent Category',
+                hintText: 'Select parent category',
+                initialValue: currentFilter.parentId != null
+                    ? ref
+                          .read(categoriesProvider)
+                          .categories
+                          .cast<Category?>()
+                          .firstWhere(
+                            (c) => c?.id == currentFilter.parentId,
+                            orElse: () => null,
+                          )
+                    : null,
+                asyncItems: (search) async {
+                  // * Load categories for dropdown search
+                  await ref
+                      .read(categoriesSearchProvider.notifier)
+                      .search(search);
+                  return ref.read(categoriesSearchProvider).categories;
+                },
+                itemAsString: (category) => category.categoryName,
+                compareFn: (item1, item2) => item1.id == item2.id,
+                itemBuilder: (context, category, isDisabled, isSelected) {
+                  return ListTile(
+                    selected: isSelected,
+                    selectedTileColor: context.colorScheme.primary.withOpacity(
+                      0.1,
+                    ),
+                    leading: Icon(
+                      Icons.category,
+                      color: isSelected
+                          ? context.colorScheme.primary
+                          : context.colors.textSecondary,
+                    ),
+                    title: AppText(
+                      category.categoryName,
+                      style: AppTextStyle.bodyMedium,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                    ),
+                    subtitle: AppText(
+                      category.categoryCode,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textTertiary,
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 32),
               Row(
@@ -193,6 +246,15 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
+                        final newFilter = CategoriesFilter(
+                          search: currentFilter.search,
+                          // * Reset semua filter kecuali search
+                        );
+                        Navigator.pop(context);
+                        ref
+                            .read(categoriesProvider.notifier)
+                            .updateFilter(newFilter);
+                        AppToast.success('Filter reset');
                       },
                     ),
                   ),
@@ -208,6 +270,8 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                           final sortOrderStr = formData['sortOrder'] as String?;
                           final hasParentChecked =
                               formData['hasParent'] as bool? ?? false;
+                          final selectedParent =
+                              formData['parentId'] as Category?;
 
                           final hasParentValue = hasParentChecked ? true : null;
 
@@ -220,6 +284,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                                 ? SortOrder.fromString(sortOrderStr)
                                 : null,
                             hasParent: hasParentValue,
+                            parentId: selectedParent?.id,
                           );
 
                           Navigator.pop(context);
