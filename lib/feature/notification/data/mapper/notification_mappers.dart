@@ -14,7 +14,8 @@ extension NotificationModelMapper on NotificationModel {
       createdAt: createdAt,
       title: title,
       message: message,
-      translations: translations.map((model) => model.toEntity()).toList(),
+      translations:
+          translations?.map((model) => model.toEntity()).toList() ?? [],
     );
   }
 }
@@ -30,7 +31,8 @@ extension NotificationEntityMapper on Notification {
       createdAt: createdAt,
       title: title,
       message: message,
-      translations: translations.map((entity) => entity.toModel()).toList(),
+      translations:
+          translations?.map((entity) => entity.toModel()).toList() ?? [],
     );
   }
 }

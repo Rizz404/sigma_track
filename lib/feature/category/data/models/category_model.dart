@@ -6,14 +6,14 @@ import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
 class CategoryModel extends Equatable {
   final String id;
-  final String parentId;
+  final String? parentId;
   final String categoryCode;
   final String categoryName;
   final String description;
   final List<CategoryModel> children;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<CategoryTranslationModel> translations;
+  final List<CategoryTranslationModel>? translations;
 
   const CategoryModel({
     required this.id,
@@ -28,7 +28,7 @@ class CategoryModel extends Equatable {
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       parentId,
@@ -69,21 +69,21 @@ class CategoryModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'parentID': parentId,
+      'parentId': parentId,
       'categoryCode': categoryCode,
       'categoryName': categoryName,
       'description': description,
       'children': children.map((x) => x.toMap()).toList(),
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
     };
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map.getField<String>('id'),
-      parentId: map.getField<String>('parentID'),
+      parentId: map.getFieldOrNull<String>('parentId'),
       categoryCode: map.getField<String>('categoryCode'),
       categoryName: map.getField<String>('categoryName'),
       description: map.getField<String>('description'),

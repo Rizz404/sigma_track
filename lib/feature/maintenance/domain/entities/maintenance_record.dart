@@ -38,7 +38,7 @@ class MaintenanceRecord extends Equatable {
   final String? notes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<MaintenanceRecordTranslation> translations;
+  final List<MaintenanceRecordTranslation>? translations;
   final MaintenanceSchedule? schedule;
   final Asset asset;
   final User? performedByUser;
@@ -55,7 +55,7 @@ class MaintenanceRecord extends Equatable {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     this.schedule,
     required this.asset,
     this.performedByUser,

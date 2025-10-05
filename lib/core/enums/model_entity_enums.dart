@@ -185,7 +185,7 @@ enum ScanMethodType {
 
 enum ScanResultType {
   success('Success'),
-  invalidID('Invalid ID'),
+  invalidID('Invalid Id'),
   assetNotFound('Asset Not Found');
 
   const ScanResultType(this.value);

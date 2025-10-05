@@ -14,7 +14,7 @@ class NotificationModel extends Equatable {
   final DateTime createdAt;
   final String title;
   final String message;
-  final List<NotificationTranslationModel> translations;
+  final List<NotificationTranslationModel>? translations;
 
   const NotificationModel({
     required this.id,
@@ -25,7 +25,7 @@ class NotificationModel extends Equatable {
     required this.createdAt,
     required this.title,
     required this.message,
-    required this.translations,
+    this.translations,
   });
 
   @override
@@ -77,7 +77,7 @@ class NotificationModel extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'title': title,
       'message': message,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
     };
   }
 

@@ -14,7 +14,7 @@ class LocationModel extends Equatable {
   final double? longitude;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<LocationTranslationModel> translations;
+  final List<LocationTranslationModel>? translations;
 
   const LocationModel({
     required this.id,
@@ -26,7 +26,7 @@ class LocationModel extends Equatable {
     this.longitude,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
   });
 
   @override
@@ -82,7 +82,7 @@ class LocationModel extends Equatable {
       'longitude': longitude,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
     };
   }
 

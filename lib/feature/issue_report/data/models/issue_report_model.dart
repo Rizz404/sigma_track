@@ -21,7 +21,7 @@ class IssueReportModel extends Equatable {
   final String? resolutionNotes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<IssueReportTranslationModel> translations;
+  final List<IssueReportTranslationModel>? translations;
   final AssetModel asset;
   final UserModel reportedBy;
   final UserModel? resolvedBy;
@@ -41,7 +41,7 @@ class IssueReportModel extends Equatable {
     this.resolutionNotes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     required this.asset,
     required this.reportedBy,
     this.resolvedBy,
@@ -127,7 +127,7 @@ class IssueReportModel extends Equatable {
       'resolutionNotes': resolutionNotes,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'asset': asset.toMap(),
       'reportedBy': reportedBy.toMap(),
       'resolvedBy': resolvedBy?.toMap(),

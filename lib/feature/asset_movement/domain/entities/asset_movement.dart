@@ -15,7 +15,7 @@ class AssetMovement extends Equatable {
   final String? notes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<AssetMovementTranslation> translations;
+  final List<AssetMovementTranslation>? translations;
   final Asset asset;
   final Location? fromLocation;
   final Location? toLocation;
@@ -35,7 +35,7 @@ class AssetMovement extends Equatable {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     required this.asset,
     this.fromLocation,
     this.toLocation,

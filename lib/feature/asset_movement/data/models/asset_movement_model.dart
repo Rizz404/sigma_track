@@ -18,7 +18,7 @@ class AssetMovementModel extends Equatable {
   final String? notes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<AssetMovementTranslationModel> translations;
+  final List<AssetMovementTranslationModel>? translations;
   final AssetModel asset;
   final LocationModel? fromLocation;
   final LocationModel? toLocation;
@@ -38,7 +38,7 @@ class AssetMovementModel extends Equatable {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     required this.asset,
     this.fromLocation,
     this.toLocation,
@@ -124,7 +124,7 @@ class AssetMovementModel extends Equatable {
       'notes': notes,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'asset': asset.toMap(),
       'fromLocation': fromLocation?.toMap(),
       'toLocation': toLocation?.toMap(),

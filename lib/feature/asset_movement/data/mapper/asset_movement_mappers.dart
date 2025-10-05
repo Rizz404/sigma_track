@@ -32,7 +32,8 @@ extension AssetMovementModelMapper on AssetMovementModel {
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      translations: translations.map((model) => model.toEntity()).toList(),
+      translations:
+          translations?.map((model) => model.toEntity()).toList() ?? [],
       asset: asset.toEntity(),
       fromLocation: fromLocation?.toEntity(),
       toLocation: toLocation?.toEntity(),
@@ -57,7 +58,8 @@ extension AssetMovementEntityMapper on AssetMovement {
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      translations: translations.map((entity) => entity.toModel()).toList(),
+      translations:
+          translations?.map((entity) => entity.toModel()).toList() ?? [],
       asset: asset.toModel(),
       fromLocation: fromLocation?.toModel(),
       toLocation: toLocation?.toModel(),

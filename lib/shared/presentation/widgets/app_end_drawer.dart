@@ -6,9 +6,9 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/di/auth_providers.dart';
-import 'package:sigma_track/di/auth_providers_refresh_listenable.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 /// * End Drawer dengan konten berbeda berdasarkan role user
 class AppEndDrawer extends ConsumerWidget {
@@ -46,11 +46,10 @@ class AppEndDrawer extends ConsumerWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(
+            child: AppText(
               'Please login first',
-              style: context.textTheme.bodyMedium?.copyWith(
-                color: context.colorScheme.onSurface,
-              ),
+              style: AppTextStyle.bodyMedium,
+              color: context.colorScheme.onSurface,
             ),
           ),
           const Spacer(),
@@ -80,7 +79,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.home,
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.home);
+                    context.push(RouteConstant.home);
                   },
                 ),
                 _buildDrawerTile(
@@ -89,7 +88,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Scan Asset',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.scanAsset);
+                    context.push(RouteConstant.scanAsset);
                   },
                 ),
                 _buildDrawerTile(
@@ -98,7 +97,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'My Assets',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.myAssets);
+                    context.push(RouteConstant.myAssets);
                   },
                 ),
                 _buildDrawerTile(
@@ -107,7 +106,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Notifications',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.myNotifications);
+                    context.push(RouteConstant.myNotifications);
                   },
                 ),
                 _buildDrawerTile(
@@ -116,7 +115,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.profile,
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.userDetailProfile);
+                    context.push(RouteConstant.userDetailProfile);
                   },
                 ),
               ],
@@ -151,7 +150,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.dashboard,
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminDashboard);
+                    context.push(RouteConstant.adminDashboard);
                   },
                 ),
                 _buildDrawerTile(
@@ -160,18 +159,17 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Scan Asset',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminScanAsset);
+                    context.push(RouteConstant.adminScanAsset);
                   },
                 ),
                 const Divider(),
                 // * Management Section
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                  child: Text(
+                  child: AppText(
                     'Management',
-                    style: context.textTheme.labelSmall?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 _buildDrawerTile(
@@ -180,7 +178,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Assets',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminAssets);
+                    context.push(RouteConstant.adminAssets);
                   },
                 ),
                 _buildDrawerTile(
@@ -189,7 +187,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Asset Movements',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminAssetMovements);
+                    context.push(RouteConstant.adminAssetMovements);
                   },
                 ),
                 _buildDrawerTile(
@@ -198,7 +196,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Categories',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminCategories);
+                    context.push(RouteConstant.adminCategories);
                   },
                 ),
                 _buildDrawerTile(
@@ -207,7 +205,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Locations',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminLocations);
+                    context.push(RouteConstant.adminLocations);
                   },
                 ),
                 _buildDrawerTile(
@@ -216,18 +214,17 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Users',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminUsers);
+                    context.push(RouteConstant.adminUsers);
                   },
                 ),
                 const Divider(),
                 // * Maintenance Section
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                  child: Text(
+                  child: AppText(
                     'Maintenance',
-                    style: context.textTheme.labelSmall?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 _buildDrawerTile(
@@ -236,7 +233,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Maintenance Schedules',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminMaintenanceSchedules);
+                    context.push(RouteConstant.adminMaintenanceSchedules);
                   },
                 ),
                 _buildDrawerTile(
@@ -245,18 +242,17 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Maintenance Records',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminMaintenanceRecords);
+                    context.push(RouteConstant.adminMaintenanceRecords);
                   },
                 ),
                 const Divider(),
                 // * Reports Section
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                  child: Text(
+                  child: AppText(
                     'Reports',
-                    style: context.textTheme.labelSmall?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
                   ),
                 ),
                 _buildDrawerTile(
@@ -265,7 +261,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Issue Reports',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminIssueReports);
+                    context.push(RouteConstant.adminIssueReports);
                   },
                 ),
                 _buildDrawerTile(
@@ -274,7 +270,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Scan Logs',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminScanLogs);
+                    context.push(RouteConstant.adminScanLogs);
                   },
                 ),
                 _buildDrawerTile(
@@ -283,7 +279,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Notifications',
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminNotifications);
+                    context.push(RouteConstant.adminNotifications);
                   },
                 ),
                 const Divider(),
@@ -293,7 +289,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.profile,
                   onTap: () {
                     context.pop();
-                    context.go(RouteConstant.adminUserDetailProfile);
+                    context.push(RouteConstant.adminUserDetailProfile);
                   },
                 ),
               ],
@@ -321,12 +317,11 @@ class AppEndDrawer extends ConsumerWidget {
             color: context.colorScheme.onPrimaryContainer,
           ),
           const SizedBox(height: 8),
-          Text(
+          AppText(
             'Sigma Track',
-            style: context.textTheme.titleLarge?.copyWith(
-              color: context.colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyle.titleLarge,
+            color: context.colorScheme.onPrimaryContainer,
+            fontWeight: FontWeight.bold,
           ),
         ],
       ),
@@ -343,32 +338,35 @@ class AppEndDrawer extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: 24,
+            backgroundImage: user.avatarUrl != null
+                ? NetworkImage(user.avatarUrl!)
+                : null,
             backgroundColor: context.colorScheme.primaryContainer,
-            child: Text(
-              user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
-              style: context.textTheme.titleLarge?.copyWith(
-                color: context.colorScheme.onPrimaryContainer,
-              ),
-            ),
+            child: user.avatarUrl == null
+                ? Text(
+                    user.name.isNotEmpty ? user.name[0].toUpperCase() : 'U',
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: context.colorScheme.onPrimaryContainer,
+                    ),
+                  )
+                : null,
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AppText(
                   user.name,
-                  style: context.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.titleMedium,
+                  fontWeight: FontWeight.bold,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
+                AppText(
                   user.email,
-                  style: context.textTheme.bodySmall?.copyWith(
-                    color: context.colorScheme.onSurfaceVariant,
-                  ),
+                  style: AppTextStyle.bodySmall,
+                  color: context.colorScheme.onSurfaceVariant,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -388,7 +386,7 @@ class AppEndDrawer extends ConsumerWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: context.colorScheme.onSurface),
-      title: Text(title, style: context.textTheme.bodyLarge),
+      title: AppText(title, style: AppTextStyle.bodyLarge),
       onTap: onTap,
     );
   }
@@ -402,13 +400,13 @@ class AppEndDrawer extends ConsumerWidget {
             Icons.brightness_6,
             color: context.colorScheme.onSurface,
           ),
-          title: Text('Theme', style: context.textTheme.bodyLarge),
+          title: AppText('Theme', style: AppTextStyle.bodyLarge),
           trailing: _buildThemeSwitch(context, ref),
         ),
         // * Language Switcher
         ListTile(
           leading: Icon(Icons.language, color: context.colorScheme.onSurface),
-          title: Text('Language', style: context.textTheme.bodyLarge),
+          title: AppText('Language', style: AppTextStyle.bodyLarge),
           trailing: _buildLanguageDropdown(context, ref),
         ),
       ],
@@ -438,36 +436,36 @@ class AppEndDrawer extends ConsumerWidget {
       value: currentLocale,
       underline: const SizedBox.shrink(),
       items: [
-        DropdownMenuItem(
-          value: const Locale('en'),
+        const DropdownMenuItem(
+          value: Locale('en'),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('🇬🇧'),
               const SizedBox(width: 8),
-              Text('English', style: context.textTheme.bodyMedium),
+              AppText('English', style: AppTextStyle.bodyMedium),
             ],
           ),
         ),
-        DropdownMenuItem(
-          value: const Locale('id'),
+        const DropdownMenuItem(
+          value: Locale('id'),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('🇮🇩'),
               const SizedBox(width: 8),
-              Text('Indonesia', style: context.textTheme.bodyMedium),
+              AppText('Indonesia', style: AppTextStyle.bodyMedium),
             ],
           ),
         ),
-        DropdownMenuItem(
-          value: const Locale('ja'),
+        const DropdownMenuItem(
+          value: Locale('ja'),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('🇯🇵'),
               const SizedBox(width: 8),
-              Text('日本語', style: context.textTheme.bodyMedium),
+              AppText('日本語', style: AppTextStyle.bodyMedium),
             ],
           ),
         ),

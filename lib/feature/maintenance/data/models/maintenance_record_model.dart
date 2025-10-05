@@ -94,7 +94,7 @@ class MaintenanceRecordModel extends Equatable {
   final String? notes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<MaintenanceRecordTranslationModel> translations;
+  final List<MaintenanceRecordTranslationModel>? translations;
   final MaintenanceScheduleModel? schedule;
   final AssetModel asset;
   final UserModel? performedByUser;
@@ -111,7 +111,7 @@ class MaintenanceRecordModel extends Equatable {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     this.schedule,
     required this.asset,
     this.performedByUser,
@@ -185,7 +185,7 @@ class MaintenanceRecordModel extends Equatable {
       'notes': notes,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'schedule': schedule?.toMap(),
       'asset': asset.toMap(),
       'performedByUser': performedByUser?.toMap(),

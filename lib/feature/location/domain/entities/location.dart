@@ -10,7 +10,7 @@ class Location extends Equatable {
   final double? longitude;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<LocationTranslation> translations;
+  final List<LocationTranslation>? translations;
 
   const Location({
     required this.id,
@@ -22,7 +22,7 @@ class Location extends Equatable {
     this.longitude,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
   });
 
   @override

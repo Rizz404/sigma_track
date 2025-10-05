@@ -10,7 +10,7 @@ class Notification extends Equatable {
   final DateTime createdAt;
   final String title;
   final String message;
-  final List<NotificationTranslation> translations;
+  final List<NotificationTranslation>? translations;
 
   const Notification({
     required this.id,
@@ -21,7 +21,7 @@ class Notification extends Equatable {
     required this.createdAt,
     required this.title,
     required this.message,
-    required this.translations,
+    this.translations,
   });
 
   @override

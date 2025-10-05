@@ -51,7 +51,7 @@ class MaintenanceScheduleModel extends Equatable {
   final DateTime createdAt;
   final String title;
   final String? description;
-  final List<MaintenanceScheduleTranslationModel> translations;
+  final List<MaintenanceScheduleTranslationModel>? translations;
   final AssetModel asset;
   final UserModel createdBy;
 
@@ -66,7 +66,7 @@ class MaintenanceScheduleModel extends Equatable {
     required this.createdAt,
     required this.title,
     this.description,
-    required this.translations,
+    this.translations,
     required this.asset,
     required this.createdBy,
   });
@@ -100,7 +100,7 @@ class MaintenanceScheduleModel extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'title': title,
       'description': description,
-      'translations': translations.map((x) => x.toMap()).toList(),
+      'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'asset': asset.toMap(),
       'createdBy': createdBy.toMap(),
     };

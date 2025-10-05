@@ -14,7 +14,8 @@ extension CategoryModelMapper on CategoryModel {
       children: children.map((model) => model.toEntity()).toList(),
       createdAt: createdAt,
       updatedAt: updatedAt,
-      translations: translations.map((model) => model.toEntity()).toList(),
+      translations:
+          translations?.map((model) => model.toEntity()).toList() ?? [],
     );
   }
 }
@@ -30,7 +31,8 @@ extension CategoryEntityMapper on Category {
       children: children.map((entity) => entity.toModel()).toList(),
       createdAt: createdAt,
       updatedAt: updatedAt,
-      translations: translations.map((entity) => entity.toModel()).toList(),
+      translations:
+          translations?.map((entity) => entity.toModel()).toList() ?? [],
     );
   }
 }

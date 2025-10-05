@@ -46,10 +46,10 @@ class CreateScanLogUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'assetID': assetId,
+      'assetId': assetId,
       'scannedValue': scannedValue,
       'scanMethod': scanMethod.value,
-      'scannedByID': scannedById,
+      'scannedById': scannedById,
       'scanTimestamp': scanTimestamp.toIso8601String(),
       'scanLocationLat': scanLocationLat,
       'scanLocationLng': scanLocationLng,

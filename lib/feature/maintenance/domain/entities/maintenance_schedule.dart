@@ -29,7 +29,7 @@ class MaintenanceSchedule extends Equatable {
   final DateTime createdAt;
   final String title;
   final String? description;
-  final List<MaintenanceScheduleTranslation> translations;
+  final List<MaintenanceScheduleTranslation>? translations;
   final Asset asset;
   final User createdBy;
 
@@ -44,7 +44,7 @@ class MaintenanceSchedule extends Equatable {
     required this.createdAt,
     required this.title,
     this.description,
-    required this.translations,
+    this.translations,
     required this.asset,
     required this.createdBy,
   });

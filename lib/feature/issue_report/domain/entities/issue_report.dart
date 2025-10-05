@@ -18,7 +18,7 @@ class IssueReport extends Equatable {
   final String? resolutionNotes;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final List<IssueReportTranslation> translations;
+  final List<IssueReportTranslation>? translations;
   final Asset asset;
   final User reportedBy;
   final User? resolvedBy;
@@ -38,7 +38,7 @@ class IssueReport extends Equatable {
     this.resolutionNotes,
     required this.createdAt,
     required this.updatedAt,
-    required this.translations,
+    this.translations,
     required this.asset,
     required this.reportedBy,
     this.resolvedBy,
