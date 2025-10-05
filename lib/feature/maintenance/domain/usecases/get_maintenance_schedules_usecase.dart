@@ -87,13 +87,14 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
     return {
       if (search != null) 'search': search,
       if (assetId != null) 'assetId': assetId,
-      if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
-      if (status != null) 'status': status!.value,
+      if (maintenanceType != null)
+        'maintenanceType': maintenanceType!.toString(),
+      if (status != null) 'status': status!.toString(),
       if (createdBy != null) 'createdBy': createdBy,
       if (fromDate != null) 'fromDate': fromDate,
       if (toDate != null) 'toDate': toDate,
-      if (sortBy != null) 'sortBy': sortBy!.value,
-      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (sortBy != null) 'sortBy': sortBy!.toString(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };

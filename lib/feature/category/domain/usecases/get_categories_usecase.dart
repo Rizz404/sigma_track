@@ -68,8 +68,8 @@ class GetCategoriesUsecaseParams extends Equatable {
       if (search != null) 'search': search,
       if (parentId != null) 'parentId': parentId,
       if (hasParent != null) 'hasParent': hasParent,
-      if (sortBy != null) 'sortBy': sortBy!.value,
-      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (sortBy != null) 'sortBy': sortBy!.toString(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };

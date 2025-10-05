@@ -46,8 +46,9 @@ class CountMaintenanceSchedulesUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      if (status != null) 'status': status!.value,
-      if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
+      if (status != null) 'status': status!.toString(),
+      if (maintenanceType != null)
+        'maintenanceType': maintenanceType!.toString(),
     };
   }
 

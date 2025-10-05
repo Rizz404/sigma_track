@@ -11,7 +11,7 @@ import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/domain/usecases/create_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
-import 'package:sigma_track/feature/category/presentation/providers/state/category_mutation_state.dart';
+import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -36,20 +36,17 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<CategoryMutationState>(categoryMutationProvider, (
-      previous,
-      next,
-    ) {
-      if (next.categoryStatus == CategoryStatus.loading) {
+    ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
+      if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (next.categoryStatus == CategoryStatus.success) {
+      if (!next.isMutating && next.message != null && next.failure == null) {
         AppToast.success(next.message ?? 'Category saved successfully');
         context.pop();
-      } else if (next.categoryStatus == CategoryStatus.error) {
+      } else if (next.failure != null) {
         this.logError('Category mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }
@@ -136,7 +133,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
+            const AppText(
               'Translations',
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
@@ -276,14 +273,14 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         categoryCode: categoryCode,
         translations: translations.cast<UpdateCategoryTranslation>(),
       );
-      ref.read(categoryMutationProvider.notifier).updateCategory(params);
+      ref.read(categoriesProvider.notifier).updateCategory(params);
     } else {
       final params = CreateCategoryUsecaseParams(
         parentId: parentId ?? '',
         categoryCode: categoryCode,
         translations: translations.cast<CreateCategoryTranslation>(),
       );
-      ref.read(categoryMutationProvider.notifier).createCategory(params);
+      ref.read(categoriesProvider.notifier).createCategory(params);
     }
   }
 }

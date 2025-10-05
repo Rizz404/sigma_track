@@ -91,8 +91,8 @@ class GetMaintenanceRecordsUsecaseParams extends Equatable {
       if (vendorName != null) 'vendorName': vendorName,
       if (fromDate != null) 'fromDate': fromDate,
       if (toDate != null) 'toDate': toDate,
-      if (sortBy != null) 'sortBy': sortBy!.value,
-      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (sortBy != null) 'sortBy': sortBy!.toString(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };

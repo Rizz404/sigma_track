@@ -6,7 +6,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/domain/failure.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';

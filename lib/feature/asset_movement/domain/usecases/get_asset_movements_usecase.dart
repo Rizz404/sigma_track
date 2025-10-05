@@ -101,8 +101,8 @@ class GetAssetMovementsUsecaseParams extends Equatable {
       if (movedBy != null) 'movedBy': movedBy,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
-      if (sortBy != null) 'sortBy': sortBy!.value,
-      if (sortOrder != null) 'sortOrder': sortOrder!.value,
+      if (sortBy != null) 'sortBy': sortBy!.toString(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };

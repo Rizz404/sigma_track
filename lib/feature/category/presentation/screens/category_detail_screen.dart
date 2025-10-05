@@ -10,7 +10,7 @@ import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
-import 'package:sigma_track/feature/category/presentation/providers/state/category_mutation_state.dart';
+import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -110,23 +110,20 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
 
     if (confirmed == true && mounted) {
       await ref
-          .read(categoryMutationProvider.notifier)
+          .read(categoriesProvider.notifier)
           .deleteCategory(DeleteCategoryUsecaseParams(id: _category!.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<CategoryMutationState>(categoryMutationProvider, (
-      previous,
-      next,
-    ) {
-      if (next.categoryStatus == CategoryStatus.success) {
+    ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
+      if (!next.isMutating && next.message != null && next.failure == null) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.categoryStatus == CategoryStatus.loading) {
+        if (previous?.isMutating == true) {
           context.pop();
         }
-      } else if (next.categoryStatus == CategoryStatus.error) {
+      } else if (next.failure != null) {
         this.logError('Category mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }

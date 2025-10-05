@@ -40,8 +40,8 @@ class CountAssetsUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      if (status != null) 'status': status!.value,
-      if (condition != null) 'condition': condition!.value,
+      if (status != null) 'status': status!.toString(),
+      if (condition != null) 'condition': condition!.toString(),
     };
   }
 

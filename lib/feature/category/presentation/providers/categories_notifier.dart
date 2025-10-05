@@ -83,9 +83,17 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   Future<void> updateFilter(CategoriesFilter newFilter) async {
-    this.logPresentation('Updating filter');
+    this.logPresentation(
+      'Updating filter - received: sortBy=${newFilter.sortBy}, sortOrder=${newFilter.sortOrder}, hasParent=${newFilter.hasParent}',
+    );
 
-    final filterWithResetCursor = newFilter.copyWith(cursor: () => null);
+    // * Preserve search from current filter
+    final filterWithResetCursor = newFilter.copyWith(
+      search: () => state.categoriesFilter.search,
+      cursor: () => null,
+    );
+
+    this.logPresentation('Filter after merge: $filterWithResetCursor');
     state = state.copyWith(isLoading: true);
     state = await _loadCategories(categoriesFilter: filterWithResetCursor);
   }
@@ -234,6 +242,9 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   Future<void> refresh() async {
-    ref.invalidateSelf();
+    // * Preserve current filter when refreshing
+    final currentFilter = state.categoriesFilter;
+    state = state.copyWith(isLoading: true);
+    state = await _loadCategories(categoriesFilter: currentFilter);
   }
 }

@@ -49,15 +49,20 @@ class CategoriesFilter extends Equatable {
   List<Object?> get props {
     return [search, parentId, hasParent, sortBy, sortOrder, cursor, limit];
   }
+
+  @override
+  String toString() {
+    return 'CategoriesFilter(search: $search, parentId: $parentId, hasParent: $hasParent, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
+  }
 }
 
 class CategoriesState extends Equatable {
   final List<Category> categories;
   final Category? mutatedCategory;
   final CategoriesFilter categoriesFilter;
-  final bool isLoading; // * List loading (initial/refresh)
-  final bool isLoadingMore; // * Pagination loading
-  final bool isMutating; // * Create/update/delete loading
+  final bool isLoading;
+  final bool isLoadingMore;
+  final bool isMutating;
   final String? message;
   final Failure? failure;
   final Cursor? cursor;

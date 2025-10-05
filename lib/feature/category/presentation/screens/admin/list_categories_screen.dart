@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,11 +9,11 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
-import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/feature/category/presentation/widgets/category_card.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -34,6 +36,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedCategoryIds = {};
   bool _isSelectMode = false;
+  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -43,6 +46,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   @override
   void dispose() {
+    _debounceTimer?.cancel();
     _scrollController.dispose();
     _searchController.dispose();
     super.dispose();
@@ -51,14 +55,14 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent * 0.9) {
-      ref.read(categoresProvider.notifier).loadMore();
+      ref.read(categoriesProvider.notifier).loadMore();
     }
   }
 
   Future<void> _onRefresh() async {
     _selectedCategoryIds.clear();
     _isSelectMode = false;
-    await ref.read(categoresProvider.notifier).refresh();
+    await ref.read(categoriesProvider.notifier).refresh();
   }
 
   void _showOptionsBottomSheet() {
@@ -90,7 +94,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   void _showFilterSortBottomSheet() {
     Navigator.pop(context);
-    final currentFilter = ref.read(categoresProvider).categoriesFilter;
+    final currentFilter = ref.read(categoriesProvider).categoriesFilter;
 
     showModalBottomSheet(
       context: context,
@@ -103,7 +107,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
         currentFilter: currentFilter,
         onApply: (filter) {
           Navigator.pop(context);
-          ref.read(categoresProvider.notifier).updateFilter(filter);
+          ref.read(categoriesProvider.notifier).updateFilter(filter);
           AppToast.success('Filter applied');
         },
         formKey: _filterFormKey,
@@ -163,12 +167,8 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // * Delete categories one by one
-      for (final categoryId in _selectedCategoryIds) {
-        await ref
-            .read(categoresProvider.notifier)
-            .deleteCategory(DeleteCategoryUsecaseParams(id: categoryId));
-      }
+      // Todo: Implementasi di backend
+      AppToast.info('Not implemented yet');
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -176,9 +176,9 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(categoresProvider);
+    final state = ref.watch(categoriesProvider);
 
-    ref.listen(categoresProvider, (previous, next) {
+    ref.listen(categoriesProvider, (previous, next) {
       if (next.message != null) {
         AppToast.success(next.message!);
       }
@@ -259,7 +259,10 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
       controller: _searchController,
       hintText: 'Search categories...',
       onChanged: (value) {
-        ref.read(categoresProvider.notifier).search(value);
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          ref.read(categoriesProvider.notifier).search(value);
+        });
       },
     );
   }
@@ -304,7 +307,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     bool isLoadingMore = false,
   ]) {
     final isMutating = ref.watch(
-      categoresProvider.select((state) => state.isMutating),
+      categoriesProvider.select((state) => state.isMutating),
     );
 
     final displayCategories = isLoadingMore
@@ -516,7 +519,7 @@ class _FilterSortBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              AppText(
+              const AppText(
                 'Filter & Sort',
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
@@ -525,7 +528,7 @@ class _FilterSortBottomSheet extends StatelessWidget {
               AppDropdown<String>(
                 name: 'sortBy',
                 label: 'Sort By',
-                initialValue: currentFilter.sortBy?.value ?? 'categoryName',
+                initialValue: currentFilter.sortBy?.value ?? 'createdAt',
                 items: const [
                   AppDropdownItem(
                     value: 'categoryName',
@@ -553,7 +556,7 @@ class _FilterSortBottomSheet extends StatelessWidget {
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
-                initialValue: currentFilter.sortOrder?.value ?? 'asc',
+                initialValue: currentFilter.sortOrder?.value ?? 'desc',
                 items: const [
                   AppDropdownItem(
                     value: 'asc',
@@ -568,31 +571,10 @@ class _FilterSortBottomSheet extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              AppDropdown<String>(
+              AppCheckbox(
                 name: 'hasParent',
-                label: 'Category Type',
-                initialValue: currentFilter.hasParent == null
-                    ? 'all'
-                    : currentFilter.hasParent!
-                    ? 'child'
-                    : 'parent',
-                items: const [
-                  AppDropdownItem(
-                    value: 'all',
-                    label: 'All Categories',
-                    icon: Icon(Icons.list, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'parent',
-                    label: 'Parent Only',
-                    icon: Icon(Icons.folder, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'child',
-                    label: 'Child Only',
-                    icon: Icon(Icons.folder_open, size: 18),
-                  ),
-                ],
+                title: AppText('Has Parent'),
+                initialValue: currentFilter.hasParent == true,
               ),
               const SizedBox(height: 32),
               Row(
@@ -613,26 +595,30 @@ class _FilterSortBottomSheet extends StatelessWidget {
                     child: AppButton(
                       text: 'Apply',
                       onPressed: () {
+                        // * Save form first to get updated values
+                        formKey.currentState?.save();
                         final formData = formKey.currentState?.value;
+
                         if (formData != null) {
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
-                          final hasParentStr = formData['hasParent'] as String?;
+                          final hasParentChecked =
+                              formData['hasParent'] as bool? ?? false;
 
-                          onApply(
-                            CategoriesFilter(
-                              search: currentFilter.search,
-                              sortBy: sortByStr != null
-                                  ? CategorySortBy.fromString(sortByStr)
-                                  : null,
-                              sortOrder: sortOrderStr != null
-                                  ? SortOrder.fromString(sortOrderStr)
-                                  : null,
-                              hasParent: hasParentStr == 'all'
-                                  ? null
-                                  : hasParentStr == 'child',
-                            ),
+                          final hasParentValue = hasParentChecked ? true : null;
+
+                          final newFilter = CategoriesFilter(
+                            search: currentFilter.search,
+                            sortBy: sortByStr != null
+                                ? CategorySortBy.fromString(sortByStr)
+                                : null,
+                            sortOrder: sortOrderStr != null
+                                ? SortOrder.fromString(sortOrderStr)
+                                : null,
+                            hasParent: hasParentValue,
                           );
+
+                          onApply(newFilter);
                         }
                       },
                     ),
