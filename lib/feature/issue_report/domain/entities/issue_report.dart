@@ -44,6 +44,21 @@ class IssueReport extends Equatable {
     this.resolvedBy,
   });
 
+  factory IssueReport.dummy() => IssueReport(
+    id: '',
+    assetId: '',
+    reportedById: '',
+    reportedDate: DateTime(0),
+    issueType: '',
+    priority: IssuePriority.low,
+    status: IssueStatus.open,
+    title: '',
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+    asset: Asset.dummy(),
+    reportedBy: User.dummy(),
+  );
+
   @override
   List<Object?> get props => [
     id,

@@ -23,6 +23,16 @@ class Category extends Equatable {
     this.translations,
   });
 
+  factory Category.dummy() => Category(
+    id: '',
+    categoryCode: '',
+    categoryName: '',
+    description: '',
+    children: [],
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+  );
+
   @override
   List<Object?> get props {
     return [

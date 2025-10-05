@@ -24,6 +24,16 @@ class Notification extends Equatable {
     this.translations,
   });
 
+  factory Notification.dummy() => Notification(
+    id: '',
+    userId: '',
+    type: NotificationType.maintenance,
+    isRead: false,
+    createdAt: DateTime(0),
+    title: '',
+    message: '',
+  );
+
   @override
   List<Object?> get props {
     return [

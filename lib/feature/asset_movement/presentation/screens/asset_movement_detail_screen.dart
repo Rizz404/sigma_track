@@ -4,9 +4,10 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class AssetMovementDetailScreen extends StatelessWidget {
-  final AssetMovement assetMovement;
+  final AssetMovement? assetMovement;
+  final String? id;
 
-  const AssetMovementDetailScreen({super.key, required this.assetMovement});
+  const AssetMovementDetailScreen({super.key, this.assetMovement, this.id});
 
   @override
   Widget build(BuildContext context) {

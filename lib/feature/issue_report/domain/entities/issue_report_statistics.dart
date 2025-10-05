@@ -17,6 +17,36 @@ class IssueReportStatistics extends Equatable {
     required this.summary,
   });
 
+  factory IssueReportStatistics.dummy() => IssueReportStatistics(
+    total: const IssueReportCountStatistics(count: 0),
+    byPriority: const IssueReportPriorityStatistics(
+      low: 0,
+      medium: 0,
+      high: 0,
+      critical: 0,
+    ),
+    byStatus: const IssueReportStatusStatistics(
+      open: 0,
+      inProgress: 0,
+      resolved: 0,
+      closed: 0,
+    ),
+    byType: const IssueReportTypeStatistics(types: {}),
+    creationTrends: const [],
+    summary: IssueReportSummaryStatistics(
+      totalReports: 0,
+      openPercentage: 0.0,
+      resolvedPercentage: 0.0,
+      averageResolutionTime: 0.0,
+      mostCommonPriority: '',
+      mostCommonType: '',
+      criticalUnresolvedCount: 0,
+      averageReportsPerDay: 0.0,
+      latestCreationDate: DateTime(0),
+      earliestCreationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props => [
     total,

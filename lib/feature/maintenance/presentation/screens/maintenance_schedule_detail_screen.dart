@@ -4,11 +4,13 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class MaintenanceScheduleDetailScreen extends StatelessWidget {
-  final MaintenanceSchedule maintenanceSchedule;
+  final MaintenanceSchedule? maintenanceSchedule;
+  final String? id;
 
   const MaintenanceScheduleDetailScreen({
     super.key,
-    required this.maintenanceSchedule,
+    this.maintenanceSchedule,
+    this.id,
   });
 
   @override

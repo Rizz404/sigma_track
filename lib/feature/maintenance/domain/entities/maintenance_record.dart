@@ -22,6 +22,8 @@ class MaintenanceSchedule extends Equatable {
 
   const MaintenanceSchedule({required this.id});
 
+  factory MaintenanceSchedule.dummy() => const MaintenanceSchedule(id: '');
+
   @override
   List<Object> get props => [id];
 }
@@ -60,6 +62,16 @@ class MaintenanceRecord extends Equatable {
     required this.asset,
     this.performedByUser,
   });
+
+  factory MaintenanceRecord.dummy() => MaintenanceRecord(
+    id: '',
+    assetId: '',
+    maintenanceDate: DateTime(0),
+    title: '',
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+    asset: Asset.dummy(),
+  );
 
   @override
   List<Object?> get props => [

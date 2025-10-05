@@ -25,6 +25,14 @@ class Location extends Equatable {
     this.translations,
   });
 
+  factory Location.dummy() => Location(
+    id: '',
+    locationName: '',
+    locationCode: '',
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+  );
+
   @override
   List<Object?> get props {
     return [

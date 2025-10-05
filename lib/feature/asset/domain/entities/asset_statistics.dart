@@ -27,6 +27,59 @@ class AssetStatistics extends Equatable {
     required this.summary,
   });
 
+  factory AssetStatistics.dummy() => AssetStatistics(
+    total: const AssetCountStatistics(count: 0),
+    byStatus: const AssetStatusStatistics(
+      active: 0,
+      maintenance: 0,
+      disposed: 0,
+      lost: 0,
+    ),
+    byCondition: const AssetConditionStatistics(
+      good: 0,
+      fair: 0,
+      poor: 0,
+      damaged: 0,
+    ),
+    byCategory: const [],
+    byLocation: const [],
+    byAssignment: const AssetAssignmentStatistics(assigned: 0, unassigned: 0),
+    valueStatistics: const AssetValueStatistics(
+      assetsWithValue: 0,
+      assetsWithoutValue: 0,
+    ),
+    warrantyStatistics: const AssetWarrantyStatistics(
+      activeWarranties: 0,
+      expiredWarranties: 0,
+      noWarrantyInfo: 0,
+    ),
+    creationTrends: const [],
+    summary: AssetSummaryStatistics(
+      totalAssets: 0,
+      activeAssetsPercentage: 0.0,
+      maintenanceAssetsPercentage: 0.0,
+      disposedAssetsPercentage: 0.0,
+      lostAssetsPercentage: 0.0,
+      goodConditionPercentage: 0.0,
+      fairConditionPercentage: 0.0,
+      poorConditionPercentage: 0.0,
+      damagedConditionPercentage: 0.0,
+      assignedAssetsPercentage: 0.0,
+      unassignedAssetsPercentage: 0.0,
+      assetsWithPurchasePrice: 0,
+      purchasePricePercentage: 0.0,
+      assetsWithDataMatrix: 0,
+      dataMatrixPercentage: 0.0,
+      assetsWithWarranty: 0,
+      warrantyPercentage: 0.0,
+      totalCategories: 0,
+      totalLocations: 0,
+      averageAssetsPerDay: 0.0,
+      latestCreationDate: DateTime(0),
+      earliestCreationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props => [
     total,

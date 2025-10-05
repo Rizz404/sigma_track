@@ -15,6 +15,24 @@ class UserStatistics extends Equatable {
     required this.summary,
   });
 
+  factory UserStatistics.dummy() => UserStatistics(
+    total: const UserCountStatistics(count: 0),
+    byStatus: const UserStatusStatistics(active: 0, inactive: 0),
+    byRole: const UserRoleStatistics(admin: 0, staff: 0, employee: 0),
+    registrationTrends: const [],
+    summary: UserSummaryStatistics(
+      totalUsers: 0,
+      activeUsersPercentage: 0.0,
+      inactiveUsersPercentage: 0.0,
+      adminPercentage: 0.0,
+      staffPercentage: 0.0,
+      employeePercentage: 0.0,
+      averageUsersPerDay: 0.0,
+      latestRegistrationDate: DateTime(0),
+      earliestRegistrationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props {
     return [total, byStatus, byRole, registrationTrends, summary];

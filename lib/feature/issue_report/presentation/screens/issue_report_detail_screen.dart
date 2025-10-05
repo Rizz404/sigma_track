@@ -4,9 +4,10 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class IssueReportDetailScreen extends StatelessWidget {
-  final IssueReport issueReport;
+  final IssueReport? issueReport;
+  final String? id;
 
-  const IssueReportDetailScreen({super.key, required this.issueReport});
+  const IssueReportDetailScreen({super.key, this.issueReport, this.id});
 
   @override
   Widget build(BuildContext context) {

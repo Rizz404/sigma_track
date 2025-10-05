@@ -4,9 +4,10 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class ScanLogDetailScreen extends StatelessWidget {
-  final ScanLog scanLog;
+  final ScanLog? scanLog;
+  final String? id;
 
-  const ScanLogDetailScreen({super.key, required this.scanLog});
+  const ScanLogDetailScreen({super.key, this.scanLog, this.id});
 
   @override
   Widget build(BuildContext context) {

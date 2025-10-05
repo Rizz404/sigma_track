@@ -4,9 +4,10 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class UserDetailScreen extends StatelessWidget {
-  final User user;
+  final User? user;
+  final String? id;
 
-  const UserDetailScreen({super.key, required this.user});
+  const UserDetailScreen({super.key, this.user, this.id});
 
   @override
   Widget build(BuildContext context) {

@@ -44,6 +44,17 @@ class AssetMovement extends Equatable {
     required this.movedBy,
   });
 
+  factory AssetMovement.dummy() => AssetMovement(
+    id: '',
+    assetId: '',
+    movedById: '',
+    movementDate: DateTime(0),
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+    asset: Asset.dummy(),
+    movedBy: User.dummy(),
+  );
+
   @override
   List<Object?> get props => [
     id,

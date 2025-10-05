@@ -13,6 +13,27 @@ class CategoryStatistics extends Equatable {
     required this.summary,
   });
 
+  factory CategoryStatistics.dummy() => CategoryStatistics(
+    total: const CategoryCountStatistics(count: 0),
+    byHierarchy: const CategoryHierarchyStatistics(
+      topLevel: 0,
+      withChildren: 0,
+      withParent: 0,
+    ),
+    creationTrends: const [],
+    summary: CategorySummaryStatistics(
+      totalCategories: 0,
+      topLevelPercentage: 0.0,
+      subCategoriesPercentage: 0.0,
+      categoriesWithChildrenCount: 0,
+      categoriesWithoutChildrenCount: 0,
+      maxDepthLevel: 0,
+      averageCategoriesPerDay: 0.0,
+      latestCreationDate: DateTime(0),
+      earliestCreationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props {
     return [total, byHierarchy, creationTrends, summary];

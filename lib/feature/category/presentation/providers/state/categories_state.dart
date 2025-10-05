@@ -55,7 +55,9 @@ class CategoriesState extends Equatable {
   final List<Category> categories;
   final Category? mutatedCategory;
   final CategoriesFilter categoriesFilter;
-  final bool? isLoadingMore;
+  final bool isLoading; // * List loading (initial/refresh)
+  final bool isLoadingMore; // * Pagination loading
+  final bool isMutating; // * Create/update/delete loading
   final String? message;
   final Failure? failure;
   final Cursor? cursor;
@@ -64,14 +66,16 @@ class CategoriesState extends Equatable {
     this.categories = const [],
     this.mutatedCategory,
     required this.categoriesFilter,
-    this.isLoadingMore,
+    this.isLoading = false,
+    this.isLoadingMore = false,
+    this.isMutating = false,
     this.message,
     this.failure,
     this.cursor,
   });
 
   factory CategoriesState.initial() =>
-      CategoriesState(categoriesFilter: CategoriesFilter());
+      CategoriesState(categoriesFilter: CategoriesFilter(), isLoading: true);
 
   factory CategoriesState.loading({
     required CategoriesFilter categoriesFilter,
@@ -79,6 +83,7 @@ class CategoriesState extends Equatable {
   }) => CategoriesState(
     categories: currentCategories ?? const [],
     categoriesFilter: categoriesFilter,
+    isLoading: true,
   );
 
   factory CategoriesState.success({
@@ -120,7 +125,9 @@ class CategoriesState extends Equatable {
     List<Category>? categories,
     ValueGetter<Category?>? mutatedCategory,
     CategoriesFilter? categoriesFilter,
-    ValueGetter<bool?>? isLoadingMore,
+    bool? isLoading,
+    bool? isLoadingMore,
+    bool? isMutating,
     ValueGetter<String?>? message,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
@@ -131,9 +138,9 @@ class CategoriesState extends Equatable {
           ? mutatedCategory()
           : this.mutatedCategory,
       categoriesFilter: categoriesFilter ?? this.categoriesFilter,
-      isLoadingMore: isLoadingMore != null
-          ? isLoadingMore()
-          : this.isLoadingMore,
+      isLoading: isLoading ?? this.isLoading,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      isMutating: isMutating ?? this.isMutating,
       message: message != null ? message() : this.message,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
@@ -146,7 +153,9 @@ class CategoriesState extends Equatable {
       categories,
       mutatedCategory,
       categoriesFilter,
+      isLoading,
       isLoadingMore,
+      isMutating,
       message,
       failure,
       cursor,

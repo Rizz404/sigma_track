@@ -51,6 +51,18 @@ class Asset extends Equatable {
     this.assignedTo,
   });
 
+  factory Asset.dummy() => Asset(
+    id: '',
+    assetTag: '',
+    dataMatrixImageUrl: '',
+    assetName: '',
+    categoryId: '',
+    status: AssetStatus.active,
+    condition: AssetCondition.good,
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+  );
+
   @override
   List<Object?> get props {
     return [

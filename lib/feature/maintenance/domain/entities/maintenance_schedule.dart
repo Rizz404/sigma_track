@@ -49,6 +49,19 @@ class MaintenanceSchedule extends Equatable {
     required this.createdBy,
   });
 
+  factory MaintenanceSchedule.dummy() => MaintenanceSchedule(
+    id: '',
+    assetId: '',
+    maintenanceType: MaintenanceScheduleType.preventive,
+    scheduledDate: DateTime(0),
+    status: ScheduleStatus.scheduled,
+    createdById: '',
+    createdAt: DateTime(0),
+    title: '',
+    asset: Asset.dummy(),
+    createdBy: User.dummy(),
+  );
+
   @override
   List<Object?> get props => [
     id,

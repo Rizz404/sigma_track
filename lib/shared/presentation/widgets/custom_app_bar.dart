@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final double? elevation;
   final bool centerTitle;
+  final List<Widget>? actions;
 
   const CustomAppBar({
     super.key,
@@ -21,6 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.elevation,
     this.centerTitle = false,
+    this.actions,
   });
 
   @override
@@ -32,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title ?? 'Sigma Track',
       color: context.colorScheme.surface,
     );
-    final actionButton = Builder(
+    final menuButton = Builder(
       builder: (innerContext) => IconButton(
         icon: const Icon(Icons.menu),
         tooltip: 'Open Menu',
@@ -42,10 +44,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
 
+    final allActions = [
+      if (actions != null) ...actions!,
+      menuButton,
+      const SizedBox(width: 4),
+    ];
+
     if (Platform.isIOS) {
       return CupertinoNavigationBar(
         middle: titleWidget,
-        trailing: actionButton,
+        trailing: Row(mainAxisSize: MainAxisSize.min, children: allActions),
         automaticallyImplyLeading: automaticLeading,
         leading: leading,
         backgroundColor: backgroundColor,
@@ -54,7 +62,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       title: titleWidget,
-      actions: [actionButton, const SizedBox(width: 4)],
+      actions: allActions,
       automaticallyImplyLeading: automaticLeading,
       leading: leading,
       backgroundColor: backgroundColor,

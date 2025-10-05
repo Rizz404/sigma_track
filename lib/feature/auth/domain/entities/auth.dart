@@ -19,6 +19,8 @@ class Auth extends Equatable {
   /// Empty auth untuk unauthenticated state
   const Auth.empty() : user = null, accessToken = null, refreshToken = null;
 
+  factory Auth.dummy() => const Auth.empty();
+
   @override
   List<Object?> get props => [user, accessToken, refreshToken];
 }

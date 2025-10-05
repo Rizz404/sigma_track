@@ -24,6 +24,15 @@ class ScanLog extends Equatable {
     required this.scanResult,
   });
 
+  factory ScanLog.dummy() => ScanLog(
+    id: '',
+    scannedValue: '',
+    scanMethod: ScanMethodType.dataMatrix,
+    scannedById: '',
+    scanTimestamp: DateTime(0),
+    scanResult: ScanResultType.success,
+  );
+
   @override
   List<Object?> get props {
     return [

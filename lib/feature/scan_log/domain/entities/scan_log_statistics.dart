@@ -20,6 +20,27 @@ class ScanLogStatistics extends Equatable {
     required this.summary,
   });
 
+  factory ScanLogStatistics.dummy() => ScanLogStatistics(
+    total: const ScanLogCountStatistics(count: 0),
+    byMethod: const [],
+    byResult: const [],
+    geographic: const ScanGeographicStatistics(
+      withCoordinates: 0,
+      withoutCoordinates: 0,
+    ),
+    scanTrends: const [],
+    topScanners: const [],
+    summary: ScanLogSummaryStatistics(
+      totalScans: 0,
+      successRate: 0.0,
+      scansWithCoordinates: 0,
+      coordinatesPercentage: 0.0,
+      averageScansPerDay: 0.0,
+      latestScanDate: DateTime(0),
+      earliestScanDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props => [
     total,

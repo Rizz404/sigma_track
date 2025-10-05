@@ -17,6 +17,33 @@ class LocationStatistics extends Equatable {
     required this.summary,
   });
 
+  factory LocationStatistics.dummy() => LocationStatistics(
+    total: const LocationCountStatistics(count: 0),
+    byBuilding: const [],
+    byFloor: const [],
+    geographic: const GeographicStatistics(
+      withCoordinates: 0,
+      withoutCoordinates: 0,
+    ),
+    creationTrends: const [],
+    summary: LocationSummaryStatistics(
+      totalLocations: 0,
+      locationsWithBuilding: 0,
+      locationsWithoutBuilding: 0,
+      locationsWithFloor: 0,
+      locationsWithoutFloor: 0,
+      locationsWithCoordinates: 0,
+      coordinatesPercentage: 0.0,
+      buildingPercentage: 0.0,
+      floorPercentage: 0.0,
+      totalBuildings: 0,
+      totalFloors: 0,
+      averageLocationsPerDay: 0.0,
+      latestCreationDate: DateTime(0),
+      earliestCreationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props => [
     total,

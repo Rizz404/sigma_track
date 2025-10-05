@@ -78,6 +78,7 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       cursor: () => null,
     );
 
+    state = state.copyWith(isLoading: true);
     state = await _loadCategories(categoriesFilter: newFilter);
   }
 
@@ -85,6 +86,7 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     this.logPresentation('Updating filter');
 
     final filterWithResetCursor = newFilter.copyWith(cursor: () => null);
+    state = state.copyWith(isLoading: true);
     state = await _loadCategories(categoriesFilter: filterWithResetCursor);
   }
 
@@ -94,7 +96,7 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       return;
     }
 
-    if (state.isLoadingMore == true) {
+    if (state.isLoadingMore) {
       this.logPresentation('Already loading more');
       return;
     }
@@ -146,24 +148,26 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> createCategory(CreateCategoryUsecaseParams params) async {
     this.logPresentation('Creating category');
 
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
+
     final result = await _createCategoryUsecase.call(params);
 
     result.fold(
       (failure) {
         this.logError('Failed to create category', failure);
-        state = state.copyWith(failure: () => failure, message: () => null);
+        state = state.copyWith(isMutating: false, failure: () => failure);
       },
-      (success) {
+      (success) async {
         this.logData('Category created successfully');
-        final newCategory = success.data;
-        if (newCategory != null) {
-          state = state.copyWith(
-            categories: [newCategory, ...state.categories],
-            mutatedCategory: () => newCategory,
-            message: () => success.message ?? 'Category created',
-            failure: () => null,
-          );
-        }
+        state = state.copyWith(
+          message: () => success.message ?? 'Category created',
+          isMutating: false,
+        );
+        await refresh();
       },
     );
   }
@@ -171,30 +175,26 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> updateCategory(UpdateCategoryUsecaseParams params) async {
     this.logPresentation('Updating category: ${params.id}');
 
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
+
     final result = await _updateCategoryUsecase.call(params);
 
     result.fold(
       (failure) {
         this.logError('Failed to update category', failure);
-        state = state.copyWith(failure: () => failure, message: () => null);
+        state = state.copyWith(isMutating: false, failure: () => failure);
       },
-      (success) {
+      (success) async {
         this.logData('Category updated successfully');
-        final updatedCategory = success.data;
-        if (updatedCategory != null) {
-          final updatedCategories = state.categories.map((category) {
-            return category.id == updatedCategory.id
-                ? updatedCategory
-                : category;
-          }).toList();
-
-          state = state.copyWith(
-            categories: updatedCategories,
-            mutatedCategory: () => updatedCategory,
-            message: () => success.message ?? 'Category updated',
-            failure: () => null,
-          );
-        }
+        state = state.copyWith(
+          message: () => success.message ?? 'Category updated',
+          isMutating: false,
+        );
+        await refresh();
       },
     );
   }
@@ -202,38 +202,35 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> deleteCategory(DeleteCategoryUsecaseParams params) async {
     this.logPresentation('Deleting category: ${params.id}');
 
-    final deletedCategory = state.categories.firstWhere(
-      (category) => category.id == params.id,
-      orElse: () => throw StateError('Category not found'),
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
     );
-
-    // * Optimistic: Remove dulu dari UI
-    final updatedCategories = state.categories
-        .where((c) => c.id != params.id)
-        .toList();
-    state = state.copyWith(categories: updatedCategories);
 
     final result = await _deleteCategoryUsecase.call(params);
 
     result.fold(
       (failure) {
         this.logError('Failed to delete category', failure);
-        // * Revert: Tambah balik kalau gagal
-        state = state.copyWith(
-          categories: [...state.categories, deletedCategory],
-          failure: () => failure,
-          message: () => null,
-        );
+        state = state.copyWith(isMutating: false, failure: () => failure);
       },
-      (success) {
+      (success) async {
         this.logData('Category deleted successfully');
         state = state.copyWith(
           message: () => success.message ?? 'Category deleted',
-          failure: () => null,
-          mutatedCategory: () => null,
+          isMutating: false,
         );
+        await refresh();
       },
     );
+  }
+
+  Future<void> deleteManyCategories(List<String> categoryIds) async {
+    this.logPresentation('Deleting ${categoryIds.length} categories');
+
+    // Todo: Tunggu backend impl
+    await refresh();
   }
 
   Future<void> refresh() async {

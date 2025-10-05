@@ -177,10 +177,12 @@ class AppRouter {
         name: PageKeyConstant.assetDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final asset = state.extra as Asset;
+          final asset = state.extra as Asset?;
+          final id = state.uri.queryParameters['id'];
+          final assetTag = state.uri.queryParameters['assetTag'];
           return MaterialPage(
             key: state.pageKey,
-            child: AssetDetailScreen(asset: asset),
+            child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
           );
         },
       ),
@@ -189,10 +191,14 @@ class AppRouter {
         name: PageKeyConstant.assetMovementDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final assetMovement = state.extra as AssetMovement;
+          final assetMovement = state.extra as AssetMovement?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: AssetMovementDetailScreen(assetMovement: assetMovement),
+            child: AssetMovementDetailScreen(
+              assetMovement: assetMovement,
+              id: id,
+            ),
           );
         },
       ),
@@ -201,10 +207,16 @@ class AppRouter {
         name: PageKeyConstant.categoryDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final category = state.extra as Category;
+          final category = state.extra as Category?;
+          final id = state.uri.queryParameters['id'];
+          final categoryCode = state.uri.queryParameters['categoryCode'];
           return MaterialPage(
             key: state.pageKey,
-            child: CategoryDetailScreen(category: category),
+            child: CategoryDetailScreen(
+              category: category,
+              id: id,
+              categoryCode: categoryCode,
+            ),
           );
         },
       ),
@@ -213,10 +225,16 @@ class AppRouter {
         name: PageKeyConstant.locationDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final location = state.extra as Location;
+          final location = state.extra as Location?;
+          final id = state.uri.queryParameters['id'];
+          final locationCode = state.uri.queryParameters['locationCode'];
           return MaterialPage(
             key: state.pageKey,
-            child: LocationDetailScreen(location: location),
+            child: LocationDetailScreen(
+              location: location,
+              id: id,
+              locationCode: locationCode,
+            ),
           );
         },
       ),
@@ -225,11 +243,13 @@ class AppRouter {
         name: PageKeyConstant.maintenanceScheduleDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final maintenanceSchedule = state.extra as MaintenanceSchedule;
+          final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
             child: MaintenanceScheduleDetailScreen(
               maintenanceSchedule: maintenanceSchedule,
+              id: id,
             ),
           );
         },
@@ -239,11 +259,13 @@ class AppRouter {
         name: PageKeyConstant.maintenanceRecordDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final maintenanceRecord = state.extra as MaintenanceRecord;
+          final maintenanceRecord = state.extra as MaintenanceRecord?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
             child: MaintenanceRecordDetailScreen(
               maintenanceRecord: maintenanceRecord,
+              id: id,
             ),
           );
         },
@@ -253,10 +275,11 @@ class AppRouter {
         name: PageKeyConstant.issueReportDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final issueReport = state.extra as IssueReport;
+          final issueReport = state.extra as IssueReport?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: IssueReportDetailScreen(issueReport: issueReport),
+            child: IssueReportDetailScreen(issueReport: issueReport, id: id),
           );
         },
       ),
@@ -265,10 +288,11 @@ class AppRouter {
         name: PageKeyConstant.notificationDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final notification = state.extra as notification_entity.Notification;
+          final notification = state.extra as notification_entity.Notification?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: NotificationDetailScreen(notification: notification),
+            child: NotificationDetailScreen(notification: notification, id: id),
           );
         },
       ),
@@ -277,10 +301,11 @@ class AppRouter {
         name: PageKeyConstant.scanLogDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final scanLog = state.extra as ScanLog;
+          final scanLog = state.extra as ScanLog?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: ScanLogDetailScreen(scanLog: scanLog),
+            child: ScanLogDetailScreen(scanLog: scanLog, id: id),
           );
         },
       ),
@@ -289,10 +314,11 @@ class AppRouter {
         name: PageKeyConstant.userDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final user = state.extra as User;
+          final user = state.extra as User?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: UserDetailScreen(user: user),
+            child: UserDetailScreen(user: user, id: id),
           );
         },
       ),
@@ -547,10 +573,12 @@ class AppRouter {
         path: RouteConstant.adminAssetDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final asset = state.extra as Asset;
+          final asset = state.extra as Asset?;
+          final id = state.uri.queryParameters['id'];
+          final assetTag = state.uri.queryParameters['assetTag'];
           return MaterialPage(
             key: state.pageKey,
-            child: AssetDetailScreen(asset: asset),
+            child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
           );
         },
       ),
@@ -558,10 +586,14 @@ class AppRouter {
         path: RouteConstant.adminAssetMovementDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final assetMovement = state.extra as AssetMovement;
+          final assetMovement = state.extra as AssetMovement?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: AssetMovementDetailScreen(assetMovement: assetMovement),
+            child: AssetMovementDetailScreen(
+              assetMovement: assetMovement,
+              id: id,
+            ),
           );
         },
       ),
@@ -569,10 +601,16 @@ class AppRouter {
         path: RouteConstant.adminCategoryDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final category = state.extra as Category;
+          final category = state.extra as Category?;
+          final id = state.uri.queryParameters['id'];
+          final categoryCode = state.uri.queryParameters['categoryCode'];
           return MaterialPage(
             key: state.pageKey,
-            child: CategoryDetailScreen(category: category),
+            child: CategoryDetailScreen(
+              category: category,
+              id: id,
+              categoryCode: categoryCode,
+            ),
           );
         },
       ),
@@ -580,10 +618,16 @@ class AppRouter {
         path: RouteConstant.adminLocationDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final location = state.extra as Location;
+          final location = state.extra as Location?;
+          final id = state.uri.queryParameters['id'];
+          final locationCode = state.uri.queryParameters['locationCode'];
           return MaterialPage(
             key: state.pageKey,
-            child: LocationDetailScreen(location: location),
+            child: LocationDetailScreen(
+              location: location,
+              id: id,
+              locationCode: locationCode,
+            ),
           );
         },
       ),
@@ -591,11 +635,13 @@ class AppRouter {
         path: RouteConstant.adminMaintenanceScheduleDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final maintenanceSchedule = state.extra as MaintenanceSchedule;
+          final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
             child: MaintenanceScheduleDetailScreen(
               maintenanceSchedule: maintenanceSchedule,
+              id: id,
             ),
           );
         },
@@ -604,11 +650,13 @@ class AppRouter {
         path: RouteConstant.adminMaintenanceRecordDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final maintenanceRecord = state.extra as MaintenanceRecord;
+          final maintenanceRecord = state.extra as MaintenanceRecord?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
             child: MaintenanceRecordDetailScreen(
               maintenanceRecord: maintenanceRecord,
+              id: id,
             ),
           );
         },
@@ -617,10 +665,11 @@ class AppRouter {
         path: RouteConstant.adminIssueReportDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final issueReport = state.extra as IssueReport;
+          final issueReport = state.extra as IssueReport?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: IssueReportDetailScreen(issueReport: issueReport),
+            child: IssueReportDetailScreen(issueReport: issueReport, id: id),
           );
         },
       ),
@@ -628,10 +677,11 @@ class AppRouter {
         path: RouteConstant.adminNotificationDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final notification = state.extra as notification_entity.Notification;
+          final notification = state.extra as notification_entity.Notification?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: NotificationDetailScreen(notification: notification),
+            child: NotificationDetailScreen(notification: notification, id: id),
           );
         },
       ),
@@ -639,10 +689,11 @@ class AppRouter {
         path: RouteConstant.adminScanLogDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final scanLog = state.extra as ScanLog;
+          final scanLog = state.extra as ScanLog?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: ScanLogDetailScreen(scanLog: scanLog),
+            child: ScanLogDetailScreen(scanLog: scanLog, id: id),
           );
         },
       ),
@@ -650,10 +701,11 @@ class AppRouter {
         path: RouteConstant.adminUserDetail,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final user = state.extra as User;
+          final user = state.extra as User?;
+          final id = state.uri.queryParameters['id'];
           return MaterialPage(
             key: state.pageKey,
-            child: UserDetailScreen(user: user),
+            child: UserDetailScreen(user: user, id: id),
           );
         },
       ),

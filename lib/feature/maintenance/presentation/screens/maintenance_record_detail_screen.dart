@@ -4,11 +4,13 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class MaintenanceRecordDetailScreen extends StatelessWidget {
-  final MaintenanceRecord maintenanceRecord;
+  final MaintenanceRecord? maintenanceRecord;
+  final String? id;
 
   const MaintenanceRecordDetailScreen({
     super.key,
-    required this.maintenanceRecord,
+    this.maintenanceRecord,
+    this.id,
   });
 
   @override

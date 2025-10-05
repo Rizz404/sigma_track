@@ -15,6 +15,28 @@ class NotificationStatistics extends Equatable {
     required this.summary,
   });
 
+  factory NotificationStatistics.dummy() => NotificationStatistics(
+    total: const NotificationCountStatistics(count: 0),
+    byType: const NotificationTypeStatistics(
+      maintenance: 0,
+      warranty: 0,
+      statusChange: 0,
+      movement: 0,
+      issueReport: 0,
+    ),
+    byStatus: const NotificationStatusStatistics(read: 0, unread: 0),
+    creationTrends: const [],
+    summary: NotificationSummaryStatistics(
+      totalNotifications: 0,
+      readPercentage: 0.0,
+      unreadPercentage: 0.0,
+      mostCommonType: '',
+      averageNotificationsPerDay: 0.0,
+      latestCreationDate: DateTime(0),
+      earliestCreationDate: DateTime(0),
+    ),
+  );
+
   @override
   List<Object> get props => [total, byType, byStatus, creationTrends, summary];
 }

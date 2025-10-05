@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -15,6 +16,24 @@ class LoginResponse extends Equatable {
     required this.accessToken,
     required this.refreshToken,
   });
+
+  factory LoginResponse.dummy() => LoginResponse(
+    user: UserModel(
+      id: '',
+      name: '',
+      email: '',
+      fullName: '',
+      role: UserRole.employee,
+      preferredLang: 'en',
+      isActive: false,
+      avatarUrl: null,
+      fcmToken: null,
+      createdAt: DateTime(0),
+      updatedAt: DateTime(0),
+    ),
+    accessToken: '',
+    refreshToken: '',
+  );
 
   @override
   List<Object> get props => [user, accessToken, refreshToken];

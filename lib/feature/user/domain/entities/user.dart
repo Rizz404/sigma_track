@@ -30,6 +30,20 @@ class User extends Equatable {
     required this.updatedAt,
   });
 
+  factory User.dummy() => User(
+    id: '',
+    name: '',
+    email: '',
+    fullName: '',
+    role: UserRole.employee,
+    preferredLang: 'en',
+    isActive: false,
+    avatarUrl: null,
+    fcmToken: null,
+    createdAt: DateTime(0),
+    updatedAt: DateTime(0),
+  );
+
   @override
   List<Object?> get props {
     return [
