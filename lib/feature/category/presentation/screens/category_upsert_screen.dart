@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -12,10 +12,12 @@ import 'package:sigma_track/feature/category/domain/usecases/create_category_use
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
+import 'package:sigma_track/feature/category/presentation/validators/category_upsert_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
@@ -32,6 +34,7 @@ class CategoryUpsertScreen extends ConsumerStatefulWidget {
 
 class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  List<ValidationError>? validationErrors;
   bool get _isEdit => widget.category != null || widget.categoryId != null;
 
   void _handleSubmit() {
@@ -102,8 +105,14 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         AppToast.success(next.message ?? 'Category saved successfully');
         context.pop();
       } else if (next.failure != null) {
-        this.logError('Category mutation error', next.failure);
-        AppToast.error(next.failure?.message ?? 'Operation failed');
+        if (next.failure is ValidationFailure) {
+          setState(
+            () => validationErrors = (next.failure as ValidationFailure).errors,
+          );
+        } else {
+          this.logError('Category mutation error', next.failure);
+          AppToast.error(next.failure?.message ?? 'Operation failed');
+        }
       }
     });
 
@@ -122,7 +131,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                   _buildCategoryInfoSection(),
                   const SizedBox(height: 24),
                   _buildTranslationsSection(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
+                  AppValidationErrors(errors: validationErrors),
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    const SizedBox(height: 16),
                   _buildActionButtons(),
                   const SizedBox(height: 16),
                 ],
@@ -165,7 +177,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               label: 'Category Code',
               placeHolder: 'Enter category code (e.g., CAT-001)',
               initialValue: widget.category?.categoryCode,
-              validator: FormBuilderValidators.required(),
+              validator: CategoryUpsertValidator.validateCategoryCode,
             ),
           ],
         ),
@@ -241,7 +253,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             placeHolder: 'Enter category name',
             initialValue: translation?.categoryName,
             validator: langCode == 'en'
-                ? FormBuilderValidators.required()
+                ? CategoryUpsertValidator.validateCategoryName
                 : null,
           ),
           const SizedBox(height: 12),
@@ -253,7 +265,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             maxLines: 3,
             initialValue: translation?.description,
             validator: langCode == 'en'
-                ? FormBuilderValidators.required()
+                ? CategoryUpsertValidator.validateDescription
                 : null,
           ),
         ],

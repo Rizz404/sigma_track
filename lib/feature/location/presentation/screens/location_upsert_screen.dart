@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -12,10 +12,12 @@ import 'package:sigma_track/feature/location/domain/usecases/create_location_use
 import 'package:sigma_track/feature/location/domain/usecases/update_location_usecase.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/locations_state.dart';
+import 'package:sigma_track/feature/location/presentation/validators/location_upsert_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
@@ -32,6 +34,7 @@ class LocationUpsertScreen extends ConsumerStatefulWidget {
 
 class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  List<ValidationError>? validationErrors;
   bool get _isEdit => widget.location != null || widget.locationId != null;
 
   void _handleSubmit() {
@@ -108,8 +111,14 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         AppToast.success(next.message ?? 'Location saved successfully');
         context.pop();
       } else if (next.failure != null) {
-        this.logError('Location mutation error', next.failure);
-        AppToast.error(next.failure?.message ?? 'Operation failed');
+        if (next.failure is ValidationFailure) {
+          setState(
+            () => validationErrors = (next.failure as ValidationFailure).errors,
+          );
+        } else {
+          this.logError('Location mutation error', next.failure);
+          AppToast.error(next.failure?.message ?? 'Operation failed');
+        }
       }
     });
 
@@ -128,7 +137,10 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                   _buildLocationInfoSection(),
                   const SizedBox(height: 24),
                   _buildTranslationsSection(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
+                  AppValidationErrors(errors: validationErrors),
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    const SizedBox(height: 16),
                   _buildActionButtons(),
                   const SizedBox(height: 16),
                 ],
@@ -164,7 +176,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               label: 'Location Code',
               placeHolder: 'Enter location code (e.g., LOC-001)',
               initialValue: widget.location?.locationCode,
-              validator: FormBuilderValidators.required(),
+              validator: LocationUpsertValidator.validateLocationCode,
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -186,14 +198,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               label: 'Latitude (Optional)',
               placeHolder: 'Enter latitude',
               initialValue: widget.location?.latitude?.toString(),
-              validator: (value) {
-                if (value == null || value.isEmpty) return null;
-                final num? lat = num.tryParse(value);
-                if (lat == null || lat < -90 || lat > 90) {
-                  return 'Invalid latitude';
-                }
-                return null;
-              },
+              validator: LocationUpsertValidator.validateLatitude,
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -201,14 +206,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               label: 'Longitude (Optional)',
               placeHolder: 'Enter longitude',
               initialValue: widget.location?.longitude?.toString(),
-              validator: (value) {
-                if (value == null || value.isEmpty) return null;
-                final num? lng = num.tryParse(value);
-                if (lng == null || lng < -180 || lng > 180) {
-                  return 'Invalid longitude';
-                }
-                return null;
-              },
+              validator: LocationUpsertValidator.validateLongitude,
             ),
           ],
         ),
@@ -280,7 +278,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             placeHolder: 'Enter location name',
             initialValue: translation?.locationName,
             validator: langCode == 'en'
-                ? FormBuilderValidators.required()
+                ? LocationUpsertValidator.validateLocationName
                 : null,
           ),
         ],
