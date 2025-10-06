@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
+import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -28,8 +29,8 @@ Future<void> main() async {
     );
     final preferences = await SharedPreferences.getInstance();
 
-    // * Semua inisialisasi sudah selesai hapus splash
-    FlutterNativeSplash.remove();
+    // * Jangan remove splash dulu, tunggu auth state selesai loading
+    // * Splash akan di-remove otomatis oleh MyApp setelah auth check
 
     runApp(
       ProviderScope(
@@ -71,8 +72,14 @@ class MyApp extends ConsumerWidget {
     final currentLocale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeProvider);
     final router = ref.watch(routerProvider);
-    // final router = ref.watch(routerRefreshListenableProvider);
     final botToastBuilder = BotToastInit();
+
+    // * Remove native splash setelah auth state selesai loading
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (!next.isLoading && (previous?.isLoading ?? true)) {
+        FlutterNativeSplash.remove();
+      }
+    });
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

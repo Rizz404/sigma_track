@@ -159,7 +159,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: 'Scan Asset',
                   onTap: () {
                     context.pop();
-                    context.push(RouteConstant.adminScanAsset);
+                    context.push(RouteConstant.scanAsset);
                   },
                 ),
                 const Divider(),
@@ -289,7 +289,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.profile,
                   onTap: () {
                     context.pop();
-                    context.push(RouteConstant.adminUserDetailProfile);
+                    context.push(RouteConstant.userDetailProfile);
                   },
                 ),
               ],
@@ -339,7 +339,9 @@ class AppEndDrawer extends ConsumerWidget {
           CircleAvatar(
             radius: 24,
             backgroundImage: user.avatarUrl != null
-                ? NetworkImage(user.avatarUrl!)
+                ? const NetworkImage(
+                    'https://i.pinimg.com/1200x/de/2a/5a/de2a5af16f36c82b177e22453141a416.jpg',
+                  )
                 : null,
             backgroundColor: context.colorScheme.primaryContainer,
             child: user.avatarUrl == null
@@ -487,7 +489,6 @@ class AppEndDrawer extends ConsumerWidget {
           onPressed: () {
             Navigator.of(context).pop();
             ref.read(authNotifierProvider.notifier).logout();
-            // ref.read(authNotifierRefreshListenableProvider.notifier).logout();
           },
           icon: const Icon(Icons.logout),
           label: const Text('Logout'),

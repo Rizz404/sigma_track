@@ -481,10 +481,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                 ? null
                 : () {
                     this.logPresentation('Location tapped: ${location.id}');
-                    context.push(
-                      RouteConstant.adminLocationDetail,
-                      extra: location,
-                    );
+                    context.push(RouteConstant.locationDetail, extra: location);
                   },
           ),
         );

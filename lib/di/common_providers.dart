@@ -9,10 +9,8 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
-import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
-import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -71,15 +69,9 @@ final isAdminProvider = FutureProvider<bool>((ref) async {
   return user?.role == UserRole.admin;
 });
 
-// * Router Provider
+// * Router Provider - Inject Ref ke AppRouter
 final routerProvider = Provider<GoRouter>((ref) {
-  // * Watch auth state untuk trigger rebuild router saat login/logout
-  final authState = ref.watch(authNotifierProvider).valueOrNull;
-
-  final isAuthenticated = authState?.status == AuthStatus.authenticated;
-  final isAdmin = authState?.user?.role == UserRole.admin;
-
-  return AppRouter(isAuthenticated: isAuthenticated, isAdmin: isAdmin).router;
+  return AppRouter().createRouter(ref);
 });
 
 class LocaleNotifier extends Notifier<Locale> {

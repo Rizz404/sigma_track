@@ -477,7 +477,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 ? null
                 : () {
                     this.logPresentation('Asset tapped: ${asset.id}');
-                    context.push(RouteConstant.adminAssetDetail, extra: asset);
+                    context.push(RouteConstant.assetDetail, extra: asset);
                   },
           ),
         );

@@ -494,7 +494,7 @@ class _ListIssueReportsScreenState
                       'IssueReport tapped: ${issueReport.id}',
                     );
                     context.push(
-                      RouteConstant.adminIssueReportDetail,
+                      RouteConstant.issueReportDetail,
                       extra: issueReport,
                     );
                   },

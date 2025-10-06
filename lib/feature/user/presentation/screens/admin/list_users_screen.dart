@@ -475,7 +475,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                 ? null
                 : () {
                     this.logPresentation('User tapped: ${user.id}');
-                    context.push(RouteConstant.adminUserDetail, extra: user);
+                    context.push(RouteConstant.userDetail, extra: user);
                   },
           ),
         );

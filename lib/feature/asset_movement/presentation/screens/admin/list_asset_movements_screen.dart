@@ -494,7 +494,7 @@ class _ListAssetMovementsScreenState
                       'AssetMovement tapped: ${assetMovement.id}',
                     );
                     context.push(
-                      RouteConstant.adminAssetMovementDetail,
+                      RouteConstant.assetMovementDetail,
                       extra: assetMovement,
                     );
                   },

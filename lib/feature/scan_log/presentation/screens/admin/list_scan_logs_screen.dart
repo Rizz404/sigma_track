@@ -482,10 +482,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 ? null
                 : () {
                     this.logPresentation('ScanLog tapped: ${scanLog.id}');
-                    context.push(
-                      RouteConstant.adminScanLogDetail,
-                      extra: scanLog,
-                    );
+                    context.push(RouteConstant.scanLogDetail, extra: scanLog);
                   },
           ),
         );

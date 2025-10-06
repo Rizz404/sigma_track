@@ -510,7 +510,7 @@ class _ListMaintenanceSchedulesScreenState
                       'MaintenanceSchedule tapped: ${maintenanceSchedule.id}',
                     );
                     context.push(
-                      RouteConstant.adminMaintenanceScheduleDetail,
+                      RouteConstant.maintenanceScheduleDetail,
                       extra: maintenanceSchedule,
                     );
                   },

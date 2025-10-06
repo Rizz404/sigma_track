@@ -500,7 +500,7 @@ class _ListNotificationsScreenState
                       'notification_entity.Notification tapped: ${notification.id}',
                     );
                     context.push(
-                      RouteConstant.adminNotificationDetail,
+                      RouteConstant.notificationDetail,
                       extra: notification,
                     );
                   },

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/page_key_constant.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/router/router_refresh_listenable.dart';
+import 'package:sigma_track/di/auth_providers.dart';
+import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/asset_upsert_screen.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/list_assets_screen.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/asset_detail_screen.dart';
@@ -55,692 +60,594 @@ import 'package:sigma_track/shared/presentation/widgets/user_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/admin_shell.dart';
 
 /// * GoRouter configuration untuk aplikasi Sigma Track
+/// * Menggunakan static GlobalKeys untuk refreshListenable pattern
 class AppRouter {
-  AppRouter({required this.isAuthenticated, required this.isAdmin});
+  AppRouter._();
 
-  final bool isAuthenticated;
-  final bool isAdmin;
+  static final AppRouter _instance = AppRouter._();
+  factory AppRouter() => _instance;
 
-  // * Non-static keys agar bisa recreate tanpa conflict
-  final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
-    debugLabel: 'root',
-  );
-  final GlobalKey<NavigatorState> _userShellNavigatorKey =
+  // * Static keys untuk mendukung refreshListenable tanpa GlobalKey conflict
+  static final GlobalKey<NavigatorState> _rootNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'root');
+  static final GlobalKey<NavigatorState> _userShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'userShell');
-  final GlobalKey<NavigatorState> _adminShellNavigatorKey =
+  static final GlobalKey<NavigatorState> _adminShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'adminShell');
 
-  late final GoRouter router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteConstant.home,
-    debugLogDiagnostics: true,
-    redirect: _handleRedirect,
-    routes: [
-      // ==================== AUTH ROUTES ====================
-      GoRoute(
-        path: RouteConstant.login,
-        name: PageKeyConstant.login,
-        pageBuilder: (context, state) =>
-            NoTransitionPage(key: state.pageKey, child: const LoginScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.register,
-        name: PageKeyConstant.register,
-        pageBuilder: (context, state) =>
-            NoTransitionPage(key: state.pageKey, child: const RegisterScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.forgotPassword,
-        name: PageKeyConstant.forgotPassword,
-        pageBuilder: (context, state) => NoTransitionPage(
-          key: state.pageKey,
-          child: const ForgotPasswordScreen(),
-        ),
-      ),
+  /// * Create GoRouter instance dengan refreshListenable
+  GoRouter createRouter(Ref ref) {
+    final authRouterNotifier = RouterRefreshListenable(ref);
 
-      // ==================== USER SHELL ====================
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return UserShell(navigationShell: navigationShell);
-        },
-        branches: [
-          // * Branch 1: Home
-          StatefulShellBranch(
-            navigatorKey: _userShellNavigatorKey,
-            routes: [
-              GoRoute(
-                path: RouteConstant.home,
-                name: PageKeyConstant.userMain,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: HomeScreen()),
-              ),
-            ],
-          ),
+    return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: _getInitialLocation(ref),
+      debugLogDiagnostics: true,
+      refreshListenable: authRouterNotifier,
+      redirect: (context, state) => _handleRedirect(ref, state),
+      routes: routes,
+    );
+  }
 
-          // * Branch 2: Scan Asset (User)
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: RouteConstant.scanAsset,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ScanAssetScreen()),
-              ),
-            ],
-          ),
+  /// * Tentukan initial location berdasarkan auth state
+  String _getInitialLocation(Ref ref) {
+    final authState = ref.read(authNotifierProvider);
 
-          // * Branch 3: User Profile
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: RouteConstant.userDetailProfile,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: UserDetailProfileScreen()),
-              ),
-            ],
-          ),
-        ],
-      ),
-
-      // ==================== USER ROUTES (Outside shell) ====================
-      GoRoute(
-        path: RouteConstant.myAssets,
-        name: PageKeyConstant.myAssets,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            MaterialPage(key: state.pageKey, child: const MyListAssetsScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.myNotifications,
-        name: PageKeyConstant.myNotifications,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const MyListNotificationsScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.userUpdateProfile,
-        name: PageKeyConstant.userUpdateProfile,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final user = state.extra as User;
-
-          return MaterialPage(
-            key: state.pageKey,
-            child: UserUpdateProfileScreen(user: user),
-          );
-        },
-      ),
-
-      // ==================== USER DETAIL ROUTES (Outside shell) ====================
-      GoRoute(
-        path: RouteConstant.assetDetail,
-        name: PageKeyConstant.assetDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final asset = state.extra as Asset?;
-          final id = state.uri.queryParameters['id'];
-          final assetTag = state.uri.queryParameters['assetTag'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.assetMovementDetail,
-        name: PageKeyConstant.assetMovementDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final assetMovement = state.extra as AssetMovement?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetMovementDetailScreen(
-              assetMovement: assetMovement,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.categoryDetail,
-        name: PageKeyConstant.categoryDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final category = state.extra as Category?;
-          final id = state.uri.queryParameters['id'];
-          final categoryCode = state.uri.queryParameters['categoryCode'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: CategoryDetailScreen(
-              category: category,
-              id: id,
-              categoryCode: categoryCode,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.locationDetail,
-        name: PageKeyConstant.locationDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final location = state.extra as Location?;
-          final id = state.uri.queryParameters['id'];
-          final locationCode = state.uri.queryParameters['locationCode'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: LocationDetailScreen(
-              location: location,
-              id: id,
-              locationCode: locationCode,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.maintenanceScheduleDetail,
-        name: PageKeyConstant.maintenanceScheduleDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceSchedule = state.extra as MaintenanceSchedule?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceScheduleDetailScreen(
-              maintenanceSchedule: maintenanceSchedule,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.maintenanceRecordDetail,
-        name: PageKeyConstant.maintenanceRecordDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceRecord = state.extra as MaintenanceRecord?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceRecordDetailScreen(
-              maintenanceRecord: maintenanceRecord,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.issueReportDetail,
-        name: PageKeyConstant.issueReportDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final issueReport = state.extra as IssueReport?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: IssueReportDetailScreen(issueReport: issueReport, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.notificationDetail,
-        name: PageKeyConstant.notificationDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final notification = state.extra as notification_entity.Notification?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: NotificationDetailScreen(notification: notification, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.scanLogDetail,
-        name: PageKeyConstant.scanLogDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final scanLog = state.extra as ScanLog?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: ScanLogDetailScreen(scanLog: scanLog, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.userDetail,
-        name: PageKeyConstant.userDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final user = state.extra as User?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: UserDetailScreen(user: user, id: id),
-          );
-        },
-      ),
-
-      // ==================== ADMIN SHELL ====================
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return AdminShell(navigationShell: navigationShell);
-        },
-        branches: [
-          // * Branch 1: Admin Dashboard
-          StatefulShellBranch(
-            navigatorKey: _adminShellNavigatorKey,
-            routes: [
-              GoRoute(
-                path: RouteConstant.adminDashboard,
-                name: PageKeyConstant.adminDashboard,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: DashboardScreen()),
-              ),
-            ],
-          ),
-
-          // * Branch 2: Scan Asset (Admin)
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: RouteConstant.adminScanAsset,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ScanAssetScreen()),
-              ),
-            ],
-          ),
-
-          // * Branch 3: Admin Profile
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: RouteConstant.adminUserDetailProfile,
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: UserDetailProfileScreen()),
-              ),
-            ],
-          ),
-        ],
-      ),
-
-      // ==================== ADMIN LIST ROUTES (Outside shell) ====================
-      GoRoute(
-        path: RouteConstant.adminAssets,
-        name: PageKeyConstant.adminAssets,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            MaterialPage(key: state.pageKey, child: const ListAssetsScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.adminAssetMovements,
-        name: PageKeyConstant.adminAssetMovements,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListAssetMovementsScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminCategories,
-        name: PageKeyConstant.adminCategories,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListCategoriesScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminLocations,
-        name: PageKeyConstant.adminLocations,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListLocationsScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminUsers,
-        name: PageKeyConstant.adminUsers,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            MaterialPage(key: state.pageKey, child: const ListUsersScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceSchedules,
-        name: PageKeyConstant.adminMaintenanceSchedules,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListMaintenanceSchedulesScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceRecords,
-        name: PageKeyConstant.adminMaintenanceRecords,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListMaintenanceRecordsScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminIssueReports,
-        name: PageKeyConstant.adminIssueReports,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListIssueReportsScreen(),
-        ),
-      ),
-      GoRoute(
-        path: RouteConstant.adminScanLogs,
-        name: PageKeyConstant.adminScanLogs,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) =>
-            MaterialPage(key: state.pageKey, child: const ListScanLogsScreen()),
-      ),
-      GoRoute(
-        path: RouteConstant.adminNotifications,
-        name: PageKeyConstant.adminNotifications,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => MaterialPage(
-          key: state.pageKey,
-          child: const ListNotificationsScreen(),
-        ),
-      ),
-
-      // ==================== ADMIN UPSERT ROUTES (Outside shell) ====================
-      GoRoute(
-        path: RouteConstant.adminAssetUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final assetId = state.uri.queryParameters['assetId'];
-          final asset = state.extra as Asset?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetUpsertScreen(asset: asset, assetId: assetId),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminAssetMovementUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final assetMovementId = state.uri.queryParameters['movementId'];
-          final assetMovement = state.extra as AssetMovement?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetMovementUpsertScreen(
-              assetMovement: assetMovement,
-              assetMovementId: assetMovementId,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminCategoryUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final categoryId = state.uri.queryParameters['categoryId'];
-          final category = state.extra as Category?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: CategoryUpsertScreen(
-              category: category,
-              categoryId: categoryId,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminLocationUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final locationId = state.uri.queryParameters['locationId'];
-          final location = state.extra as Location?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: LocationUpsertScreen(
-              location: location,
-              locationId: locationId,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminUserUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final userId = state.uri.queryParameters['userId'];
-          final user = state.extra as User?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: UserUpsertScreen(user: user, userId: userId),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceScheduleUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceId = state.uri.queryParameters['maintenanceId'];
-          final maintenanceSchedule = state.extra as MaintenanceSchedule?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceScheduleUpsertScreen(
-              maintenanceSchedule: maintenanceSchedule,
-              maintenanceId: maintenanceId,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceRecordUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceId = state.uri.queryParameters['maintenanceId'];
-          final maintenanceRecord = state.extra as MaintenanceRecord?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceRecordUpsertScreen(
-              maintenanceRecord: maintenanceRecord,
-              maintenanceId: maintenanceId,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminIssueReportUpsert,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final issueReportId = state.uri.queryParameters['issueReportId'];
-          final issueReport = state.extra as IssueReport?;
-          return MaterialPage(
-            key: state.pageKey,
-            child: IssueReportUpsertScreen(
-              issueReport: issueReport,
-              issueReportId: issueReportId,
-            ),
-          );
-        },
-      ),
-
-      // ==================== ADMIN DETAIL ROUTES (Outside shell) ====================
-      GoRoute(
-        path: RouteConstant.adminAssetDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final asset = state.extra as Asset?;
-          final id = state.uri.queryParameters['id'];
-          final assetTag = state.uri.queryParameters['assetTag'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminAssetMovementDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final assetMovement = state.extra as AssetMovement?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: AssetMovementDetailScreen(
-              assetMovement: assetMovement,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminCategoryDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final category = state.extra as Category?;
-          final id = state.uri.queryParameters['id'];
-          final categoryCode = state.uri.queryParameters['categoryCode'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: CategoryDetailScreen(
-              category: category,
-              id: id,
-              categoryCode: categoryCode,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminLocationDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final location = state.extra as Location?;
-          final id = state.uri.queryParameters['id'];
-          final locationCode = state.uri.queryParameters['locationCode'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: LocationDetailScreen(
-              location: location,
-              id: id,
-              locationCode: locationCode,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceScheduleDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceSchedule = state.extra as MaintenanceSchedule?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceScheduleDetailScreen(
-              maintenanceSchedule: maintenanceSchedule,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminMaintenanceRecordDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final maintenanceRecord = state.extra as MaintenanceRecord?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: MaintenanceRecordDetailScreen(
-              maintenanceRecord: maintenanceRecord,
-              id: id,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminIssueReportDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final issueReport = state.extra as IssueReport?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: IssueReportDetailScreen(issueReport: issueReport, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminNotificationDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final notification = state.extra as notification_entity.Notification?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: NotificationDetailScreen(notification: notification, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminScanLogDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final scanLog = state.extra as ScanLog?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: ScanLogDetailScreen(scanLog: scanLog, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminUserDetail,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final user = state.extra as User?;
-          final id = state.uri.queryParameters['id'];
-          return MaterialPage(
-            key: state.pageKey,
-            child: UserDetailScreen(user: user, id: id),
-          );
-        },
-      ),
-      GoRoute(
-        path: RouteConstant.adminUserUpdateProfile,
-        name: PageKeyConstant.adminUserUpdateProfile,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          final user = state.extra as User;
-          return MaterialPage(
-            key: state.pageKey,
-            child: UserUpdateProfileScreen(user: user),
-          );
-        },
-      ),
-    ],
-  );
-
-  String? _handleRedirect(BuildContext context, GoRouterState state) {
-    final isGoingToAuth = state.matchedLocation.startsWith('/auth');
-    final isGoingToAdmin = state.matchedLocation.startsWith('/admin');
-
-    if (!isAuthenticated && !isGoingToAuth) {
+    // * Kalau masih loading, default ke login (native splash masih tampil)
+    if (authState.isLoading) {
       return RouteConstant.login;
     }
 
-    if (isAuthenticated && isGoingToAuth) {
-      return isAdmin ? RouteConstant.adminDashboard : RouteConstant.home;
+    final currentAuthState = authState.valueOrNull;
+    final isAuthenticated =
+        currentAuthState?.status == AuthStatus.authenticated;
+    final isAdmin = currentAuthState?.user?.role == UserRole.admin;
+
+    if (!isAuthenticated) {
+      return RouteConstant.login;
     }
 
-    if (!isAdmin && isGoingToAdmin) {
+    return isAdmin ? RouteConstant.adminDashboard : RouteConstant.home;
+  }
+
+  /// * Handle redirect logic berdasarkan auth state
+  String? _handleRedirect(Ref ref, GoRouterState state) {
+    final authState = ref.read(authNotifierProvider);
+
+    // * Jangan redirect apapun kalau masih loading (native splash masih tampil)
+    if (authState.isLoading) {
+      return null;
+    }
+
+    final currentAuthState = authState.valueOrNull;
+    final currentIsAuthenticated =
+        currentAuthState?.status == AuthStatus.authenticated;
+    final currentIsAdmin = currentAuthState?.user?.role == UserRole.admin;
+
+    final isGoingToAuth = state.matchedLocation.startsWith('/auth');
+    final isGoingToAdmin = state.matchedLocation.startsWith('/admin');
+
+    if (!currentIsAuthenticated && !isGoingToAuth) {
+      return RouteConstant.login;
+    }
+
+    if (currentIsAuthenticated && isGoingToAuth) {
+      return currentIsAdmin ? RouteConstant.adminDashboard : RouteConstant.home;
+    }
+
+    if (!currentIsAdmin && isGoingToAdmin) {
       return RouteConstant.home;
     }
 
     return null;
   }
+
+  List<RouteBase> get routes => [
+    // ==================== AUTH ROUTES ====================
+    GoRoute(
+      path: RouteConstant.login,
+      name: PageKeyConstant.login,
+      pageBuilder: (context, state) =>
+          NoTransitionPage(key: state.pageKey, child: const LoginScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.register,
+      name: PageKeyConstant.register,
+      pageBuilder: (context, state) =>
+          NoTransitionPage(key: state.pageKey, child: const RegisterScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.forgotPassword,
+      name: PageKeyConstant.forgotPassword,
+      pageBuilder: (context, state) => NoTransitionPage(
+        key: state.pageKey,
+        child: const ForgotPasswordScreen(),
+      ),
+    ),
+
+    // ==================== USER SHELL ====================
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return UserShell(navigationShell: navigationShell);
+      },
+      branches: [
+        // * Branch 1: Home
+        StatefulShellBranch(
+          navigatorKey: _userShellNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteConstant.home,
+              name: PageKeyConstant.userMain,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: HomeScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 2: Scan Asset (User)
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.scanAsset,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: ScanAssetScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 3: User Profile
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.userDetailProfile,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: UserDetailProfileScreen()),
+            ),
+          ],
+        ),
+      ],
+    ),
+
+    // ==================== USER SPECIFIC ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.myAssets,
+      name: PageKeyConstant.myAssets,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const MyListAssetsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.myNotifications,
+      name: PageKeyConstant.myNotifications,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const MyListNotificationsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.userUpdateProfile,
+      name: PageKeyConstant.userUpdateProfile,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final user = state.extra as User;
+        return MaterialPage(
+          key: state.pageKey,
+          child: UserUpdateProfileScreen(user: user),
+        );
+      },
+    ),
+
+    // ==================== SHARED DETAIL ROUTES (Accessible by both User & Admin) ====================
+    GoRoute(
+      path: RouteConstant.assetDetail,
+      name: PageKeyConstant.assetDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final asset = state.extra as Asset?;
+        final id = state.uri.queryParameters['id'];
+        final assetTag = state.uri.queryParameters['assetTag'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.assetMovementDetail,
+      name: PageKeyConstant.assetMovementDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetMovement = state.extra as AssetMovement?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: AssetMovementDetailScreen(
+            assetMovement: assetMovement,
+            id: id,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.categoryDetail,
+      name: PageKeyConstant.categoryDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final category = state.extra as Category?;
+        final id = state.uri.queryParameters['id'];
+        final categoryCode = state.uri.queryParameters['categoryCode'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: CategoryDetailScreen(
+            category: category,
+            id: id,
+            categoryCode: categoryCode,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.locationDetail,
+      name: PageKeyConstant.locationDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final location = state.extra as Location?;
+        final id = state.uri.queryParameters['id'];
+        final locationCode = state.uri.queryParameters['locationCode'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: LocationDetailScreen(
+            location: location,
+            id: id,
+            locationCode: locationCode,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.maintenanceScheduleDetail,
+      name: PageKeyConstant.maintenanceScheduleDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: MaintenanceScheduleDetailScreen(
+            maintenanceSchedule: maintenanceSchedule,
+            id: id,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.maintenanceRecordDetail,
+      name: PageKeyConstant.maintenanceRecordDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceRecord = state.extra as MaintenanceRecord?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: MaintenanceRecordDetailScreen(
+            maintenanceRecord: maintenanceRecord,
+            id: id,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.issueReportDetail,
+      name: PageKeyConstant.issueReportDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final issueReport = state.extra as IssueReport?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: IssueReportDetailScreen(issueReport: issueReport, id: id),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.notificationDetail,
+      name: PageKeyConstant.notificationDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final notification = state.extra as notification_entity.Notification?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: NotificationDetailScreen(notification: notification, id: id),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.scanLogDetail,
+      name: PageKeyConstant.scanLogDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final scanLog = state.extra as ScanLog?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: ScanLogDetailScreen(scanLog: scanLog, id: id),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.userDetail,
+      name: PageKeyConstant.userDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final user = state.extra as User?;
+        final id = state.uri.queryParameters['id'];
+        return MaterialPage(
+          key: state.pageKey,
+          child: UserDetailScreen(user: user, id: id),
+        );
+      },
+    ),
+
+    // ==================== ADMIN SHELL ====================
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return AdminShell(navigationShell: navigationShell);
+      },
+      branches: [
+        // * Branch 1: Admin Dashboard
+        StatefulShellBranch(
+          navigatorKey: _adminShellNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteConstant.adminDashboard,
+              name: PageKeyConstant.adminDashboard,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: DashboardScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 2: Scan Asset (Admin)
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.scanAsset,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: ScanAssetScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 3: Admin Profile
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.userDetailProfile,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: UserDetailProfileScreen()),
+            ),
+          ],
+        ),
+      ],
+    ),
+
+    // ==================== ADMIN LIST ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.adminAssets,
+      name: PageKeyConstant.adminAssets,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListAssetsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.adminAssetMovements,
+      name: PageKeyConstant.adminAssetMovements,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListAssetMovementsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.adminCategories,
+      name: PageKeyConstant.adminCategories,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListCategoriesScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.adminLocations,
+      name: PageKeyConstant.adminLocations,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListLocationsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.adminUsers,
+      name: PageKeyConstant.adminUsers,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListUsersScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.adminMaintenanceSchedules,
+      name: PageKeyConstant.adminMaintenanceSchedules,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListMaintenanceSchedulesScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.adminMaintenanceRecords,
+      name: PageKeyConstant.adminMaintenanceRecords,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListMaintenanceRecordsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.adminIssueReports,
+      name: PageKeyConstant.adminIssueReports,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListIssueReportsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.adminScanLogs,
+      name: PageKeyConstant.adminScanLogs,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListScanLogsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.adminNotifications,
+      name: PageKeyConstant.adminNotifications,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListNotificationsScreen(),
+      ),
+    ),
+
+    // ==================== ADMIN UPSERT ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.adminAssetUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetId = state.uri.queryParameters['assetId'];
+        final asset = state.extra as Asset?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: AssetUpsertScreen(asset: asset, assetId: assetId),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminAssetMovementUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetMovementId = state.uri.queryParameters['movementId'];
+        final assetMovement = state.extra as AssetMovement?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: AssetMovementUpsertScreen(
+            assetMovement: assetMovement,
+            assetMovementId: assetMovementId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminCategoryUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final categoryId = state.uri.queryParameters['categoryId'];
+        final category = state.extra as Category?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: CategoryUpsertScreen(
+            category: category,
+            categoryId: categoryId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminLocationUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final locationId = state.uri.queryParameters['locationId'];
+        final location = state.extra as Location?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: LocationUpsertScreen(
+            location: location,
+            locationId: locationId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminUserUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final userId = state.uri.queryParameters['userId'];
+        final user = state.extra as User?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: UserUpsertScreen(user: user, userId: userId),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminMaintenanceScheduleUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceId = state.uri.queryParameters['maintenanceId'];
+        final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: MaintenanceScheduleUpsertScreen(
+            maintenanceSchedule: maintenanceSchedule,
+            maintenanceId: maintenanceId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminMaintenanceRecordUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceId = state.uri.queryParameters['maintenanceId'];
+        final maintenanceRecord = state.extra as MaintenanceRecord?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: MaintenanceRecordUpsertScreen(
+            maintenanceRecord: maintenanceRecord,
+            maintenanceId: maintenanceId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminIssueReportUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final issueReportId = state.uri.queryParameters['issueReportId'];
+        final issueReport = state.extra as IssueReport?;
+        return MaterialPage(
+          key: state.pageKey,
+          child: IssueReportUpsertScreen(
+            issueReport: issueReport,
+            issueReportId: issueReportId,
+          ),
+        );
+      },
+    ),
+
+    // ==================== ADMIN SPECIFIC ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.userUpdateProfile,
+      name: PageKeyConstant.adminUserUpdateProfile,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final user = state.extra as User;
+        return MaterialPage(
+          key: state.pageKey,
+          child: UserUpdateProfileScreen(user: user),
+        );
+      },
+    ),
+  ];
+
+  GlobalKey<NavigatorState> get rootNavigatorKey => _rootNavigatorKey;
+  GlobalKey<NavigatorState> get userShellNavigatorKey => _userShellNavigatorKey;
+  GlobalKey<NavigatorState> get adminShellNavigatorKey =>
+      _adminShellNavigatorKey;
 }

@@ -551,10 +551,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 ? null
                 : () {
                     this.logPresentation('Category tapped: ${category.id}');
-                    context.push(
-                      RouteConstant.adminCategoryDetail,
-                      extra: category,
-                    );
+                    context.push(RouteConstant.categoryDetail, extra: category);
                   },
           ),
         );

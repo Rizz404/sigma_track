@@ -504,7 +504,7 @@ class _ListMaintenanceRecordsScreenState
                       'MaintenanceRecord tapped: ${maintenanceRecord.id}',
                     );
                     context.push(
-                      RouteConstant.adminMaintenanceRecordDetail,
+                      RouteConstant.maintenanceRecordDetail,
                       extra: maintenanceRecord,
                     );
                   },
