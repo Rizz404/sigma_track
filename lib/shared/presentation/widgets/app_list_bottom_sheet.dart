@@ -4,7 +4,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 /// Reusable bottom sheet for list options (create, select many, filter & sort)
 class AppListOptionsBottomSheet extends StatelessWidget {
-  final VoidCallback onCreate;
+  final VoidCallback? onCreate;
   final VoidCallback onSelectMany;
   final Widget Function() filterSortWidgetBuilder;
   final String createTitle;
@@ -16,7 +16,7 @@ class AppListOptionsBottomSheet extends StatelessWidget {
 
   const AppListOptionsBottomSheet({
     super.key,
-    required this.onCreate,
+    this.onCreate,
     required this.onSelectMany,
     required this.filterSortWidgetBuilder,
     this.createTitle = 'Create',
@@ -50,13 +50,15 @@ class AppListOptionsBottomSheet extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 24),
-            _OptionTile(
-              icon: Icons.add_circle_outline,
-              title: createTitle,
-              subtitle: createSubtitle,
-              onTap: onCreate,
-            ),
-            const SizedBox(height: 12),
+            if (onCreate != null) ...[
+              _OptionTile(
+                icon: Icons.add_circle_outline,
+                title: createTitle,
+                subtitle: createSubtitle,
+                onTap: onCreate!,
+              ),
+              const SizedBox(height: 12),
+            ],
             _OptionTile(
               icon: Icons.checklist,
               title: selectManyTitle,

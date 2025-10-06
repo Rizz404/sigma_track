@@ -5,7 +5,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
 class MaintenanceRecordTile extends StatelessWidget {
-  final MaintenanceRecord record;
+  final MaintenanceRecord maintenanceRecord;
   final bool isDisabled;
   final bool isSelected;
   final VoidCallback? onTap;
@@ -14,7 +14,7 @@ class MaintenanceRecordTile extends StatelessWidget {
 
   const MaintenanceRecordTile({
     super.key,
-    required this.record,
+    required this.maintenanceRecord,
     this.isDisabled = false,
     this.isSelected = false,
     this.onTap,
@@ -66,7 +66,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        record.title,
+                        maintenanceRecord.title,
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -74,16 +74,16 @@ class MaintenanceRecordTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        record.asset.assetName,
+                        maintenanceRecord.asset.assetName,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      if (record.notes != null) ...[
+                      if (maintenanceRecord.notes != null) ...[
                         const SizedBox(height: 4),
                         AppText(
-                          record.notes!,
+                          maintenanceRecord.notes!,
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                           maxLines: 2,
@@ -101,8 +101,8 @@ class MaintenanceRecordTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: AppText(
-                              record.performedByUser?.fullName ??
-                                  record.performedByVendor ??
+                              maintenanceRecord.performedByUser?.fullName ??
+                                  maintenanceRecord.performedByVendor ??
                                   'Unknown',
                               style: AppTextStyle.labelSmall,
                               color: context.colors.textSecondary,
@@ -119,7 +119,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    if (record.actualCost != null) ...[
+                    if (maintenanceRecord.actualCost != null) ...[
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -130,7 +130,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: AppText(
-                          '\$${record.actualCost!.toStringAsFixed(0)}',
+                          '\$${maintenanceRecord.actualCost!.toStringAsFixed(0)}',
                           style: AppTextStyle.labelSmall,
                           color: context.semantic.success,
                           fontWeight: FontWeight.w600,
@@ -139,7 +139,9 @@ class MaintenanceRecordTile extends StatelessWidget {
                       const SizedBox(height: 8),
                     ],
                     AppText(
-                      DateFormat('dd MMM yyyy').format(record.maintenanceDate),
+                      DateFormat(
+                        'dd MMM yyyy',
+                      ).format(maintenanceRecord.maintenanceDate),
                       style: AppTextStyle.bodySmall,
                       color: context.colors.textSecondary,
                     ),

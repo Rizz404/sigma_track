@@ -6,3 +6,9 @@ final assetMovementsProvider =
     AutoDisposeNotifierProvider<AssetMovementsNotifier, AssetMovementsState>(
       AssetMovementsNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final assetMovementsSearchProvider =
+    AutoDisposeNotifierProvider<AssetMovementsNotifier, AssetMovementsState>(
+      AssetMovementsNotifier.new,
+    );

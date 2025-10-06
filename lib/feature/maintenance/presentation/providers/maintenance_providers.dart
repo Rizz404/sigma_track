@@ -15,3 +15,16 @@ final maintenanceRecordsProvider =
       MaintenanceRecordsNotifier,
       MaintenanceRecordsState
     >(MaintenanceRecordsNotifier.new);
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final maintenanceSchedulesSearchProvider =
+    AutoDisposeNotifierProvider<
+      MaintenanceSchedulesNotifier,
+      MaintenanceSchedulesState
+    >(MaintenanceSchedulesNotifier.new);
+
+final maintenanceRecordsSearchProvider =
+    AutoDisposeNotifierProvider<
+      MaintenanceRecordsNotifier,
+      MaintenanceRecordsState
+    >(MaintenanceRecordsNotifier.new);

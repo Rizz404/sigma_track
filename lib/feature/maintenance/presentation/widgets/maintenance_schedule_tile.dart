@@ -5,7 +5,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
 class MaintenanceScheduleTile extends StatelessWidget {
-  final MaintenanceSchedule schedule;
+  final MaintenanceSchedule maintenanceSchedule;
   final bool isDisabled;
   final bool isSelected;
   final VoidCallback? onTap;
@@ -14,7 +14,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
 
   const MaintenanceScheduleTile({
     super.key,
-    required this.schedule,
+    required this.maintenanceSchedule,
     this.isDisabled = false,
     this.isSelected = false,
     this.onTap,
@@ -66,7 +66,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        schedule.title,
+                        maintenanceSchedule.title,
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -74,16 +74,16 @@ class MaintenanceScheduleTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        schedule.asset.assetName,
+                        maintenanceSchedule.asset.assetName,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      if (schedule.description != null) ...[
+                      if (maintenanceSchedule.description != null) ...[
                         const SizedBox(height: 4),
                         AppText(
-                          schedule.description!,
+                          maintenanceSchedule.description!,
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                           maxLines: 2,
@@ -103,16 +103,17 @@ class MaintenanceScheduleTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
-                              schedule.maintenanceType.name.toUpperCase(),
+                              maintenanceSchedule.maintenanceType.name
+                                  .toUpperCase(),
                               style: AppTextStyle.labelSmall,
                               color: context.semantic.info,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          if (schedule.frequencyMonths != null) ...[
+                          if (maintenanceSchedule.frequencyMonths != null) ...[
                             const SizedBox(width: 8),
                             AppText(
-                              'Every ${schedule.frequencyMonths} months',
+                              'Every ${maintenanceSchedule.frequencyMonths} months',
                               style: AppTextStyle.labelSmall,
                               color: context.colors.textSecondary,
                             ),
@@ -132,20 +133,27 @@ class MaintenanceScheduleTile extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(context, schedule.status)
-                            .withOpacity(0.1),
+                        color: _getStatusColor(
+                          context,
+                          maintenanceSchedule.status,
+                        ).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        schedule.status.name.toUpperCase(),
+                        maintenanceSchedule.status.name.toUpperCase(),
                         style: AppTextStyle.labelSmall,
-                        color: _getStatusColor(context, schedule.status),
+                        color: _getStatusColor(
+                          context,
+                          maintenanceSchedule.status,
+                        ),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 8),
                     AppText(
-                      DateFormat('dd MMM yyyy').format(schedule.scheduledDate),
+                      DateFormat(
+                        'dd MMM yyyy',
+                      ).format(maintenanceSchedule.scheduledDate),
                       style: AppTextStyle.bodySmall,
                       color: context.colors.textSecondary,
                     ),

@@ -5,28 +5,6 @@ import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule_statistics_model.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 
-extension MaintenanceScheduleTranslationModelMapper
-    on MaintenanceScheduleTranslationModel {
-  MaintenanceScheduleTranslation toEntity() {
-    return MaintenanceScheduleTranslation(
-      langCode: langCode,
-      title: title,
-      description: description,
-    );
-  }
-}
-
-extension MaintenanceScheduleTranslationEntityMapper
-    on MaintenanceScheduleTranslation {
-  MaintenanceScheduleTranslationModel toModel() {
-    return MaintenanceScheduleTranslationModel(
-      langCode: langCode,
-      title: title,
-      description: description,
-    );
-  }
-}
-
 extension MaintenanceScheduleModelMapper on MaintenanceScheduleModel {
   MaintenanceSchedule toEntity() {
     return MaintenanceSchedule(
@@ -63,6 +41,28 @@ extension MaintenanceScheduleEntityMapper on MaintenanceSchedule {
       translations: translations?.map((x) => x.toModel()).toList() ?? [],
       asset: asset.toModel(),
       createdBy: createdBy.toModel(),
+    );
+  }
+}
+
+extension MaintenanceScheduleTranslationModelMapper
+    on MaintenanceScheduleTranslationModel {
+  MaintenanceScheduleTranslation toEntity() {
+    return MaintenanceScheduleTranslation(
+      langCode: langCode,
+      title: title,
+      description: description,
+    );
+  }
+}
+
+extension MaintenanceScheduleTranslationEntityMapper
+    on MaintenanceScheduleTranslation {
+  MaintenanceScheduleTranslationModel toModel() {
+    return MaintenanceScheduleTranslationModel(
+      langCode: langCode,
+      title: title,
+      description: description,
     );
   }
 }

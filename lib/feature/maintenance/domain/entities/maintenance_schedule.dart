@@ -3,21 +3,6 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
-class MaintenanceScheduleTranslation extends Equatable {
-  final String langCode;
-  final String title;
-  final String? description;
-
-  const MaintenanceScheduleTranslation({
-    required this.langCode,
-    required this.title,
-    this.description,
-  });
-
-  @override
-  List<Object?> get props => [langCode, title, description];
-}
-
 class MaintenanceSchedule extends Equatable {
   final String id;
   final String assetId;
@@ -78,4 +63,19 @@ class MaintenanceSchedule extends Equatable {
     asset,
     createdBy,
   ];
+}
+
+class MaintenanceScheduleTranslation extends Equatable {
+  final String langCode;
+  final String title;
+  final String? description;
+
+  const MaintenanceScheduleTranslation({
+    required this.langCode,
+    required this.title,
+    this.description,
+  });
+
+  @override
+  List<Object?> get props => [langCode, title, description];
 }

@@ -24,6 +24,7 @@ import 'package:sigma_track/feature/issue_report/presentation/screens/issue_repo
 import 'package:sigma_track/feature/location/presentation/screens/admin/list_locations_screen.dart';
 import 'package:sigma_track/feature/location/presentation/screens/location_detail_screen.dart';
 import 'package:sigma_track/feature/location/presentation/screens/location_upsert_screen.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/presentation/screens/admin/list_maintenance_records_screen.dart';
 import 'package:sigma_track/feature/maintenance/presentation/screens/admin/list_maintenance_schedules_screen.dart';
 import 'package:sigma_track/feature/maintenance/presentation/screens/admin/maintenance_record_upsert_screen.dart';

@@ -5,7 +5,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
 class AssetMovementTile extends StatelessWidget {
-  final AssetMovement movement;
+  final AssetMovement assetMovement;
   final bool isDisabled;
   final bool isSelected;
   final VoidCallback? onTap;
@@ -14,7 +14,7 @@ class AssetMovementTile extends StatelessWidget {
 
   const AssetMovementTile({
     super.key,
-    required this.movement,
+    required this.assetMovement,
     this.isDisabled = false,
     this.isSelected = false,
     this.onTap,
@@ -66,7 +66,7 @@ class AssetMovementTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        movement.asset.assetName,
+                        assetMovement.asset.assetName,
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -74,7 +74,7 @@ class AssetMovementTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        movement.asset.assetTag,
+                        assetMovement.asset.assetTag,
                         style: AppTextStyle.bodySmall,
                         color: context.colors.textSecondary,
                         maxLines: 1,
@@ -128,13 +128,15 @@ class AssetMovementTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     AppText(
-                      DateFormat('dd MMM yyyy').format(movement.movementDate),
+                      DateFormat(
+                        'dd MMM yyyy',
+                      ).format(assetMovement.movementDate),
                       style: AppTextStyle.bodySmall,
                       color: context.colors.textSecondary,
                     ),
                     const SizedBox(height: 4),
                     AppText(
-                      DateFormat('HH:mm').format(movement.movementDate),
+                      DateFormat('HH:mm').format(assetMovement.movementDate),
                       style: AppTextStyle.labelSmall,
                       color: context.colors.textSecondary,
                     ),
@@ -149,14 +151,14 @@ class AssetMovementTile extends StatelessWidget {
   }
 
   String _getMovementText() {
-    final from = movement.fromLocation?.locationName ?? 'Unknown';
-    final to = movement.toLocation?.locationName ?? 'Unknown';
+    final from = assetMovement.fromLocation?.locationName ?? 'Unknown';
+    final to = assetMovement.toLocation?.locationName ?? 'Unknown';
     return '$from → $to';
   }
 
   String _getUserMovementText() {
-    final from = movement.fromUser?.fullName ?? 'Unassigned';
-    final to = movement.toUser?.fullName ?? 'Unassigned';
+    final from = assetMovement.fromUser?.fullName ?? 'Unassigned';
+    final to = assetMovement.toUser?.fullName ?? 'Unassigned';
     return '$from → $to';
   }
 }

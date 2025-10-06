@@ -6,3 +6,9 @@ final scanLogsProvider =
     AutoDisposeNotifierProvider<ScanLogsNotifier, ScanLogsState>(
       ScanLogsNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final scanLogsSearchProvider =
+    AutoDisposeNotifierProvider<ScanLogsNotifier, ScanLogsState>(
+      ScanLogsNotifier.new,
+    );

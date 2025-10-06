@@ -6,3 +6,9 @@ final locationsProvider =
     AutoDisposeNotifierProvider<LocationsNotifier, LocationsState>(
       LocationsNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final locationsSearchProvider =
+    AutoDisposeNotifierProvider<LocationsNotifier, LocationsState>(
+      LocationsNotifier.new,
+    );

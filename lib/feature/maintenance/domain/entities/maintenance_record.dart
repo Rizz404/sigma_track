@@ -1,32 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
-
-class MaintenanceRecordTranslation extends Equatable {
-  final String langCode;
-  final String title;
-  final String? notes;
-
-  const MaintenanceRecordTranslation({
-    required this.langCode,
-    required this.title,
-    this.notes,
-  });
-
-  @override
-  List<Object?> get props => [langCode, title, notes];
-}
-
-class MaintenanceSchedule extends Equatable {
-  final String id;
-
-  const MaintenanceSchedule({required this.id});
-
-  factory MaintenanceSchedule.dummy() => const MaintenanceSchedule(id: '');
-
-  @override
-  List<Object> get props => [id];
-}
 
 class MaintenanceRecord extends Equatable {
   final String id;
@@ -91,4 +66,19 @@ class MaintenanceRecord extends Equatable {
     asset,
     performedByUser,
   ];
+}
+
+class MaintenanceRecordTranslation extends Equatable {
+  final String langCode;
+  final String title;
+  final String? notes;
+
+  const MaintenanceRecordTranslation({
+    required this.langCode,
+    required this.title,
+    this.notes,
+  });
+
+  @override
+  List<Object?> get props => [langCode, title, notes];
 }

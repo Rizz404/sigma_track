@@ -6,3 +6,9 @@ final notificationsProvider =
     AutoDisposeNotifierProvider<NotificationsNotifier, NotificationsState>(
       NotificationsNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final notificationsSearchProvider =
+    AutoDisposeNotifierProvider<NotificationsNotifier, NotificationsState>(
+      NotificationsNotifier.new,
+    );

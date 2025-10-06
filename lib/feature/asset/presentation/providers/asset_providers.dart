@@ -5,3 +5,9 @@ import 'package:sigma_track/feature/asset/presentation/providers/state/assets_st
 final assetsProvider = AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
   AssetsNotifier.new,
 );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final assetsSearchProvider =
+    AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
+      AssetsNotifier.new,
+    );

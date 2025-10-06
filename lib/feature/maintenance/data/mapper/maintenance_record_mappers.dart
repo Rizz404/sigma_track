@@ -1,8 +1,10 @@
 import 'package:sigma_track/feature/asset/data/mapper/asset_mappers.dart';
+import 'package:sigma_track/feature/maintenance/data/mapper/maintenance_schedule_mappers.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record_statistics.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_record_model.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_record_statistics_model.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 
 extension MaintenanceRecordTranslationModelMapper
@@ -24,18 +26,6 @@ extension MaintenanceRecordTranslationEntityMapper
       title: title,
       notes: notes,
     );
-  }
-}
-
-extension MaintenanceScheduleModelMapper on MaintenanceScheduleModel {
-  MaintenanceSchedule toEntity() {
-    return MaintenanceSchedule(id: id);
-  }
-}
-
-extension MaintenanceScheduleEntityMapper on MaintenanceSchedule {
-  MaintenanceScheduleModel toModel() {
-    return MaintenanceScheduleModel(id: id);
   }
 }
 

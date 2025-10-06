@@ -3,84 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
+import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
-
-class MaintenanceRecordTranslationModel extends Equatable {
-  final String langCode;
-  final String title;
-  final String? notes;
-
-  const MaintenanceRecordTranslationModel({
-    required this.langCode,
-    required this.title,
-    this.notes,
-  });
-
-  @override
-  List<Object?> get props => [langCode, title, notes];
-
-  MaintenanceRecordTranslationModel copyWith({
-    String? langCode,
-    String? title,
-    String? notes,
-  }) {
-    return MaintenanceRecordTranslationModel(
-      langCode: langCode ?? this.langCode,
-      title: title ?? this.title,
-      notes: notes ?? this.notes,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {'langCode': langCode, 'title': title, 'notes': notes};
-  }
-
-  factory MaintenanceRecordTranslationModel.fromMap(Map<String, dynamic> map) {
-    return MaintenanceRecordTranslationModel(
-      langCode: map.getField<String>('langCode'),
-      title: map.getField<String>('title'),
-      notes: map.getFieldOrNull<String>('notes'),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory MaintenanceRecordTranslationModel.fromJson(String source) =>
-      MaintenanceRecordTranslationModel.fromMap(json.decode(source));
-
-  @override
-  String toString() =>
-      'MaintenanceRecordTranslationModel(langCode: $langCode, title: $title, notes: $notes)';
-}
-
-class MaintenanceScheduleModel extends Equatable {
-  final String id;
-
-  const MaintenanceScheduleModel({required this.id});
-
-  @override
-  List<Object> get props => [id];
-
-  MaintenanceScheduleModel copyWith({String? id}) {
-    return MaintenanceScheduleModel(id: id ?? this.id);
-  }
-
-  Map<String, dynamic> toMap() {
-    return {'id': id};
-  }
-
-  factory MaintenanceScheduleModel.fromMap(Map<String, dynamic> map) {
-    return MaintenanceScheduleModel(id: map.getField<String>('id'));
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory MaintenanceScheduleModel.fromJson(String source) =>
-      MaintenanceScheduleModel.fromMap(json.decode(source));
-
-  @override
-  String toString() => 'MaintenanceScheduleModel(id: $id)';
-}
 
 class MaintenanceRecordModel extends Equatable {
   final String id;
@@ -239,4 +163,52 @@ class MaintenanceRecordModel extends Equatable {
   String toString() {
     return 'MaintenanceRecordModel(id: $id, scheduleId: $scheduleId, assetId: $assetId, maintenanceDate: $maintenanceDate, performedByUserId: $performedByUserId, performedByVendor: $performedByVendor, actualCost: $actualCost, title: $title, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations, schedule: $schedule, asset: $asset, performedByUser: $performedByUser)';
   }
+}
+
+class MaintenanceRecordTranslationModel extends Equatable {
+  final String langCode;
+  final String title;
+  final String? notes;
+
+  const MaintenanceRecordTranslationModel({
+    required this.langCode,
+    required this.title,
+    this.notes,
+  });
+
+  @override
+  List<Object?> get props => [langCode, title, notes];
+
+  MaintenanceRecordTranslationModel copyWith({
+    String? langCode,
+    String? title,
+    String? notes,
+  }) {
+    return MaintenanceRecordTranslationModel(
+      langCode: langCode ?? this.langCode,
+      title: title ?? this.title,
+      notes: notes ?? this.notes,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'langCode': langCode, 'title': title, 'notes': notes};
+  }
+
+  factory MaintenanceRecordTranslationModel.fromMap(Map<String, dynamic> map) {
+    return MaintenanceRecordTranslationModel(
+      langCode: map.getField<String>('langCode'),
+      title: map.getField<String>('title'),
+      notes: map.getFieldOrNull<String>('notes'),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MaintenanceRecordTranslationModel.fromJson(String source) =>
+      MaintenanceRecordTranslationModel.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'MaintenanceRecordTranslationModel(langCode: $langCode, title: $title, notes: $notes)';
 }

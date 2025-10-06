@@ -6,3 +6,9 @@ final issueReportsProvider =
     AutoDisposeNotifierProvider<IssueReportsNotifier, IssueReportsState>(
       IssueReportsNotifier.new,
     );
+
+// * Provider khusus untuk dropdown search (data terpisah dari list utama)
+final issueReportsSearchProvider =
+    AutoDisposeNotifierProvider<IssueReportsNotifier, IssueReportsState>(
+      IssueReportsNotifier.new,
+    );
