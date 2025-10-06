@@ -400,13 +400,13 @@ class AppEndDrawer extends ConsumerWidget {
             Icons.brightness_6,
             color: context.colorScheme.onSurface,
           ),
-          title: AppText('Theme', style: AppTextStyle.bodyLarge),
+          title: const AppText('Theme', style: AppTextStyle.bodyLarge),
           trailing: _buildThemeSwitch(context, ref),
         ),
         // * Language Switcher
         ListTile(
           leading: Icon(Icons.language, color: context.colorScheme.onSurface),
-          title: AppText('Language', style: AppTextStyle.bodyLarge),
+          title: const AppText('Language', style: AppTextStyle.bodyLarge),
           trailing: _buildLanguageDropdown(context, ref),
         ),
       ],

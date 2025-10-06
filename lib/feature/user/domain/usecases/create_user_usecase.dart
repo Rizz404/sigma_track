@@ -28,7 +28,7 @@ class CreateUserUsecaseParams extends Equatable {
   final String password;
   final String fullName;
   final String role;
-  final String? employeeId;
+  final String? employeeId; // * Biarkan kosong saja
   final String? preferredLang;
 
   CreateUserUsecaseParams({

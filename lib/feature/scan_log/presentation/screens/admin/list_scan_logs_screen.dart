@@ -15,9 +15,7 @@ import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_pro
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_logs_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/widgets/scan_log_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_dropdown_search.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';

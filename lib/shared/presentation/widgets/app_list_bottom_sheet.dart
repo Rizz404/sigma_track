@@ -44,7 +44,7 @@ class AppListOptionsBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            AppText(
+            const AppText(
               'Options',
               style: AppTextStyle.titleLarge,
               fontWeight: FontWeight.bold,

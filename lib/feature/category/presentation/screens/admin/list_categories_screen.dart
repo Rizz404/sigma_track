@@ -139,46 +139,30 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'categoryName',
-                    label: 'Category Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'categoryCode',
-                    label: 'Category Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: CategorySortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppCheckbox(

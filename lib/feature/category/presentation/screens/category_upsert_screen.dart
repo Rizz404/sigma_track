@@ -34,6 +34,61 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool get _isEdit => widget.category != null || widget.categoryId != null;
 
+  void _handleSubmit() {
+    if (_formKey.currentState?.saveAndValidate() != true) {
+      AppToast.warning('Please fill all required fields');
+      return;
+    }
+
+    final formData = _formKey.currentState!.value;
+
+    final translations = <dynamic>[];
+    for (final langCode in ['en', 'id', 'ja']) {
+      final categoryName = formData['${langCode}_categoryName'] as String?;
+      final description = formData['${langCode}_description'] as String?;
+
+      if (categoryName != null && categoryName.isNotEmpty) {
+        if (_isEdit) {
+          translations.add(
+            UpdateCategoryTranslation(
+              langCode: langCode,
+              categoryName: categoryName,
+              description: description,
+            ),
+          );
+        } else {
+          translations.add(
+            CreateCategoryTranslation(
+              langCode: langCode,
+              categoryName: categoryName,
+              description: description ?? '',
+            ),
+          );
+        }
+      }
+    }
+
+    final parentId = formData['parentId'] as String?;
+    final categoryCode = formData['categoryCode'] as String;
+
+    if (_isEdit) {
+      final params = UpdateCategoryUsecaseParams(
+        id: widget.category!.id,
+        parentId: parentId,
+        categoryCode: categoryCode,
+        translations: translations.cast<UpdateCategoryTranslation>(),
+      );
+      ref.read(categoriesProvider.notifier).updateCategory(params);
+    } else {
+      final params = CreateCategoryUsecaseParams(
+        parentId: parentId ?? '',
+        categoryCode: categoryCode,
+        translations: translations.cast<CreateCategoryTranslation>(),
+      );
+      ref.read(categoriesProvider.notifier).createCategory(params);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
@@ -53,8 +108,6 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     });
 
     return AppLoaderOverlay(
-      overlayImagePath: 'assets/images/splash.png',
-      overlayImageSize: 120,
       child: Scaffold(
         appBar: CustomAppBar(
           title: _isEdit ? 'Edit Category' : 'Create Category',
@@ -94,7 +147,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
+            const AppText(
               'Category Information',
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
@@ -227,60 +280,5 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         ),
       ],
     );
-  }
-
-  void _handleSubmit() {
-    if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
-      return;
-    }
-
-    final formData = _formKey.currentState!.value;
-
-    final translations = <dynamic>[];
-    for (final langCode in ['en', 'id', 'ja']) {
-      final categoryName = formData['${langCode}_categoryName'] as String?;
-      final description = formData['${langCode}_description'] as String?;
-
-      if (categoryName != null && categoryName.isNotEmpty) {
-        if (_isEdit) {
-          translations.add(
-            UpdateCategoryTranslation(
-              langCode: langCode,
-              categoryName: categoryName,
-              description: description,
-            ),
-          );
-        } else {
-          translations.add(
-            CreateCategoryTranslation(
-              langCode: langCode,
-              categoryName: categoryName,
-              description: description ?? '',
-            ),
-          );
-        }
-      }
-    }
-
-    final parentId = formData['parentId'] as String?;
-    final categoryCode = formData['categoryCode'] as String;
-
-    if (_isEdit) {
-      final params = UpdateCategoryUsecaseParams(
-        id: widget.category!.id,
-        parentId: parentId,
-        categoryCode: categoryCode,
-        translations: translations.cast<UpdateCategoryTranslation>(),
-      );
-      ref.read(categoriesProvider.notifier).updateCategory(params);
-    } else {
-      final params = CreateCategoryUsecaseParams(
-        parentId: parentId ?? '',
-        categoryCode: categoryCode,
-        translations: translations.cast<CreateCategoryTranslation>(),
-      );
-      ref.read(categoriesProvider.notifier).createCategory(params);
-    }
   }
 }

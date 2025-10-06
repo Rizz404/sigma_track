@@ -15,9 +15,7 @@ import 'package:sigma_track/feature/location/presentation/providers/location_pro
 import 'package:sigma_track/feature/location/presentation/providers/state/locations_state.dart';
 import 'package:sigma_track/feature/location/presentation/widgets/location_card.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_dropdown_search.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -139,46 +137,30 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'locationName',
-                    label: 'Location Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'locationCode',
-                    label: 'Location Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: LocationSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 32),
               Row(

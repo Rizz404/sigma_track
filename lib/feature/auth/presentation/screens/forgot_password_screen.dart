@@ -15,6 +15,7 @@ import 'package:sigma_track/feature/auth/presentation/validators/forgot_password
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
@@ -121,22 +122,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   const SizedBox(height: 32),
 
                   // * Validation errors
+                  AppValidationErrors(errors: validationErrors),
                   if (validationErrors != null && validationErrors!.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: validationErrors!
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: AppText(
-                                e.message,
-                                color: context.semantic.error,
-                                style: AppTextStyle.bodySmall,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                    const SizedBox(height: 16),
 
                   // * Send reset link button
                   AppButton(

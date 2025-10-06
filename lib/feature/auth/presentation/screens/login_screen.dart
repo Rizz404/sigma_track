@@ -16,6 +16,7 @@ import 'package:sigma_track/feature/auth/presentation/validators/login_validator
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -153,22 +154,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 24),
 
                   // * Validation errors
+                  AppValidationErrors(errors: validationErrors),
                   if (validationErrors != null && validationErrors!.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: validationErrors!
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: AppText(
-                                e.message,
-                                color: context.semantic.error,
-                                style: AppTextStyle.bodySmall,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                    const SizedBox(height: 16),
 
                   // * Login button
                   AppButton(

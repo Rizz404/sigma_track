@@ -30,9 +30,9 @@ class AdminShell extends StatelessWidget {
             selectedIcon: const Icon(Icons.dashboard),
             label: context.l10n.dashboard,
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.qr_code_scanner_outlined),
-            selectedIcon: const Icon(Icons.qr_code_scanner),
+          const NavigationDestination(
+            icon: Icon(Icons.qr_code_scanner_outlined),
+            selectedIcon: Icon(Icons.qr_code_scanner),
             label: 'Scan',
           ),
           NavigationDestination(

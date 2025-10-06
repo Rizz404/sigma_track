@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum UserRole {
   admin('Admin'),
   staff('Staff'),
@@ -32,6 +34,29 @@ enum UserRole {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case UserRole.admin:
+        return 'Admin';
+      case UserRole.staff:
+        return 'Staff';
+      case UserRole.employee:
+        return 'Employee';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case UserRole.admin:
+        return Icons.admin_panel_settings;
+      case UserRole.staff:
+        return Icons.people;
+      case UserRole.employee:
+        return Icons.person;
+    }
+  }
 }
 
 enum AssetStatus {
@@ -69,6 +94,33 @@ enum AssetStatus {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case AssetStatus.active:
+        return 'Active';
+      case AssetStatus.maintenance:
+        return 'Maintenance';
+      case AssetStatus.disposed:
+        return 'Disposed';
+      case AssetStatus.lost:
+        return 'Lost';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case AssetStatus.active:
+        return Icons.check_circle;
+      case AssetStatus.maintenance:
+        return Icons.build;
+      case AssetStatus.disposed:
+        return Icons.delete;
+      case AssetStatus.lost:
+        return Icons.error;
+    }
+  }
 }
 
 enum AssetCondition {
@@ -106,6 +158,33 @@ enum AssetCondition {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case AssetCondition.good:
+        return 'Good';
+      case AssetCondition.fair:
+        return 'Fair';
+      case AssetCondition.poor:
+        return 'Poor';
+      case AssetCondition.damaged:
+        return 'Damaged';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case AssetCondition.good:
+        return Icons.thumb_up;
+      case AssetCondition.fair:
+        return Icons.thumbs_up_down;
+      case AssetCondition.poor:
+        return Icons.thumb_down;
+      case AssetCondition.damaged:
+        return Icons.warning;
+    }
+  }
 }
 
 enum NotificationType {
@@ -146,6 +225,37 @@ enum NotificationType {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case NotificationType.maintenance:
+        return 'Maintenance';
+      case NotificationType.warranty:
+        return 'Warranty';
+      case NotificationType.statusChange:
+        return 'Status Change';
+      case NotificationType.movement:
+        return 'Movement';
+      case NotificationType.issueReport:
+        return 'Issue Report';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case NotificationType.maintenance:
+        return Icons.build;
+      case NotificationType.warranty:
+        return Icons.shield;
+      case NotificationType.statusChange:
+        return Icons.swap_horiz;
+      case NotificationType.movement:
+        return Icons.move_down;
+      case NotificationType.issueReport:
+        return Icons.report;
+    }
+  }
 }
 
 enum ScanMethodType {
@@ -181,6 +291,25 @@ enum ScanMethodType {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case ScanMethodType.dataMatrix:
+        return 'Data Matrix';
+      case ScanMethodType.manualInput:
+        return 'Manual Input';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case ScanMethodType.dataMatrix:
+        return Icons.qr_code;
+      case ScanMethodType.manualInput:
+        return Icons.keyboard;
+    }
+  }
 }
 
 enum ScanResultType {
@@ -217,6 +346,29 @@ enum ScanResultType {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case ScanResultType.success:
+        return 'Success';
+      case ScanResultType.invalidID:
+        return 'Invalid ID';
+      case ScanResultType.assetNotFound:
+        return 'Asset Not Found';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case ScanResultType.success:
+        return Icons.check_circle;
+      case ScanResultType.invalidID:
+        return Icons.error;
+      case ScanResultType.assetNotFound:
+        return Icons.search_off;
+    }
+  }
 }
 
 enum MaintenanceScheduleType {
@@ -254,6 +406,25 @@ enum MaintenanceScheduleType {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case MaintenanceScheduleType.preventive:
+        return 'Preventive';
+      case MaintenanceScheduleType.corrective:
+        return 'Corrective';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case MaintenanceScheduleType.preventive:
+        return Icons.shield;
+      case MaintenanceScheduleType.corrective:
+        return Icons.build;
+    }
+  }
 }
 
 enum ScheduleStatus {
@@ -290,6 +461,29 @@ enum ScheduleStatus {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case ScheduleStatus.scheduled:
+        return 'Scheduled';
+      case ScheduleStatus.completed:
+        return 'Completed';
+      case ScheduleStatus.cancelled:
+        return 'Cancelled';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case ScheduleStatus.scheduled:
+        return Icons.schedule;
+      case ScheduleStatus.completed:
+        return Icons.check_circle;
+      case ScheduleStatus.cancelled:
+        return Icons.cancel;
+    }
+  }
 }
 
 enum IssuePriority {
@@ -327,6 +521,33 @@ enum IssuePriority {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case IssuePriority.low:
+        return 'Low';
+      case IssuePriority.medium:
+        return 'Medium';
+      case IssuePriority.high:
+        return 'High';
+      case IssuePriority.critical:
+        return 'Critical';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case IssuePriority.low:
+        return Icons.arrow_downward;
+      case IssuePriority.medium:
+        return Icons.remove;
+      case IssuePriority.high:
+        return Icons.arrow_upward;
+      case IssuePriority.critical:
+        return Icons.priority_high;
+    }
+  }
 }
 
 enum IssueStatus {
@@ -364,4 +585,31 @@ enum IssueStatus {
 
   @override
   String toString() => value;
+
+  // * Dropdown helper
+  String get label {
+    switch (this) {
+      case IssueStatus.open:
+        return 'Open';
+      case IssueStatus.inProgress:
+        return 'In Progress';
+      case IssueStatus.resolved:
+        return 'Resolved';
+      case IssueStatus.closed:
+        return 'Closed';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case IssueStatus.open:
+        return Icons.folder_open;
+      case IssueStatus.inProgress:
+        return Icons.hourglass_empty;
+      case IssueStatus.resolved:
+        return Icons.check_circle;
+      case IssueStatus.closed:
+        return Icons.lock;
+    }
+  }
 }

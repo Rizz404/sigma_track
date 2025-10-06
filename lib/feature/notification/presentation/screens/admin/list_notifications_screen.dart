@@ -16,9 +16,7 @@ import 'package:sigma_track/feature/notification/presentation/providers/notifica
 import 'package:sigma_track/feature/notification/presentation/providers/state/notifications_state.dart';
 import 'package:sigma_track/feature/notification/presentation/widgets/notification_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_dropdown_search.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
