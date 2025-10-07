@@ -1,18 +1,623 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
-import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
+import 'package:sigma_track/feature/asset/presentation/validators/asset_upsert_validator.dart';
+import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
+import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
+import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
+import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
-class AssetUpsertScreen extends StatelessWidget {
+class AssetUpsertScreen extends ConsumerStatefulWidget {
   final Asset? asset;
   final String? assetId;
 
   const AssetUpsertScreen({super.key, this.asset, this.assetId});
 
   @override
+  ConsumerState<AssetUpsertScreen> createState() => _AssetUpsertScreenState();
+}
+
+class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
+  final _formKey = GlobalKey<FormBuilderState>();
+  List<ValidationError>? validationErrors;
+  Category? _selectedCategory;
+  Location? _selectedLocation;
+  bool get _isEdit => widget.asset != null || widget.assetId != null;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategory = widget.asset?.category;
+    _selectedLocation = widget.asset?.location;
+  }
+
+  Future<List<Category>> _searchCategories(String query) async {
+    final notifier = ref.read(categoriesSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(categoriesSearchProvider);
+    return state.categories;
+  }
+
+  Future<List<Location>> _searchLocations(String query) async {
+    final notifier = ref.read(locationsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(locationsSearchProvider);
+    return state.locations;
+  }
+
+  void _handleSubmit() {
+    if (_formKey.currentState?.saveAndValidate() != true) {
+      AppToast.warning('Please fill all required fields');
+      return;
+    }
+
+    final formData = _formKey.currentState!.value;
+
+    final assetTag = formData['assetTag'] as String;
+    final assetName = formData['assetName'] as String;
+    final categoryId = formData['categoryId'] as String?;
+    final brand = formData['brand'] as String?;
+    final model = formData['model'] as String?;
+    final serialNumber = formData['serialNumber'] as String?;
+    final purchaseDate = formData['purchaseDate'] as DateTime?;
+    final purchasePrice = formData['purchasePrice'] as String?;
+    final vendorName = formData['vendorName'] as String?;
+    final warrantyEnd = formData['warrantyEnd'] as DateTime?;
+    final status = formData['status'] as String?;
+    final condition = formData['condition'] as String?;
+    final locationId = formData['locationId'] as String?;
+    final dataMatrixImageUrl = formData['dataMatrixImageUrl'] as String? ?? '';
+
+    if (categoryId == null || categoryId.isEmpty) {
+      AppToast.warning('Please select a category');
+      return;
+    }
+
+    if (_isEdit) {
+      final params = UpdateAssetUsecaseParams(
+        id: widget.asset!.id,
+        assetTag: assetTag,
+        assetName: assetName,
+        categoryId: categoryId,
+        brand: brand,
+        model: model,
+        serialNumber: serialNumber,
+        purchaseDate: purchaseDate,
+        purchasePrice: purchasePrice != null
+            ? double.tryParse(purchasePrice)
+            : null,
+        vendorName: vendorName,
+        warrantyEnd: warrantyEnd,
+        status: status != null ? AssetStatus.fromJson(status) : null,
+        condition: condition != null
+            ? AssetCondition.fromJson(condition)
+            : null,
+        locationId: locationId,
+        dataMatrixImageUrl: dataMatrixImageUrl,
+      );
+      ref.read(assetsProvider.notifier).updateAsset(params);
+    } else {
+      final params = CreateAssetUsecaseParams(
+        assetTag: assetTag,
+        assetName: assetName,
+        categoryId: categoryId,
+        brand: brand,
+        model: model,
+        serialNumber: serialNumber,
+        purchaseDate: purchaseDate,
+        purchasePrice: purchasePrice != null
+            ? double.tryParse(purchasePrice)
+            : null,
+        vendorName: vendorName,
+        warrantyEnd: warrantyEnd,
+        status: status != null
+            ? AssetStatus.fromJson(status)
+            : AssetStatus.active,
+        condition: condition != null
+            ? AssetCondition.fromJson(condition)
+            : AssetCondition.good,
+        locationId: locationId,
+        dataMatrixImageUrl: dataMatrixImageUrl,
+      );
+      ref.read(assetsProvider.notifier).createAsset(params);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ScreenWrapper(child: Center(child: AppText('AssetUpsertScreen'))),
+    ref.listen<AssetsState>(assetsProvider, (previous, next) {
+      if (next.isMutating) {
+        context.loaderOverlay.show();
+      } else {
+        context.loaderOverlay.hide();
+      }
+
+      if (!next.isMutating && next.message != null && next.failure == null) {
+        AppToast.success(next.message ?? 'Asset saved successfully');
+        context.pop();
+      } else if (next.failure != null) {
+        if (next.failure is ValidationFailure) {
+          setState(
+            () => validationErrors = (next.failure as ValidationFailure).errors,
+          );
+        } else {
+          this.logError('Asset mutation error', next.failure);
+          AppToast.error(next.failure?.message ?? 'Operation failed');
+        }
+      }
+    });
+
+    return AppLoaderOverlay(
+      child: Scaffold(
+        appBar: CustomAppBar(title: _isEdit ? 'Edit Asset' : 'Create Asset'),
+        body: ScreenWrapper(
+          child: FormBuilder(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildBasicInfoSection(),
+                  const SizedBox(height: 24),
+                  _buildCategoryLocationSection(),
+                  const SizedBox(height: 24),
+                  _buildPurchaseInfoSection(),
+                  const SizedBox(height: 24),
+                  _buildStatusSection(),
+                  const SizedBox(height: 24),
+                  AppValidationErrors(errors: validationErrors),
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    const SizedBox(height: 16),
+                  _buildActionButtons(),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBasicInfoSection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppText(
+              'Basic Information',
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'assetTag',
+              label: 'Asset Tag',
+              placeHolder: 'Enter asset tag (e.g., AST-001)',
+              initialValue: widget.asset?.assetTag,
+              validator: AssetUpsertValidator.validateAssetTag,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'assetName',
+              label: 'Asset Name',
+              placeHolder: 'Enter asset name',
+              initialValue: widget.asset?.assetName,
+              validator: AssetUpsertValidator.validateAssetName,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'brand',
+              label: 'Brand (Optional)',
+              placeHolder: 'Enter brand name',
+              initialValue: widget.asset?.brand,
+              validator: AssetUpsertValidator.validateBrand,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'model',
+              label: 'Model (Optional)',
+              placeHolder: 'Enter model',
+              initialValue: widget.asset?.model,
+              validator: AssetUpsertValidator.validateModel,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'serialNumber',
+              label: 'Serial Number (Optional)',
+              placeHolder: 'Enter serial number',
+              initialValue: widget.asset?.serialNumber,
+              validator: AssetUpsertValidator.validateSerialNumber,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'dataMatrixImageUrl',
+              label: 'Data Matrix Image URL (Optional)',
+              placeHolder: 'Enter image URL',
+              initialValue: widget.asset?.dataMatrixImageUrl,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryLocationSection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppText(
+              'Category & Location',
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            if (_selectedCategory != null) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.colors.surfaceVariant,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: context.colors.primary, width: 2),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.category,
+                      color: context.colors.primary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            'Selected Category:',
+                            style: AppTextStyle.bodySmall,
+                            color: context.colors.textSecondary,
+                          ),
+                          AppText(
+                            _selectedCategory!.categoryName,
+                            style: AppTextStyle.bodyMedium,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: context.colors.textSecondary,
+                      ),
+                      onPressed: () => setState(() => _selectedCategory = null),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+            AppSearchField<Category>(
+              name: 'categoryId',
+              label: 'Category',
+              hintText: 'Search category...',
+              initialValue: widget.asset?.categoryId,
+              enableAutocomplete: true,
+              onSearch: _searchCategories,
+              itemDisplayMapper: (category) => category.categoryName,
+              itemValueMapper: (category) => category.id,
+              itemBuilder: (context, category) {
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: BoxDecoration(
+                    color: context.colors.surfaceVariant,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.category,
+                        color: context.colors.primary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              category.categoryName,
+                              style: AppTextStyle.bodyMedium,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            const SizedBox(height: 2),
+                            AppText(
+                              category.categoryCode,
+                              style: AppTextStyle.bodySmall,
+                              color: context.colors.textTertiary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              onItemSelected: (category) =>
+                  setState(() => _selectedCategory = category),
+              validator: AssetUpsertValidator.validateCategoryId,
+            ),
+            const SizedBox(height: 16),
+            if (_selectedLocation != null) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.colors.surfaceVariant,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: context.colors.primary, width: 2),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: context.colors.primary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            'Selected Location:',
+                            style: AppTextStyle.bodySmall,
+                            color: context.colors.textSecondary,
+                          ),
+                          AppText(
+                            _selectedLocation!.locationName,
+                            style: AppTextStyle.bodyMedium,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: context.colors.textSecondary,
+                      ),
+                      onPressed: () => setState(() => _selectedLocation = null),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
+            AppSearchField<Location>(
+              name: 'locationId',
+              label: 'Location (Optional)',
+              hintText: 'Search location...',
+              initialValue: widget.asset?.locationId,
+              enableAutocomplete: true,
+              onSearch: _searchLocations,
+              itemDisplayMapper: (location) => location.locationName,
+              itemValueMapper: (location) => location.id,
+              itemBuilder: (context, location) {
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: BoxDecoration(
+                    color: context.colors.surfaceVariant,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: context.colors.primary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              location.locationName,
+                              style: AppTextStyle.bodyMedium,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            const SizedBox(height: 2),
+                            AppText(
+                              location.locationCode,
+                              style: AppTextStyle.bodySmall,
+                              color: context.colors.textTertiary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              onItemSelected: (location) =>
+                  setState(() => _selectedLocation = location),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPurchaseInfoSection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppText(
+              'Purchase Information',
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            AppDateTimePicker(
+              name: 'purchaseDate',
+              label: 'Purchase Date (Optional)',
+              initialValue: widget.asset?.purchaseDate,
+              inputType: InputType.date,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'purchasePrice',
+              label: 'Purchase Price (Optional)',
+              placeHolder: 'Enter purchase price',
+              type: AppTextFieldType.number,
+              initialValue: widget.asset?.purchasePrice?.toString(),
+              validator: AssetUpsertValidator.validatePurchasePrice,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'vendorName',
+              label: 'Vendor Name (Optional)',
+              placeHolder: 'Enter vendor name',
+              initialValue: widget.asset?.vendorName,
+              validator: AssetUpsertValidator.validateVendorName,
+            ),
+            const SizedBox(height: 16),
+            AppDateTimePicker(
+              name: 'warrantyEnd',
+              label: 'Warranty End Date (Optional)',
+              initialValue: widget.asset?.warrantyEnd,
+              inputType: InputType.date,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusSection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AppText(
+              'Status & Condition',
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            AppDropdown<String>(
+              name: 'status',
+              label: 'Status',
+              initialValue: widget.asset?.status.toJson(),
+              items: AssetStatus.values
+                  .map(
+                    (status) => AppDropdownItem<String>(
+                      value: status.toJson(),
+                      label: status.label,
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SizedBox(height: 16),
+            AppDropdown<String>(
+              name: 'condition',
+              label: 'Condition',
+              initialValue: widget.asset?.condition.toJson(),
+              items: AssetCondition.values
+                  .map(
+                    (condition) => AppDropdownItem<String>(
+                      value: condition.toJson(),
+                      label: condition.label,
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: AppButton(
+            text: 'Cancel',
+            variant: AppButtonVariant.outlined,
+            onPressed: () => context.pop(),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: AppButton(
+            text: _isEdit ? 'Update' : 'Create',
+            onPressed: _handleSubmit,
+          ),
+        ),
+      ],
     );
   }
 }

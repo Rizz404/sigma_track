@@ -17,6 +17,7 @@ import 'package:sigma_track/feature/user/presentation/validators/user_upsert_val
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -112,6 +113,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
     return AppLoaderOverlay(
       child: Scaffold(
         appBar: CustomAppBar(title: _isEdit ? 'Edit User' : 'Create User'),
+        endDrawer: const AppEndDrawer(),
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
