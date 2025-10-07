@@ -17,6 +17,7 @@ import 'package:sigma_track/feature/category/presentation/widgets/category_card.
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -469,6 +470,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Category Management'),
+      endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
           children: [

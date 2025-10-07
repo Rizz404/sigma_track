@@ -11,6 +11,7 @@ import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/domain/usecases/delete_location_usecase.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/locations_state.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -131,23 +132,28 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
 
     final isLoading = _isLoading || _location == null;
 
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
     return Scaffold(
       appBar: CustomAppBar(
         title: isLoading ? 'Location Detail' : _location!.locationName,
-        actions: [
-          if (!isLoading)
-            IconButton(icon: const Icon(Icons.edit), onPressed: _handleEdit),
-          if (!isLoading)
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: _handleDelete,
-            ),
-        ],
       ),
       body: Skeletonizer(
         enabled: isLoading,
-        child: ScreenWrapper(
-          child: isLoading ? _buildLoadingContent() : _buildContent(),
+        child: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: isLoading ? _buildLoadingContent() : _buildContent(),
+              ),
+            ),
+            if (!isLoading && isAdmin)
+              AppDetailActionButtons(
+                onEdit: _handleEdit,
+                onDelete: _handleDelete,
+              ),
+          ],
         ),
       ),
     );

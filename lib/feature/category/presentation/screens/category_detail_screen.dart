@@ -11,6 +11,7 @@ import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -44,7 +45,6 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
     _category = widget.category;
     if (_category == null &&
         (widget.id != null || widget.categoryCode != null)) {
-      // TODO: Fetch category by id or categoryCode
       _fetchCategory();
     }
   }
@@ -131,23 +131,28 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
 
     final isLoading = _isLoading || _category == null;
 
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
     return Scaffold(
       appBar: CustomAppBar(
         title: isLoading ? 'Category Detail' : _category!.categoryName,
-        actions: [
-          if (!isLoading)
-            IconButton(icon: const Icon(Icons.edit), onPressed: _handleEdit),
-          if (!isLoading)
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: _handleDelete,
-            ),
-        ],
       ),
       body: Skeletonizer(
         enabled: isLoading,
-        child: ScreenWrapper(
-          child: isLoading ? _buildLoadingContent() : _buildContent(),
+        child: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: isLoading ? _buildLoadingContent() : _buildContent(),
+              ),
+            ),
+            if (!isLoading && isAdmin)
+              AppDetailActionButtons(
+                onEdit: _handleEdit,
+                onDelete: _handleDelete,
+              ),
+          ],
         ),
       ),
     );
