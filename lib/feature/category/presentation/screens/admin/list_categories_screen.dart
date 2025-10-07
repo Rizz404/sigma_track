@@ -17,7 +17,6 @@ import 'package:sigma_track/feature/category/presentation/widgets/category_card.
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_dropdown_search.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -40,6 +39,9 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   final Set<String> _selectedCategoryIds = {};
   bool _isSelectMode = false;
   Timer? _debounceTimer;
+  Category? _selectedParentCategory;
+  List<Category> _searchCache =
+      []; // * Cache to prevent provider disposal issue
 
   @override
   void initState() {
@@ -101,8 +103,38 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     );
   }
 
+  Future<List<Category>> _searchParentCategories(String query) async {
+    this.logPresentation('Searching parent categories: $query');
+
+    final notifier = ref.read(categoriesSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(categoriesSearchProvider);
+
+    // * Cache results to prevent disposal issue
+    _searchCache = List<Category>.from(state.categories);
+
+    this.logPresentation(
+      'Parent categories search result: ${_searchCache.length} items',
+    );
+
+    return _searchCache;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(categoriesProvider).categoriesFilter;
+
+    // * Set initial selected parent category
+    if (_selectedParentCategory == null && currentFilter.parentId != null) {
+      _selectedParentCategory = ref
+          .read(categoriesProvider)
+          .categories
+          .cast<Category?>()
+          .firstWhere(
+            (c) => c?.id == currentFilter.parentId,
+            orElse: () => null,
+          );
+    }
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -171,55 +203,126 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 initialValue: currentFilter.hasParent == true,
               ),
               const SizedBox(height: 16),
-              AppDropdownSearch<Category>(
-                name: 'parentId',
-                label: 'Filter by Parent Category',
-                hintText: 'Select parent category',
-                initialValue: currentFilter.parentId != null
-                    ? ref
-                          .read(categoriesProvider)
-                          .categories
-                          .cast<Category?>()
-                          .firstWhere(
-                            (c) => c?.id == currentFilter.parentId,
-                            orElse: () => null,
-                          )
-                    : null,
-                asyncItems: (search) async {
-                  // * Load categories for dropdown search
-                  await ref
-                      .read(categoriesSearchProvider.notifier)
-                      .search(search);
-                  return ref.read(categoriesSearchProvider).categories;
-                },
-                itemAsString: (category) => category.categoryName,
-                compareFn: (item1, item2) => item1.id == item2.id,
-                itemBuilder: (context, category, isDisabled, isSelected) {
-                  return ListTile(
-                    selected: isSelected,
-                    selectedTileColor: context.colorScheme.primary.withOpacity(
-                      0.1,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (_selectedParentCategory != null) ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: context.colors.surfaceVariant,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: context.colors.primary,
+                                width: 2,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.category,
+                                  color: context.colors.primary,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(
+                                        'Selected:',
+                                        style: AppTextStyle.bodySmall,
+                                        color: context.colors.textSecondary,
+                                      ),
+                                      AppText(
+                                        _selectedParentCategory!.categoryName,
+                                        style: AppTextStyle.bodyMedium,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    size: 20,
+                                    color: context.colors.textSecondary,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedParentCategory = null;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    leading: Icon(
-                      Icons.category,
-                      color: isSelected
-                          ? context.colorScheme.primary
-                          : context.colors.textSecondary,
-                    ),
-                    title: AppText(
-                      category.categoryName,
-                      style: AppTextStyle.bodyMedium,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                    ),
-                    subtitle: AppText(
-                      category.categoryCode,
-                      style: AppTextStyle.bodySmall,
-                      color: context.colors.textTertiary,
-                    ),
-                  );
-                },
+                    const SizedBox(height: 8),
+                  ],
+                  AppSearchField<Category>(
+                    name: 'parentId',
+                    label: 'Filter by Parent Category',
+                    hintText: 'Search parent category...',
+                    enableAutocomplete: true,
+                    onSearch: _searchParentCategories,
+                    itemDisplayMapper: (category) => category.categoryName,
+                    itemValueMapper: (category) => category.id,
+                    itemBuilder: (context, category) {
+                      return Container(
+                        padding: const EdgeInsets.all(12),
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        decoration: BoxDecoration(
+                          color: context.colors.surfaceVariant,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.category,
+                              color: context.colors.primary,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                    category.categoryName,
+                                    style: AppTextStyle.bodyMedium,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  const SizedBox(height: 2),
+                                  AppText(
+                                    category.categoryCode,
+                                    style: AppTextStyle.bodySmall,
+                                    color: context.colors.textTertiary,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    onItemSelected: (category) {
+                      setState(() {
+                        _selectedParentCategory = category;
+                      });
+                    },
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
               ),
               const SizedBox(height: 32),
               Row(
@@ -230,6 +333,9 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
+                        setState(() {
+                          _selectedParentCategory = null;
+                        });
                         final newFilter = CategoriesFilter(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
@@ -254,8 +360,6 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                           final sortOrderStr = formData['sortOrder'] as String?;
                           final hasParentChecked =
                               formData['hasParent'] as bool? ?? false;
-                          final selectedParent =
-                              formData['parentId'] as Category?;
 
                           final hasParentValue = hasParentChecked ? true : null;
 
@@ -268,7 +372,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                                 ? SortOrder.fromString(sortOrderStr)
                                 : null,
                             hasParent: hasParentValue,
-                            parentId: selectedParent?.id,
+                            parentId: _selectedParentCategory?.id,
                           );
 
                           Navigator.pop(context);
