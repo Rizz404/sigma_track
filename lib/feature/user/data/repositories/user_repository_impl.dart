@@ -4,6 +4,8 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/mappers/cursor_mapper.dart';
 import 'package:sigma_track/core/mappers/pagination_mapper.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
+import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/feature/auth/data/datasources/auth_local_datasource.dart';
 import 'package:sigma_track/feature/user/data/datasources/user_remote_datasource.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
@@ -15,7 +17,6 @@ import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_
 import 'package:sigma_track/feature/user/domain/usecases/count_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
-import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_email_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
@@ -26,8 +27,9 @@ import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dar
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDatasource _userRemoteDatasource;
+  final AuthLocalDatasource _authLocalDatasource;
 
-  UserRepositoryImpl(this._userRemoteDatasource);
+  UserRepositoryImpl(this._userRemoteDatasource, this._authLocalDatasource);
 
   @override
   Future<Either<Failure, ItemSuccess<User>>> createUser(
@@ -391,8 +393,26 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, ItemSuccess<User>>> getCurrentUser() async {
     try {
+      // * Prioritas: local storage dulu untuk hemat request API
+      final localUserModel = await _authLocalDatasource.getUser();
+
+      if (localUserModel != null) {
+        this.logData('getCurrentUser: Using cached user from local storage');
+        final user = localUserModel.toEntity();
+        return Right(
+          ItemSuccess(message: 'User retrieved from cache', data: user),
+        );
+      }
+
+      // * Fallback: Fetch dari API jika local tidak ada
+      this.logData('getCurrentUser: Fetching from API (no local cache)');
       final response = await _userRemoteDatasource.getCurrentUser();
       final user = response.data.toEntity();
+
+      // * Save ke local storage untuk next time
+      await _authLocalDatasource.saveUser(response.data);
+      this.logData('getCurrentUser: User saved to local storage');
+
       return Right(ItemSuccess(message: response.message, data: user));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {
@@ -455,8 +475,14 @@ class UserRepositoryImpl implements UserRepository {
     UpdateCurrentUserUsecaseParams params,
   ) async {
     try {
+      // * Update ke API
       final response = await _userRemoteDatasource.updateCurrentUser(params);
       final user = response.data.toEntity();
+
+      // * Sync ke local storage agar getCurrentUser & getCurrentAuth konsisten
+      await _authLocalDatasource.saveUser(response.data);
+      this.logData('updateCurrentUser: User synced to local storage');
+
       return Right(ItemSuccess(message: response.message, data: user));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {

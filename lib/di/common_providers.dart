@@ -11,7 +11,8 @@ import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
-import 'package:sigma_track/feature/user/data/models/user_model.dart';
+import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
@@ -52,22 +53,6 @@ final localeProvider = NotifierProvider<LocaleNotifier, Locale>(
 final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
   ThemeNotifier.new,
 );
-
-final currentUserProvider = FutureProvider<UserModel?>((ref) async {
-  final authLocalDatasource = ref.watch(authLocalDatasourceProvider);
-  return authLocalDatasource.getUser();
-});
-
-final isAuthenticatedProvider = FutureProvider<bool>((ref) async {
-  final authService = ref.watch(authServiceProvider);
-  final token = await authService.getAccessToken();
-  return token != null;
-});
-
-final isAdminProvider = FutureProvider<bool>((ref) async {
-  final user = await ref.watch(currentUserProvider.future);
-  return user?.role == UserRole.admin;
-});
 
 // * Router Provider - Inject Ref ke AppRouter
 final routerProvider = Provider<GoRouter>((ref) {

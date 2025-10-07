@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:sigma_track/feature/user/data/models/user_model.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
 /// Entity untuk authentication state aplikasi
 /// Semua field nullable untuk support logout state
 /// Digunakan untuk state management dan presentation layer
 class Auth extends Equatable {
-  final UserModel? user;
+  final User? user;
   final String? accessToken;
   final String? refreshToken;
 

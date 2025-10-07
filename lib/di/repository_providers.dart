@@ -86,10 +86,11 @@ final locationRepositoryProvider = Provider<LocationRepository>((ref) {
   return LocationRepositoryImpl(_locationRemoteDatasource);
 });
 
-// ===== LOCATION REPOSITORY =====
+// ===== USER REPOSITORY =====
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   final _userRemoteDatasource = ref.watch(userRemoteDatasourceProvider);
-  return UserRepositoryImpl(_userRemoteDatasource);
+  final _authLocalDatasource = ref.watch(authLocalDatasourceProvider);
+  return UserRepositoryImpl(_userRemoteDatasource, _authLocalDatasource);
 });
 
 // ===== MAINTENANCE REPOSITORIES =====

@@ -29,7 +29,9 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await _authRemoteDatasource.register(params);
       final user = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: user));
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -47,7 +49,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await _authLocalDatasource.saveUser(response.data.user);
 
       return Right(ItemSuccess(message: response.message, data: loginResponse));
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -59,7 +63,9 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _authRemoteDatasource.forgotPassword(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -73,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       // * Auth dengan nullable fields, jadi bisa return Auth kosong/partial
       final auth = Auth(
-        user: userModel,
+        user: userModel?.toEntity(),
         accessToken: accessToken,
         refreshToken: refreshToken,
       );
@@ -109,4 +115,3 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 }
-
