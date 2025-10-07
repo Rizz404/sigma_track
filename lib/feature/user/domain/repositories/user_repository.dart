@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
@@ -14,6 +15,7 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
 abstract class UserRepository {
@@ -48,8 +50,12 @@ abstract class UserRepository {
   Future<Either<Failure, ItemSuccess<User>>> getUserById(
     GetUserByIdUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<User>>> getCurrentUser();
   Future<Either<Failure, ItemSuccess<User>>> updateUser(
     UpdateUserUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<User>>> updateCurrentUser(
+    UpdateCurrentUserUsecaseParams params,
   );
   Future<Either<Failure, ActionSuccess>> deleteUser(
     DeleteUserUsecaseParams params,

@@ -34,26 +34,7 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       );
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -75,26 +56,7 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           pagination: response.pagination.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -130,26 +92,7 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           cursor: response.cursor.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -188,26 +131,7 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           pagination: response.pagination.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -253,26 +177,7 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       );
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -293,3 +198,4 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
     }
   }
 }
+

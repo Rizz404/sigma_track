@@ -1,7 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/check_maintenance_record_exists_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/check_maintenance_schedule_exists_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/count_maintenance_records_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/count_maintenance_schedules_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_record_by_id_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_records_statistics_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedule_by_id_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedules_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_boolean_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_count_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_detail_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_statistics_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_records_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_boolean_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_count_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_detail_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_statistics_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
 
 final maintenanceSchedulesProvider =
@@ -28,3 +44,51 @@ final maintenanceRecordsSearchProvider =
       MaintenanceRecordsNotifier,
       MaintenanceRecordsState
     >(MaintenanceRecordsNotifier.new);
+
+final getMaintenanceScheduleByIdProvider =
+    AutoDisposeNotifierProvider<
+      GetMaintenanceScheduleByIdNotifier,
+      MaintenanceScheduleDetailState
+    >(GetMaintenanceScheduleByIdNotifier.new);
+
+final checkMaintenanceScheduleExistsProvider =
+    AutoDisposeNotifierProvider<
+      CheckMaintenanceScheduleExistsNotifier,
+      MaintenanceScheduleBooleanState
+    >(CheckMaintenanceScheduleExistsNotifier.new);
+
+final countMaintenanceSchedulesProvider =
+    AutoDisposeNotifierProvider<
+      CountMaintenanceSchedulesNotifier,
+      MaintenanceScheduleCountState
+    >(CountMaintenanceSchedulesNotifier.new);
+
+final getMaintenanceSchedulesStatisticsProvider =
+    AutoDisposeNotifierProvider<
+      GetMaintenanceSchedulesStatisticsNotifier,
+      MaintenanceScheduleStatisticsState
+    >(GetMaintenanceSchedulesStatisticsNotifier.new);
+
+final getMaintenanceRecordByIdProvider =
+    AutoDisposeNotifierProvider<
+      GetMaintenanceRecordByIdNotifier,
+      MaintenanceRecordDetailState
+    >(GetMaintenanceRecordByIdNotifier.new);
+
+final checkMaintenanceRecordExistsProvider =
+    AutoDisposeNotifierProvider<
+      CheckMaintenanceRecordExistsNotifier,
+      MaintenanceRecordBooleanState
+    >(CheckMaintenanceRecordExistsNotifier.new);
+
+final countMaintenanceRecordsProvider =
+    AutoDisposeNotifierProvider<
+      CountMaintenanceRecordsNotifier,
+      MaintenanceRecordCountState
+    >(CountMaintenanceRecordsNotifier.new);
+
+final getMaintenanceRecordsStatisticsProvider =
+    AutoDisposeNotifierProvider<
+      GetMaintenanceRecordsStatisticsNotifier,
+      MaintenanceRecordStatisticsState
+    >(GetMaintenanceRecordsStatisticsNotifier.new);

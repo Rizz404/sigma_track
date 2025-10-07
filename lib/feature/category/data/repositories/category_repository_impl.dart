@@ -33,26 +33,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final response = await _categoryRemoteDatasource.createCategory(params);
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -73,26 +54,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
           pagination: response.pagination.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -105,26 +67,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
           .getCategoriesStatistics();
       final statistics = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: statistics));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -147,26 +90,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
           cursor: response.cursor.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -178,26 +102,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
     try {
       final response = await _categoryRemoteDatasource.countCategories(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -212,26 +117,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       );
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -245,26 +131,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
         params,
       );
       return Right(ItemSuccess(message: response.message, data: response.data));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -278,26 +145,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
         params,
       );
       return Right(ItemSuccess(message: response.message, data: response.data));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -310,26 +158,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final response = await _categoryRemoteDatasource.getCategoryById(params);
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -342,26 +171,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final response = await _categoryRemoteDatasource.updateCategory(params);
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -373,27 +183,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
     try {
       final response = await _categoryRemoteDatasource.deleteCategory(params);
       return Right(ActionSuccess(message: response.message));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
 }
+

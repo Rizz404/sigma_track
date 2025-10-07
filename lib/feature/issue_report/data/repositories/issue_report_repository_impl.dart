@@ -259,3 +259,4 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
     }
   }
 }
+

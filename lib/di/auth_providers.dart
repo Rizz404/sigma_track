@@ -11,8 +11,9 @@ import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 
-/// * Global Auth Notifier Provider
-/// * Dipindahkan ke DI layer karena dibutuhkan oleh router & global concerns
+// Todo: Nanti samain pattern state dan notifier kayak yang udah ada, jangan async
+// * Global Auth Notifier Provider
+// * Dipindahkan ke DI layer karena dibutuhkan oleh router & global concerns
 final authNotifierProvider = AsyncNotifierProvider<AuthNotifier, AuthState>(
   AuthNotifier.new,
 );

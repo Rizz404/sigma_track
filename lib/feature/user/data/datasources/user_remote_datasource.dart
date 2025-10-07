@@ -3,6 +3,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
+import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_statistics_model.dart';
@@ -17,6 +18,7 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
 abstract class UserRemoteDatasource {
@@ -45,7 +47,11 @@ abstract class UserRemoteDatasource {
     CheckUserExistsUsecaseParams params,
   );
   Future<ApiResponse<UserModel>> getUserById(GetUserByIdUsecaseParams params);
+  Future<ApiResponse<UserModel>> getCurrentUser();
   Future<ApiResponse<UserModel>> updateUser(UpdateUserUsecaseParams params);
+  Future<ApiResponse<UserModel>> updateCurrentUser(
+    UpdateCurrentUserUsecaseParams params,
+  );
   Future<ApiResponse<dynamic>> deleteUser(DeleteUserUsecaseParams params);
 }
 
@@ -231,6 +237,20 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   }
 
   @override
+  Future<ApiResponse<UserModel>> getCurrentUser() async {
+    this.logData('getUserById called');
+    try {
+      final response = await _dioClient.get(
+        ApiConstant.getUserProfile,
+        fromJson: (json) => UserModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<ApiResponse<UserModel>> updateUser(
     UpdateUserUsecaseParams params,
   ) async {
@@ -238,6 +258,23 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
     try {
       final response = await _dioClient.patch(
         ApiConstant.updateUser(params.id),
+        data: params.toMap(),
+        fromJson: (json) => UserModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<UserModel>> updateCurrentUser(
+    UpdateCurrentUserUsecaseParams params,
+  ) async {
+    this.logData('updateUser called');
+    try {
+      final response = await _dioClient.patch(
+        ApiConstant.updateUserProfile,
         data: params.toMap(),
         fromJson: (json) => UserModel.fromMap(json),
       );

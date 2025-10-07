@@ -32,26 +32,7 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
       final response = await _scanLogRemoteDatasource.createScanLog(params);
       final scanLog = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: scanLog));
-    } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
+    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -217,3 +198,4 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
     }
   }
 }
+

@@ -128,6 +128,7 @@ import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_
 import 'package:sigma_track/feature/user/domain/usecases/count_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_email_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
@@ -841,6 +842,11 @@ final createUserUsecaseProvider = Provider<CreateUserUsecase>((ref) {
 final deleteUserUsecaseProvider = Provider<DeleteUserUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return DeleteUserUsecase(userRepository);
+});
+
+final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return GetCurrentUserUsecase(userRepository);
 });
 
 final getUserByEmailUsecaseProvider = Provider<GetUserByEmailUsecase>((ref) {

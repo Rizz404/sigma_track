@@ -15,11 +15,13 @@ import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_
 import 'package:sigma_track/feature/user/domain/usecases/count_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_email_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -387,11 +389,73 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
+  Future<Either<Failure, ItemSuccess<User>>> getCurrentUser() async {
+    try {
+      final response = await _userRemoteDatasource.getCurrentUser();
+      final user = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: user));
+    } on ApiErrorResponse catch (apiError) {
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
   Future<Either<Failure, ItemSuccess<User>>> updateUser(
     UpdateUserUsecaseParams params,
   ) async {
     try {
       final response = await _userRemoteDatasource.updateUser(params);
+      final user = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: user));
+    } on ApiErrorResponse catch (apiError) {
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<User>>> updateCurrentUser(
+    UpdateCurrentUserUsecaseParams params,
+  ) async {
+    try {
+      final response = await _userRemoteDatasource.updateCurrentUser(params);
       final user = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: user));
     } on ApiErrorResponse catch (apiError) {
