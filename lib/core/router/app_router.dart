@@ -177,7 +177,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: RouteConstant.home,
-              name: PageKeyConstant.userMain,
+              name: PageKeyConstant.home,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: HomeScreen()),
             ),
@@ -189,6 +189,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: RouteConstant.scanAsset,
+              name: PageKeyConstant.scanAsset,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: ScanAssetScreen()),
             ),
@@ -200,6 +201,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: RouteConstant.userDetailProfile,
+              name: PageKeyConstant.userDetailProfile,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: UserDetailProfileScreen()),
             ),
@@ -413,7 +415,8 @@ class AppRouter {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: RouteConstant.scanAsset,
+              path: RouteConstant.adminScanAsset,
+              name: PageKeyConstant.adminScanAsset,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: ScanAssetScreen()),
             ),
@@ -424,7 +427,8 @@ class AppRouter {
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: RouteConstant.userDetailProfile,
+              path: RouteConstant.adminUserDetailProfile,
+              name: PageKeyConstant.adminUserDetailProfile,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: UserDetailProfileScreen()),
             ),
@@ -518,6 +522,7 @@ class AppRouter {
     // ==================== ADMIN UPSERT ROUTES (Outside shell) ====================
     GoRoute(
       path: RouteConstant.adminAssetUpsert,
+      name: PageKeyConstant.adminAssetUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetId = state.uri.queryParameters['assetId'];
@@ -530,6 +535,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminAssetMovementUpsert,
+      name: PageKeyConstant.adminAssetMovementUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
@@ -545,6 +551,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminCategoryUpsert,
+      name: PageKeyConstant.adminCategoryUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final categoryId = state.uri.queryParameters['categoryId'];
@@ -560,6 +567,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminLocationUpsert,
+      name: PageKeyConstant.adminLocationUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final locationId = state.uri.queryParameters['locationId'];
@@ -575,6 +583,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminUserUpsert,
+      name: PageKeyConstant.adminUserUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final userId = state.uri.queryParameters['userId'];
@@ -587,6 +596,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminMaintenanceScheduleUpsert,
+      name: PageKeyConstant.adminMaintenanceScheduleUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
@@ -602,6 +612,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminMaintenanceRecordUpsert,
+      name: PageKeyConstant.adminMaintenanceRecordUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
@@ -617,6 +628,7 @@ class AppRouter {
     ),
     GoRoute(
       path: RouteConstant.adminIssueReportUpsert,
+      name: PageKeyConstant.adminIssueReportUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final issueReportId = state.uri.queryParameters['issueReportId'];

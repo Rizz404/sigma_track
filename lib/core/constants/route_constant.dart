@@ -26,10 +26,15 @@ class RouteConstant {
   static const String scanLogDetail = '/scan-log/:scanLogId';
   static const String userDetail = '/user/:userId';
 
-  // ==================== UTILITY ROUTES (Accessible by both User & Admin) ====================
+  // ==================== UTILITY USER ROUTES (User Only) ====================
   static const String scanAsset = '/scan-asset';
   static const String userDetailProfile = '/user/profile/detail';
   static const String userUpdateProfile = '/user/profile/update';
+
+  // ==================== UTILITY USER ROUTES (User Only) ====================
+  static const String adminScanAsset = '/admin/scan-asset';
+  static const String adminUserDetailProfile = '/admin/user/profile/detail';
+  static const String adminUserUpdateProfile = '/admin/user/profile/update';
 
   // ==================== ADMIN ROUTES ====================
   static const String admin = '/admin';
