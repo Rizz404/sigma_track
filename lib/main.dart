@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
+import 'package:sigma_track/core/utils/talker_config.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
@@ -15,6 +16,9 @@ import 'package:sigma_track/l10n/app_localizations.dart';
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // * Initialize Talker logger
+  TalkerConfig.initialize();
 
   try {
     // * Pre-cache main font selagi splash screen
@@ -41,6 +45,7 @@ Future<void> main() async {
           ),
           sharedPreferencesProvider.overrideWithValue(preferences),
         ],
+        observers: [TalkerConfig.riverpodObserver],
         child: const MyApp(),
       ),
     );
