@@ -11,7 +11,7 @@ extension CategoryModelMapper on CategoryModel {
       categoryCode: categoryCode,
       categoryName: categoryName,
       description: description,
-      children: children.map((model) => model.toEntity()).toList(),
+      parent: parent?.toEntity(),
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations:
@@ -28,7 +28,7 @@ extension CategoryEntityMapper on Category {
       categoryCode: categoryCode,
       categoryName: categoryName,
       description: description,
-      children: children.map((entity) => entity.toModel()).toList(),
+      parent: parent?.toModel(),
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations:

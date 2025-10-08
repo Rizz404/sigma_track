@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/assets_search_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_statistics_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_exists_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_serial_exists_notifier.dart';
@@ -21,8 +22,8 @@ final assetsProvider = AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final assetsSearchProvider =
-    AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
-      AssetsNotifier.new,
+    AutoDisposeNotifierProvider<AssetsSearchNotifier, AssetsState>(
+      AssetsSearchNotifier.new,
     );
 
 // * Provider untuk check apakah asset exists

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -13,6 +14,8 @@ class LocationStatisticsNotifier
 
   @override
   LocationStatisticsState build() {
+    // * Cache statistics for 5 minutes (dashboard use case)
+    ref.cacheFor(const Duration(minutes: 5));
     this.logPresentation('Loading location statistics');
     _loadStatistics();
     return LocationStatisticsState.initial();

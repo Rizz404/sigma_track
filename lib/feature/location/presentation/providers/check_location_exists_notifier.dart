@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
@@ -11,6 +12,8 @@ class CheckLocationExistsNotifier
 
   @override
   LocationBooleanState build(String id) {
+    // * Cache validation for 30 seconds (form validation use case)
+    ref.cacheFor(const Duration(seconds: 30));
     this.logPresentation('Checking if location exists: $id');
     _checkExists(id);
     return LocationBooleanState.initial();

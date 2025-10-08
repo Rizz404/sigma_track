@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -12,6 +13,8 @@ class UserStatisticsNotifier extends AutoDisposeNotifier<UserStatisticsState> {
 
   @override
   UserStatisticsState build() {
+    // * Cache statistics for 5 minutes (dashboard use case)
+    ref.cacheFor(const Duration(minutes: 5));
     this.logPresentation('Loading user statistics');
     _loadStatistics();
     return UserStatisticsState.initial();

@@ -5,6 +5,7 @@ import 'package:sigma_track/feature/notification/presentation/providers/count_no
 import 'package:sigma_track/feature/notification/presentation/providers/get_notification_by_id_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notification_statistics_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notifications_notifier.dart';
+import 'package:sigma_track/feature/notification/presentation/providers/notifications_search_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/state/notification_boolean_state.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/state/notification_count_state.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/state/notification_detail_state.dart';
@@ -18,9 +19,10 @@ final notificationsProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final notificationsSearchProvider =
-    AutoDisposeNotifierProvider<NotificationsNotifier, NotificationsState>(
-      NotificationsNotifier.new,
-    );
+    AutoDisposeNotifierProvider<
+      NotificationsSearchNotifier,
+      NotificationsState
+    >(NotificationsSearchNotifier.new);
 
 // * Provider untuk check apakah notification exists
 final checkNotificationExistsProvider =

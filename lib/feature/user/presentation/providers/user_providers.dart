@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/user/presentation/providers/get_user_by_id_n
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_name_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_notifier.dart';
+import 'package:sigma_track/feature/user/presentation/providers/users_search_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_boolean_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_count_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_detail_state.dart';
@@ -22,7 +23,9 @@ final usersProvider = AutoDisposeNotifierProvider<UsersNotifier, UsersState>(
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final usersSearchProvider =
-    AutoDisposeNotifierProvider<UsersNotifier, UsersState>(UsersNotifier.new);
+    AutoDisposeNotifierProvider<UsersSearchNotifier, UsersState>(
+      UsersSearchNotifier.new,
+    );
 
 // * Provider untuk check apakah user email exists
 final checkUserEmailExistsProvider =
@@ -58,10 +61,9 @@ final countUsersProvider =
 
 // * Provider untuk get current user
 final getCurrentUserProvider =
-    AutoDisposeNotifierProvider<
-      GetCurrentUserNotifier,
-      UserDetailState
-    >(GetCurrentUserNotifier.new);
+    AutoDisposeNotifierProvider<GetCurrentUserNotifier, UserDetailState>(
+      GetCurrentUserNotifier.new,
+    );
 
 // * Provider untuk get user by email
 final getUserByEmailProvider =
@@ -89,7 +91,6 @@ final getUserByNameProvider =
 
 // * Provider untuk user statistics
 final userStatisticsProvider =
-    AutoDisposeNotifierProvider<
-      UserStatisticsNotifier,
-      UserStatisticsState
-    >(UserStatisticsNotifier.new);
+    AutoDisposeNotifierProvider<UserStatisticsNotifier, UserStatisticsState>(
+      UserStatisticsNotifier.new,
+    );

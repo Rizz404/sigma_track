@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_usecase.dart';
@@ -12,6 +13,8 @@ class GetScanLogByIdNotifier
 
   @override
   ScanLogDetailState build(String id) {
+    // * Cache scan log detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
     this.logPresentation('Loading scan log by id: $id');
     _loadScanLog(id);
     return ScanLogDetailState.initial();

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notification_by_id_usecase.dart';
@@ -12,6 +13,8 @@ class GetNotificationByIdNotifier
 
   @override
   NotificationDetailState build(String id) {
+    // * Cache notification detail for 2 minutes (notification view use case)
+    ref.cacheFor(const Duration(minutes: 2));
     this.logPresentation('Loading notification by id: $id');
     _loadNotification(id);
     return NotificationDetailState.initial();

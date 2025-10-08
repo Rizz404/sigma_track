@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/categories_notifier.dart';
+import 'package:sigma_track/feature/category/presentation/providers/categories_search_notifier.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_statistics_notifier.dart';
 import 'package:sigma_track/feature/category/presentation/providers/check_category_code_exists_notifier.dart';
 import 'package:sigma_track/feature/category/presentation/providers/check_category_exists_notifier.dart';
@@ -21,8 +22,8 @@ final categoriesProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final categoriesSearchProvider =
-    AutoDisposeNotifierProvider<CategoriesNotifier, CategoriesState>(
-      CategoriesNotifier.new,
+    AutoDisposeNotifierProvider<CategoriesSearchNotifier, CategoriesState>(
+      CategoriesSearchNotifier.new,
     );
 
 // * Provider untuk check apakah category code exists

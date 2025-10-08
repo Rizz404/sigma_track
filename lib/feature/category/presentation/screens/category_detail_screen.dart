@@ -183,18 +183,9 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
             _buildInfoRow('Category Code', _category!.categoryCode),
             _buildInfoRow('Category Name', _category!.categoryName),
             _buildInfoRow('Description', _category!.description),
-            if (_category!.parentId != null)
-              _buildInfoRow('Parent ID', _category!.parentId!),
+            if (_category!.parent != null)
+              _buildInfoRow('Parent Category', _category!.parent!.categoryName),
           ]),
-          const SizedBox(height: 16),
-          if (_category!.children.isNotEmpty) ...[
-            _buildInfoCard(
-              'Child Categories (${_category!.children.length})',
-              _category!.children
-                  .map((child) => _buildChildCategoryItem(child))
-                  .toList(),
-            ),
-          ],
           const SizedBox(height: 16),
           _buildInfoCard('Metadata', [
             _buildInfoRow('Created At', _formatDateTime(_category!.createdAt)),
@@ -254,47 +245,6 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildChildCategoryItem(Category child) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: context.colors.surfaceVariant.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: context.colors.border),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.subdirectory_arrow_right,
-              color: context.colors.textSecondary,
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    child.categoryName,
-                    style: AppTextStyle.bodyMedium,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  const SizedBox(height: 4),
-                  AppText(
-                    child.categoryCode,
-                    style: AppTextStyle.bodySmall,
-                    color: context.colors.textTertiary,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

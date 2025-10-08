@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
@@ -11,6 +12,8 @@ class CheckUserEmailExistsNotifier
 
   @override
   UserBooleanState build(String email) {
+    // * Cache validation for 30 seconds (form validation use case)
+    ref.cacheFor(const Duration(seconds: 30));
     this.logPresentation('Checking if user email exists: $email');
     _checkEmailExists(email);
     return UserBooleanState.initial();

@@ -10,7 +10,7 @@ class CategoryModel extends Equatable {
   final String categoryCode;
   final String categoryName;
   final String description;
-  final List<CategoryModel> children;
+  final CategoryModel? parent;
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<CategoryTranslationModel>? translations;
@@ -21,7 +21,7 @@ class CategoryModel extends Equatable {
     required this.categoryCode,
     required this.categoryName,
     required this.description,
-    required this.children,
+    this.parent,
     required this.createdAt,
     required this.updatedAt,
     required this.translations,
@@ -35,7 +35,7 @@ class CategoryModel extends Equatable {
       categoryCode,
       categoryName,
       description,
-      children,
+      parent,
       createdAt,
       updatedAt,
       translations,
@@ -48,7 +48,7 @@ class CategoryModel extends Equatable {
     String? categoryCode,
     String? categoryName,
     String? description,
-    List<CategoryModel>? children,
+    CategoryModel? parent,
     DateTime? createdAt,
     DateTime? updatedAt,
     List<CategoryTranslationModel>? translations,
@@ -59,7 +59,7 @@ class CategoryModel extends Equatable {
       categoryCode: categoryCode ?? this.categoryCode,
       categoryName: categoryName ?? this.categoryName,
       description: description ?? this.description,
-      children: children ?? this.children,
+      parent: parent ?? this.parent,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       translations: translations ?? this.translations,
@@ -73,7 +73,7 @@ class CategoryModel extends Equatable {
       'categoryCode': categoryCode,
       'categoryName': categoryName,
       'description': description,
-      'children': children.map((x) => x.toMap()).toList(),
+      'parent': parent,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
@@ -87,14 +87,9 @@ class CategoryModel extends Equatable {
       categoryCode: map.getField<String>('categoryCode'),
       categoryName: map.getField<String>('categoryName'),
       description: map.getField<String>('description'),
-      children: List<CategoryModel>.from(
-        map
-                .getFieldOrNull<List<dynamic>>('children')
-                ?.map(
-                  (x) => CategoryModel.fromMap(x as Map<String, dynamic>),
-                ) ??
-            [],
-      ),
+      parent: map.getFieldOrNull<Map<String, dynamic>>('parent') != null
+          ? CategoryModel.fromMap(map.getField<Map<String, dynamic>>('parent'))
+          : null,
       createdAt: map.getDateTime('createdAt'),
       updatedAt: map.getDateTime('updatedAt'),
       translations: List<CategoryTranslationModel>.from(
@@ -117,7 +112,7 @@ class CategoryModel extends Equatable {
 
   @override
   String toString() {
-    return 'CategoryModel(id: $id, parentId: $parentId, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, children: $children, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
+    return 'CategoryModel(id: $id, parentId: $parentId, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, parent: $parent, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
   }
 }
 

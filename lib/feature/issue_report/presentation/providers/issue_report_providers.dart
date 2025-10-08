@@ -4,6 +4,7 @@ import 'package:sigma_track/feature/issue_report/presentation/providers/count_is
 import 'package:sigma_track/feature/issue_report/presentation/providers/get_issue_report_by_id_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/get_issue_reports_statistics_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_notifier.dart';
+import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_search_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/reopen_issue_report_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/resolve_issue_report_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_boolean_state.dart';
@@ -19,8 +20,8 @@ final issueReportsProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final issueReportsSearchProvider =
-    AutoDisposeNotifierProvider<IssueReportsNotifier, IssueReportsState>(
-      IssueReportsNotifier.new,
+    AutoDisposeNotifierProvider<IssueReportsSearchNotifier, IssueReportsState>(
+      IssueReportsSearchNotifier.new,
     );
 
 final getIssueReportByIdProvider =

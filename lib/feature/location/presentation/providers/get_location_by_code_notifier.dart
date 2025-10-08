@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_location_by_code_usecase.dart';
@@ -12,6 +13,8 @@ class GetLocationByCodeNotifier
 
   @override
   LocationDetailState build(String code) {
+    // * Cache location detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
     this.logPresentation('Loading location by code: $code');
     _loadLocation(code);
     return LocationDetailState.initial();

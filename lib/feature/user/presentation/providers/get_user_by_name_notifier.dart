@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
@@ -12,6 +13,8 @@ class GetUserByNameNotifier
 
   @override
   UserDetailState build(String name) {
+    // * Cache user detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
     this.logPresentation('Loading user by name: $name');
     _loadUser(name);
     return UserDetailState.initial();

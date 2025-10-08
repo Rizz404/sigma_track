@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movements_notifier.dart';
+import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movements_search_notifier.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/check_asset_movement_exists_notifier.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/count_asset_movements_notifier.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/get_asset_movement_by_id_notifier.dart';
@@ -19,8 +20,8 @@ final assetMovementsProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final assetMovementsSearchProvider =
-    AutoDisposeNotifierProvider<AssetMovementsNotifier, AssetMovementsState>(
-      AssetMovementsNotifier.new,
+    AutoDisposeNotifierProvider<AssetMovementsSearchNotifier, AssetMovementsState>(
+      AssetMovementsSearchNotifier.new,
     );
 
 final getAssetMovementByIdProvider =

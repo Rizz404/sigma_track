@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
@@ -12,6 +13,8 @@ class GetAssetByTagNotifier
 
   @override
   AssetDetailState build(String tag) {
+    // * Cache asset detail for 3 minutes (scan/search use case)
+    ref.cacheFor(const Duration(minutes: 3));
     this.logPresentation('Loading asset by tag: $tag');
     _loadAsset(tag);
     return AssetDetailState.initial();

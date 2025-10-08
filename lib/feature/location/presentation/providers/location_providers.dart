@@ -7,6 +7,7 @@ import 'package:sigma_track/feature/location/presentation/providers/get_location
 import 'package:sigma_track/feature/location/presentation/providers/get_location_by_id_notifier.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_statistics_notifier.dart';
 import 'package:sigma_track/feature/location/presentation/providers/locations_notifier.dart';
+import 'package:sigma_track/feature/location/presentation/providers/locations_search_notifier.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/location_boolean_state.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/location_count_state.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/location_detail_state.dart';
@@ -20,8 +21,8 @@ final locationsProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final locationsSearchProvider =
-    AutoDisposeNotifierProvider<LocationsNotifier, LocationsState>(
-      LocationsNotifier.new,
+    AutoDisposeNotifierProvider<LocationsSearchNotifier, LocationsState>(
+      LocationsSearchNotifier.new,
     );
 
 // * Provider untuk check apakah location code exists

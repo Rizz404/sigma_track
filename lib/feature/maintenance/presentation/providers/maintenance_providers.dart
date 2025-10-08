@@ -8,7 +8,9 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/get_maint
 import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedule_by_id_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedules_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_search_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_boolean_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_count_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_detail_state.dart';
@@ -35,15 +37,15 @@ final maintenanceRecordsProvider =
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final maintenanceSchedulesSearchProvider =
     AutoDisposeNotifierProvider<
-      MaintenanceSchedulesNotifier,
+      MaintenanceSchedulesSearchNotifier,
       MaintenanceSchedulesState
-    >(MaintenanceSchedulesNotifier.new);
+    >(MaintenanceSchedulesSearchNotifier.new);
 
 final maintenanceRecordsSearchProvider =
     AutoDisposeNotifierProvider<
-      MaintenanceRecordsNotifier,
+      MaintenanceRecordsSearchNotifier,
       MaintenanceRecordsState
-    >(MaintenanceRecordsNotifier.new);
+    >(MaintenanceRecordsSearchNotifier.new);
 
 final getMaintenanceScheduleByIdProvider =
     AutoDisposeNotifierProvider<
