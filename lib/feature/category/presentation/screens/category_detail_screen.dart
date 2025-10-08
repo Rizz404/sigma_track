@@ -14,6 +14,7 @@ import 'package:sigma_track/feature/category/presentation/providers/state/catego
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -138,6 +139,7 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
       appBar: CustomAppBar(
         title: isLoading ? 'Category Detail' : _category!.categoryName,
       ),
+      endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
         child: Column(

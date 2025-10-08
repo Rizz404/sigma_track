@@ -75,6 +75,92 @@ class AppRouter {
   static final GlobalKey<NavigatorState> _adminShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'adminShell');
 
+  // ==================== TRANSITION HELPERS ====================
+
+  /// * Slide from right - untuk detail screens (iOS-style)
+  /// * Memberikan context navigasi yang jelas: "going deeper"
+  static CustomTransitionPage _slideFromRight({
+    required LocalKey key,
+    required Widget child,
+  }) {
+    return CustomTransitionPage(
+      key: key,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 300),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween = Tween(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
+
+        return SlideTransition(position: animation.drive(tween), child: child);
+      },
+    );
+  }
+
+  /// * Slide from bottom - untuk form/upsert screens (modal-style)
+  /// * Memberikan kesan "action modal" untuk create/edit
+  static CustomTransitionPage _slideFromBottom({
+    required LocalKey key,
+    required Widget child,
+  }) {
+    return CustomTransitionPage(
+      key: key,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.easeOut;
+
+        var tween = Tween(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
+
+        return SlideTransition(position: animation.drive(tween), child: child);
+      },
+    );
+  }
+
+  /// * Fade + Scale - untuk profile updates (smooth & elegant)
+  /// * Memberikan kesan premium untuk personal actions
+  static CustomTransitionPage _fadeScale({
+    required LocalKey key,
+    required Widget child,
+  }) {
+    return CustomTransitionPage(
+      key: key,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 300),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const curve = Curves.easeOut;
+
+        var fadeTween = Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).chain(CurveTween(curve: curve));
+
+        var scaleTween = Tween<double>(
+          begin: 0.95,
+          end: 1.0,
+        ).chain(CurveTween(curve: curve));
+
+        return FadeTransition(
+          opacity: animation.drive(fadeTween),
+          child: ScaleTransition(
+            scale: animation.drive(scaleTween),
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
   /// * Create GoRouter instance dengan refreshListenable
   GoRouter createRouter(Ref ref) {
     final authRouterNotifier = RouterRefreshListenable(ref);
@@ -233,7 +319,7 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final user = state.extra as User;
-        return MaterialPage(
+        return _fadeScale(
           key: state.pageKey,
           child: UserUpdateProfileScreen(user: user),
         );
@@ -249,7 +335,7 @@ class AppRouter {
         final asset = state.extra as Asset?;
         final id = state.uri.queryParameters['id'];
         final assetTag = state.uri.queryParameters['assetTag'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: AssetDetailScreen(asset: asset, id: id, assetTag: assetTag),
         );
@@ -262,7 +348,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final assetMovement = state.extra as AssetMovement?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: AssetMovementDetailScreen(
             assetMovement: assetMovement,
@@ -279,7 +365,7 @@ class AppRouter {
         final category = state.extra as Category?;
         final id = state.uri.queryParameters['id'];
         final categoryCode = state.uri.queryParameters['categoryCode'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: CategoryDetailScreen(
             category: category,
@@ -297,7 +383,7 @@ class AppRouter {
         final location = state.extra as Location?;
         final id = state.uri.queryParameters['id'];
         final locationCode = state.uri.queryParameters['locationCode'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: LocationDetailScreen(
             location: location,
@@ -314,7 +400,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceSchedule = state.extra as MaintenanceSchedule?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: MaintenanceScheduleDetailScreen(
             maintenanceSchedule: maintenanceSchedule,
@@ -330,7 +416,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceRecord = state.extra as MaintenanceRecord?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: MaintenanceRecordDetailScreen(
             maintenanceRecord: maintenanceRecord,
@@ -346,7 +432,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final issueReport = state.extra as IssueReport?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: IssueReportDetailScreen(issueReport: issueReport, id: id),
         );
@@ -359,7 +445,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final notification = state.extra as notification_entity.Notification?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: NotificationDetailScreen(notification: notification, id: id),
         );
@@ -372,7 +458,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final scanLog = state.extra as ScanLog?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: ScanLogDetailScreen(scanLog: scanLog, id: id),
         );
@@ -385,7 +471,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final user = state.extra as User?;
         final id = state.uri.queryParameters['id'];
-        return MaterialPage(
+        return _slideFromRight(
           key: state.pageKey,
           child: UserDetailScreen(user: user, id: id),
         );
@@ -528,7 +614,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final assetId = state.uri.queryParameters['assetId'];
         final asset = state.extra as Asset?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: AssetUpsertScreen(asset: asset, assetId: assetId),
         );
@@ -541,7 +627,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
         final assetMovement = state.extra as AssetMovement?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: AssetMovementUpsertScreen(
             assetMovement: assetMovement,
@@ -557,7 +643,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final categoryId = state.uri.queryParameters['categoryId'];
         final category = state.extra as Category?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: CategoryUpsertScreen(
             category: category,
@@ -573,7 +659,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final locationId = state.uri.queryParameters['locationId'];
         final location = state.extra as Location?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: LocationUpsertScreen(
             location: location,
@@ -589,7 +675,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final userId = state.uri.queryParameters['userId'];
         final user = state.extra as User?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: UserUpsertScreen(user: user, userId: userId),
         );
@@ -602,7 +688,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
         final maintenanceSchedule = state.extra as MaintenanceSchedule?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceScheduleUpsertScreen(
             maintenanceSchedule: maintenanceSchedule,
@@ -618,7 +704,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
         final maintenanceRecord = state.extra as MaintenanceRecord?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceRecordUpsertScreen(
             maintenanceRecord: maintenanceRecord,
@@ -634,7 +720,7 @@ class AppRouter {
       pageBuilder: (context, state) {
         final issueReportId = state.uri.queryParameters['issueReportId'];
         final issueReport = state.extra as IssueReport?;
-        return MaterialPage(
+        return _slideFromBottom(
           key: state.pageKey,
           child: IssueReportUpsertScreen(
             issueReport: issueReport,
@@ -651,7 +737,7 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final user = state.extra as User;
-        return MaterialPage(
+        return _fadeScale(
           key: state.pageKey,
           child: UserUpdateProfileScreen(user: user),
         );

@@ -20,6 +20,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -311,6 +312,7 @@ class _ListNotificationsScreenState
       appBar: const CustomAppBar(
         title: 'notification_entity.Notification Management',
       ),
+      endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
           children: [

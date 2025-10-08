@@ -18,6 +18,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart'
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
@@ -127,6 +128,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         appBar: CustomAppBar(
           title: _isEdit ? 'Edit Location' : 'Create Location',
         ),
+        endDrawer: const AppEndDrawer(),
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,

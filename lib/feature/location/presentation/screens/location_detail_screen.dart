@@ -14,6 +14,7 @@ import 'package:sigma_track/feature/location/presentation/providers/state/locati
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -139,6 +140,7 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       appBar: CustomAppBar(
         title: isLoading ? 'Location Detail' : _location!.locationName,
       ),
+      endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
         child: Column(
