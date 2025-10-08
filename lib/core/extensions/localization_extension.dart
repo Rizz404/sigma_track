@@ -7,6 +7,6 @@ extension LocalizationExtension on BuildContext {
   String get locale => Localizations.localeOf(this).languageCode;
 
   bool get isEnglish => locale == 'en';
-  bool get isIndonesian => locale == 'id';
+  // bool get isIndonesian => locale == 'id';
   bool get isJapanese => locale == 'ja';
 }

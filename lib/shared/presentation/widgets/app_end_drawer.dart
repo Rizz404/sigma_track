@@ -460,17 +460,17 @@ class AppEndDrawer extends ConsumerWidget {
             ],
           ),
         ),
-        const DropdownMenuItem(
-          value: Locale('ja'),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('🇯🇵'),
-              const SizedBox(width: 8),
-              AppText('日本語', style: AppTextStyle.bodyMedium),
-            ],
-          ),
-        ),
+        // const DropdownMenuItem(
+        //   value: Locale('ja'),
+        //   child: Row(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       const Text('🇯🇵'),
+        //       const SizedBox(width: 8),
+        //       AppText('日本語', style: AppTextStyle.bodyMedium),
+        //     ],
+        //   ),
+        // ),
       ],
       onChanged: (Locale? newLocale) {
         if (newLocale != null) {

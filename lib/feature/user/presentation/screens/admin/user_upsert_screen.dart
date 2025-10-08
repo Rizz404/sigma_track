@@ -221,7 +221,6 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               hintText: 'Select language',
               items: [
                 AppDropdownItem(value: 'en', label: 'English'),
-                AppDropdownItem(value: 'id', label: 'Indonesian'),
                 AppDropdownItem(value: 'ja', label: 'Japanese'),
               ],
               initialValue: widget.user?.preferredLang ?? 'en',

@@ -300,8 +300,6 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               const SizedBox(height: 16),
               _buildTranslationFields('en', 'English'),
               const SizedBox(height: 16),
-              _buildTranslationFields('id', 'Indonesian'),
-              const SizedBox(height: 16),
               _buildTranslationFields('ja', 'Japanese'),
             ],
           ),
