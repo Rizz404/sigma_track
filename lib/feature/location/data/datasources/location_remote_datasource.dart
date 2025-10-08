@@ -195,7 +195,7 @@ class LocationRemoteDatasourceImpl implements LocationRemoteDatasource {
     UpdateLocationUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateLocation(params.id),
         data: params.toMap(),
         fromJson: (json) => LocationModel.fromMap(json),

@@ -160,7 +160,7 @@ class MaintenanceRecordRemoteDatasourceImpl
     UpdateMaintenanceRecordUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateMaintenanceRecord(params.id),
         data: params.toMap(),
         fromJson: (json) => MaintenanceRecordModel.fromMap(json),

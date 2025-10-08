@@ -180,7 +180,7 @@ class AssetMovementRemoteDatasourceImpl
     UpdateAssetMovementUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateAssetMovement(params.id),
         data: params.toMap(),
         fromJson: (json) => AssetMovementModel.fromMap(json),

@@ -169,7 +169,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
     MarkNotificationAsReadUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.markNotificationAsRead(params.id),
         fromJson: (json) => NotificationModel.fromMap(json),
       );
@@ -184,7 +184,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
     MarkNotificationAsUnreadUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.markNotificationAsUnread(params.id),
         fromJson: (json) => NotificationModel.fromMap(json),
       );
@@ -197,7 +197,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   @override
   Future<ApiResponse<dynamic>> markAllNotificationsAsRead() async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.markAllNotificationsAsRead,
       );
       return response;
@@ -211,7 +211,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
     UpdateNotificationUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateNotification(params.id),
         data: params.toMap(),
         fromJson: (json) => NotificationModel.fromMap(json),

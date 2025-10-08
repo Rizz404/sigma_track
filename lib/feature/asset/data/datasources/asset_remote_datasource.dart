@@ -211,7 +211,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     UpdateAssetUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateAsset(params.id),
         data: params.toMap(),
         fromJson: (json) => AssetModel.fromMap(json),

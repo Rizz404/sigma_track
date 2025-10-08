@@ -168,7 +168,7 @@ class IssueReportRemoteDatasourceImpl implements IssueReportRemoteDatasource {
     UpdateIssueReportUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateIssueReport(params.id),
         data: params.toMap(),
         fromJson: (json) => IssueReportModel.fromMap(json),
@@ -184,7 +184,7 @@ class IssueReportRemoteDatasourceImpl implements IssueReportRemoteDatasource {
     ResolveIssueReportUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.resolveIssueReport(params.id),
         data: params.toMap(),
         fromJson: (json) => IssueReportModel.fromMap(json),
@@ -200,7 +200,7 @@ class IssueReportRemoteDatasourceImpl implements IssueReportRemoteDatasource {
     ReopenIssueReportUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.reopenIssueReport(params.id),
         fromJson: (json) => IssueReportModel.fromMap(json),
       );

@@ -198,7 +198,7 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
     UpdateCategoryUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.put(
+      final response = await _dioClient.patch(
         ApiConstant.updateCategory(params.id),
         data: params.toMap(),
         fromJson: (json) => CategoryModel.fromMap(json),
