@@ -48,10 +48,10 @@ class CreateAssetMovementUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'assetId': assetId,
-      'fromLocationId': fromLocationId,
-      'toLocationId': toLocationId,
-      'fromUserId': fromUserId,
-      'toUserId': toUserId,
+      if (fromLocationId != null) 'fromLocationId': fromLocationId,
+      if (toLocationId != null) 'toLocationId': toLocationId,
+      if (fromUserId != null) 'fromUserId': fromUserId,
+      if (toUserId != null) 'toUserId': toUserId,
       'movedById': movedById,
       'movementDate': movementDate.toIso8601String(),
       'translations': translations.map((x) => x.toMap()).toList(),

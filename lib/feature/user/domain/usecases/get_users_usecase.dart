@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
@@ -45,37 +46,37 @@ class GetUsersUsecaseParams extends Equatable {
   });
 
   GetUsersUsecaseParams copyWith({
-    String? search,
-    String? role,
-    bool? isActive,
-    String? employeeId,
-    UserSortBy? sortBy,
-    SortOrder? sortOrder,
-    int? limit,
-    int? offset,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? role,
+    ValueGetter<bool?>? isActive,
+    ValueGetter<String?>? employeeId,
+    ValueGetter<UserSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<int?>? limit,
+    ValueGetter<int?>? offset,
   }) {
     return GetUsersUsecaseParams(
-      search: search ?? this.search,
-      role: role ?? this.role,
-      isActive: isActive ?? this.isActive,
-      employeeId: employeeId ?? this.employeeId,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      limit: limit ?? this.limit,
-      offset: offset ?? this.offset,
+      search: search != null ? search() : this.search,
+      role: role != null ? role() : this.role,
+      isActive: isActive != null ? isActive() : this.isActive,
+      employeeId: employeeId != null ? employeeId() : this.employeeId,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      limit: limit != null ? limit() : this.limit,
+      offset: offset != null ? offset() : this.offset,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'search': search,
-      'role': role,
-      'isActive': isActive,
-      'employeeId': employeeId,
-      'sortBy': sortBy?.toMap(),
-      'sortOrder': sortOrder?.toMap(),
-      'limit': limit,
-      'offset': offset,
+      if (search != null) 'search': search,
+      if (role != null) 'role': role,
+      if (isActive != null) 'isActive': isActive,
+      if (employeeId != null) 'employeeId': employeeId,
+      if (sortBy != null) 'sortBy': sortBy!.toMap(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toMap(),
+      if (limit != null) 'limit': limit,
+      if (offset != null) 'offset': offset,
     };
   }
 

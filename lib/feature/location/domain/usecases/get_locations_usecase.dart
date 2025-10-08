@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
@@ -40,18 +41,18 @@ class GetLocationsUsecaseParams extends Equatable {
   });
 
   GetLocationsUsecaseParams copyWith({
-    String? search,
-    LocationSortBy? sortBy,
-    SortOrder? sortOrder,
-    int? limit,
-    int? offset,
+    ValueGetter<String?>? search,
+    ValueGetter<LocationSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<int?>? limit,
+    ValueGetter<int?>? offset,
   }) {
     return GetLocationsUsecaseParams(
-      search: search ?? this.search,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      limit: limit ?? this.limit,
-      offset: offset ?? this.offset,
+      search: search != null ? search() : this.search,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      limit: limit != null ? limit() : this.limit,
+      offset: offset != null ? offset() : this.offset,
     );
   }
 

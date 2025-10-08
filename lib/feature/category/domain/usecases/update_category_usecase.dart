@@ -54,9 +54,10 @@ class UpdateCategoryUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'parentId': parentId,
-      'categoryCode': categoryCode,
-      'translations': translations?.map((x) => x.toMap()).toList(),
+      if (parentId != null) 'parentId': parentId,
+      if (categoryCode != null) 'categoryCode': categoryCode,
+      if (translations != null)
+        'translations': translations!.map((x) => x.toMap()).toList(),
     };
   }
 

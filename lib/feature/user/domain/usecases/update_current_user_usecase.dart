@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -29,10 +29,10 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   final String? password;
   final String? fullName;
   final String? role;
-  final ValueGetter<String?>? employeeId;
+  final String? employeeId;
   final String? preferredLang;
   final bool? isActive;
-  final ValueGetter<String?>? avatarUrl;
+  final String? avatarUrl;
 
   UpdateCurrentUserUsecaseParams({
     this.name,
@@ -47,41 +47,42 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   });
 
   UpdateCurrentUserUsecaseParams copyWith({
-    String? id,
-    String? name,
-    String? email,
-    String? password,
-    String? fullName,
-    String? role,
+    ValueGetter<String?>? name,
+    ValueGetter<String?>? email,
+    ValueGetter<String?>? password,
+    ValueGetter<String?>? fullName,
+    ValueGetter<String?>? role,
     ValueGetter<String?>? employeeId,
-    String? preferredLang,
-    bool? isActive,
+    ValueGetter<String?>? preferredLang,
+    ValueGetter<bool?>? isActive,
     ValueGetter<String?>? avatarUrl,
   }) {
     return UpdateCurrentUserUsecaseParams(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      fullName: fullName ?? this.fullName,
-      role: role ?? this.role,
-      employeeId: employeeId ?? this.employeeId,
-      preferredLang: preferredLang ?? this.preferredLang,
-      isActive: isActive ?? this.isActive,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
+      name: name != null ? name() : this.name,
+      email: email != null ? email() : this.email,
+      password: password != null ? password() : this.password,
+      fullName: fullName != null ? fullName() : this.fullName,
+      role: role != null ? role() : this.role,
+      employeeId: employeeId != null ? employeeId() : this.employeeId,
+      preferredLang: preferredLang != null
+          ? preferredLang()
+          : this.preferredLang,
+      isActive: isActive != null ? isActive() : this.isActive,
+      avatarUrl: avatarUrl != null ? avatarUrl() : this.avatarUrl,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'email': email,
-      'password': password,
-      'fullName': fullName,
-      'role': role,
-      'employeeId': employeeId?.call(),
-      'preferredLang': preferredLang,
-      'isActive': isActive,
-      'avatarUrl': avatarUrl?.call(),
+      if (name != null) 'name': name,
+      if (email != null) 'email': email,
+      if (password != null) 'password': password,
+      if (fullName != null) 'fullName': fullName,
+      if (role != null) 'role': role,
+      if (employeeId != null) 'employeeId': employeeId,
+      if (preferredLang != null) 'preferredLang': preferredLang,
+      if (isActive != null) 'isActive': isActive,
+      if (avatarUrl != null) 'avatarUrl': avatarUrl,
     };
   }
 
@@ -92,10 +93,10 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       password: map['password'],
       fullName: map['fullName'],
       role: map['role'],
-      employeeId: map['employeeId'] != null ? () => map['employeeId'] : null,
+      employeeId: map['employeeId'],
       preferredLang: map['preferredLang'],
       isActive: map['isActive'],
-      avatarUrl: map['avatarUrl'] != null ? () => map['avatarUrl'] : null,
+      avatarUrl: map['avatarUrl'],
     );
   }
 
@@ -106,7 +107,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: ${employeeId?.call()}, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: ${avatarUrl?.call()})';
+    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl)';
   }
 
   @override

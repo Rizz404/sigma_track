@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
@@ -27,15 +28,21 @@ class CountUsersUsecaseParams extends Equatable {
 
   CountUsersUsecaseParams({this.role, this.isActive});
 
-  CountUsersUsecaseParams copyWith({String? role, bool? isActive}) {
+  CountUsersUsecaseParams copyWith({
+    ValueGetter<String?>? role,
+    ValueGetter<bool?>? isActive,
+  }) {
     return CountUsersUsecaseParams(
-      role: role ?? this.role,
-      isActive: isActive ?? this.isActive,
+      role: role != null ? role() : this.role,
+      isActive: isActive != null ? isActive() : this.isActive,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {'role': role, 'isActive': isActive};
+    return {
+      if (role != null) 'role': role,
+      if (isActive != null) 'isActive': isActive,
+    };
   }
 
   factory CountUsersUsecaseParams.fromMap(Map<String, dynamic> map) {

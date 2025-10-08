@@ -45,33 +45,34 @@ class UpdateLocationUsecaseParams extends Equatable {
 
   UpdateLocationUsecaseParams copyWith({
     String? id,
-    String? locationCode,
-    String? building,
-    String? floor,
-    double? latitude,
-    double? longitude,
-    List<UpdateLocationTranslation>? translations,
+    ValueGetter<String?>? locationCode,
+    ValueGetter<String?>? building,
+    ValueGetter<String?>? floor,
+    ValueGetter<double?>? latitude,
+    ValueGetter<double?>? longitude,
+    ValueGetter<List<UpdateLocationTranslation>?>? translations,
   }) {
     return UpdateLocationUsecaseParams(
       id: id ?? this.id,
-      locationCode: locationCode ?? this.locationCode,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-      translations: translations ?? this.translations,
+      locationCode: locationCode != null ? locationCode() : this.locationCode,
+      building: building != null ? building() : this.building,
+      floor: floor != null ? floor() : this.floor,
+      latitude: latitude != null ? latitude() : this.latitude,
+      longitude: longitude != null ? longitude() : this.longitude,
+      translations: translations != null ? translations() : this.translations,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'locationCode': locationCode,
-      'building': building,
-      'floor': floor,
-      'latitude': latitude,
-      'longitude': longitude,
-      'translations': translations?.map((x) => x.toMap()).toList(),
+      if (locationCode != null) 'locationCode': locationCode,
+      if (building != null) 'building': building,
+      if (floor != null) 'floor': floor,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
+      if (translations != null)
+        'translations': translations!.map((x) => x.toMap()).toList(),
     };
   }
 

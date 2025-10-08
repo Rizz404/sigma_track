@@ -66,7 +66,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         fullName: fullName,
         role: role,
         employeeId: employeeId != null && employeeId.isNotEmpty
-            ? () => employeeId
+            ? employeeId
             : null,
         preferredLang: preferredLang,
         isActive: isActive,

@@ -41,7 +41,7 @@ class CreateNotificationUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
-      'relatedAssetId': relatedAssetId,
+      if (relatedAssetId != null) 'relatedAssetId': relatedAssetId,
       'type': type.toJson(),
       'translations': translations.map((x) => x.toMap()).toList(),
     };

@@ -43,10 +43,10 @@ class CreateLocationUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'locationCode': locationCode,
-      'building': building,
-      'floor': floor,
-      'latitude': latitude,
-      'longitude': longitude,
+      if (building != null) 'building': building,
+      if (floor != null) 'floor': floor,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
   }

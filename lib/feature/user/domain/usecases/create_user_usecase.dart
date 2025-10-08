@@ -48,8 +48,8 @@ class CreateUserUsecaseParams extends Equatable {
       'password': password,
       'fullName': fullName,
       'role': role,
-      'employeeId': employeeId,
-      'preferredLang': preferredLang,
+      if (employeeId != null) 'employeeId': employeeId,
+      if (preferredLang != null) 'preferredLang': preferredLang,
     };
   }
 
