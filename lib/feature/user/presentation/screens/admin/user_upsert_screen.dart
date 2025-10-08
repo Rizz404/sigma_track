@@ -196,8 +196,11 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               hintText: 'Select role',
               items: UserRole.values
                   .map(
-                    (role) =>
-                        AppDropdownItem(value: role.value, label: role.label),
+                    (role) => AppDropdownItem(
+                      value: role.value,
+                      label: role.label,
+                      icon: Icon(role.icon, size: 18),
+                    ),
                   )
                   .toList(),
               initialValue: widget.user?.role.value,

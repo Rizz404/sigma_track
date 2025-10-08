@@ -209,7 +209,7 @@ class _MaintenanceRecordDetailScreenState
         children: [
           _buildInfoCard('Maintenance Record Information', [
             _buildInfoRow('Title', _maintenanceRecord!.title),
-            _buildInfoRow('Notes', _maintenanceRecord!.notes ?? '-'),
+            _buildTextBlock('Notes', _maintenanceRecord!.notes),
             _buildInfoRow('Asset', _maintenanceRecord!.asset.assetName),
             _buildInfoRow(
               'Maintenance Date',
@@ -288,6 +288,39 @@ class _MaintenanceRecordDetailScreenState
           ),
           Expanded(
             flex: 3,
+            child: AppText(
+              value,
+              style: AppTextStyle.bodyMedium,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextBlock(String label, String? value) {
+    if (value == null || value.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            label,
+            style: AppTextStyle.bodyMedium,
+            color: context.colors.textSecondary,
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.colors.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colors.border),
+            ),
             child: AppText(
               value,
               style: AppTextStyle.bodyMedium,

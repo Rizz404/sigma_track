@@ -1,4 +1,9 @@
 class MaintenanceRecordUpsertValidator {
+  static String? validateScheduleId(String? value) {
+    // Schedule ID is optional
+    return null;
+  }
+
   static String? validateAssetId(String? value) {
     if (value == null || value.isEmpty) {
       return 'Asset is required';
@@ -12,6 +17,13 @@ class MaintenanceRecordUpsertValidator {
     }
     if (value.isAfter(DateTime.now())) {
       return 'Maintenance date cannot be in the future';
+    }
+    return null;
+  }
+
+  static String? validatePerformedById(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Performed by is required';
     }
     return null;
   }

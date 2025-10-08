@@ -702,13 +702,14 @@ class AppRouter {
       name: PageKeyConstant.adminMaintenanceRecordUpsert,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
-        final maintenanceId = state.uri.queryParameters['maintenanceId'];
+        final maintenanceRecordId =
+            state.uri.queryParameters['maintenanceRecordId'];
         final maintenanceRecord = state.extra as MaintenanceRecord?;
         return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceRecordUpsertScreen(
             maintenanceRecord: maintenanceRecord,
-            maintenanceId: maintenanceId,
+            maintenanceRecordId: maintenanceRecordId,
           ),
         );
       },

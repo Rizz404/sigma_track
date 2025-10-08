@@ -8,13 +8,14 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_repor
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_detail_state.dart';
 
 class GetIssueReportByIdNotifier
-    extends AutoDisposeNotifier<IssueReportDetailState> {
+    extends AutoDisposeFamilyNotifier<IssueReportDetailState, String> {
   GetIssueReportByIdUsecase get _getIssueReportByIdUsecase =>
       ref.watch(getIssueReportByIdUsecaseProvider);
 
   @override
-  IssueReportDetailState build() {
+  IssueReportDetailState build(String id) {
     this.logPresentation('Initializing GetIssueReportByIdNotifier');
+    getIssueReportById(id);
     return IssueReportDetailState.initial();
   }
 

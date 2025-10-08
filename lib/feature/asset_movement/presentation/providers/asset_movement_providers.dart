@@ -20,14 +20,16 @@ final assetMovementsProvider =
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final assetMovementsSearchProvider =
-    AutoDisposeNotifierProvider<AssetMovementsSearchNotifier, AssetMovementsState>(
-      AssetMovementsSearchNotifier.new,
-    );
+    AutoDisposeNotifierProvider<
+      AssetMovementsSearchNotifier,
+      AssetMovementsState
+    >(AssetMovementsSearchNotifier.new);
 
 final getAssetMovementByIdProvider =
-    AutoDisposeNotifierProvider<
+    AutoDisposeNotifierProviderFamily<
       GetAssetMovementByIdNotifier,
-      AssetMovementDetailState
+      AssetMovementDetailState,
+      String
     >(GetAssetMovementByIdNotifier.new);
 
 final checkAssetMovementExistsProvider =

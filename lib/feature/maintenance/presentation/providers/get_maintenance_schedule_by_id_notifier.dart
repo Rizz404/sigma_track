@@ -8,13 +8,14 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_detail_state.dart';
 
 class GetMaintenanceScheduleByIdNotifier
-    extends AutoDisposeNotifier<MaintenanceScheduleDetailState> {
+    extends AutoDisposeFamilyNotifier<MaintenanceScheduleDetailState, String> {
   GetMaintenanceScheduleByIdUsecase get _getMaintenanceScheduleByIdUsecase =>
       ref.watch(getMaintenanceScheduleByIdUsecaseProvider);
 
   @override
-  MaintenanceScheduleDetailState build() {
+  MaintenanceScheduleDetailState build(String id) {
     this.logPresentation('Initializing GetMaintenanceScheduleByIdNotifier');
+    getMaintenanceScheduleById(id);
     return MaintenanceScheduleDetailState.initial();
   }
 

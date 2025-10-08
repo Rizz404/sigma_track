@@ -201,7 +201,7 @@ class _IssueReportDetailScreenState
         children: [
           _buildInfoCard('Issue Report Information', [
             _buildInfoRow('Title', _issueReport!.title),
-            _buildInfoRow('Description', _issueReport!.description ?? '-'),
+            _buildTextBlock('Description', _issueReport!.description),
             _buildInfoRow('Asset', _issueReport!.asset.assetName),
             _buildInfoRow('Issue Type', _issueReport!.issueType),
             _buildInfoRow('Priority', _issueReport!.priority.name),
@@ -221,10 +221,7 @@ class _IssueReportDetailScreenState
               'Resolved By',
               _issueReport!.resolvedBy?.fullName ?? '-',
             ),
-            _buildInfoRow(
-              'Resolution Notes',
-              _issueReport!.resolutionNotes ?? '-',
-            ),
+            _buildTextBlock('Resolution Notes', _issueReport!.resolutionNotes),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard('Metadata', [
@@ -284,6 +281,39 @@ class _IssueReportDetailScreenState
           ),
           Expanded(
             flex: 3,
+            child: AppText(
+              value,
+              style: AppTextStyle.bodyMedium,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextBlock(String label, String? value) {
+    if (value == null || value.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            label,
+            style: AppTextStyle.bodyMedium,
+            color: context.colors.textSecondary,
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.colors.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colors.border),
+            ),
             child: AppText(
               value,
               style: AppTextStyle.bodyMedium,

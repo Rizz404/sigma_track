@@ -36,21 +36,11 @@ class CategoryUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.category != null || widget.categoryId != null;
   Category? _fetchedCategory;
-  bool _showTranslations = false;
-  bool _isFetchingTranslations = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // * Auto show translations in create mode
-    if (!_isEdit) {
-      _showTranslations = true;
-    }
-  }
+  bool _isLoadingTranslations = false;
 
   Future<List<Category>> _searchParentCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -116,89 +106,45 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     }
   }
 
-  Future<void> _fetchCategoryTranslations() async {
-    if (!_isEdit || widget.category?.id == null) return;
-
-    setState(() {
-      _isFetchingTranslations = true;
-      _showTranslations = true; // * Show immediately to display skeleton
-    });
-
-    try {
-      // * Wait for provider to load data
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final categoryDetailState = ref.read(
-        getCategoryByIdProvider(widget.category!.id),
-      );
-
-      if (categoryDetailState.category != null) {
-        if (mounted) {
-          setState(() {
-            _fetchedCategory = categoryDetailState.category;
-            _isFetchingTranslations = false;
-          });
-        }
-      } else if (categoryDetailState.failure != null) {
-        if (mounted) {
-          setState(() {
-            _showTranslations = false;
-            _isFetchingTranslations = false;
-          });
-          AppToast.error(
-            categoryDetailState.failure?.message ??
-                'Failed to load translations',
-          );
-        }
-      } else {
-        // * Still loading, wait a bit more
-        await Future.delayed(const Duration(seconds: 2));
-        final newState = ref.read(getCategoryByIdProvider(widget.category!.id));
-
-        if (mounted) {
-          if (newState.category != null) {
-            setState(() {
-              _fetchedCategory = newState.category;
-              _isFetchingTranslations = false;
-            });
-          } else {
-            setState(() {
-              _showTranslations = false;
-              _isFetchingTranslations = false;
-            });
-            AppToast.error('Failed to load translations');
-          }
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _showTranslations = false;
-          _isFetchingTranslations = false;
-        });
-        this.logError('Error fetching translations', e);
-        AppToast.error('Failed to load translations');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // * Watch category by id provider only when showing translations in edit mode
-    if (_isEdit && _showTranslations && widget.category?.id != null) {
+    // * Auto load translations in edit mode
+    if (_isEdit && widget.category?.id != null) {
       final categoryDetailState = ref.watch(
         getCategoryByIdProvider(widget.category!.id),
       );
 
-      // * Update fetched category when data loaded
-      if (categoryDetailState.category != null &&
-          _fetchedCategory?.id != categoryDetailState.category!.id) {
+      // ? Update fetched category when data changes
+      if (categoryDetailState.isLoading) {
+        if (!_isLoadingTranslations) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => _isLoadingTranslations = true);
+            }
+          });
+        }
+      } else if (categoryDetailState.category != null) {
+        if (_fetchedCategory?.id != categoryDetailState.category!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedCategory = categoryDetailState.category;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
+          });
+        }
+      } else if (categoryDetailState.failure != null &&
+          _isLoadingTranslations) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
-            setState(() {
-              _fetchedCategory = categoryDetailState.category;
-              _isFetchingTranslations = false;
-            });
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              categoryDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
           }
         });
       }
@@ -245,16 +191,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                       children: [
                         _buildCategoryInfoSection(),
                         const SizedBox(height: 24),
-                        // * Translation toggle for edit mode
-                        if (_isEdit && !_showTranslations)
-                          _buildShowTranslationsButton(),
-                        if (_isEdit && !_showTranslations)
-                          const SizedBox(height: 24),
-                        // * Show translations section
-                        if (!_isEdit || (_isEdit && _showTranslations))
-                          _buildTranslationsSection(),
-                        if (!_isEdit || (_isEdit && _showTranslations))
-                          const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        const SizedBox(height: 24),
                         AppValidationErrors(errors: validationErrors),
                         if (validationErrors != null &&
                             validationErrors!.isNotEmpty)
@@ -326,49 +264,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     );
   }
 
-  Widget _buildShowTranslationsButton() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: InkWell(
-        onTap: _isFetchingTranslations ? null : _fetchCategoryTranslations,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const AppText(
-                    'Translations',
-                    style: AppTextStyle.titleMedium,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: 4),
-                  AppText(
-                    'Click to load and edit translations',
-                    style: AppTextStyle.bodySmall,
-                    color: context.colors.textSecondary,
-                  ),
-                ],
-              ),
-              Icon(Icons.chevron_right, color: context.colors.textSecondary),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTranslationsSection() {
     return Skeletonizer(
-      enabled: _isFetchingTranslations,
+      enabled: _isLoadingTranslations,
       child: Card(
         color: context.colors.surface,
         elevation: 0,
@@ -381,26 +279,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AppText(
-                    'Translations',
-                    style: AppTextStyle.titleMedium,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  if (_isEdit && _showTranslations)
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        setState(() {
-                          _showTranslations = false;
-                          _fetchedCategory = null;
-                        });
-                      },
-                      tooltip: 'Hide translations',
-                    ),
-                ],
+              const AppText(
+                'Translations',
+                style: AppTextStyle.titleMedium,
+                fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 8),
               AppText(

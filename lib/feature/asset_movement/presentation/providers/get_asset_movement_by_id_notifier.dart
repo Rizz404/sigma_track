@@ -8,13 +8,14 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movement_detail_state.dart';
 
 class GetAssetMovementByIdNotifier
-    extends AutoDisposeNotifier<AssetMovementDetailState> {
+    extends AutoDisposeFamilyNotifier<AssetMovementDetailState, String> {
   GetAssetMovementByIdUsecase get _getAssetMovementByIdUsecase =>
       ref.watch(getAssetMovementByIdUsecaseProvider);
 
   @override
-  AssetMovementDetailState build() {
+  AssetMovementDetailState build(String id) {
     this.logPresentation('Initializing GetAssetMovementByIdNotifier');
+    getAssetMovementById(id);
     return AssetMovementDetailState.initial();
   }
 

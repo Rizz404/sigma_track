@@ -25,9 +25,10 @@ final issueReportsSearchProvider =
     );
 
 final getIssueReportByIdProvider =
-    AutoDisposeNotifierProvider<
+    AutoDisposeNotifierProviderFamily<
       GetIssueReportByIdNotifier,
-      IssueReportDetailState
+      IssueReportDetailState,
+      String
     >(GetIssueReportByIdNotifier.new);
 
 final checkIssueReportExistsProvider =

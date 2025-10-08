@@ -394,32 +394,36 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppDropdown<String>(
+            AppDropdown(
               name: 'status',
               label: 'Status',
-              initialValue: widget.asset?.status.toJson(),
+              hintText: 'Select status',
               items: AssetStatus.values
                   .map(
-                    (status) => AppDropdownItem<String>(
-                      value: status.toJson(),
+                    (status) => AppDropdownItem(
+                      value: status.value,
                       label: status.label,
+                      icon: Icon(status.icon, size: 18),
                     ),
                   )
                   .toList(),
+              initialValue: widget.asset?.status.value,
             ),
             const SizedBox(height: 16),
-            AppDropdown<String>(
+            AppDropdown(
               name: 'condition',
               label: 'Condition',
-              initialValue: widget.asset?.condition.toJson(),
+              hintText: 'Select condition',
               items: AssetCondition.values
                   .map(
-                    (condition) => AppDropdownItem<String>(
-                      value: condition.toJson(),
+                    (condition) => AppDropdownItem(
+                      value: condition.value,
                       label: condition.label,
+                      icon: Icon(condition.icon, size: 18),
                     ),
                   )
                   .toList(),
+              initialValue: widget.asset?.condition.value,
             ),
           ],
         ),

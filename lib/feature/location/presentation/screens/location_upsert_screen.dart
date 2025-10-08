@@ -21,6 +21,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.da
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class LocationUpsertScreen extends ConsumerStatefulWidget {
   final Location? location;
@@ -34,9 +35,11 @@ class LocationUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.location != null || widget.locationId != null;
+  Location? _fetchedLocation;
+  bool _isLoadingTranslations = false;
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -101,6 +104,49 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // * Auto load translations in edit mode
+    if (_isEdit && widget.location?.id != null) {
+      final locationDetailState = ref.watch(
+        getLocationByIdProvider(widget.location!.id),
+      );
+
+      // ? Update fetched location when data changes
+      if (locationDetailState.isLoading) {
+        if (!_isLoadingTranslations) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => _isLoadingTranslations = true);
+            }
+          });
+        }
+      } else if (locationDetailState.location != null) {
+        if (_fetchedLocation?.id != locationDetailState.location!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedLocation = locationDetailState.location;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
+          });
+        }
+      } else if (locationDetailState.failure != null &&
+          _isLoadingTranslations) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              locationDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
+          }
+        });
+      }
+    }
+
+    // * Listen to mutation state
     ref.listen<LocationsState>(locationsProvider, (previous, next) {
       if (next.isMutating) {
         context.loaderOverlay.show();
@@ -129,26 +175,35 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           title: _isEdit ? 'Edit Location' : 'Create Location',
         ),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildLocationInfoSection(),
-                  const SizedBox(height: 24),
-                  _buildTranslationsSection(),
-                  const SizedBox(height: 24),
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-                  _buildActionButtons(),
-                  const SizedBox(height: 16),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildLocationInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(
+                          height: 80,
+                        ), // * Space for sticky buttons
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -217,43 +272,48 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   }
 
   Widget _buildTranslationsSection() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AppText(
-              'Translations',
-              style: AppTextStyle.titleMedium,
-              fontWeight: FontWeight.bold,
-            ),
-            const SizedBox(height: 8),
-            AppText(
-              'Add translations for different languages',
-              style: AppTextStyle.bodySmall,
-              color: context.colors.textSecondary,
-            ),
-            const SizedBox(height: 16),
-            _buildTranslationFields('en', 'English'),
-            const SizedBox(height: 16),
-            _buildTranslationFields('id', 'Indonesian'),
-            const SizedBox(height: 16),
-            _buildTranslationFields('ja', 'Japanese'),
-          ],
+    return Skeletonizer(
+      enabled: _isLoadingTranslations,
+      child: Card(
+        color: context.colors.surface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: context.colors.border),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const AppText(
+                'Translations',
+                style: AppTextStyle.titleMedium,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 8),
+              AppText(
+                'Add translations for different languages',
+                style: AppTextStyle.bodySmall,
+                color: context.colors.textSecondary,
+              ),
+              const SizedBox(height: 16),
+              _buildTranslationFields('en', 'English'),
+              const SizedBox(height: 16),
+              _buildTranslationFields('id', 'Indonesian'),
+              const SizedBox(height: 16),
+              _buildTranslationFields('ja', 'Japanese'),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    final translation = widget.location?.translations?.firstWhere(
+    // * Use fetched location translations in edit mode
+    final locationData = _isEdit ? _fetchedLocation : widget.location;
+    final translation = locationData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => LocationTranslation(langCode: langCode, locationName: ''),
     );
@@ -288,24 +348,41 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     );
   }
 
-  Widget _buildActionButtons() {
-    return Row(
-      children: [
-        Expanded(
-          child: AppButton(
-            text: 'Cancel',
-            variant: AppButtonVariant.outlined,
-            onPressed: () => context.pop(),
+  Widget _buildStickyActionButtons() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(top: BorderSide(color: context.colors.border, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          children: [
+            Expanded(
+              child: AppButton(
+                text: 'Cancel',
+                variant: AppButtonVariant.outlined,
+                onPressed: () => context.pop(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AppButton(
+                text: _isEdit ? 'Update' : 'Create',
+                onPressed: _handleSubmit,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: AppButton(
-            text: _isEdit ? 'Update' : 'Create',
-            onPressed: _handleSubmit,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
