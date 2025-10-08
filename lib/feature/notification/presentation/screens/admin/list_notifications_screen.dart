@@ -35,7 +35,6 @@ class ListNotificationsScreen extends ConsumerStatefulWidget {
 class _ListNotificationsScreenState
     extends ConsumerState<ListNotificationsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedNotificationIds = {};
   bool _isSelectMode = false;
@@ -51,7 +50,6 @@ class _ListNotificationsScreenState
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -401,7 +399,6 @@ class _ListNotificationsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search notifications...',
       onChanged: (value) {
         _debounceTimer?.cancel();

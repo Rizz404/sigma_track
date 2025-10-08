@@ -34,7 +34,6 @@ class ListIssueReportsScreen extends ConsumerStatefulWidget {
 class _ListIssueReportsScreenState
     extends ConsumerState<ListIssueReportsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedIssueReportIds = {};
   bool _isSelectMode = false;
@@ -50,7 +49,6 @@ class _ListIssueReportsScreenState
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -403,7 +401,6 @@ class _ListIssueReportsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search issueReports...',
       onChanged: (value) {
         _debounceTimer?.cancel();

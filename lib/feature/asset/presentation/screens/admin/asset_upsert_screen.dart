@@ -42,16 +42,7 @@ class AssetUpsertScreen extends ConsumerStatefulWidget {
 class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
-  Category? _selectedCategory;
-  Location? _selectedLocation;
   bool get _isEdit => widget.asset != null || widget.assetId != null;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedCategory = widget.asset?.category;
-    _selectedLocation = widget.asset?.location;
-  }
 
   Future<List<Category>> _searchCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -293,199 +284,33 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            if (_selectedCategory != null) ...[
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: context.colors.surfaceVariant,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: context.colors.primary, width: 2),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.category,
-                      color: context.colors.primary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            'Selected Category:',
-                            style: AppTextStyle.bodySmall,
-                            color: context.colors.textSecondary,
-                          ),
-                          AppText(
-                            _selectedCategory!.categoryName,
-                            style: AppTextStyle.bodyMedium,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: context.colors.textSecondary,
-                      ),
-                      onPressed: () => setState(() => _selectedCategory = null),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
             AppSearchField<Category>(
               name: 'categoryId',
               label: 'Category',
               hintText: 'Search category...',
               initialValue: widget.asset?.categoryId,
+              initialDisplayText: widget.asset?.category?.categoryName,
               enableAutocomplete: true,
               onSearch: _searchCategories,
               itemDisplayMapper: (category) => category.categoryName,
               itemValueMapper: (category) => category.id,
-              itemBuilder: (context, category) {
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.symmetric(vertical: 4),
-                  decoration: BoxDecoration(
-                    color: context.colors.surfaceVariant,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.category,
-                        color: context.colors.primary,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              category.categoryName,
-                              style: AppTextStyle.bodyMedium,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            const SizedBox(height: 2),
-                            AppText(
-                              category.categoryCode,
-                              style: AppTextStyle.bodySmall,
-                              color: context.colors.textTertiary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              onItemSelected: (category) =>
-                  setState(() => _selectedCategory = category),
+              itemSubtitleMapper: (category) => category.categoryCode,
+              itemIcon: Icons.category,
               validator: AssetUpsertValidator.validateCategoryId,
             ),
             const SizedBox(height: 16),
-            if (_selectedLocation != null) ...[
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: context.colors.surfaceVariant,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: context.colors.primary, width: 2),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: context.colors.primary,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppText(
-                            'Selected Location:',
-                            style: AppTextStyle.bodySmall,
-                            color: context.colors.textSecondary,
-                          ),
-                          AppText(
-                            _selectedLocation!.locationName,
-                            style: AppTextStyle.bodyMedium,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: context.colors.textSecondary,
-                      ),
-                      onPressed: () => setState(() => _selectedLocation = null),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
             AppSearchField<Location>(
               name: 'locationId',
               label: 'Location (Optional)',
               hintText: 'Search location...',
               initialValue: widget.asset?.locationId,
+              initialDisplayText: widget.asset?.location?.locationName,
               enableAutocomplete: true,
               onSearch: _searchLocations,
               itemDisplayMapper: (location) => location.locationName,
               itemValueMapper: (location) => location.id,
-              itemBuilder: (context, location) {
-                return Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.symmetric(vertical: 4),
-                  decoration: BoxDecoration(
-                    color: context.colors.surfaceVariant,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: context.colors.primary,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              location.locationName,
-                              style: AppTextStyle.bodyMedium,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            const SizedBox(height: 2),
-                            AppText(
-                              location.locationCode,
-                              style: AppTextStyle.bodySmall,
-                              color: context.colors.textTertiary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              onItemSelected: (location) =>
-                  setState(() => _selectedLocation = location),
+              itemSubtitleMapper: (location) => location.locationCode,
+              itemIcon: Icons.location_on,
             ),
           ],
         ),

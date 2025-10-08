@@ -33,7 +33,6 @@ class ListLocationsScreen extends ConsumerStatefulWidget {
 
 class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedLocationIds = {};
   bool _isSelectMode = false;
@@ -49,7 +48,6 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -383,7 +381,6 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search locations...',
       onChanged: (value) {
         _debounceTimer?.cancel();

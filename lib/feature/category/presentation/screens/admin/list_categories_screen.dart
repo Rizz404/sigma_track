@@ -35,14 +35,9 @@ class ListCategoriesScreen extends ConsumerStatefulWidget {
 
 class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedCategoryIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
-  Category? _selectedParentCategory;
-  List<Category> _searchCache =
-      []; // * Cache to prevent provider disposal issue
 
   @override
   void initState() {
@@ -52,9 +47,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -105,37 +98,15 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   }
 
   Future<List<Category>> _searchParentCategories(String query) async {
-    this.logPresentation('Searching parent categories: $query');
-
     final notifier = ref.read(categoriesSearchProvider.notifier);
     await notifier.search(query);
 
     final state = ref.read(categoriesSearchProvider);
-
-    // * Cache results to prevent disposal issue
-    _searchCache = List<Category>.from(state.categories);
-
-    this.logPresentation(
-      'Parent categories search result: ${_searchCache.length} items',
-    );
-
-    return _searchCache;
+    return state.categories;
   }
 
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(categoriesProvider).categoriesFilter;
-
-    // * Set initial selected parent category
-    if (_selectedParentCategory == null && currentFilter.parentId != null) {
-      _selectedParentCategory = ref
-          .read(categoriesProvider)
-          .categories
-          .cast<Category?>()
-          .firstWhere(
-            (c) => c?.id == currentFilter.parentId,
-            orElse: () => null,
-          );
-    }
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -207,66 +178,6 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_selectedParentCategory != null) ...[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: context.colors.surfaceVariant,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: context.colors.primary,
-                                width: 2,
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.category,
-                                  color: context.colors.primary,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AppText(
-                                        'Selected:',
-                                        style: AppTextStyle.bodySmall,
-                                        color: context.colors.textSecondary,
-                                      ),
-                                      AppText(
-                                        _selectedParentCategory!.categoryName,
-                                        style: AppTextStyle.bodyMedium,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.close,
-                                    size: 20,
-                                    color: context.colors.textSecondary,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _selectedParentCategory = null;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                  ],
                   AppSearchField<Category>(
                     name: 'parentId',
                     label: 'Filter by Parent Category',
@@ -275,49 +186,8 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                     onSearch: _searchParentCategories,
                     itemDisplayMapper: (category) => category.categoryName,
                     itemValueMapper: (category) => category.id,
-                    itemBuilder: (context, category) {
-                      return Container(
-                        padding: const EdgeInsets.all(12),
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        decoration: BoxDecoration(
-                          color: context.colors.surfaceVariant,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.category,
-                              color: context.colors.primary,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    category.categoryName,
-                                    style: AppTextStyle.bodyMedium,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  const SizedBox(height: 2),
-                                  AppText(
-                                    category.categoryCode,
-                                    style: AppTextStyle.bodySmall,
-                                    color: context.colors.textTertiary,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    onItemSelected: (category) {
-                      setState(() {
-                        _selectedParentCategory = category;
-                      });
-                    },
+                    itemSubtitleMapper: (category) => category.categoryCode,
+                    itemIcon: Icons.category,
                     initialItemsToShow: 5,
                     itemsPerLoadMore: 5,
                     enableLoadMore: true,
@@ -334,9 +204,6 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        setState(() {
-                          _selectedParentCategory = null;
-                        });
                         final newFilter = CategoriesFilter(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
@@ -373,7 +240,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                                 ? SortOrder.fromString(sortOrderStr)
                                 : null,
                             hasParent: hasParentValue,
-                            parentId: _selectedParentCategory?.id,
+                            parentId: formData['parentId'] as String?,
                           );
 
                           Navigator.pop(context);
@@ -559,13 +426,9 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search categories...',
       onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(categoriesProvider.notifier).search(value);
-        });
+        ref.read(categoriesProvider.notifier).search(value);
       },
     );
   }

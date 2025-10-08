@@ -34,7 +34,6 @@ class ListMaintenanceRecordsScreen extends ConsumerStatefulWidget {
 class _ListMaintenanceRecordsScreenState
     extends ConsumerState<ListMaintenanceRecordsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedMaintenanceRecordIds = {};
   bool _isSelectMode = false;
@@ -50,7 +49,6 @@ class _ListMaintenanceRecordsScreenState
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -405,7 +403,6 @@ class _ListMaintenanceRecordsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search maintenanceRecords...',
       onChanged: (value) {
         _debounceTimer?.cancel();

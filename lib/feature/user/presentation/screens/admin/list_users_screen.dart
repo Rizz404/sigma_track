@@ -33,7 +33,6 @@ class ListUsersScreen extends ConsumerStatefulWidget {
 
 class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedUserIds = {};
   bool _isSelectMode = false;
@@ -49,7 +48,6 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -397,7 +395,6 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search users...',
       onChanged: (value) {
         _debounceTimer?.cancel();

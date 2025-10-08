@@ -34,7 +34,6 @@ class ListAssetMovementsScreen extends ConsumerStatefulWidget {
 class _ListAssetMovementsScreenState
     extends ConsumerState<ListAssetMovementsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedAssetMovementIds = {};
   bool _isSelectMode = false;
@@ -50,7 +49,6 @@ class _ListAssetMovementsScreenState
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -403,7 +401,6 @@ class _ListAssetMovementsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search assetMovements...',
       onChanged: (value) {
         _debounceTimer?.cancel();

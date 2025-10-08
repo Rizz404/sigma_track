@@ -33,7 +33,6 @@ class ListScanLogsScreen extends ConsumerStatefulWidget {
 
 class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   final _scrollController = ScrollController();
-  final _searchController = TextEditingController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedScanLogIds = {};
   bool _isSelectMode = false;
@@ -49,7 +48,6 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   void dispose() {
     _debounceTimer?.cancel();
     _scrollController.dispose();
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -395,7 +393,6 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      controller: _searchController,
       hintText: 'Search scanLogs...',
       onChanged: (value) {
         _debounceTimer?.cancel();

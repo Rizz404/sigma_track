@@ -15,6 +15,7 @@ import 'package:sigma_track/feature/category/presentation/providers/state/catego
 import 'package:sigma_track/feature/category/presentation/validators/category_upsert_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
@@ -36,6 +37,14 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.category != null || widget.categoryId != null;
+
+  Future<List<Category>> _searchParentCategories(String query) async {
+    final notifier = ref.read(categoriesSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(categoriesSearchProvider);
+    return state.categories;
+  }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -165,12 +174,20 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppTextField(
+            AppSearchField<Category>(
               name: 'parentId',
-              label: 'Parent Category ID (Optional)',
-              placeHolder: 'Enter parent category ID',
+              label: 'Parent Category',
+              hintText: 'Search category...',
               initialValue: widget.category?.parentId,
+              enableAutocomplete: true,
+              onSearch: _searchParentCategories,
+              itemDisplayMapper: (category) => category.categoryName,
+              itemValueMapper: (category) => category.id,
+              itemSubtitleMapper: (category) => category.categoryCode,
+              itemIcon: Icons.category,
+              validator: CategoryUpsertValidator.validateParentId,
             ),
+
             const SizedBox(height: 16),
             AppTextField(
               name: 'categoryCode',
