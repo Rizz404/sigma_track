@@ -318,10 +318,9 @@ class AppRouter {
       name: PageKeyConstant.userUpdateProfile,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
-        final user = state.extra as User;
         return _fadeScale(
           key: state.pageKey,
-          child: UserUpdateProfileScreen(user: user),
+          child: const UserUpdateProfileScreen(),
         );
       },
     ),
@@ -737,10 +736,9 @@ class AppRouter {
       name: PageKeyConstant.adminUserUpdateProfile,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
-        final user = state.extra as User;
         return _fadeScale(
           key: state.pageKey,
-          child: UserUpdateProfileScreen(user: user),
+          child: const UserUpdateProfileScreen(),
         );
       },
     ),

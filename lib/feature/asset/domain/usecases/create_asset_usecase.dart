@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
@@ -27,6 +28,7 @@ class CreateAssetUsecase
 class CreateAssetUsecaseParams extends Equatable {
   final String assetTag;
   final String dataMatrixImageUrl;
+  final File? dataMatrixImageFile;
   final String assetName;
   final String categoryId;
   final String? brand;
@@ -44,6 +46,7 @@ class CreateAssetUsecaseParams extends Equatable {
   CreateAssetUsecaseParams({
     required this.assetTag,
     required this.dataMatrixImageUrl,
+    this.dataMatrixImageFile,
     required this.assetName,
     required this.categoryId,
     this.brand,
@@ -63,6 +66,8 @@ class CreateAssetUsecaseParams extends Equatable {
     final map = <String, dynamic>{
       'assetTag': assetTag,
       'dataMatrixImageUrl': dataMatrixImageUrl,
+      if (dataMatrixImageFile != null)
+        'dataMatrixImageFile': dataMatrixImageFile!.path,
       'assetName': assetName,
       'categoryId': categoryId,
       'status': status.toJson(),
@@ -90,6 +95,9 @@ class CreateAssetUsecaseParams extends Equatable {
     return CreateAssetUsecaseParams(
       assetTag: map['assetTag'] ?? '',
       dataMatrixImageUrl: map['dataMatrixImageUrl'] ?? '',
+      dataMatrixImageFile: map['dataMatrixImageFile'] != null
+          ? File(map['dataMatrixImageFile'])
+          : null,
       assetName: map['assetName'] ?? '',
       categoryId: map['categoryId'] ?? '',
       brand: map['brand'],
@@ -119,6 +127,7 @@ class CreateAssetUsecaseParams extends Equatable {
   List<Object?> get props => [
     assetTag,
     dataMatrixImageUrl,
+    dataMatrixImageFile,
     assetName,
     categoryId,
     brand,

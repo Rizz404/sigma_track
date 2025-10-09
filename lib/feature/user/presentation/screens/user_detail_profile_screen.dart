@@ -16,12 +16,12 @@ class UserDetailProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userState = ref.watch(getCurrentUserProvider);
+    final userState = ref.watch(currentUserNotifierProvider);
 
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          await ref.read(getCurrentUserProvider.notifier).refresh();
+          await ref.read(currentUserNotifierProvider.notifier).refresh();
         },
         child: Skeletonizer(
           enabled: userState.isLoading,

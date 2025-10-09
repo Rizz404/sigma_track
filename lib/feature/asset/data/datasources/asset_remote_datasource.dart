@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -58,9 +59,29 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
   ) async {
     this.logData('createAsset called');
     try {
+      final formData = dio.FormData();
+      final map = params.toMap();
+      for (final entry in map.entries) {
+        if (entry.key == 'dataMatrixImageFile' && entry.value != null) {
+          formData.files.add(
+            MapEntry(
+              'dataMatrixImage',
+              await dio.MultipartFile.fromFile(entry.value as String),
+            ),
+          );
+        } else if (entry.key == 'dataMatrixImageUrl' &&
+            entry.value != null &&
+            map['dataMatrixImageFile'] == null) {
+          formData.fields.add(
+            MapEntry('dataMatrixImage', entry.value.toString()),
+          );
+        } else if (entry.value != null && entry.key != 'dataMatrixImageFile') {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
       final response = await _dioClient.post(
         ApiConstant.createAsset,
-        data: params.toMap(),
+        data: formData,
         fromJson: (json) => AssetModel.fromMap(json),
       );
       return response;
@@ -211,9 +232,29 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     UpdateAssetUsecaseParams params,
   ) async {
     try {
+      final formData = dio.FormData();
+      final map = params.toMap();
+      for (final entry in map.entries) {
+        if (entry.key == 'dataMatrixImageFile' && entry.value != null) {
+          formData.files.add(
+            MapEntry(
+              'dataMatrixImage',
+              await dio.MultipartFile.fromFile(entry.value as String),
+            ),
+          );
+        } else if (entry.key == 'dataMatrixImageUrl' &&
+            entry.value != null &&
+            map['dataMatrixImageFile'] == null) {
+          formData.fields.add(
+            MapEntry('dataMatrixImage', entry.value.toString()),
+          );
+        } else if (entry.value != null && entry.key != 'dataMatrixImageFile') {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
       final response = await _dioClient.patch(
         ApiConstant.updateAsset(params.id),
-        data: params.toMap(),
+        data: formData,
         fromJson: (json) => AssetModel.fromMap(json),
       );
       return response;

@@ -165,12 +165,12 @@ class AssetModel extends Equatable {
       brand: map.getFieldOrNull<String>('brand'),
       model: map.getFieldOrNull<String>('model'),
       serialNumber: map.getFieldOrNull<String>('serialNumber'),
-      purchaseDate: map.getFieldOrNull<int>('purchaseDate') != null
+      purchaseDate: map.getFieldOrNull<String>('purchaseDate') != null
           ? map.getDateTime('purchaseDate')
           : null,
       purchasePrice: map.getFieldOrNull<double>('purchasePrice'),
       vendorName: map.getFieldOrNull<String>('vendorName'),
-      warrantyEnd: map.getFieldOrNull<int>('warrantyEnd') != null
+      warrantyEnd: map.getFieldOrNull<String>('warrantyEnd') != null
           ? map.getDateTime('warrantyEnd')
           : null,
       status: AssetStatus.fromJson(map.getField<String>('status')),

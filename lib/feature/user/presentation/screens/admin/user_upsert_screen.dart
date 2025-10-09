@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
@@ -226,11 +227,16 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               name: 'preferredLang',
               label: 'Preferred Language (Optional)',
               hintText: 'Select language',
-              items: [
-                AppDropdownItem(value: 'en', label: 'English'),
-                AppDropdownItem(value: 'ja', label: 'Japanese'),
-              ],
-              initialValue: widget.user?.preferredLang ?? 'en',
+              items: Language.values
+                  .map(
+                    (lang) => AppDropdownItem(
+                      value: lang.backendCode,
+                      label: lang.label,
+                      icon: Icon(lang.icon, size: 18),
+                    ),
+                  )
+                  .toList(),
+              initialValue: widget.user?.preferredLang ?? 'en-US',
             ),
             if (_isEdit) ...[
               const SizedBox(height: 16),

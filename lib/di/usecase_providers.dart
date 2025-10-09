@@ -135,6 +135,7 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecas
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_statistics_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
 // =============================================
@@ -847,6 +848,13 @@ final deleteUserUsecaseProvider = Provider<DeleteUserUsecase>((ref) {
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return GetCurrentUserUsecase(userRepository);
+});
+
+final updateCurrentUserUsecaseProvider = Provider<UpdateCurrentUserUsecase>((
+  ref,
+) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return UpdateCurrentUserUsecase(userRepository);
 });
 
 final getUserByEmailUsecaseProvider = Provider<GetUserByEmailUsecase>((ref) {

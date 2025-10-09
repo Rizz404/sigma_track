@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import 'package:equatable/equatable.dart';
@@ -33,6 +34,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   final String? preferredLang;
   final bool? isActive;
   final String? avatarUrl;
+  final File? avatarFile;
 
   UpdateCurrentUserUsecaseParams({
     this.name,
@@ -44,6 +46,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     this.preferredLang,
     this.isActive,
     this.avatarUrl,
+    this.avatarFile,
   });
 
   UpdateCurrentUserUsecaseParams copyWith({
@@ -56,6 +59,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     ValueGetter<String?>? preferredLang,
     ValueGetter<bool?>? isActive,
     ValueGetter<String?>? avatarUrl,
+    ValueGetter<File?>? avatarFile,
   }) {
     return UpdateCurrentUserUsecaseParams(
       name: name != null ? name() : this.name,
@@ -69,6 +73,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
           : this.preferredLang,
       isActive: isActive != null ? isActive() : this.isActive,
       avatarUrl: avatarUrl != null ? avatarUrl() : this.avatarUrl,
+      avatarFile: avatarFile != null ? avatarFile() : this.avatarFile,
     );
   }
 
@@ -83,6 +88,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       if (preferredLang != null) 'preferredLang': preferredLang,
       if (isActive != null) 'isActive': isActive,
       if (avatarUrl != null) 'avatarUrl': avatarUrl,
+      if (avatarFile != null) 'avatarFile': avatarFile!.path,
     };
   }
 
@@ -97,6 +103,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       preferredLang: map['preferredLang'],
       isActive: map['isActive'],
       avatarUrl: map['avatarUrl'],
+      avatarFile: map['avatarFile'] != null ? File(map['avatarFile']) : null,
     );
   }
 
@@ -107,7 +114,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl)';
+    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, avatarFile: $avatarFile)';
   }
 
   @override
@@ -122,6 +129,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       preferredLang,
       isActive,
       avatarUrl,
+      avatarFile,
     ];
   }
 }

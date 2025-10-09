@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
@@ -28,6 +29,7 @@ class UpdateAssetUsecaseParams extends Equatable {
   final String id;
   final String? assetTag;
   final String? dataMatrixImageUrl;
+  final File? dataMatrixImageFile;
   final String? assetName;
   final String? categoryId;
   final String? brand;
@@ -46,6 +48,7 @@ class UpdateAssetUsecaseParams extends Equatable {
     required this.id,
     this.assetTag,
     this.dataMatrixImageUrl,
+    this.dataMatrixImageFile,
     this.assetName,
     this.categoryId,
     this.brand,
@@ -67,6 +70,9 @@ class UpdateAssetUsecaseParams extends Equatable {
     if (assetTag != null) map['assetTag'] = assetTag;
     if (dataMatrixImageUrl != null) {
       map['dataMatrixImageUrl'] = dataMatrixImageUrl;
+    }
+    if (dataMatrixImageFile != null) {
+      map['dataMatrixImageFile'] = dataMatrixImageFile!.path;
     }
     if (assetName != null) map['assetName'] = assetName;
     if (categoryId != null) map['categoryId'] = categoryId;
@@ -94,6 +100,9 @@ class UpdateAssetUsecaseParams extends Equatable {
       id: map['id'] ?? '',
       assetTag: map['assetTag'],
       dataMatrixImageUrl: map['dataMatrixImageUrl'],
+      dataMatrixImageFile: map['dataMatrixImageFile'] != null
+          ? File(map['dataMatrixImageFile'])
+          : null,
       assetName: map['assetName'],
       categoryId: map['categoryId'],
       brand: map['brand'],
@@ -128,6 +137,7 @@ class UpdateAssetUsecaseParams extends Equatable {
     id,
     assetTag,
     dataMatrixImageUrl,
+    dataMatrixImageFile,
     assetName,
     categoryId,
     brand,

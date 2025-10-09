@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
-import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_statistics_model.dart';
@@ -273,9 +273,27 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   ) async {
     this.logData('updateUser called');
     try {
+      final formData = dio.FormData();
+      final map = params.toMap();
+      for (final entry in map.entries) {
+        if (entry.key == 'avatarFile' && entry.value != null) {
+          formData.files.add(
+            MapEntry(
+              'avatar',
+              await dio.MultipartFile.fromFile(entry.value as String),
+            ),
+          );
+        } else if (entry.key == 'avatarUrl' &&
+            entry.value != null &&
+            map['avatarFile'] == null) {
+          formData.fields.add(MapEntry('avatar', entry.value.toString()));
+        } else if (entry.value != null && entry.key != 'avatarFile') {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
       final response = await _dioClient.patch(
         ApiConstant.updateUserProfile,
-        data: params.toMap(),
+        data: formData,
         fromJson: (json) => UserModel.fromMap(json),
       );
       return response;
