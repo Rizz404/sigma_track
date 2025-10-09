@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -99,7 +100,7 @@ class _MaintenanceRecordUpsertScreenState
     final formData = _formKey.currentState!.value;
 
     final translations = <dynamic>[];
-    for (final langCode in ['en', 'id', 'ja']) {
+    for (final langCode in Language.values.map((e) => e.backendCode)) {
       final title = formData['${langCode}_title'] as String?;
       final notes = formData['${langCode}_notes'] as String?;
 

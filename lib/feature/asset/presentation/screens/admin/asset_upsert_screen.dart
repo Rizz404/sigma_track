@@ -41,7 +41,7 @@ class AssetUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.asset != null || widget.assetId != null;
 
@@ -167,30 +167,39 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       child: Scaffold(
         appBar: CustomAppBar(title: _isEdit ? 'Edit Asset' : 'Create Asset'),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildBasicInfoSection(),
-                  const SizedBox(height: 24),
-                  _buildCategoryLocationSection(),
-                  const SizedBox(height: 24),
-                  _buildPurchaseInfoSection(),
-                  const SizedBox(height: 24),
-                  _buildStatusSection(),
-                  const SizedBox(height: 24),
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-                  _buildActionButtons(),
-                  const SizedBox(height: 16),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildBasicInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildCategoryLocationSection(),
+                        const SizedBox(height: 24),
+                        _buildPurchaseInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildStatusSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(
+                          height: 80,
+                        ), // * Space for sticky buttons
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -431,24 +440,41 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     );
   }
 
-  Widget _buildActionButtons() {
-    return Row(
-      children: [
-        Expanded(
-          child: AppButton(
-            text: 'Cancel',
-            variant: AppButtonVariant.outlined,
-            onPressed: () => context.pop(),
+  Widget _buildStickyActionButtons() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(top: BorderSide(color: context.colors.border, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          children: [
+            Expanded(
+              child: AppButton(
+                text: 'Cancel',
+                variant: AppButtonVariant.outlined,
+                onPressed: () => context.pop(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AppButton(
+                text: _isEdit ? 'Update' : 'Create',
+                onPressed: _handleSubmit,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: AppButton(
-            text: _isEdit ? 'Update' : 'Create',
-            onPressed: _handleSubmit,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

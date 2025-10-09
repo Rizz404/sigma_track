@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 
 class LocaleInterceptor extends Interceptor {
   Locale? _currentLocale;
@@ -19,15 +20,11 @@ class LocaleInterceptor extends Interceptor {
   }
 
   String _getLocaleHeaderValue(Locale locale) {
-    switch (locale.languageCode) {
-      // case 'id':
-      //   return 'id-ID';
-      case 'en':
-        return 'en-US';
-      case 'ja':
-        return 'ja-JP';
-      default:
-        return 'en-US';
+    try {
+      final language = Language.fromString(locale.languageCode);
+      return language.backendCode;
+    } catch (e) {
+      return 'en-US';
     }
   }
 }

@@ -114,24 +114,31 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
       child: Scaffold(
         appBar: CustomAppBar(title: _isEdit ? 'Edit User' : 'Create User'),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildUserInfoSection(),
-                  const SizedBox(height: 24),
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-                  _buildActionButtons(),
-                  const SizedBox(height: 16),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildUserInfoSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(height: 80),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -173,7 +180,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             ),
             const SizedBox(height: 16),
             if (!_isEdit) ...[
-              AppTextField(
+              const AppTextField(
                 name: 'password',
                 label: 'Password',
                 placeHolder: 'Enter password',
@@ -239,24 +246,41 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
     );
   }
 
-  Widget _buildActionButtons() {
-    return Row(
-      children: [
-        Expanded(
-          child: AppButton(
-            text: 'Cancel',
-            variant: AppButtonVariant.outlined,
-            onPressed: () => context.pop(),
+  Widget _buildStickyActionButtons() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(top: BorderSide(color: context.colors.border, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          children: [
+            Expanded(
+              child: AppButton(
+                text: 'Cancel',
+                variant: AppButtonVariant.outlined,
+                onPressed: () => context.pop(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AppButton(
+                text: _isEdit ? 'Update' : 'Create',
+                onPressed: _handleSubmit,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: AppButton(
-            text: _isEdit ? 'Update' : 'Create',
-            onPressed: _handleSubmit,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
