@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/user/presentation/providers/current_user_not
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_email_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_id_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_name_notifier.dart';
+import 'package:sigma_track/feature/user/presentation/providers/state/current_user_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_search_notifier.dart';
@@ -61,7 +62,7 @@ final countUsersProvider =
 
 // * Provider untuk current user (get and update)
 final currentUserNotifierProvider =
-    AutoDisposeNotifierProvider<CurrentUserNotifier, UserDetailState>(
+    AutoDisposeNotifierProvider<CurrentUserNotifier, CurrentUserState>(
       CurrentUserNotifier.new,
     );
 

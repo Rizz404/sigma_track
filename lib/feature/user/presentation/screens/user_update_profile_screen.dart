@@ -13,8 +13,9 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
-import 'package:sigma_track/feature/user/presentation/providers/state/user_detail_state.dart';
+import 'package:sigma_track/feature/user/presentation/providers/state/current_user_state.dart';
 import 'package:sigma_track/feature/user/presentation/validators/user_update_profile_validator.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
@@ -37,7 +38,9 @@ class UserUpdateProfileScreen extends ConsumerStatefulWidget {
 class _UserUpdateProfileScreenState
     extends ConsumerState<UserUpdateProfileScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  final _filePickerKey = GlobalKey<AppFilePickerState>();
   List<ValidationError>? validationErrors;
+  File? _avatarFile;
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -61,6 +64,7 @@ class _UserUpdateProfileScreenState
         avatarFile = File(filePath);
       }
     }
+    _avatarFile = avatarFile;
 
     final params = UpdateCurrentUserUsecaseParams(
       name: name,
@@ -80,18 +84,23 @@ class _UserUpdateProfileScreenState
   Widget build(BuildContext context) {
     final currentUserState = ref.watch(currentUserNotifierProvider);
 
-    ref.listen<UserDetailState>(currentUserNotifierProvider, (previous, next) {
-      if (next.isLoading) {
+    // * Listen to mutation state changes
+    ref.listen<CurrentUserState>(currentUserNotifierProvider, (previous, next) {
+      if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (!next.isLoading && next.message != null && next.failure == null) {
+      if (!next.isMutating && next.message != null && next.failure == null) {
         AppToast.success(next.message ?? 'Profile updated successfully');
-        // * Refresh current user data
-        ref.read(currentUserNotifierProvider.notifier).refresh();
-        context.pop();
+        // * Clean up selected file and reset picker
+        if (_avatarFile != null) {
+          _avatarFile!.deleteSync();
+          _avatarFile = null;
+        }
+        _filePickerKey.currentState?.reset();
+        // context.pop();
       } else if (next.failure != null) {
         if (next.failure is ValidationFailure) {
           setState(
@@ -104,53 +113,49 @@ class _UserUpdateProfileScreenState
       }
     });
 
+    // * Handle empty user state
+    final user = currentUserState.user;
+
+    if (user == null) {
+      return const AppLoaderOverlay(
+        child: Scaffold(
+          appBar: CustomAppBar(title: 'Update Profile'),
+          endDrawer: AppEndDrawer(),
+          body: Center(child: AppText('No user data available')),
+        ),
+      );
+    }
+
+    // * Main content with form
     return AppLoaderOverlay(
       child: Scaffold(
         appBar: const CustomAppBar(title: 'Update Profile'),
         endDrawer: const AppEndDrawer(),
-        body: currentUserState.when(
-          initial: () => const Center(child: CircularProgressIndicator()),
-          loading: () => const Center(child: CircularProgressIndicator()),
-          success: (user, _) => Column(
-            children: [
-              Expanded(
-                child: ScreenWrapper(
-                  child: FormBuilder(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _buildProfileInfoSection(user),
-                          const SizedBox(height: 24),
-                          AppValidationErrors(errors: validationErrors),
-                          if (validationErrors != null &&
-                              validationErrors!.isNotEmpty)
-                            const SizedBox(height: 16),
-                          const SizedBox(height: 80),
-                        ],
-                      ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildProfileInfoSection(user),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(height: 80),
+                      ],
                     ),
                   ),
                 ),
               ),
-              _buildStickyActionButtons(),
-            ],
-          ),
-          error: (failure) => Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppText(failure.message, color: context.semantic.error),
-                const SizedBox(height: 16),
-                AppButton(
-                  text: 'Retry',
-                  onPressed: () =>
-                      ref.read(currentUserNotifierProvider.notifier).refresh(),
-                ),
-              ],
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -175,7 +180,21 @@ class _UserUpdateProfileScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            const AppFilePicker(
+            Center(
+              child: AppAvatar(
+                size: AvatarSize.xxxLarge,
+                imageUrl: user.avatarUrl,
+                backgroundColor: context.colorScheme.primary.withOpacity(0.1),
+                placeholder: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: context.colorScheme.primary,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            AppFilePicker(
+              key: _filePickerKey,
               name: 'avatar',
               label: 'Profile Picture',
               hintText: 'Choose image',

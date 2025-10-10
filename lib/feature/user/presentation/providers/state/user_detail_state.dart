@@ -40,24 +40,6 @@ class UserDetailState extends Equatable {
     );
   }
 
-  // * Helper untuk pattern matching
-  T when<T>({
-    required T Function() initial,
-    required T Function() loading,
-    required T Function(User user, String? message) success,
-    required T Function(Failure failure) error,
-  }) {
-    if (failure != null) {
-      return error(failure!);
-    } else if (user != null) {
-      return success(user!, message);
-    } else if (isLoading) {
-      return loading();
-    } else {
-      return initial();
-    }
-  }
-
   @override
   List<Object?> get props => [user, isLoading, failure, message];
 }

@@ -5,6 +5,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -121,60 +122,65 @@ class UserDetailProfileScreen extends ConsumerWidget {
   }
 
   Widget _buildProfileHeader(BuildContext context, User user) {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: context.colorScheme.primary.withOpacity(0.1),
-              backgroundImage: user.avatarUrl != null
-                  ? NetworkImage(user.avatarUrl!)
-                  : null,
-              child: user.avatarUrl == null
-                  ? Icon(
-                      Icons.person,
-                      size: 50,
-                      color: context.colorScheme.primary,
-                    )
-                  : null,
-            ),
-            const SizedBox(height: 16),
-            AppText(
-              user.fullName,
-              style: AppTextStyle.headlineSmall,
-              fontWeight: FontWeight.bold,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            AppText(
-              user.email,
-              style: AppTextStyle.bodyMedium,
-              color: context.colors.textSecondary,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: context.colorScheme.primary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16),
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        color: context.colors.surface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: context.colors.border),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () => _showAvatarDialog(context, user.avatarUrl),
+                child: AppAvatar(
+                  size: AvatarSize.xxxLarge,
+                  imageUrl: user.avatarUrl,
+                  backgroundColor: context.colorScheme.primary.withOpacity(0.1),
+                  placeholder: Icon(
+                    Icons.person,
+                    size: 50,
+                    color: context.colorScheme.primary,
+                  ),
+                ),
               ),
-              child: AppText(
-                user.role.name.toUpperCase(),
-                style: AppTextStyle.labelMedium,
-                color: context.colorScheme.primary,
+              const SizedBox(height: 16),
+              AppText(
+                user.fullName,
+                style: AppTextStyle.headlineSmall,
                 fontWeight: FontWeight.bold,
+                textAlign: TextAlign.center,
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              AppText(
+                user.email,
+                style: AppTextStyle.bodyMedium,
+                color: context.colors.textSecondary,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: AppText(
+                  user.role.name.toUpperCase(),
+                  style: AppTextStyle.labelMedium,
+                  color: context.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -230,6 +236,38 @@ class UserDetailProfileScreen extends ConsumerWidget {
               value,
               style: AppTextStyle.bodyMedium,
               fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAvatarDialog(BuildContext context, String? imageUrl) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
+      builder: (context) => Stack(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.transparent,
+              child: Center(
+                child: imageUrl != null
+                    ? Image.network(imageUrl, fit: BoxFit.contain)
+                    : const Icon(Icons.person, size: 100, color: Colors.white),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 16,
+            right: 16,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ),
         ],

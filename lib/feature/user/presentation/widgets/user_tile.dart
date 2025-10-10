@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class UserTile extends StatelessWidget {
@@ -60,25 +61,21 @@ class UserTile extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                 ],
-                CircleAvatar(
-                  radius: 24,
-                  backgroundImage: user.avatarUrl != null
-                      ? NetworkImage(user.avatarUrl!)
-                      : null,
+                AppAvatar(
+                  size: AvatarSize.large,
+                  imageUrl: user.avatarUrl,
                   backgroundColor: context.colorScheme.primaryContainer,
-                  child: user.avatarUrl == null
-                      ? AppText(
-                          user.fullName
-                              .split(' ')
-                              .map((e) => e.isNotEmpty ? e[0] : '')
-                              .take(2)
-                              .join()
-                              .toUpperCase(),
-                          style: AppTextStyle.titleMedium,
-                          color: context.colorScheme.onPrimaryContainer,
-                          fontWeight: FontWeight.w600,
-                        )
-                      : null,
+                  placeholder: AppText(
+                    user.fullName
+                        .split(' ')
+                        .map((e) => e.isNotEmpty ? e[0] : '')
+                        .take(2)
+                        .join()
+                        .toUpperCase(),
+                    style: AppTextStyle.titleMedium,
+                    color: context.colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(

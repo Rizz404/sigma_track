@@ -41,10 +41,10 @@ class AppFilePicker extends StatefulWidget {
   });
 
   @override
-  State<AppFilePicker> createState() => _AppFilePickerState();
+  AppFilePickerState createState() => AppFilePickerState();
 }
 
-class _AppFilePickerState extends State<AppFilePicker> {
+class AppFilePickerState extends State<AppFilePicker> {
   List<PlatformFile> _selectedFiles = [];
 
   @override
@@ -57,10 +57,13 @@ class _AppFilePickerState extends State<AppFilePicker> {
 
   Future<void> _pickFiles() async {
     try {
+      // * Only use allowedExtensions with FileType.custom
       final result = await FilePicker.platform.pickFiles(
         type: widget.fileType,
         allowMultiple: widget.allowMultiple,
-        allowedExtensions: widget.allowedExtensions,
+        allowedExtensions: widget.fileType == FileType.custom
+            ? widget.allowedExtensions
+            : null,
       );
 
       if (result != null) {
@@ -107,9 +110,15 @@ class _AppFilePickerState extends State<AppFilePicker> {
     });
   }
 
+  void reset() {
+    setState(() => _selectedFiles = []);
+    FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
+  }
+
   void _previewFile(PlatformFile file) {
     showDialog(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) => _FilePreviewDialog(file: file),
     );
   }
@@ -338,38 +347,26 @@ class _FilePreviewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: context.colors.surface,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: AppText(
-                    file.name,
-                    style: AppTextStyle.titleMedium,
-                    fontWeight: FontWeight.bold,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Expanded(child: Center(child: _buildPreviewContent())),
-          ],
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.transparent,
+            child: Center(child: _buildPreviewContent()),
+          ),
         ),
-      ),
+        Positioned(
+          top: 16,
+          right: 16,
+          child: IconButton(
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+      ],
     );
   }
 

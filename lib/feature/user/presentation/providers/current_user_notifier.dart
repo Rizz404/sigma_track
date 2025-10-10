@@ -6,42 +6,48 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
-import 'package:sigma_track/feature/user/presentation/providers/state/user_detail_state.dart';
+import 'package:sigma_track/feature/user/presentation/providers/state/current_user_state.dart';
 
-class CurrentUserNotifier extends AutoDisposeNotifier<UserDetailState> {
+class CurrentUserNotifier extends AutoDisposeNotifier<CurrentUserState> {
   GetCurrentUserUsecase get _getCurrentUserUsecase =>
       ref.watch(getCurrentUserUsecaseProvider);
   UpdateCurrentUserUsecase get _updateCurrentUserUsecase =>
       ref.watch(updateCurrentUserUsecaseProvider);
 
   @override
-  UserDetailState build() {
+  CurrentUserState build() {
     // * Cache current user for 5 minutes (profile/navigation use case)
     ref.cacheFor(const Duration(minutes: 5));
-    this.logPresentation('Loading current user');
-    _loadCurrentUser();
-    return UserDetailState.initial();
+    this.logPresentation('Initializing CurrentUserNotifier');
+    _initializeCurrentUser();
+    return CurrentUserState.initial();
+  }
+
+  Future<void> _initializeCurrentUser() async {
+    await _loadCurrentUser();
   }
 
   Future<void> _loadCurrentUser() async {
-    state = UserDetailState.loading();
+    this.logPresentation('Loading current user');
+
+    state = CurrentUserState.loading();
 
     final result = await _getCurrentUserUsecase.call(NoParams());
 
     result.fold(
       (failure) {
         this.logError('Failed to load current user', failure);
-        state = UserDetailState.error(failure);
+        state = CurrentUserState.error(failure);
       },
       (success) {
         this.logData('Current user loaded: ${success.data?.name}');
         if (success.data != null) {
-          state = UserDetailState.success(
+          state = CurrentUserState.success(
             success.data!,
             message: success.message,
           );
         } else {
-          state = UserDetailState.error(
+          state = CurrentUserState.error(
             const ServerFailure(message: 'Current user not found'),
           );
         }
@@ -51,27 +57,36 @@ class CurrentUserNotifier extends AutoDisposeNotifier<UserDetailState> {
 
   Future<void> updateProfile(UpdateCurrentUserUsecaseParams params) async {
     this.logPresentation('Updating current user profile');
-    state = UserDetailState.loading();
+
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
 
     final result = await _updateCurrentUserUsecase.call(params);
 
     result.fold(
       (failure) {
         this.logError('Failed to update profile', failure);
-        state = UserDetailState.error(failure);
+        state = state.copyWith(isMutating: false, failure: () => failure);
       },
-      (success) {
+      (success) async {
         this.logData('Profile updated: ${success.data?.name}');
         if (success.data != null) {
-          state = UserDetailState.success(
+          state = CurrentUserState.success(
             success.data!,
             message: success.message ?? 'Profile updated successfully',
+            mutatedUser: success.data,
           );
         } else {
-          state = UserDetailState.error(
-            const ServerFailure(message: 'Failed to update profile'),
+          state = state.copyWith(
+            isMutating: false,
+            failure: () =>
+                const ServerFailure(message: 'Failed to update profile'),
           );
         }
+        await refresh();
       },
     );
   }
@@ -81,11 +96,6 @@ class CurrentUserNotifier extends AutoDisposeNotifier<UserDetailState> {
   }
 
   void reset() {
-    state = UserDetailState.initial();
+    state = CurrentUserState.initial();
   }
 }
-
-final currentUserNotifierProvider =
-    AutoDisposeNotifierProvider<CurrentUserNotifier, UserDetailState>(
-      CurrentUserNotifier.new,
-    );
