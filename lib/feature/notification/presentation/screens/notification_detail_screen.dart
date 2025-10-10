@@ -68,7 +68,7 @@ class _NotificationDetailScreenState
           'Delete Notification',
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
+        content: const AppText(
           'Are you sure you want to delete this notification?',
           style: AppTextStyle.bodyMedium,
         ),
@@ -118,7 +118,7 @@ class _NotificationDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Notification Detail'),
+      appBar: const CustomAppBar(title: 'Notification Detail'),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,

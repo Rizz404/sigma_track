@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
-import 'package:path/path.dart' as path;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';

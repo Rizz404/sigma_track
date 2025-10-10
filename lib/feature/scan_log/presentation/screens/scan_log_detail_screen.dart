@@ -67,7 +67,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
           'Delete Scan Log',
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
+        content: const AppText(
           'Are you sure you want to delete this scan log?',
           style: AppTextStyle.bodyMedium,
         ),
@@ -115,7 +115,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Scan Log Detail'),
+      appBar: const CustomAppBar(title: 'Scan Log Detail'),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,

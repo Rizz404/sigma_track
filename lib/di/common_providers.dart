@@ -4,15 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
-import 'package:sigma_track/di/datasource_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
-import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
-import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
 final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {

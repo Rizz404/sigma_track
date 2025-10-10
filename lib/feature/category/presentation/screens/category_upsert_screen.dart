@@ -292,9 +292,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en', 'English'),
+              _buildTranslationFields('en-US', 'English'),
               const SizedBox(height: 16),
-              _buildTranslationFields('ja', 'Japanese'),
+              _buildTranslationFields('ja-JP', 'Japanese'),
             ],
           ),
         ),
@@ -335,7 +335,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             label: 'Category Name',
             placeHolder: 'Enter category name',
             initialValue: translation?.categoryName,
-            validator: langCode == 'en'
+            validator: langCode == 'en-US'
                 ? CategoryUpsertValidator.validateCategoryName
                 : null,
           ),
@@ -347,7 +347,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             type: AppTextFieldType.multiline,
             maxLines: 3,
             initialValue: translation?.description,
-            validator: langCode == 'en'
+            validator: langCode == 'en-US'
                 ? CategoryUpsertValidator.validateDescription
                 : null,
           ),

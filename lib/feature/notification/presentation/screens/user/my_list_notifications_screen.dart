@@ -8,9 +8,9 @@ class MyListNotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer: const AppEndDrawer(),
-      body: const ScreenWrapper(child: AppText('MyListNotificationsScreen')),
+    return const Scaffold(
+      endDrawer: AppEndDrawer(),
+      body: ScreenWrapper(child: AppText('MyListNotificationsScreen')),
     );
   }
 }

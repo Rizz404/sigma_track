@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -41,6 +42,121 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   bool get _isEdit => widget.location != null || widget.locationId != null;
   Location? _fetchedLocation;
   bool _isLoadingTranslations = false;
+  bool _isLoadingCurrentLocation = false;
+
+  Future<void> _getCurrentLocation() async {
+    setState(() => _isLoadingCurrentLocation = true);
+
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        if (mounted) {
+          AppToast.warning('Location services are disabled');
+          final openSettings = await _showLocationServiceDialog();
+          if (openSettings) {
+            await Geolocator.openLocationSettings();
+          }
+        }
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          if (mounted) {
+            AppToast.error('Location permission denied');
+          }
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        if (mounted) {
+          AppToast.error('Location permission permanently denied');
+          final openSettings = await _showPermissionDeniedDialog();
+          if (openSettings) {
+            await Geolocator.openAppSettings();
+          }
+        }
+        return;
+      }
+
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
+      );
+
+      if (mounted) {
+        _formKey.currentState?.fields['latitude']?.didChange(
+          position.latitude.toString(),
+        );
+        _formKey.currentState?.fields['longitude']?.didChange(
+          position.longitude.toString(),
+        );
+        AppToast.success('Current location retrieved successfully');
+        this.logInfo('Location: ${position.latitude}, ${position.longitude}');
+      }
+    } catch (e, s) {
+      this.logError('Failed to get current location', e, s);
+      if (mounted) {
+        AppToast.error('Failed to get current location');
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoadingCurrentLocation = false);
+      }
+    }
+  }
+
+  Future<bool> _showLocationServiceDialog() async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const AppText('Location Services Disabled'),
+            content: const AppText(
+              'Location services are required to get your current location. Would you like to enable them?',
+            ),
+            actions: [
+              AppButton(
+                text: 'Cancel',
+                variant: AppButtonVariant.text,
+                onPressed: () => context.pop(false),
+              ),
+              AppButton(
+                text: 'Open Settings',
+                onPressed: () => context.pop(true),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  Future<bool> _showPermissionDeniedDialog() async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const AppText('Permission Required'),
+            content: const AppText(
+              'Location permission is permanently denied. Please enable it in app settings.',
+            ),
+            actions: [
+              AppButton(
+                text: 'Cancel',
+                variant: AppButtonVariant.text,
+                onPressed: () => context.pop(false),
+              ),
+              AppButton(
+                text: 'Open Settings',
+                onPressed: () => context.pop(true),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -251,20 +367,43 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               initialValue: widget.location?.floor,
             ),
             const SizedBox(height: 16),
-            AppTextField(
-              name: 'latitude',
-              label: 'Latitude (Optional)',
-              placeHolder: 'Enter latitude',
-              initialValue: widget.location?.latitude?.toString(),
-              validator: LocationUpsertValidator.validateLatitude,
+            Row(
+              children: [
+                Expanded(
+                  child: AppTextField(
+                    name: 'latitude',
+                    label: 'Latitude (Optional)',
+                    placeHolder: 'Enter latitude',
+                    initialValue: widget.location?.latitude?.toString(),
+                    validator: LocationUpsertValidator.validateLatitude,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: AppTextField(
+                    name: 'longitude',
+                    label: 'Longitude (Optional)',
+                    placeHolder: 'Enter longitude',
+                    initialValue: widget.location?.longitude?.toString(),
+                    validator: LocationUpsertValidator.validateLongitude,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            AppTextField(
-              name: 'longitude',
-              label: 'Longitude (Optional)',
-              placeHolder: 'Enter longitude',
-              initialValue: widget.location?.longitude?.toString(),
-              validator: LocationUpsertValidator.validateLongitude,
+            const SizedBox(height: 12),
+            AppButton(
+              text: _isLoadingCurrentLocation
+                  ? 'Getting Location...'
+                  : 'Use Current Location',
+              variant: AppButtonVariant.outlined,
+              onPressed: _isLoadingCurrentLocation ? null : _getCurrentLocation,
+              leadingIcon: _isLoadingCurrentLocation
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.my_location, size: 18),
             ),
           ],
         ),
@@ -299,9 +438,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en', 'English'),
+              _buildTranslationFields('en-US', 'English'),
               const SizedBox(height: 16),
-              _buildTranslationFields('ja', 'Japanese'),
+              _buildTranslationFields('ja-JP', 'Japanese'),
             ],
           ),
         ),
@@ -338,7 +477,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             label: 'Location Name',
             placeHolder: 'Enter location name',
             initialValue: translation?.locationName,
-            validator: langCode == 'en'
+            validator: langCode == 'en-US'
                 ? LocationUpsertValidator.validateLocationName
                 : null,
           ),

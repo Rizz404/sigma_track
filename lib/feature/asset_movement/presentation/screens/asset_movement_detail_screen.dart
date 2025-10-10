@@ -85,7 +85,7 @@ class _AssetMovementDetailScreenState
           'Delete Asset Movement',
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
+        content: const AppText(
           'Are you sure you want to delete this asset movement?',
           style: AppTextStyle.bodyMedium,
         ),
@@ -135,7 +135,7 @@ class _AssetMovementDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Asset Movement Detail'),
+      appBar: const CustomAppBar(title: 'Asset Movement Detail'),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
