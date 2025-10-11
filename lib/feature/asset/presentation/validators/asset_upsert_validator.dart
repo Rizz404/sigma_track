@@ -10,7 +10,7 @@ class AssetUpsertValidator {
       return 'Asset tag must not exceed 50 characters';
     }
     // ! Asset tag hanya boleh alfanumerik dan dash
-    if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
+    if (!RegExp(r'^[a-zA-Z0-9-_]+$').hasMatch(value)) {
       return 'Asset tag can only contain letters, numbers, and dashes';
     }
     return null;

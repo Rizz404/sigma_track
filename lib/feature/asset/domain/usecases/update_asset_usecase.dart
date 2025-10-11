@@ -28,7 +28,6 @@ class UpdateAssetUsecase
 class UpdateAssetUsecaseParams extends Equatable {
   final String id;
   final String? assetTag;
-  final String? dataMatrixImageUrl;
   final File? dataMatrixImageFile;
   final String? assetName;
   final String? categoryId;
@@ -47,7 +46,6 @@ class UpdateAssetUsecaseParams extends Equatable {
   UpdateAssetUsecaseParams({
     required this.id,
     this.assetTag,
-    this.dataMatrixImageUrl,
     this.dataMatrixImageFile,
     this.assetName,
     this.categoryId,
@@ -68,9 +66,6 @@ class UpdateAssetUsecaseParams extends Equatable {
     final map = <String, dynamic>{};
 
     if (assetTag != null) map['assetTag'] = assetTag;
-    if (dataMatrixImageUrl != null) {
-      map['dataMatrixImageUrl'] = dataMatrixImageUrl;
-    }
     if (dataMatrixImageFile != null) {
       map['dataMatrixImageFile'] = dataMatrixImageFile!.path;
     }
@@ -99,7 +94,6 @@ class UpdateAssetUsecaseParams extends Equatable {
     return UpdateAssetUsecaseParams(
       id: map['id'] ?? '',
       assetTag: map['assetTag'],
-      dataMatrixImageUrl: map['dataMatrixImageUrl'],
       dataMatrixImageFile: map['dataMatrixImageFile'] != null
           ? File(map['dataMatrixImageFile'])
           : null,
@@ -136,7 +130,6 @@ class UpdateAssetUsecaseParams extends Equatable {
   List<Object?> get props => [
     id,
     assetTag,
-    dataMatrixImageUrl,
     dataMatrixImageFile,
     assetName,
     categoryId,

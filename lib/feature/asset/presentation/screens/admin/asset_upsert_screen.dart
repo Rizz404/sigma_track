@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
@@ -42,8 +47,11 @@ class AssetUpsertScreen extends ConsumerStatefulWidget {
 
 class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final ScreenshotController _screenshotController = ScreenshotController();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.asset != null || widget.assetId != null;
+  File? _generatedDataMatrixFile;
+  String? _dataMatrixPreviewData;
 
   Future<List<Category>> _searchCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -51,6 +59,67 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
     final state = ref.read(categoriesSearchProvider);
     return state.categories;
+  }
+
+  Future<void> _generateDataMatrix(String assetTag) async {
+    try {
+      final imageBytes = await _screenshotController.captureFromWidget(
+        Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(20),
+          child: BarcodeWidget(
+            barcode: Barcode.dataMatrix(),
+            data: assetTag,
+            width: 400,
+            height: 400,
+            drawText: false,
+          ),
+        ),
+      );
+
+      final tempDir = await getTemporaryDirectory();
+      final file = File(
+        '${tempDir.path}/data_matrix_${DateTime.now().millisecondsSinceEpoch}.png',
+      );
+      await file.writeAsBytes(imageBytes);
+
+      setState(() {
+        _generatedDataMatrixFile = file;
+        _dataMatrixPreviewData = assetTag;
+      });
+
+      this.logInfo('Data matrix generated: ${file.path}');
+    } catch (e, s) {
+      this.logError('Failed to generate data matrix', e, s);
+      AppToast.error('Failed to generate data matrix');
+    }
+  }
+
+  void _handleGenerateAssetTag() async {
+    final categoryId =
+        _formKey.currentState?.fields['categoryId']?.value as String?;
+
+    if (categoryId == null || categoryId.isEmpty) {
+      AppToast.warning('Please select a category first');
+      return;
+    }
+
+    final tagState = ref.read(getAssetTagNotifier(categoryId).notifier);
+    await tagState.refresh();
+
+    final state = ref.read(getAssetTagNotifier(categoryId));
+
+    if (state.generateAssetTagResponse != null) {
+      final suggestedTag = state.generateAssetTagResponse!.suggestedTag;
+      _formKey.currentState?.fields['assetTag']?.didChange(suggestedTag);
+
+      // * Auto-generate data matrix based on asset tag
+      await _generateDataMatrix(suggestedTag);
+
+      AppToast.success('Asset tag generated: $suggestedTag');
+    } else if (state.failure != null) {
+      AppToast.error(state.failure?.message ?? 'Failed to generate asset tag');
+    }
   }
 
   Future<List<Location>> _searchLocations(String query) async {
@@ -61,7 +130,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     return state.locations;
   }
 
-  void _handleSubmit() {
+  void _handleSubmit() async {
     if (_formKey.currentState?.saveAndValidate() != true) {
       AppToast.warning('Please fill all required fields');
       return;
@@ -82,11 +151,16 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     final status = formData['status'] as String?;
     final condition = formData['condition'] as String?;
     final locationId = formData['locationId'] as String?;
-    final dataMatrixImageUrl = formData['dataMatrixImageUrl'] as String? ?? '';
 
     if (categoryId == null || categoryId.isEmpty) {
       AppToast.warning('Please select a category');
       return;
+    }
+
+    // * Generate data matrix if not already generated or asset tag changed
+    if (_generatedDataMatrixFile == null ||
+        _dataMatrixPreviewData != assetTag) {
+      await _generateDataMatrix(assetTag);
     }
 
     if (_isEdit) {
@@ -109,7 +183,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ? AssetCondition.fromJson(condition)
             : null,
         locationId: locationId,
-        dataMatrixImageUrl: dataMatrixImageUrl,
+        dataMatrixImageFile: _generatedDataMatrixFile,
       );
       ref.read(assetsProvider.notifier).updateAsset(params);
     } else {
@@ -133,7 +207,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ? AssetCondition.fromJson(condition)
             : AssetCondition.good,
         locationId: locationId,
-        dataMatrixImageUrl: dataMatrixImageUrl,
+        dataMatrixImageFile: _generatedDataMatrixFile,
       );
       ref.read(assetsProvider.notifier).createAsset(params);
     }
@@ -224,12 +298,32 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppTextField(
-              name: 'assetTag',
-              label: 'Asset Tag',
-              placeHolder: 'Enter asset tag (e.g., AST-001)',
-              initialValue: widget.asset?.assetTag,
-              validator: AssetUpsertValidator.validateAssetTag,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: AppTextField(
+                    name: 'assetTag',
+                    label: 'Asset Tag',
+                    placeHolder: 'Enter asset tag (e.g., AST-001)',
+                    initialValue: widget.asset?.assetTag,
+                    validator: AssetUpsertValidator.validateAssetTag,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: IconButton(
+                    onPressed: _handleGenerateAssetTag,
+                    icon: const Icon(Icons.auto_awesome),
+                    tooltip: 'Auto-generate asset tag',
+                    style: IconButton.styleFrom(
+                      backgroundColor: context.colorScheme.primaryContainer,
+                      foregroundColor: context.colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -264,12 +358,55 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               validator: AssetUpsertValidator.validateSerialNumber,
             ),
             const SizedBox(height: 16),
-            AppTextField(
-              name: 'dataMatrixImageUrl',
-              label: 'Data Matrix Image URL (Optional)',
-              placeHolder: 'Enter image URL',
-              initialValue: widget.asset?.dataMatrixImageUrl,
-            ),
+            if (_dataMatrixPreviewData != null) ...[
+              const AppText(
+                'Data Matrix Preview',
+                style: AppTextStyle.bodyMedium,
+                fontWeight: FontWeight.w600,
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: context.colors.border),
+                ),
+                child: Column(
+                  children: [
+                    BarcodeWidget(
+                      barcode: Barcode.dataMatrix(),
+                      data: _dataMatrixPreviewData!,
+                      width: 200,
+                      height: 200,
+                      drawText: false,
+                    ),
+                    const SizedBox(height: 8),
+                    AppText(
+                      _dataMatrixPreviewData!,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              AppButton(
+                text: 'Regenerate Data Matrix',
+                variant: AppButtonVariant.outlined,
+                size: AppButtonSize.small,
+                onPressed: () async {
+                  final assetTag =
+                      _formKey.currentState?.fields['assetTag']?.value
+                          as String?;
+                  if (assetTag != null && assetTag.isNotEmpty) {
+                    await _generateDataMatrix(assetTag);
+                  } else {
+                    AppToast.warning('Please enter asset tag first');
+                  }
+                },
+              ),
+            ],
           ],
         ),
       ),

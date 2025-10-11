@@ -7,12 +7,14 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dart';
+import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -46,6 +48,9 @@ abstract class AssetRemoteDatasource {
   );
   Future<ApiResponse<AssetModel>> updateAsset(UpdateAssetUsecaseParams params);
   Future<ApiResponse<dynamic>> deleteAsset(DeleteAssetUsecaseParams params);
+  Future<ApiResponse<GenerateAssetTagResponseModel>> generateAssetTagSuggestion(
+    GenerateAssetTagSuggestionUsecaseParams params,
+  );
 }
 
 class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
@@ -68,12 +73,6 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
               'dataMatrixImage',
               await dio.MultipartFile.fromFile(entry.value as String),
             ),
-          );
-        } else if (entry.key == 'dataMatrixImageUrl' &&
-            entry.value != null &&
-            map['dataMatrixImageFile'] == null) {
-          formData.fields.add(
-            MapEntry('dataMatrixImage', entry.value.toString()),
           );
         } else if (entry.value != null && entry.key != 'dataMatrixImageFile') {
           formData.fields.add(MapEntry(entry.key, entry.value.toString()));
@@ -242,12 +241,6 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
               await dio.MultipartFile.fromFile(entry.value as String),
             ),
           );
-        } else if (entry.key == 'dataMatrixImageUrl' &&
-            entry.value != null &&
-            map['dataMatrixImageFile'] == null) {
-          formData.fields.add(
-            MapEntry('dataMatrixImage', entry.value.toString()),
-          );
         } else if (entry.value != null && entry.key != 'dataMatrixImageFile') {
           formData.fields.add(MapEntry(entry.key, entry.value.toString()));
         }
@@ -270,6 +263,22 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteAsset(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<GenerateAssetTagResponseModel>> generateAssetTagSuggestion(
+    GenerateAssetTagSuggestionUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.generateAssetTagSuggestion,
+        fromJson: (json) => GenerateAssetTagResponseModel.fromMap(json),
+        data: params.toMap(),
       );
       return response;
     } catch (e) {

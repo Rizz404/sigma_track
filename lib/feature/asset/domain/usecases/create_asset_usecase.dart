@@ -27,7 +27,6 @@ class CreateAssetUsecase
 
 class CreateAssetUsecaseParams extends Equatable {
   final String assetTag;
-  final String dataMatrixImageUrl;
   final File? dataMatrixImageFile;
   final String assetName;
   final String categoryId;
@@ -45,7 +44,6 @@ class CreateAssetUsecaseParams extends Equatable {
 
   CreateAssetUsecaseParams({
     required this.assetTag,
-    required this.dataMatrixImageUrl,
     this.dataMatrixImageFile,
     required this.assetName,
     required this.categoryId,
@@ -65,7 +63,6 @@ class CreateAssetUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{
       'assetTag': assetTag,
-      'dataMatrixImageUrl': dataMatrixImageUrl,
       if (dataMatrixImageFile != null)
         'dataMatrixImageFile': dataMatrixImageFile!.path,
       'assetName': assetName,
@@ -78,12 +75,12 @@ class CreateAssetUsecaseParams extends Equatable {
     if (model != null) map['model'] = model;
     if (serialNumber != null) map['serialNumber'] = serialNumber;
     if (purchaseDate != null) {
-      map['purchaseDate'] = purchaseDate!.millisecondsSinceEpoch;
+      map['purchaseDate'] = purchaseDate!.toIso8601String().split('T').first;
     }
     if (purchasePrice != null) map['purchasePrice'] = purchasePrice;
     if (vendorName != null) map['vendorName'] = vendorName;
     if (warrantyEnd != null) {
-      map['warrantyEnd'] = warrantyEnd!.millisecondsSinceEpoch;
+      map['warrantyEnd'] = warrantyEnd!.toIso8601String().split('T').first;
     }
     if (locationId != null) map['locationId'] = locationId;
     if (assignedToId != null) map['assignedToId'] = assignedToId;
@@ -94,7 +91,6 @@ class CreateAssetUsecaseParams extends Equatable {
   factory CreateAssetUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CreateAssetUsecaseParams(
       assetTag: map['assetTag'] ?? '',
-      dataMatrixImageUrl: map['dataMatrixImageUrl'] ?? '',
       dataMatrixImageFile: map['dataMatrixImageFile'] != null
           ? File(map['dataMatrixImageFile'])
           : null,
@@ -126,7 +122,6 @@ class CreateAssetUsecaseParams extends Equatable {
   @override
   List<Object?> get props => [
     assetTag,
-    dataMatrixImageUrl,
     dataMatrixImageFile,
     assetName,
     categoryId,

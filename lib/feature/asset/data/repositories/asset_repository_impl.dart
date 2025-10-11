@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/asset/data/datasources/asset_remote_datasour
 import 'package:sigma_track/feature/asset/data/mapper/asset_mappers.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart';
+import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_response.dart';
 import 'package:sigma_track/feature/asset/domain/repositories/asset_repository.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
@@ -15,6 +16,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -251,5 +253,40 @@ class AssetRepositoryImpl implements AssetRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
-}
 
+  @override
+  Future<Either<Failure, ItemSuccess<GenerateAssetTagResponse>>>
+  generateAssetTagSuggestion(
+    GenerateAssetTagSuggestionUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetRemoteDatasource.generateAssetTagSuggestion(
+        params,
+      );
+      final suggestion = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: suggestion));
+    } on ApiErrorResponse catch (apiError) {
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+}

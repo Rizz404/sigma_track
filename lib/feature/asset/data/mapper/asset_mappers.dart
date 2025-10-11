@@ -2,6 +2,8 @@ import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dart';
+import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_response.dart';
+import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_response_model.dart';
 import 'package:sigma_track/feature/category/data/mapper/category_mappers.dart';
 import 'package:sigma_track/feature/location/data/mapper/location_mappers.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
@@ -258,4 +260,26 @@ extension AssetSummaryStatisticsEntityMapper on AssetSummaryStatistics {
     mostExpensiveAssetValue: mostExpensiveAssetValue,
     leastExpensiveAssetValue: leastExpensiveAssetValue,
   );
+}
+
+extension GenerateAssetTagResponseModelMapper on GenerateAssetTagResponseModel {
+  GenerateAssetTagResponse toEntity() {
+    return GenerateAssetTagResponse(
+      categoryCode: categoryCode,
+      lastAssetTag: lastAssetTag,
+      suggestedTag: suggestedTag,
+      nextIncrement: nextIncrement,
+    );
+  }
+}
+
+extension GenerateAssetTagResponseEntityMapper on GenerateAssetTagResponse {
+  GenerateAssetTagResponseModel toModel() {
+    return GenerateAssetTagResponseModel(
+      categoryCode: categoryCode,
+      lastAssetTag: lastAssetTag,
+      suggestedTag: suggestedTag,
+      nextIncrement: nextIncrement,
+    );
+  }
 }

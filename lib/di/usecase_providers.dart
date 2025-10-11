@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/di/repository_providers.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 
 // ===== AUTH USECASES =====
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -235,6 +236,12 @@ final updateAssetUsecaseProvider = Provider<UpdateAssetUsecase>((ref) {
   final assetRepository = ref.read(assetRepositoryProvider);
   return UpdateAssetUsecase(assetRepository);
 });
+
+final getGenerateAssetTagSuggestionProvider =
+    Provider<GenerateAssetTagSuggestionUsecase>((ref) {
+      final assetRepository = ref.read(assetRepositoryProvider);
+      return GenerateAssetTagSuggestionUsecase(assetRepository);
+    });
 
 // =============================================
 // ASSET MOVEMENT USECASE PROVIDERS
