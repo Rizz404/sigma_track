@@ -39,15 +39,56 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     super.initState();
     _asset = widget.asset;
     if (_asset == null && (widget.id != null || widget.assetTag != null)) {
-      _fetchAsset();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _fetchAsset();
+      });
     }
   }
 
   Future<void> _fetchAsset() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch asset logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Fetch by ID
+        final notifier = ref.read(getAssetByIdProvider(widget.id!).notifier);
+        await notifier.refresh();
+        final state = ref.read(getAssetByIdProvider(widget.id!));
+
+        if (state.asset != null) {
+          setState(() {
+            _asset = state.asset;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch asset by id', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load asset');
+          setState(() => _isLoading = false);
+        }
+      } else if (widget.assetTag != null) {
+        // * Fetch by tag
+        final notifier = ref.read(
+          getAssetByTagProvider(widget.assetTag!).notifier,
+        );
+        await notifier.refresh();
+        final state = ref.read(getAssetByTagProvider(widget.assetTag!));
+
+        if (state.asset != null) {
+          setState(() {
+            _asset = state.asset;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch asset by tag', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load asset');
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching asset', e, s);
+      AppToast.error('Failed to load asset');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

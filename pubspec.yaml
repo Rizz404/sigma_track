@@ -78,6 +78,7 @@ dependencies:
   dropdown_search: ^6.0.2
   file_picker: ^10.3.3
   barcode_widget: ^2.0.4
+  mobile_scanner: ^7.1.2
 
 dev_dependencies:
   flutter_test:
