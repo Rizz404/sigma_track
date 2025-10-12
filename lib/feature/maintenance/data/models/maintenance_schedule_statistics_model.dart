@@ -127,7 +127,7 @@ class MaintenanceScheduleCountStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceScheduleCountStatisticsModel(
-      count: map['count']?.toInt() ?? 0,
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -155,8 +155,8 @@ class MaintenanceTypeStatisticsModel extends Equatable {
 
   factory MaintenanceTypeStatisticsModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceTypeStatisticsModel(
-      preventive: map['preventive']?.toInt() ?? 0,
-      corrective: map['corrective']?.toInt() ?? 0,
+      preventive: map.getFieldOrNull<int>('preventive') ?? 0,
+      corrective: map.getFieldOrNull<int>('corrective') ?? 0,
     );
   }
 
@@ -192,9 +192,9 @@ class MaintenanceScheduleStatusStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceScheduleStatusStatisticsModel(
-      scheduled: map['scheduled']?.toInt() ?? 0,
-      completed: map['completed']?.toInt() ?? 0,
-      cancelled: map['cancelled']?.toInt() ?? 0,
+      scheduled: map.getFieldOrNull<int>('scheduled') ?? 0,
+      completed: map.getFieldOrNull<int>('completed') ?? 0,
+      cancelled: map.getFieldOrNull<int>('cancelled') ?? 0,
     );
   }
 
@@ -242,11 +242,11 @@ class AssetMaintenanceScheduleStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return AssetMaintenanceScheduleStatisticsModel(
-      assetId: map['assetId'] ?? '',
-      assetName: map['assetName'] ?? '',
-      assetTag: map['assetTag'] ?? '',
-      scheduleCount: map['scheduleCount']?.toInt() ?? 0,
-      nextMaintenance: map['nextMaintenance'] ?? '',
+      assetId: map.getFieldOrNull<String>('assetId') ?? '',
+      assetName: map.getFieldOrNull<String>('assetName') ?? '',
+      assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
+      scheduleCount: map.getFieldOrNull<int>('scheduleCount') ?? 0,
+      nextMaintenance: map.getFieldOrNull<String>('nextMaintenance') ?? '',
     );
   }
 
@@ -285,10 +285,10 @@ class UserMaintenanceScheduleStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return UserMaintenanceScheduleStatisticsModel(
-      userId: map['userId'] ?? '',
-      userName: map['userName'] ?? '',
-      userEmail: map['userEmail'] ?? '',
-      count: map['count']?.toInt() ?? 0,
+      userId: map.getFieldOrNull<String>('userId') ?? '',
+      userName: map.getFieldOrNull<String>('userName') ?? '',
+      userEmail: map.getFieldOrNull<String>('userEmail') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -350,15 +350,17 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
 
   factory UpcomingMaintenanceScheduleModel.fromMap(Map<String, dynamic> map) {
     return UpcomingMaintenanceScheduleModel(
-      id: map['id'] ?? '',
-      assetId: map['assetId'] ?? '',
-      assetName: map['assetName'] ?? '',
-      assetTag: map['assetTag'] ?? '',
-      maintenanceType: MaintenanceScheduleType.fromJson(map['maintenanceType']),
-      scheduledDate: DateTime.parse(map['scheduledDate'] ?? ''),
-      daysUntilDue: map['daysUntilDue']?.toInt() ?? 0,
-      title: map['title'] ?? '',
-      description: map['description'],
+      id: map.getFieldOrNull<String>('id') ?? '',
+      assetId: map.getFieldOrNull<String>('assetId') ?? '',
+      assetName: map.getFieldOrNull<String>('assetName') ?? '',
+      assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
+      maintenanceType: MaintenanceScheduleType.fromJson(
+        map.getField<String>('maintenanceType'),
+      ),
+      scheduledDate: map.getDateTime('scheduledDate'),
+      daysUntilDue: map.getFieldOrNull<int>('daysUntilDue') ?? 0,
+      title: map.getFieldOrNull<String>('title') ?? '',
+      description: map.getFieldOrNull<String>('description'),
     );
   }
 
@@ -420,15 +422,17 @@ class OverdueMaintenanceScheduleModel extends Equatable {
 
   factory OverdueMaintenanceScheduleModel.fromMap(Map<String, dynamic> map) {
     return OverdueMaintenanceScheduleModel(
-      id: map['id'] ?? '',
-      assetId: map['assetId'] ?? '',
-      assetName: map['assetName'] ?? '',
-      assetTag: map['assetTag'] ?? '',
-      maintenanceType: MaintenanceScheduleType.fromJson(map['maintenanceType']),
-      scheduledDate: DateTime.parse(map['scheduledDate'] ?? ''),
-      daysOverdue: map['daysOverdue']?.toInt() ?? 0,
-      title: map['title'] ?? '',
-      description: map['description'],
+      id: map.getFieldOrNull<String>('id') ?? '',
+      assetId: map.getFieldOrNull<String>('assetId') ?? '',
+      assetName: map.getFieldOrNull<String>('assetName') ?? '',
+      assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
+      maintenanceType: MaintenanceScheduleType.fromJson(
+        map.getField<String>('maintenanceType'),
+      ),
+      scheduledDate: map.getDateTime('scheduledDate'),
+      daysOverdue: map.getFieldOrNull<int>('daysOverdue') ?? 0,
+      title: map.getFieldOrNull<String>('title') ?? '',
+      description: map.getFieldOrNull<String>('description'),
     );
   }
 
@@ -456,8 +460,8 @@ class MaintenanceFrequencyTrendModel extends Equatable {
 
   factory MaintenanceFrequencyTrendModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceFrequencyTrendModel(
-      frequencyMonths: map['frequencyMonths']?.toInt() ?? 0,
-      count: map['count']?.toInt() ?? 0,
+      frequencyMonths: map.getFieldOrNull<int>('frequencyMonths') ?? 0,
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -545,33 +549,32 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceScheduleSummaryStatisticsModel(
-      totalSchedules: map['totalSchedules']?.toInt() ?? 0,
+      totalSchedules: map.getFieldOrNull<int>('totalSchedules') ?? 0,
       scheduledMaintenancePercentage:
-          map['scheduledMaintenancePercentage']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('scheduledMaintenancePercentage') ?? 0.0,
       completedMaintenancePercentage:
-          map['completedMaintenancePercentage']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('completedMaintenancePercentage') ?? 0.0,
       cancelledMaintenancePercentage:
-          map['cancelledMaintenancePercentage']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('cancelledMaintenancePercentage') ?? 0.0,
       preventiveMaintenancePercentage:
-          map['preventiveMaintenancePercentage']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('preventiveMaintenancePercentage') ?? 0.0,
       correctiveMaintenancePercentage:
-          map['correctiveMaintenancePercentage']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('correctiveMaintenancePercentage') ?? 0.0,
       averageScheduleFrequency:
-          map['averageScheduleFrequency']?.toDouble() ?? 0.0,
-      upcomingMaintenanceCount: map['upcomingMaintenanceCount']?.toInt() ?? 0,
-      overdueMaintenanceCount: map['overdueMaintenanceCount']?.toInt() ?? 0,
+          map.getDoubleOrNull('averageScheduleFrequency') ?? 0.0,
+      upcomingMaintenanceCount:
+          map.getFieldOrNull<int>('upcomingMaintenanceCount') ?? 0,
+      overdueMaintenanceCount:
+          map.getFieldOrNull<int>('overdueMaintenanceCount') ?? 0,
       assetsWithScheduledMaintenance:
-          map['assetsWithScheduledMaintenance']?.toInt() ?? 0,
+          map.getFieldOrNull<int>('assetsWithScheduledMaintenance') ?? 0,
       assetsWithoutScheduledMaintenance:
-          map['assetsWithoutScheduledMaintenance']?.toInt() ?? 0,
-      averageSchedulesPerDay: map['averageSchedulesPerDay']?.toDouble() ?? 0.0,
-      latestScheduleDate: DateTime.fromMillisecondsSinceEpoch(
-        map['latestScheduleDate'],
-      ),
-      earliestScheduleDate: DateTime.fromMillisecondsSinceEpoch(
-        map['earliestScheduleDate'],
-      ),
-      totalUniqueCreators: map['totalUniqueCreators']?.toInt() ?? 0,
+          map.getFieldOrNull<int>('assetsWithoutScheduledMaintenance') ?? 0,
+      averageSchedulesPerDay:
+          map.getDoubleOrNull('averageSchedulesPerDay') ?? 0.0,
+      latestScheduleDate: map.getDateTime('latestScheduleDate'),
+      earliestScheduleDate: map.getDateTime('earliestScheduleDate'),
+      totalUniqueCreators: map.getFieldOrNull<int>('totalUniqueCreators') ?? 0,
     );
   }
 

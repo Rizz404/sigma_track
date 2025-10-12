@@ -124,7 +124,7 @@ class MaintenanceRecordModel extends Equatable {
       maintenanceDate: map.getDateTime('maintenanceDate'),
       performedByUserId: map.getFieldOrNull<String>('performedByUserId'),
       performedByVendor: map.getFieldOrNull<String>('performedByVendor'),
-      actualCost: map.getFieldOrNull<double>('actualCost'),
+      actualCost: map.getDoubleOrNull('actualCost'),
       title: map.getField<String>('title'),
       notes: map.getFieldOrNull<String>('notes'),
       createdAt: map.getDateTime('createdAt'),

@@ -93,8 +93,8 @@ class LocationModel extends Equatable {
       locationCode: map.getField<String>('locationCode'),
       building: map.getFieldOrNull<String>('building'),
       floor: map.getFieldOrNull<String>('floor'),
-      latitude: map.getFieldOrNull<double>('latitude'),
-      longitude: map.getFieldOrNull<double>('longitude'),
+      latitude: map.getDoubleOrNull('latitude'),
+      longitude: map.getDoubleOrNull('longitude'),
       createdAt: map.getDateTime('createdAt'),
       updatedAt: map.getDateTime('updatedAt'),
       translations: List<LocationTranslationModel>.from(

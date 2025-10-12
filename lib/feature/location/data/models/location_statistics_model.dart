@@ -167,8 +167,8 @@ class BuildingStatisticsModel extends Equatable {
 
   factory BuildingStatisticsModel.fromMap(Map<String, dynamic> map) {
     return BuildingStatisticsModel(
-      building: map['building'] ?? '',
-      count: map['count']?.toInt() ?? 0,
+      building: map.getFieldOrNull<String>('building') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -204,8 +204,8 @@ class FloorStatisticsModel extends Equatable {
 
   factory FloorStatisticsModel.fromMap(Map<String, dynamic> map) {
     return FloorStatisticsModel(
-      floor: map['floor'] ?? '',
-      count: map['count']?.toInt() ?? 0,
+      floor: map.getFieldOrNull<String>('floor') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -264,10 +264,10 @@ class GeographicStatisticsModel extends Equatable {
 
   factory GeographicStatisticsModel.fromMap(Map<String, dynamic> map) {
     return GeographicStatisticsModel(
-      withCoordinates: map['withCoordinates']?.toInt() ?? 0,
-      withoutCoordinates: map['withoutCoordinates']?.toInt() ?? 0,
-      averageLatitude: map['averageLatitude']?.toDouble(),
-      averageLongitude: map['averageLongitude']?.toDouble(),
+      withCoordinates: map.getFieldOrNull<int>('withCoordinates') ?? 0,
+      withoutCoordinates: map.getFieldOrNull<int>('withoutCoordinates') ?? 0,
+      averageLatitude: map.getDoubleOrNull('averageLatitude'),
+      averageLongitude: map.getDoubleOrNull('averageLongitude'),
     );
   }
 
@@ -303,8 +303,8 @@ class LocationCreationTrendModel extends Equatable {
 
   factory LocationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return LocationCreationTrendModel(
-      date: DateTime.parse(map['date'] ?? ''),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -429,20 +429,28 @@ class LocationSummaryStatisticsModel extends Equatable {
 
   factory LocationSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return LocationSummaryStatisticsModel(
-      totalLocations: map['totalLocations']?.toInt() ?? 0,
-      locationsWithBuilding: map['locationsWithBuilding']?.toInt() ?? 0,
-      locationsWithoutBuilding: map['locationsWithoutBuilding']?.toInt() ?? 0,
-      locationsWithFloor: map['locationsWithFloor']?.toInt() ?? 0,
-      locationsWithoutFloor: map['locationsWithoutFloor']?.toInt() ?? 0,
-      locationsWithCoordinates: map['locationsWithCoordinates']?.toInt() ?? 0,
-      coordinatesPercentage: map['coordinatesPercentage']?.toDouble() ?? 0.0,
-      buildingPercentage: map['buildingPercentage']?.toDouble() ?? 0.0,
-      floorPercentage: map['floorPercentage']?.toDouble() ?? 0.0,
-      totalBuildings: map['totalBuildings']?.toInt() ?? 0,
-      totalFloors: map['totalFloors']?.toInt() ?? 0,
-      averageLocationsPerDay: map['averageLocationsPerDay']?.toDouble() ?? 0.0,
-      latestCreationDate: map['latestCreationDate'] ?? '',
-      earliestCreationDate: map['earliestCreationDate'] ?? '',
+      totalLocations: map.getFieldOrNull<int>('totalLocations') ?? 0,
+      locationsWithBuilding:
+          map.getFieldOrNull<int>('locationsWithBuilding') ?? 0,
+      locationsWithoutBuilding:
+          map.getFieldOrNull<int>('locationsWithoutBuilding') ?? 0,
+      locationsWithFloor: map.getFieldOrNull<int>('locationsWithFloor') ?? 0,
+      locationsWithoutFloor:
+          map.getFieldOrNull<int>('locationsWithoutFloor') ?? 0,
+      locationsWithCoordinates:
+          map.getFieldOrNull<int>('locationsWithCoordinates') ?? 0,
+      coordinatesPercentage:
+          map.getDoubleOrNull('coordinatesPercentage') ?? 0.0,
+      buildingPercentage: map.getDoubleOrNull('buildingPercentage') ?? 0.0,
+      floorPercentage: map.getDoubleOrNull('floorPercentage') ?? 0.0,
+      totalBuildings: map.getFieldOrNull<int>('totalBuildings') ?? 0,
+      totalFloors: map.getFieldOrNull<int>('totalFloors') ?? 0,
+      averageLocationsPerDay:
+          map.getDoubleOrNull('averageLocationsPerDay') ?? 0.0,
+      latestCreationDate:
+          map.getFieldOrNull<String>('latestCreationDate') ?? '',
+      earliestCreationDate:
+          map.getFieldOrNull<String>('earliestCreationDate') ?? '',
     );
   }
 

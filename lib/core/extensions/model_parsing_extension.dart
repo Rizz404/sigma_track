@@ -126,4 +126,48 @@ extension SafeMap on Map<String, dynamic> {
       return null;
     }
   }
+
+  /// Get double field, handling int values from backend (adds .00 if int)
+  double getDouble(String key) {
+    final value = this[key];
+
+    if (value == null) {
+      this.logError('Field "$key" is null or missing');
+      throw Exception('Field "$key" is null or missing');
+    }
+
+    if (value is double) return value;
+    if (value is int) return value.toDouble();
+
+    this.logError(
+      'Field "$key" has wrong type\n'
+      '   Expected: double or int\n'
+      '   Got: ${value.runtimeType}\n'
+      '   Value: $value',
+    );
+    throw Exception(
+      'Field "$key" has wrong type. Expected double or int but got ${value.runtimeType}',
+    );
+  }
+
+  /// Get double field nullable, handling int values from backend
+  double? getDoubleOrNull(String key) {
+    try {
+      final value = this[key];
+      if (value == null) return null;
+
+      if (value is double) return value;
+      if (value is int) return value.toDouble();
+
+      this.logData(
+        'Field "$key" type mismatch (returning null)\n'
+        '   Expected: double or int\n'
+        '   Got: ${value.runtimeType}',
+      );
+      return null;
+    } catch (e) {
+      this.logData('Warning at field "$key": $e');
+      return null;
+    }
+  }
 }

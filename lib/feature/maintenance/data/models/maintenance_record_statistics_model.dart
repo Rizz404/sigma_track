@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
 class MaintenanceRecordStatisticsModel extends Equatable {
   final MaintenanceRecordCountStatisticsModel total;
@@ -50,36 +51,51 @@ class MaintenanceRecordStatisticsModel extends Equatable {
 
   factory MaintenanceRecordStatisticsModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceRecordStatisticsModel(
-      total: MaintenanceRecordCountStatisticsModel.fromMap(map['total']),
+      total: MaintenanceRecordCountStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('total'),
+      ),
       byPerformer: List<UserMaintenanceRecordStatisticsModel>.from(
-        map['byPerformer']?.map(
-          (x) => UserMaintenanceRecordStatisticsModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byPerformer')
+                ?.map((x) => UserMaintenanceRecordStatisticsModel.fromMap(x)) ??
+            [],
       ),
       byVendor: List<VendorMaintenanceRecordStatisticsModel>.from(
-        map['byVendor']?.map(
-          (x) => VendorMaintenanceRecordStatisticsModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byVendor')
+                ?.map(
+                  (x) => VendorMaintenanceRecordStatisticsModel.fromMap(x),
+                ) ??
+            [],
       ),
       byAsset: List<AssetMaintenanceRecordStatisticsModel>.from(
-        map['byAsset']?.map(
-          (x) => AssetMaintenanceRecordStatisticsModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('byAsset')
+                ?.map(
+                  (x) => AssetMaintenanceRecordStatisticsModel.fromMap(x),
+                ) ??
+            [],
       ),
       costStatistics: MaintenanceRecordCostStatisticsModel.fromMap(
-        map['costStatistics'],
+        map.getField<Map<String, dynamic>>('costStatistics'),
       ),
       completionTrend: List<MaintenanceRecordCompletionTrendModel>.from(
-        map['completionTrend']?.map(
-          (x) => MaintenanceRecordCompletionTrendModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('completionTrend')
+                ?.map(
+                  (x) => MaintenanceRecordCompletionTrendModel.fromMap(x),
+                ) ??
+            [],
       ),
       monthlyTrends: List<MaintenanceRecordMonthlyTrendModel>.from(
-        map['monthlyTrends']?.map(
-          (x) => MaintenanceRecordMonthlyTrendModel.fromMap(x),
-        ),
+        map
+                .getFieldOrNull<List<dynamic>>('monthlyTrends')
+                ?.map((x) => MaintenanceRecordMonthlyTrendModel.fromMap(x)) ??
+            [],
       ),
-      summary: MaintenanceRecordSummaryStatisticsModel.fromMap(map['summary']),
+      summary: MaintenanceRecordSummaryStatisticsModel.fromMap(
+        map.getField<Map<String, dynamic>>('summary'),
+      ),
     );
   }
 
@@ -105,7 +121,7 @@ class MaintenanceRecordCountStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordCountStatisticsModel(
-      count: map['count']?.toInt() ?? 0,
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -157,12 +173,12 @@ class UserMaintenanceRecordStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return UserMaintenanceRecordStatisticsModel(
-      userId: map['userId'] ?? '',
-      userName: map['userName'] ?? '',
-      userEmail: map['userEmail'] ?? '',
-      count: map['count']?.toInt() ?? 0,
-      totalCost: map['totalCost']?.toDouble() ?? 0.0,
-      averageCost: map['averageCost']?.toDouble() ?? 0.0,
+      userId: map.getFieldOrNull<String>('userId') ?? '',
+      userName: map.getFieldOrNull<String>('userName') ?? '',
+      userEmail: map.getFieldOrNull<String>('userEmail') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
+      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
+      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
     );
   }
 
@@ -201,10 +217,10 @@ class VendorMaintenanceRecordStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return VendorMaintenanceRecordStatisticsModel(
-      vendorName: map['vendorName'] ?? '',
-      count: map['count']?.toInt() ?? 0,
-      totalCost: map['totalCost']?.toDouble() ?? 0.0,
-      averageCost: map['averageCost']?.toDouble() ?? 0.0,
+      vendorName: map.getFieldOrNull<String>('vendorName') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
+      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
+      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
     );
   }
 
@@ -260,13 +276,13 @@ class AssetMaintenanceRecordStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return AssetMaintenanceRecordStatisticsModel(
-      assetId: map['assetId'] ?? '',
-      assetName: map['assetName'] ?? '',
-      assetTag: map['assetTag'] ?? '',
-      recordCount: map['recordCount']?.toInt() ?? 0,
-      lastMaintenance: map['lastMaintenance'] ?? '',
-      totalCost: map['totalCost']?.toDouble() ?? 0.0,
-      averageCost: map['averageCost']?.toDouble() ?? 0.0,
+      assetId: map.getFieldOrNull<String>('assetId') ?? '',
+      assetName: map.getFieldOrNull<String>('assetName') ?? '',
+      assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
+      recordCount: map.getFieldOrNull<int>('recordCount') ?? 0,
+      lastMaintenance: map.getFieldOrNull<String>('lastMaintenance') ?? '',
+      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
+      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
     );
   }
 
@@ -318,12 +334,12 @@ class MaintenanceRecordCostStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordCostStatisticsModel(
-      totalCost: map['totalCost']?.toDouble(),
-      averageCost: map['averageCost']?.toDouble(),
-      minCost: map['minCost']?.toDouble(),
-      maxCost: map['maxCost']?.toDouble(),
-      recordsWithCost: map['recordsWithCost']?.toInt() ?? 0,
-      recordsWithoutCost: map['recordsWithoutCost']?.toInt() ?? 0,
+      totalCost: map.getDoubleOrNull('totalCost'),
+      averageCost: map.getDoubleOrNull('averageCost'),
+      minCost: map.getDoubleOrNull('minCost'),
+      maxCost: map.getDoubleOrNull('maxCost'),
+      recordsWithCost: map.getFieldOrNull<int>('recordsWithCost') ?? 0,
+      recordsWithoutCost: map.getFieldOrNull<int>('recordsWithoutCost') ?? 0,
     );
   }
 
@@ -353,8 +369,8 @@ class MaintenanceRecordCompletionTrendModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordCompletionTrendModel(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -384,9 +400,9 @@ class MaintenanceRecordMonthlyTrendModel extends Equatable {
 
   factory MaintenanceRecordMonthlyTrendModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceRecordMonthlyTrendModel(
-      month: map['month'] ?? '',
-      recordCount: map['recordCount']?.toInt() ?? 0,
-      totalCost: map['totalCost']?.toDouble() ?? 0.0,
+      month: map.getFieldOrNull<String>('month') ?? '',
+      recordCount: map.getFieldOrNull<int>('recordCount') ?? 0,
+      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
     );
   }
 
@@ -462,21 +478,25 @@ class MaintenanceRecordSummaryStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordSummaryStatisticsModel(
-      totalRecords: map['totalRecords']?.toInt() ?? 0,
-      recordsWithCostInfo: map['recordsWithCostInfo']?.toInt() ?? 0,
-      costInfoPercentage: map['costInfoPercentage']?.toDouble() ?? 0.0,
-      totalUniqueVendors: map['totalUniqueVendors']?.toInt() ?? 0,
-      totalUniquePerformers: map['totalUniquePerformers']?.toInt() ?? 0,
-      averageRecordsPerDay: map['averageRecordsPerDay']?.toDouble() ?? 0.0,
-      latestRecordDate: DateTime.parse(map['latestRecordDate'] ?? ''),
-      earliestRecordDate: DateTime.parse(map['earliestRecordDate'] ?? ''),
-      mostExpensiveMaintenanceCost: map['mostExpensiveMaintenanceCost']
-          ?.toDouble(),
-      leastExpensiveMaintenanceCost: map['leastExpensiveMaintenanceCost']
-          ?.toDouble(),
-      assetsWithMaintenance: map['assetsWithMaintenance']?.toInt() ?? 0,
+      totalRecords: map.getFieldOrNull<int>('totalRecords') ?? 0,
+      recordsWithCostInfo: map.getFieldOrNull<int>('recordsWithCostInfo') ?? 0,
+      costInfoPercentage: map.getDoubleOrNull('costInfoPercentage') ?? 0.0,
+      totalUniqueVendors: map.getFieldOrNull<int>('totalUniqueVendors') ?? 0,
+      totalUniquePerformers:
+          map.getFieldOrNull<int>('totalUniquePerformers') ?? 0,
+      averageRecordsPerDay: map.getDoubleOrNull('averageRecordsPerDay') ?? 0.0,
+      latestRecordDate: map.getDateTime('latestRecordDate'),
+      earliestRecordDate: map.getDateTime('earliestRecordDate'),
+      mostExpensiveMaintenanceCost: map.getDoubleOrNull(
+        'mostExpensiveMaintenanceCost',
+      ),
+      leastExpensiveMaintenanceCost: map.getDoubleOrNull(
+        'leastExpensiveMaintenanceCost',
+      ),
+      assetsWithMaintenance:
+          map.getFieldOrNull<int>('assetsWithMaintenance') ?? 0,
       averageMaintenancePerAsset:
-          map['averageMaintenancePerAsset']?.toDouble() ?? 0.0,
+          map.getDoubleOrNull('averageMaintenancePerAsset') ?? 0.0,
     );
   }
 

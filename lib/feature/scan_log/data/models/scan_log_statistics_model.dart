@@ -182,8 +182,8 @@ class ScanMethodStatisticsModel extends Equatable {
 
   factory ScanMethodStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanMethodStatisticsModel(
-      method: ScanMethodType.fromJson(map['method']),
-      count: map['count']?.toInt() ?? 0,
+      method: ScanMethodType.fromJson(map.getField<String>('method')),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -219,8 +219,8 @@ class ScanResultStatisticsModel extends Equatable {
 
   factory ScanResultStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanResultStatisticsModel(
-      result: ScanResultType.fromJson(map['result']),
-      count: map['count']?.toInt() ?? 0,
+      result: ScanResultType.fromJson(map.getField<String>('result')),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -265,8 +265,8 @@ class ScanGeographicStatisticsModel extends Equatable {
 
   factory ScanGeographicStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanGeographicStatisticsModel(
-      withCoordinates: map['withCoordinates']?.toInt() ?? 0,
-      withoutCoordinates: map['withoutCoordinates']?.toInt() ?? 0,
+      withCoordinates: map.getFieldOrNull<int>('withCoordinates') ?? 0,
+      withoutCoordinates: map.getFieldOrNull<int>('withoutCoordinates') ?? 0,
     );
   }
 
@@ -299,8 +299,8 @@ class ScanTrendModel extends Equatable {
 
   factory ScanTrendModel.fromMap(Map<String, dynamic> map) {
     return ScanTrendModel(
-      date: DateTime.parse(map['date'] ?? ''),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -335,8 +335,8 @@ class ScannerStatisticsModel extends Equatable {
 
   factory ScannerStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScannerStatisticsModel(
-      userId: map['userId'] ?? '',
-      count: map['count']?.toInt() ?? 0,
+      userId: map.getFieldOrNull<String>('userId') ?? '',
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -414,13 +414,15 @@ class ScanLogSummaryStatisticsModel extends Equatable {
 
   factory ScanLogSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanLogSummaryStatisticsModel(
-      totalScans: map['totalScans']?.toInt() ?? 0,
-      successRate: map['successRate']?.toDouble() ?? 0.0,
-      scansWithCoordinates: map['scansWithCoordinates']?.toInt() ?? 0,
-      coordinatesPercentage: map['coordinatesPercentage']?.toDouble() ?? 0.0,
-      averageScansPerDay: map['averageScansPerDay']?.toDouble() ?? 0.0,
-      latestScanDate: DateTime.parse(map['latestScanDate'] ?? ''),
-      earliestScanDate: DateTime.parse(map['earliestScanDate'] ?? ''),
+      totalScans: map.getFieldOrNull<int>('totalScans') ?? 0,
+      successRate: map.getDoubleOrNull('successRate') ?? 0.0,
+      scansWithCoordinates:
+          map.getFieldOrNull<int>('scansWithCoordinates') ?? 0,
+      coordinatesPercentage:
+          map.getDoubleOrNull('coordinatesPercentage') ?? 0.0,
+      averageScansPerDay: map.getDoubleOrNull('averageScansPerDay') ?? 0.0,
+      latestScanDate: map.getDateTime('latestScanDate'),
+      earliestScanDate: map.getDateTime('earliestScanDate'),
     );
   }
 

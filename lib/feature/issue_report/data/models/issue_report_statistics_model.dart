@@ -120,10 +120,10 @@ class IssueReportPriorityStatisticsModel extends Equatable {
 
   factory IssueReportPriorityStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportPriorityStatisticsModel(
-      low: map['low']?.toInt() ?? 0,
-      medium: map['medium']?.toInt() ?? 0,
-      high: map['high']?.toInt() ?? 0,
-      critical: map['critical']?.toInt() ?? 0,
+      low: map.getFieldOrNull<int>('low') ?? 0,
+      medium: map.getFieldOrNull<int>('medium') ?? 0,
+      high: map.getFieldOrNull<int>('high') ?? 0,
+      critical: map.getFieldOrNull<int>('critical') ?? 0,
     );
   }
 
@@ -160,10 +160,10 @@ class IssueReportStatusStatisticsModel extends Equatable {
 
   factory IssueReportStatusStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportStatusStatisticsModel(
-      open: map['open']?.toInt() ?? 0,
-      inProgress: map['inProgress']?.toInt() ?? 0,
-      resolved: map['resolved']?.toInt() ?? 0,
-      closed: map['closed']?.toInt() ?? 0,
+      open: map.getFieldOrNull<int>('open') ?? 0,
+      inProgress: map.getFieldOrNull<int>('inProgress') ?? 0,
+      resolved: map.getFieldOrNull<int>('resolved') ?? 0,
+      closed: map.getFieldOrNull<int>('closed') ?? 0,
     );
   }
 
@@ -187,7 +187,9 @@ class IssueReportTypeStatisticsModel extends Equatable {
 
   factory IssueReportTypeStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportTypeStatisticsModel(
-      types: Map<String, int>.from(map['types'] ?? {}),
+      types: Map<String, int>.from(
+        map.getFieldOrNull<Map<String, dynamic>>('types') ?? {},
+      ),
     );
   }
 
@@ -215,8 +217,8 @@ class IssueReportCreationTrendModel extends Equatable {
 
   factory IssueReportCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return IssueReportCreationTrendModel(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -282,21 +284,19 @@ class IssueReportSummaryStatisticsModel extends Equatable {
 
   factory IssueReportSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportSummaryStatisticsModel(
-      totalReports: map['totalReports']?.toInt() ?? 0,
-      openPercentage: map['openPercentage']?.toDouble() ?? 0.0,
-      resolvedPercentage: map['resolvedPercentage']?.toDouble() ?? 0.0,
+      totalReports: map.getFieldOrNull<int>('totalReports') ?? 0,
+      openPercentage: map.getDoubleOrNull('openPercentage') ?? 0.0,
+      resolvedPercentage: map.getDoubleOrNull('resolvedPercentage') ?? 0.0,
       averageResolutionTime:
-          map['averageResolutionTimeInDays']?.toDouble() ?? 0.0,
-      mostCommonPriority: map['mostCommonPriority'] ?? '',
-      mostCommonType: map['mostCommonType'] ?? '',
-      criticalUnresolvedCount: map['criticalUnresolvedCount']?.toInt() ?? 0,
-      averageReportsPerDay: map['averageReportsPerDay']?.toDouble() ?? 0.0,
-      latestCreationDate: DateTime.fromMillisecondsSinceEpoch(
-        map['latestCreationDate'],
-      ),
-      earliestCreationDate: DateTime.fromMillisecondsSinceEpoch(
-        map['earliestCreationDate'],
-      ),
+          map.getDoubleOrNull('averageResolutionTimeInDays') ?? 0.0,
+      mostCommonPriority:
+          map.getFieldOrNull<String>('mostCommonPriority') ?? '',
+      mostCommonType: map.getFieldOrNull<String>('mostCommonType') ?? '',
+      criticalUnresolvedCount:
+          map.getFieldOrNull<int>('criticalUnresolvedCount') ?? 0,
+      averageReportsPerDay: map.getDoubleOrNull('averageReportsPerDay') ?? 0.0,
+      latestCreationDate: map.getDateTime('latestCreationDate'),
+      earliestCreationDate: map.getDateTime('earliestCreationDate'),
     );
   }
 

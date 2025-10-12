@@ -169,11 +169,11 @@ class NotificationTypeStatisticsModel extends Equatable {
 
   factory NotificationTypeStatisticsModel.fromMap(Map<String, dynamic> map) {
     return NotificationTypeStatisticsModel(
-      maintenance: map['maintenance']?.toInt() ?? 0,
-      warranty: map['warranty']?.toInt() ?? 0,
-      statusChange: map['statusChange']?.toInt() ?? 0,
-      movement: map['movement']?.toInt() ?? 0,
-      issueReport: map['issueReport']?.toInt() ?? 0,
+      maintenance: map.getFieldOrNull<int>('maintenance') ?? 0,
+      warranty: map.getFieldOrNull<int>('warranty') ?? 0,
+      statusChange: map.getFieldOrNull<int>('statusChange') ?? 0,
+      movement: map.getFieldOrNull<int>('movement') ?? 0,
+      issueReport: map.getFieldOrNull<int>('issueReport') ?? 0,
     );
   }
 
@@ -212,8 +212,8 @@ class NotificationStatusStatisticsModel extends Equatable {
 
   factory NotificationStatusStatisticsModel.fromMap(Map<String, dynamic> map) {
     return NotificationStatusStatisticsModel(
-      read: map['read']?.toInt() ?? 0,
-      unread: map['unread']?.toInt() ?? 0,
+      read: map.getFieldOrNull<int>('read') ?? 0,
+      unread: map.getFieldOrNull<int>('unread') ?? 0,
     );
   }
 
@@ -252,8 +252,8 @@ class NotificationCreationTrendModel extends Equatable {
 
   factory NotificationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return NotificationCreationTrendModel(
-      date: DateTime.parse(map['date'] ?? ''),
-      count: map['count']?.toInt() ?? 0,
+      date: map.getDateTime('date'),
+      count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
 
@@ -332,14 +332,14 @@ class NotificationSummaryStatisticsModel extends Equatable {
 
   factory NotificationSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return NotificationSummaryStatisticsModel(
-      totalNotifications: map['totalNotifications']?.toInt() ?? 0,
-      readPercentage: map['readPercentage']?.toDouble() ?? 0.0,
-      unreadPercentage: map['unreadPercentage']?.toDouble() ?? 0.0,
-      mostCommonType: map['mostCommonType'] ?? '',
+      totalNotifications: map.getFieldOrNull<int>('totalNotifications') ?? 0,
+      readPercentage: map.getDoubleOrNull('readPercentage') ?? 0.0,
+      unreadPercentage: map.getDoubleOrNull('unreadPercentage') ?? 0.0,
+      mostCommonType: map.getFieldOrNull<String>('mostCommonType') ?? '',
       averageNotificationsPerDay:
-          map['averageNotificationsPerDay']?.toDouble() ?? 0.0,
-      latestCreationDate: DateTime.parse(map['latestCreationDate'] ?? ''),
-      earliestCreationDate: DateTime.parse(map['earliestCreationDate'] ?? ''),
+          map.getDoubleOrNull('averageNotificationsPerDay') ?? 0.0,
+      latestCreationDate: map.getDateTime('latestCreationDate'),
+      earliestCreationDate: map.getDateTime('earliestCreationDate'),
     );
   }
 

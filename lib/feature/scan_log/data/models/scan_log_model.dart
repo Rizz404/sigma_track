@@ -89,8 +89,8 @@ class ScanLogModel extends Equatable {
       scanMethod: ScanMethodType.fromJson(map.getField<String>('scanMethod')),
       scannedById: map.getField<String>('scannedById'),
       scanTimestamp: map.getDateTime('scanTimestamp'),
-      scanLocationLat: map.getFieldOrNull<double>('scanLocationLat'),
-      scanLocationLng: map.getFieldOrNull<double>('scanLocationLng'),
+      scanLocationLat: map.getDoubleOrNull('scanLocationLat'),
+      scanLocationLng: map.getDoubleOrNull('scanLocationLng'),
       scanResult: ScanResultType.fromJson(map.getField<String>('scanResult')),
     );
   }
