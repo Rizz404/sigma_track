@@ -404,7 +404,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyScanLogs = List.generate(6, (_) => ScanLog.dummy());
+    final dummyScanLogs = List.generate(10, (_) => ScanLog.dummy());
     return Skeletonizer(
       enabled: true,
       child: _buildScanLogsList(dummyScanLogs),

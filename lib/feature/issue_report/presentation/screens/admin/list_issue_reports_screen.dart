@@ -414,7 +414,7 @@ class _ListIssueReportsScreenState
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyIssueReports = List.generate(6, (_) => IssueReport.dummy());
+    final dummyIssueReports = List.generate(10, (_) => IssueReport.dummy());
     return Skeletonizer(
       enabled: true,
       child: _buildIssueReportsList(dummyIssueReports),

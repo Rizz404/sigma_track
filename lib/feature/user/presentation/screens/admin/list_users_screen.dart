@@ -406,7 +406,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyUsers = List.generate(6, (_) => User.dummy());
+    final dummyUsers = List.generate(10, (_) => User.dummy());
     return Skeletonizer(enabled: true, child: _buildUsersList(dummyUsers));
   }
 

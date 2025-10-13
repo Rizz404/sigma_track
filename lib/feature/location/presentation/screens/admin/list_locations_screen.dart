@@ -394,7 +394,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyLocations = List.generate(6, (_) => Location.dummy());
+    final dummyLocations = List.generate(10, (_) => Location.dummy());
     return Skeletonizer(
       enabled: true,
       child: _buildLocationsGrid(dummyLocations),
@@ -445,7 +445,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
       padding: const EdgeInsets.only(bottom: 80),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
       ),

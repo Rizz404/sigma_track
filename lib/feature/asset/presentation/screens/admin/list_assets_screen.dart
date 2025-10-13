@@ -406,7 +406,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyAssets = List.generate(6, (_) => Asset.dummy());
+    final dummyAssets = List.generate(10, (_) => Asset.dummy());
     return Skeletonizer(enabled: true, child: _buildAssetsList(dummyAssets));
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
@@ -11,6 +12,9 @@ import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
+import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_providers.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -38,11 +42,13 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   void initState() {
     super.initState();
     _asset = widget.asset;
-    if (_asset == null && (widget.id != null || widget.assetTag != null)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_asset == null && (widget.id != null || widget.assetTag != null)) {
         _fetchAsset();
-      });
-    }
+      }
+      // ! DO NOT create scan log here for direct asset pass
+      // ? Scan log already created in scan_asset_screen.dart before navigation
+    });
   }
 
   Future<void> _fetchAsset() async {
@@ -60,6 +66,12 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             _asset = state.asset;
             _isLoading = false;
           });
+
+          // * Create scan log for manual view
+          await _createScanLog(
+            assetId: state.asset!.id,
+            scannedValue: state.asset!.assetTag,
+          );
         } else if (state.failure != null) {
           this.logError('Failed to fetch asset by id', state.failure);
           AppToast.error(state.failure?.message ?? 'Failed to load asset');
@@ -78,6 +90,12 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             _asset = state.asset;
             _isLoading = false;
           });
+
+          // * Create scan log for manual view
+          await _createScanLog(
+            assetId: state.asset!.id,
+            scannedValue: state.asset!.assetTag,
+          );
         } else if (state.failure != null) {
           this.logError('Failed to fetch asset by tag', state.failure);
           AppToast.error(state.failure?.message ?? 'Failed to load asset');
@@ -89,6 +107,80 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       AppToast.error('Failed to load asset');
       setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _createScanLog({
+    required String assetId,
+    required String scannedValue,
+  }) async {
+    try {
+      // * Get current user
+      final currentUserState = ref.read(currentUserNotifierProvider);
+      if (currentUserState.user == null) {
+        this.logError('Cannot create scan log: user not found');
+        return;
+      }
+
+      // * Get current location
+      Position? position;
+      try {
+        position = await _getCurrentLocation();
+      } catch (e) {
+        this.logInfo('Location unavailable: $e');
+      }
+
+      // * Create scan log
+      final scanLogNotifier = ref.read(scanLogsProvider.notifier);
+      await scanLogNotifier.createScanLog(
+        CreateScanLogUsecaseParams(
+          assetId: assetId,
+          scannedValue: scannedValue,
+          scanMethod: ScanMethodType.manualInput,
+          scannedById: currentUserState.user!.id,
+          scanTimestamp: DateTime.now(),
+          scanLocationLat: position?.latitude,
+          scanLocationLng: position?.longitude,
+          scanResult: ScanResultType.success,
+        ),
+      );
+
+      this.logInfo('Scan log created successfully');
+    } catch (e, s) {
+      this.logError('Failed to create scan log', e, s);
+      // ! Don't show error to user, log creation is not critical
+    }
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // * Check if location services enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception('Location services disabled');
+    }
+
+    // * Check permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception('Location permissions denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception('Location permissions permanently denied');
+    }
+
+    // * Get position
+    return await Geolocator.getCurrentPosition(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        timeLimit: Duration(seconds: 5),
+      ),
+    );
   }
 
   void _handleEdit() {

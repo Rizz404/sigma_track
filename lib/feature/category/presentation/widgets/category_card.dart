@@ -45,44 +45,62 @@ class CategoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Opacity(
           opacity: isDisabled ? 0.5 : 1.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (onSelect != null)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Checkbox(
-                          value: isSelected,
-                          onChanged: isDisabled ? null : onSelect,
-                        ),
-                      ),
-                    ],
+          child: Stack(
+            children: [
+              // Background Icon - hanya tampil jika bukan dummy/skeleton
+              if (category.id.isNotEmpty)
+                Positioned(
+                  right: -10,
+                  top: -10,
+                  child: Icon(
+                    Icons.category_rounded,
+                    size: 80,
+                    color: context.colorScheme.primary.withOpacity(0.15),
                   ),
-                if (onSelect != null) const SizedBox(height: 8),
-                AppText(
-                  category.categoryName,
-                  style: AppTextStyle.titleMedium,
-                  fontWeight: FontWeight.w600,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
-                AppText(
-                  category.categoryCode,
-                  style: AppTextStyle.bodySmall,
-                  color: context.colors.textSecondary,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Checkbox di kanan atas
+                    if (onSelect != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: isSelected,
+                              onChanged: isDisabled ? null : onSelect,
+                            ),
+                          ),
+                        ],
+                      ),
+                    // Spacer untuk mendorong konten ke bawah
+                    const Spacer(),
+                    // Text content di bawah
+                    AppText(
+                      category.categoryName,
+                      style: AppTextStyle.titleMedium,
+                      fontWeight: FontWeight.w600,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    AppText(
+                      category.categoryCode,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

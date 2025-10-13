@@ -434,7 +434,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyCategories = List.generate(6, (_) => Category.dummy());
+    final dummyCategories = List.generate(10, (_) => Category.dummy());
     return Skeletonizer(
       enabled: true,
       child: _buildCategoriesGrid(dummyCategories),
@@ -485,7 +485,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
       padding: const EdgeInsets.only(bottom: 80),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
       ),

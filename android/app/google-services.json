@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "826870202449",
+    "project_id": "sigma-track-9b252",
+    "storage_bucket": "sigma-track-9b252.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826870202449:android:8bfd313f292964e22e3870",
+        "android_client_info": {
+          "package_name": "rizz.learn.tires.sigma_track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJjlbBGUBuUnhCpywEsreF3dxD2Q5tTkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

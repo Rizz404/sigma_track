@@ -414,7 +414,7 @@ class _ListAssetMovementsScreenState
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final dummyAssetMovements = List.generate(6, (_) => AssetMovement.dummy());
+    final dummyAssetMovements = List.generate(10, (_) => AssetMovement.dummy());
     return Skeletonizer(
       enabled: true,
       child: _buildAssetMovementsList(dummyAssetMovements),

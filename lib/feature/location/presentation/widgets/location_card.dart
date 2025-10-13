@@ -45,57 +45,72 @@ class LocationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Opacity(
           opacity: isDisabled ? 0.5 : 1.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (onSelect != null)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Checkbox(
-                          value: isSelected,
-                          onChanged: isDisabled ? null : onSelect,
-                        ),
+          child: Stack(
+            children: [
+              if (location.id.isNotEmpty)
+                Positioned(
+                  right: -10,
+                  top: -10,
+                  child: Icon(
+                    Icons.location_on_rounded,
+                    size: 80,
+                    color: context.colorScheme.primary.withOpacity(0.15),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (onSelect != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: isSelected,
+                              onChanged: isDisabled ? null : onSelect,
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (onSelect != null) const SizedBox(height: 8),
+                    AppText(
+                      location.locationName,
+                      style: AppTextStyle.titleMedium,
+                      fontWeight: FontWeight.w600,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    AppText(
+                      location.locationCode,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (location.building != null ||
+                        location.floor != null) ...[
+                      const SizedBox(height: 4),
+                      AppText(
+                        [
+                          if (location.building != null) location.building!,
+                          if (location.floor != null) 'Floor ${location.floor}',
+                        ].join(' • '),
+                        style: AppTextStyle.labelSmall,
+                        color: context.colors.textSecondary,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
-                  ),
-                if (onSelect != null) const SizedBox(height: 8),
-                AppText(
-                  location.locationName,
-                  style: AppTextStyle.titleMedium,
-                  fontWeight: FontWeight.w600,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  ],
                 ),
-                const SizedBox(height: 4),
-                AppText(
-                  location.locationCode,
-                  style: AppTextStyle.bodySmall,
-                  color: context.colors.textSecondary,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                if (location.building != null || location.floor != null) ...[
-                  const SizedBox(height: 4),
-                  AppText(
-                    [
-                      if (location.building != null) location.building!,
-                      if (location.floor != null) 'Floor ${location.floor}',
-                    ].join(' • '),
-                    style: AppTextStyle.labelSmall,
-                    color: context.colors.textSecondary,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
