@@ -10,6 +10,7 @@ import 'package:sigma_track/feature/asset/presentation/providers/count_assets_no
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_id_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_tag_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_tag_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/my_assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_tag_suggestion_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_boolean_state.dart';
@@ -21,6 +22,11 @@ import 'package:sigma_track/feature/asset/presentation/providers/state/asset_sta
 final assetsProvider = AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
   AssetsNotifier.new,
 );
+
+final myAssetsProvider =
+    AutoDisposeNotifierProvider<MyAssetsNotifier, AssetsState>(
+      MyAssetsNotifier.new,
+    );
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)
 final assetsSearchProvider =

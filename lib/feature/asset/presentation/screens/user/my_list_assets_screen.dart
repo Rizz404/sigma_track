@@ -1,14 +1,396 @@
-import 'package:flutter/material.dart';
-import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'dart:async';
 
-class MyListAssetsScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
+import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
+import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+
+class MyListAssetsScreen extends ConsumerStatefulWidget {
   const MyListAssetsScreen({super.key});
 
   @override
+  ConsumerState<MyListAssetsScreen> createState() => _MyListAssetsScreenState();
+}
+
+class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
+  final _scrollController = ScrollController();
+  final _filterFormKey = GlobalKey<FormBuilderState>();
+  Timer? _debounceTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.9) {
+      ref.read(myAssetsProvider.notifier).loadMore();
+    }
+  }
+
+  Future<void> _onRefresh() async {
+    await ref.read(myAssetsProvider.notifier).refresh();
+  }
+
+  void _applyFilter() {
+    if (_filterFormKey.currentState?.saveAndValidate() ?? false) {
+      final formData = _filterFormKey.currentState!.value;
+
+      final newFilter = AssetsFilter(
+        status: formData['status'] != null
+            ? AssetStatus.fromString(formData['status'])
+            : null,
+        condition: formData['condition'] != null
+            ? AssetCondition.fromString(formData['condition'])
+            : null,
+        brand: formData['brand']?.isNotEmpty == true ? formData['brand'] : null,
+        model: formData['model']?.isNotEmpty == true ? formData['model'] : null,
+        sortBy: formData['sortBy'] != null
+            ? AssetSortBy.fromString(formData['sortBy'])
+            : null,
+        sortOrder: formData['sortOrder'] != null
+            ? SortOrder.fromString(formData['sortOrder'])
+            : null,
+      );
+
+      ref.read(myAssetsProvider.notifier).updateFilter(newFilter);
+    }
+  }
+
+  void _showFilterBottomSheet() {
+    final currentFilter = ref.read(myAssetsProvider).assetsFilter;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        builder: (context, scrollController) => Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const AppText(
+                      'Filters & Sorting',
+                      style: AppTextStyle.titleMedium,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(),
+              Expanded(
+                child: FormBuilder(
+                  key: _filterFormKey,
+                  child: ListView(
+                    controller: scrollController,
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      AppDropdown<String>(
+                        name: 'status',
+                        label: 'Status',
+                        initialValue: currentFilter.status?.value,
+                        items: AssetStatus.values
+                            .map(
+                              (status) => AppDropdownItem(
+                                value: status.value,
+                                label: status.label,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      const SizedBox(height: 16),
+                      AppDropdown<String>(
+                        name: 'condition',
+                        label: 'Condition',
+                        initialValue: currentFilter.condition?.value,
+                        items: AssetCondition.values
+                            .map(
+                              (condition) => AppDropdownItem(
+                                value: condition.value,
+                                label: condition.label,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      const SizedBox(height: 16),
+                      AppTextField(
+                        name: 'brand',
+                        label: 'Brand',
+                        placeHolder: 'Enter brand...',
+                        initialValue: currentFilter.brand,
+                      ),
+                      const SizedBox(height: 16),
+                      AppTextField(
+                        name: 'model',
+                        label: 'Model',
+                        placeHolder: 'Enter model...',
+                        initialValue: currentFilter.model,
+                      ),
+                      const SizedBox(height: 16),
+                      AppDropdown<String>(
+                        name: 'sortBy',
+                        label: 'Sort By',
+                        initialValue: currentFilter.sortBy?.value,
+                        items: AssetSortBy.values
+                            .map(
+                              (sortBy) => AppDropdownItem(
+                                value: sortBy.value,
+                                label: sortBy.value,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      const SizedBox(height: 16),
+                      AppDropdown<String>(
+                        name: 'sortOrder',
+                        label: 'Sort Order',
+                        initialValue: currentFilter.sortOrder?.value,
+                        items: SortOrder.values
+                            .map(
+                              (sortOrder) => AppDropdownItem(
+                                value: sortOrder.value,
+                                label: sortOrder.label,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      const SizedBox(height: 24),
+                      AppButton(
+                        text: 'Apply Filters',
+                        onPressed: () {
+                          _applyFilter();
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ScreenWrapper(child: Center(child: AppText('MyListAssetsScreen'))),
+    final state = ref.watch(myAssetsProvider);
+
+    ref.listen(myAssetsProvider, (previous, next) {
+      if (next.message != null) {
+        AppToast.success(next.message!);
+      }
+
+      if (next.failure != null) {
+        this.logError('MyAssets error', next.failure);
+        AppToast.error(next.failure!.message);
+      }
+    });
+
+    return Scaffold(
+      appBar: const CustomAppBar(title: 'My Assets'),
+      body: ScreenWrapper(
+        child: Column(
+          children: [
+            _buildSearchBar(),
+            const SizedBox(height: 12),
+            _buildFilterButton(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _onRefresh,
+                color: context.colorScheme.primary,
+                child: state.isLoading
+                    ? _buildLoadingState(context)
+                    : state.assets.isEmpty
+                    ? _buildEmptyState(context)
+                    : _buildAssetsList(state.assets, state.isLoadingMore),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return AppSearchField(
+      name: 'search',
+      hintText: 'Search my assets...',
+      onChanged: (value) {
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          ref.read(myAssetsProvider.notifier).search(value);
+        });
+      },
+    );
+  }
+
+  Widget _buildFilterButton() {
+    final currentFilter = ref.watch(myAssetsProvider).assetsFilter;
+    final hasActiveFilters =
+        currentFilter.status != null ||
+        currentFilter.condition != null ||
+        currentFilter.brand != null ||
+        currentFilter.model != null ||
+        currentFilter.sortBy != null ||
+        currentFilter.sortOrder != null;
+
+    return InkWell(
+      onTap: _showFilterBottomSheet,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: hasActiveFilters
+                ? context.colorScheme.primary
+                : context.colors.border,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.filter_list,
+              color: hasActiveFilters
+                  ? context.colorScheme.primary
+                  : context.colors.textSecondary,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: AppText(
+                hasActiveFilters ? 'Filters Applied' : 'Filter & Sort',
+                style: AppTextStyle.bodyMedium,
+                color: hasActiveFilters
+                    ? context.colorScheme.primary
+                    : context.colors.textSecondary,
+              ),
+            ),
+            Icon(
+              Icons.arrow_drop_down,
+              color: hasActiveFilters
+                  ? context.colorScheme.primary
+                  : context.colors.textSecondary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingState(BuildContext context) {
+    final dummyAssets = List.generate(10, (_) => Asset.dummy());
+    return Skeletonizer(enabled: true, child: _buildAssetsList(dummyAssets));
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
+          const SizedBox(height: 16),
+          AppText(
+            'No assets found',
+            style: AppTextStyle.titleMedium,
+            color: context.colors.textSecondary,
+          ),
+          const SizedBox(height: 8),
+          AppText(
+            'You have no assigned assets',
+            style: AppTextStyle.bodyMedium,
+            color: context.colors.textTertiary,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAssetsList(List<Asset> assets, [bool isLoadingMore = false]) {
+    final isMutating = ref.watch(
+      myAssetsProvider.select((state) => state.isMutating),
+    );
+
+    final displayAssets = isLoadingMore
+        ? assets + List.generate(2, (_) => Asset.dummy())
+        : assets;
+
+    return ListView.builder(
+      controller: _scrollController,
+      padding: const EdgeInsets.only(bottom: 80),
+      itemCount: displayAssets.length,
+      itemBuilder: (context, index) {
+        final asset = displayAssets[index];
+        final isSkeleton = isLoadingMore && index >= assets.length;
+
+        return Skeletonizer(
+          enabled: isSkeleton,
+          child: AssetTile(
+            asset: asset,
+            isDisabled: isMutating,
+            onTap: isSkeleton
+                ? null
+                : () {
+                    this.logPresentation('Asset tapped: ${asset.id}');
+                    context.push(RouteConstant.assetDetail, extra: asset);
+                  },
+          ),
+        );
+      },
     );
   }
 }

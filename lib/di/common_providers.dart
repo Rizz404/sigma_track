@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -53,6 +54,11 @@ final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
 // * Router Provider - Inject Ref ke AppRouter
 final routerProvider = Provider<GoRouter>((ref) {
   return AppRouter().createRouter(ref);
+});
+
+// * Firebase Messaging Provider
+final firebaseMessagingProvider = Provider<FirebaseMessaging>((ref) {
+  return FirebaseMessaging.instance;
 });
 
 class LocaleNotifier extends Notifier<Locale> {

@@ -35,6 +35,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   final bool? isActive;
   final String? avatarUrl;
   final File? avatarFile;
+  final String? fcmToken;
 
   UpdateCurrentUserUsecaseParams({
     this.name,
@@ -47,6 +48,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     this.isActive,
     this.avatarUrl,
     this.avatarFile,
+    this.fcmToken,
   });
 
   UpdateCurrentUserUsecaseParams copyWith({
@@ -60,6 +62,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     ValueGetter<bool?>? isActive,
     ValueGetter<String?>? avatarUrl,
     ValueGetter<File?>? avatarFile,
+    ValueGetter<String?>? fcmToken,
   }) {
     return UpdateCurrentUserUsecaseParams(
       name: name != null ? name() : this.name,
@@ -74,6 +77,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       isActive: isActive != null ? isActive() : this.isActive,
       avatarUrl: avatarUrl != null ? avatarUrl() : this.avatarUrl,
       avatarFile: avatarFile != null ? avatarFile() : this.avatarFile,
+      fcmToken: fcmToken != null ? fcmToken() : this.fcmToken,
     );
   }
 
@@ -89,6 +93,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       if (isActive != null) 'isActive': isActive,
       if (avatarUrl != null) 'avatarUrl': avatarUrl,
       if (avatarFile != null) 'avatarFile': avatarFile!.path,
+      if (fcmToken != null) 'fcmToken': fcmToken,
     };
   }
 
@@ -104,6 +109,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       isActive: map['isActive'],
       avatarUrl: map['avatarUrl'],
       avatarFile: map['avatarFile'] != null ? File(map['avatarFile']) : null,
+      fcmToken: map['fcmToken'],
     );
   }
 
@@ -114,7 +120,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, avatarFile: $avatarFile)';
+    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, avatarFile: $avatarFile, fcmToken: $fcmToken)';
   }
 
   @override
@@ -130,6 +136,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
       isActive,
       avatarUrl,
       avatarFile,
+      fcmToken,
     ];
   }
 }

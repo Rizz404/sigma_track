@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,10 +10,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/themes/app_theme.dart';
-import 'package:sigma_track/core/utils/talker_config.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
+import 'package:sigma_track/firebase_options.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
+
+// * Background message handler - must be top-level function
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // TODO: Handle background message
+}
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +31,14 @@ Future<void> main() async {
   TalkerConfig.initialize();
 
   try {
+    // * Initialize Firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    // * Setup Firebase Messaging background handler
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
     // * Pre-cache main font selagi splash screen
     await GoogleFonts.pendingFonts();
 
@@ -51,6 +69,7 @@ Future<void> main() async {
     );
   } catch (e) {
     FlutterNativeSplash.remove();
+    logger.error('Error initializing app', e);
 
     runApp(
       const ProviderScope(
