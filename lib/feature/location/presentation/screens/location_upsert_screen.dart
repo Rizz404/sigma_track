@@ -350,7 +350,11 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               label: 'Location Code',
               placeHolder: 'Enter location code (e.g., LOC-001)',
               initialValue: widget.location?.locationCode,
-              validator: LocationUpsertValidator.validateLocationCode,
+              validator: (value) =>
+                  LocationUpsertValidator.validateLocationCode(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -375,7 +379,11 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                     label: 'Latitude (Optional)',
                     placeHolder: 'Enter latitude',
                     initialValue: widget.location?.latitude?.toString(),
-                    validator: LocationUpsertValidator.validateLatitude,
+                    validator: (value) =>
+                        LocationUpsertValidator.validateLatitude(
+                          value,
+                          isUpdate: _isEdit,
+                        ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -385,7 +393,11 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                     label: 'Longitude (Optional)',
                     placeHolder: 'Enter longitude',
                     initialValue: widget.location?.longitude?.toString(),
-                    validator: LocationUpsertValidator.validateLongitude,
+                    validator: (value) =>
+                        LocationUpsertValidator.validateLongitude(
+                          value,
+                          isUpdate: _isEdit,
+                        ),
                   ),
                 ),
               ],
@@ -478,7 +490,10 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             placeHolder: 'Enter location name',
             initialValue: translation?.locationName,
             validator: langCode == 'en-US'
-                ? LocationUpsertValidator.validateLocationName
+                ? (value) => LocationUpsertValidator.validateLocationName(
+                    value,
+                    isUpdate: _isEdit,
+                  )
                 : null,
           ),
         ],

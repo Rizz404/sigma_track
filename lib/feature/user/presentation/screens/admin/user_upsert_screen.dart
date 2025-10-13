@@ -169,7 +169,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               label: 'Username',
               placeHolder: 'Enter username',
               initialValue: widget.user?.name,
-              validator: UserUpsertValidator.validateName,
+              validator: (value) =>
+                  UserUpsertValidator.validateName(value, isUpdate: _isEdit),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -177,16 +178,20 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               label: 'Email',
               placeHolder: 'Enter email',
               initialValue: widget.user?.email,
-              validator: UserUpsertValidator.validateEmail,
+              validator: (value) =>
+                  UserUpsertValidator.validateEmail(value, isUpdate: _isEdit),
             ),
             const SizedBox(height: 16),
             if (!_isEdit) ...[
-              const AppTextField(
+              AppTextField(
                 name: 'password',
                 label: 'Password',
                 placeHolder: 'Enter password',
                 type: AppTextFieldType.password,
-                validator: UserUpsertValidator.validatePassword,
+                validator: (value) => UserUpsertValidator.validatePassword(
+                  value,
+                  isUpdate: _isEdit,
+                ),
               ),
               const SizedBox(height: 16),
             ],
@@ -195,7 +200,10 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               label: 'Full Name',
               placeHolder: 'Enter full name',
               initialValue: widget.user?.fullName,
-              validator: UserUpsertValidator.validateFullName,
+              validator: (value) => UserUpsertValidator.validateFullName(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppDropdown(
@@ -212,7 +220,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                   )
                   .toList(),
               initialValue: widget.user?.role.value,
-              validator: UserUpsertValidator.validateRole,
+              validator: (value) =>
+                  UserUpsertValidator.validateRole(value, isUpdate: _isEdit),
             ),
             const SizedBox(height: 16),
             AppTextField(

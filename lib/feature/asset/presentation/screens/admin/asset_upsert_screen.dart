@@ -317,7 +317,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     label: 'Asset Tag',
                     placeHolder: 'Enter asset tag (e.g., AST-001)',
                     initialValue: widget.asset?.assetTag,
-                    validator: AssetUpsertValidator.validateAssetTag,
+                    validator: (value) => AssetUpsertValidator.validateAssetTag(
+                      value,
+                      isUpdate: _isEdit,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -341,7 +344,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: 'Asset Name',
               placeHolder: 'Enter asset name',
               initialValue: widget.asset?.assetName,
-              validator: AssetUpsertValidator.validateAssetName,
+              validator: (value) => AssetUpsertValidator.validateAssetName(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -349,7 +355,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: 'Brand (Optional)',
               placeHolder: 'Enter brand name',
               initialValue: widget.asset?.brand,
-              validator: AssetUpsertValidator.validateBrand,
+              validator: (value) =>
+                  AssetUpsertValidator.validateBrand(value, isUpdate: _isEdit),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -357,7 +364,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: 'Model (Optional)',
               placeHolder: 'Enter model',
               initialValue: widget.asset?.model,
-              validator: AssetUpsertValidator.validateModel,
+              validator: (value) =>
+                  AssetUpsertValidator.validateModel(value, isUpdate: _isEdit),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -365,7 +373,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: 'Serial Number (Optional)',
               placeHolder: 'Enter serial number',
               initialValue: widget.asset?.serialNumber,
-              validator: AssetUpsertValidator.validateSerialNumber,
+              validator: (value) => AssetUpsertValidator.validateSerialNumber(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             if (_dataMatrixPreviewData != null) ...[
@@ -460,7 +471,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               itemValueMapper: (category) => category.id,
               itemSubtitleMapper: (category) => category.categoryCode,
               itemIcon: Icons.category,
-              validator: AssetUpsertValidator.validateCategoryId,
+              validator: (value) => AssetUpsertValidator.validateCategoryId(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppSearchField<Location>(
@@ -514,7 +528,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               placeHolder: 'Enter purchase price',
               type: AppTextFieldType.number,
               initialValue: widget.asset?.purchasePrice?.toString(),
-              validator: AssetUpsertValidator.validatePurchasePrice,
+              validator: (value) => AssetUpsertValidator.validatePurchasePrice(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -522,7 +539,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: 'Vendor Name (Optional)',
               placeHolder: 'Enter vendor name',
               initialValue: widget.asset?.vendorName,
-              validator: AssetUpsertValidator.validateVendorName,
+              validator: (value) => AssetUpsertValidator.validateVendorName(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(

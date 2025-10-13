@@ -246,7 +246,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               itemValueMapper: (category) => category.id,
               itemSubtitleMapper: (category) => category.categoryCode,
               itemIcon: Icons.category,
-              validator: CategoryUpsertValidator.validateParentId,
+              validator: (value) => CategoryUpsertValidator.validateParentId(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
 
             const SizedBox(height: 16),
@@ -257,7 +260,11 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               initialValue:
                   (_isEdit ? _fetchedCategory?.categoryCode : null) ??
                   widget.category?.categoryCode,
-              validator: CategoryUpsertValidator.validateCategoryCode,
+              validator: (value) =>
+                  CategoryUpsertValidator.validateCategoryCode(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
           ],
         ),
@@ -336,7 +343,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             placeHolder: 'Enter category name',
             initialValue: translation?.categoryName,
             validator: langCode == 'en-US'
-                ? CategoryUpsertValidator.validateCategoryName
+                ? (value) => CategoryUpsertValidator.validateCategoryName(
+                    value,
+                    isUpdate: _isEdit,
+                  )
                 : null,
           ),
           const SizedBox(height: 12),
@@ -348,7 +358,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             maxLines: 3,
             initialValue: translation?.description,
             validator: langCode == 'en-US'
-                ? CategoryUpsertValidator.validateDescription
+                ? (value) => CategoryUpsertValidator.validateDescription(
+                    value,
+                    isUpdate: _isEdit,
+                  )
                 : null,
           ),
         ],

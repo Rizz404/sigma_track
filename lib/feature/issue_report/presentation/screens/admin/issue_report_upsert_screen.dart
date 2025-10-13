@@ -279,7 +279,10 @@ class _IssueReportUpsertScreenState
               itemValueMapper: (asset) => asset.id,
               itemSubtitleMapper: (asset) => asset.assetName,
               itemIcon: Icons.inventory,
-              validator: IssueReportUpsertValidator.validateAssetId,
+              validator: (value) => IssueReportUpsertValidator.validateAssetId(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppSearchField<User>(
@@ -293,7 +296,11 @@ class _IssueReportUpsertScreenState
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
-              validator: IssueReportUpsertValidator.validateReportedById,
+              validator: (value) =>
+                  IssueReportUpsertValidator.validateReportedById(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -301,7 +308,11 @@ class _IssueReportUpsertScreenState
               label: 'Issue Type',
               placeHolder: 'Enter issue type (e.g., Hardware, Software)',
               initialValue: widget.issueReport?.issueType,
-              validator: IssueReportUpsertValidator.validateIssueType,
+              validator: (value) =>
+                  IssueReportUpsertValidator.validateIssueType(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDropdown(
@@ -318,7 +329,10 @@ class _IssueReportUpsertScreenState
                   )
                   .toList(),
               initialValue: widget.issueReport?.priority.value,
-              validator: IssueReportUpsertValidator.validatePriority,
+              validator: (value) => IssueReportUpsertValidator.validatePriority(
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             if (_isEdit) ...[
               const SizedBox(height: 16),
@@ -336,7 +350,10 @@ class _IssueReportUpsertScreenState
                     )
                     .toList(),
                 initialValue: widget.issueReport?.status.value,
-                validator: IssueReportUpsertValidator.validateStatus,
+                validator: (value) => IssueReportUpsertValidator.validateStatus(
+                  value,
+                  isUpdate: _isEdit,
+                ),
               ),
             ],
           ],
@@ -409,7 +426,10 @@ class _IssueReportUpsertScreenState
             label: 'Title',
             placeHolder: 'Enter title in $langName',
             initialValue: translation?.title,
-            validator: IssueReportUpsertValidator.validateTitle,
+            validator: (value) => IssueReportUpsertValidator.validateTitle(
+              value,
+              isUpdate: _isEdit,
+            ),
           ),
           const SizedBox(height: 12),
           AppTextField(
@@ -418,7 +438,11 @@ class _IssueReportUpsertScreenState
             placeHolder: 'Enter description in $langName',
             initialValue: translation?.description,
             type: AppTextFieldType.multiline,
-            validator: IssueReportUpsertValidator.validateDescription,
+            validator: (value) =>
+                IssueReportUpsertValidator.validateDescription(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
         ],
       ),
@@ -450,7 +474,11 @@ class _IssueReportUpsertScreenState
               placeHolder: 'Enter resolution notes',
               initialValue: widget.issueReport?.resolutionNotes,
               type: AppTextFieldType.multiline,
-              validator: IssueReportUpsertValidator.validateResolutionNotes,
+              validator: (value) =>
+                  IssueReportUpsertValidator.validateResolutionNotes(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
           ],
         ),

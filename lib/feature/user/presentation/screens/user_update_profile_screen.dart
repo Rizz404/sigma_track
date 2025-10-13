@@ -100,7 +100,7 @@ class _UserUpdateProfileScreenState
           _avatarFile = null;
         }
         _filePickerKey.currentState?.reset();
-        // context.pop();
+        context.pop();
       } else if (next.failure != null) {
         if (next.failure is ValidationFailure) {
           setState(
@@ -211,7 +211,8 @@ class _UserUpdateProfileScreenState
               label: 'Username',
               placeHolder: 'Enter username',
               initialValue: user.name,
-              validator: UserUpdateProfileValidator.validateName,
+              validator: (value) =>
+                  UserUpdateProfileValidator.validateName(value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -219,7 +220,8 @@ class _UserUpdateProfileScreenState
               label: 'Email',
               placeHolder: 'Enter email',
               initialValue: user.email,
-              validator: UserUpdateProfileValidator.validateEmail,
+              validator: (value) =>
+                  UserUpdateProfileValidator.validateEmail(value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -227,7 +229,8 @@ class _UserUpdateProfileScreenState
               label: 'Full Name',
               placeHolder: 'Enter full name',
               initialValue: user.fullName,
-              validator: UserUpdateProfileValidator.validateFullName,
+              validator: (value) =>
+                  UserUpdateProfileValidator.validateFullName(value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -251,7 +254,12 @@ class _UserUpdateProfileScreenState
                     ),
                   )
                   .toList(),
-              initialValue: user.preferredLang,
+              initialValue:
+                  Language.values
+                      .map((e) => e.backendCode)
+                      .contains(user.preferredLang)
+                  ? user.preferredLang
+                  : null,
             ),
           ],
         ),

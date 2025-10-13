@@ -291,7 +291,11 @@ class _MaintenanceScheduleUpsertScreenState
               itemValueMapper: (asset) => asset.id,
               itemSubtitleMapper: (asset) => asset.assetName,
               itemIcon: Icons.inventory,
-              validator: MaintenanceScheduleUpsertValidator.validateAssetId,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateAssetId(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDropdown(
@@ -308,16 +312,22 @@ class _MaintenanceScheduleUpsertScreenState
                   )
                   .toList(),
               initialValue: widget.maintenanceSchedule?.maintenanceType.value,
-              validator:
-                  MaintenanceScheduleUpsertValidator.validateMaintenanceType,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateMaintenanceType(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'scheduledDate',
               label: 'Scheduled Date',
               initialValue: widget.maintenanceSchedule?.scheduledDate,
-              validator:
-                  MaintenanceScheduleUpsertValidator.validateScheduledDate,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateScheduledDate(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -327,8 +337,11 @@ class _MaintenanceScheduleUpsertScreenState
               initialValue: widget.maintenanceSchedule?.frequencyMonths
                   ?.toString(),
               type: AppTextFieldType.number,
-              validator:
-                  MaintenanceScheduleUpsertValidator.validateFrequencyMonths,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateFrequencyMonths(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDropdown(
@@ -345,7 +358,11 @@ class _MaintenanceScheduleUpsertScreenState
                   )
                   .toList(),
               initialValue: widget.maintenanceSchedule?.status.value,
-              validator: MaintenanceScheduleUpsertValidator.validateStatus,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateStatus(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppSearchField<User>(
@@ -359,7 +376,11 @@ class _MaintenanceScheduleUpsertScreenState
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
-              validator: MaintenanceScheduleUpsertValidator.validateCreatedById,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateCreatedById(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
           ],
         ),
@@ -433,7 +454,11 @@ class _MaintenanceScheduleUpsertScreenState
             label: 'Title',
             placeHolder: 'Enter title in $langName',
             initialValue: translation?.title,
-            validator: MaintenanceScheduleUpsertValidator.validateTitle,
+            validator: (value) =>
+                MaintenanceScheduleUpsertValidator.validateTitle(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
           const SizedBox(height: 12),
           AppTextField(
@@ -442,7 +467,11 @@ class _MaintenanceScheduleUpsertScreenState
             placeHolder: 'Enter description in $langName',
             initialValue: translation?.description,
             type: AppTextFieldType.multiline,
-            validator: MaintenanceScheduleUpsertValidator.validateDescription,
+            validator: (value) =>
+                MaintenanceScheduleUpsertValidator.validateDescription(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
         ],
       ),

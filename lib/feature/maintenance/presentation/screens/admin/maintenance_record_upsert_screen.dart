@@ -298,7 +298,11 @@ class _MaintenanceRecordUpsertScreenState
               itemValueMapper: (schedule) => schedule.id,
               itemSubtitleMapper: (schedule) => schedule.asset.assetName,
               itemIcon: Icons.schedule,
-              validator: MaintenanceRecordUpsertValidator.validateScheduleId,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validateScheduleId(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppSearchField<Asset>(
@@ -312,15 +316,22 @@ class _MaintenanceRecordUpsertScreenState
               itemValueMapper: (asset) => asset.id,
               itemSubtitleMapper: (asset) => asset.assetName,
               itemIcon: Icons.inventory,
-              validator: MaintenanceRecordUpsertValidator.validateAssetId,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validateAssetId(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'maintenanceDate',
               label: 'Maintenance Date',
               initialValue: widget.maintenanceRecord?.maintenanceDate,
-              validator:
-                  MaintenanceRecordUpsertValidator.validateMaintenanceDate,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validateMaintenanceDate(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppSearchField<User>(
@@ -334,7 +345,11 @@ class _MaintenanceRecordUpsertScreenState
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
-              validator: MaintenanceRecordUpsertValidator.validatePerformedById,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validatePerformedById(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -343,7 +358,11 @@ class _MaintenanceRecordUpsertScreenState
               placeHolder: 'Enter actual cost (optional)',
               initialValue: widget.maintenanceRecord?.actualCost?.toString(),
               type: AppTextFieldType.priceUS,
-              validator: MaintenanceRecordUpsertValidator.validateActualCost,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validateActualCost(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
           ],
         ),
@@ -417,7 +436,11 @@ class _MaintenanceRecordUpsertScreenState
             label: 'Title',
             placeHolder: 'Enter title in $langName',
             initialValue: translation?.title,
-            validator: MaintenanceRecordUpsertValidator.validateTitle,
+            validator: (value) =>
+                MaintenanceRecordUpsertValidator.validateTitle(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
           const SizedBox(height: 12),
           AppTextField(
@@ -426,7 +449,11 @@ class _MaintenanceRecordUpsertScreenState
             placeHolder: 'Enter notes in $langName',
             initialValue: translation?.notes,
             type: AppTextFieldType.multiline,
-            validator: MaintenanceRecordUpsertValidator.validateNotes,
+            validator: (value) =>
+                MaintenanceRecordUpsertValidator.validateNotes(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
         ],
       ),

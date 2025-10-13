@@ -279,7 +279,11 @@ class _AssetMovementUpsertScreenState
               itemValueMapper: (asset) => asset.id,
               itemSubtitleMapper: (asset) => asset.assetName,
               itemIcon: Icons.inventory,
-              validator: AssetMovementUpsertValidator.validateAssetId,
+              validator: (value) =>
+                  AssetMovementUpsertValidator.validateAssetId(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppSearchField<Location>(
@@ -345,14 +349,22 @@ class _AssetMovementUpsertScreenState
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
-              validator: AssetMovementUpsertValidator.validateMovedById,
+              validator: (value) =>
+                  AssetMovementUpsertValidator.validateMovedById(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'movementDate',
               label: 'Movement Date',
               initialValue: widget.assetMovement?.movementDate,
-              validator: AssetMovementUpsertValidator.validateMovementDate,
+              validator: (value) =>
+                  AssetMovementUpsertValidator.validateMovementDate(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
           ],
         ),
@@ -423,7 +435,10 @@ class _AssetMovementUpsertScreenState
             placeHolder: 'Enter notes in $langName',
             initialValue: translation?.notes,
             type: AppTextFieldType.multiline,
-            validator: AssetMovementUpsertValidator.validateNotes,
+            validator: (value) => AssetMovementUpsertValidator.validateNotes(
+              value,
+              isUpdate: _isEdit,
+            ),
           ),
         ],
       ),
