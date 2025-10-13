@@ -65,14 +65,24 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     try {
       final imageBytes = await _screenshotController.captureFromWidget(
         Container(
+          width: 420,
+          height: 420,
           color: Colors.white,
-          padding: const EdgeInsets.all(20),
-          child: BarcodeWidget(
-            barcode: Barcode.dataMatrix(),
-            data: assetTag,
-            width: 400,
-            height: 400,
-            drawText: false,
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              border: Border.all(color: Colors.grey[300]!, width: 1),
+            ),
+            child: Center(
+              child: BarcodeWidget(
+                barcode: Barcode.dataMatrix(),
+                data: assetTag,
+                width: 380,
+                height: 380,
+                drawText: false,
+              ),
+            ),
           ),
         ),
       );
@@ -374,12 +384,18 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 ),
                 child: Column(
                   children: [
-                    BarcodeWidget(
-                      barcode: Barcode.dataMatrix(),
-                      data: _dataMatrixPreviewData!,
+                    Container(
                       width: 200,
                       height: 200,
-                      drawText: false,
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(5),
+                      child: BarcodeWidget(
+                        barcode: Barcode.dataMatrix(),
+                        data: _dataMatrixPreviewData!,
+                        width: 190,
+                        height: 190,
+                        drawText: false,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     AppText(

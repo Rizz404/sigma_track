@@ -5,9 +5,9 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -256,7 +256,12 @@ class UserDetailProfileScreen extends ConsumerWidget {
               color: Colors.transparent,
               child: Center(
                 child: imageUrl != null
-                    ? Image.network(imageUrl, fit: BoxFit.contain)
+                    ? AppAvatar(
+                        imageUrl: imageUrl,
+                        size: AvatarSize.xxxLarge,
+                        shape: AvatarShape.rectangle,
+                        fit: BoxFit.contain,
+                      )
                     : const Icon(Icons.person, size: 100, color: Colors.white),
               ),
             ),

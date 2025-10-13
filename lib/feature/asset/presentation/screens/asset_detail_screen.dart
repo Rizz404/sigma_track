@@ -17,8 +17,9 @@ import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_pro
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -375,6 +376,17 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             _buildInfoRow('Created At', _formatDateTime(_asset!.createdAt)),
             _buildInfoRow('Updated At', _formatDateTime(_asset!.updatedAt)),
           ]),
+          if (_asset!.dataMatrixImageUrl.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            _buildInfoCard('Data Matrix Image', [
+              AppImage(
+                imageUrl: _asset!.dataMatrixImageUrl,
+                size: ImageSize.fullWidth,
+                shape: ImageShape.rectangle,
+                fit: BoxFit.contain,
+              ),
+            ]),
+          ],
         ],
       ),
     );

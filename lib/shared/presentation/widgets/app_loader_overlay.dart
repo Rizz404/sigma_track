@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 
 /// Reusable loader overlay widget
 class AppLoaderOverlay extends StatelessWidget {
@@ -25,7 +26,10 @@ class AppLoaderOverlay extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset('assets/images/splash.png', width: 100, height: 100),
+            const AppImage(
+              assetPath: 'assets/images/splash.png',
+              size: ImageSize.xxxLarge,
+            ),
             const SizedBox(height: 16),
             CircularProgressIndicator(color: context.colorScheme.primary),
           ],
