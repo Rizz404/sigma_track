@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -15,6 +16,7 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_schedule_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
@@ -139,46 +141,78 @@ class _ListMaintenanceSchedulesScreenState
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'maintenanceScheduleName',
-                    label: 'MaintenanceSchedule Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'maintenanceScheduleCode',
-                    label: 'MaintenanceSchedule Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: MaintenanceScheduleSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'maintenanceType',
+                label: 'Maintenance Type',
+                initialValue: currentFilter.maintenanceType?.value,
+                items: MaintenanceScheduleType.values
+                    .map(
+                      (type) => AppDropdownItem<String>(
+                        value: type.value,
+                        label: type.label,
+                        icon: Icon(type.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'status',
+                label: 'Status',
+                initialValue: currentFilter.status?.value,
+                items: ScheduleStatus.values
+                    .map(
+                      (status) => AppDropdownItem<String>(
+                        value: status.value,
+                        label: status.label,
+                        icon: Icon(status.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'fromDate',
+                label: 'From Date',
+                inputType: InputType.date,
+                initialValue: currentFilter.fromDate != null
+                    ? DateTime.parse(currentFilter.fromDate!)
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'toDate',
+                label: 'To Date',
+                inputType: InputType.date,
+                initialValue: currentFilter.toDate != null
+                    ? DateTime.parse(currentFilter.toDate!)
+                    : null,
               ),
               const SizedBox(height: 32),
               Row(
@@ -211,6 +245,11 @@ class _ListMaintenanceSchedulesScreenState
                           final formData = _filterFormKey.currentState!.value;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
+                          final maintenanceTypeStr =
+                              formData['maintenanceType'] as String?;
+                          final statusStr = formData['status'] as String?;
+                          final fromDate = formData['fromDate'] as DateTime?;
+                          final toDate = formData['toDate'] as DateTime?;
 
                           final newFilter = MaintenanceSchedulesFilter(
                             search: currentFilter.search,
@@ -222,6 +261,16 @@ class _ListMaintenanceSchedulesScreenState
                             sortOrder: sortOrderStr != null
                                 ? SortOrder.fromString(sortOrderStr)
                                 : null,
+                            maintenanceType: maintenanceTypeStr != null
+                                ? MaintenanceScheduleType.fromString(
+                                    maintenanceTypeStr,
+                                  )
+                                : null,
+                            status: statusStr != null
+                                ? ScheduleStatus.fromString(statusStr)
+                                : null,
+                            fromDate: fromDate?.toIso8601String(),
+                            toDate: toDate?.toIso8601String(),
                           );
 
                           Navigator.pop(context);

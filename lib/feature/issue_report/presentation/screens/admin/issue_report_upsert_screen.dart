@@ -26,6 +26,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -47,22 +48,12 @@ class IssueReportUpsertScreen extends ConsumerStatefulWidget {
 
 class _IssueReportUpsertScreenState
     extends ConsumerState<IssueReportUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.issueReport != null || widget.issueReportId != null;
   IssueReport? _fetchedIssueReport;
-  bool _showTranslations = false;
-  bool _isFetchingTranslations = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // * Auto show translations in create mode
-    if (!_isEdit) {
-      _showTranslations = true;
-    }
-  }
+  bool _isLoadingTranslations = false;
 
   Future<List<Asset>> _searchAssets(String query) async {
     final notifier = ref.read(assetsSearchProvider.notifier);
@@ -147,88 +138,46 @@ class _IssueReportUpsertScreenState
     }
   }
 
-  Future<void> _fetchIssueReportTranslations() async {
-    if (!_isEdit || widget.issueReport?.id == null) return;
-
-    setState(() {
-      _isFetchingTranslations = true;
-      _showTranslations = true; // * Show immediately to display skeleton
-    });
-
-    try {
-      // * Wait for provider to load data
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final issueReportDetailState = ref.read(
-        getIssueReportByIdProvider(widget.issueReport!.id),
-      );
-
-      if (issueReportDetailState.issueReport != null) {
-        if (mounted) {
-          setState(() {
-            _fetchedIssueReport = issueReportDetailState.issueReport;
-            _isFetchingTranslations = false;
-          });
-        }
-      } else if (issueReportDetailState.failure != null) {
-        if (mounted) {
-          setState(() {
-            _isFetchingTranslations = false;
-          });
-          this.logError(
-            'Error fetching translations',
-            issueReportDetailState.failure,
-          );
-          AppToast.error('Failed to load translations');
-        }
-      } else {
-        // * Still loading, wait a bit more
-        await Future.delayed(const Duration(seconds: 2));
-        final newState = ref.read(
-          getIssueReportByIdProvider(widget.issueReport!.id),
-        );
-
-        if (mounted) {
-          if (newState.issueReport != null) {
-            setState(() {
-              _fetchedIssueReport = newState.issueReport;
-              _isFetchingTranslations = false;
-            });
-          } else {
-            setState(() {
-              _isFetchingTranslations = false;
-            });
-            this.logError('Failed to load translations after retry');
-            AppToast.error('Failed to load translations');
-          }
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isFetchingTranslations = false;
-        });
-        this.logError('Error fetching translations', e);
-        AppToast.error('Failed to load translations');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // * Watch issue report by id provider only when showing translations in edit mode
-    if (_isEdit && _showTranslations && widget.issueReport?.id != null) {
+    // * Auto load translations in edit mode
+    if (_isEdit && widget.issueReport?.id != null) {
       final issueReportDetailState = ref.watch(
         getIssueReportByIdProvider(widget.issueReport!.id),
       );
 
-      // * Update fetched issue report when data loaded
-      if (issueReportDetailState.issueReport != null &&
-          _fetchedIssueReport?.id != issueReportDetailState.issueReport!.id) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          setState(() {
-            _fetchedIssueReport = issueReportDetailState.issueReport;
+      // ? Update fetched issueReport when data changes
+      if (issueReportDetailState.isLoading) {
+        if (!_isLoadingTranslations) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => _isLoadingTranslations = true);
+            }
           });
+        }
+      } else if (issueReportDetailState.issueReport != null) {
+        if (_fetchedIssueReport?.id != issueReportDetailState.issueReport!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedIssueReport = issueReportDetailState.issueReport;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
+          });
+        }
+      } else if (issueReportDetailState.failure != null &&
+          _isLoadingTranslations) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              issueReportDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
+          }
         });
       }
     }
@@ -262,30 +211,39 @@ class _IssueReportUpsertScreenState
           title: _isEdit ? 'Edit Issue Report' : 'Create Issue Report',
         ),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildIssueReportInfoSection(),
-                  const SizedBox(height: 16),
-                  _buildShowTranslationsButton(),
-                  if (_showTranslations) ...[
-                    const SizedBox(height: 16),
-                    _buildTranslationsSection(),
-                  ],
-                  if (_isEdit) ...[
-                    const SizedBox(height: 16),
-                    _buildResolutionSection(),
-                  ],
-                  const SizedBox(height: 16),
-                  _buildStickyActionButtons(),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildIssueReportInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        if (_isEdit) ...[
+                          const SizedBox(height: 24),
+                          _buildResolutionSection(),
+                        ],
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(
+                          height: 80,
+                        ), // * Space for sticky buttons
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -387,50 +345,9 @@ class _IssueReportUpsertScreenState
     );
   }
 
-  Widget _buildShowTranslationsButton() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: InkWell(
-        onTap: () {
-          if (_isEdit && !_showTranslations) {
-            _fetchIssueReportTranslations();
-          } else {
-            setState(() {
-              _showTranslations = !_showTranslations;
-            });
-          }
-        },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(
-                _showTranslations ? Icons.expand_less : Icons.expand_more,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppText(
-                  _showTranslations ? 'Hide Translations' : 'Show Translations',
-                  style: AppTextStyle.bodyLarge,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTranslationsSection() {
     return Skeletonizer(
-      enabled: _isFetchingTranslations,
+      enabled: _isLoadingTranslations,
       child: Card(
         color: context.colors.surface,
         elevation: 0,

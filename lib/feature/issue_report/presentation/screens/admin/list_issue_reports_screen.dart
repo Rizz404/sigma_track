@@ -7,18 +7,24 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_report_providers.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_reports_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/widgets/issue_report_tile.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -99,6 +105,22 @@ class _ListIssueReportsScreenState
     );
   }
 
+  Future<List<Asset>> _searchAssets(String query) async {
+    final notifier = ref.read(assetsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(assetsSearchProvider);
+    return state.assets;
+  }
+
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(issueReportsProvider).issueReportsFilter;
 
@@ -126,7 +148,76 @@ class _ListIssueReportsScreenState
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Asset>(
+                    name: 'assetId',
+                    label: 'Filter by Asset',
+                    hintText: 'Search asset...',
+                    enableAutocomplete: true,
+                    onSearch: _searchAssets,
+                    itemDisplayMapper: (asset) => asset.assetName,
+                    itemValueMapper: (asset) => asset.id,
+                    itemSubtitleMapper: (asset) => asset.assetTag,
+                    itemIcon: Icons.inventory,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'reportedBy',
+                    label: 'Filter by Reported By',
+                    hintText: 'Search user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'resolvedBy',
+                    label: 'Filter by Resolved By',
+                    hintText: 'Search user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'issueType',
+                label: 'Issue Type',
+                placeHolder: 'Enter issue type...',
+              ),
+              const SizedBox(height: 32),
               const AppText(
                 'Filter & Sort',
                 style: AppTextStyle.titleLarge,
@@ -137,46 +228,90 @@ class _ListIssueReportsScreenState
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'issueReportName',
-                    label: 'IssueReport Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'issueReportCode',
-                    label: 'IssueReport Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: IssueReportSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'priority',
+                label: 'Priority',
+                initialValue: currentFilter.priority?.value,
+                items: IssuePriority.values
+                    .map(
+                      (priority) => AppDropdownItem<String>(
+                        value: priority.value,
+                        label: priority.label,
+                        icon: Icon(priority.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'status',
+                label: 'Status',
+                initialValue: currentFilter.status?.value,
+                items: IssueStatus.values
+                    .map(
+                      (status) => AppDropdownItem<String>(
+                        value: status.value,
+                        label: status.label,
+                        icon: Icon(status.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              FormBuilderCheckbox(
+                name: 'isResolved',
+                title: const AppText('Is Resolved'),
+                initialValue: currentFilter.isResolved ?? false,
+              ),
+              const SizedBox(height: 16),
+              FormBuilderDateTimePicker(
+                name: 'dateFrom',
+                inputType: InputType.date,
+                decoration: const InputDecoration(
+                  labelText: 'Date From',
+                  border: OutlineInputBorder(),
+                ),
+                initialValue: currentFilter.dateFrom != null
+                    ? DateTime.parse(currentFilter.dateFrom!)
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              FormBuilderDateTimePicker(
+                name: 'dateTo',
+                inputType: InputType.date,
+                decoration: const InputDecoration(
+                  labelText: 'Date To',
+                  border: OutlineInputBorder(),
+                ),
+                initialValue: currentFilter.dateTo != null
+                    ? DateTime.parse(currentFilter.dateTo!)
+                    : null,
               ),
               const SizedBox(height: 32),
               Row(
@@ -207,11 +342,33 @@ class _ListIssueReportsScreenState
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
                           final formData = _filterFormKey.currentState!.value;
+                          final assetId = formData['assetId'] as String?;
+                          final reportedBy = formData['reportedBy'] as String?;
+                          final resolvedBy = formData['resolvedBy'] as String?;
+                          final issueType = formData['issueType'] as String?;
+                          final priorityStr = formData['priority'] as String?;
+                          final statusStr = formData['status'] as String?;
+                          final isResolved = formData['isResolved'] as bool?;
+                          final dateFrom = formData['dateFrom'] as DateTime?;
+                          final dateTo = formData['dateTo'] as DateTime?;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
                           final newFilter = IssueReportsFilter(
                             search: currentFilter.search,
+                            assetId: assetId,
+                            reportedBy: reportedBy,
+                            resolvedBy: resolvedBy,
+                            issueType: issueType,
+                            priority: priorityStr != null
+                                ? IssuePriority.fromString(priorityStr)
+                                : null,
+                            status: statusStr != null
+                                ? IssueStatus.fromString(statusStr)
+                                : null,
+                            isResolved: isResolved,
+                            dateFrom: dateFrom?.toIso8601String(),
+                            dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
                                 ? IssueReportSortBy.fromString(sortByStr)
                                 : null,

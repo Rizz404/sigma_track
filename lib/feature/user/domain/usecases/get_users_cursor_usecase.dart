@@ -74,8 +74,8 @@ class GetUsersCursorUsecaseParams extends Equatable {
       if (role != null) 'role': role,
       if (isActive != null) 'isActive': isActive,
       if (employeeId != null) 'employeeId': employeeId,
-      if (sortBy != null) 'sortBy': sortBy!.toMap(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toMap(),
+      if (sortBy != null) 'sortBy': sortBy!.toString(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
       if (limit != null) 'limit': limit,
       if (cursor != null) 'cursor': cursor,
     };
@@ -87,9 +87,11 @@ class GetUsersCursorUsecaseParams extends Equatable {
       role: map['role'],
       isActive: map['isActive'],
       employeeId: map['employeeId'],
-      sortBy: map['sortBy'] != null ? UserSortBy.fromMap(map['sortBy']) : null,
+      sortBy: map['sortBy'] != null
+          ? UserSortBy.fromString(map['sortBy'])
+          : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromMap(map['sortOrder'])
+          ? SortOrder.fromString(map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       cursor: map['cursor'],

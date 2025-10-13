@@ -15,10 +15,12 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_records_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_record_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -139,46 +141,55 @@ class _ListMaintenanceRecordsScreenState
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'maintenanceRecordName',
-                    label: 'MaintenanceRecord Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'maintenanceRecordCode',
-                    label: 'MaintenanceRecord Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: MaintenanceRecordSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'vendorName',
+                label: 'Vendor Name',
+                placeHolder: 'Enter vendor name...',
+                initialValue: currentFilter.vendorName,
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'fromDate',
+                label: 'From Date',
+                inputType: InputType.date,
+                initialValue: currentFilter.fromDate != null
+                    ? DateTime.parse(currentFilter.fromDate!)
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'toDate',
+                label: 'To Date',
+                inputType: InputType.date,
+                initialValue: currentFilter.toDate != null
+                    ? DateTime.parse(currentFilter.toDate!)
+                    : null,
               ),
               const SizedBox(height: 32),
               Row(
@@ -211,6 +222,9 @@ class _ListMaintenanceRecordsScreenState
                           final formData = _filterFormKey.currentState!.value;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
+                          final vendorName = formData['vendorName'] as String?;
+                          final fromDate = formData['fromDate'] as DateTime?;
+                          final toDate = formData['toDate'] as DateTime?;
 
                           final newFilter = MaintenanceRecordsFilter(
                             search: currentFilter.search,
@@ -220,6 +234,9 @@ class _ListMaintenanceRecordsScreenState
                             sortOrder: sortOrderStr != null
                                 ? SortOrder.fromString(sortOrderStr)
                                 : null,
+                            vendorName: vendorName,
+                            fromDate: fromDate?.toIso8601String(),
+                            toDate: toDate?.toIso8601String(),
                           );
 
                           Navigator.pop(context);

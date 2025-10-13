@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -19,6 +20,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -126,37 +128,70 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
               ),
               const SizedBox(height: 24),
               const AppText(
-                'Filter & Sort',
+                'Filters',
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
+                name: 'role',
+                label: 'Role',
+                initialValue: currentFilter.role,
+                items: UserRole.values
+                    .map(
+                      (role) => AppDropdownItem<String>(
+                        value: role.value,
+                        label: role.label,
+                        icon: Icon(role.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'employeeId',
+                label: 'Employee ID',
+                placeHolder: 'Enter employee ID...',
+                initialValue: currentFilter.employeeId,
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'isActive',
+                label: 'Active Status',
+                initialValue: currentFilter.isActive?.toString(),
+                items: const [
+                  AppDropdownItem(
+                    value: 'true',
+                    label: 'Active',
+                    icon: Icon(Icons.check_circle, size: 18),
+                  ),
+                  AppDropdownItem(
+                    value: 'false',
+                    label: 'Inactive',
+                    icon: Icon(Icons.cancel, size: 18),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              const AppText(
+                'Sort',
+                style: AppTextStyle.titleMedium,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'userName',
-                    label: 'User Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'userCode',
-                    label: 'User Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: UserSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
@@ -176,7 +211,6 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
               Row(
                 children: [
                   Expanded(
@@ -207,9 +241,17 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                           final formData = _filterFormKey.currentState!.value;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
+                          final roleStr = formData['role'] as String?;
+                          final employeeId = formData['employeeId'] as String?;
+                          final isActiveStr = formData['isActive'] as String?;
 
                           final newFilter = UsersFilter(
                             search: currentFilter.search,
+                            role: roleStr,
+                            isActive: isActiveStr != null
+                                ? isActiveStr == 'true'
+                                : null,
+                            employeeId: employeeId,
                             sortBy: sortByStr != null
                                 ? UserSortBy.fromString(sortByStr)
                                 : null,

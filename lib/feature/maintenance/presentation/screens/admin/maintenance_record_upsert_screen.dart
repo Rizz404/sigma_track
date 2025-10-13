@@ -27,6 +27,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -48,22 +49,12 @@ class MaintenanceRecordUpsertScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceRecordUpsertScreenState
     extends ConsumerState<MaintenanceRecordUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceRecord != null || widget.maintenanceRecordId != null;
   MaintenanceRecord? _fetchedMaintenanceRecord;
-  bool _showTranslations = false;
-  bool _isFetchingTranslations = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // * Auto show translations in create mode
-    if (!_isEdit) {
-      _showTranslations = true;
-    }
-  }
+  bool _isLoadingTranslations = false;
 
   Future<List<Asset>> _searchAssets(String query) async {
     final notifier = ref.read(assetsSearchProvider.notifier);
@@ -163,91 +154,48 @@ class _MaintenanceRecordUpsertScreenState
     }
   }
 
-  Future<void> _fetchMaintenanceRecordTranslations() async {
-    if (!_isEdit || widget.maintenanceRecord?.id == null) return;
-
-    setState(() {
-      _isFetchingTranslations = true;
-      _showTranslations = true; // * Show immediately to display skeleton
-    });
-
-    try {
-      // * Wait for provider to load data
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final maintenanceRecordDetailState = ref.read(
-        getMaintenanceRecordByIdProvider(widget.maintenanceRecord!.id),
-      );
-
-      if (maintenanceRecordDetailState.maintenanceRecord != null) {
-        if (mounted) {
-          setState(() {
-            _fetchedMaintenanceRecord =
-                maintenanceRecordDetailState.maintenanceRecord;
-            _isFetchingTranslations = false;
-          });
-        }
-      } else if (maintenanceRecordDetailState.failure != null) {
-        if (mounted) {
-          setState(() {
-            _isFetchingTranslations = false;
-          });
-          this.logError(
-            'Error fetching translations',
-            maintenanceRecordDetailState.failure,
-          );
-          AppToast.error('Failed to load translations');
-        }
-      } else {
-        // * Still loading, wait a bit more
-        await Future.delayed(const Duration(seconds: 2));
-        final newState = ref.read(
-          getMaintenanceRecordByIdProvider(widget.maintenanceRecord!.id),
-        );
-
-        if (mounted) {
-          if (newState.maintenanceRecord != null) {
-            setState(() {
-              _fetchedMaintenanceRecord = newState.maintenanceRecord;
-              _isFetchingTranslations = false;
-            });
-          } else {
-            setState(() {
-              _isFetchingTranslations = false;
-            });
-            this.logError('Failed to load translations after retry');
-            AppToast.error('Failed to load translations');
-          }
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isFetchingTranslations = false;
-        });
-        this.logError('Error fetching translations', e);
-        AppToast.error('Failed to load translations');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // * Watch maintenance record by id provider only when showing translations in edit mode
-    if (_isEdit && _showTranslations && widget.maintenanceRecord?.id != null) {
+    // * Auto load translations in edit mode
+    if (_isEdit && widget.maintenanceRecord?.id != null) {
       final maintenanceRecordDetailState = ref.watch(
         getMaintenanceRecordByIdProvider(widget.maintenanceRecord!.id),
       );
 
-      // * Update fetched maintenance record when data loaded
-      if (maintenanceRecordDetailState.maintenanceRecord != null &&
-          _fetchedMaintenanceRecord?.id !=
-              maintenanceRecordDetailState.maintenanceRecord!.id) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          setState(() {
-            _fetchedMaintenanceRecord =
-                maintenanceRecordDetailState.maintenanceRecord;
+      // ? Update fetched maintenanceRecord when data changes
+      if (maintenanceRecordDetailState.isLoading) {
+        if (!_isLoadingTranslations) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => _isLoadingTranslations = true);
+            }
           });
+        }
+      } else if (maintenanceRecordDetailState.maintenanceRecord != null) {
+        if (_fetchedMaintenanceRecord?.id !=
+            maintenanceRecordDetailState.maintenanceRecord!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedMaintenanceRecord =
+                    maintenanceRecordDetailState.maintenanceRecord;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
+          });
+        }
+      } else if (maintenanceRecordDetailState.failure != null &&
+          _isLoadingTranslations) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              maintenanceRecordDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
+          }
         });
       }
     }
@@ -288,26 +236,33 @@ class _MaintenanceRecordUpsertScreenState
               : 'Create Maintenance Record',
         ),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildMaintenanceRecordInfoSection(),
-                  const SizedBox(height: 16),
-                  _buildShowTranslationsButton(),
-                  if (_showTranslations) ...[
-                    const SizedBox(height: 16),
-                    _buildTranslationsSection(),
-                  ],
-                  const SizedBox(height: 16),
-                  _buildStickyActionButtons(),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildMaintenanceRecordInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(height: 80),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -396,50 +351,9 @@ class _MaintenanceRecordUpsertScreenState
     );
   }
 
-  Widget _buildShowTranslationsButton() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: InkWell(
-        onTap: () {
-          if (_isEdit && !_showTranslations) {
-            _fetchMaintenanceRecordTranslations();
-          } else {
-            setState(() {
-              _showTranslations = !_showTranslations;
-            });
-          }
-        },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(
-                _showTranslations ? Icons.expand_less : Icons.expand_more,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppText(
-                  _showTranslations ? 'Hide Translations' : 'Show Translations',
-                  style: AppTextStyle.bodyLarge,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTranslationsSection() {
     return Skeletonizer(
-      enabled: _isFetchingTranslations,
+      enabled: _isLoadingTranslations,
       child: Card(
         color: context.colors.surface,
         elevation: 0,

@@ -27,6 +27,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -48,22 +49,12 @@ class AssetMovementUpsertScreen extends ConsumerStatefulWidget {
 
 class _AssetMovementUpsertScreenState
     extends ConsumerState<AssetMovementUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.assetMovement != null || widget.assetMovementId != null;
   AssetMovement? _fetchedAssetMovement;
-  bool _showTranslations = false;
-  bool _isFetchingTranslations = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // * Auto show translations in create mode
-    if (!_isEdit) {
-      _showTranslations = true;
-    }
-  }
+  bool _isLoadingTranslations = false;
 
   Future<List<Asset>> _searchAssets(String query) async {
     final notifier = ref.read(assetsSearchProvider.notifier);
@@ -152,89 +143,47 @@ class _AssetMovementUpsertScreenState
     }
   }
 
-  Future<void> _fetchAssetMovementTranslations() async {
-    if (!_isEdit || widget.assetMovement?.id == null) return;
-
-    setState(() {
-      _isFetchingTranslations = true;
-      _showTranslations = true; // * Show immediately to display skeleton
-    });
-
-    try {
-      // * Wait for provider to load data
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final assetMovementDetailState = ref.read(
-        getAssetMovementByIdProvider(widget.assetMovement!.id),
-      );
-
-      if (assetMovementDetailState.assetMovement != null) {
-        if (mounted) {
-          setState(() {
-            _fetchedAssetMovement = assetMovementDetailState.assetMovement;
-            _isFetchingTranslations = false;
-          });
-        }
-      } else if (assetMovementDetailState.failure != null) {
-        if (mounted) {
-          setState(() {
-            _isFetchingTranslations = false;
-          });
-          this.logError(
-            'Error fetching translations',
-            assetMovementDetailState.failure,
-          );
-          AppToast.error('Failed to load translations');
-        }
-      } else {
-        // * Still loading, wait a bit more
-        await Future.delayed(const Duration(seconds: 2));
-        final newState = ref.read(
-          getAssetMovementByIdProvider(widget.assetMovement!.id),
-        );
-
-        if (mounted) {
-          if (newState.assetMovement != null) {
-            setState(() {
-              _fetchedAssetMovement = newState.assetMovement;
-              _isFetchingTranslations = false;
-            });
-          } else {
-            setState(() {
-              _isFetchingTranslations = false;
-            });
-            this.logError('Failed to load translations after retry');
-            AppToast.error('Failed to load translations');
-          }
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isFetchingTranslations = false;
-        });
-        this.logError('Error fetching translations', e);
-        AppToast.error('Failed to load translations');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // * Watch asset movement by id provider only when showing translations in edit mode
-    if (_isEdit && _showTranslations && widget.assetMovement?.id != null) {
+    if (_isEdit && widget.assetMovement?.id != null) {
       final assetMovementDetailState = ref.watch(
         getAssetMovementByIdProvider(widget.assetMovement!.id),
       );
 
-      // * Update fetched asset movement when data loaded
-      if (assetMovementDetailState.assetMovement != null &&
-          _fetchedAssetMovement?.id !=
-              assetMovementDetailState.assetMovement!.id) {
+      // ? Update fetched assetMovement when data changes
+      if (assetMovementDetailState.isLoading) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          setState(() {
-            _fetchedAssetMovement = assetMovementDetailState.assetMovement;
+          if (mounted) {
+            setState(() {
+              _fetchedAssetMovement = assetMovementDetailState.assetMovement;
+            });
+          }
+        });
+      } else if (assetMovementDetailState.assetMovement != null) {
+        if (_fetchedAssetMovement?.id !=
+            assetMovementDetailState.assetMovement!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedAssetMovement = assetMovementDetailState.assetMovement;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
           });
+        }
+      } else if (assetMovementDetailState.failure != null &&
+          _isLoadingTranslations) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              assetMovementDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
+          }
         });
       }
     }
@@ -268,26 +217,33 @@ class _AssetMovementUpsertScreenState
           title: _isEdit ? 'Edit Asset Movement' : 'Create Asset Movement',
         ),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAssetMovementInfoSection(),
-                  const SizedBox(height: 16),
-                  _buildShowTranslationsButton(),
-                  if (_showTranslations) ...[
-                    const SizedBox(height: 16),
-                    _buildTranslationsSection(),
-                  ],
-                  const SizedBox(height: 16),
-                  _buildStickyActionButtons(),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildAssetMovementInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(height: 80),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -404,50 +360,9 @@ class _AssetMovementUpsertScreenState
     );
   }
 
-  Widget _buildShowTranslationsButton() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: InkWell(
-        onTap: () {
-          if (_isEdit && !_showTranslations) {
-            _fetchAssetMovementTranslations();
-          } else {
-            setState(() {
-              _showTranslations = !_showTranslations;
-            });
-          }
-        },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(
-                _showTranslations ? Icons.expand_less : Icons.expand_more,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppText(
-                  _showTranslations ? 'Hide Translations' : 'Show Translations',
-                  style: AppTextStyle.bodyLarge,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTranslationsSection() {
     return Skeletonizer(
-      enabled: _isFetchingTranslations,
+      enabled: _isLoadingTranslations,
       child: Card(
         color: context.colors.surface,
         elevation: 0,

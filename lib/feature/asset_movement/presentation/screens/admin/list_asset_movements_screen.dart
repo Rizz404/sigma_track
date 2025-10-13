@@ -14,10 +14,17 @@ import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movemen
 import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movement_providers.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movements_state.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/widgets/asset_movement_tile.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
+import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -99,6 +106,30 @@ class _ListAssetMovementsScreenState
     );
   }
 
+  Future<List<Asset>> _searchAssets(String query) async {
+    final notifier = ref.read(assetsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(assetsSearchProvider);
+    return state.assets;
+  }
+
+  Future<List<Location>> _searchLocations(String query) async {
+    final notifier = ref.read(locationsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(locationsSearchProvider);
+    return state.locations;
+  }
+
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(assetMovementsProvider).assetMovementsFilter;
 
@@ -133,50 +164,178 @@ class _ListAssetMovementsScreenState
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Asset>(
+                    name: 'assetId',
+                    label: 'Filter by Asset',
+                    hintText: 'Search asset...',
+                    enableAutocomplete: true,
+                    onSearch: _searchAssets,
+                    itemDisplayMapper: (asset) => asset.assetName,
+                    itemValueMapper: (asset) => asset.id,
+                    itemSubtitleMapper: (asset) => asset.assetTag,
+                    itemIcon: Icons.inventory,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Location>(
+                    name: 'fromLocationId',
+                    label: 'Filter by From Location',
+                    hintText: 'Search from location...',
+                    enableAutocomplete: true,
+                    onSearch: _searchLocations,
+                    itemDisplayMapper: (location) => location.locationName,
+                    itemValueMapper: (location) => location.id,
+                    itemSubtitleMapper: (location) => location.locationCode,
+                    itemIcon: Icons.location_on,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Location>(
+                    name: 'toLocationId',
+                    label: 'Filter by To Location',
+                    hintText: 'Search to location...',
+                    enableAutocomplete: true,
+                    onSearch: _searchLocations,
+                    itemDisplayMapper: (location) => location.locationName,
+                    itemValueMapper: (location) => location.id,
+                    itemSubtitleMapper: (location) => location.locationCode,
+                    itemIcon: Icons.location_on,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'fromUserId',
+                    label: 'Filter by From User',
+                    hintText: 'Search from user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'toUserId',
+                    label: 'Filter by To User',
+                    hintText: 'Search to user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'movedBy',
+                    label: 'Filter by Moved By',
+                    hintText: 'Search moved by user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'dateFrom',
+                label: 'Date From',
+                inputType: InputType.date,
+              ),
+              const SizedBox(height: 16),
+              AppDateTimePicker(
+                name: 'dateTo',
+                label: 'Date To',
+                inputType: InputType.date,
+              ),
+              const SizedBox(height: 32),
+              const AppText(
+                'Filter & Sort',
+                style: AppTextStyle.titleLarge,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'assetMovementName',
-                    label: 'AssetMovement Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'assetMovementCode',
-                    label: 'AssetMovement Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: AssetMovementSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 32),
               Row(
@@ -209,9 +368,27 @@ class _ListAssetMovementsScreenState
                           final formData = _filterFormKey.currentState!.value;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
+                          final assetId = formData['assetId'] as String?;
+                          final fromLocationId =
+                              formData['fromLocationId'] as String?;
+                          final toLocationId =
+                              formData['toLocationId'] as String?;
+                          final fromUserId = formData['fromUserId'] as String?;
+                          final toUserId = formData['toUserId'] as String?;
+                          final movedBy = formData['movedBy'] as String?;
+                          final dateFrom = formData['dateFrom'] as DateTime?;
+                          final dateTo = formData['dateTo'] as DateTime?;
 
                           final newFilter = AssetMovementsFilter(
                             search: currentFilter.search,
+                            assetId: assetId,
+                            fromLocationId: fromLocationId,
+                            toLocationId: toLocationId,
+                            fromUserId: fromUserId,
+                            toUserId: toUserId,
+                            movedBy: movedBy,
+                            dateFrom: dateFrom?.toIso8601String(),
+                            dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
                                 ? AssetMovementSortBy.fromString(sortByStr)
                                 : null,

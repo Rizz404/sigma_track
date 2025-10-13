@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -14,11 +15,18 @@ import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
+import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
+import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -97,6 +105,30 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
     );
   }
 
+  Future<List<Category>> _searchCategories(String query) async {
+    final notifier = ref.read(categoriesSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(categoriesSearchProvider);
+    return state.categories;
+  }
+
+  Future<List<Location>> _searchLocations(String query) async {
+    final notifier = ref.read(locationsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(locationsSearchProvider);
+    return state.locations;
+  }
+
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(assetsProvider).assetsFilter;
 
@@ -124,7 +156,82 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Category>(
+                    name: 'categoryId',
+                    label: 'Filter by Category',
+                    hintText: 'Search category...',
+                    enableAutocomplete: true,
+                    onSearch: _searchCategories,
+                    itemDisplayMapper: (category) => category.categoryName,
+                    itemValueMapper: (category) => category.id,
+                    itemSubtitleMapper: (category) => category.categoryCode,
+                    itemIcon: Icons.category,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Location>(
+                    name: 'locationId',
+                    label: 'Filter by Location',
+                    hintText: 'Search location...',
+                    enableAutocomplete: true,
+                    onSearch: _searchLocations,
+                    itemDisplayMapper: (location) => location.locationName,
+                    itemValueMapper: (location) => location.id,
+                    itemSubtitleMapper: (location) => location.locationCode,
+                    itemIcon: Icons.location_on,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'assignedTo',
+                    label: 'Filter by Assigned To',
+                    hintText: 'Search user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'brand',
+                label: 'Brand',
+                placeHolder: 'Enter brand...',
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'model',
+                label: 'Model',
+                placeHolder: 'Enter model...',
+              ),
+              const SizedBox(height: 32),
               const AppText(
                 'Filter & Sort',
                 style: AppTextStyle.titleLarge,
@@ -135,48 +242,62 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'assetName',
-                    label: 'Asset Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'assetCode',
-                    label: 'Asset Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: AssetSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'status',
+                label: 'Status',
+                initialValue: currentFilter.status?.value,
+                items: AssetStatus.values
+                    .map(
+                      (status) => AppDropdownItem<String>(
+                        value: status.value,
+                        label: status.label,
+                        icon: Icon(status.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'condition',
+                label: 'Condition',
+                initialValue: currentFilter.condition?.value,
+                items: AssetCondition.values
+                    .map(
+                      (condition) => AppDropdownItem<String>(
+                        value: condition.value,
+                        label: condition.label,
+                        icon: Icon(condition.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
@@ -207,9 +328,27 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                           final formData = _filterFormKey.currentState!.value;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
+                          final statusStr = formData['status'] as String?;
+                          final conditionStr = formData['condition'] as String?;
+                          final categoryId = formData['categoryId'] as String?;
+                          final locationId = formData['locationId'] as String?;
+                          final assignedTo = formData['assignedTo'] as String?;
+                          final brand = formData['brand'] as String?;
+                          final model = formData['model'] as String?;
 
                           final newFilter = AssetsFilter(
                             search: currentFilter.search,
+                            status: statusStr != null
+                                ? AssetStatus.fromString(statusStr)
+                                : null,
+                            condition: conditionStr != null
+                                ? AssetCondition.fromString(conditionStr)
+                                : null,
+                            categoryId: categoryId,
+                            locationId: locationId,
+                            assignedTo: assignedTo,
+                            brand: brand,
+                            model: model,
                             sortBy: sortByStr != null
                                 ? AssetSortBy.fromString(sortByStr)
                                 : null,

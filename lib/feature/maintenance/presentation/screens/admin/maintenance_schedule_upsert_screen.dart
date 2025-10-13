@@ -27,6 +27,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -48,22 +49,12 @@ class MaintenanceScheduleUpsertScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceScheduleUpsertScreenState
     extends ConsumerState<MaintenanceScheduleUpsertScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceSchedule != null || widget.maintenanceId != null;
   MaintenanceSchedule? _fetchedMaintenanceSchedule;
-  bool _showTranslations = false;
-  bool _isFetchingTranslations = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // * Auto show translations in create mode
-    if (!_isEdit) {
-      _showTranslations = true;
-    }
-  }
+  bool _isLoadingTranslations = false;
 
   Future<List<Asset>> _searchAssets(String query) async {
     final notifier = ref.read(assetsSearchProvider.notifier);
@@ -156,93 +147,48 @@ class _MaintenanceScheduleUpsertScreenState
     }
   }
 
-  Future<void> _fetchMaintenanceScheduleTranslations() async {
-    if (!_isEdit || widget.maintenanceSchedule?.id == null) return;
-
-    setState(() {
-      _isFetchingTranslations = true;
-      _showTranslations = true; // * Show immediately to display skeleton
-    });
-
-    try {
-      // * Wait for provider to load data
-      await Future.delayed(const Duration(milliseconds: 100));
-
-      final maintenanceScheduleDetailState = ref.read(
-        getMaintenanceScheduleByIdProvider(widget.maintenanceSchedule!.id),
-      );
-
-      if (maintenanceScheduleDetailState.maintenanceSchedule != null) {
-        if (mounted) {
-          setState(() {
-            _fetchedMaintenanceSchedule =
-                maintenanceScheduleDetailState.maintenanceSchedule;
-            _isFetchingTranslations = false;
-          });
-        }
-      } else if (maintenanceScheduleDetailState.failure != null) {
-        if (mounted) {
-          setState(() {
-            _isFetchingTranslations = false;
-          });
-          this.logError(
-            'Error fetching translations',
-            maintenanceScheduleDetailState.failure,
-          );
-          AppToast.error('Failed to load translations');
-        }
-      } else {
-        // * Still loading, wait a bit more
-        await Future.delayed(const Duration(seconds: 2));
-        final newState = ref.read(
-          getMaintenanceScheduleByIdProvider(widget.maintenanceSchedule!.id),
-        );
-
-        if (mounted) {
-          if (newState.maintenanceSchedule != null) {
-            setState(() {
-              _fetchedMaintenanceSchedule = newState.maintenanceSchedule;
-              _isFetchingTranslations = false;
-            });
-          } else {
-            setState(() {
-              _isFetchingTranslations = false;
-            });
-            this.logError('Failed to load translations after retry');
-            AppToast.error('Failed to load translations');
-          }
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isFetchingTranslations = false;
-        });
-        this.logError('Error fetching translations', e);
-        AppToast.error('Failed to load translations');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // * Watch maintenance schedule by id provider only when showing translations in edit mode
-    if (_isEdit &&
-        _showTranslations &&
-        widget.maintenanceSchedule?.id != null) {
+    // * Auto load translations in edit mode
+    if (_isEdit && widget.maintenanceSchedule?.id != null) {
       final maintenanceScheduleDetailState = ref.watch(
         getMaintenanceScheduleByIdProvider(widget.maintenanceSchedule!.id),
       );
 
-      // * Update fetched maintenance schedule when data loaded
-      if (maintenanceScheduleDetailState.maintenanceSchedule != null &&
-          _fetchedMaintenanceSchedule?.id !=
-              maintenanceScheduleDetailState.maintenanceSchedule!.id) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          setState(() {
-            _fetchedMaintenanceSchedule =
-                maintenanceScheduleDetailState.maintenanceSchedule;
+      // ? Update fetched maintenanceSchedule when data changes
+      if (maintenanceScheduleDetailState.isLoading) {
+        if (!_isLoadingTranslations) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() => _isLoadingTranslations = true);
+            }
           });
+        }
+      } else if (maintenanceScheduleDetailState.maintenanceSchedule != null) {
+        if (_fetchedMaintenanceSchedule?.id !=
+            maintenanceScheduleDetailState.maintenanceSchedule!.id) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              setState(() {
+                _fetchedMaintenanceSchedule =
+                    maintenanceScheduleDetailState.maintenanceSchedule;
+                _isLoadingTranslations = false;
+                // ! Recreate form key to rebuild form with new data
+                _formKey = GlobalKey<FormBuilderState>();
+              });
+            }
+          });
+        }
+      } else if (maintenanceScheduleDetailState.failure != null &&
+          _isLoadingTranslations) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() => _isLoadingTranslations = false);
+            AppToast.error(
+              maintenanceScheduleDetailState.failure?.message ??
+                  'Failed to load translations',
+            );
+          }
         });
       }
     }
@@ -283,26 +229,33 @@ class _MaintenanceScheduleUpsertScreenState
               : 'Create Maintenance Schedule',
         ),
         endDrawer: const AppEndDrawer(),
-        body: ScreenWrapper(
-          child: FormBuilder(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildMaintenanceScheduleInfoSection(),
-                  const SizedBox(height: 16),
-                  _buildShowTranslationsButton(),
-                  if (_showTranslations) ...[
-                    const SizedBox(height: 16),
-                    _buildTranslationsSection(),
-                  ],
-                  const SizedBox(height: 16),
-                  _buildStickyActionButtons(),
-                ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ScreenWrapper(
+                child: FormBuilder(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildMaintenanceScheduleInfoSection(),
+                        const SizedBox(height: 24),
+                        _buildTranslationsSection(),
+                        const SizedBox(height: 24),
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+                        const SizedBox(height: 80),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            _buildStickyActionButtons(),
+          ],
         ),
       ),
     );
@@ -414,50 +367,9 @@ class _MaintenanceScheduleUpsertScreenState
     );
   }
 
-  Widget _buildShowTranslationsButton() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: InkWell(
-        onTap: () {
-          if (_isEdit && !_showTranslations) {
-            _fetchMaintenanceScheduleTranslations();
-          } else {
-            setState(() {
-              _showTranslations = !_showTranslations;
-            });
-          }
-        },
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(
-                _showTranslations ? Icons.expand_less : Icons.expand_more,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppText(
-                  _showTranslations ? 'Hide Translations' : 'Show Translations',
-                  style: AppTextStyle.bodyLarge,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTranslationsSection() {
     return Skeletonizer(
-      enabled: _isFetchingTranslations,
+      enabled: _isLoadingTranslations,
       child: Card(
         color: context.colors.surface,
         elevation: 0,

@@ -7,13 +7,18 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_providers.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_logs_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/widgets/scan_log_tile.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
@@ -92,6 +97,22 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     );
   }
 
+  Future<List<Asset>> _searchAssets(String query) async {
+    final notifier = ref.read(assetsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(assetsSearchProvider);
+    return state.assets;
+  }
+
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(scanLogsProvider).scanLogsFilter;
 
@@ -119,7 +140,49 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Asset>(
+                    name: 'assetId',
+                    label: 'Filter by Asset',
+                    hintText: 'Search asset...',
+                    enableAutocomplete: true,
+                    onSearch: _searchAssets,
+                    itemDisplayMapper: (asset) => asset.assetName,
+                    itemValueMapper: (asset) => asset.id,
+                    itemSubtitleMapper: (asset) => asset.assetTag,
+                    itemIcon: Icons.inventory,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'scannedBy',
+                    label: 'Filter by Scanned By',
+                    hintText: 'Search user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
               const AppText(
                 'Filter & Sort',
                 style: AppTextStyle.titleLarge,
@@ -130,46 +193,90 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'scanLogName',
-                    label: 'ScanLog Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'scanLogCode',
-                    label: 'ScanLog Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: ScanLogSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'scanMethod',
+                label: 'Scan Method',
+                initialValue: currentFilter.scanMethod?.value,
+                items: ScanMethodType.values
+                    .map(
+                      (method) => AppDropdownItem<String>(
+                        value: method.value,
+                        label: method.label,
+                        icon: Icon(method.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'scanResult',
+                label: 'Scan Result',
+                initialValue: currentFilter.scanResult?.value,
+                items: ScanResultType.values
+                    .map(
+                      (result) => AppDropdownItem<String>(
+                        value: result.value,
+                        label: result.label,
+                        icon: Icon(result.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              FormBuilderCheckbox(
+                name: 'hasCoordinates',
+                title: const AppText('Has Coordinates'),
+                initialValue: currentFilter.hasCoordinates ?? false,
+              ),
+              const SizedBox(height: 16),
+              FormBuilderDateTimePicker(
+                name: 'dateFrom',
+                inputType: InputType.date,
+                decoration: const InputDecoration(
+                  labelText: 'Date From',
+                  border: OutlineInputBorder(),
+                ),
+                initialValue: currentFilter.dateFrom != null
+                    ? DateTime.parse(currentFilter.dateFrom!)
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              FormBuilderDateTimePicker(
+                name: 'dateTo',
+                inputType: InputType.date,
+                decoration: const InputDecoration(
+                  labelText: 'Date To',
+                  border: OutlineInputBorder(),
+                ),
+                initialValue: currentFilter.dateTo != null
+                    ? DateTime.parse(currentFilter.dateTo!)
+                    : null,
               ),
               const SizedBox(height: 32),
               Row(
@@ -200,11 +307,32 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
                           final formData = _filterFormKey.currentState!.value;
+                          final assetId = formData['assetId'] as String?;
+                          final scannedBy = formData['scannedBy'] as String?;
+                          final scanMethodStr =
+                              formData['scanMethod'] as String?;
+                          final scanResultStr =
+                              formData['scanResult'] as String?;
+                          final hasCoordinates =
+                              formData['hasCoordinates'] as bool?;
+                          final dateFrom = formData['dateFrom'] as DateTime?;
+                          final dateTo = formData['dateTo'] as DateTime?;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
                           final newFilter = ScanLogsFilter(
                             search: currentFilter.search,
+                            assetId: assetId,
+                            scannedBy: scannedBy,
+                            scanMethod: scanMethodStr != null
+                                ? ScanMethodType.fromString(scanMethodStr)
+                                : null,
+                            scanResult: scanResultStr != null
+                                ? ScanResultType.fromString(scanResultStr)
+                                : null,
+                            hasCoordinates: hasCoordinates,
+                            dateFrom: dateFrom?.toIso8601String(),
+                            dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
                                 ? ScanLogSortBy.fromString(sortByStr)
                                 : null,

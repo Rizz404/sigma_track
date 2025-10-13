@@ -7,14 +7,19 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart'
     as notification_entity;
 import 'package:sigma_track/feature/notification/presentation/providers/notification_providers.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/state/notifications_state.dart';
 import 'package:sigma_track/feature/notification/presentation/widgets/notification_tile.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_list_bottom_sheet.dart';
@@ -95,6 +100,22 @@ class _ListNotificationsScreenState
     );
   }
 
+  Future<List<Asset>> _searchAssets(String query) async {
+    final notifier = ref.read(assetsSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(assetsSearchProvider);
+    return state.assets;
+  }
+
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   Widget _buildFilterSortBottomSheet() {
     final currentFilter = ref.read(notificationsProvider).notificationsFilter;
 
@@ -122,7 +143,49 @@ class _ListNotificationsScreenState
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<User>(
+                    name: 'userId',
+                    label: 'Filter by User',
+                    hintText: 'Search user...',
+                    enableAutocomplete: true,
+                    onSearch: _searchUsers,
+                    itemDisplayMapper: (user) => user.fullName,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIcon: Icons.person,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSearchField<Asset>(
+                    name: 'relatedAssetId',
+                    label: 'Filter by Related Asset',
+                    hintText: 'Search asset...',
+                    enableAutocomplete: true,
+                    onSearch: _searchAssets,
+                    itemDisplayMapper: (asset) => asset.assetName,
+                    itemValueMapper: (asset) => asset.id,
+                    itemSubtitleMapper: (asset) => asset.assetTag,
+                    itemIcon: Icons.inventory,
+                    initialItemsToShow: 5,
+                    itemsPerLoadMore: 5,
+                    enableLoadMore: true,
+                    suggestionsMaxHeight: 300,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
               const AppText(
                 'Filter & Sort',
                 style: AppTextStyle.titleLarge,
@@ -133,46 +196,51 @@ class _ListNotificationsScreenState
                 name: 'sortBy',
                 label: 'Sort By',
                 initialValue: currentFilter.sortBy?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'notificationName',
-                    label: 'notification_entity.Notification Name',
-                    icon: Icon(Icons.sort_by_alpha, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'notificationCode',
-                    label: 'notification_entity.Notification Code',
-                    icon: Icon(Icons.code, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'createdAt',
-                    label: 'Created Date',
-                    icon: Icon(Icons.calendar_today, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'updatedAt',
-                    label: 'Updated Date',
-                    icon: Icon(Icons.update, size: 18),
-                  ),
-                ],
+                items: NotificationSortBy.values
+                    .map(
+                      (sortBy) => AppDropdownItem<String>(
+                        value: sortBy.value,
+                        label: sortBy.label,
+                        icon: Icon(sortBy.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
                 label: 'Sort Order',
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
-                  AppDropdownItem(
-                    value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
-                  ),
-                  AppDropdownItem(
-                    value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
-                  ),
-                ],
+                items: SortOrder.values
+                    .map(
+                      (order) => AppDropdownItem<String>(
+                        value: order.value,
+                        label: order.label,
+                        icon: Icon(order.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              AppDropdown<String>(
+                name: 'type',
+                label: 'Type',
+                initialValue: currentFilter.type?.value,
+                items: NotificationType.values
+                    .map(
+                      (type) => AppDropdownItem<String>(
+                        value: type.value,
+                        label: type.label,
+                        icon: Icon(type.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              FormBuilderCheckbox(
+                name: 'isRead',
+                title: const AppText('Is Read'),
+                initialValue: currentFilter.isRead ?? false,
               ),
               const SizedBox(height: 32),
               Row(
@@ -203,11 +271,22 @@ class _ListNotificationsScreenState
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
                           final formData = _filterFormKey.currentState!.value;
+                          final userId = formData['userId'] as String?;
+                          final relatedAssetId =
+                              formData['relatedAssetId'] as String?;
+                          final typeStr = formData['type'] as String?;
+                          final isRead = formData['isRead'] as bool?;
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
                           final newFilter = NotificationsFilter(
                             search: currentFilter.search,
+                            userId: userId,
+                            relatedAssetId: relatedAssetId,
+                            type: typeStr != null
+                                ? NotificationType.fromString(typeStr)
+                                : null,
+                            isRead: isRead,
                             sortBy: sortByStr != null
                                 ? NotificationSortBy.fromString(sortByStr)
                                 : null,
