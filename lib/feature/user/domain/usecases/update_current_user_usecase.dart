@@ -27,7 +27,6 @@ class UpdateCurrentUserUsecase
 class UpdateCurrentUserUsecaseParams extends Equatable {
   final String? name;
   final String? email;
-  final String? password;
   final String? fullName;
   final String? role;
   final String? employeeId;
@@ -40,7 +39,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   UpdateCurrentUserUsecaseParams({
     this.name,
     this.email,
-    this.password,
     this.fullName,
     this.role,
     this.employeeId,
@@ -54,7 +52,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
   UpdateCurrentUserUsecaseParams copyWith({
     ValueGetter<String?>? name,
     ValueGetter<String?>? email,
-    ValueGetter<String?>? password,
     ValueGetter<String?>? fullName,
     ValueGetter<String?>? role,
     ValueGetter<String?>? employeeId,
@@ -67,7 +64,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     return UpdateCurrentUserUsecaseParams(
       name: name != null ? name() : this.name,
       email: email != null ? email() : this.email,
-      password: password != null ? password() : this.password,
       fullName: fullName != null ? fullName() : this.fullName,
       role: role != null ? role() : this.role,
       employeeId: employeeId != null ? employeeId() : this.employeeId,
@@ -85,7 +81,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     return {
       if (name != null) 'name': name,
       if (email != null) 'email': email,
-      if (password != null) 'password': password,
       if (fullName != null) 'fullName': fullName,
       if (role != null) 'role': role,
       if (employeeId != null) 'employeeId': employeeId,
@@ -101,7 +96,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     return UpdateCurrentUserUsecaseParams(
       name: map['name'],
       email: map['email'],
-      password: map['password'],
       fullName: map['fullName'],
       role: map['role'],
       employeeId: map['employeeId'],
@@ -120,7 +114,7 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, avatarFile: $avatarFile, fcmToken: $fcmToken)';
+    return 'UpdateCurrentUserUsecaseParams(name: $name, email: $email, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl, avatarFile: $avatarFile, fcmToken: $fcmToken)';
   }
 
   @override
@@ -128,7 +122,6 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     return [
       name,
       email,
-      password,
       fullName,
       role,
       employeeId,

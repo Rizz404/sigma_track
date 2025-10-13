@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
@@ -19,6 +18,8 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
@@ -54,6 +55,12 @@ abstract class UserRemoteDatasource {
     UpdateCurrentUserUsecaseParams params,
   );
   Future<ApiResponse<dynamic>> deleteUser(DeleteUserUsecaseParams params);
+  Future<ApiResponse<dynamic>> changeUserPassword(
+    ChangeUserPasswordUsecaseParams params,
+  );
+  Future<ApiResponse<dynamic>> changeCurrentUserPassword(
+    ChangeCurrentUserPasswordUsecaseParams params,
+  );
 }
 
 class UserRemoteDatasourceImpl implements UserRemoteDatasource {
@@ -311,6 +318,40 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteUser(params.id),
+        fromJson: (json) => json,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> changeUserPassword(
+    ChangeUserPasswordUsecaseParams params,
+  ) async {
+    this.logData('changeUserPassword called');
+    try {
+      final response = await _dioClient.patch(
+        ApiConstant.changeUserPassword(params.id),
+        data: params.toMap(),
+        fromJson: (json) => json,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> changeCurrentUserPassword(
+    ChangeCurrentUserPasswordUsecaseParams params,
+  ) async {
+    this.logData('changeCurrentUserPassword called');
+    try {
+      final response = await _dioClient.patch(
+        ApiConstant.changeCurrentUserPassword,
+        data: params.toMap(),
         fromJson: (json) => json,
       );
       return response;

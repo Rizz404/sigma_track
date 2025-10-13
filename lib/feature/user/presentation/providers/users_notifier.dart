@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/users_state.dart';
 
@@ -20,6 +21,8 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       ref.watch(updateUserUsecaseProvider);
   DeleteUserUsecase get _deleteUserUsecase =>
       ref.watch(deleteUserUsecaseProvider);
+  ChangeUserPasswordUsecase get _changeUserPasswordUsecase =>
+      ref.watch(changeUserPasswordUsecaseProvider);
 
   @override
   UsersState build() {
@@ -230,6 +233,35 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
           isMutating: false,
         );
         await refresh();
+      },
+    );
+  }
+
+  Future<void> changeUserPassword(
+    ChangeUserPasswordUsecaseParams params,
+  ) async {
+    this.logPresentation('Changing password for user: ${params.id}');
+
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
+
+    final result = await _changeUserPasswordUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to change user password', failure);
+        state = state.copyWith(isMutating: false, failure: () => failure);
+      },
+      (success) async {
+        this.logData('User password changed successfully');
+        state = state.copyWith(
+          message: () => success.message ?? 'Password changed',
+          isMutating: false,
+        );
+        // Note: No refresh needed as password change doesn't affect user list
       },
     );
   }

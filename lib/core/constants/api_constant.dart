@@ -43,6 +43,9 @@ class ApiConstant {
   static String getUserById(String id) => '$userPrefix/$id';
   static String updateUser(String id) => '$userPrefix/$id';
   static String deleteUser(String id) => '$userPrefix/$id';
+  static String changeUserPassword(String id) => '$userPrefix/$id/password';
+  static const String changeCurrentUserPassword =
+      '$userPrefix/profile/password';
 
   // * Categories
   static const String createCategory = categoryPrefix;

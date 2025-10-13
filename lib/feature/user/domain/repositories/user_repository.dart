@@ -14,6 +14,8 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
@@ -58,5 +60,11 @@ abstract class UserRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteUser(
     DeleteUserUsecaseParams params,
+  );
+  Future<Either<Failure, ActionSuccess>> changeUserPassword(
+    ChangeUserPasswordUsecaseParams params,
+  );
+  Future<Either<Failure, ActionSuccess>> changeCurrentUserPassword(
+    ChangeCurrentUserPasswordUsecaseParams params,
   );
 }

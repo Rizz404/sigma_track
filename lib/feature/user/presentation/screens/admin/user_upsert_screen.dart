@@ -51,7 +51,6 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
 
     final name = formData['name'] as String;
     final email = formData['email'] as String;
-    final password = formData['password'] as String?;
     final fullName = formData['fullName'] as String;
     final role = formData['role'] as String;
     final employeeId = formData['employeeId'] as String?;
@@ -63,7 +62,6 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         id: widget.user!.id,
         name: name,
         email: email,
-        password: password,
         fullName: fullName,
         role: role,
         employeeId: employeeId != null && employeeId.isNotEmpty
@@ -74,10 +72,11 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
       );
       ref.read(usersProvider.notifier).updateUser(params);
     } else {
+      final password = formData['password'] as String;
       final params = CreateUserUsecaseParams(
         name: name,
         email: email,
-        password: password!,
+        password: password,
         fullName: fullName,
         role: role,
         employeeId: employeeId,

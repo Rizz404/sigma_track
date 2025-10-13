@@ -27,7 +27,6 @@ class UpdateUserUsecaseParams extends Equatable {
   final String id;
   final String? name;
   final String? email;
-  final String? password;
   final String? fullName;
   final String? role;
   final String? employeeId;
@@ -39,7 +38,6 @@ class UpdateUserUsecaseParams extends Equatable {
     required this.id,
     this.name,
     this.email,
-    this.password,
     this.fullName,
     this.role,
     this.employeeId,
@@ -52,7 +50,6 @@ class UpdateUserUsecaseParams extends Equatable {
     String? id,
     ValueGetter<String?>? name,
     ValueGetter<String?>? email,
-    ValueGetter<String?>? password,
     ValueGetter<String?>? fullName,
     ValueGetter<String?>? role,
     ValueGetter<String?>? employeeId,
@@ -64,7 +61,6 @@ class UpdateUserUsecaseParams extends Equatable {
       id: id ?? this.id,
       name: name != null ? name() : this.name,
       email: email != null ? email() : this.email,
-      password: password != null ? password() : this.password,
       fullName: fullName != null ? fullName() : this.fullName,
       role: role != null ? role() : this.role,
       employeeId: employeeId != null ? employeeId() : this.employeeId,
@@ -81,7 +77,6 @@ class UpdateUserUsecaseParams extends Equatable {
       'id': id,
       if (name != null) 'name': name,
       if (email != null) 'email': email,
-      if (password != null) 'password': password,
       if (fullName != null) 'fullName': fullName,
       if (role != null) 'role': role,
       if (employeeId != null) 'employeeId': employeeId,
@@ -96,7 +91,6 @@ class UpdateUserUsecaseParams extends Equatable {
       id: map['id'] ?? '',
       name: map['name'],
       email: map['email'],
-      password: map['password'],
       fullName: map['fullName'],
       role: map['role'],
       employeeId: map['employeeId'],
@@ -113,7 +107,7 @@ class UpdateUserUsecaseParams extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateUserUsecaseParams(id: $id, name: $name, email: $email, password: $password, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl)';
+    return 'UpdateUserUsecaseParams(id: $id, name: $name, email: $email, fullName: $fullName, role: $role, employeeId: $employeeId, preferredLang: $preferredLang, isActive: $isActive, avatarUrl: $avatarUrl)';
   }
 
   @override
@@ -122,7 +116,6 @@ class UpdateUserUsecaseParams extends Equatable {
       id,
       name,
       email,
-      password,
       fullName,
       role,
       employeeId,

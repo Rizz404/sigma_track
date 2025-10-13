@@ -22,6 +22,8 @@ import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_name_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 
@@ -514,6 +516,70 @@ class UserRepositoryImpl implements UserRepository {
   ) async {
     try {
       final response = await _userRemoteDatasource.deleteUser(params);
+      return Right(ActionSuccess(message: response.message));
+    } on ApiErrorResponse catch (apiError) {
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> changeUserPassword(
+    ChangeUserPasswordUsecaseParams params,
+  ) async {
+    try {
+      final response = await _userRemoteDatasource.changeUserPassword(params);
+      return Right(ActionSuccess(message: response.message));
+    } on ApiErrorResponse catch (apiError) {
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      }
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> changeCurrentUserPassword(
+    ChangeCurrentUserPasswordUsecaseParams params,
+  ) async {
+    try {
+      final response = await _userRemoteDatasource.changeCurrentUserPassword(
+        params,
+      );
       return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
       if (apiError.errors != null && apiError.errors!.isNotEmpty) {

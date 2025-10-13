@@ -123,6 +123,8 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_stati
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_usecase.dart';
 
 // ===== USER USECASES =====
+import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_usecase.dart';
@@ -900,3 +902,16 @@ final updateUserUsecaseProvider = Provider<UpdateUserUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return UpdateUserUsecase(userRepository);
 });
+
+final changeUserPasswordUsecaseProvider = Provider<ChangeUserPasswordUsecase>((
+  ref,
+) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return ChangeUserPasswordUsecase(userRepository);
+});
+
+final changeCurrentUserPasswordUsecaseProvider =
+    Provider<ChangeCurrentUserPasswordUsecase>((ref) {
+      final userRepository = ref.read(userRepositoryProvider);
+      return ChangeCurrentUserPasswordUsecase(userRepository);
+    });
