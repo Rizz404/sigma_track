@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -13,8 +14,10 @@ import 'package:sigma_track/core/themes/app_theme.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
+import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/firebase_options.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 // * Background message handler - must be top-level function
 @pragma('vm:entry-point')
@@ -38,6 +41,9 @@ Future<void> main() async {
 
     // * Setup Firebase Messaging background handler
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    // * Initialize timezone database for scheduled notifications
+    tz.initializeTimeZones();
 
     // * Pre-cache main font selagi splash screen
     await GoogleFonts.pendingFonts();
@@ -88,11 +94,50 @@ Future<void> main() async {
   }
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    // * Initialize local notification service
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeLocalNotifications();
+    });
+  }
+
+  Future<void> _initializeLocalNotifications() async {
+    final localNotificationService = ref.read(localNotificationServiceProvider);
+    await localNotificationService.initialize(
+      onNotificationTap: _onNotificationTap,
+    );
+  }
+
+  // * Handle notification tap
+  void _onNotificationTap(NotificationResponse response) {
+    logger.info('Notification tapped: ${response.payload}');
+
+    // TODO: Parse payload & navigate using GoRouter
+    if (response.payload != null && response.payload!.isNotEmpty) {
+      final params = Uri.splitQueryString(response.payload!);
+      logger.info('Notification params: $params');
+
+      // Example navigation logic:
+      // final type = params['type'];
+      // final id = params['id'];
+      // if (type == 'attendance' && id != null) {
+      //   ref.read(routerProvider).go('/attendance/$id');
+      // }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final currentLocale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeProvider);
     final router = ref.watch(routerProvider);
@@ -103,6 +148,26 @@ class MyApp extends ConsumerWidget {
       if (!next.isLoading && (previous?.isLoading ?? true)) {
         FlutterNativeSplash.remove();
       }
+
+      // * Initialize FCM token manager saat user berhasil login
+      next.whenData((authState) {
+        final wasLoggedOut = previous?.valueOrNull?.user == null;
+        final isLoggedIn = authState.user != null;
+
+        if (isLoggedIn && wasLoggedOut) {
+          final fcmTokenManager = ref.read(fcmTokenManagerProvider);
+          fcmTokenManager.initialize();
+        }
+
+        // * Clear FCM token saat logout
+        final wasLoggedIn = previous?.valueOrNull?.user != null;
+        final isLoggedOut = authState.user == null;
+
+        if (isLoggedOut && wasLoggedIn) {
+          final fcmTokenManager = ref.read(fcmTokenManagerProvider);
+          fcmTokenManager.clearToken();
+        }
+      });
     });
 
     return MaterialApp.router(

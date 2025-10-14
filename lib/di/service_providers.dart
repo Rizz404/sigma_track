@@ -1,7 +1,10 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/services/auth_service.dart';
+import 'package:sigma_track/core/services/fcm_token_manager.dart';
 import 'package:sigma_track/core/services/firebase_messaging_service.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
+import 'package:sigma_track/core/services/local_notification_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
@@ -27,4 +30,22 @@ final firebaseMessagingServiceProvider = Provider<FirebaseMessagingService>((
 ) {
   final messaging = ref.watch(firebaseMessagingProvider);
   return FirebaseMessagingService(messaging);
+});
+
+// * Flutter Local Notifications Plugin provider
+final flutterLocalNotificationsPluginProvider =
+    Provider<FlutterLocalNotificationsPlugin>((ref) {
+  return FlutterLocalNotificationsPlugin();
+});
+
+// * Local Notification Service provider
+final localNotificationServiceProvider = Provider<LocalNotificationService>(
+  (ref) {
+    final plugin = ref.watch(flutterLocalNotificationsPluginProvider);
+    return LocalNotificationService(plugin);
+  },
+);
+
+final fcmTokenManagerProvider = Provider<FcmTokenManager>((ref) {
+  return FcmTokenManager(ref);
 });
