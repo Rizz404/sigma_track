@@ -196,8 +196,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     final longitude = formData['longitude'] as String?;
 
     if (_isEdit) {
-      final params = UpdateLocationUsecaseParams(
+      final params = UpdateLocationUsecaseParams.fromChanges(
         id: widget.location!.id,
+        original: _fetchedLocation ?? widget.location!,
         locationCode: locationCode,
         building: building,
         floor: floor,

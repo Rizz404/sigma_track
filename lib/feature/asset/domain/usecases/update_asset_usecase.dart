@@ -62,6 +62,48 @@ class UpdateAssetUsecaseParams extends Equatable {
     this.assignedTo,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateAssetUsecaseParams.fromChanges({
+    required String id,
+    required Asset original,
+    String? assetTag,
+    File? dataMatrixImageFile,
+    String? assetName,
+    String? categoryId,
+    String? brand,
+    String? model,
+    String? serialNumber,
+    DateTime? purchaseDate,
+    double? purchasePrice,
+    String? vendorName,
+    DateTime? warrantyEnd,
+    AssetStatus? status,
+    AssetCondition? condition,
+    String? locationId,
+    String? assignedTo,
+  }) {
+    return UpdateAssetUsecaseParams(
+      id: id,
+      assetTag: assetTag != original.assetTag ? assetTag : null,
+      dataMatrixImageFile: dataMatrixImageFile,
+      assetName: assetName != original.assetName ? assetName : null,
+      categoryId: categoryId != original.categoryId ? categoryId : null,
+      brand: brand != original.brand ? brand : null,
+      model: model != original.model ? model : null,
+      serialNumber: serialNumber != original.serialNumber ? serialNumber : null,
+      purchaseDate: purchaseDate != original.purchaseDate ? purchaseDate : null,
+      purchasePrice: purchasePrice != original.purchasePrice
+          ? purchasePrice
+          : null,
+      vendorName: vendorName != original.vendorName ? vendorName : null,
+      warrantyEnd: warrantyEnd != original.warrantyEnd ? warrantyEnd : null,
+      status: status != original.status ? status : null,
+      condition: condition != original.condition ? condition : null,
+      locationId: locationId != original.locationId ? locationId : null,
+      assignedTo: assignedTo != original.assignedToId ? assignedTo : null,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
 

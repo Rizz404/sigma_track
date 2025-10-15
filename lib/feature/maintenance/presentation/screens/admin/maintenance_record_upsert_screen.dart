@@ -127,8 +127,9 @@ class _MaintenanceRecordUpsertScreenState
     if (_isEdit) {
       final maintenanceRecordId =
           _fetchedMaintenanceRecord?.id ?? widget.maintenanceRecord!.id;
-      final params = UpdateMaintenanceRecordUsecaseParams(
+      final params = UpdateMaintenanceRecordUsecaseParams.fromChanges(
         id: maintenanceRecordId,
+        original: _fetchedMaintenanceRecord ?? widget.maintenanceRecord!,
         scheduleId: scheduleId,
         assetId: assetId,
         maintenanceDate: maintenanceDate,

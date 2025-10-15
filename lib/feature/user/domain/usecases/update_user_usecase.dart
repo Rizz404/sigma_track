@@ -46,6 +46,34 @@ class UpdateUserUsecaseParams extends Equatable {
     this.avatarUrl,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateUserUsecaseParams.fromChanges({
+    required String id,
+    required User original,
+    String? name,
+    String? email,
+    String? fullName,
+    String? role,
+    String? employeeId,
+    String? preferredLang,
+    bool? isActive,
+    String? avatarUrl,
+  }) {
+    return UpdateUserUsecaseParams(
+      id: id,
+      name: name != original.name ? name : null,
+      email: email != original.email ? email : null,
+      fullName: fullName != original.fullName ? fullName : null,
+      role: role != original.role ? role : null,
+      employeeId: employeeId != original.employeeId ? employeeId : null,
+      preferredLang: preferredLang != original.preferredLang
+          ? preferredLang
+          : null,
+      isActive: isActive != original.isActive ? isActive : null,
+      avatarUrl: avatarUrl != original.avatarUrl ? avatarUrl : null,
+    );
+  }
+
   UpdateUserUsecaseParams copyWith({
     String? id,
     ValueGetter<String?>? name,

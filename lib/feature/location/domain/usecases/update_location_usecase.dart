@@ -43,6 +43,28 @@ class UpdateLocationUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateLocationUsecaseParams.fromChanges({
+    required String id,
+    required Location original,
+    String? locationCode,
+    String? building,
+    String? floor,
+    double? latitude,
+    double? longitude,
+    List<UpdateLocationTranslation>? translations,
+  }) {
+    return UpdateLocationUsecaseParams(
+      id: id,
+      locationCode: locationCode != original.locationCode ? locationCode : null,
+      building: building != original.building ? building : null,
+      floor: floor != original.floor ? floor : null,
+      latitude: latitude != original.latitude ? latitude : null,
+      longitude: longitude != original.longitude ? longitude : null,
+      translations: translations,
+    );
+  }
+
   UpdateLocationUsecaseParams copyWith({
     String? id,
     ValueGetter<String?>? locationCode,

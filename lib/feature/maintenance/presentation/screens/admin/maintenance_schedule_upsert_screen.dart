@@ -118,8 +118,9 @@ class _MaintenanceScheduleUpsertScreenState
     if (_isEdit) {
       final maintenanceScheduleId =
           _fetchedMaintenanceSchedule?.id ?? widget.maintenanceSchedule!.id;
-      final params = UpdateMaintenanceScheduleUsecaseParams(
+      final params = UpdateMaintenanceScheduleUsecaseParams.fromChanges(
         id: maintenanceScheduleId,
+        original: _fetchedMaintenanceSchedule ?? widget.maintenanceSchedule!,
         assetId: assetId,
         maintenanceType: maintenanceType,
         scheduledDate: scheduledDate,

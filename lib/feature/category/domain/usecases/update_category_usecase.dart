@@ -37,6 +37,22 @@ class UpdateCategoryUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateCategoryUsecaseParams.fromChanges({
+    required String id,
+    required Category original,
+    String? parentId,
+    String? categoryCode,
+    List<UpdateCategoryTranslation>? translations,
+  }) {
+    return UpdateCategoryUsecaseParams(
+      id: id,
+      parentId: parentId != original.parentId ? parentId : null,
+      categoryCode: categoryCode != original.categoryCode ? categoryCode : null,
+      translations: translations,
+    );
+  }
+
   UpdateCategoryUsecaseParams copyWith({
     String? id,
     String? parentId,

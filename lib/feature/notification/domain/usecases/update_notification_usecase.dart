@@ -42,6 +42,28 @@ class UpdateNotificationUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateNotificationUsecaseParams.fromChanges({
+    required String id,
+    required Notification original,
+    String? userId,
+    String? relatedAssetId,
+    NotificationType? type,
+    bool? isRead,
+    List<UpdateNotificationTranslation>? translations,
+  }) {
+    return UpdateNotificationUsecaseParams(
+      id: id,
+      userId: userId != original.userId ? userId : null,
+      relatedAssetId: relatedAssetId != original.relatedAssetId
+          ? relatedAssetId
+          : null,
+      type: type != original.type ? type : null,
+      isRead: isRead != original.isRead ? isRead : null,
+      translations: translations,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
     if (userId != null) map['userId'] = userId;

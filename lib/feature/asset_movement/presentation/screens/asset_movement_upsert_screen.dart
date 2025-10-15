@@ -116,8 +116,9 @@ class _AssetMovementUpsertScreenState
     if (_isEdit) {
       final assetMovementId =
           _fetchedAssetMovement?.id ?? widget.assetMovement!.id;
-      final params = UpdateAssetMovementUsecaseParams(
+      final params = UpdateAssetMovementUsecaseParams.fromChanges(
         id: assetMovementId,
+        original: _fetchedAssetMovement ?? widget.assetMovement!,
         assetId: assetId,
         fromLocationId: fromLocationId,
         toLocationId: toLocationId,

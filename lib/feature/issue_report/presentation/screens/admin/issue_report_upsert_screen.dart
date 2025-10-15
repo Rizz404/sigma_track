@@ -116,8 +116,9 @@ class _IssueReportUpsertScreenState
       final issueReportId = _fetchedIssueReport?.id ?? widget.issueReport!.id;
       final status = IssueStatus.values.byName(formData['status'] as String);
       final resolutionNotes = formData['resolutionNotes'] as String?;
-      final params = UpdateIssueReportUsecaseParams(
+      final params = UpdateIssueReportUsecaseParams.fromChanges(
         id: issueReportId,
+        original: _fetchedIssueReport ?? widget.issueReport!,
         assetId: assetId,
         issueType: issueType,
         priority: priority,

@@ -51,6 +51,36 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateMaintenanceScheduleUsecaseParams.fromChanges({
+    required String id,
+    required MaintenanceSchedule original,
+    String? assetId,
+    MaintenanceScheduleType? maintenanceType,
+    DateTime? scheduledDate,
+    int? frequencyMonths,
+    ScheduleStatus? status,
+    String? createdById,
+    List<UpdateMaintenanceScheduleTranslation>? translations,
+  }) {
+    return UpdateMaintenanceScheduleUsecaseParams(
+      id: id,
+      assetId: assetId != original.assetId ? assetId : null,
+      maintenanceType: maintenanceType != original.maintenanceType
+          ? maintenanceType
+          : null,
+      scheduledDate: scheduledDate != original.scheduledDate
+          ? scheduledDate
+          : null,
+      frequencyMonths: frequencyMonths != original.frequencyMonths
+          ? frequencyMonths
+          : null,
+      status: status != original.status ? status : null,
+      createdById: createdById != original.createdById ? createdById : null,
+      translations: translations,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

@@ -58,8 +58,9 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
     final isActive = formData['isActive'] as bool?;
 
     if (_isEdit) {
-      final params = UpdateUserUsecaseParams(
+      final params = UpdateUserUsecaseParams.fromChanges(
         id: widget.user!.id,
+        original: widget.user!,
         name: name,
         email: email,
         fullName: fullName,

@@ -90,8 +90,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
     if (_isEdit) {
       final categoryId = _fetchedCategory?.id ?? widget.category!.id;
-      final params = UpdateCategoryUsecaseParams(
+      final params = UpdateCategoryUsecaseParams.fromChanges(
         id: categoryId,
+        original: _fetchedCategory ?? widget.category!,
         parentId: parentId,
         categoryCode: categoryCode,
         translations: translations.cast<UpdateCategoryTranslation>(),

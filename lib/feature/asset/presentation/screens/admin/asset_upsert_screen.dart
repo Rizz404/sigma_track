@@ -186,8 +186,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
 
     if (_isEdit) {
-      final params = UpdateAssetUsecaseParams(
+      // * Use factory method to only include changed fields
+      final params = UpdateAssetUsecaseParams.fromChanges(
         id: widget.asset!.id,
+        original: widget.asset!,
         assetTag: assetTag,
         assetName: assetName,
         categoryId: categoryId,
@@ -205,7 +207,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ? AssetCondition.fromJson(condition)
             : null,
         locationId: locationId,
-        dataMatrixImageFile: _generatedDataMatrixFile,
+        dataMatrixImageFile: _dataMatrixPreviewData != widget.asset!.assetTag
+            ? _generatedDataMatrixFile
+            : null,
         assignedTo: assignedTo,
       );
       ref.read(assetsProvider.notifier).updateAsset(params);

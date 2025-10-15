@@ -47,6 +47,34 @@ class UpdateAssetMovementUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateAssetMovementUsecaseParams.fromChanges({
+    required String id,
+    required AssetMovement original,
+    String? assetId,
+    String? fromLocationId,
+    String? toLocationId,
+    String? fromUserId,
+    String? toUserId,
+    String? movedById,
+    DateTime? movementDate,
+    List<UpdateAssetMovementTranslation>? translations,
+  }) {
+    return UpdateAssetMovementUsecaseParams(
+      id: id,
+      assetId: assetId != original.assetId ? assetId : null,
+      fromLocationId: fromLocationId != original.fromLocationId
+          ? fromLocationId
+          : null,
+      toLocationId: toLocationId != original.toLocationId ? toLocationId : null,
+      fromUserId: fromUserId != original.fromUserId ? fromUserId : null,
+      toUserId: toUserId != original.toUserId ? toUserId : null,
+      movedById: movedById != original.movedById ? movedById : null,
+      movementDate: movementDate != original.movementDate ? movementDate : null,
+      translations: translations,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

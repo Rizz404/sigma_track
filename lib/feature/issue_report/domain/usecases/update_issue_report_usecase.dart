@@ -44,6 +44,30 @@ class UpdateIssueReportUsecaseParams extends Equatable {
     this.translations,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateIssueReportUsecaseParams.fromChanges({
+    required String id,
+    required IssueReport original,
+    String? assetId,
+    String? issueType,
+    IssuePriority? priority,
+    IssueStatus? status,
+    String? resolutionNotes,
+    List<UpdateIssueReportTranslation>? translations,
+  }) {
+    return UpdateIssueReportUsecaseParams(
+      id: id,
+      assetId: assetId != original.assetId ? assetId : null,
+      issueType: issueType != original.issueType ? issueType : null,
+      priority: priority != original.priority ? priority : null,
+      status: status != original.status ? status : null,
+      resolutionNotes: resolutionNotes != original.resolutionNotes
+          ? resolutionNotes
+          : null,
+      translations: translations,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
 
