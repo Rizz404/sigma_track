@@ -74,8 +74,8 @@ class GetUsersCursorUsecaseParams extends Equatable {
       if (role != null) 'role': role,
       if (isActive != null) 'isActive': isActive,
       if (employeeId != null) 'employeeId': employeeId,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.toJson(),
+      if (sortOrder != null) 'sortOrder': sortOrder!.toJson(),
       if (limit != null) 'limit': limit,
       if (cursor != null) 'cursor': cursor,
     };

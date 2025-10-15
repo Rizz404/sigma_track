@@ -20,9 +20,6 @@ enum SortOrder {
   String toJson() => value;
   static SortOrder fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -67,9 +64,6 @@ enum CategorySortBy {
 
   String toJson() => value;
   static CategorySortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -127,9 +121,6 @@ enum LocationSortBy {
 
   String toJson() => value;
   static LocationSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -194,9 +185,6 @@ enum NotificationSortBy {
   String toJson() => value;
   static NotificationSortBy fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -252,9 +240,6 @@ enum ScanLogSortBy {
 
   String toJson() => value;
   static ScanLogSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -314,9 +299,6 @@ enum AssetSortBy {
 
   String toJson() => value;
   static AssetSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -408,9 +390,6 @@ enum AssetMovementSortBy {
   String toJson() => value;
   static AssetMovementSortBy fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -469,9 +448,6 @@ enum IssueReportSortBy {
 
   String toJson() => value;
   static IssueReportSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -546,9 +522,6 @@ enum MaintenanceScheduleSortBy {
   String toJson() => value;
   static MaintenanceScheduleSortBy fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -601,9 +574,6 @@ enum MaintenanceRecordSortBy {
 
   String toJson() => value;
   static MaintenanceRecordSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -658,9 +628,6 @@ enum UserSortBy {
 
   String toJson() => value;
   static UserSortBy fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {

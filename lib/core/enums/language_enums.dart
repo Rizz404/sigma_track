@@ -32,9 +32,6 @@ enum Language {
   String toJson() => mobileCode;
   static Language fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => mobileCode;
-
   // * Dropdown helper
   String get label {
     switch (this) {

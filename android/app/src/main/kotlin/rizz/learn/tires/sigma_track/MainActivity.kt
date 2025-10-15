@@ -1,4 +1,4 @@
-package rizz.learn.tires.sigma_track
+package rizz.learn.sigma_track
 
 import io.flutter.embedding.android.FlutterActivity
 

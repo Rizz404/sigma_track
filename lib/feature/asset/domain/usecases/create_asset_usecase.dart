@@ -40,7 +40,7 @@ class CreateAssetUsecaseParams extends Equatable {
   final AssetStatus status;
   final AssetCondition condition;
   final String? locationId;
-  final String? assignedToId;
+  final String? assignedTo;
 
   CreateAssetUsecaseParams({
     required this.assetTag,
@@ -57,7 +57,7 @@ class CreateAssetUsecaseParams extends Equatable {
     required this.status,
     required this.condition,
     this.locationId,
-    this.assignedToId,
+    this.assignedTo,
   });
 
   Map<String, dynamic> toMap() {
@@ -83,7 +83,7 @@ class CreateAssetUsecaseParams extends Equatable {
       map['warrantyEnd'] = warrantyEnd!.toIso8601String().split('T').first;
     }
     if (locationId != null) map['locationId'] = locationId;
-    if (assignedToId != null) map['assignedToId'] = assignedToId;
+    if (assignedTo != null) map['assignedTo'] = assignedTo;
 
     return map;
   }
@@ -110,7 +110,7 @@ class CreateAssetUsecaseParams extends Equatable {
       status: AssetStatus.fromJson(map['status']),
       condition: AssetCondition.fromJson(map['condition']),
       locationId: map['locationId'],
-      assignedToId: map['assignedToId'],
+      assignedTo: map['assignedTo'],
     );
   }
 
@@ -135,6 +135,6 @@ class CreateAssetUsecaseParams extends Equatable {
     status,
     condition,
     locationId,
-    assignedToId,
+    assignedTo,
   ];
 }

@@ -23,6 +23,8 @@ import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -35,6 +37,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
+// Todo: Fix error database reflect.Set: value of type *string is not assignable to type *domain.AssetStatus
 class AssetUpsertScreen extends ConsumerStatefulWidget {
   final Asset? asset;
   final String? assetId;
@@ -140,6 +143,14 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     return state.locations;
   }
 
+  Future<List<User>> _searchUsers(String query) async {
+    final notifier = ref.read(usersSearchProvider.notifier);
+    await notifier.search(query);
+
+    final state = ref.read(usersSearchProvider);
+    return state.users;
+  }
+
   void _handleSubmit() async {
     if (_formKey.currentState?.saveAndValidate() != true) {
       AppToast.warning('Please fill all required fields');
@@ -161,6 +172,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     final status = formData['status'] as String?;
     final condition = formData['condition'] as String?;
     final locationId = formData['locationId'] as String?;
+    final assignedTo = formData['assignedTo'] as String?;
 
     if (categoryId == null || categoryId.isEmpty) {
       AppToast.warning('Please select a category');
@@ -194,6 +206,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             : null,
         locationId: locationId,
         dataMatrixImageFile: _generatedDataMatrixFile,
+        assignedTo: assignedTo,
       );
       ref.read(assetsProvider.notifier).updateAsset(params);
     } else {
@@ -218,6 +231,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             : AssetCondition.good,
         locationId: locationId,
         dataMatrixImageFile: _generatedDataMatrixFile,
+        assignedTo: assignedTo,
       );
       ref.read(assetsProvider.notifier).createAsset(params);
     }
@@ -489,6 +503,20 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               itemValueMapper: (location) => location.id,
               itemSubtitleMapper: (location) => location.locationCode,
               itemIcon: Icons.location_on,
+            ),
+            const SizedBox(height: 16),
+            AppSearchField<User>(
+              name: 'assignedTo',
+              label: 'Assigned To (Optional)',
+              hintText: 'Search user...',
+              initialValue: widget.asset?.assignedToId,
+              initialDisplayText: widget.asset?.assignedTo?.fullName,
+              enableAutocomplete: true,
+              onSearch: _searchUsers,
+              itemDisplayMapper: (user) => user.fullName,
+              itemValueMapper: (user) => user.id,
+              itemSubtitleMapper: (user) => user.email,
+              itemIcon: Icons.person,
             ),
           ],
         ),

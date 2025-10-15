@@ -9,6 +9,8 @@ class LocalNotificationService {
   final FlutterLocalNotificationsPlugin _plugin;
 
   // * Notification channel config for Android
+  // ! IMPORTANT: Sound files must be .ogg or .wav format in android/app/src/main/res/raw/
+  // ! Reference by name WITHOUT extension
   static const AndroidNotificationChannel _defaultChannel =
       AndroidNotificationChannel(
         'sigma_track_default', // id
@@ -18,7 +20,9 @@ class LocalNotificationService {
         enableVibration: true,
         playSound: true,
         showBadge: true,
-        sound: RawResourceAndroidNotificationSound('notification_sound'),
+        sound: RawResourceAndroidNotificationSound(
+          'notification_sound',
+        ), // * No .ogg extension
       );
 
   static const AndroidNotificationChannel _highPriorityChannel =
@@ -30,7 +34,9 @@ class LocalNotificationService {
         enableVibration: true,
         playSound: true,
         showBadge: true,
-        sound: RawResourceAndroidNotificationSound('high_priority_sound'),
+        sound: RawResourceAndroidNotificationSound(
+          'high_priority_sound',
+        ), // * No .ogg extension
       );
 
   // * Initialize plugin
@@ -140,13 +146,12 @@ class LocalNotificationService {
         styleInformation: BigTextStyleInformation(body),
       );
 
-      final darwinDetails = DarwinNotificationDetails(
+      // ! iOS sound must be .caf format in ios/Runner/Resources/
+      const darwinDetails = DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
-        sound: highPriority
-            ? 'high_priority_sound.caf'
-            : 'notification_sound.caf',
+        // * iOS will use default sound if file not found
         interruptionLevel: InterruptionLevel.active,
       );
 
@@ -204,13 +209,12 @@ class LocalNotificationService {
         sound: channel.sound,
       );
 
-      final darwinDetails = DarwinNotificationDetails(
+      // ! iOS sound must be .caf format in ios/Runner/Resources/
+      const darwinDetails = DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
-        sound: highPriority
-            ? 'high_priority_sound.caf'
-            : 'notification_sound.caf',
+        // * iOS will use default sound if file not found
       );
 
       final details = NotificationDetails(

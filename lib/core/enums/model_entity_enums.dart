@@ -32,9 +32,6 @@ enum UserRole {
 
   static UserRole fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -91,9 +88,6 @@ enum AssetStatus {
   String toJson() => value;
 
   static AssetStatus fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -155,9 +149,6 @@ enum AssetCondition {
   String toJson() => value;
 
   static AssetCondition fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -223,9 +214,6 @@ enum NotificationType {
 
   static NotificationType fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -289,9 +277,6 @@ enum ScanMethodType {
 
   static ScanMethodType fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -343,9 +328,6 @@ enum ScanResultType {
   String toJson() => value;
 
   static ScanResultType fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -404,9 +386,6 @@ enum MaintenanceScheduleType {
 
   static MaintenanceScheduleType fromJson(String json) => fromString(json);
 
-  @override
-  String toString() => value;
-
   // * Dropdown helper
   String get label {
     switch (this) {
@@ -458,9 +437,6 @@ enum ScheduleStatus {
   String toJson() => value;
 
   static ScheduleStatus fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -518,9 +494,6 @@ enum IssuePriority {
   String toJson() => value;
 
   static IssuePriority fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {
@@ -582,9 +555,6 @@ enum IssueStatus {
   String toJson() => value;
 
   static IssueStatus fromJson(String json) => fromString(json);
-
-  @override
-  String toString() => value;
 
   // * Dropdown helper
   String get label {

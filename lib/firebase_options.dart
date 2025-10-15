@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '826870202449',
     projectId: 'sigma-track-9b252',
     storageBucket: 'sigma-track-9b252.firebasestorage.app',
-    iosBundleId: 'rizz.learn.tires.sigmaTrack',
+    iosBundleId: 'rizz.learn.sigma_track',
   );
 }
