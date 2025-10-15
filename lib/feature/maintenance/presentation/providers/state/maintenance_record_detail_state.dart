@@ -17,6 +17,16 @@ class MaintenanceRecordDetailState extends Equatable {
   factory MaintenanceRecordDetailState.initial() =>
       const MaintenanceRecordDetailState();
 
+  factory MaintenanceRecordDetailState.loading() =>
+      const MaintenanceRecordDetailState(isLoading: true);
+
+  factory MaintenanceRecordDetailState.success(
+    MaintenanceRecord maintenanceRecord,
+  ) => MaintenanceRecordDetailState(maintenanceRecord: maintenanceRecord);
+
+  factory MaintenanceRecordDetailState.error(Failure failure) =>
+      MaintenanceRecordDetailState(failure: failure);
+
   MaintenanceRecordDetailState copyWith({
     MaintenanceRecord? maintenanceRecord,
     bool? isLoading,

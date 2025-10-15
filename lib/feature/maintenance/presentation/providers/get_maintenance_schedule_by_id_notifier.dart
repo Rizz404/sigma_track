@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
@@ -14,15 +15,15 @@ class GetMaintenanceScheduleByIdNotifier
 
   @override
   MaintenanceScheduleDetailState build(String id) {
-    this.logPresentation('Initializing GetMaintenanceScheduleByIdNotifier');
-    getMaintenanceScheduleById(id);
+    // * Cache maintenance schedule detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
+    this.logPresentation('Loading maintenance schedule by id: $id');
+    _loadMaintenanceSchedule(id);
     return MaintenanceScheduleDetailState.initial();
   }
 
-  Future<void> getMaintenanceScheduleById(String id) async {
-    this.logPresentation('Getting maintenance schedule by id: $id');
-
-    state = state.copyWith(isLoading: true, failure: null);
+  Future<void> _loadMaintenanceSchedule(String id) async {
+    state = MaintenanceScheduleDetailState.loading();
 
     final result = await _getMaintenanceScheduleByIdUsecase.call(
       GetMaintenanceScheduleByIdUsecaseParams(id: id),
@@ -30,21 +31,23 @@ class GetMaintenanceScheduleByIdNotifier
 
     result.fold(
       (failure) {
-        this.logError(
-          'Failed to get maintenance schedule by id',
-          failure,
-          StackTrace.current,
-        );
-        state = state.copyWith(isLoading: false, failure: failure);
+        this.logError('Failed to load maintenance schedule by id', failure);
+        state = MaintenanceScheduleDetailState.error(failure);
       },
       (success) {
-        this.logPresentation('Successfully got maintenance schedule by id');
-        state = state.copyWith(
-          isLoading: false,
-          maintenanceSchedule: success.data,
-          failure: null,
-        );
+        this.logData('Maintenance schedule loaded by id: ${success.data?.id}');
+        if (success.data != null) {
+          state = MaintenanceScheduleDetailState.success(success.data!);
+        } else {
+          state = MaintenanceScheduleDetailState.error(
+            const ServerFailure(message: 'Maintenance schedule not found'),
+          );
+        }
       },
     );
+  }
+
+  Future<void> refresh() async {
+    await _loadMaintenanceSchedule(arg);
   }
 }

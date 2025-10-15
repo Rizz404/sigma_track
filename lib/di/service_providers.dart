@@ -8,6 +8,7 @@ import 'package:sigma_track/core/services/local_notification_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
+import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/auth/data/services/auth_service_impl.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) {
@@ -35,17 +36,20 @@ final firebaseMessagingServiceProvider = Provider<FirebaseMessagingService>((
 // * Flutter Local Notifications Plugin provider
 final flutterLocalNotificationsPluginProvider =
     Provider<FlutterLocalNotificationsPlugin>((ref) {
-  return FlutterLocalNotificationsPlugin();
-});
+      return FlutterLocalNotificationsPlugin();
+    });
 
 // * Local Notification Service provider
-final localNotificationServiceProvider = Provider<LocalNotificationService>(
-  (ref) {
-    final plugin = ref.watch(flutterLocalNotificationsPluginProvider);
-    return LocalNotificationService(plugin);
-  },
-);
+final localNotificationServiceProvider = Provider<LocalNotificationService>((
+  ref,
+) {
+  final plugin = ref.watch(flutterLocalNotificationsPluginProvider);
+  return LocalNotificationService(plugin);
+});
 
 final fcmTokenManagerProvider = Provider<FcmTokenManager>((ref) {
-  return FcmTokenManager(ref);
+  final prefs = ref.watch(sharedPreferencesProvider);
+  final messagingService = ref.watch(firebaseMessagingServiceProvider);
+  final updateUsecase = ref.watch(updateCurrentUserUsecaseProvider);
+  return FcmTokenManager(prefs, messagingService, updateUsecase);
 });

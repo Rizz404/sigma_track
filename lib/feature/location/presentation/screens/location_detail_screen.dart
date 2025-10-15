@@ -46,16 +46,54 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
     _location = widget.location;
     if (_location == null &&
         (widget.id != null || widget.locationCode != null)) {
-      // TODO: Fetch location by id or locationCode
       _fetchLocation();
     }
   }
 
   Future<void> _fetchLocation() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch location logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getLocationByIdProvider(widget.id!));
+
+        if (state.location != null) {
+          setState(() {
+            _location = state.location;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch location by id', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load location');
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      } else if (widget.locationCode != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getLocationByCodeProvider(widget.locationCode!));
+
+        if (state.location != null) {
+          setState(() {
+            _location = state.location;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch location by code', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load location');
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching location', e, s);
+      AppToast.error('Failed to load location');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

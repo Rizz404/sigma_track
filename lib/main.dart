@@ -23,7 +23,11 @@ import 'package:timezone/data/latest_all.dart' as tz;
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // TODO: Handle background message
+
+  logger.info('Background FCM message: ${message.messageId}');
+
+  // * Notifikasi akan otomatis ditampilkan oleh sistem saat app di background/terminated
+  // * FCM SDK akan handle notifikasi secara native jika ada notification payload
 }
 
 Future<void> main() async {
@@ -116,23 +120,78 @@ class _MyAppState extends ConsumerState<MyApp> {
     await localNotificationService.initialize(
       onNotificationTap: _onNotificationTap,
     );
+
+    // * Setup foreground message handler
+    _setupForegroundMessageHandler();
+
+    // * Setup notification opened app handler (background)
+    _setupNotificationOpenedHandler();
+
+    // * Check initial message (terminated state)
+    _checkInitialMessage();
+  }
+
+  // * Handle FCM message saat app di foreground
+  void _setupForegroundMessageHandler() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      logger.info('Foreground FCM message: ${message.messageId}');
+
+      final notification = message.notification;
+      final data = message.data.map((k, v) => MapEntry(k, v.toString()));
+
+      if (notification != null) {
+        // * Show local notification
+        final localNotificationService = ref.read(
+          localNotificationServiceProvider,
+        );
+
+        localNotificationService.showNotificationWithData(
+          id: message.messageId.hashCode,
+          title: notification.title ?? 'New Notification',
+          body: notification.body ?? '',
+          data: data,
+          highPriority: true,
+        );
+      }
+    });
+  }
+
+  // * Handle notification opened from background
+  void _setupNotificationOpenedHandler() {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      logger.info('Notification opened app: ${message.messageId}');
+      _handleNotificationNavigation(message.data);
+    });
+  }
+
+  // * Check initial message (app opened from terminated state)
+  Future<void> _checkInitialMessage() async {
+    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      logger.info('App opened from notification: ${initialMessage.messageId}');
+      _handleNotificationNavigation(initialMessage.data);
+    }
+  }
+
+  // * Handle notification navigation based on data
+  void _handleNotificationNavigation(Map<String, dynamic> data) {
+    logger.info('App opened from notification with data: $data');
+
+    // * App berhasil dibuka dari notifikasi
+    // * Implementasi navigasi ke screen spesifik akan ditambahkan nanti
+    // * Contoh data yang bisa diparse: type, id, action, etc
   }
 
   // * Handle notification tap
   void _onNotificationTap(NotificationResponse response) {
-    logger.info('Notification tapped: ${response.payload}');
+    logger.info('Local notification tapped: ${response.payload}');
 
-    // TODO: Parse payload & navigate using GoRouter
     if (response.payload != null && response.payload!.isNotEmpty) {
       final params = Uri.splitQueryString(response.payload!);
-      logger.info('Notification params: $params');
+      logger.info('Notification payload params: $params');
 
-      // Example navigation logic:
-      // final type = params['type'];
-      // final id = params['id'];
-      // if (type == 'attendance' && id != null) {
-      //   ref.read(routerProvider).go('/attendance/$id');
-      // }
+      // * App berhasil dibuka dari local notification
+      // * Implementasi navigasi akan ditambahkan nanti
     }
   }
 

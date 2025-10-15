@@ -1,9 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigma_track/core/constants/storage_key_constant.dart';
 import 'package:sigma_track/core/extensions/logger_extension.dart';
-import 'package:sigma_track/di/common_providers.dart';
-import 'package:sigma_track/di/service_providers.dart';
-import 'package:sigma_track/di/usecase_providers.dart';
+import 'package:sigma_track/core/services/firebase_messaging_service.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 
 /// Service untuk manage FCM token lifecycle
@@ -12,20 +11,20 @@ import 'package:sigma_track/feature/user/domain/usecases/update_current_user_use
 /// 2. Token berubah (onTokenRefresh)
 /// 3. Token berbeda dengan yang tersimpan di local storage
 class FcmTokenManager {
-  final Ref _ref;
-  static const String _tokenKey = 'fcm_token';
-  static const String _lastSyncKey = 'fcm_token_last_sync';
+  final SharedPreferences _prefs;
+  final FirebaseMessagingService _messagingService;
+  final UpdateCurrentUserUsecase _updateUsecase;
+
   static const _syncCooldown = Duration(hours: 1); // * Prevent spam sync
 
-  FcmTokenManager(this._ref);
+  FcmTokenManager(this._prefs, this._messagingService, this._updateUsecase);
 
   // * Initialize FCM token management
   Future<void> initialize() async {
     this.logService('Initializing FCM token manager');
 
     // * Request permission first
-    final messagingService = _ref.read(firebaseMessagingServiceProvider);
-    final isGranted = await messagingService.requestPermission();
+    final isGranted = await _messagingService.requestPermission();
 
     if (!isGranted) {
       this.logService(
@@ -35,7 +34,7 @@ class FcmTokenManager {
     }
 
     // * Get current token
-    final currentToken = await messagingService.getToken();
+    final currentToken = await _messagingService.getToken();
     if (currentToken == null) {
       this.logError('Failed to get FCM token');
       return;
@@ -64,9 +63,8 @@ class FcmTokenManager {
   // * Sync token hanya jika diperlukan
   Future<void> _syncTokenIfNeeded(String currentToken) async {
     try {
-      final prefs = _ref.read(sharedPreferencesProvider);
-      final savedToken = prefs.getString(_tokenKey);
-      final lastSync = prefs.getString(_lastSyncKey);
+      final savedToken = _prefs.getString(StorageKeyConstant.tokenKey);
+      final lastSync = _prefs.getString(StorageKeyConstant.lastSyncKey);
 
       // * Token sama dan baru sync, skip
       if (savedToken == currentToken && lastSync != null) {
@@ -94,8 +92,7 @@ class FcmTokenManager {
     try {
       if (!forceSync) {
         // * Check cooldown untuk prevent spam
-        final prefs = _ref.read(sharedPreferencesProvider);
-        final lastSync = prefs.getString(_lastSyncKey);
+        final lastSync = _prefs.getString(StorageKeyConstant.lastSyncKey);
 
         if (lastSync != null) {
           final lastSyncTime = DateTime.parse(lastSync);
@@ -110,8 +107,7 @@ class FcmTokenManager {
 
       this.logService('Syncing FCM token to backend...');
 
-      final updateUsecase = _ref.read(updateCurrentUserUsecaseProvider);
-      final result = await updateUsecase.call(
+      final result = await _updateUsecase.call(
         UpdateCurrentUserUsecaseParams(fcmToken: token),
       );
 
@@ -123,9 +119,11 @@ class FcmTokenManager {
           this.logService('FCM token synced successfully');
 
           // * Save token & timestamp to local storage
-          final prefs = _ref.read(sharedPreferencesProvider);
-          await prefs.setString(_tokenKey, token);
-          await prefs.setString(_lastSyncKey, DateTime.now().toIso8601String());
+          await _prefs.setString(StorageKeyConstant.tokenKey, token);
+          await _prefs.setString(
+            StorageKeyConstant.lastSyncKey,
+            DateTime.now().toIso8601String(),
+          );
         },
       );
     } catch (e, s) {
@@ -137,8 +135,7 @@ class FcmTokenManager {
   Future<void> syncAfterLogin() async {
     this.logService('Manual token sync after login');
 
-    final messagingService = _ref.read(firebaseMessagingServiceProvider);
-    final token = await messagingService.getToken();
+    final token = await _messagingService.getToken();
 
     if (token != null) {
       await _syncTokenToBackend(token, forceSync: true);
@@ -150,13 +147,11 @@ class FcmTokenManager {
     try {
       this.logService('Clearing FCM token');
 
-      final prefs = _ref.read(sharedPreferencesProvider);
-      await prefs.remove(_tokenKey);
-      await prefs.remove(_lastSyncKey);
+      await _prefs.remove(StorageKeyConstant.tokenKey);
+      await _prefs.remove(StorageKeyConstant.lastSyncKey);
 
       // * Optional: Delete token dari Firebase
-      final messagingService = _ref.read(firebaseMessagingServiceProvider);
-      await messagingService.deleteToken();
+      await _messagingService.deleteToken();
     } catch (e, s) {
       this.logError('Failed to clear FCM token', e, s);
     }
@@ -165,8 +160,7 @@ class FcmTokenManager {
   // * Get saved token dari local storage
   String? getSavedToken() {
     try {
-      final prefs = _ref.read(sharedPreferencesProvider);
-      return prefs.getString(_tokenKey);
+      return _prefs.getString(StorageKeyConstant.tokenKey);
     } catch (e, s) {
       this.logError('Failed to get saved token', e, s);
       return null;

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_report_by_id_usecase.dart';
@@ -14,15 +15,15 @@ class GetIssueReportByIdNotifier
 
   @override
   IssueReportDetailState build(String id) {
-    this.logPresentation('Initializing GetIssueReportByIdNotifier');
-    getIssueReportById(id);
+    // * Cache issue report detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
+    this.logPresentation('Loading issue report by id: $id');
+    _loadIssueReport(id);
     return IssueReportDetailState.initial();
   }
 
-  Future<void> getIssueReportById(String id) async {
-    this.logPresentation('Getting issue report by id: $id');
-
-    state = state.copyWith(isLoading: true, failure: null);
+  Future<void> _loadIssueReport(String id) async {
+    state = IssueReportDetailState.loading();
 
     final result = await _getIssueReportByIdUsecase.call(
       GetIssueReportByIdUsecaseParams(id: id),
@@ -30,21 +31,23 @@ class GetIssueReportByIdNotifier
 
     result.fold(
       (failure) {
-        this.logError(
-          'Failed to get issue report by id',
-          failure,
-          StackTrace.current,
-        );
-        state = state.copyWith(isLoading: false, failure: failure);
+        this.logError('Failed to load issue report by id', failure);
+        state = IssueReportDetailState.error(failure);
       },
       (success) {
-        this.logPresentation('Successfully got issue report by id');
-        state = state.copyWith(
-          isLoading: false,
-          issueReport: success.data,
-          failure: null,
-        );
+        this.logData('Issue report loaded by id: ${success.data?.id}');
+        if (success.data != null) {
+          state = IssueReportDetailState.success(success.data!);
+        } else {
+          state = IssueReportDetailState.error(
+            const ServerFailure(message: 'Issue report not found'),
+          );
+        }
       },
     );
+  }
+
+  Future<void> refresh() async {
+    await _loadIssueReport(arg);
   }
 }

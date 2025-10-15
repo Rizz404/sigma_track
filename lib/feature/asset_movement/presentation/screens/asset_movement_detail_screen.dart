@@ -46,9 +46,33 @@ class _AssetMovementDetailScreenState
 
   Future<void> _fetchAssetMovement() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch asset movement logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getAssetMovementByIdProvider(widget.id!));
+
+        if (state.assetMovement != null) {
+          setState(() {
+            _assetMovement = state.assetMovement;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch asset movement by id', state.failure);
+          AppToast.error(
+            state.failure?.message ?? 'Failed to load asset movement',
+          );
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching asset movement', e, s);
+      AppToast.error('Failed to load asset movement');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

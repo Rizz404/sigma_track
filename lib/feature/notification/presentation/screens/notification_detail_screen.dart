@@ -45,9 +45,33 @@ class _NotificationDetailScreenState
 
   Future<void> _fetchNotification() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch notification logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getNotificationByIdProvider(widget.id!));
+
+        if (state.notification != null) {
+          setState(() {
+            _notification = state.notification;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch notification by id', state.failure);
+          AppToast.error(
+            state.failure?.message ?? 'Failed to load notification',
+          );
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching notification', e, s);
+      AppToast.error('Failed to load notification');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleDelete() async {

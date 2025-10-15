@@ -50,9 +50,36 @@ class _MaintenanceRecordDetailScreenState
 
   Future<void> _fetchMaintenanceRecord() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch maintenance record logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getMaintenanceRecordByIdProvider(widget.id!));
+
+        if (state.maintenanceRecord != null) {
+          setState(() {
+            _maintenanceRecord = state.maintenanceRecord;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError(
+            'Failed to fetch maintenance record by id',
+            state.failure,
+          );
+          AppToast.error(
+            state.failure?.message ?? 'Failed to load maintenance record',
+          );
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching maintenance record', e, s);
+      AppToast.error('Failed to load maintenance record');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

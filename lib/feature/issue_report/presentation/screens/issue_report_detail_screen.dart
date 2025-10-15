@@ -46,9 +46,33 @@ class _IssueReportDetailScreenState
 
   Future<void> _fetchIssueReport() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch issue report logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getIssueReportByIdProvider(widget.id!));
+
+        if (state.issueReport != null) {
+          setState(() {
+            _issueReport = state.issueReport;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch issue report by id', state.failure);
+          AppToast.error(
+            state.failure?.message ?? 'Failed to load issue report',
+          );
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching issue report', e, s);
+      AppToast.error('Failed to load issue report');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

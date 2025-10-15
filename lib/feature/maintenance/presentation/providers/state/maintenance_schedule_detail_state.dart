@@ -17,6 +17,16 @@ class MaintenanceScheduleDetailState extends Equatable {
   factory MaintenanceScheduleDetailState.initial() =>
       const MaintenanceScheduleDetailState();
 
+  factory MaintenanceScheduleDetailState.loading() =>
+      const MaintenanceScheduleDetailState(isLoading: true);
+
+  factory MaintenanceScheduleDetailState.success(
+    MaintenanceSchedule maintenanceSchedule,
+  ) => MaintenanceScheduleDetailState(maintenanceSchedule: maintenanceSchedule);
+
+  factory MaintenanceScheduleDetailState.error(Failure failure) =>
+      MaintenanceScheduleDetailState(failure: failure);
+
   MaintenanceScheduleDetailState copyWith({
     MaintenanceSchedule? maintenanceSchedule,
     bool? isLoading,

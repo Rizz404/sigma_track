@@ -57,9 +57,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
     try {
       if (widget.id != null) {
-        // * Fetch by ID
-        final notifier = ref.read(getAssetByIdProvider(widget.id!).notifier);
-        await notifier.refresh();
+        // * Watch provider (build method akan fetch otomatis)
         final state = ref.read(getAssetByIdProvider(widget.id!));
 
         if (state.asset != null) {
@@ -77,13 +75,12 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           this.logError('Failed to fetch asset by id', state.failure);
           AppToast.error(state.failure?.message ?? 'Failed to load asset');
           setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
         }
       } else if (widget.assetTag != null) {
-        // * Fetch by tag
-        final notifier = ref.read(
-          getAssetByTagProvider(widget.assetTag!).notifier,
-        );
-        await notifier.refresh();
+        // * Watch provider (build method akan fetch otomatis)
         final state = ref.read(getAssetByTagProvider(widget.assetTag!));
 
         if (state.asset != null) {
@@ -100,6 +97,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
         } else if (state.failure != null) {
           this.logError('Failed to fetch asset by tag', state.failure);
           AppToast.error(state.failure?.message ?? 'Failed to load asset');
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
           setState(() => _isLoading = false);
         }
       }

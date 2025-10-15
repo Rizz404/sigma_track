@@ -44,9 +44,31 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
 
   Future<void> _fetchUser() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch user logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getUserByIdProvider(widget.id!));
+
+        if (state.user != null) {
+          setState(() {
+            _user = state.user;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch user by id', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load user');
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching user', e, s);
+      AppToast.error('Failed to load user');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleEdit() {

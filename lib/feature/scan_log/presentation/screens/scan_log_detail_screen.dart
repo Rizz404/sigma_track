@@ -44,9 +44,31 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
 
   Future<void> _fetchScanLog() async {
     setState(() => _isLoading = true);
-    // TODO: Implement fetch scan log logic
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() => _isLoading = false);
+
+    try {
+      if (widget.id != null) {
+        // * Watch provider (build method akan fetch otomatis)
+        final state = ref.read(getScanLogByIdProvider(widget.id!));
+
+        if (state.scanLog != null) {
+          setState(() {
+            _scanLog = state.scanLog;
+            _isLoading = false;
+          });
+        } else if (state.failure != null) {
+          this.logError('Failed to fetch scan log by id', state.failure);
+          AppToast.error(state.failure?.message ?? 'Failed to load scan log');
+          setState(() => _isLoading = false);
+        } else {
+          // * State masih loading, tunggu dengan listen
+          setState(() => _isLoading = false);
+        }
+      }
+    } catch (e, s) {
+      this.logError('Error fetching scan log', e, s);
+      AppToast.error('Failed to load scan log');
+      setState(() => _isLoading = false);
+    }
   }
 
   void _handleDelete() async {

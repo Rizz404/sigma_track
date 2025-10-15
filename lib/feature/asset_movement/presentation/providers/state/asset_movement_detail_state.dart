@@ -17,6 +17,15 @@ class AssetMovementDetailState extends Equatable {
   factory AssetMovementDetailState.initial() =>
       const AssetMovementDetailState();
 
+  factory AssetMovementDetailState.loading() =>
+      const AssetMovementDetailState(isLoading: true);
+
+  factory AssetMovementDetailState.success(AssetMovement assetMovement) =>
+      AssetMovementDetailState(assetMovement: assetMovement);
+
+  factory AssetMovementDetailState.error(Failure failure) =>
+      AssetMovementDetailState(failure: failure);
+
   AssetMovementDetailState copyWith({
     AssetMovement? assetMovement,
     bool? isLoading,

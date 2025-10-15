@@ -16,6 +16,15 @@ class IssueReportDetailState extends Equatable {
 
   factory IssueReportDetailState.initial() => const IssueReportDetailState();
 
+  factory IssueReportDetailState.loading() =>
+      const IssueReportDetailState(isLoading: true);
+
+  factory IssueReportDetailState.success(IssueReport issueReport) =>
+      IssueReportDetailState(issueReport: issueReport);
+
+  factory IssueReportDetailState.error(Failure failure) =>
+      IssueReportDetailState(failure: failure);
+
   IssueReportDetailState copyWith({
     IssueReport? issueReport,
     bool? isLoading,

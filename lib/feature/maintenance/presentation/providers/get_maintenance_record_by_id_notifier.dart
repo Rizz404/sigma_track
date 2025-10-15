@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_record_by_id_usecase.dart';
@@ -14,15 +15,15 @@ class GetMaintenanceRecordByIdNotifier
 
   @override
   MaintenanceRecordDetailState build(String id) {
-    this.logPresentation('Initializing GetMaintenanceRecordByIdNotifier');
-    getMaintenanceRecordById(id);
+    // * Cache maintenance record detail for 3 minutes (detail view use case)
+    ref.cacheFor(const Duration(minutes: 3));
+    this.logPresentation('Loading maintenance record by id: $id');
+    _loadMaintenanceRecord(id);
     return MaintenanceRecordDetailState.initial();
   }
 
-  Future<void> getMaintenanceRecordById(String id) async {
-    this.logPresentation('Getting maintenance record by id: $id');
-
-    state = state.copyWith(isLoading: true, failure: null);
+  Future<void> _loadMaintenanceRecord(String id) async {
+    state = MaintenanceRecordDetailState.loading();
 
     final result = await _getMaintenanceRecordByIdUsecase.call(
       GetMaintenanceRecordByIdUsecaseParams(id: id),
@@ -30,21 +31,23 @@ class GetMaintenanceRecordByIdNotifier
 
     result.fold(
       (failure) {
-        this.logError(
-          'Failed to get maintenance record by id',
-          failure,
-          StackTrace.current,
-        );
-        state = state.copyWith(isLoading: false, failure: failure);
+        this.logError('Failed to load maintenance record by id', failure);
+        state = MaintenanceRecordDetailState.error(failure);
       },
       (success) {
-        this.logPresentation('Successfully got maintenance record by id');
-        state = state.copyWith(
-          isLoading: false,
-          maintenanceRecord: success.data,
-          failure: null,
-        );
+        this.logData('Maintenance record loaded by id: ${success.data?.id}');
+        if (success.data != null) {
+          state = MaintenanceRecordDetailState.success(success.data!);
+        } else {
+          state = MaintenanceRecordDetailState.error(
+            const ServerFailure(message: 'Maintenance record not found'),
+          );
+        }
       },
     );
+  }
+
+  Future<void> refresh() async {
+    await _loadMaintenanceRecord(arg);
   }
 }

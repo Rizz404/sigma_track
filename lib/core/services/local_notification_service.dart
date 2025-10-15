@@ -18,6 +18,7 @@ class LocalNotificationService {
         enableVibration: true,
         playSound: true,
         showBadge: true,
+        sound: RawResourceAndroidNotificationSound('notification_sound'),
       );
 
   static const AndroidNotificationChannel _highPriorityChannel =
@@ -29,6 +30,7 @@ class LocalNotificationService {
         enableVibration: true,
         playSound: true,
         showBadge: true,
+        sound: RawResourceAndroidNotificationSound('high_priority_sound'),
       );
 
   // * Initialize plugin
@@ -132,15 +134,19 @@ class LocalNotificationService {
         priority: Priority.high,
         enableVibration: channel.enableVibration,
         playSound: channel.playSound,
+        sound: channel.sound,
         showWhen: true,
         ticker: body,
         styleInformation: BigTextStyleInformation(body),
       );
 
-      const darwinDetails = DarwinNotificationDetails(
+      final darwinDetails = DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
+        sound: highPriority
+            ? 'high_priority_sound.caf'
+            : 'notification_sound.caf',
         interruptionLevel: InterruptionLevel.active,
       );
 
@@ -195,12 +201,16 @@ class LocalNotificationService {
         channelDescription: channel.description,
         importance: channel.importance,
         priority: Priority.high,
+        sound: channel.sound,
       );
 
-      const darwinDetails = DarwinNotificationDetails(
+      final darwinDetails = DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
+        sound: highPriority
+            ? 'high_priority_sound.caf'
+            : 'notification_sound.caf',
       );
 
       final details = NotificationDetails(
