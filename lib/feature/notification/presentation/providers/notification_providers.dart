@@ -3,6 +3,7 @@ import 'package:sigma_track/feature/notification/domain/usecases/count_notificat
 import 'package:sigma_track/feature/notification/presentation/providers/check_notification_exists_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/count_notifications_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/get_notification_by_id_notifier.dart';
+import 'package:sigma_track/feature/notification/presentation/providers/my_notifications_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notification_statistics_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notifications_notifier.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notifications_search_notifier.dart';
@@ -15,6 +16,11 @@ import 'package:sigma_track/feature/notification/presentation/providers/state/no
 final notificationsProvider =
     AutoDisposeNotifierProvider<NotificationsNotifier, NotificationsState>(
       NotificationsNotifier.new,
+    );
+
+final myNotificationsProvider =
+    AutoDisposeNotifierProvider<MyNotificationsNotifier, NotificationsState>(
+      MyNotificationsNotifier.new,
     );
 
 // * Provider khusus untuk dropdown search (data terpisah dari list utama)

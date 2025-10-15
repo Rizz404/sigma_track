@@ -2,7 +2,7 @@ class ApiConstant {
   ApiConstant._();
 
   static const String baseUrl =
-      'https://inventory-api-rizz4048298-j3u0el79.apn.leapcell.dev/api/v1';
+      'https://rizz-inventory-api.up.railway.app/api/v1';
   static const int defaultReceiveTimeout = 30000;
   static const int defaultConnectTimeout = 30000;
 

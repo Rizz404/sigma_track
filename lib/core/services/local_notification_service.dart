@@ -1,9 +1,9 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:sigma_track/core/extensions/logger_extension.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 /// Service untuk handle native local notifications
-class LocalNotificationService with LoggerMixin {
+class LocalNotificationService {
   LocalNotificationService(this._plugin);
 
   final FlutterLocalNotificationsPlugin _plugin;
@@ -11,25 +11,25 @@ class LocalNotificationService with LoggerMixin {
   // * Notification channel config for Android
   static const AndroidNotificationChannel _defaultChannel =
       AndroidNotificationChannel(
-    'sigma_track_default', // id
-    'Default Notifications', // name
-    description: 'General notifications from Sigma Track',
-    importance: Importance.max,
-    enableVibration: true,
-    playSound: true,
-    showBadge: true,
-  );
+        'sigma_track_default', // id
+        'Default Notifications', // name
+        description: 'General notifications from Sigma Track',
+        importance: Importance.max,
+        enableVibration: true,
+        playSound: true,
+        showBadge: true,
+      );
 
   static const AndroidNotificationChannel _highPriorityChannel =
       AndroidNotificationChannel(
-    'sigma_track_high_priority', // id
-    'High Priority Notifications', // name
-    description: 'Important notifications that require immediate attention',
-    importance: Importance.max,
-    enableVibration: true,
-    playSound: true,
-    showBadge: true,
-  );
+        'sigma_track_high_priority', // id
+        'High Priority Notifications', // name
+        description: 'Important notifications that require immediate attention',
+        importance: Importance.max,
+        enableVibration: true,
+        playSound: true,
+        showBadge: true,
+      );
 
   // * Initialize plugin
   Future<void> initialize({
@@ -37,7 +37,9 @@ class LocalNotificationService with LoggerMixin {
   }) async {
     try {
       // Android settings
-      const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+      const androidSettings = AndroidInitializationSettings(
+        '@mipmap/ic_launcher',
+      );
 
       // iOS/macOS settings
       const darwinSettings = DarwinInitializationSettings(
@@ -70,8 +72,10 @@ class LocalNotificationService with LoggerMixin {
 
   // * Create notification channels (Android 8+)
   Future<void> _createNotificationChannels() async {
-    final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
 
     if (androidPlugin != null) {
       await androidPlugin.createNotificationChannel(_defaultChannel);
@@ -83,8 +87,10 @@ class LocalNotificationService with LoggerMixin {
   // * Request notification permissions
   Future<void> _requestPermissions() async {
     // Android 13+ permission
-    final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
 
     if (androidPlugin != null) {
       final granted = await androidPlugin.requestNotificationsPermission();
@@ -92,8 +98,10 @@ class LocalNotificationService with LoggerMixin {
     }
 
     // iOS permission
-    final iosPlugin = _plugin.resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>();
+    final iosPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin
+        >();
 
     if (iosPlugin != null) {
       final granted = await iosPlugin.requestPermissions(
@@ -158,9 +166,7 @@ class LocalNotificationService with LoggerMixin {
     bool highPriority = false,
   }) async {
     // Encode data as JSON string for payload
-    final payload = data.entries
-        .map((e) => '${e.key}=${e.value}')
-        .join('&');
+    final payload = data.entries.map((e) => '${e.key}=${e.value}').join('&');
 
     await showNotification(
       id: id,
@@ -209,8 +215,6 @@ class LocalNotificationService with LoggerMixin {
         scheduledDate,
         details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         payload: payload,
       );
 
@@ -253,8 +257,10 @@ class LocalNotificationService with LoggerMixin {
   // * Get active notifications (Android only)
   Future<List<ActiveNotification>> getActiveNotifications() async {
     try {
-      final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
+      final androidPlugin = _plugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
 
       if (androidPlugin != null) {
         return await androidPlugin.getActiveNotifications();

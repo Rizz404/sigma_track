@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/utils/logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:talker_riverpod_logger/talker_riverpod_logger.dart';
 
 /// Talker configuration for the application
 class TalkerConfig {
@@ -25,8 +25,14 @@ class TalkerConfig {
   }
 
   /// Get Riverpod logger observer
-  static ProviderObserver get riverpodObserver =>
-      _CustomRiverpodObserver(talker: AppLogger.instance.talker);
+  static TalkerRiverpodObserver get riverpodObserver => TalkerRiverpodObserver(
+    talker: AppLogger.instance.talker,
+    settings: const TalkerRiverpodLoggerSettings(
+      printProviderAdded: true,
+      printProviderDisposed: true,
+      printProviderUpdated: true,
+    ),
+  );
 
   /// Log application startup
   static void _logAppStart() {
@@ -94,39 +100,5 @@ class TalkerConfig {
   static void clearAllLogs() {
     logger.clearLogs();
     logger.info('All logs cleared');
-  }
-}
-
-/// Custom Riverpod Observer using Talker
-class _CustomRiverpodObserver extends ProviderObserver {
-  final Talker talker;
-
-  _CustomRiverpodObserver({required this.talker});
-
-  @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    talker.info('Provider added: ${provider.name ?? provider.runtimeType}');
-  }
-
-  @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
-    talker.info('Provider disposed: ${provider.name ?? provider.runtimeType}');
-  }
-
-  @override
-  void didUpdateProvider(
-    ProviderBase<Object?> provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    talker.info('Provider updated: ${provider.name ?? provider.runtimeType}');
   }
 }
