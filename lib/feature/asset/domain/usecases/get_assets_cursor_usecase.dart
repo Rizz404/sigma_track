@@ -104,10 +104,10 @@ class GetAssetsCursorUsecaseParams extends Equatable {
     return GetAssetsCursorUsecaseParams(
       search: map['search'],
       status: map['status'] != null
-          ? AssetStatus.fromString(map['status'])
+          ? AssetStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       condition: map['condition'] != null
-          ? AssetCondition.fromString(map['condition'])
+          ? AssetCondition.values.firstWhere((e) => e.value == map['condition'])
           : null,
       categoryId: map['categoryId'],
       locationId: map['locationId'],
@@ -115,10 +115,10 @@ class GetAssetsCursorUsecaseParams extends Equatable {
       brand: map['brand'],
       model: map['model'],
       sortBy: map['sortBy'] != null
-          ? AssetSortBy.fromString(map['sortBy'])
+          ? AssetSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

@@ -91,8 +91,8 @@ class GetMaintenanceRecordsUsecaseParams extends Equatable {
       if (vendorName != null) 'vendorName': vendorName,
       if (fromDate != null) 'fromDate': fromDate,
       if (toDate != null) 'toDate': toDate,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -108,10 +108,12 @@ class GetMaintenanceRecordsUsecaseParams extends Equatable {
       fromDate: map['fromDate'],
       toDate: map['toDate'],
       sortBy: map['sortBy'] != null
-          ? MaintenanceRecordSortBy.fromString(map['sortBy'])
+          ? MaintenanceRecordSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

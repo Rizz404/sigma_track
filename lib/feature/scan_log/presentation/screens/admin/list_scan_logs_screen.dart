@@ -325,19 +325,27 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                             assetId: assetId,
                             scannedBy: scannedBy,
                             scanMethod: scanMethodStr != null
-                                ? ScanMethodType.fromString(scanMethodStr)
+                                ? ScanMethodType.values.firstWhere(
+                                    (e) => e.value == scanMethodStr,
+                                  )
                                 : null,
                             scanResult: scanResultStr != null
-                                ? ScanResultType.fromString(scanResultStr)
+                                ? ScanResultType.values.firstWhere(
+                                    (e) => e.value == scanResultStr,
+                                  )
                                 : null,
                             hasCoordinates: hasCoordinates,
                             dateFrom: dateFrom?.toIso8601String(),
                             dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
-                                ? ScanLogSortBy.fromString(sortByStr)
+                                ? ScanLogSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

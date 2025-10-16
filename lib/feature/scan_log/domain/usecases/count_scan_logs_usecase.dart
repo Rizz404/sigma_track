@@ -48,10 +48,14 @@ class CountScanLogsUsecaseParams extends Equatable {
   factory CountScanLogsUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CountScanLogsUsecaseParams(
       scanMethod: map['scanMethod'] != null
-          ? ScanMethodType.fromString(map['scanMethod'])
+          ? ScanMethodType.values.firstWhere(
+              (e) => e.value == map['scanMethod'],
+            )
           : null,
       scanResult: map['scanResult'] != null
-          ? ScanResultType.fromString(map['scanResult'])
+          ? ScanResultType.values.firstWhere(
+              (e) => e.value == map['scanResult'],
+            )
           : null,
     );
   }

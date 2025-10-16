@@ -67,8 +67,8 @@ class CreateAssetUsecaseParams extends Equatable {
         'dataMatrixImageFile': dataMatrixImageFile!.path,
       'assetName': assetName,
       'categoryId': categoryId,
-      'status': status.toJson(),
-      'condition': condition.toJson(),
+      'status': status.value,
+      'condition': condition.value,
     };
 
     if (brand != null) map['brand'] = brand;
@@ -107,8 +107,10 @@ class CreateAssetUsecaseParams extends Equatable {
       warrantyEnd: map['warrantyEnd'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['warrantyEnd'])
           : null,
-      status: AssetStatus.fromJson(map['status']),
-      condition: AssetCondition.fromJson(map['condition']),
+      status: AssetStatus.values.firstWhere((e) => e.value == map['status']),
+      condition: AssetCondition.values.firstWhere(
+        (e) => e.value == map['condition'],
+      ),
       locationId: map['locationId'],
       assignedTo: map['assignedTo'],
     );

@@ -229,10 +229,14 @@ class _ListMaintenanceRecordsScreenState
                           final newFilter = MaintenanceRecordsFilter(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
-                                ? MaintenanceRecordSortBy.fromString(sortByStr)
+                                ? MaintenanceRecordSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                             vendorName: vendorName,
                             fromDate: fromDate?.toIso8601String(),

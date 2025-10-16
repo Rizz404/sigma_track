@@ -124,8 +124,8 @@ class UpdateAssetUsecaseParams extends Equatable {
     if (warrantyEnd != null) {
       map['warrantyEnd'] = warrantyEnd!.millisecondsSinceEpoch;
     }
-    if (status != null) map['status'] = status!.toJson();
-    if (condition != null) map['condition'] = condition!.toJson();
+    if (status != null) map['status'] = status!.value;
+    if (condition != null) map['condition'] = condition!.value;
     if (locationId != null) map['locationId'] = locationId;
     if (assignedTo != null) map['assignedTo'] = assignedTo;
 
@@ -153,10 +153,10 @@ class UpdateAssetUsecaseParams extends Equatable {
           ? DateTime.fromMillisecondsSinceEpoch(map['warrantyEnd'])
           : null,
       status: map['status'] != null
-          ? AssetStatus.fromJson(map['status'])
+          ? AssetStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       condition: map['condition'] != null
-          ? AssetCondition.fromJson(map['condition'])
+          ? AssetCondition.values.firstWhere((e) => e.value == map['condition'])
           : null,
       locationId: map['locationId'],
       assignedTo: map['assignedTo'],

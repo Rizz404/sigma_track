@@ -390,10 +390,14 @@ class _ListAssetMovementsScreenState
                             dateFrom: dateFrom?.toIso8601String(),
                             dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
-                                ? AssetMovementSortBy.fromString(sortByStr)
+                                ? AssetMovementSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

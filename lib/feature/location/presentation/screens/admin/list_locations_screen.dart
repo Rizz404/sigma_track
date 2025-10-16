@@ -196,10 +196,14 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                           final newFilter = LocationsFilter(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
-                                ? LocationSortBy.fromString(sortByStr)
+                                ? LocationSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

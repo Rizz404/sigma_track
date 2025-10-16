@@ -72,10 +72,10 @@ class GetLocationsCursorUsecaseParams extends Equatable {
     return GetLocationsCursorUsecaseParams(
       search: map['search'],
       sortBy: map['sortBy'] != null
-          ? LocationSortBy.fromString(map['sortBy'])
+          ? LocationSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

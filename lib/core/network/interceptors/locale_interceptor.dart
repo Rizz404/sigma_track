@@ -21,7 +21,9 @@ class LocaleInterceptor extends Interceptor {
 
   String _getLocaleHeaderValue(Locale locale) {
     try {
-      final language = Language.fromString(locale.languageCode);
+      final language = Language.values.firstWhere(
+        (e) => e.value == locale.languageCode,
+      );
       return language.backendCode;
     } catch (e) {
       return 'en-US';

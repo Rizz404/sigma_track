@@ -86,15 +86,15 @@ class GetAssetsUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       if (search != null) 'search': search,
-      if (status != null) 'status': status!.toString(),
-      if (condition != null) 'condition': condition!.toString(),
+      if (status != null) 'status': status!.value,
+      if (condition != null) 'condition': condition!.value,
       if (categoryId != null) 'categoryId': categoryId,
       if (locationId != null) 'locationId': locationId,
       if (assignedTo != null) 'assignedTo': assignedTo,
       if (brand != null) 'brand': brand,
       if (model != null) 'model': model,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -104,10 +104,10 @@ class GetAssetsUsecaseParams extends Equatable {
     return GetAssetsUsecaseParams(
       search: map['search'],
       status: map['status'] != null
-          ? AssetStatus.fromString(map['status'])
+          ? AssetStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       condition: map['condition'] != null
-          ? AssetCondition.fromString(map['condition'])
+          ? AssetCondition.values.firstWhere((e) => e.value == map['condition'])
           : null,
       categoryId: map['categoryId'],
       locationId: map['locationId'],
@@ -115,10 +115,10 @@ class GetAssetsUsecaseParams extends Equatable {
       brand: map['brand'],
       model: map['model'],
       sortBy: map['sortBy'] != null
-          ? AssetSortBy.fromString(map['sortBy'])
+          ? AssetSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

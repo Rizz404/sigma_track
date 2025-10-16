@@ -73,8 +73,8 @@ class UpdateIssueReportUsecaseParams extends Equatable {
 
     if (assetId != null) map['assetId'] = assetId;
     if (issueType != null) map['issueType'] = issueType;
-    if (priority != null) map['priority'] = priority!.toJson();
-    if (status != null) map['status'] = status!.toJson();
+    if (priority != null) map['priority'] = priority!.value;
+    if (status != null) map['status'] = status!.value;
     if (resolutionNotes != null) map['resolutionNotes'] = resolutionNotes;
     if (translations != null) {
       map['translations'] = translations!.map((x) => x.toMap()).toList();
@@ -89,10 +89,10 @@ class UpdateIssueReportUsecaseParams extends Equatable {
       assetId: map['assetId'],
       issueType: map['issueType'],
       priority: map['priority'] != null
-          ? IssuePriority.fromJson(map['priority'])
+          ? IssuePriority.values.firstWhere((e) => e.value == map['priority'])
           : null,
       status: map['status'] != null
-          ? IssueStatus.fromJson(map['status'])
+          ? IssueStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       resolutionNotes: map['resolutionNotes'],
       translations: map['translations'] != null

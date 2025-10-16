@@ -59,8 +59,8 @@ class GetLocationsUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       if (search != null) 'search': search,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -70,10 +70,10 @@ class GetLocationsUsecaseParams extends Equatable {
     return GetLocationsUsecaseParams(
       search: map['search'],
       sortBy: map['sortBy'] != null
-          ? LocationSortBy.fromString(map['sortBy'])
+          ? LocationSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

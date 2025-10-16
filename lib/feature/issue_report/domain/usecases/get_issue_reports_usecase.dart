@@ -98,13 +98,13 @@ class GetIssueReportsUsecaseParams extends Equatable {
       if (reportedBy != null) 'reportedBy': reportedBy,
       if (resolvedBy != null) 'resolvedBy': resolvedBy,
       if (issueType != null) 'issueType': issueType,
-      if (priority != null) 'priority': priority!.toString(),
-      if (status != null) 'status': status!.toString(),
+      if (priority != null) 'priority': priority!.value,
+      if (status != null) 'status': status!.value,
       if (isResolved != null) 'isResolved': isResolved,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -118,19 +118,19 @@ class GetIssueReportsUsecaseParams extends Equatable {
       resolvedBy: map['resolvedBy'],
       issueType: map['issueType'],
       priority: map['priority'] != null
-          ? IssuePriority.fromString(map['priority'])
+          ? IssuePriority.values.firstWhere((e) => e.value == map['priority'])
           : null,
       status: map['status'] != null
-          ? IssueStatus.fromString(map['status'])
+          ? IssueStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       isResolved: map['isResolved'],
       dateFrom: map['dateFrom'],
       dateTo: map['dateTo'],
       sortBy: map['sortBy'] != null
-          ? IssueReportSortBy.fromString(map['sortBy'])
+          ? IssueReportSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

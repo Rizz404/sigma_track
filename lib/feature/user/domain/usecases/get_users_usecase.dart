@@ -73,8 +73,8 @@ class GetUsersUsecaseParams extends Equatable {
       if (role != null) 'role': role,
       if (isActive != null) 'isActive': isActive,
       if (employeeId != null) 'employeeId': employeeId,
-      if (sortBy != null) 'sortBy': sortBy!.toMap(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toMap(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -86,9 +86,11 @@ class GetUsersUsecaseParams extends Equatable {
       role: map['role'],
       isActive: map['isActive'],
       employeeId: map['employeeId'],
-      sortBy: map['sortBy'] != null ? UserSortBy.fromMap(map['sortBy']) : null,
+      sortBy: map['sortBy'] != null
+          ? UserSortBy.values.firstWhere((e) => e.value == map['sortBy'])
+          : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromMap(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

@@ -234,10 +234,14 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                           final newFilter = CategoriesFilter(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
-                                ? CategorySortBy.fromString(sortByStr)
+                                ? CategorySortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                             hasParent: hasParentValue,
                             parentId: formData['parentId'] as String?,

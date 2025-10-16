@@ -177,12 +177,14 @@ class ScanMethodStatisticsModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'method': method.toJson(), 'count': count};
+    return {'method': method.value, 'count': count};
   }
 
   factory ScanMethodStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanMethodStatisticsModel(
-      method: ScanMethodType.fromJson(map.getField<String>('method')),
+      method: ScanMethodType.values.firstWhere(
+        (e) => e.value == map.getField<String>('method'),
+      ),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -214,12 +216,14 @@ class ScanResultStatisticsModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'result': result.toJson(), 'count': count};
+    return {'result': result.value, 'count': count};
   }
 
   factory ScanResultStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanResultStatisticsModel(
-      result: ScanResultType.fromJson(map.getField<String>('result')),
+      result: ScanResultType.values.firstWhere(
+        (e) => e.value == map.getField<String>('result'),
+      ),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }

@@ -68,14 +68,20 @@ class _MyListNotificationsScreenState
 
       final newFilter = NotificationsFilter(
         type: formData['type'] != null
-            ? NotificationType.fromString(formData['type'])
+            ? NotificationType.values.firstWhere(
+                (e) => e.value == formData['type'],
+              )
             : null,
         isRead: formData['isRead'] != null ? formData['isRead'] : null,
         sortBy: formData['sortBy'] != null
-            ? NotificationSortBy.fromString(formData['sortBy'])
+            ? NotificationSortBy.values.firstWhere(
+                (e) => e.value == formData['sortBy'],
+              )
             : null,
         sortOrder: formData['sortOrder'] != null
-            ? SortOrder.fromString(formData['sortOrder'])
+            ? SortOrder.values.firstWhere(
+                (e) => e.value == formData['sortOrder'],
+              )
             : null,
       );
 

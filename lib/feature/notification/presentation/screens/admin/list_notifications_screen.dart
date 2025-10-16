@@ -284,14 +284,20 @@ class _ListNotificationsScreenState
                             userId: userId,
                             relatedAssetId: relatedAssetId,
                             type: typeStr != null
-                                ? NotificationType.fromString(typeStr)
+                                ? NotificationType.values.firstWhere(
+                                    (e) => e.value == typeStr,
+                                  )
                                 : null,
                             isRead: isRead,
                             sortBy: sortByStr != null
-                                ? NotificationSortBy.fromString(sortByStr)
+                                ? NotificationSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

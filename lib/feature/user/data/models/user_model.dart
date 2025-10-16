@@ -106,7 +106,9 @@ class UserModel extends Equatable {
       name: map.getField<String>('name'),
       email: map.getField<String>('email'),
       fullName: map.getField<String>('fullName'),
-      role: UserRole.fromString(map.getField<String>('role')),
+      role: UserRole.values.firstWhere(
+        (e) => e.value == map.getField<String>('role'),
+      ),
       employeeId: map.getFieldOrNull<String>('employeeId'),
       preferredLang: map.getField<String>('preferredLang'),
       isActive: map.getField<bool>('isActive'),

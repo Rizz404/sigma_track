@@ -112,10 +112,12 @@ class GetMaintenanceRecordsCursorUsecaseParams extends Equatable {
       fromDate: map['fromDate'],
       toDate: map['toDate'],
       sortBy: map['sortBy'] != null
-          ? MaintenanceRecordSortBy.fromString(map['sortBy'])
+          ? MaintenanceRecordSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

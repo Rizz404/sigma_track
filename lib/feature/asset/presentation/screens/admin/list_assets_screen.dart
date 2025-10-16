@@ -339,10 +339,14 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                           final newFilter = AssetsFilter(
                             search: currentFilter.search,
                             status: statusStr != null
-                                ? AssetStatus.fromString(statusStr)
+                                ? AssetStatus.values.firstWhere(
+                                    (e) => e.value == statusStr,
+                                  )
                                 : null,
                             condition: conditionStr != null
-                                ? AssetCondition.fromString(conditionStr)
+                                ? AssetCondition.values.firstWhere(
+                                    (e) => e.value == conditionStr,
+                                  )
                                 : null,
                             categoryId: categoryId,
                             locationId: locationId,
@@ -350,10 +354,14 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                             brand: brand,
                             model: model,
                             sortBy: sortByStr != null
-                                ? AssetSortBy.fromString(sortByStr)
+                                ? AssetSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

@@ -84,10 +84,10 @@ class GetCategoriesCursorUsecaseParams extends Equatable {
       parentId: map['parentId'],
       hasParent: map['hasParent'],
       sortBy: map['sortBy'] != null
-          ? CategorySortBy.fromString(map['sortBy'])
+          ? CategorySortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

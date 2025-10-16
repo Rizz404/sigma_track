@@ -143,8 +143,8 @@ class AssetModel extends Equatable {
       'purchasePrice': purchasePrice,
       'vendorName': vendorName,
       'warrantyEnd': warrantyEnd?.millisecondsSinceEpoch,
-      'status': status.toJson(),
-      'condition': condition.toJson(),
+      'status': status.value,
+      'condition': condition.value,
       'locationId': locationId,
       'assignedToId': assignedToId,
       'createdAt': createdAt.millisecondsSinceEpoch,
@@ -173,8 +173,12 @@ class AssetModel extends Equatable {
       warrantyEnd: map.getFieldOrNull<String>('warrantyEnd') != null
           ? map.getDateTime('warrantyEnd')
           : null,
-      status: AssetStatus.fromJson(map.getField<String>('status')),
-      condition: AssetCondition.fromJson(map.getField<String>('condition')),
+      status: AssetStatus.values.firstWhere(
+        (e) => e.value == map.getField<String>('status'),
+      ),
+      condition: AssetCondition.values.firstWhere(
+        (e) => e.value == map.getField<String>('condition'),
+      ),
       locationId: map.getFieldOrNull<String>('locationId'),
       assignedToId: map.getFieldOrNull<String>('assignedToId'),
       createdAt: map.getDateTime('createdAt'),

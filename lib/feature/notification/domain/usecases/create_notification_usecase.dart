@@ -42,7 +42,7 @@ class CreateNotificationUsecaseParams extends Equatable {
     return {
       'userId': userId,
       if (relatedAssetId != null) 'relatedAssetId': relatedAssetId,
-      'type': type.toJson(),
+      'type': type.value,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
   }
@@ -51,7 +51,7 @@ class CreateNotificationUsecaseParams extends Equatable {
     return CreateNotificationUsecaseParams(
       userId: map['userId'] ?? '',
       relatedAssetId: map['relatedAssetId'],
-      type: NotificationType.fromJson(map['type']),
+      type: NotificationType.values.firstWhere((e) => e.value == map['type']),
       translations: List<CreateNotificationTranslation>.from(
         map['translations']?.map(
           (x) => CreateNotificationTranslation.fromMap(x),

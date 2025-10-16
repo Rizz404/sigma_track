@@ -108,10 +108,14 @@ class GetScanLogsCursorUsecaseParams extends Equatable {
     return GetScanLogsCursorUsecaseParams(
       search: map['search'],
       scanMethod: map['scanMethod'] != null
-          ? ScanMethodType.fromString(map['scanMethod'])
+          ? ScanMethodType.values.firstWhere(
+              (e) => e.value == map['scanMethod'],
+            )
           : null,
       scanResult: map['scanResult'] != null
-          ? ScanResultType.fromString(map['scanResult'])
+          ? ScanResultType.values.firstWhere(
+              (e) => e.value == map['scanResult'],
+            )
           : null,
       scannedBy: map['scannedBy'],
       assetId: map['assetId'],
@@ -119,10 +123,10 @@ class GetScanLogsCursorUsecaseParams extends Equatable {
       dateTo: map['dateTo'],
       hasCoordinates: map['hasCoordinates'],
       sortBy: map['sortBy'] != null
-          ? ScanLogSortBy.fromString(map['sortBy'])
+          ? ScanLogSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

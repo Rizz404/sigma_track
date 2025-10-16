@@ -48,10 +48,10 @@ class CountIssueReportsUsecaseParams extends Equatable {
   factory CountIssueReportsUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CountIssueReportsUsecaseParams(
       status: map['status'] != null
-          ? IssueStatus.fromString(map['status'])
+          ? IssueStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       priority: map['priority'] != null
-          ? IssuePriority.fromString(map['priority'])
+          ? IssuePriority.values.firstWhere((e) => e.value == map['priority'])
           : null,
     );
   }

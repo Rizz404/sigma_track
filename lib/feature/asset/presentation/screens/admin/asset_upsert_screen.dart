@@ -202,9 +202,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             : null,
         vendorName: vendorName,
         warrantyEnd: warrantyEnd,
-        status: status != null ? AssetStatus.fromJson(status) : null,
+        status: status != null
+            ? AssetStatus.values.firstWhere((e) => e.value == status)
+            : null,
         condition: condition != null
-            ? AssetCondition.fromJson(condition)
+            ? AssetCondition.values.firstWhere((e) => e.value == condition)
             : null,
         locationId: locationId,
         dataMatrixImageFile: _dataMatrixPreviewData != widget.asset!.assetTag
@@ -228,10 +230,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         vendorName: vendorName,
         warrantyEnd: warrantyEnd,
         status: status != null
-            ? AssetStatus.fromJson(status)
+            ? AssetStatus.values.firstWhere((e) => e.value == status)
             : AssetStatus.active,
         condition: condition != null
-            ? AssetCondition.fromJson(condition)
+            ? AssetCondition.values.firstWhere((e) => e.value == condition)
             : AssetCondition.good,
         locationId: locationId,
         dataMatrixImageFile: _generatedDataMatrixFile,

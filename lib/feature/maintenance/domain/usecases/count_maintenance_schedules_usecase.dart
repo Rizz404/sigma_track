@@ -57,10 +57,12 @@ class CountMaintenanceSchedulesUsecaseParams extends Equatable {
   ) {
     return CountMaintenanceSchedulesUsecaseParams(
       status: map['status'] != null
-          ? ScheduleStatus.fromString(map['status'])
+          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       maintenanceType: map['maintenanceType'] != null
-          ? MaintenanceScheduleType.fromString(map['maintenanceType'])
+          ? MaintenanceScheduleType.values.firstWhere(
+              (e) => e.value == map['maintenanceType'],
+            )
           : null,
     );
   }

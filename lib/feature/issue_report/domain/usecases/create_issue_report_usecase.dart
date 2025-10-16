@@ -45,7 +45,7 @@ class CreateIssueReportUsecaseParams extends Equatable {
       'assetId': assetId,
       'reportedById': reportedById,
       'issueType': issueType,
-      'priority': priority.toJson(),
+      'priority': priority.value,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
   }
@@ -55,7 +55,9 @@ class CreateIssueReportUsecaseParams extends Equatable {
       assetId: map['assetId'] ?? '',
       reportedById: map['reportedById'] ?? '',
       issueType: map['issueType'] ?? '',
-      priority: IssuePriority.fromJson(map['priority']),
+      priority: IssuePriority.values.firstWhere(
+        (e) => e.value == map['priority'],
+      ),
       translations: List<CreateIssueReportTranslation>.from(
         map['translations']?.map(
           (x) => CreateIssueReportTranslation.fromMap(x),

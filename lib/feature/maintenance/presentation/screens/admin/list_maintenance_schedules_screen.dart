@@ -254,20 +254,24 @@ class _ListMaintenanceSchedulesScreenState
                           final newFilter = MaintenanceSchedulesFilter(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
-                                ? MaintenanceScheduleSortBy.fromString(
-                                    sortByStr,
+                                ? MaintenanceScheduleSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
                                   )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                             maintenanceType: maintenanceTypeStr != null
-                                ? MaintenanceScheduleType.fromString(
-                                    maintenanceTypeStr,
+                                ? MaintenanceScheduleType.values.firstWhere(
+                                    (e) => e.value == maintenanceTypeStr,
                                   )
                                 : null,
                             status: statusStr != null
-                                ? ScheduleStatus.fromString(statusStr)
+                                ? ScheduleStatus.values.firstWhere(
+                                    (e) => e.value == statusStr,
+                                  )
                                 : null,
                             fromDate: fromDate?.toIso8601String(),
                             toDate: toDate?.toIso8601String(),

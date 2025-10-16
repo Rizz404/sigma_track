@@ -118,8 +118,8 @@ class IssueReportModel extends Equatable {
       'reportedById': reportedById,
       'reportedDate': reportedDate.millisecondsSinceEpoch,
       'issueType': issueType,
-      'priority': priority.toJson(),
-      'status': status.toJson(),
+      'priority': priority.value,
+      'status': status.value,
       'resolvedDate': resolvedDate?.millisecondsSinceEpoch,
       'resolvedById': resolvedById,
       'title': title,
@@ -141,8 +141,12 @@ class IssueReportModel extends Equatable {
       reportedById: map.getField<String>('reportedById'),
       reportedDate: map.getDateTime('reportedDate'),
       issueType: map.getField<String>('issueType'),
-      priority: IssuePriority.fromJson(map.getField<String>('priority')),
-      status: IssueStatus.fromJson(map.getField<String>('status')),
+      priority: IssuePriority.values.firstWhere(
+        (e) => e.value == map.getField<String>('priority'),
+      ),
+      status: IssueStatus.values.firstWhere(
+        (e) => e.value == map.getField<String>('status'),
+      ),
       resolvedDate: map.getFieldOrNull<int>('resolvedDate') != null
           ? map.getDateTime('resolvedDate')
           : null,

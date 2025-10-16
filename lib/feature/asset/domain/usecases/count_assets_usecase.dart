@@ -48,10 +48,10 @@ class CountAssetsUsecaseParams extends Equatable {
   factory CountAssetsUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CountAssetsUsecaseParams(
       status: map['status'] != null
-          ? AssetStatus.fromString(map['status'])
+          ? AssetStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       condition: map['condition'] != null
-          ? AssetCondition.fromString(map['condition'])
+          ? AssetCondition.values.firstWhere((e) => e.value == map['condition'])
           : null,
     );
   }

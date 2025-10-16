@@ -66,18 +66,26 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
 
       final newFilter = AssetsFilter(
         status: formData['status'] != null
-            ? AssetStatus.fromString(formData['status'])
+            ? AssetStatus.values.firstWhere(
+                (e) => e.value == formData['status'],
+              )
             : null,
         condition: formData['condition'] != null
-            ? AssetCondition.fromString(formData['condition'])
+            ? AssetCondition.values.firstWhere(
+                (e) => e.value == formData['condition'],
+              )
             : null,
         brand: formData['brand']?.isNotEmpty == true ? formData['brand'] : null,
         model: formData['model']?.isNotEmpty == true ? formData['model'] : null,
         sortBy: formData['sortBy'] != null
-            ? AssetSortBy.fromString(formData['sortBy'])
+            ? AssetSortBy.values.firstWhere(
+                (e) => e.value == formData['sortBy'],
+              )
             : null,
         sortOrder: formData['sortOrder'] != null
-            ? SortOrder.fromString(formData['sortOrder'])
+            ? SortOrder.values.firstWhere(
+                (e) => e.value == formData['sortOrder'],
+              )
             : null,
       );
 

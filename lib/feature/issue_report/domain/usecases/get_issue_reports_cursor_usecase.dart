@@ -121,19 +121,19 @@ class GetIssueReportsCursorUsecaseParams extends Equatable {
       resolvedBy: map['resolvedBy'],
       issueType: map['issueType'],
       priority: map['priority'] != null
-          ? IssuePriority.fromString(map['priority'])
+          ? IssuePriority.values.firstWhere((e) => e.value == map['priority'])
           : null,
       status: map['status'] != null
-          ? IssueStatus.fromString(map['status'])
+          ? IssueStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       isResolved: map['isResolved'],
       dateFrom: map['dateFrom'],
       dateTo: map['dateTo'],
       sortBy: map['sortBy'] != null
-          ? IssueReportSortBy.fromString(map['sortBy'])
+          ? IssueReportSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

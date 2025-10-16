@@ -4,8 +4,10 @@ enum Language {
   english('en'),
   japanese('ja');
 
-  const Language(this.mobileCode);
-  final String mobileCode;
+  const Language(this.value);
+  final String value;
+
+  String get mobileCode => value;
 
   String get backendCode {
     switch (this) {
@@ -16,31 +18,8 @@ enum Language {
     }
   }
 
-  Map<String, dynamic> toMap() => {
-    'mobileCode': mobileCode,
-    'backendCode': backendCode,
-  };
-
-  static Language fromMap(Map<String, dynamic> map) =>
-      fromString(map['mobileCode'] as String);
-
-  static Language fromString(String value) => Language.values.firstWhere(
-    (lang) => lang.mobileCode == value,
-    orElse: () => throw ArgumentError('Invalid Language value: $value'),
-  );
-
-  String toJson() => mobileCode;
-  static Language fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case Language.english:
-        return 'English';
-      case Language.japanese:
-        return 'Japanese';
-    }
-  }
+  String get label => mobileCode;
 
   IconData get icon {
     switch (this) {

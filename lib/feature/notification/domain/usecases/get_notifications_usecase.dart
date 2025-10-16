@@ -79,10 +79,10 @@ class GetNotificationsUsecaseParams extends Equatable {
       if (search != null) 'search': search,
       if (userId != null) 'userId': userId,
       if (relatedAssetId != null) 'relatedAssetId': relatedAssetId,
-      if (type != null) 'type': type!.toString(),
+      if (type != null) 'type': type!.value,
       if (isRead != null) 'isRead': isRead,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -94,14 +94,16 @@ class GetNotificationsUsecaseParams extends Equatable {
       userId: map['userId'],
       relatedAssetId: map['relatedAssetId'],
       type: map['type'] != null
-          ? NotificationType.fromString(map['type'])
+          ? NotificationType.values.firstWhere((e) => e.value == map['type'])
           : null,
       isRead: map['isRead'],
       sortBy: map['sortBy'] != null
-          ? NotificationSortBy.fromString(map['sortBy'])
+          ? NotificationSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

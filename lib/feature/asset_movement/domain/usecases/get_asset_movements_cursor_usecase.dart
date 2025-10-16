@@ -122,10 +122,12 @@ class GetAssetMovementsCursorUsecaseParams extends Equatable {
       dateFrom: map['dateFrom'],
       dateTo: map['dateTo'],
       sortBy: map['sortBy'] != null
-          ? AssetMovementSortBy.fromString(map['sortBy'])
+          ? AssetMovementSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

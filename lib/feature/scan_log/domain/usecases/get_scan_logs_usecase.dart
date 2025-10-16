@@ -87,15 +87,15 @@ class GetScanLogsUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       if (search != null) 'search': search,
-      if (scanMethod != null) 'scanMethod': scanMethod!.toString(),
-      if (scanResult != null) 'scanResult': scanResult!.toString(),
+      if (scanMethod != null) 'scanMethod': scanMethod!.value,
+      if (scanResult != null) 'scanResult': scanResult!.value,
       if (scannedBy != null) 'scannedBy': scannedBy,
       if (assetId != null) 'assetId': assetId,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
       if (hasCoordinates != null) 'hasCoordinates': hasCoordinates,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -105,10 +105,14 @@ class GetScanLogsUsecaseParams extends Equatable {
     return GetScanLogsUsecaseParams(
       search: map['search'],
       scanMethod: map['scanMethod'] != null
-          ? ScanMethodType.fromString(map['scanMethod'])
+          ? ScanMethodType.values.firstWhere(
+              (e) => e.value == map['scanMethod'],
+            )
           : null,
       scanResult: map['scanResult'] != null
-          ? ScanResultType.fromString(map['scanResult'])
+          ? ScanResultType.values.firstWhere(
+              (e) => e.value == map['scanResult'],
+            )
           : null,
       scannedBy: map['scannedBy'],
       assetId: map['assetId'],
@@ -116,10 +120,10 @@ class GetScanLogsUsecaseParams extends Equatable {
       dateTo: map['dateTo'],
       hasCoordinates: map['hasCoordinates'],
       sortBy: map['sortBy'] != null
-          ? ScanLogSortBy.fromString(map['sortBy'])
+          ? ScanLogSortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

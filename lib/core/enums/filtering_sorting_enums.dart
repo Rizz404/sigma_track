@@ -7,28 +7,8 @@ enum SortOrder {
   const SortOrder(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static SortOrder fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static SortOrder fromString(String value) => SortOrder.values.firstWhere(
-    (order) => order.value == value,
-    orElse: () => throw ArgumentError('Invalid SortOrder value: $value'),
-  );
-
-  String toJson() => value;
-  static SortOrder fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case SortOrder.asc:
-        return 'Ascending';
-      case SortOrder.desc:
-        return 'Descending';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -50,35 +30,8 @@ enum CategorySortBy {
   const CategorySortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static CategorySortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static CategorySortBy fromString(String value) =>
-      CategorySortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid CategorySortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static CategorySortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case CategorySortBy.categoryCode:
-        return 'Category Code';
-      case CategorySortBy.name:
-      case CategorySortBy.categoryName:
-        return 'Category Name';
-      case CategorySortBy.createdAt:
-        return 'Created Date';
-      case CategorySortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -107,39 +60,8 @@ enum LocationSortBy {
   const LocationSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static LocationSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static LocationSortBy fromString(String value) =>
-      LocationSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid LocationSortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static LocationSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case LocationSortBy.locationCode:
-        return 'Location Code';
-      case LocationSortBy.name:
-      case LocationSortBy.locationName:
-        return 'Location Name';
-      case LocationSortBy.building:
-        return 'Building';
-      case LocationSortBy.floor:
-        return 'Floor';
-      case LocationSortBy.createdAt:
-        return 'Created Date';
-      case LocationSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -170,36 +92,8 @@ enum NotificationSortBy {
   const NotificationSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static NotificationSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static NotificationSortBy fromString(String value) =>
-      NotificationSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid NotificationSortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static NotificationSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case NotificationSortBy.type:
-        return 'Type';
-      case NotificationSortBy.isRead:
-        return 'Read Status';
-      case NotificationSortBy.createdAt:
-        return 'Created Date';
-      case NotificationSortBy.title:
-        return 'Title';
-      case NotificationSortBy.message:
-        return 'Message';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -226,34 +120,8 @@ enum ScanLogSortBy {
   const ScanLogSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static ScanLogSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static ScanLogSortBy fromString(String value) =>
-      ScanLogSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid ScanLogSortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static ScanLogSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case ScanLogSortBy.scanTimestamp:
-        return 'Scan Timestamp';
-      case ScanLogSortBy.scannedValue:
-        return 'Scanned Value';
-      case ScanLogSortBy.scanMethod:
-        return 'Scan Method';
-      case ScanLogSortBy.scanResult:
-        return 'Scan Result';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -287,50 +155,8 @@ enum AssetSortBy {
   const AssetSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static AssetSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static AssetSortBy fromString(String value) => AssetSortBy.values.firstWhere(
-    (f) => f.value == value,
-    orElse: () => throw ArgumentError('Invalid AssetSortBy value: $value'),
-  );
-
-  String toJson() => value;
-  static AssetSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case AssetSortBy.assetTag:
-        return 'Asset Tag';
-      case AssetSortBy.assetName:
-        return 'Asset Name';
-      case AssetSortBy.brand:
-        return 'Brand';
-      case AssetSortBy.model:
-        return 'Model';
-      case AssetSortBy.serialNumber:
-        return 'Serial Number';
-      case AssetSortBy.purchaseDate:
-        return 'Purchase Date';
-      case AssetSortBy.purchasePrice:
-        return 'Purchase Price';
-      case AssetSortBy.vendorName:
-        return 'Vendor Name';
-      case AssetSortBy.warrantyEnd:
-        return 'Warranty End';
-      case AssetSortBy.status:
-        return 'Status';
-      case AssetSortBy.conditionStatus:
-        return 'Condition Status';
-      case AssetSortBy.createdAt:
-        return 'Created Date';
-      case AssetSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -375,35 +201,8 @@ enum AssetMovementSortBy {
   const AssetMovementSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static AssetMovementSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static AssetMovementSortBy fromString(String value) =>
-      AssetMovementSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid AssetMovementSortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static AssetMovementSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case AssetMovementSortBy.movementDate:
-      case AssetMovementSortBy.movementdate:
-        return 'Movement Date';
-      case AssetMovementSortBy.createdAt:
-      case AssetMovementSortBy.createdat:
-        return 'Created Date';
-      case AssetMovementSortBy.updatedAt:
-      case AssetMovementSortBy.updatedat:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -434,44 +233,8 @@ enum IssueReportSortBy {
   const IssueReportSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static IssueReportSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static IssueReportSortBy fromString(String value) =>
-      IssueReportSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () =>
-            throw ArgumentError('Invalid IssueReportSortBy value: $value'),
-      );
-
-  String toJson() => value;
-  static IssueReportSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case IssueReportSortBy.reportedDate:
-        return 'Reported Date';
-      case IssueReportSortBy.resolvedDate:
-        return 'Resolved Date';
-      case IssueReportSortBy.issueType:
-        return 'Issue Type';
-      case IssueReportSortBy.priority:
-        return 'Priority';
-      case IssueReportSortBy.status:
-        return 'Status';
-      case IssueReportSortBy.title:
-        return 'Title';
-      case IssueReportSortBy.description:
-        return 'Description';
-      case IssueReportSortBy.createdAt:
-        return 'Created Date';
-      case IssueReportSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -506,35 +269,8 @@ enum MaintenanceScheduleSortBy {
   const MaintenanceScheduleSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static MaintenanceScheduleSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static MaintenanceScheduleSortBy fromString(String value) =>
-      MaintenanceScheduleSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () => throw ArgumentError(
-          'Invalid MaintenanceScheduleSortBy value: $value',
-        ),
-      );
-
-  String toJson() => value;
-  static MaintenanceScheduleSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case MaintenanceScheduleSortBy.scheduledDate:
-        return 'Scheduled Date';
-      case MaintenanceScheduleSortBy.title:
-        return 'Title';
-      case MaintenanceScheduleSortBy.createdAt:
-        return 'Created Date';
-      case MaintenanceScheduleSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -559,35 +295,8 @@ enum MaintenanceRecordSortBy {
   const MaintenanceRecordSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static MaintenanceRecordSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static MaintenanceRecordSortBy fromString(String value) =>
-      MaintenanceRecordSortBy.values.firstWhere(
-        (f) => f.value == value,
-        orElse: () => throw ArgumentError(
-          'Invalid MaintenanceRecordSortBy value: $value',
-        ),
-      );
-
-  String toJson() => value;
-  static MaintenanceRecordSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case MaintenanceRecordSortBy.maintenanceDate:
-        return 'Maintenance Date';
-      case MaintenanceRecordSortBy.title:
-        return 'Title';
-      case MaintenanceRecordSortBy.createdAt:
-        return 'Created Date';
-      case MaintenanceRecordSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -616,40 +325,8 @@ enum UserSortBy {
   const UserSortBy(this.value);
   final String value;
 
-  Map<String, dynamic> toMap() => {'value': value};
-
-  static UserSortBy fromMap(Map<String, dynamic> map) =>
-      fromString(map['value'] as String);
-
-  static UserSortBy fromString(String value) => UserSortBy.values.firstWhere(
-    (f) => f.value == value,
-    orElse: () => throw ArgumentError('Invalid UserSortBy value: $value'),
-  );
-
-  String toJson() => value;
-  static UserSortBy fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case UserSortBy.name:
-        return 'Name';
-      case UserSortBy.fullName:
-        return 'Full Name';
-      case UserSortBy.email:
-        return 'Email';
-      case UserSortBy.role:
-        return 'Role';
-      case UserSortBy.employeeId:
-        return 'Employee ID';
-      case UserSortBy.isActive:
-        return 'Active Status';
-      case UserSortBy.createdAt:
-        return 'Created Date';
-      case UserSortBy.updatedAt:
-        return 'Updated Date';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {

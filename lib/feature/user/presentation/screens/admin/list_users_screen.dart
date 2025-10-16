@@ -253,10 +253,14 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                                 : null,
                             employeeId: employeeId,
                             sortBy: sortByStr != null
-                                ? UserSortBy.fromString(sortByStr)
+                                ? UserSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

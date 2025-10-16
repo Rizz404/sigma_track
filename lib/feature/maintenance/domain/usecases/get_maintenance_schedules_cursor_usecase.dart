@@ -109,19 +109,23 @@ class GetMaintenanceSchedulesCursorUsecaseParams extends Equatable {
       search: map['search'],
       assetId: map['assetId'],
       maintenanceType: map['maintenanceType'] != null
-          ? MaintenanceScheduleType.fromString(map['maintenanceType'])
+          ? MaintenanceScheduleType.values.firstWhere(
+              (e) => e.value == map['maintenanceType'],
+            )
           : null,
       status: map['status'] != null
-          ? ScheduleStatus.fromString(map['status'])
+          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       createdBy: map['createdBy'],
       fromDate: map['fromDate'],
       toDate: map['toDate'],
       sortBy: map['sortBy'] != null
-          ? MaintenanceScheduleSortBy.fromString(map['sortBy'])
+          ? MaintenanceScheduleSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

@@ -9,40 +9,8 @@ enum UserRole {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static UserRole fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return UserRole.values.firstWhere(
-      (role) => role.value == value,
-      orElse: () => throw ArgumentError('Invalid UserRole value: $value'),
-    );
-  }
-
-  static UserRole fromString(String value) {
-    return UserRole.values.firstWhere(
-      (role) => role.value == value,
-      orElse: () => throw ArgumentError('Invalid UserRole value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static UserRole fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case UserRole.admin:
-        return 'Admin';
-      case UserRole.staff:
-        return 'Staff';
-      case UserRole.employee:
-        return 'Employee';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -66,42 +34,8 @@ enum AssetStatus {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static AssetStatus fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return AssetStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetStatus value: $value'),
-    );
-  }
-
-  static AssetStatus fromString(String value) {
-    return AssetStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetStatus value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static AssetStatus fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case AssetStatus.active:
-        return 'Active';
-      case AssetStatus.maintenance:
-        return 'Maintenance';
-      case AssetStatus.disposed:
-        return 'Disposed';
-      case AssetStatus.lost:
-        return 'Lost';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -127,42 +61,8 @@ enum AssetCondition {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static AssetCondition fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return AssetCondition.values.firstWhere(
-      (condition) => condition.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetCondition value: $value'),
-    );
-  }
-
-  static AssetCondition fromString(String value) {
-    return AssetCondition.values.firstWhere(
-      (condition) => condition.value == value,
-      orElse: () => throw ArgumentError('Invalid AssetCondition value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static AssetCondition fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case AssetCondition.good:
-        return 'Good';
-      case AssetCondition.fair:
-        return 'Fair';
-      case AssetCondition.poor:
-        return 'Poor';
-      case AssetCondition.damaged:
-        return 'Damaged';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -189,46 +89,8 @@ enum NotificationType {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static NotificationType fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return NotificationType.values.firstWhere(
-      (type) => type.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid NotificationType value: $value'),
-    );
-  }
-
-  static NotificationType fromString(String value) {
-    return NotificationType.values.firstWhere(
-      (type) => type.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid NotificationType value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static NotificationType fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case NotificationType.maintenance:
-        return 'Maintenance';
-      case NotificationType.warranty:
-        return 'Warranty';
-      case NotificationType.statusChange:
-        return 'Status Change';
-      case NotificationType.movement:
-        return 'Movement';
-      case NotificationType.issueReport:
-        return 'Issue Report';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -254,38 +116,8 @@ enum ScanMethodType {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static ScanMethodType fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return ScanMethodType.values.firstWhere(
-      (method) => method.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanMethodType value: $value'),
-    );
-  }
-
-  static ScanMethodType fromString(String value) {
-    return ScanMethodType.values.firstWhere(
-      (method) => method.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanMethodType value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static ScanMethodType fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case ScanMethodType.dataMatrix:
-        return 'Data Matrix';
-      case ScanMethodType.manualInput:
-        return 'Manual Input';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -306,40 +138,8 @@ enum ScanResultType {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static ScanResultType fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return ScanResultType.values.firstWhere(
-      (result) => result.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanResultType value: $value'),
-    );
-  }
-
-  static ScanResultType fromString(String value) {
-    return ScanResultType.values.firstWhere(
-      (result) => result.value == value,
-      orElse: () => throw ArgumentError('Invalid ScanResultType value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static ScanResultType fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case ScanResultType.success:
-        return 'Success';
-      case ScanResultType.invalidID:
-        return 'Invalid ID';
-      case ScanResultType.assetNotFound:
-        return 'Asset Not Found';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -361,40 +161,8 @@ enum MaintenanceScheduleType {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static MaintenanceScheduleType fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return MaintenanceScheduleType.values.firstWhere(
-      (type) => type.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid MaintenanceScheduleType value: $value'),
-    );
-  }
-
-  static MaintenanceScheduleType fromString(String value) {
-    return MaintenanceScheduleType.values.firstWhere(
-      (type) => type.value == value,
-      orElse: () =>
-          throw ArgumentError('Invalid MaintenanceScheduleType value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static MaintenanceScheduleType fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case MaintenanceScheduleType.preventive:
-        return 'Preventive';
-      case MaintenanceScheduleType.corrective:
-        return 'Corrective';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -415,40 +183,8 @@ enum ScheduleStatus {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static ScheduleStatus fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return ScheduleStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid ScheduleStatus value: $value'),
-    );
-  }
-
-  static ScheduleStatus fromString(String value) {
-    return ScheduleStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid ScheduleStatus value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static ScheduleStatus fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case ScheduleStatus.scheduled:
-        return 'Scheduled';
-      case ScheduleStatus.completed:
-        return 'Completed';
-      case ScheduleStatus.cancelled:
-        return 'Cancelled';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -472,42 +208,8 @@ enum IssuePriority {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static IssuePriority fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return IssuePriority.values.firstWhere(
-      (priority) => priority.value == value,
-      orElse: () => throw ArgumentError('Invalid IssuePriority value: $value'),
-    );
-  }
-
-  static IssuePriority fromString(String value) {
-    return IssuePriority.values.firstWhere(
-      (priority) => priority.value == value,
-      orElse: () => throw ArgumentError('Invalid IssuePriority value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static IssuePriority fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case IssuePriority.low:
-        return 'Low';
-      case IssuePriority.medium:
-        return 'Medium';
-      case IssuePriority.high:
-        return 'High';
-      case IssuePriority.critical:
-        return 'Critical';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {
@@ -533,42 +235,8 @@ enum IssueStatus {
 
   final String value;
 
-  Map<String, dynamic> toMap() {
-    return {'value': value};
-  }
-
-  static IssueStatus fromMap(Map<String, dynamic> map) {
-    final value = map['value'] as String;
-    return IssueStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid IssueStatus value: $value'),
-    );
-  }
-
-  static IssueStatus fromString(String value) {
-    return IssueStatus.values.firstWhere(
-      (status) => status.value == value,
-      orElse: () => throw ArgumentError('Invalid IssueStatus value: $value'),
-    );
-  }
-
-  String toJson() => value;
-
-  static IssueStatus fromJson(String json) => fromString(json);
-
   // * Dropdown helper
-  String get label {
-    switch (this) {
-      case IssueStatus.open:
-        return 'Open';
-      case IssueStatus.inProgress:
-        return 'In Progress';
-      case IssueStatus.resolved:
-        return 'Resolved';
-      case IssueStatus.closed:
-        return 'Closed';
-    }
-  }
+  String get label => value;
 
   IconData get icon {
     switch (this) {

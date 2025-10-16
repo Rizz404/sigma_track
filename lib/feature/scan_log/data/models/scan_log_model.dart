@@ -72,12 +72,12 @@ class ScanLogModel extends Equatable {
       'id': id,
       'assetId': assetId,
       'scannedValue': scannedValue,
-      'scanMethod': scanMethod.toJson(),
+      'scanMethod': scanMethod.value,
       'scannedById': scannedById,
       'scanTimestamp': scanTimestamp.millisecondsSinceEpoch,
       'scanLocationLat': scanLocationLat,
       'scanLocationLng': scanLocationLng,
-      'scanResult': scanResult.toJson(),
+      'scanResult': scanResult.value,
     };
   }
 
@@ -86,12 +86,16 @@ class ScanLogModel extends Equatable {
       id: map.getField<String>('id'),
       assetId: map.getFieldOrNull<String>('assetId'),
       scannedValue: map.getField<String>('scannedValue'),
-      scanMethod: ScanMethodType.fromJson(map.getField<String>('scanMethod')),
+      scanMethod: ScanMethodType.values.firstWhere(
+        (e) => e.value == map.getField<String>('scanMethod'),
+      ),
       scannedById: map.getField<String>('scannedById'),
       scanTimestamp: map.getDateTime('scanTimestamp'),
       scanLocationLat: map.getDoubleOrNull('scanLocationLat'),
       scanLocationLng: map.getDoubleOrNull('scanLocationLng'),
-      scanResult: ScanResultType.fromJson(map.getField<String>('scanResult')),
+      scanResult: ScanResultType.values.firstWhere(
+        (e) => e.value == map.getField<String>('scanResult'),
+      ),
     );
   }
 

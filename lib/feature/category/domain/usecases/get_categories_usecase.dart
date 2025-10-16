@@ -68,8 +68,8 @@ class GetCategoriesUsecaseParams extends Equatable {
       if (search != null) 'search': search,
       if (parentId != null) 'parentId': parentId,
       if (hasParent != null) 'hasParent': hasParent,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -81,10 +81,10 @@ class GetCategoriesUsecaseParams extends Equatable {
       parentId: map['parentId'],
       hasParent: map['hasParent'],
       sortBy: map['sortBy'] != null
-          ? CategorySortBy.fromString(map['sortBy'])
+          ? CategorySortBy.values.firstWhere((e) => e.value == map['sortBy'])
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

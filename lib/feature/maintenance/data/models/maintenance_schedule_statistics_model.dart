@@ -340,7 +340,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
       'assetId': assetId,
       'assetName': assetName,
       'assetTag': assetTag,
-      'maintenanceType': maintenanceType.toJson(),
+      'maintenanceType': maintenanceType.value,
       'scheduledDate': scheduledDate.toIso8601String(),
       'daysUntilDue': daysUntilDue,
       'title': title,
@@ -354,8 +354,8 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
       assetId: map.getFieldOrNull<String>('assetId') ?? '',
       assetName: map.getFieldOrNull<String>('assetName') ?? '',
       assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
-      maintenanceType: MaintenanceScheduleType.fromJson(
-        map.getField<String>('maintenanceType'),
+      maintenanceType: MaintenanceScheduleType.values.firstWhere(
+        (e) => e.value == map.getField<String>('maintenanceType'),
       ),
       scheduledDate: map.getDateTime('scheduledDate'),
       daysUntilDue: map.getFieldOrNull<int>('daysUntilDue') ?? 0,
@@ -412,7 +412,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
       'assetId': assetId,
       'assetName': assetName,
       'assetTag': assetTag,
-      'maintenanceType': maintenanceType.toJson(),
+      'maintenanceType': maintenanceType.value,
       'scheduledDate': scheduledDate.toIso8601String(),
       'daysOverdue': daysOverdue,
       'title': title,
@@ -426,8 +426,8 @@ class OverdueMaintenanceScheduleModel extends Equatable {
       assetId: map.getFieldOrNull<String>('assetId') ?? '',
       assetName: map.getFieldOrNull<String>('assetName') ?? '',
       assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
-      maintenanceType: MaintenanceScheduleType.fromJson(
-        map.getField<String>('maintenanceType'),
+      maintenanceType: MaintenanceScheduleType.values.firstWhere(
+        (e) => e.value == map.getField<String>('maintenanceType'),
       ),
       scheduledDate: map.getDateTime('scheduledDate'),
       daysOverdue: map.getFieldOrNull<int>('daysOverdue') ?? 0,

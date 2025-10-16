@@ -101,8 +101,8 @@ class GetAssetMovementsUsecaseParams extends Equatable {
       if (movedBy != null) 'movedBy': movedBy,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (limit != null) 'limit': limit,
       if (offset != null) 'offset': offset,
     };
@@ -120,10 +120,12 @@ class GetAssetMovementsUsecaseParams extends Equatable {
       dateFrom: map['dateFrom'],
       dateTo: map['dateTo'],
       sortBy: map['sortBy'] != null
-          ? AssetMovementSortBy.fromString(map['sortBy'])
+          ? AssetMovementSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       limit: map['limit']?.toInt(),
       offset: map['offset']?.toInt(),

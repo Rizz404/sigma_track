@@ -96,14 +96,16 @@ class GetNotificationsCursorUsecaseParams extends Equatable {
       userId: map['userId'],
       relatedAssetId: map['relatedAssetId'],
       type: map['type'] != null
-          ? NotificationType.fromString(map['type'])
+          ? NotificationType.values.firstWhere((e) => e.value == map['type'])
           : null,
       isRead: map['isRead'],
       sortBy: map['sortBy'] != null
-          ? NotificationSortBy.fromString(map['sortBy'])
+          ? NotificationSortBy.values.firstWhere(
+              (e) => e.value == map['sortBy'],
+            )
           : null,
       sortOrder: map['sortOrder'] != null
-          ? SortOrder.fromString(map['sortOrder'])
+          ? SortOrder.values.firstWhere((e) => e.value == map['sortOrder'])
           : null,
       cursor: map['cursor'],
       limit: map['limit']?.toInt(),

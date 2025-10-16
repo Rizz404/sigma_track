@@ -361,19 +361,27 @@ class _ListIssueReportsScreenState
                             resolvedBy: resolvedBy,
                             issueType: issueType,
                             priority: priorityStr != null
-                                ? IssuePriority.fromString(priorityStr)
+                                ? IssuePriority.values.firstWhere(
+                                    (e) => e.value == priorityStr,
+                                  )
                                 : null,
                             status: statusStr != null
-                                ? IssueStatus.fromString(statusStr)
+                                ? IssueStatus.values.firstWhere(
+                                    (e) => e.value == statusStr,
+                                  )
                                 : null,
                             isResolved: isResolved,
                             dateFrom: dateFrom?.toIso8601String(),
                             dateTo: dateTo?.toIso8601String(),
                             sortBy: sortByStr != null
-                                ? IssueReportSortBy.fromString(sortByStr)
+                                ? IssueReportSortBy.values.firstWhere(
+                                    (e) => e.value == sortByStr,
+                                  )
                                 : null,
                             sortOrder: sortOrderStr != null
-                                ? SortOrder.fromString(sortOrderStr)
+                                ? SortOrder.values.firstWhere(
+                                    (e) => e.value == sortOrderStr,
+                                  )
                                 : null,
                           );
 

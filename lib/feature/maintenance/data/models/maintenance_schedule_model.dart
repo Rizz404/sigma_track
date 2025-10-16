@@ -92,10 +92,10 @@ class MaintenanceScheduleModel extends Equatable {
     return {
       'id': id,
       'assetId': assetId,
-      'maintenanceType': maintenanceType.toJson(),
+      'maintenanceType': maintenanceType.value,
       'scheduledDate': scheduledDate.millisecondsSinceEpoch,
       'frequencyMonths': frequencyMonths,
-      'status': status.toJson(),
+      'status': status.value,
       'createdById': createdById,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'title': title,
@@ -110,12 +110,14 @@ class MaintenanceScheduleModel extends Equatable {
     return MaintenanceScheduleModel(
       id: map.getField<String>('id'),
       assetId: map.getField<String>('assetId'),
-      maintenanceType: MaintenanceScheduleType.fromJson(
-        map.getField<String>('maintenanceType'),
+      maintenanceType: MaintenanceScheduleType.values.firstWhere(
+        (e) => e.value == map.getField<String>('maintenanceType'),
       ),
       scheduledDate: map.getDateTime('scheduledDate'),
       frequencyMonths: map.getFieldOrNull<int>('frequencyMonths'),
-      status: ScheduleStatus.fromJson(map.getField<String>('status')),
+      status: ScheduleStatus.values.firstWhere(
+        (e) => e.value == map.getField<String>('status'),
+      ),
       createdById: map.getField<String>('createdById'),
       createdAt: map.getDateTime('createdAt'),
       title: map.getField<String>('title'),

@@ -68,7 +68,7 @@ class UpdateNotificationUsecaseParams extends Equatable {
     final map = <String, dynamic>{};
     if (userId != null) map['userId'] = userId;
     if (relatedAssetId != null) map['relatedAssetId'] = relatedAssetId;
-    if (type != null) map['type'] = type!.toJson();
+    if (type != null) map['type'] = type!.value;
     if (isRead != null) map['isRead'] = isRead;
     if (translations != null) {
       map['translations'] = translations!.map((x) => x.toMap()).toList();
@@ -81,7 +81,9 @@ class UpdateNotificationUsecaseParams extends Equatable {
       id: map['id'] ?? '',
       userId: map['userId'],
       relatedAssetId: map['relatedAssetId'],
-      type: map['type'] != null ? NotificationType.fromJson(map['type']) : null,
+      type: map['type'] != null
+          ? NotificationType.values.firstWhere((e) => e.value == map['type'])
+          : null,
       isRead: map['isRead'],
       translations: map['translations'] != null
           ? List<UpdateNotificationTranslation>.from(
