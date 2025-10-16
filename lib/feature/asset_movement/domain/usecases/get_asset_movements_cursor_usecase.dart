@@ -101,8 +101,8 @@ class GetAssetMovementsCursorUsecaseParams extends Equatable {
       if (movedBy != null) 'movedBy': movedBy,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (cursor != null) 'cursor': cursor,
       if (limit != null) 'limit': limit,
     };

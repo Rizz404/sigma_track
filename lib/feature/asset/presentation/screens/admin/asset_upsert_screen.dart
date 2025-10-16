@@ -519,7 +519,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               initialDisplayText: widget.asset?.assignedTo?.fullName,
               enableAutocomplete: true,
               onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.fullName,
+              itemDisplayMapper: (user) => user.name,
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,

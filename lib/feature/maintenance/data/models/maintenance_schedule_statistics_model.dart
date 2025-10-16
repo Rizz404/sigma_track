@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class MaintenanceScheduleStatisticsModel extends Equatable {
   final MaintenanceScheduleCountStatisticsModel total;
@@ -539,8 +540,8 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
       'assetsWithScheduledMaintenance': assetsWithScheduledMaintenance,
       'assetsWithoutScheduledMaintenance': assetsWithoutScheduledMaintenance,
       'averageSchedulesPerDay': averageSchedulesPerDay,
-      'latestScheduleDate': latestScheduleDate.millisecondsSinceEpoch,
-      'earliestScheduleDate': earliestScheduleDate.millisecondsSinceEpoch,
+      'latestScheduleDate': latestScheduleDate.iso8601String,
+      'earliestScheduleDate': earliestScheduleDate.iso8601String,
       'totalUniqueCreators': totalUniqueCreators,
     };
   }

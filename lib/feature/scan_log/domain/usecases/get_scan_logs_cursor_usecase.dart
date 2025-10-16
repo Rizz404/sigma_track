@@ -90,15 +90,15 @@ class GetScanLogsCursorUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       if (search != null) 'search': search,
-      if (scanMethod != null) 'scanMethod': scanMethod!.toString(),
-      if (scanResult != null) 'scanResult': scanResult!.toString(),
+      if (scanMethod != null) 'scanMethod': scanMethod!.value,
+      if (scanResult != null) 'scanResult': scanResult!.value,
       if (scannedBy != null) 'scannedBy': scannedBy,
       if (assetId != null) 'assetId': assetId,
       if (dateFrom != null) 'dateFrom': dateFrom,
       if (dateTo != null) 'dateTo': dateTo,
       if (hasCoordinates != null) 'hasCoordinates': hasCoordinates,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (cursor != null) 'cursor': cursor,
       if (limit != null) 'limit': limit,
     };

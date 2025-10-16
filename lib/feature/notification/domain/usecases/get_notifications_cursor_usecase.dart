@@ -79,10 +79,10 @@ class GetNotificationsCursorUsecaseParams extends Equatable {
       if (search != null) 'search': search,
       if (userId != null) 'userId': userId,
       if (relatedAssetId != null) 'relatedAssetId': relatedAssetId,
-      if (type != null) 'type': type!.toString(),
+      if (type != null) 'type': type!.value,
       if (isRead != null) 'isRead': isRead,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (cursor != null) 'cursor': cursor,
       if (limit != null) 'limit': limit,
     };

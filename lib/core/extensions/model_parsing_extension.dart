@@ -86,7 +86,7 @@ extension SafeMap on Map<String, dynamic> {
 
       // Milliseconds timestamp
       if (value is int) {
-        return DateTime.fromMillisecondsSinceEpoch(value);
+        return DateTime.parse(value.toString());
       }
 
       // Already DateTime
@@ -113,7 +113,7 @@ extension SafeMap on Map<String, dynamic> {
       if (value == null) return null;
 
       if (value is String) return DateTime.parse(value);
-      if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+      if (value is int) return DateTime.parse(value.toString());
       if (value is DateTime) return value;
 
       this.logData(

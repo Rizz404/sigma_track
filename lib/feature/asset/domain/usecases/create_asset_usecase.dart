@@ -7,6 +7,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/repositories/asset_repository.dart';
@@ -75,12 +76,12 @@ class CreateAssetUsecaseParams extends Equatable {
     if (model != null) map['model'] = model;
     if (serialNumber != null) map['serialNumber'] = serialNumber;
     if (purchaseDate != null) {
-      map['purchaseDate'] = purchaseDate!.toIso8601String().split('T').first;
+      map['purchaseDate'] = purchaseDate!.iso8601Date;
     }
     if (purchasePrice != null) map['purchasePrice'] = purchasePrice;
     if (vendorName != null) map['vendorName'] = vendorName;
     if (warrantyEnd != null) {
-      map['warrantyEnd'] = warrantyEnd!.toIso8601String().split('T').first;
+      map['warrantyEnd'] = warrantyEnd!.iso8601Date;
     }
     if (locationId != null) map['locationId'] = locationId;
     if (assignedTo != null) map['assignedTo'] = assignedTo;
@@ -100,12 +101,12 @@ class CreateAssetUsecaseParams extends Equatable {
       model: map['model'],
       serialNumber: map['serialNumber'],
       purchaseDate: map['purchaseDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['purchaseDate'])
+          ? DateTime.parse(map['purchaseDate'].toString())
           : null,
       purchasePrice: map['purchasePrice']?.toDouble(),
       vendorName: map['vendorName'],
       warrantyEnd: map['warrantyEnd'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['warrantyEnd'])
+          ? DateTime.parse(map['warrantyEnd'].toString())
           : null,
       status: AssetStatus.values.firstWhere((e) => e.value == map['status']),
       condition: AssetCondition.values.firstWhere(

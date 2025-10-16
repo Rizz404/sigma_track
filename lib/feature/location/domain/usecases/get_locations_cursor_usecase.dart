@@ -61,8 +61,8 @@ class GetLocationsCursorUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       if (search != null) 'search': search,
-      if (sortBy != null) 'sortBy': sortBy!.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder!.toString(),
+      if (sortBy != null) 'sortBy': sortBy!.value,
+      if (sortOrder != null) 'sortOrder': sortOrder!.value,
       if (cursor != null) 'cursor': cursor,
       if (limit != null) 'limit': limit,
     };

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class UserModel extends Equatable {
   final String id;
@@ -89,14 +90,14 @@ class UserModel extends Equatable {
       'name': name,
       'email': email,
       'fullName': fullName,
-      'role': role.toString(),
+      'role': role.value,
       'employeeId': employeeId,
       'preferredLang': preferredLang,
       'isActive': isActive,
       'avatarUrl': avatarUrl,
       'FCMToken': fcmToken,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.iso8601String,
+      'updatedAt': updatedAt.iso8601String,
     };
   }
 

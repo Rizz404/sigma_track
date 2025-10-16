@@ -7,6 +7,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/repositories/asset_repository.dart';
@@ -117,12 +118,12 @@ class UpdateAssetUsecaseParams extends Equatable {
     if (model != null) map['model'] = model;
     if (serialNumber != null) map['serialNumber'] = serialNumber;
     if (purchaseDate != null) {
-      map['purchaseDate'] = purchaseDate!.millisecondsSinceEpoch;
+      map['purchaseDate'] = purchaseDate!.iso8601Date;
     }
     if (purchasePrice != null) map['purchasePrice'] = purchasePrice;
     if (vendorName != null) map['vendorName'] = vendorName;
     if (warrantyEnd != null) {
-      map['warrantyEnd'] = warrantyEnd!.millisecondsSinceEpoch;
+      map['warrantyEnd'] = warrantyEnd!.iso8601Date;
     }
     if (status != null) map['status'] = status!.value;
     if (condition != null) map['condition'] = condition!.value;
@@ -145,12 +146,12 @@ class UpdateAssetUsecaseParams extends Equatable {
       model: map['model'],
       serialNumber: map['serialNumber'],
       purchaseDate: map['purchaseDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['purchaseDate'])
+          ? DateTime.parse(map['purchaseDate'].toString())
           : null,
       purchasePrice: map['purchasePrice']?.toDouble(),
       vendorName: map['vendorName'],
       warrantyEnd: map['warrantyEnd'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['warrantyEnd'])
+          ? DateTime.parse(map['warrantyEnd'].toString())
           : null,
       status: map['status'] != null
           ? AssetStatus.values.firstWhere((e) => e.value == map['status'])

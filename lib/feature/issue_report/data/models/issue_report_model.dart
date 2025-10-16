@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -116,11 +117,11 @@ class IssueReportModel extends Equatable {
       'id': id,
       'assetId': assetId,
       'reportedById': reportedById,
-      'reportedDate': reportedDate.millisecondsSinceEpoch,
+      'reportedDate': reportedDate.iso8601String,
       'issueType': issueType,
       'priority': priority.value,
       'status': status.value,
-      'resolvedDate': resolvedDate?.millisecondsSinceEpoch,
+      'resolvedDate': resolvedDate?.iso8601String,
       'resolvedById': resolvedById,
       'title': title,
       'description': description,

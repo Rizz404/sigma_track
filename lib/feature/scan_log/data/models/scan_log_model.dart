@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class ScanLogModel extends Equatable {
   final String id;
@@ -74,7 +75,7 @@ class ScanLogModel extends Equatable {
       'scannedValue': scannedValue,
       'scanMethod': scanMethod.value,
       'scannedById': scannedById,
-      'scanTimestamp': scanTimestamp.millisecondsSinceEpoch,
+      'scanTimestamp': scanTimestamp.iso8601String,
       'scanLocationLat': scanLocationLat,
       'scanLocationLng': scanLocationLng,
       'scanResult': scanResult.value,

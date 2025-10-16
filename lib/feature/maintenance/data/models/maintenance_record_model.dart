@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/maintenance/data/models/maintenance_schedule_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
@@ -101,14 +102,14 @@ class MaintenanceRecordModel extends Equatable {
       'id': id,
       'scheduleId': scheduleId,
       'assetId': assetId,
-      'maintenanceDate': maintenanceDate.millisecondsSinceEpoch,
+      'maintenanceDate': maintenanceDate.iso8601String,
       'performedByUserId': performedByUserId,
       'performedByVendor': performedByVendor,
       'actualCost': actualCost,
       'title': title,
       'notes': notes,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.iso8601String,
+      'updatedAt': updatedAt.iso8601String,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'schedule': schedule?.toMap(),
       'asset': asset.toMap(),

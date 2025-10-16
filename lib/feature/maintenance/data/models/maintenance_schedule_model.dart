@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
@@ -93,11 +94,11 @@ class MaintenanceScheduleModel extends Equatable {
       'id': id,
       'assetId': assetId,
       'maintenanceType': maintenanceType.value,
-      'scheduledDate': scheduledDate.millisecondsSinceEpoch,
+      'scheduledDate': scheduledDate.iso8601String,
       'frequencyMonths': frequencyMonths,
       'status': status.value,
       'createdById': createdById,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.iso8601String,
       'title': title,
       'description': description,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],

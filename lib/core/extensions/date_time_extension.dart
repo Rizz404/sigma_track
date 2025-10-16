@@ -85,4 +85,10 @@ extension DateTimeExtension on DateTime {
     ];
     return days[weekday - 1];
   }
+
+  /// Format as ISO 8601 string (e.g., "1969-07-20T20:18:04.000Z")
+  String get iso8601String => toIso8601String();
+
+  /// Format as ISO 8601 date only (e.g., "1969-07-20")
+  String get iso8601Date => toIso8601String().split('T').first;
 }

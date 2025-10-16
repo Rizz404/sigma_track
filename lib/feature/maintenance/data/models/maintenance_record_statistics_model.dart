@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class MaintenanceRecordStatisticsModel extends Equatable {
   final MaintenanceRecordCountStatisticsModel total;
@@ -362,7 +363,7 @@ class MaintenanceRecordCompletionTrendModel extends Equatable {
   List<Object> get props => [date, count];
 
   Map<String, dynamic> toMap() {
-    return {'date': date.millisecondsSinceEpoch, 'count': count};
+    return {'date': date.iso8601String, 'count': count};
   }
 
   factory MaintenanceRecordCompletionTrendModel.fromMap(

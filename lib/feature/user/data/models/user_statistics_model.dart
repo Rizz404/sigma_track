@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class UserStatisticsModel extends Equatable {
   final UserCountStatisticsModel total;
@@ -313,9 +314,8 @@ class UserSummaryStatisticsModel extends Equatable {
       'staffPercentage': staffPercentage,
       'employeePercentage': employeePercentage,
       'averageUsersPerDay': averageUsersPerDay,
-      'latestRegistrationDate': latestRegistrationDate.millisecondsSinceEpoch,
-      'earliestRegistrationDate':
-          earliestRegistrationDate.millisecondsSinceEpoch,
+      'latestRegistrationDate': latestRegistrationDate.iso8601String,
+      'earliestRegistrationDate': earliestRegistrationDate.iso8601String,
     };
   }
 

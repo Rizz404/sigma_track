@@ -40,8 +40,8 @@ class CountScanLogsUsecaseParams extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      if (scanMethod != null) 'scanMethod': scanMethod!.toString(),
-      if (scanResult != null) 'scanResult': scanResult!.toString(),
+      if (scanMethod != null) 'scanMethod': scanMethod!.value,
+      if (scanResult != null) 'scanResult': scanResult!.value,
     };
   }
 

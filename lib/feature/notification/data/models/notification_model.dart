@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class NotificationModel extends Equatable {
   final String id;
@@ -74,7 +75,7 @@ class NotificationModel extends Equatable {
       'relatedAssetId': relatedAssetId,
       'type': type.value,
       'isRead': isRead,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.iso8601String,
       'title': title,
       'message': message,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],

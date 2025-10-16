@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 
 class IssueReportStatisticsModel extends Equatable {
   final IssueReportCountStatisticsModel total;
@@ -212,7 +213,7 @@ class IssueReportCreationTrendModel extends Equatable {
   List<Object> get props => [date, count];
 
   Map<String, dynamic> toMap() {
-    return {'date': date.millisecondsSinceEpoch, 'count': count};
+    return {'date': date.iso8601String, 'count': count};
   }
 
   factory IssueReportCreationTrendModel.fromMap(Map<String, dynamic> map) {
@@ -277,8 +278,8 @@ class IssueReportSummaryStatisticsModel extends Equatable {
       'mostCommonType': mostCommonType,
       'criticalUnresolvedCount': criticalUnresolvedCount,
       'averageReportsPerDay': averageReportsPerDay,
-      'latestCreationDate': latestCreationDate.millisecondsSinceEpoch,
-      'earliestCreationDate': earliestCreationDate.millisecondsSinceEpoch,
+      'latestCreationDate': latestCreationDate.iso8601String,
+      'earliestCreationDate': earliestCreationDate.iso8601String,
     };
   }
 
