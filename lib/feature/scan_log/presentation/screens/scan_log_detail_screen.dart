@@ -119,14 +119,22 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // * Listen only for delete operation (scan log detail doesn't have update)
     ref.listen<ScanLogsState>(scanLogsProvider, (previous, next) {
-      if (!next.isMutating && next.message != null && next.failure == null) {
+      // * Only handle delete success
+      final wasDeleting =
+          previous?.isMutating == true && previous?.message == null;
+      final isDeleteSuccess =
+          !next.isMutating &&
+          next.message != null &&
+          next.failure == null &&
+          wasDeleting;
+
+      if (isDeleteSuccess) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.isMutating == true) {
-          context.pop();
-        }
-      } else if (next.failure != null) {
-        this.logError('Scan log mutation error', next.failure);
+        context.pop();
+      } else if (next.failure != null && previous?.isMutating == true) {
+        this.logError('ScanLog mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }
     });

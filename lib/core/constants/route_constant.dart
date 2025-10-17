@@ -31,7 +31,7 @@ class RouteConstant {
   static const String userDetailProfile = '/user/profile/detail';
   static const String userUpdateProfile = '/user/profile/update';
 
-  // ==================== UTILITY USER ROUTES (User Only) ====================
+  // ==================== UTILITY ADMIN ROUTES (Admin Only) ====================
   static const String adminScanAsset = '/admin/scan-asset';
   static const String adminUserDetailProfile = '/admin/user/profile/detail';
   static const String adminUserUpdateProfile = '/admin/user/profile/update';

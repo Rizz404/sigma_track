@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -29,8 +31,9 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
   final MobileScannerController _controller = MobileScannerController(
     formats: const [BarcodeFormat.dataMatrix],
     detectionSpeed: DetectionSpeed.normal,
-    autoStart: false, // ! Disable auto-start untuk manual lifecycle control
+    autoStart: false,
   );
+  StreamSubscription<Object?>? _subscription;
   bool _isProcessing = false;
   bool _isTorchOn = false;
 
@@ -38,10 +41,19 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    // * Subscribe to barcode stream
+    _subscription = _controller.barcodes.listen(_handleBarcodeStream);
+
     // * Request location permission then start camera
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _requestLocationPermissionAndStartCamera();
     });
+  }
+
+  void _handleBarcodeStream(BarcodeCapture capture) {
+    if (capture.barcodes.isEmpty) return;
+    _onDetect(capture);
   }
 
   Future<void> _requestLocationPermissionAndStartCamera() async {
@@ -73,13 +85,13 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       // * Start camera regardless of permission (location is optional)
       if (mounted) {
         this.logInfo('ScanAssetScreen: Starting camera');
-        _controller.start();
+        unawaited(_controller.start());
       }
     } catch (e, s) {
       this.logError('Failed to request location permission', e, s);
       // * Start camera anyway
       if (mounted) {
-        _controller.start();
+        unawaited(_controller.start());
       }
     }
   }
@@ -115,39 +127,50 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     this.logInfo('ScanAssetScreen: dispose - Stopping camera');
     WidgetsBinding.instance.removeObserver(this);
-    if (_controller.value.isRunning) {
-      _controller.stop();
-    }
-    _controller.dispose();
+
+    // * Cancel barcode subscription
+    unawaited(_subscription?.cancel());
+    _subscription = null;
+
+    // * Dispose controller then super
     super.dispose();
+    await _controller.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // ! Stop camera saat app tidak aktif (background/inactive)
     super.didChangeAppLifecycleState(state);
 
+    // ! CRITICAL: Check camera permission before start/stop
+    // * Permission dialogs trigger lifecycle changes before controller ready
+    if (!_controller.value.hasCameraPermission) {
+      this.logInfo(
+        'ScanAssetScreen: No camera permission yet, skipping lifecycle change',
+      );
+      return;
+    }
+
     switch (state) {
-      case AppLifecycleState.inactive:
-      case AppLifecycleState.paused:
-      case AppLifecycleState.hidden:
-        // * Stop kamera saat app tidak aktif
-        if (_controller.value.isRunning) {
-          this.logInfo('ScanAssetScreen: App paused - Stopping camera');
-          _controller.stop();
-        }
-        break;
-      case AppLifecycleState.resumed:
-        // * Restart kamera saat app kembali aktif
-        if (!_controller.value.isRunning) {
-          this.logInfo('ScanAssetScreen: App resumed - Starting camera');
-          _controller.start();
-        }
-        break;
       case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        // * No action for these states
+        return;
+      case AppLifecycleState.resumed:
+        // * Restart camera and barcode subscription
+        this.logInfo('ScanAssetScreen: App resumed - Restarting camera');
+        _subscription = _controller.barcodes.listen(_handleBarcodeStream);
+        unawaited(_controller.start());
+        break;
+      case AppLifecycleState.inactive:
+        // * Stop camera and barcode subscription
+        this.logInfo('ScanAssetScreen: App inactive - Stopping camera');
+        unawaited(_subscription?.cancel());
+        _subscription = null;
+        unawaited(_controller.stop());
         break;
     }
   }
@@ -167,6 +190,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       return;
     }
 
+    if (!mounted) return;
     setState(() => _isProcessing = true);
 
     try {
@@ -193,7 +217,9 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
           // ? This prevents duplicate log creation in asset_detail_screen
           await context.push('${RouteConstant.assetDetail}?assetTag=$assetTag');
           // * Reset processing state after navigation completes
-          setState(() => _isProcessing = false);
+          if (mounted) {
+            setState(() => _isProcessing = false);
+          }
         }
       } else if (state.failure != null) {
         // * Create scan log for failed scan
@@ -204,7 +230,9 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
         this.logError('Failed to fetch asset', state.failure);
         AppToast.error(state.failure?.message ?? 'Asset not found');
-        setState(() => _isProcessing = false);
+        if (mounted) {
+          setState(() => _isProcessing = false);
+        }
       }
     } catch (e, s) {
       // * Create scan log for error
@@ -215,7 +243,9 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
       this.logError('Error processing barcode', e, s);
       AppToast.error('Failed to process barcode');
-      setState(() => _isProcessing = false);
+      if (mounted) {
+        setState(() => _isProcessing = false);
+      }
     }
   }
 
@@ -302,18 +332,23 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
         final visiblePercentage = info.visibleFraction;
         this.logInfo('ScanAssetScreen visibility: $visiblePercentage');
 
+        // ! Check camera permission before start/stop
+        if (!_controller.value.hasCameraPermission) {
+          return;
+        }
+
         // * Threshold 0.1 = screen hampir tidak visible (tab berubah)
         if (visiblePercentage < 0.1 && _controller.value.isRunning) {
           // * Screen tidak visible - stop kamera & reset state
           this.logInfo('ScanAssetScreen: Not visible - Stopping camera');
-          _controller.stop();
+          unawaited(_controller.stop());
           if (mounted) {
             setState(() => _isTorchOn = false);
           }
         } else if (visiblePercentage > 0.9 && !_controller.value.isRunning) {
           // * Screen kembali visible - restart kamera
           this.logInfo('ScanAssetScreen: Visible again - Starting camera');
-          _controller.start();
+          unawaited(_controller.start());
         }
       },
       child: Scaffold(
@@ -321,7 +356,6 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
           children: [
             MobileScanner(
               controller: _controller,
-              onDetect: _onDetect,
               errorBuilder: (context, error) {
                 return Center(
                   child: Column(

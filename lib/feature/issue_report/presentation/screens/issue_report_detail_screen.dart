@@ -138,14 +138,23 @@ class _IssueReportDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Listen only for delete operation (not update)
+    // ? Update handled by IssueReportUpsertScreen, delete needs navigation from here
     ref.listen<IssueReportsState>(issueReportsProvider, (previous, next) {
-      if (!next.isMutating && next.message != null && next.failure == null) {
+      // * Only handle delete success
+      final wasDeleting =
+          previous?.isMutating == true && previous?.message == null;
+      final isDeleteSuccess =
+          !next.isMutating &&
+          next.message != null &&
+          next.failure == null &&
+          wasDeleting;
+
+      if (isDeleteSuccess) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.isMutating == true) {
-          Navigator.pop(context);
-        }
-      } else if (next.failure != null) {
-        this.logError('Issue report mutation error', next.failure);
+        context.pop();
+      } else if (next.failure != null && previous?.isMutating == true) {
+        this.logError('IssueReport mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }
     });

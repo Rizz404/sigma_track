@@ -168,11 +168,17 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       },
       (success) async {
         this.logData('Location created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Location created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadLocations(locationsFilter: state.locationsFilter);
       },
     );
   }
@@ -195,11 +201,17 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       },
       (success) async {
         this.logData('Location updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Location updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadLocations(locationsFilter: state.locationsFilter);
       },
     );
   }
@@ -222,11 +234,17 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       },
       (success) async {
         this.logData('Location deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Location deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadLocations(locationsFilter: state.locationsFilter);
       },
     );
   }

@@ -242,13 +242,22 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // * Listen only for delete operation (not update)
+    // ? Update handled by AssetUpsertScreen, delete needs navigation from here
     ref.listen<AssetsState>(assetsProvider, (previous, next) {
-      if (!next.isMutating && next.message != null && next.failure == null) {
+      // * Only handle delete success (when previous had message and now success)
+      final wasDeleting =
+          previous?.isMutating == true && previous?.message == null;
+      final isDeleteSuccess =
+          !next.isMutating &&
+          next.message != null &&
+          next.failure == null &&
+          wasDeleting;
+
+      if (isDeleteSuccess) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.isMutating == true) {
-          context.pop();
-        }
-      } else if (next.failure != null) {
+        context.pop(); // * Only pop after delete, not update
+      } else if (next.failure != null && previous?.isMutating == true) {
         this.logError('Asset mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }

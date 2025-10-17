@@ -141,14 +141,23 @@ class _AssetMovementDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Listen only for delete operation (not update)
+    // ? Update handled by AssetMovementUpsertScreen, delete needs navigation from here
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
-      if (!next.isMutating && next.message != null && next.failure == null) {
+      // * Only handle delete success
+      final wasDeleting =
+          previous?.isMutating == true && previous?.message == null;
+      final isDeleteSuccess =
+          !next.isMutating &&
+          next.message != null &&
+          next.failure == null &&
+          wasDeleting;
+
+      if (isDeleteSuccess) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.isMutating == true) {
-          Navigator.pop(context);
-        }
-      } else if (next.failure != null) {
-        this.logError('Asset movement mutation error', next.failure);
+        context.pop();
+      } else if (next.failure != null && previous?.isMutating == true) {
+        this.logError('AssetMovement mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }
     });

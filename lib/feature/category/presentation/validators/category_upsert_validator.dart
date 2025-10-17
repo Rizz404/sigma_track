@@ -1,8 +1,8 @@
 class CategoryUpsertValidator {
   static String? validateParentId(String? value, {bool isUpdate = false}) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Parent category is required';
-    }
+    // if (!isUpdate && (value == null || value.isEmpty)) {
+    //   return 'Parent category is required';
+    // }
     return null;
   }
 

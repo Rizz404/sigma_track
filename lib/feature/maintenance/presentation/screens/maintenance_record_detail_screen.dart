@@ -148,16 +148,25 @@ class _MaintenanceRecordDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Listen only for delete operation (not update)
+    // ? Update handled by MaintenanceRecordUpsertScreen, delete needs navigation from here
     ref.listen<MaintenanceRecordsState>(maintenanceRecordsProvider, (
       previous,
       next,
     ) {
-      if (!next.isMutating && next.message != null && next.failure == null) {
+      // * Only handle delete success
+      final wasDeleting =
+          previous?.isMutating == true && previous?.message == null;
+      final isDeleteSuccess =
+          !next.isMutating &&
+          next.message != null &&
+          next.failure == null &&
+          wasDeleting;
+
+      if (isDeleteSuccess) {
         AppToast.success(next.message ?? 'Operation successful');
-        if (previous?.isMutating == true) {
-          Navigator.pop(context);
-        }
-      } else if (next.failure != null) {
+        Navigator.pop(context);
+      } else if (next.failure != null && previous?.isMutating == true) {
         this.logError('Maintenance record mutation error', next.failure);
         AppToast.error(next.failure?.message ?? 'Operation failed');
       }

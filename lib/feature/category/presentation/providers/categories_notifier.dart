@@ -171,11 +171,17 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       },
       (success) async {
         this.logData('Category created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Category created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
       },
     );
   }
@@ -198,11 +204,17 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       },
       (success) async {
         this.logData('Category updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Category updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
       },
     );
   }
@@ -225,11 +237,20 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       },
       (success) async {
         this.logData('Category deleted successfully');
+
+        // * Set message untuk listener (detail screen akan pop)
         state = state.copyWith(
           message: () => success.message ?? 'Category deleted',
           isMutating: false,
         );
-        await refresh();
+
+        // * Wait a bit untuk listener consume message, lalu refresh
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        // * Clear message sebelum refresh untuk avoid double toast
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
       },
     );
   }

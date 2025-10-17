@@ -188,11 +188,19 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       },
       (success) async {
         this.logData('Asset movement created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Asset movement created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
       },
     );
   }
@@ -217,11 +225,19 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       },
       (success) async {
         this.logData('Asset movement updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Asset movement updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
       },
     );
   }
@@ -246,11 +262,19 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       },
       (success) async {
         this.logData('Asset movement deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Asset movement deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
       },
     );
   }

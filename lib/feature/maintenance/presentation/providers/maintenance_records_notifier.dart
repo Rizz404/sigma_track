@@ -193,11 +193,19 @@ class MaintenanceRecordsNotifier
       },
       (success) async {
         this.logData('Maintenance record created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance record created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceRecords(
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
       },
     );
   }
@@ -222,11 +230,19 @@ class MaintenanceRecordsNotifier
       },
       (success) async {
         this.logData('Maintenance record updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance record updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceRecords(
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
       },
     );
   }
@@ -251,11 +267,19 @@ class MaintenanceRecordsNotifier
       },
       (success) async {
         this.logData('Maintenance record deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance record deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceRecords(
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
       },
     );
   }

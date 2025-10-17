@@ -179,11 +179,17 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       },
       (success) async {
         this.logData('Scan log created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Scan log created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
       },
     );
   }
@@ -206,11 +212,17 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       },
       (success) async {
         this.logData('Scan log deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Scan log deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
       },
     );
   }

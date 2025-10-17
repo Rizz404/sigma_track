@@ -186,11 +186,19 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       },
       (success) async {
         this.logData('Notification created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Notification created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadNotifications(
+          notificationsFilter: state.notificationsFilter,
+        );
       },
     );
   }
@@ -215,11 +223,19 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       },
       (success) async {
         this.logData('Notification updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Notification updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadNotifications(
+          notificationsFilter: state.notificationsFilter,
+        );
       },
     );
   }
@@ -244,11 +260,19 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       },
       (success) async {
         this.logData('Notification deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Notification deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadNotifications(
+          notificationsFilter: state.notificationsFilter,
+        );
       },
     );
   }

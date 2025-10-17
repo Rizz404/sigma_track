@@ -174,11 +174,17 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       },
       (success) async {
         this.logData('User created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'User created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }
@@ -201,11 +207,17 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       },
       (success) async {
         this.logData('User updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'User updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }
@@ -228,11 +240,17 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       },
       (success) async {
         this.logData('User deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'User deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }

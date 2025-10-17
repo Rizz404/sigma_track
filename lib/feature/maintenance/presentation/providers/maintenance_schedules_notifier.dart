@@ -197,11 +197,19 @@ class MaintenanceSchedulesNotifier
       },
       (success) async {
         this.logData('Maintenance schedule created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance schedule created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceSchedules(
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
       },
     );
   }
@@ -226,11 +234,19 @@ class MaintenanceSchedulesNotifier
       },
       (success) async {
         this.logData('Maintenance schedule updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance schedule updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceSchedules(
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
       },
     );
   }
@@ -255,11 +271,19 @@ class MaintenanceSchedulesNotifier
       },
       (success) async {
         this.logData('Maintenance schedule deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Maintenance schedule deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadMaintenanceSchedules(
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
       },
     );
   }

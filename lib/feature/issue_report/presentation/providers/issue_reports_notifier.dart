@@ -190,11 +190,19 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       },
       (success) async {
         this.logData('Issue report created successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Issue report created',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadIssueReports(
+          issueReportsFilter: state.issueReportsFilter,
+        );
       },
     );
   }
@@ -217,11 +225,19 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       },
       (success) async {
         this.logData('Issue report updated successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Issue report updated',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadIssueReports(
+          issueReportsFilter: state.issueReportsFilter,
+        );
       },
     );
   }
@@ -244,11 +260,19 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       },
       (success) async {
         this.logData('Issue report deleted successfully');
+
         state = state.copyWith(
           message: () => success.message ?? 'Issue report deleted',
           isMutating: false,
         );
-        await refresh();
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadIssueReports(
+          issueReportsFilter: state.issueReportsFilter,
+        );
       },
     );
   }

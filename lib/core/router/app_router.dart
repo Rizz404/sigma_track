@@ -732,7 +732,7 @@ class AppRouter {
 
     // ==================== ADMIN SPECIFIC ROUTES (Outside shell) ====================
     GoRoute(
-      path: RouteConstant.userUpdateProfile,
+      path: RouteConstant.adminUserUpdateProfile,
       name: PageKeyConstant.adminUserUpdateProfile,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {

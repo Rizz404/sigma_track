@@ -179,11 +179,20 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       },
       (success) async {
         this.logData('Asset created successfully');
+
+        // * Set message untuk listener (upsert screen akan pop)
         state = state.copyWith(
           message: () => success.message ?? 'Asset created',
           isMutating: false,
         );
-        await refresh();
+
+        // * Wait a bit untuk listener consume message
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        // * Clear message sebelum refresh
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }
@@ -206,11 +215,20 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       },
       (success) async {
         this.logData('Asset updated successfully');
+
+        // * Set message untuk listener (upsert screen akan pop)
         state = state.copyWith(
           message: () => success.message ?? 'Asset updated',
           isMutating: false,
         );
-        await refresh();
+
+        // * Wait a bit untuk listener consume message
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        // * Clear message sebelum refresh
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }
@@ -233,11 +251,20 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       },
       (success) async {
         this.logData('Asset deleted successfully');
+
+        // * Set message untuk listener (detail screen akan pop)
         state = state.copyWith(
           message: () => success.message ?? 'Asset deleted',
           isMutating: false,
         );
-        await refresh();
+
+        // * Wait a bit untuk listener consume message, lalu refresh
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        // * Clear message sebelum refresh untuk avoid double toast
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }
