@@ -82,6 +82,14 @@ class CurrentUserNotifier extends AutoDisposeNotifier<CurrentUserState> {
             message: success.message ?? 'Profile updated successfully',
             mutatedUser: success.data,
           );
+
+          // * Wait for listener to consume message before refresh
+          await Future.delayed(const Duration(milliseconds: 100));
+
+          // * Clear message before refresh to avoid double toast
+          state = state.copyWith(message: () => null, isLoading: true);
+
+          await _loadCurrentUser();
         } else {
           state = state.copyWith(
             isMutating: false,
@@ -89,7 +97,6 @@ class CurrentUserNotifier extends AutoDisposeNotifier<CurrentUserState> {
                 const ServerFailure(message: 'Failed to update profile'),
           );
         }
-        await refresh();
       },
     );
   }

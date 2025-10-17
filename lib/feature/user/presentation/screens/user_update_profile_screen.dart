@@ -100,7 +100,9 @@ class _UserUpdateProfileScreenState
           _avatarFile = null;
         }
         _filePickerKey.currentState?.reset();
-        context.pop();
+        if (context.mounted) {
+          context.pop();
+        }
       } else if (next.failure != null) {
         if (next.failure is ValidationFailure) {
           setState(
