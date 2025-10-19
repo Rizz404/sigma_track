@@ -2,29 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
-/// Reusable bottom sheet for list options (create, select many, filter & sort)
+/// Reusable bottom sheet for list options (create, select many, filter & sort, export)
 class AppListOptionsBottomSheet extends StatelessWidget {
   final VoidCallback? onCreate;
   final VoidCallback onSelectMany;
   final Widget Function() filterSortWidgetBuilder;
+  final Widget Function()? exportWidgetBuilder;
   final String createTitle;
   final String createSubtitle;
   final String selectManyTitle;
   final String selectManySubtitle;
   final String filterSortTitle;
   final String filterSortSubtitle;
+  final String exportTitle;
+  final String exportSubtitle;
 
   const AppListOptionsBottomSheet({
     super.key,
     this.onCreate,
     required this.onSelectMany,
     required this.filterSortWidgetBuilder,
+    this.exportWidgetBuilder,
     this.createTitle = 'Create',
     this.createSubtitle = 'Add a new item',
     this.selectManyTitle = 'Select Many',
     this.selectManySubtitle = 'Select multiple items to delete',
     this.filterSortTitle = 'Filter & Sort',
     this.filterSortSubtitle = 'Customize display',
+    this.exportTitle = 'Export',
+    this.exportSubtitle = 'Export data to file',
   });
 
   @override
@@ -85,7 +91,29 @@ class AppListOptionsBottomSheet extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
+            if (exportWidgetBuilder != null) ...[
+              _OptionTile(
+                icon: Icons.download,
+                title: exportTitle,
+                subtitle: exportSubtitle,
+                onTap: () {
+                  Navigator.pop(context);
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: context.colors.surface,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                    ),
+                    builder: (context) => exportWidgetBuilder!(),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+            ],
           ],
         ),
       ),

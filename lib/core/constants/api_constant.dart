@@ -91,6 +91,7 @@ class ApiConstant {
   static String updateAsset(String id) => '$assetPrefix/$id';
   static String deleteAsset(String id) => '$assetPrefix/$id';
   static const String generateAssetTagSuggestion = '$assetPrefix/generate-tag';
+  static const String exportAssetList = '$assetPrefix/export/list';
 
   // * Scan Logs
   static const String createScanLog = scanLogPrefix;

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
@@ -14,6 +16,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
@@ -50,6 +53,9 @@ abstract class AssetRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteAsset(DeleteAssetUsecaseParams params);
   Future<ApiResponse<GenerateAssetTagResponseModel>> generateAssetTagSuggestion(
     GenerateAssetTagSuggestionUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportAssetList(
+    ExportAssetListUsecaseParams params,
   );
 }
 
@@ -279,6 +285,23 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         ApiConstant.generateAssetTagSuggestion,
         fromJson: (json) => GenerateAssetTagResponseModel.fromMap(json),
         data: params.toMap(),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportAssetList(
+    ExportAssetListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportAssetList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

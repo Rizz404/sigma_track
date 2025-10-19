@@ -12,9 +12,11 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
+import 'package:sigma_track/feature/asset/presentation/widgets/export_assets_bottom_sheet.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
@@ -95,6 +97,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
           AppToast.info('Select assets to delete');
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: 'Create Asset',
         createSubtitle: 'Add a new asset',
         selectManyTitle: 'Select Many',
@@ -381,6 +384,27 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref.read(assetsProvider).assetsFilter;
+
+    // * Create export params from current filter
+    final exportParams = ExportAssetListUsecaseParams(
+      format: ExportFormat.pdf, // * Default format
+      searchQuery: currentFilter.search,
+      status: currentFilter.status,
+      condition: currentFilter.condition,
+      categoryId: currentFilter.categoryId,
+      locationId: currentFilter.locationId,
+      assignedTo: currentFilter.assignedTo,
+      brand: currentFilter.brand,
+      model: currentFilter.model,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportAssetsBottomSheet(initialParams: exportParams);
   }
 
   void _toggleSelectAsset(String assetId) {

@@ -349,3 +349,23 @@ enum UserSortBy {
     }
   }
 }
+
+enum ExportFormat {
+  pdf('pdf'),
+  excel('excel');
+
+  const ExportFormat(this.value);
+  final String value;
+
+  // * Dropdown helper
+  String get label => value;
+
+  IconData get icon {
+    switch (this) {
+      case ExportFormat.pdf:
+        return Icons.picture_as_pdf;
+      case ExportFormat.excel:
+        return Icons.table_chart;
+    }
+  }
+}

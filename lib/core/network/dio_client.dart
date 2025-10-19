@@ -257,6 +257,35 @@ class DioClient {
     }
   }
 
+  // * POST method untuk binary response (file download)
+  Future<ApiResponse<T>> postForBinary<T>(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    required T Function(dynamic data) fromData,
+  }) async {
+    try {
+      final response = await _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
+
+      // * Untuk binary response, langsung return data tanpa parse JSON
+      return ApiResponse<T>(
+        status: 'success',
+        message: 'File downloaded successfully',
+        data: fromData(response.data),
+      );
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
   // * Error handling
   ApiErrorResponse _handleError(DioException error) {
     final errorMessage = error.message ?? 'Network error occurred';

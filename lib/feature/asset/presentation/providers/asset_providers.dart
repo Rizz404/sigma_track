@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_search_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/export_assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_statistics_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_exists_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_serial_exists_notifier.dart';
@@ -11,12 +12,13 @@ import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_id
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_tag_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_tag_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/my_assets_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/asset_statistics_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_tag_suggestion_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_boolean_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_count_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_detail_state.dart';
-import 'package:sigma_track/feature/asset/presentation/providers/state/asset_statistics_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/export_assets_state.dart';
 
 // * Main list provider untuk asset (cursor pagination)
 final assetsProvider = AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
@@ -94,3 +96,9 @@ final getAssetTagNotifier =
       AssetTagSuggestionState,
       String
     >(GetAssetTagNotifier.new);
+
+// * Provider untuk export assets
+final exportAssetsProvider =
+    AutoDisposeNotifierProvider<ExportAssetsNotifier, ExportAssetsState>(
+      ExportAssetsNotifier.new,
+    );
