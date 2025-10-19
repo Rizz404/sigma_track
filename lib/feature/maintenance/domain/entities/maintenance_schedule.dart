@@ -15,8 +15,8 @@ class MaintenanceSchedule extends Equatable {
   final String title;
   final String? description;
   final List<MaintenanceScheduleTranslation>? translations;
-  final Asset asset;
-  final User createdBy;
+  final Asset? asset;
+  final User? createdBy;
 
   const MaintenanceSchedule({
     required this.id,
@@ -30,8 +30,8 @@ class MaintenanceSchedule extends Equatable {
     required this.title,
     this.description,
     this.translations,
-    required this.asset,
-    required this.createdBy,
+    this.asset,
+    this.createdBy,
   });
 
   factory MaintenanceSchedule.dummy() => MaintenanceSchedule(
@@ -43,8 +43,6 @@ class MaintenanceSchedule extends Equatable {
     createdById: '',
     createdAt: DateTime(0),
     title: '',
-    asset: Asset.dummy(),
-    createdBy: User.dummy(),
   );
 
   @override

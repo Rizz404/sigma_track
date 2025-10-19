@@ -80,7 +80,7 @@ class IssueReportTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        issueReport.asset.assetName,
+                        issueReport.asset?.assetName ?? 'Unknown Asset',
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,
@@ -105,14 +105,19 @@ class IssueReportTile extends StatelessWidget {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: _getPriorityColor(context, issueReport.priority)
-                                  .withOpacity(0.1),
+                              color: _getPriorityColor(
+                                context,
+                                issueReport.priority,
+                              ).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
                               issueReport.priority.name.toUpperCase(),
                               style: AppTextStyle.labelSmall,
-                              color: _getPriorityColor(context, issueReport.priority),
+                              color: _getPriorityColor(
+                                context,
+                                issueReport.priority,
+                              ),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -137,8 +142,10 @@ class IssueReportTile extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(context, issueReport.status)
-                            .withOpacity(0.1),
+                        color: _getStatusColor(
+                          context,
+                          issueReport.status,
+                        ).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
@@ -150,7 +157,9 @@ class IssueReportTile extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     AppText(
-                      DateFormat('dd MMM yyyy').format(issueReport.reportedDate),
+                      DateFormat(
+                        'dd MMM yyyy',
+                      ).format(issueReport.reportedDate),
                       style: AppTextStyle.bodySmall,
                       color: context.colors.textSecondary,
                     ),

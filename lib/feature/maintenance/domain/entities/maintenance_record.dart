@@ -17,7 +17,7 @@ class MaintenanceRecord extends Equatable {
   final DateTime updatedAt;
   final List<MaintenanceRecordTranslation>? translations;
   final MaintenanceSchedule? schedule;
-  final Asset asset;
+  final Asset? asset;
   final User? performedByUser;
 
   const MaintenanceRecord({
@@ -34,7 +34,7 @@ class MaintenanceRecord extends Equatable {
     required this.updatedAt,
     this.translations,
     this.schedule,
-    required this.asset,
+    this.asset,
     this.performedByUser,
   });
 
@@ -45,7 +45,6 @@ class MaintenanceRecord extends Equatable {
     title: '',
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
-    asset: Asset.dummy(),
   );
 
   @override

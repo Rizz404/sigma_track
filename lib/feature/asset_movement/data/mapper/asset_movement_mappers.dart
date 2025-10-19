@@ -34,12 +34,12 @@ extension AssetMovementModelMapper on AssetMovementModel {
       updatedAt: updatedAt,
       translations:
           translations?.map((model) => model.toEntity()).toList() ?? [],
-      asset: asset.toEntity(),
+      asset: asset?.toEntity(),
       fromLocation: fromLocation?.toEntity(),
       toLocation: toLocation?.toEntity(),
       fromUser: fromUser?.toEntity(),
       toUser: toUser?.toEntity(),
-      movedBy: movedBy.toEntity(),
+      movedBy: movedBy?.toEntity(),
     );
   }
 }
@@ -60,12 +60,12 @@ extension AssetMovementEntityMapper on AssetMovement {
       updatedAt: updatedAt,
       translations:
           translations?.map((entity) => entity.toModel()).toList() ?? [],
-      asset: asset.toModel(),
+      asset: asset?.toModel(),
       fromLocation: fromLocation?.toModel(),
       toLocation: toLocation?.toModel(),
       fromUser: fromUser?.toModel(),
       toUser: toUser?.toModel(),
-      movedBy: movedBy.toModel(),
+      movedBy: movedBy?.toModel(),
     );
   }
 }

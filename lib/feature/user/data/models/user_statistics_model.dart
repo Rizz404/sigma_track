@@ -225,7 +225,7 @@ class RegistrationTrendModel extends Equatable {
 
   factory RegistrationTrendModel.fromMap(Map<String, dynamic> map) {
     return RegistrationTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -323,15 +323,19 @@ class UserSummaryStatisticsModel extends Equatable {
     return UserSummaryStatisticsModel(
       totalUsers: map.getFieldOrNull<int>('totalUsers') ?? 0,
       activeUsersPercentage:
-          map.getDoubleOrNull('activeUsersPercentage') ?? 0.0,
+          map.getFieldOrNull<double>('activeUsersPercentage') ?? 0.0,
       inactiveUsersPercentage:
-          map.getDoubleOrNull('inactiveUsersPercentage') ?? 0.0,
-      adminPercentage: map.getDoubleOrNull('adminPercentage') ?? 0.0,
-      staffPercentage: map.getDoubleOrNull('staffPercentage') ?? 0.0,
-      employeePercentage: map.getDoubleOrNull('employeePercentage') ?? 0.0,
-      averageUsersPerDay: map.getDoubleOrNull('averageUsersPerDay') ?? 0.0,
-      latestRegistrationDate: map.getDateTime('latestRegistrationDate'),
-      earliestRegistrationDate: map.getDateTime('earliestRegistrationDate'),
+          map.getFieldOrNull<double>('inactiveUsersPercentage') ?? 0.0,
+      adminPercentage: map.getFieldOrNull<double>('adminPercentage') ?? 0.0,
+      staffPercentage: map.getFieldOrNull<double>('staffPercentage') ?? 0.0,
+      employeePercentage:
+          map.getFieldOrNull<double>('employeePercentage') ?? 0.0,
+      averageUsersPerDay:
+          map.getFieldOrNull<double>('averageUsersPerDay') ?? 0.0,
+      latestRegistrationDate: map.getField<DateTime>('latestRegistrationDate'),
+      earliestRegistrationDate: map.getField<DateTime>(
+        'earliestRegistrationDate',
+      ),
     );
   }
 

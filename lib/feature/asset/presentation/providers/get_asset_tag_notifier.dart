@@ -4,7 +4,6 @@ import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
-import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_tag_suggestion_state.dart';
 
 class GetAssetTagNotifier

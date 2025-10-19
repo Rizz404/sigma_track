@@ -16,12 +16,12 @@ class AssetMovement extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<AssetMovementTranslation>? translations;
-  final Asset asset;
+  final Asset? asset;
   final Location? fromLocation;
   final Location? toLocation;
   final User? fromUser;
   final User? toUser;
-  final User movedBy;
+  final User? movedBy;
 
   const AssetMovement({
     required this.id,
@@ -36,7 +36,7 @@ class AssetMovement extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.translations,
-    required this.asset,
+    this.asset,
     this.fromLocation,
     this.toLocation,
     this.fromUser,
@@ -51,7 +51,6 @@ class AssetMovement extends Equatable {
     movementDate: DateTime(0),
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
-    asset: Asset.dummy(),
     movedBy: User.dummy(),
   );
 

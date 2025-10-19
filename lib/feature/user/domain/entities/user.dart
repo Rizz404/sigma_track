@@ -24,8 +24,8 @@ class User extends Equatable {
     this.employeeId,
     required this.preferredLang,
     required this.isActive,
-    required this.avatarUrl,
-    required this.fcmToken,
+    this.avatarUrl,
+    this.fcmToken,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -38,8 +38,6 @@ class User extends Equatable {
     role: UserRole.employee,
     preferredLang: 'en',
     isActive: false,
-    avatarUrl: null,
-    fcmToken: null,
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
   );

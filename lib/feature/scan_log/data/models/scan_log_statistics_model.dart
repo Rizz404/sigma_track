@@ -303,7 +303,7 @@ class ScanTrendModel extends Equatable {
 
   factory ScanTrendModel.fromMap(Map<String, dynamic> map) {
     return ScanTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -419,14 +419,15 @@ class ScanLogSummaryStatisticsModel extends Equatable {
   factory ScanLogSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return ScanLogSummaryStatisticsModel(
       totalScans: map.getFieldOrNull<int>('totalScans') ?? 0,
-      successRate: map.getDoubleOrNull('successRate') ?? 0.0,
+      successRate: map.getFieldOrNull<double>('successRate') ?? 0.0,
       scansWithCoordinates:
           map.getFieldOrNull<int>('scansWithCoordinates') ?? 0,
       coordinatesPercentage:
-          map.getDoubleOrNull('coordinatesPercentage') ?? 0.0,
-      averageScansPerDay: map.getDoubleOrNull('averageScansPerDay') ?? 0.0,
-      latestScanDate: map.getDateTime('latestScanDate'),
-      earliestScanDate: map.getDateTime('earliestScanDate'),
+          map.getFieldOrNull<double>('coordinatesPercentage') ?? 0.0,
+      averageScansPerDay:
+          map.getFieldOrNull<double>('averageScansPerDay') ?? 0.0,
+      latestScanDate: map.getField<DateTime>('latestScanDate'),
+      earliestScanDate: map.getField<DateTime>('earliestScanDate'),
     );
   }
 

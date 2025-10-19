@@ -19,8 +19,8 @@ extension MaintenanceScheduleModelMapper on MaintenanceScheduleModel {
       title: title,
       description: description,
       translations: translations?.map((x) => x.toEntity()).toList() ?? [],
-      asset: asset.toEntity(),
-      createdBy: createdBy.toEntity(),
+      asset: asset?.toEntity(),
+      createdBy: createdBy?.toEntity(),
     );
   }
 }
@@ -39,8 +39,8 @@ extension MaintenanceScheduleEntityMapper on MaintenanceSchedule {
       title: title,
       description: description,
       translations: translations?.map((x) => x.toModel()).toList() ?? [],
-      asset: asset.toModel(),
-      createdBy: createdBy.toModel(),
+      asset: asset?.toModel(),
+      createdBy: createdBy?.toModel(),
     );
   }
 }

@@ -266,8 +266,8 @@ class GeographicStatisticsModel extends Equatable {
     return GeographicStatisticsModel(
       withCoordinates: map.getFieldOrNull<int>('withCoordinates') ?? 0,
       withoutCoordinates: map.getFieldOrNull<int>('withoutCoordinates') ?? 0,
-      averageLatitude: map.getDoubleOrNull('averageLatitude'),
-      averageLongitude: map.getDoubleOrNull('averageLongitude'),
+      averageLatitude: map.getFieldOrNull<double>('averageLatitude'),
+      averageLongitude: map.getFieldOrNull<double>('averageLongitude'),
     );
   }
 
@@ -303,7 +303,7 @@ class LocationCreationTrendModel extends Equatable {
 
   factory LocationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return LocationCreationTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -440,13 +440,14 @@ class LocationSummaryStatisticsModel extends Equatable {
       locationsWithCoordinates:
           map.getFieldOrNull<int>('locationsWithCoordinates') ?? 0,
       coordinatesPercentage:
-          map.getDoubleOrNull('coordinatesPercentage') ?? 0.0,
-      buildingPercentage: map.getDoubleOrNull('buildingPercentage') ?? 0.0,
-      floorPercentage: map.getDoubleOrNull('floorPercentage') ?? 0.0,
+          map.getFieldOrNull<double>('coordinatesPercentage') ?? 0.0,
+      buildingPercentage:
+          map.getFieldOrNull<double>('buildingPercentage') ?? 0.0,
+      floorPercentage: map.getFieldOrNull<double>('floorPercentage') ?? 0.0,
       totalBuildings: map.getFieldOrNull<int>('totalBuildings') ?? 0,
       totalFloors: map.getFieldOrNull<int>('totalFloors') ?? 0,
       averageLocationsPerDay:
-          map.getDoubleOrNull('averageLocationsPerDay') ?? 0.0,
+          map.getFieldOrNull<double>('averageLocationsPerDay') ?? 0.0,
       latestCreationDate:
           map.getFieldOrNull<String>('latestCreationDate') ?? '',
       earliestCreationDate:

@@ -44,7 +44,7 @@ extension MaintenanceRecordModelMapper on MaintenanceRecordModel {
       updatedAt: updatedAt,
       translations: translations?.map((x) => x.toEntity()).toList() ?? [],
       schedule: schedule?.toEntity(),
-      asset: asset.toEntity(),
+      asset: asset?.toEntity(),
       performedByUser: performedByUser?.toEntity(),
     );
   }
@@ -66,7 +66,7 @@ extension MaintenanceRecordEntityMapper on MaintenanceRecord {
       updatedAt: updatedAt,
       translations: translations?.map((x) => x.toModel()).toList() ?? [],
       schedule: schedule?.toModel(),
-      asset: asset.toModel(),
+      asset: asset?.toModel(),
       performedByUser: performedByUser?.toModel(),
     );
   }

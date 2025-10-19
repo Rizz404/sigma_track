@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
@@ -47,24 +48,26 @@ class NotificationModel extends Equatable {
   NotificationModel copyWith({
     String? id,
     String? userId,
-    String? relatedAssetId,
+    ValueGetter<String?>? relatedAssetId,
     NotificationType? type,
     bool? isRead,
     DateTime? createdAt,
     String? title,
     String? message,
-    List<NotificationTranslationModel>? translations,
+    ValueGetter<List<NotificationTranslationModel>?>? translations,
   }) {
     return NotificationModel(
       id: id ?? this.id,
       userId: userId ?? this.userId,
-      relatedAssetId: relatedAssetId ?? this.relatedAssetId,
+      relatedAssetId: relatedAssetId != null
+          ? relatedAssetId()
+          : this.relatedAssetId,
       type: type ?? this.type,
       isRead: isRead ?? this.isRead,
       createdAt: createdAt ?? this.createdAt,
       title: title ?? this.title,
       message: message ?? this.message,
-      translations: translations ?? this.translations,
+      translations: translations != null ? translations() : this.translations,
     );
   }
 
@@ -91,7 +94,7 @@ class NotificationModel extends Equatable {
         (e) => e.value == map.getField<String>('type'),
       ),
       isRead: map.getFieldOrNull<bool>('isRead') ?? false,
-      createdAt: map.getDateTime('createdAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
       title: map.getField<String>('title'),
       message: map.getField<String>('message'),
       translations: List<NotificationTranslationModel>.from(

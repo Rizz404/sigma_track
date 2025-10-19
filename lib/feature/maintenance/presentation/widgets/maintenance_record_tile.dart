@@ -74,7 +74,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        maintenanceRecord.asset.assetName,
+                        maintenanceRecord.asset?.assetName ?? 'Unknown Asset',
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,

@@ -74,7 +74,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        maintenanceSchedule.asset.assetName,
+                        maintenanceSchedule.asset?.assetName ?? 'Unknown Asset',
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,

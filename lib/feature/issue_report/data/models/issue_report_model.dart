@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/core/extensions/date_time_extension.dart';
@@ -23,8 +24,8 @@ class IssueReportModel extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<IssueReportTranslationModel>? translations;
-  final AssetModel asset;
-  final UserModel reportedBy;
+  final AssetModel? asset;
+  final UserModel? reportedBy;
   final UserModel? resolvedBy;
 
   const IssueReportModel({
@@ -43,8 +44,8 @@ class IssueReportModel extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.translations,
-    required this.asset,
-    required this.reportedBy,
+    this.asset,
+    this.reportedBy,
     this.resolvedBy,
   });
 
@@ -78,17 +79,17 @@ class IssueReportModel extends Equatable {
     String? issueType,
     IssuePriority? priority,
     IssueStatus? status,
-    DateTime? resolvedDate,
-    String? resolvedById,
+    ValueGetter<DateTime?>? resolvedDate,
+    ValueGetter<String?>? resolvedById,
     String? title,
-    String? description,
-    String? resolutionNotes,
+    ValueGetter<String?>? description,
+    ValueGetter<String?>? resolutionNotes,
     DateTime? createdAt,
     DateTime? updatedAt,
-    List<IssueReportTranslationModel>? translations,
-    AssetModel? asset,
-    UserModel? reportedBy,
-    UserModel? resolvedBy,
+    ValueGetter<List<IssueReportTranslationModel>?>? translations,
+    ValueGetter<AssetModel?>? asset,
+    ValueGetter<UserModel?>? reportedBy,
+    ValueGetter<UserModel?>? resolvedBy,
   }) {
     return IssueReportModel(
       id: id ?? this.id,
@@ -98,17 +99,19 @@ class IssueReportModel extends Equatable {
       issueType: issueType ?? this.issueType,
       priority: priority ?? this.priority,
       status: status ?? this.status,
-      resolvedDate: resolvedDate ?? this.resolvedDate,
-      resolvedById: resolvedById ?? this.resolvedById,
+      resolvedDate: resolvedDate != null ? resolvedDate() : this.resolvedDate,
+      resolvedById: resolvedById != null ? resolvedById() : this.resolvedById,
       title: title ?? this.title,
-      description: description ?? this.description,
-      resolutionNotes: resolutionNotes ?? this.resolutionNotes,
+      description: description != null ? description() : this.description,
+      resolutionNotes: resolutionNotes != null
+          ? resolutionNotes()
+          : this.resolutionNotes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      translations: translations ?? this.translations,
-      asset: asset ?? this.asset,
-      reportedBy: reportedBy ?? this.reportedBy,
-      resolvedBy: resolvedBy ?? this.resolvedBy,
+      translations: translations != null ? translations() : this.translations,
+      asset: asset != null ? asset() : this.asset,
+      reportedBy: reportedBy != null ? reportedBy() : this.reportedBy,
+      resolvedBy: resolvedBy != null ? resolvedBy() : this.resolvedBy,
     );
   }
 
@@ -129,8 +132,8 @@ class IssueReportModel extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
-      'asset': asset.toMap(),
-      'reportedBy': reportedBy.toMap(),
+      'asset': asset?.toMap(),
+      'reportedBy': reportedBy?.toMap(),
       'resolvedBy': resolvedBy?.toMap(),
     };
   }
@@ -140,7 +143,7 @@ class IssueReportModel extends Equatable {
       id: map.getField<String>('id'),
       assetId: map.getField<String>('assetId'),
       reportedById: map.getField<String>('reportedById'),
-      reportedDate: map.getDateTime('reportedDate'),
+      reportedDate: map.getField<DateTime>('reportedDate'),
       issueType: map.getField<String>('issueType'),
       priority: IssuePriority.values.firstWhere(
         (e) => e.value == map.getField<String>('priority'),
@@ -149,14 +152,14 @@ class IssueReportModel extends Equatable {
         (e) => e.value == map.getField<String>('status'),
       ),
       resolvedDate: map.getFieldOrNull<int>('resolvedDate') != null
-          ? map.getDateTime('resolvedDate')
+          ? map.getField<DateTime>('resolvedDate')
           : null,
       resolvedById: map.getFieldOrNull<String>('resolvedById'),
       title: map.getField<String>('title'),
       description: map.getFieldOrNull<String>('description'),
       resolutionNotes: map.getFieldOrNull<String>('resolutionNotes'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<IssueReportTranslationModel>.from(
         map
                 .getFieldOrNull<List<dynamic>>('translations')
@@ -207,14 +210,16 @@ class IssueReportTranslationModel extends Equatable {
   IssueReportTranslationModel copyWith({
     String? langCode,
     String? title,
-    String? description,
-    String? resolutionNotes,
+    ValueGetter<String?>? description,
+    ValueGetter<String?>? resolutionNotes,
   }) {
     return IssueReportTranslationModel(
       langCode: langCode ?? this.langCode,
       title: title ?? this.title,
-      description: description ?? this.description,
-      resolutionNotes: resolutionNotes ?? this.resolutionNotes,
+      description: description != null ? description() : this.description,
+      resolutionNotes: resolutionNotes != null
+          ? resolutionNotes()
+          : this.resolutionNotes,
     );
   }
 

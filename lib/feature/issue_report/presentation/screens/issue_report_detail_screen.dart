@@ -198,11 +198,17 @@ class _IssueReportDetailScreenState
           _buildInfoCard('Issue Report Information', [
             _buildInfoRow('Title', dummyReport.title),
             _buildInfoRow('Description', dummyReport.description ?? '-'),
-            _buildInfoRow('Asset', dummyReport.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              dummyReport.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow('Issue Type', dummyReport.issueType),
             _buildInfoRow('Priority', dummyReport.priority.name),
             _buildInfoRow('Status', dummyReport.status.name),
-            _buildInfoRow('Reported By', dummyReport.reportedBy.fullName),
+            _buildInfoRow(
+              'Reported By',
+              dummyReport.reportedBy?.fullName ?? 'Unknown User',
+            ),
             _buildInfoRow(
               'Reported Date',
               _formatDateTime(dummyReport.reportedDate),
@@ -235,11 +241,17 @@ class _IssueReportDetailScreenState
           _buildInfoCard('Issue Report Information', [
             _buildInfoRow('Title', _issueReport!.title),
             _buildTextBlock('Description', _issueReport!.description),
-            _buildInfoRow('Asset', _issueReport!.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              _issueReport!.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow('Issue Type', _issueReport!.issueType),
             _buildInfoRow('Priority', _issueReport!.priority.name),
             _buildInfoRow('Status', _issueReport!.status.name),
-            _buildInfoRow('Reported By', _issueReport!.reportedBy.fullName),
+            _buildInfoRow(
+              'Reported By',
+              _issueReport!.reportedBy?.fullName ?? 'Unknown User',
+            ),
             _buildInfoRow(
               'Reported Date',
               _formatDateTime(_issueReport!.reportedDate),

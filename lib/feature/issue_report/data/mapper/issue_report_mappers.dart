@@ -23,8 +23,8 @@ extension IssueReportModelMapper on IssueReportModel {
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations: translations?.map((x) => x.toEntity()).toList() ?? [],
-      asset: asset.toEntity(),
-      reportedBy: reportedBy.toEntity(),
+      asset: asset?.toEntity(),
+      reportedBy: reportedBy?.toEntity(),
       resolvedBy: resolvedBy?.toEntity(),
     );
   }
@@ -48,8 +48,8 @@ extension IssueReportEntityMapper on IssueReport {
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations: translations?.map((x) => x.toModel()).toList() ?? [],
-      asset: asset.toModel(),
-      reportedBy: reportedBy.toModel(),
+      asset: asset?.toModel(),
+      reportedBy: reportedBy?.toModel(),
       resolvedBy: resolvedBy?.toModel(),
     );
   }

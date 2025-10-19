@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
@@ -49,25 +50,25 @@ class LocationModel extends Equatable {
     String? id,
     String? locationName,
     String? locationCode,
-    String? building,
-    String? floor,
-    double? latitude,
-    double? longitude,
+    ValueGetter<String?>? building,
+    ValueGetter<String?>? floor,
+    ValueGetter<double?>? latitude,
+    ValueGetter<double?>? longitude,
     DateTime? createdAt,
     DateTime? updatedAt,
-    List<LocationTranslationModel>? translations,
+    ValueGetter<List<LocationTranslationModel>?>? translations,
   }) {
     return LocationModel(
       id: id ?? this.id,
       locationName: locationName ?? this.locationName,
       locationCode: locationCode ?? this.locationCode,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
+      building: building != null ? building() : this.building,
+      floor: floor != null ? floor() : this.floor,
+      latitude: latitude != null ? latitude() : this.latitude,
+      longitude: longitude != null ? longitude() : this.longitude,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      translations: translations ?? this.translations,
+      translations: translations != null ? translations() : this.translations,
     );
   }
 
@@ -93,10 +94,10 @@ class LocationModel extends Equatable {
       locationCode: map.getField<String>('locationCode'),
       building: map.getFieldOrNull<String>('building'),
       floor: map.getFieldOrNull<String>('floor'),
-      latitude: map.getDoubleOrNull('latitude'),
-      longitude: map.getDoubleOrNull('longitude'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      latitude: map.getFieldOrNull<double>('latitude'),
+      longitude: map.getFieldOrNull<double>('longitude'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<LocationTranslationModel>.from(
         map
                 .getFieldOrNull<List<dynamic>>('translations')

@@ -197,7 +197,10 @@ class _AssetMovementDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard('Asset Movement Information', [
-            _buildInfoRow('Asset', dummyMovement.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              dummyMovement.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'From Location',
               dummyMovement.fromLocation?.locationName ?? '-',
@@ -208,7 +211,10 @@ class _AssetMovementDetailScreenState
             ),
             _buildInfoRow('From User', dummyMovement.fromUser?.fullName ?? '-'),
             _buildInfoRow('To User', dummyMovement.toUser?.fullName ?? '-'),
-            _buildInfoRow('Moved By', dummyMovement.movedBy.fullName),
+            _buildInfoRow(
+              'Moved By',
+              dummyMovement.movedBy?.fullName ?? 'Unknown User',
+            ),
             _buildInfoRow(
               'Movement Date',
               _formatDateTime(dummyMovement.movementDate),
@@ -226,7 +232,10 @@ class _AssetMovementDetailScreenState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard('Asset Movement Information', [
-            _buildInfoRow('Asset', _assetMovement!.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              _assetMovement!.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'From Location',
               _assetMovement!.fromLocation?.locationName ?? '-',
@@ -240,7 +249,10 @@ class _AssetMovementDetailScreenState
               _assetMovement!.fromUser?.fullName ?? '-',
             ),
             _buildInfoRow('To User', _assetMovement!.toUser?.fullName ?? '-'),
-            _buildInfoRow('Moved By', _assetMovement!.movedBy.fullName),
+            _buildInfoRow(
+              'Moved By',
+              _assetMovement!.movedBy?.fullName ?? 'Unknown User',
+            ),
             _buildInfoRow(
               'Movement Date',
               _formatDateTime(_assetMovement!.movementDate),

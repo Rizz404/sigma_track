@@ -297,7 +297,8 @@ class _MaintenanceRecordUpsertScreenState
               onSearch: _searchMaintenanceSchedules,
               itemDisplayMapper: (schedule) => schedule.title,
               itemValueMapper: (schedule) => schedule.id,
-              itemSubtitleMapper: (schedule) => schedule.asset.assetName,
+              itemSubtitleMapper: (schedule) =>
+                  schedule.asset?.assetName ?? 'Unknown Asset',
               itemIcon: Icons.schedule,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateScheduleId(

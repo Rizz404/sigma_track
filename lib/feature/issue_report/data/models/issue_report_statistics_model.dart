@@ -218,7 +218,7 @@ class IssueReportCreationTrendModel extends Equatable {
 
   factory IssueReportCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return IssueReportCreationTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -286,18 +286,20 @@ class IssueReportSummaryStatisticsModel extends Equatable {
   factory IssueReportSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return IssueReportSummaryStatisticsModel(
       totalReports: map.getFieldOrNull<int>('totalReports') ?? 0,
-      openPercentage: map.getDoubleOrNull('openPercentage') ?? 0.0,
-      resolvedPercentage: map.getDoubleOrNull('resolvedPercentage') ?? 0.0,
+      openPercentage: map.getFieldOrNull<double>('openPercentage') ?? 0.0,
+      resolvedPercentage:
+          map.getFieldOrNull<double>('resolvedPercentage') ?? 0.0,
       averageResolutionTime:
-          map.getDoubleOrNull('averageResolutionTimeInDays') ?? 0.0,
+          map.getFieldOrNull<double>('averageResolutionTimeInDays') ?? 0.0,
       mostCommonPriority:
           map.getFieldOrNull<String>('mostCommonPriority') ?? '',
       mostCommonType: map.getFieldOrNull<String>('mostCommonType') ?? '',
       criticalUnresolvedCount:
           map.getFieldOrNull<int>('criticalUnresolvedCount') ?? 0,
-      averageReportsPerDay: map.getDoubleOrNull('averageReportsPerDay') ?? 0.0,
-      latestCreationDate: map.getDateTime('latestCreationDate'),
-      earliestCreationDate: map.getDateTime('earliestCreationDate'),
+      averageReportsPerDay:
+          map.getFieldOrNull<double>('averageReportsPerDay') ?? 0.0,
+      latestCreationDate: map.getField<DateTime>('latestCreationDate'),
+      earliestCreationDate: map.getField<DateTime>('earliestCreationDate'),
     );
   }
 

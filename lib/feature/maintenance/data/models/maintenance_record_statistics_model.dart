@@ -178,8 +178,8 @@ class UserMaintenanceRecordStatisticsModel extends Equatable {
       userName: map.getFieldOrNull<String>('userName') ?? '',
       userEmail: map.getFieldOrNull<String>('userEmail') ?? '',
       count: map.getFieldOrNull<int>('count') ?? 0,
-      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
-      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
+      totalCost: map.getFieldOrNull<double>('totalCost') ?? 0.0,
+      averageCost: map.getFieldOrNull<double>('averageCost') ?? 0.0,
     );
   }
 
@@ -220,8 +220,8 @@ class VendorMaintenanceRecordStatisticsModel extends Equatable {
     return VendorMaintenanceRecordStatisticsModel(
       vendorName: map.getFieldOrNull<String>('vendorName') ?? '',
       count: map.getFieldOrNull<int>('count') ?? 0,
-      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
-      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
+      totalCost: map.getFieldOrNull<double>('totalCost') ?? 0.0,
+      averageCost: map.getFieldOrNull<double>('averageCost') ?? 0.0,
     );
   }
 
@@ -282,8 +282,8 @@ class AssetMaintenanceRecordStatisticsModel extends Equatable {
       assetTag: map.getFieldOrNull<String>('assetTag') ?? '',
       recordCount: map.getFieldOrNull<int>('recordCount') ?? 0,
       lastMaintenance: map.getFieldOrNull<String>('lastMaintenance') ?? '',
-      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
-      averageCost: map.getDoubleOrNull('averageCost') ?? 0.0,
+      totalCost: map.getFieldOrNull<double>('totalCost') ?? 0.0,
+      averageCost: map.getFieldOrNull<double>('averageCost') ?? 0.0,
     );
   }
 
@@ -335,10 +335,10 @@ class MaintenanceRecordCostStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordCostStatisticsModel(
-      totalCost: map.getDoubleOrNull('totalCost'),
-      averageCost: map.getDoubleOrNull('averageCost'),
-      minCost: map.getDoubleOrNull('minCost'),
-      maxCost: map.getDoubleOrNull('maxCost'),
+      totalCost: map.getFieldOrNull<double>('totalCost'),
+      averageCost: map.getFieldOrNull<double>('averageCost'),
+      minCost: map.getFieldOrNull<double>('minCost'),
+      maxCost: map.getFieldOrNull<double>('maxCost'),
       recordsWithCost: map.getFieldOrNull<int>('recordsWithCost') ?? 0,
       recordsWithoutCost: map.getFieldOrNull<int>('recordsWithoutCost') ?? 0,
     );
@@ -370,7 +370,7 @@ class MaintenanceRecordCompletionTrendModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceRecordCompletionTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -403,7 +403,7 @@ class MaintenanceRecordMonthlyTrendModel extends Equatable {
     return MaintenanceRecordMonthlyTrendModel(
       month: map.getFieldOrNull<String>('month') ?? '',
       recordCount: map.getFieldOrNull<int>('recordCount') ?? 0,
-      totalCost: map.getDoubleOrNull('totalCost') ?? 0.0,
+      totalCost: map.getFieldOrNull<double>('totalCost') ?? 0.0,
     );
   }
 
@@ -481,23 +481,25 @@ class MaintenanceRecordSummaryStatisticsModel extends Equatable {
     return MaintenanceRecordSummaryStatisticsModel(
       totalRecords: map.getFieldOrNull<int>('totalRecords') ?? 0,
       recordsWithCostInfo: map.getFieldOrNull<int>('recordsWithCostInfo') ?? 0,
-      costInfoPercentage: map.getDoubleOrNull('costInfoPercentage') ?? 0.0,
+      costInfoPercentage:
+          map.getFieldOrNull<double>('costInfoPercentage') ?? 0.0,
       totalUniqueVendors: map.getFieldOrNull<int>('totalUniqueVendors') ?? 0,
       totalUniquePerformers:
           map.getFieldOrNull<int>('totalUniquePerformers') ?? 0,
-      averageRecordsPerDay: map.getDoubleOrNull('averageRecordsPerDay') ?? 0.0,
-      latestRecordDate: map.getDateTime('latestRecordDate'),
-      earliestRecordDate: map.getDateTime('earliestRecordDate'),
-      mostExpensiveMaintenanceCost: map.getDoubleOrNull(
+      averageRecordsPerDay:
+          map.getFieldOrNull<double>('averageRecordsPerDay') ?? 0.0,
+      latestRecordDate: map.getField<DateTime>('latestRecordDate'),
+      earliestRecordDate: map.getField<DateTime>('earliestRecordDate'),
+      mostExpensiveMaintenanceCost: map.getFieldOrNull<double>(
         'mostExpensiveMaintenanceCost',
       ),
-      leastExpensiveMaintenanceCost: map.getDoubleOrNull(
+      leastExpensiveMaintenanceCost: map.getFieldOrNull<double>(
         'leastExpensiveMaintenanceCost',
       ),
       assetsWithMaintenance:
           map.getFieldOrNull<int>('assetsWithMaintenance') ?? 0,
       averageMaintenancePerAsset:
-          map.getDoubleOrNull('averageMaintenancePerAsset') ?? 0.0,
+          map.getFieldOrNull<double>('averageMaintenancePerAsset') ?? 0.0,
     );
   }
 

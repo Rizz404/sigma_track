@@ -19,8 +19,8 @@ class IssueReport extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<IssueReportTranslation>? translations;
-  final Asset asset;
-  final User reportedBy;
+  final Asset? asset;
+  final User? reportedBy;
   final User? resolvedBy;
 
   const IssueReport({
@@ -39,8 +39,8 @@ class IssueReport extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.translations,
-    required this.asset,
-    required this.reportedBy,
+    this.asset,
+    this.reportedBy,
     this.resolvedBy,
   });
 
@@ -55,8 +55,6 @@ class IssueReport extends Equatable {
     title: '',
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
-    asset: Asset.dummy(),
-    reportedBy: User.dummy(),
   );
 
   @override

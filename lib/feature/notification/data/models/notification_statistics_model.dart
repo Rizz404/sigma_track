@@ -252,7 +252,7 @@ class NotificationCreationTrendModel extends Equatable {
 
   factory NotificationCreationTrendModel.fromMap(Map<String, dynamic> map) {
     return NotificationCreationTrendModel(
-      date: map.getDateTime('date'),
+      date: map.getField<DateTime>('date'),
       count: map.getFieldOrNull<int>('count') ?? 0,
     );
   }
@@ -333,13 +333,13 @@ class NotificationSummaryStatisticsModel extends Equatable {
   factory NotificationSummaryStatisticsModel.fromMap(Map<String, dynamic> map) {
     return NotificationSummaryStatisticsModel(
       totalNotifications: map.getFieldOrNull<int>('totalNotifications') ?? 0,
-      readPercentage: map.getDoubleOrNull('readPercentage') ?? 0.0,
-      unreadPercentage: map.getDoubleOrNull('unreadPercentage') ?? 0.0,
+      readPercentage: map.getFieldOrNull<double>('readPercentage') ?? 0.0,
+      unreadPercentage: map.getFieldOrNull<double>('unreadPercentage') ?? 0.0,
       mostCommonType: map.getFieldOrNull<String>('mostCommonType') ?? '',
       averageNotificationsPerDay:
-          map.getDoubleOrNull('averageNotificationsPerDay') ?? 0.0,
-      latestCreationDate: map.getDateTime('latestCreationDate'),
-      earliestCreationDate: map.getDateTime('earliestCreationDate'),
+          map.getFieldOrNull<double>('averageNotificationsPerDay') ?? 0.0,
+      latestCreationDate: map.getField<DateTime>('latestCreationDate'),
+      earliestCreationDate: map.getField<DateTime>('earliestCreationDate'),
     );
   }
 

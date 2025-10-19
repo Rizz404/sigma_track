@@ -66,7 +66,7 @@ class AssetMovementTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        assetMovement.asset.assetName,
+                        assetMovement.asset?.assetName ?? 'Unknown Asset',
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -74,7 +74,7 @@ class AssetMovementTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        assetMovement.asset.assetTag,
+                        assetMovement.asset?.assetTag ?? 'Unknown Tag',
                         style: AppTextStyle.bodySmall,
                         color: context.colors.textSecondary,
                         maxLines: 1,

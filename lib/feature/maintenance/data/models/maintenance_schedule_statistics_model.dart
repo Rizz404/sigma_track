@@ -358,7 +358,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map.getField<String>('maintenanceType'),
       ),
-      scheduledDate: map.getDateTime('scheduledDate'),
+      scheduledDate: map.getField<DateTime>('scheduledDate'),
       daysUntilDue: map.getFieldOrNull<int>('daysUntilDue') ?? 0,
       title: map.getFieldOrNull<String>('title') ?? '',
       description: map.getFieldOrNull<String>('description'),
@@ -430,7 +430,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map.getField<String>('maintenanceType'),
       ),
-      scheduledDate: map.getDateTime('scheduledDate'),
+      scheduledDate: map.getField<DateTime>('scheduledDate'),
       daysOverdue: map.getFieldOrNull<int>('daysOverdue') ?? 0,
       title: map.getFieldOrNull<String>('title') ?? '',
       description: map.getFieldOrNull<String>('description'),
@@ -552,17 +552,17 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
     return MaintenanceScheduleSummaryStatisticsModel(
       totalSchedules: map.getFieldOrNull<int>('totalSchedules') ?? 0,
       scheduledMaintenancePercentage:
-          map.getDoubleOrNull('scheduledMaintenancePercentage') ?? 0.0,
+          map.getFieldOrNull<double>('scheduledMaintenancePercentage') ?? 0.0,
       completedMaintenancePercentage:
-          map.getDoubleOrNull('completedMaintenancePercentage') ?? 0.0,
+          map.getFieldOrNull<double>('completedMaintenancePercentage') ?? 0.0,
       cancelledMaintenancePercentage:
-          map.getDoubleOrNull('cancelledMaintenancePercentage') ?? 0.0,
+          map.getFieldOrNull<double>('cancelledMaintenancePercentage') ?? 0.0,
       preventiveMaintenancePercentage:
-          map.getDoubleOrNull('preventiveMaintenancePercentage') ?? 0.0,
+          map.getFieldOrNull<double>('preventiveMaintenancePercentage') ?? 0.0,
       correctiveMaintenancePercentage:
-          map.getDoubleOrNull('correctiveMaintenancePercentage') ?? 0.0,
+          map.getFieldOrNull<double>('correctiveMaintenancePercentage') ?? 0.0,
       averageScheduleFrequency:
-          map.getDoubleOrNull('averageScheduleFrequency') ?? 0.0,
+          map.getFieldOrNull<double>('averageScheduleFrequency') ?? 0.0,
       upcomingMaintenanceCount:
           map.getFieldOrNull<int>('upcomingMaintenanceCount') ?? 0,
       overdueMaintenanceCount:
@@ -572,9 +572,9 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
       assetsWithoutScheduledMaintenance:
           map.getFieldOrNull<int>('assetsWithoutScheduledMaintenance') ?? 0,
       averageSchedulesPerDay:
-          map.getDoubleOrNull('averageSchedulesPerDay') ?? 0.0,
-      latestScheduleDate: map.getDateTime('latestScheduleDate'),
-      earliestScheduleDate: map.getDateTime('earliestScheduleDate'),
+          map.getFieldOrNull<double>('averageSchedulesPerDay') ?? 0.0,
+      latestScheduleDate: map.getField<DateTime>('latestScheduleDate'),
+      earliestScheduleDate: map.getField<DateTime>('earliestScheduleDate'),
       totalUniqueCreators: map.getFieldOrNull<int>('totalUniqueCreators') ?? 0,
     );
   }

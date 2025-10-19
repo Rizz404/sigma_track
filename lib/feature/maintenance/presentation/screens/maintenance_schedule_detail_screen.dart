@@ -215,7 +215,10 @@ class _MaintenanceScheduleDetailScreenState
           _buildInfoCard('Maintenance Schedule Information', [
             _buildInfoRow('Title', dummySchedule.title),
             _buildInfoRow('Description', dummySchedule.description ?? '-'),
-            _buildInfoRow('Asset', dummySchedule.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              dummySchedule.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'Maintenance Type',
               dummySchedule.maintenanceType.name,
@@ -229,7 +232,10 @@ class _MaintenanceScheduleDetailScreenState
               dummySchedule.frequencyMonths?.toString() ?? '-',
             ),
             _buildInfoRow('Status', dummySchedule.status.name),
-            _buildInfoRow('Created By', dummySchedule.createdBy.fullName),
+            _buildInfoRow(
+              'Created By',
+              dummySchedule.createdBy?.fullName ?? 'Unknown User',
+            ),
           ]),
         ],
       ),
@@ -244,7 +250,10 @@ class _MaintenanceScheduleDetailScreenState
           _buildInfoCard('Maintenance Schedule Information', [
             _buildInfoRow('Title', _maintenanceSchedule!.title),
             _buildTextBlock('Description', _maintenanceSchedule!.description),
-            _buildInfoRow('Asset', _maintenanceSchedule!.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              _maintenanceSchedule!.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'Maintenance Type',
               _maintenanceSchedule!.maintenanceType.name,
@@ -260,7 +269,7 @@ class _MaintenanceScheduleDetailScreenState
             _buildInfoRow('Status', _maintenanceSchedule!.status.name),
             _buildInfoRow(
               'Created By',
-              _maintenanceSchedule!.createdBy.fullName,
+              _maintenanceSchedule!.createdBy?.fullName ?? 'Unknown User',
             ),
           ]),
           const SizedBox(height: 16),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
@@ -21,7 +22,7 @@ class MaintenanceRecordModel extends Equatable {
   final DateTime updatedAt;
   final List<MaintenanceRecordTranslationModel>? translations;
   final MaintenanceScheduleModel? schedule;
-  final AssetModel asset;
+  final AssetModel? asset;
   final UserModel? performedByUser;
 
   const MaintenanceRecordModel({
@@ -38,7 +39,7 @@ class MaintenanceRecordModel extends Equatable {
     required this.updatedAt,
     this.translations,
     this.schedule,
-    required this.asset,
+    this.asset,
     this.performedByUser,
   });
 
@@ -63,37 +64,43 @@ class MaintenanceRecordModel extends Equatable {
 
   MaintenanceRecordModel copyWith({
     String? id,
-    String? scheduleId,
+    ValueGetter<String?>? scheduleId,
     String? assetId,
     DateTime? maintenanceDate,
-    String? performedByUserId,
-    String? performedByVendor,
-    double? actualCost,
+    ValueGetter<String?>? performedByUserId,
+    ValueGetter<String?>? performedByVendor,
+    ValueGetter<double?>? actualCost,
     String? title,
-    String? notes,
+    ValueGetter<String?>? notes,
     DateTime? createdAt,
     DateTime? updatedAt,
-    List<MaintenanceRecordTranslationModel>? translations,
-    MaintenanceScheduleModel? schedule,
-    AssetModel? asset,
-    UserModel? performedByUser,
+    ValueGetter<List<MaintenanceRecordTranslationModel>?>? translations,
+    ValueGetter<MaintenanceScheduleModel?>? schedule,
+    ValueGetter<AssetModel?>? asset,
+    ValueGetter<UserModel?>? performedByUser,
   }) {
     return MaintenanceRecordModel(
       id: id ?? this.id,
-      scheduleId: scheduleId ?? this.scheduleId,
+      scheduleId: scheduleId != null ? scheduleId() : this.scheduleId,
       assetId: assetId ?? this.assetId,
       maintenanceDate: maintenanceDate ?? this.maintenanceDate,
-      performedByUserId: performedByUserId ?? this.performedByUserId,
-      performedByVendor: performedByVendor ?? this.performedByVendor,
-      actualCost: actualCost ?? this.actualCost,
+      performedByUserId: performedByUserId != null
+          ? performedByUserId()
+          : this.performedByUserId,
+      performedByVendor: performedByVendor != null
+          ? performedByVendor()
+          : this.performedByVendor,
+      actualCost: actualCost != null ? actualCost() : this.actualCost,
       title: title ?? this.title,
-      notes: notes ?? this.notes,
+      notes: notes != null ? notes() : this.notes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      translations: translations ?? this.translations,
-      schedule: schedule ?? this.schedule,
-      asset: asset ?? this.asset,
-      performedByUser: performedByUser ?? this.performedByUser,
+      translations: translations != null ? translations() : this.translations,
+      schedule: schedule != null ? schedule() : this.schedule,
+      asset: asset != null ? asset() : this.asset,
+      performedByUser: performedByUser != null
+          ? performedByUser()
+          : this.performedByUser,
     );
   }
 
@@ -112,7 +119,7 @@ class MaintenanceRecordModel extends Equatable {
       'updatedAt': updatedAt.iso8601String,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
       'schedule': schedule?.toMap(),
-      'asset': asset.toMap(),
+      'asset': asset?.toMap(),
       'performedByUser': performedByUser?.toMap(),
     };
   }
@@ -122,14 +129,14 @@ class MaintenanceRecordModel extends Equatable {
       id: map.getField<String>('id'),
       scheduleId: map.getFieldOrNull<String>('scheduleId'),
       assetId: map.getField<String>('assetId'),
-      maintenanceDate: map.getDateTime('maintenanceDate'),
+      maintenanceDate: map.getField<DateTime>('maintenanceDate'),
       performedByUserId: map.getFieldOrNull<String>('performedByUserId'),
       performedByVendor: map.getFieldOrNull<String>('performedByVendor'),
-      actualCost: map.getDoubleOrNull('actualCost'),
+      actualCost: map.getFieldOrNull<double>('actualCost'),
       title: map.getField<String>('title'),
       notes: map.getFieldOrNull<String>('notes'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<MaintenanceRecordTranslationModel>.from(
         map
                 .getFieldOrNull<List<dynamic>>('translations')
@@ -183,12 +190,12 @@ class MaintenanceRecordTranslationModel extends Equatable {
   MaintenanceRecordTranslationModel copyWith({
     String? langCode,
     String? title,
-    String? notes,
+    ValueGetter<String?>? notes,
   }) {
     return MaintenanceRecordTranslationModel(
       langCode: langCode ?? this.langCode,
       title: title ?? this.title,
-      notes: notes ?? this.notes,
+      notes: notes != null ? notes() : this.notes,
     );
   }
 

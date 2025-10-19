@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 
@@ -44,25 +45,25 @@ class CategoryModel extends Equatable {
 
   CategoryModel copyWith({
     String? id,
-    String? parentId,
+    ValueGetter<String?>? parentId,
     String? categoryCode,
     String? categoryName,
     String? description,
-    CategoryModel? parent,
+    ValueGetter<CategoryModel?>? parent,
     DateTime? createdAt,
     DateTime? updatedAt,
-    List<CategoryTranslationModel>? translations,
+    ValueGetter<List<CategoryTranslationModel>?>? translations,
   }) {
     return CategoryModel(
       id: id ?? this.id,
-      parentId: parentId ?? this.parentId,
+      parentId: parentId != null ? parentId() : this.parentId,
       categoryCode: categoryCode ?? this.categoryCode,
       categoryName: categoryName ?? this.categoryName,
       description: description ?? this.description,
-      parent: parent ?? this.parent,
+      parent: parent != null ? parent() : this.parent,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      translations: translations ?? this.translations,
+      translations: translations != null ? translations() : this.translations,
     );
   }
 
@@ -90,8 +91,8 @@ class CategoryModel extends Equatable {
       parent: map.getFieldOrNull<Map<String, dynamic>>('parent') != null
           ? CategoryModel.fromMap(map.getField<Map<String, dynamic>>('parent'))
           : null,
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<CategoryTranslationModel>.from(
         map
                 .getFieldOrNull<List<dynamic>>('translations')

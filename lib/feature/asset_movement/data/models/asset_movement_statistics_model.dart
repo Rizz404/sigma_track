@@ -317,7 +317,7 @@ class AssetMovementRecentStatsModel {
       fromUser: map.getFieldOrNull<String>('fromUser'),
       toUser: map.getFieldOrNull<String>('toUser'),
       movedBy: map.getField<String>('movedBy'),
-      movementDate: map.getDateTime('movementDate'),
+      movementDate: map.getField<DateTime>('movementDate'),
       movementType: map.getField<String>('movementType'),
     );
   }
@@ -463,8 +463,8 @@ class AssetMovementSummaryStatisticsModel {
       averageMovementsPerAsset: map.getField<double>(
         'averageMovementsPerAsset',
       ),
-      latestMovementDate: map.getDateTime('latestMovementDate'),
-      earliestMovementDate: map.getDateTime('earliestMovementDate'),
+      latestMovementDate: map.getField<DateTime>('latestMovementDate'),
+      earliestMovementDate: map.getField<DateTime>('earliestMovementDate'),
       uniqueAssetsWithMovements: map.getField<int>('uniqueAssetsWithMovements'),
       uniqueLocationsInvolved: map.getField<int>('uniqueLocationsInvolved'),
       uniqueUsersInvolved: map.getField<int>('uniqueUsersInvolved'),

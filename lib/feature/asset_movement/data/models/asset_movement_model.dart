@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_model.dart';
@@ -19,12 +20,12 @@ class AssetMovementModel extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<AssetMovementTranslationModel>? translations;
-  final AssetModel asset;
+  final AssetModel? asset;
   final LocationModel? fromLocation;
   final LocationModel? toLocation;
   final UserModel? fromUser;
   final UserModel? toUser;
-  final UserModel movedBy;
+  final UserModel? movedBy;
 
   const AssetMovementModel({
     required this.id,
@@ -39,12 +40,12 @@ class AssetMovementModel extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.translations,
-    required this.asset,
+    this.asset,
     this.fromLocation,
     this.toLocation,
     this.fromUser,
     this.toUser,
-    required this.movedBy,
+    this.movedBy,
   });
 
   @override
@@ -72,42 +73,44 @@ class AssetMovementModel extends Equatable {
   AssetMovementModel copyWith({
     String? id,
     String? assetId,
-    String? fromLocationId,
-    String? toLocationId,
-    String? fromUserId,
-    String? toUserId,
+    ValueGetter<String?>? fromLocationId,
+    ValueGetter<String?>? toLocationId,
+    ValueGetter<String?>? fromUserId,
+    ValueGetter<String?>? toUserId,
     String? movedById,
     DateTime? movementDate,
-    String? notes,
+    ValueGetter<String?>? notes,
     DateTime? createdAt,
     DateTime? updatedAt,
-    List<AssetMovementTranslationModel>? translations,
-    AssetModel? asset,
-    LocationModel? fromLocation,
-    LocationModel? toLocation,
-    UserModel? fromUser,
-    UserModel? toUser,
-    UserModel? movedBy,
+    ValueGetter<List<AssetMovementTranslationModel>?>? translations,
+    ValueGetter<AssetModel?>? asset,
+    ValueGetter<LocationModel?>? fromLocation,
+    ValueGetter<LocationModel?>? toLocation,
+    ValueGetter<UserModel?>? fromUser,
+    ValueGetter<UserModel?>? toUser,
+    ValueGetter<UserModel?>? movedBy,
   }) {
     return AssetMovementModel(
       id: id ?? this.id,
       assetId: assetId ?? this.assetId,
-      fromLocationId: fromLocationId ?? this.fromLocationId,
-      toLocationId: toLocationId ?? this.toLocationId,
-      fromUserId: fromUserId ?? this.fromUserId,
-      toUserId: toUserId ?? this.toUserId,
+      fromLocationId: fromLocationId != null
+          ? fromLocationId()
+          : this.fromLocationId,
+      toLocationId: toLocationId != null ? toLocationId() : this.toLocationId,
+      fromUserId: fromUserId != null ? fromUserId() : this.fromUserId,
+      toUserId: toUserId != null ? toUserId() : this.toUserId,
       movedById: movedById ?? this.movedById,
       movementDate: movementDate ?? this.movementDate,
-      notes: notes ?? this.notes,
+      notes: notes != null ? notes() : this.notes,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      translations: translations ?? this.translations,
-      asset: asset ?? this.asset,
-      fromLocation: fromLocation ?? this.fromLocation,
-      toLocation: toLocation ?? this.toLocation,
-      fromUser: fromUser ?? this.fromUser,
-      toUser: toUser ?? this.toUser,
-      movedBy: movedBy ?? this.movedBy,
+      translations: translations != null ? translations() : this.translations,
+      asset: asset != null ? asset() : this.asset,
+      fromLocation: fromLocation != null ? fromLocation() : this.fromLocation,
+      toLocation: toLocation != null ? toLocation() : this.toLocation,
+      fromUser: fromUser != null ? fromUser() : this.fromUser,
+      toUser: toUser != null ? toUser() : this.toUser,
+      movedBy: movedBy != null ? movedBy() : this.movedBy,
     );
   }
 
@@ -125,12 +128,12 @@ class AssetMovementModel extends Equatable {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
-      'asset': asset.toMap(),
+      'asset': asset?.toMap(),
       'fromLocation': fromLocation?.toMap(),
       'toLocation': toLocation?.toMap(),
       'fromUser': fromUser?.toMap(),
       'toUser': toUser?.toMap(),
-      'movedBy': movedBy.toMap(),
+      'movedBy': movedBy?.toMap(),
     };
   }
 
@@ -143,10 +146,10 @@ class AssetMovementModel extends Equatable {
       fromUserId: map.getFieldOrNull<String>('fromUserId'),
       toUserId: map.getFieldOrNull<String>('toUserId'),
       movedById: map.getField<String>('movedById'),
-      movementDate: map.getDateTime('movementDate'),
+      movementDate: map.getField<DateTime>('movementDate'),
       notes: map.getFieldOrNull<String>('notes'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<AssetMovementTranslationModel>.from(
         map
                 .getFieldOrNull<List<dynamic>>('translations')
@@ -157,7 +160,9 @@ class AssetMovementModel extends Equatable {
                 ) ??
             [],
       ),
-      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      asset: map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null
+          ? AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset'))
+          : null,
       fromLocation:
           map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null
           ? LocationModel.fromMap(
@@ -175,7 +180,9 @@ class AssetMovementModel extends Equatable {
       toUser: map.getFieldOrNull<Map<String, dynamic>>('toUser') != null
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('toUser'))
           : null,
-      movedBy: UserModel.fromMap(map.getField<Map<String, dynamic>>('movedBy')),
+      movedBy: map.getFieldOrNull<Map<String, dynamic>>('movedBy') != null
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('movedBy'))
+          : null,
     );
   }
 
@@ -199,10 +206,13 @@ class AssetMovementTranslationModel extends Equatable {
   @override
   List<Object?> get props => [langCode, notes];
 
-  AssetMovementTranslationModel copyWith({String? langCode, String? notes}) {
+  AssetMovementTranslationModel copyWith({
+    String? langCode,
+    ValueGetter<String?>? notes,
+  }) {
     return AssetMovementTranslationModel(
       langCode: langCode ?? this.langCode,
-      notes: notes ?? this.notes,
+      notes: notes != null ? notes() : this.notes,
     );
   }
 

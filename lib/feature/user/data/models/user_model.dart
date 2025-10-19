@@ -30,7 +30,7 @@ class UserModel extends Equatable {
     this.employeeId,
     required this.preferredLang,
     required this.isActive,
-    required this.avatarUrl,
+    this.avatarUrl,
     this.fcmToken,
     required this.createdAt,
     required this.updatedAt,
@@ -115,8 +115,8 @@ class UserModel extends Equatable {
       isActive: map.getField<bool>('isActive'),
       avatarUrl: map.getFieldOrNull<String>('avatarUrl'),
       fcmToken: map.getFieldOrNull<String>('FCMToken'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
     );
   }
 

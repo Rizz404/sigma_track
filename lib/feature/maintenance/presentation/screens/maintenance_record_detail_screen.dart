@@ -213,7 +213,10 @@ class _MaintenanceRecordDetailScreenState
           _buildInfoCard('Maintenance Record Information', [
             _buildInfoRow('Title', dummyRecord.title),
             _buildInfoRow('Notes', dummyRecord.notes ?? '-'),
-            _buildInfoRow('Asset', dummyRecord.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              dummyRecord.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'Maintenance Date',
               _formatDateTime(dummyRecord.maintenanceDate),
@@ -246,7 +249,10 @@ class _MaintenanceRecordDetailScreenState
           _buildInfoCard('Maintenance Record Information', [
             _buildInfoRow('Title', _maintenanceRecord!.title),
             _buildTextBlock('Notes', _maintenanceRecord!.notes),
-            _buildInfoRow('Asset', _maintenanceRecord!.asset.assetName),
+            _buildInfoRow(
+              'Asset',
+              _maintenanceRecord!.asset?.assetName ?? 'Unknown Asset',
+            ),
             _buildInfoRow(
               'Maintenance Date',
               _formatDateTime(_maintenanceRecord!.maintenanceDate),

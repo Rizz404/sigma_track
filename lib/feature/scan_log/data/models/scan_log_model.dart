@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
@@ -46,24 +47,28 @@ class ScanLogModel extends Equatable {
 
   ScanLogModel copyWith({
     String? id,
-    String? assetId,
+    ValueGetter<String?>? assetId,
     String? scannedValue,
     ScanMethodType? scanMethod,
     String? scannedById,
     DateTime? scanTimestamp,
-    double? scanLocationLat,
-    double? scanLocationLng,
+    ValueGetter<double?>? scanLocationLat,
+    ValueGetter<double?>? scanLocationLng,
     ScanResultType? scanResult,
   }) {
     return ScanLogModel(
       id: id ?? this.id,
-      assetId: assetId ?? this.assetId,
+      assetId: assetId != null ? assetId() : this.assetId,
       scannedValue: scannedValue ?? this.scannedValue,
       scanMethod: scanMethod ?? this.scanMethod,
       scannedById: scannedById ?? this.scannedById,
       scanTimestamp: scanTimestamp ?? this.scanTimestamp,
-      scanLocationLat: scanLocationLat ?? this.scanLocationLat,
-      scanLocationLng: scanLocationLng ?? this.scanLocationLng,
+      scanLocationLat: scanLocationLat != null
+          ? scanLocationLat()
+          : this.scanLocationLat,
+      scanLocationLng: scanLocationLng != null
+          ? scanLocationLng()
+          : this.scanLocationLng,
       scanResult: scanResult ?? this.scanResult,
     );
   }
@@ -91,9 +96,9 @@ class ScanLogModel extends Equatable {
         (e) => e.value == map.getField<String>('scanMethod'),
       ),
       scannedById: map.getField<String>('scannedById'),
-      scanTimestamp: map.getDateTime('scanTimestamp'),
-      scanLocationLat: map.getDoubleOrNull('scanLocationLat'),
-      scanLocationLng: map.getDoubleOrNull('scanLocationLng'),
+      scanTimestamp: map.getField<DateTime>('scanTimestamp'),
+      scanLocationLat: map.getFieldOrNull<double>('scanLocationLat'),
+      scanLocationLng: map.getFieldOrNull<double>('scanLocationLng'),
       scanResult: ScanResultType.values.firstWhere(
         (e) => e.value == map.getField<String>('scanResult'),
       ),

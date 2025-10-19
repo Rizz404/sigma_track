@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/category/data/models/category_model.dart';
@@ -87,22 +88,22 @@ class AssetModel extends Equatable {
     String? dataMatrixImageUrl,
     String? assetName,
     String? categoryId,
-    String? brand,
-    String? model,
-    String? serialNumber,
-    DateTime? purchaseDate,
-    double? purchasePrice,
-    String? vendorName,
-    DateTime? warrantyEnd,
+    ValueGetter<String?>? brand,
+    ValueGetter<String?>? model,
+    ValueGetter<String?>? serialNumber,
+    ValueGetter<DateTime?>? purchaseDate,
+    ValueGetter<double?>? purchasePrice,
+    ValueGetter<String?>? vendorName,
+    ValueGetter<DateTime?>? warrantyEnd,
     AssetStatus? status,
     AssetCondition? condition,
-    String? locationId,
-    String? assignedToId,
+    ValueGetter<String?>? locationId,
+    ValueGetter<String?>? assignedToId,
     DateTime? createdAt,
     DateTime? updatedAt,
-    CategoryModel? category,
-    LocationModel? location,
-    UserModel? assignedTo,
+    ValueGetter<CategoryModel?>? category,
+    ValueGetter<LocationModel?>? location,
+    ValueGetter<UserModel?>? assignedTo,
   }) {
     return AssetModel(
       id: id ?? this.id,
@@ -110,22 +111,24 @@ class AssetModel extends Equatable {
       dataMatrixImageUrl: dataMatrixImageUrl ?? this.dataMatrixImageUrl,
       assetName: assetName ?? this.assetName,
       categoryId: categoryId ?? this.categoryId,
-      brand: brand ?? this.brand,
-      model: model ?? this.model,
-      serialNumber: serialNumber ?? this.serialNumber,
-      purchaseDate: purchaseDate ?? this.purchaseDate,
-      purchasePrice: purchasePrice ?? this.purchasePrice,
-      vendorName: vendorName ?? this.vendorName,
-      warrantyEnd: warrantyEnd ?? this.warrantyEnd,
+      brand: brand != null ? brand() : this.brand,
+      model: model != null ? model() : this.model,
+      serialNumber: serialNumber != null ? serialNumber() : this.serialNumber,
+      purchaseDate: purchaseDate != null ? purchaseDate() : this.purchaseDate,
+      purchasePrice: purchasePrice != null
+          ? purchasePrice()
+          : this.purchasePrice,
+      vendorName: vendorName != null ? vendorName() : this.vendorName,
+      warrantyEnd: warrantyEnd != null ? warrantyEnd() : this.warrantyEnd,
       status: status ?? this.status,
       condition: condition ?? this.condition,
-      locationId: locationId ?? this.locationId,
-      assignedToId: assignedToId ?? this.assignedToId,
+      locationId: locationId != null ? locationId() : this.locationId,
+      assignedToId: assignedToId != null ? assignedToId() : this.assignedToId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      category: category ?? this.category,
-      location: location ?? this.location,
-      assignedTo: assignedTo ?? this.assignedTo,
+      category: category != null ? category() : this.category,
+      location: location != null ? location() : this.location,
+      assignedTo: assignedTo != null ? assignedTo() : this.assignedTo,
     );
   }
 
@@ -165,14 +168,10 @@ class AssetModel extends Equatable {
       brand: map.getFieldOrNull<String>('brand'),
       model: map.getFieldOrNull<String>('model'),
       serialNumber: map.getFieldOrNull<String>('serialNumber'),
-      purchaseDate: map.getFieldOrNull<String>('purchaseDate') != null
-          ? map.getDateTime('purchaseDate')
-          : null,
-      purchasePrice: map.getDoubleOrNull('purchasePrice'),
+      purchaseDate: map.getFieldOrNull<DateTime>('purchaseDate'),
+      purchasePrice: map.getFieldOrNull<double>('purchasePrice'),
       vendorName: map.getFieldOrNull<String>('vendorName'),
-      warrantyEnd: map.getFieldOrNull<String>('warrantyEnd') != null
-          ? map.getDateTime('warrantyEnd')
-          : null,
+      warrantyEnd: map.getFieldOrNull<DateTime>('warrantyEnd'),
       status: AssetStatus.values.firstWhere(
         (e) => e.value == map.getField<String>('status'),
       ),
@@ -181,8 +180,8 @@ class AssetModel extends Equatable {
       ),
       locationId: map.getFieldOrNull<String>('locationId'),
       assignedToId: map.getFieldOrNull<String>('assignedToId'),
-      createdAt: map.getDateTime('createdAt'),
-      updatedAt: map.getDateTime('updatedAt'),
+      createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       category: map.getFieldOrNull<Map<String, dynamic>>('category') != null
           ? CategoryModel.fromMap(
               map.getField<Map<String, dynamic>>('category'),
