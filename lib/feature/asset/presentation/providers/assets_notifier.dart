@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
@@ -164,10 +165,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   Future<void> createAsset(CreateAssetUsecaseParams params) async {
     this.logPresentation('Creating asset');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = AssetsState.creating(
+      currentAssets: state.assets,
+      assetsFilter: state.assetsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createAssetUsecase.call(params);
@@ -175,24 +176,29 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
     result.fold(
       (failure) {
         this.logError('Failed to create asset', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = AssetsState.mutationError(
+          currentAssets: state.assets,
+          assetsFilter: state.assetsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Asset created successfully');
 
-        // * Set message untuk listener (upsert screen akan pop)
-        state = state.copyWith(
-          message: () => success.message ?? 'Asset created',
-          isMutating: false,
+        // * Reload assets dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+
+        // * Set mutation success setelah reload
+        state = AssetsState.mutationSuccess(
+          assets: newState.assets,
+          assetsFilter: newState.assetsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Asset created',
+          cursor: newState.cursor,
         );
-
-        // * Wait a bit untuk listener consume message
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        // * Clear message sebelum refresh
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }
@@ -200,10 +206,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   Future<void> updateAsset(UpdateAssetUsecaseParams params) async {
     this.logPresentation('Updating asset: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = AssetsState.updating(
+      currentAssets: state.assets,
+      assetsFilter: state.assetsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateAssetUsecase.call(params);
@@ -211,24 +217,29 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
     result.fold(
       (failure) {
         this.logError('Failed to update asset', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = AssetsState.mutationError(
+          currentAssets: state.assets,
+          assetsFilter: state.assetsFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Asset updated successfully');
 
-        // * Set message untuk listener (upsert screen akan pop)
-        state = state.copyWith(
-          message: () => success.message ?? 'Asset updated',
-          isMutating: false,
+        // * Reload assets dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+
+        // * Set mutation success setelah reload
+        state = AssetsState.mutationSuccess(
+          assets: newState.assets,
+          assetsFilter: newState.assetsFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Asset updated',
+          cursor: newState.cursor,
         );
-
-        // * Wait a bit untuk listener consume message
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        // * Clear message sebelum refresh
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }
@@ -236,10 +247,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   Future<void> deleteAsset(DeleteAssetUsecaseParams params) async {
     this.logPresentation('Deleting asset: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = AssetsState.deleting(
+      currentAssets: state.assets,
+      assetsFilter: state.assetsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteAssetUsecase.call(params);
@@ -247,24 +258,29 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete asset', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = AssetsState.mutationError(
+          currentAssets: state.assets,
+          assetsFilter: state.assetsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Asset deleted successfully');
 
-        // * Set message untuk listener (detail screen akan pop)
-        state = state.copyWith(
-          message: () => success.message ?? 'Asset deleted',
-          isMutating: false,
+        // * Reload assets dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+
+        // * Set mutation success setelah reload
+        state = AssetsState.mutationSuccess(
+          assets: newState.assets,
+          assetsFilter: newState.assetsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Asset deleted',
+          cursor: newState.cursor,
         );
-
-        // * Wait a bit untuk listener consume message, lalu refresh
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        // * Clear message sebelum refresh untuk avoid double toast
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadAssets(assetsFilter: state.assetsFilter);
       },
     );
   }

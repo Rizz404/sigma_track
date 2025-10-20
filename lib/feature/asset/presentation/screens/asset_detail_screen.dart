@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
@@ -245,21 +246,15 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     // * Listen only for delete operation (not update)
     // ? Update handled by AssetUpsertScreen, delete needs navigation from here
     ref.listen<AssetsState>(assetsProvider, (previous, next) {
-      // * Only handle delete success (when previous had message and now success)
-      final wasDeleting =
-          previous?.isMutating == true && previous?.message == null;
-      final isDeleteSuccess =
-          !next.isMutating &&
-          next.message != null &&
-          next.failure == null &&
-          wasDeleting;
-
-      if (isDeleteSuccess) {
-        AppToast.success(next.message ?? 'Operation successful');
-        context.pop(); // * Only pop after delete, not update
-      } else if (next.failure != null && previous?.isMutating == true) {
-        this.logError('Asset mutation error', next.failure);
-        AppToast.error(next.failure?.message ?? 'Operation failed');
+      // * Only handle delete mutation
+      if (next.mutation?.type == MutationType.delete) {
+        if (next.hasMutationSuccess) {
+          AppToast.success(next.mutationMessage ?? 'Asset deleted');
+          context.pop();
+        } else if (next.hasMutationError) {
+          this.logError('Delete error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+        }
       }
     });
 

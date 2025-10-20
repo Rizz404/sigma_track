@@ -238,13 +238,15 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
     final state = ref.watch(myAssetsProvider);
 
     ref.listen(myAssetsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('MyAssets error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('MyAssets mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
