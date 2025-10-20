@@ -6,6 +6,8 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/router/router_refresh_listenable.dart';
 import 'package:sigma_track/di/auth_providers.dart';
+import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_upsert_for_location_screen.dart';
+import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_upsert_for_user_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/asset_upsert_screen.dart';
 import 'package:sigma_track/feature/asset/presentation/screens/admin/list_assets_screen.dart';
@@ -14,7 +16,6 @@ import 'package:sigma_track/feature/asset/presentation/screens/scan_asset_screen
 import 'package:sigma_track/feature/asset/presentation/screens/user/my_list_assets_screen.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/screens/admin/list_asset_movements_screen.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_detail_screen.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_movement_upsert_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/screens/login_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/screens/register_screen.dart';
@@ -620,15 +621,31 @@ class AppRouter {
       },
     ),
     GoRoute(
-      path: RouteConstant.adminAssetMovementUpsert,
-      name: PageKeyConstant.adminAssetMovementUpsert,
+      path: RouteConstant.adminAssetMovementUpsertForLocation,
+      name: PageKeyConstant.adminAssetMovementUpsertForLocation,
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
         final assetMovement = state.extra as AssetMovement?;
         return _slideFromBottom(
           key: state.pageKey,
-          child: AssetMovementUpsertScreen(
+          child: AssetMovementUpsertForLocationScreen(
+            assetMovement: assetMovement,
+            assetMovementId: assetMovementId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.adminAssetMovementUpsertForUser,
+      name: PageKeyConstant.adminAssetMovementUpsertForUser,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetMovementId = state.uri.queryParameters['movementId'];
+        final assetMovement = state.extra as AssetMovement?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: AssetMovementUpsertForUserScreen(
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
           ),

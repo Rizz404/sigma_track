@@ -160,27 +160,56 @@ class AssetMovementModel extends Equatable {
                 ) ??
             [],
       ),
-      asset: map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null
+      asset:
+          map.getFieldOrNull<Map<String, dynamic>>('asset') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('asset')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset'))
           : null,
       fromLocation:
-          map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null
+          map.getFieldOrNull<Map<String, dynamic>>('fromLocation') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('fromLocation')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? LocationModel.fromMap(
               map.getField<Map<String, dynamic>>('fromLocation'),
             )
           : null,
-      toLocation: map.getFieldOrNull<Map<String, dynamic>>('toLocation') != null
+      toLocation:
+          map.getFieldOrNull<Map<String, dynamic>>('toLocation') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('toLocation')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? LocationModel.fromMap(
               map.getField<Map<String, dynamic>>('toLocation'),
             )
           : null,
-      fromUser: map.getFieldOrNull<Map<String, dynamic>>('fromUser') != null
+      fromUser:
+          map.getFieldOrNull<Map<String, dynamic>>('fromUser') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('fromUser')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('fromUser'))
           : null,
-      toUser: map.getFieldOrNull<Map<String, dynamic>>('toUser') != null
+      toUser:
+          map.getFieldOrNull<Map<String, dynamic>>('toUser') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('toUser')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('toUser'))
           : null,
-      movedBy: map.getFieldOrNull<Map<String, dynamic>>('movedBy') != null
+      movedBy:
+          map.getFieldOrNull<Map<String, dynamic>>('movedBy') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('movedBy')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('movedBy'))
           : null,
     );

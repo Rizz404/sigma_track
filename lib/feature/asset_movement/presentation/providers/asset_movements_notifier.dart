@@ -5,19 +5,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movements_state.dart';
 
 class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
   GetAssetMovementsCursorUsecase get _getAssetMovementsCursorUsecase =>
       ref.watch(getAssetMovementsCursorUsecaseProvider);
-  CreateAssetMovementUsecase get _createAssetMovementUsecase =>
-      ref.watch(createAssetMovementUsecaseProvider);
-  UpdateAssetMovementUsecase get _updateAssetMovementUsecase =>
-      ref.watch(updateAssetMovementUsecaseProvider);
+  CreateAssetMovementForLocationUsecase
+  get _createAssetMovementForLocationUsecase =>
+      ref.watch(createAssetMovementForLocationUsecaseProvider);
+  CreateAssetMovementForUserUsecase get _createAssetMovementForUserUsecase =>
+      ref.watch(createAssetMovementForUserUsecaseProvider);
+  UpdateAssetMovementForLocationUsecase
+  get _updateAssetMovementForLocationUsecase =>
+      ref.watch(updateAssetMovementForLocationUsecaseProvider);
+  UpdateAssetMovementForUserUsecase get _updateAssetMovementForUserUsecase =>
+      ref.watch(updateAssetMovementForUserUsecaseProvider);
   DeleteAssetMovementUsecase get _deleteAssetMovementUsecase =>
       ref.watch(deleteAssetMovementUsecaseProvider);
 
@@ -168,10 +176,10 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
     );
   }
 
-  Future<void> createAssetMovement(
-    CreateAssetMovementUsecaseParams params,
+  Future<void> createAssetMovementForLocation(
+    CreateAssetMovementForLocationUsecaseParams params,
   ) async {
-    this.logPresentation('Creating asset movement');
+    this.logPresentation('Creating asset movement for location');
 
     state = state.copyWith(
       isMutating: true,
@@ -179,15 +187,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       message: () => null,
     );
 
-    final result = await _createAssetMovementUsecase.call(params);
+    final result = await _createAssetMovementForLocationUsecase.call(params);
 
     result.fold(
       (failure) {
-        this.logError('Failed to create asset movement', failure);
+        this.logError('Failed to create asset movement for location', failure);
         state = state.copyWith(isMutating: false, failure: () => failure);
       },
       (success) async {
-        this.logData('Asset movement created successfully');
+        this.logData('Asset movement for location created successfully');
 
         state = state.copyWith(
           message: () => success.message ?? 'Asset movement created',
@@ -205,10 +213,10 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
     );
   }
 
-  Future<void> updateAssetMovement(
-    UpdateAssetMovementUsecaseParams params,
+  Future<void> createAssetMovementForUser(
+    CreateAssetMovementForUserUsecaseParams params,
   ) async {
-    this.logPresentation('Updating asset movement: ${params.id}');
+    this.logPresentation('Creating asset movement for user');
 
     state = state.copyWith(
       isMutating: true,
@@ -216,15 +224,89 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       message: () => null,
     );
 
-    final result = await _updateAssetMovementUsecase.call(params);
+    final result = await _createAssetMovementForUserUsecase.call(params);
 
     result.fold(
       (failure) {
-        this.logError('Failed to update asset movement', failure);
+        this.logError('Failed to create asset movement for user', failure);
         state = state.copyWith(isMutating: false, failure: () => failure);
       },
       (success) async {
-        this.logData('Asset movement updated successfully');
+        this.logData('Asset movement for user created successfully');
+
+        state = state.copyWith(
+          message: () => success.message ?? 'Asset movement created',
+          isMutating: false,
+        );
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
+      },
+    );
+  }
+
+  Future<void> updateAssetMovementForLocation(
+    UpdateAssetMovementForLocationUsecaseParams params,
+  ) async {
+    this.logPresentation('Updating asset movement for location: ${params.id}');
+
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
+
+    final result = await _updateAssetMovementForLocationUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to update asset movement for location', failure);
+        state = state.copyWith(isMutating: false, failure: () => failure);
+      },
+      (success) async {
+        this.logData('Asset movement for location updated successfully');
+
+        state = state.copyWith(
+          message: () => success.message ?? 'Asset movement updated',
+          isMutating: false,
+        );
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        state = state.copyWith(message: () => null, isLoading: true);
+
+        state = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
+      },
+    );
+  }
+
+  Future<void> updateAssetMovementForUser(
+    UpdateAssetMovementForUserUsecaseParams params,
+  ) async {
+    this.logPresentation('Updating asset movement for user: ${params.id}');
+
+    state = state.copyWith(
+      isMutating: true,
+      failure: () => null,
+      message: () => null,
+    );
+
+    final result = await _updateAssetMovementForUserUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to update asset movement for user', failure);
+        state = state.copyWith(isMutating: false, failure: () => failure);
+      },
+      (success) async {
+        this.logData('Asset movement for user updated successfully');
 
         state = state.copyWith(
           message: () => success.message ?? 'Asset movement updated',

@@ -5,18 +5,17 @@ import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movemen
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement_statistics.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 
 abstract class AssetMovementRepository {
-  Future<Either<Failure, ItemSuccess<AssetMovement>>> createAssetMovement(
-    CreateAssetMovementUsecaseParams params,
-  );
   Future<Either<Failure, OffsetPaginatedSuccess<AssetMovement>>>
   getAssetMovements(GetAssetMovementsUsecaseParams params);
   Future<Either<Failure, ItemSuccess<AssetMovementStatistics>>>
@@ -34,10 +33,19 @@ abstract class AssetMovementRepository {
   Future<Either<Failure, ItemSuccess<AssetMovement>>> getAssetMovementById(
     GetAssetMovementByIdUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<AssetMovement>>> updateAssetMovement(
-    UpdateAssetMovementUsecaseParams params,
-  );
   Future<Either<Failure, ItemSuccess<dynamic>>> deleteAssetMovement(
     DeleteAssetMovementUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  createAssetMovementForLocation(
+    CreateAssetMovementForLocationUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  createAssetMovementForUser(CreateAssetMovementForUserUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  updateAssetMovementForLocation(
+    UpdateAssetMovementForLocationUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  updateAssetMovementForUser(UpdateAssetMovementForUserUsecaseParams params);
 }

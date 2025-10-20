@@ -329,7 +329,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ),
             const SizedBox(height: 16),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: AppTextField(
@@ -344,16 +344,13 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24),
-                  child: IconButton(
-                    onPressed: _handleGenerateAssetTag,
-                    icon: const Icon(Icons.auto_awesome),
-                    tooltip: 'Auto-generate asset tag',
-                    style: IconButton.styleFrom(
-                      backgroundColor: context.colorScheme.primaryContainer,
-                      foregroundColor: context.colorScheme.onPrimaryContainer,
-                    ),
+                IconButton(
+                  onPressed: _handleGenerateAssetTag,
+                  icon: const Icon(Icons.auto_awesome),
+                  tooltip: 'Auto-generate asset tag',
+                  style: IconButton.styleFrom(
+                    backgroundColor: context.colorScheme.primaryContainer,
+                    foregroundColor: context.colorScheme.onPrimaryContainer,
                   ),
                 ),
               ],
@@ -497,33 +494,83 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            AppSearchField<Location>(
-              name: 'locationId',
-              label: 'Location (Optional)',
-              hintText: 'Search location...',
-              initialValue: widget.asset?.locationId,
-              initialDisplayText: widget.asset?.location?.locationName,
-              enableAutocomplete: true,
-              onSearch: _searchLocations,
-              itemDisplayMapper: (location) => location.locationName,
-              itemValueMapper: (location) => location.id,
-              itemSubtitleMapper: (location) => location.locationCode,
-              itemIcon: Icons.location_on,
-            ),
+            if (_isEdit) ...[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    'Location',
+                    style: AppTextStyle.bodyMedium,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  const SizedBox(height: 8),
+                  AppText(
+                    widget.asset?.location?.locationName ?? 'Not set',
+                    style: AppTextStyle.bodyMedium,
+                    color: context.colors.textSecondary,
+                  ),
+                  const SizedBox(height: 8),
+                  AppText(
+                    'To change location, use Asset Movement screen',
+                    style: AppTextStyle.bodySmall,
+                    color: context.colors.textSecondary,
+                  ),
+                ],
+              ),
+            ] else ...[
+              AppSearchField<Location>(
+                name: 'locationId',
+                label: 'Location (Optional)',
+                hintText: 'Search location...',
+                initialValue: widget.asset?.locationId,
+                initialDisplayText: widget.asset?.location?.locationName,
+                enableAutocomplete: true,
+                onSearch: _searchLocations,
+                itemDisplayMapper: (location) => location.locationName,
+                itemValueMapper: (location) => location.id,
+                itemSubtitleMapper: (location) => location.locationCode,
+                itemIcon: Icons.location_on,
+              ),
+            ],
             const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'assignedTo',
-              label: 'Assigned To (Optional)',
-              hintText: 'Search user...',
-              initialValue: widget.asset?.assignedToId,
-              initialDisplayText: widget.asset?.assignedTo?.fullName,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-            ),
+            if (_isEdit) ...[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const AppText(
+                    'Assigned To',
+                    style: AppTextStyle.bodyMedium,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  const SizedBox(height: 8),
+                  AppText(
+                    widget.asset?.assignedTo?.fullName ?? 'Not assigned',
+                    style: AppTextStyle.bodyMedium,
+                    color: context.colors.textSecondary,
+                  ),
+                  const SizedBox(height: 8),
+                  AppText(
+                    'To change assignment, use Asset Movement screen',
+                    style: AppTextStyle.bodySmall,
+                    color: context.colors.textSecondary,
+                  ),
+                ],
+              ),
+            ] else ...[
+              AppSearchField<User>(
+                name: 'assignedTo',
+                label: 'Assigned To (Optional)',
+                hintText: 'Search user...',
+                initialValue: widget.asset?.assignedToId,
+                initialDisplayText: widget.asset?.assignedTo?.fullName,
+                enableAutocomplete: true,
+                onSearch: _searchUsers,
+                itemDisplayMapper: (user) => user.name,
+                itemValueMapper: (user) => user.id,
+                itemSubtitleMapper: (user) => user.email,
+                itemIcon: Icons.person,
+              ),
+            ],
           ],
         ),
       ),

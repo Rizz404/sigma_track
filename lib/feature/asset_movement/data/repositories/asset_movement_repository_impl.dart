@@ -11,33 +11,20 @@ import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movemen
 import 'package:sigma_track/feature/asset_movement/domain/repositories/asset_movement_repository.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 
 class AssetMovementRepositoryImpl implements AssetMovementRepository {
   final AssetMovementRemoteDatasource _assetMovementRemoteDatasource;
 
   AssetMovementRepositoryImpl(this._assetMovementRemoteDatasource);
-
-  @override
-  Future<Either<Failure, ItemSuccess<AssetMovement>>> createAssetMovement(
-    CreateAssetMovementUsecaseParams params,
-  ) async {
-    try {
-      final response = await _assetMovementRemoteDatasource.createAssetMovement(
-        params,
-      );
-      final assetMovement = response.data.toEntity();
-      return Right(ItemSuccess(message: response.message, data: assetMovement));
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
-      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
-    }
-  }
 
   @override
   Future<Either<Failure, OffsetPaginatedSuccess<AssetMovement>>>
@@ -56,7 +43,9 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           pagination: response.pagination.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -92,7 +81,9 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           cursor: response.cursor.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -131,7 +122,9 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           pagination: response.pagination.toEntity(),
         ),
       );
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
@@ -168,21 +161,6 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<AssetMovement>>> updateAssetMovement(
-    UpdateAssetMovementUsecaseParams params,
-  ) async {
-    try {
-      final response = await _assetMovementRemoteDatasource.updateAssetMovement(
-        params,
-      );
-      final assetMovement = response.data.toEntity();
-      return Right(ItemSuccess(message: response.message, data: assetMovement));
-    } on ApiErrorResponse catch (apiError) { return Left(ServerFailure(message: apiError.message)); } catch (e) {
-      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
-    }
-  }
-
-  @override
   Future<Either<Failure, ItemSuccess<dynamic>>> deleteAssetMovement(
     DeleteAssetMovementUsecaseParams params,
   ) async {
@@ -197,5 +175,72 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
-}
 
+  @override
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  createAssetMovementForLocation(
+    CreateAssetMovementForLocationUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .createAssetMovementForLocation(params);
+      final assetMovement = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: assetMovement));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  createAssetMovementForUser(
+    CreateAssetMovementForUserUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .createAssetMovementForUser(params);
+      final assetMovement = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: assetMovement));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  updateAssetMovementForLocation(
+    UpdateAssetMovementForLocationUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .updateAssetMovementForLocation(params);
+      final assetMovement = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: assetMovement));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<AssetMovement>>>
+  updateAssetMovementForUser(
+    UpdateAssetMovementForUserUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .updateAssetMovementForUser(params);
+      final assetMovement = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: assetMovement));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+}

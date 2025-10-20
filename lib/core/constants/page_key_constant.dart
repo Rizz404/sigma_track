@@ -38,7 +38,10 @@ class PageKeyConstant {
   static const String adminNotifications = 'admin-notifications';
 
   // ==================== ADMIN UPSERT PAGES ====================
-  static const String adminAssetMovementUpsert = 'admin-asset-movement-upsert';
+  static const String adminAssetMovementUpsertForLocation =
+      'admin-asset-movement-upsert-for-location';
+  static const String adminAssetMovementUpsertForUser =
+      'admin-asset-movement-upsert-for-user';
   static const String adminCategoryUpsert = 'admin-category-upsert';
   static const String adminLocationUpsert = 'admin-location-upsert';
   static const String adminMaintenanceScheduleUpsert =

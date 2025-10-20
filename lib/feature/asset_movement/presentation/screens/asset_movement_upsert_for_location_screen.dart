@@ -11,11 +11,11 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movement_providers.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movements_state.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/validators/asset_movement_upsert_validator.dart';
+import 'package:sigma_track/feature/asset_movement/presentation/validators/asset_movement_upsert_for_location_validator.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
@@ -32,23 +32,24 @@ import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class AssetMovementUpsertScreen extends ConsumerStatefulWidget {
+// Todo: Asset utama belum berubah setelah movement di backend
+class AssetMovementUpsertForLocationScreen extends ConsumerStatefulWidget {
   final AssetMovement? assetMovement;
   final String? assetMovementId;
 
-  const AssetMovementUpsertScreen({
+  const AssetMovementUpsertForLocationScreen({
     super.key,
     this.assetMovement,
     this.assetMovementId,
   });
 
   @override
-  ConsumerState<AssetMovementUpsertScreen> createState() =>
-      _AssetMovementUpsertScreenState();
+  ConsumerState<AssetMovementUpsertForLocationScreen> createState() =>
+      _AssetMovementUpsertForLocationScreenState();
 }
 
-class _AssetMovementUpsertScreenState
-    extends ConsumerState<AssetMovementUpsertScreen> {
+class _AssetMovementUpsertForLocationScreenState
+    extends ConsumerState<AssetMovementUpsertForLocationScreen> {
   GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
@@ -95,52 +96,55 @@ class _AssetMovementUpsertScreenState
       if (notes != null && notes.isNotEmpty) {
         if (_isEdit) {
           translations.add(
-            UpdateAssetMovementTranslation(langCode: langCode, notes: notes),
+            UpdateAssetMovementForLocationTranslation(
+              langCode: langCode,
+              notes: notes,
+            ),
           );
         } else {
           translations.add(
-            CreateAssetMovementTranslation(langCode: langCode, notes: notes),
+            CreateAssetMovementForLocationTranslation(
+              langCode: langCode,
+              notes: notes,
+            ),
           );
         }
       }
     }
 
     final assetId = formData['assetId'] as String;
-    final fromLocationId = formData['fromLocationId'] as String?;
-    final toLocationId = formData['toLocationId'] as String?;
-    final fromUserId = formData['fromUserId'] as String?;
-    final toUserId = formData['toUserId'] as String?;
+    final toLocationId = formData['toLocationId'] as String;
     final movedById = formData['movedById'] as String;
     final movementDate = formData['movementDate'] as DateTime;
 
     if (_isEdit) {
       final assetMovementId =
           _fetchedAssetMovement?.id ?? widget.assetMovement!.id;
-      final params = UpdateAssetMovementUsecaseParams.fromChanges(
+      final params = UpdateAssetMovementForLocationUsecaseParams.fromChanges(
         id: assetMovementId,
         original: _fetchedAssetMovement ?? widget.assetMovement!,
         assetId: assetId,
-        fromLocationId: fromLocationId,
         toLocationId: toLocationId,
-        fromUserId: fromUserId,
-        toUserId: toUserId,
         movedById: movedById,
         movementDate: movementDate,
-        translations: translations.cast<UpdateAssetMovementTranslation>(),
+        translations: translations
+            .cast<UpdateAssetMovementForLocationTranslation>(),
       );
-      ref.read(assetMovementsProvider.notifier).updateAssetMovement(params);
+      ref
+          .read(assetMovementsProvider.notifier)
+          .updateAssetMovementForLocation(params);
     } else {
-      final params = CreateAssetMovementUsecaseParams(
+      final params = CreateAssetMovementForLocationUsecaseParams(
         assetId: assetId,
-        fromLocationId: fromLocationId,
         toLocationId: toLocationId,
-        fromUserId: fromUserId,
-        toUserId: toUserId,
         movedById: movedById,
         movementDate: movementDate,
-        translations: translations.cast<CreateAssetMovementTranslation>(),
+        translations: translations
+            .cast<CreateAssetMovementForLocationTranslation>(),
       );
-      ref.read(assetMovementsProvider.notifier).createAssetMovement(params);
+      ref
+          .read(assetMovementsProvider.notifier)
+          .createAssetMovementForLocation(params);
     }
   }
 
@@ -215,7 +219,9 @@ class _AssetMovementUpsertScreenState
     return AppLoaderOverlay(
       child: Scaffold(
         appBar: CustomAppBar(
-          title: _isEdit ? 'Edit Asset Movement' : 'Create Asset Movement',
+          title: _isEdit
+              ? 'Edit Asset Movement to Location'
+              : 'Create Asset Movement to Location',
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -281,29 +287,16 @@ class _AssetMovementUpsertScreenState
               itemSubtitleMapper: (asset) => asset.assetName,
               itemIcon: Icons.inventory,
               validator: (value) =>
-                  AssetMovementUpsertValidator.validateAssetId(
+                  AssetMovementUpsertForLocationValidator.validateAssetId(
                     value,
                     isUpdate: _isEdit,
                   ),
             ),
             const SizedBox(height: 16),
             AppSearchField<Location>(
-              name: 'fromLocationId',
-              label: 'From Location',
-              hintText: 'Search and select from location (optional)',
-              initialValue: widget.assetMovement?.fromLocationId,
-              enableAutocomplete: true,
-              onSearch: _searchLocations,
-              itemDisplayMapper: (location) => location.locationName,
-              itemValueMapper: (location) => location.id,
-              itemSubtitleMapper: (location) => location.locationCode,
-              itemIcon: Icons.location_on,
-            ),
-            const SizedBox(height: 16),
-            AppSearchField<Location>(
               name: 'toLocationId',
               label: 'To Location',
-              hintText: 'Search and select to location (optional)',
+              hintText: 'Search and select to location',
               initialValue: widget.assetMovement?.toLocationId,
               enableAutocomplete: true,
               onSearch: _searchLocations,
@@ -311,32 +304,11 @@ class _AssetMovementUpsertScreenState
               itemValueMapper: (location) => location.id,
               itemSubtitleMapper: (location) => location.locationCode,
               itemIcon: Icons.location_on,
-            ),
-            const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'fromUserId',
-              label: 'From User',
-              hintText: 'Search and select from user (optional)',
-              initialValue: widget.assetMovement?.fromUserId,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-            ),
-            const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'toUserId',
-              label: 'To User',
-              hintText: 'Search and select to user (optional)',
-              initialValue: widget.assetMovement?.toUserId,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
+              validator: (value) =>
+                  AssetMovementUpsertForLocationValidator.validateToLocationId(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
             ),
             const SizedBox(height: 16),
             AppSearchField<User>(
@@ -351,7 +323,7 @@ class _AssetMovementUpsertScreenState
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
               validator: (value) =>
-                  AssetMovementUpsertValidator.validateMovedById(
+                  AssetMovementUpsertForLocationValidator.validateMovedById(
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -362,7 +334,7 @@ class _AssetMovementUpsertScreenState
               label: 'Movement Date',
               initialValue: widget.assetMovement?.movementDate,
               validator: (value) =>
-                  AssetMovementUpsertValidator.validateMovementDate(
+                  AssetMovementUpsertForLocationValidator.validateMovementDate(
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -394,9 +366,9 @@ class _AssetMovementUpsertScreenState
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en', 'English'),
+              _buildTranslationFields('en-US', 'English'),
               const SizedBox(height: 12),
-              _buildTranslationFields('ja', 'Japanese'),
+              _buildTranslationFields('ja-JP', 'Japanese'),
             ],
           ),
         ),
@@ -436,10 +408,11 @@ class _AssetMovementUpsertScreenState
             placeHolder: 'Enter notes in $langName',
             initialValue: translation?.notes,
             type: AppTextFieldType.multiline,
-            validator: (value) => AssetMovementUpsertValidator.validateNotes(
-              value,
-              isUpdate: _isEdit,
-            ),
+            validator: (value) =>
+                AssetMovementUpsertForLocationValidator.validateNotes(
+                  value,
+                  isUpdate: _isEdit,
+                ),
           ),
         ],
       ),

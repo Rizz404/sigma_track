@@ -144,6 +144,8 @@ class ApiConstant {
 
   // * Asset Movements
   static const String createAssetMovement = assetMovementPrefix;
+  static const String createAssetMovementForLocation = assetMovementPrefix;
+  static const String createAssetMovementForUser = assetMovementPrefix;
   static const String getAssetMovements = assetMovementPrefix;
   static const String getAssetMovementsStatistics =
       '$assetMovementPrefix/statistics';
@@ -155,6 +157,10 @@ class ApiConstant {
       '$assetMovementPrefix/asset/$assetId';
   static String getAssetMovementById(String id) => '$assetMovementPrefix/$id';
   static String updateAssetMovement(String id) => '$assetMovementPrefix/$id';
+  static String updateAssetMovementForLocation(String id) =>
+      '$assetMovementPrefix/$id';
+  static String updateAssetMovementForUser(String id) =>
+      '$assetMovementPrefix/$id';
   static String deleteAssetMovement(String id) => '$assetMovementPrefix/$id';
 
   // * Maintenance Records

@@ -9,66 +9,57 @@ import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
 import 'package:sigma_track/feature/asset_movement/domain/repositories/asset_movement_repository.dart';
 
-class UpdateAssetMovementUsecase
+class UpdateAssetMovementForLocationUsecase
     implements
-        Usecase<ItemSuccess<AssetMovement>, UpdateAssetMovementUsecaseParams> {
+        Usecase<
+          ItemSuccess<AssetMovement>,
+          UpdateAssetMovementForLocationUsecaseParams
+        > {
   final AssetMovementRepository _assetMovementRepository;
 
-  UpdateAssetMovementUsecase(this._assetMovementRepository);
+  UpdateAssetMovementForLocationUsecase(this._assetMovementRepository);
 
   @override
   Future<Either<Failure, ItemSuccess<AssetMovement>>> call(
-    UpdateAssetMovementUsecaseParams params,
+    UpdateAssetMovementForLocationUsecaseParams params,
   ) async {
-    return await _assetMovementRepository.updateAssetMovement(params);
+    return await _assetMovementRepository.updateAssetMovementForLocation(
+      params,
+    );
   }
 }
 
-class UpdateAssetMovementUsecaseParams extends Equatable {
+class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
   final String id;
   final String? assetId;
-  final String? fromLocationId;
   final String? toLocationId;
-  final String? fromUserId;
-  final String? toUserId;
   final String? movedById;
   final DateTime? movementDate;
-  final List<UpdateAssetMovementTranslation>? translations;
+  final List<UpdateAssetMovementForLocationTranslation>? translations;
 
-  UpdateAssetMovementUsecaseParams({
+  UpdateAssetMovementForLocationUsecaseParams({
     required this.id,
     this.assetId,
-    this.fromLocationId,
     this.toLocationId,
-    this.fromUserId,
-    this.toUserId,
     this.movedById,
     this.movementDate,
     this.translations,
   });
 
   /// * Factory method to create params with only changed fields
-  factory UpdateAssetMovementUsecaseParams.fromChanges({
+  factory UpdateAssetMovementForLocationUsecaseParams.fromChanges({
     required String id,
     required AssetMovement original,
     String? assetId,
-    String? fromLocationId,
     String? toLocationId,
-    String? fromUserId,
-    String? toUserId,
     String? movedById,
     DateTime? movementDate,
-    List<UpdateAssetMovementTranslation>? translations,
+    List<UpdateAssetMovementForLocationTranslation>? translations,
   }) {
-    return UpdateAssetMovementUsecaseParams(
+    return UpdateAssetMovementForLocationUsecaseParams(
       id: id,
       assetId: assetId != original.assetId ? assetId : null,
-      fromLocationId: fromLocationId != original.fromLocationId
-          ? fromLocationId
-          : null,
       toLocationId: toLocationId != original.toLocationId ? toLocationId : null,
-      fromUserId: fromUserId != original.fromUserId ? fromUserId : null,
-      toUserId: toUserId != original.toUserId ? toUserId : null,
       movedById: movedById != original.movedById ? movedById : null,
       movementDate: movementDate != original.movementDate ? movementDate : null,
       translations: translations,
@@ -79,10 +70,7 @@ class UpdateAssetMovementUsecaseParams extends Equatable {
     return {
       'id': id,
       if (assetId != null) 'assetId': assetId,
-      if (fromLocationId != null) 'fromLocationId': fromLocationId,
       if (toLocationId != null) 'toLocationId': toLocationId,
-      if (fromUserId != null) 'fromUserId': fromUserId,
-      if (toUserId != null) 'toUserId': toUserId,
       if (movedById != null) 'movedById': movedById,
       if (movementDate != null) 'movementDate': movementDate!.toIso8601String(),
       if (translations != null)
@@ -90,22 +78,21 @@ class UpdateAssetMovementUsecaseParams extends Equatable {
     };
   }
 
-  factory UpdateAssetMovementUsecaseParams.fromMap(Map<String, dynamic> map) {
-    return UpdateAssetMovementUsecaseParams(
+  factory UpdateAssetMovementForLocationUsecaseParams.fromMap(
+    Map<String, dynamic> map,
+  ) {
+    return UpdateAssetMovementForLocationUsecaseParams(
       id: map['id'] ?? '',
       assetId: map['assetId'],
-      fromLocationId: map['fromLocationId'],
       toLocationId: map['toLocationId'],
-      fromUserId: map['fromUserId'],
-      toUserId: map['toUserId'],
       movedById: map['movedById'],
       movementDate: map['movementDate'] != null
           ? DateTime.parse(map['movementDate'])
           : null,
       translations: map['translations'] != null
-          ? List<UpdateAssetMovementTranslation>.from(
+          ? List<UpdateAssetMovementForLocationTranslation>.from(
               map['translations']?.map(
-                    (x) => UpdateAssetMovementTranslation.fromMap(x),
+                    (x) => UpdateAssetMovementForLocationTranslation.fromMap(x),
                   ) ??
                   [],
             )
@@ -115,35 +102,37 @@ class UpdateAssetMovementUsecaseParams extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory UpdateAssetMovementUsecaseParams.fromJson(String source) =>
-      UpdateAssetMovementUsecaseParams.fromMap(json.decode(source));
+  factory UpdateAssetMovementForLocationUsecaseParams.fromJson(String source) =>
+      UpdateAssetMovementForLocationUsecaseParams.fromMap(json.decode(source));
 
   @override
   List<Object?> get props => [
     id,
     assetId,
-    fromLocationId,
     toLocationId,
-    fromUserId,
-    toUserId,
     movedById,
     movementDate,
     translations,
   ];
 }
 
-class UpdateAssetMovementTranslation extends Equatable {
+class UpdateAssetMovementForLocationTranslation extends Equatable {
   final String langCode;
   final String? notes;
 
-  UpdateAssetMovementTranslation({required this.langCode, this.notes});
+  UpdateAssetMovementForLocationTranslation({
+    required this.langCode,
+    this.notes,
+  });
 
   Map<String, dynamic> toMap() {
     return {'langCode': langCode, 'notes': notes};
   }
 
-  factory UpdateAssetMovementTranslation.fromMap(Map<String, dynamic> map) {
-    return UpdateAssetMovementTranslation(
+  factory UpdateAssetMovementForLocationTranslation.fromMap(
+    Map<String, dynamic> map,
+  ) {
+    return UpdateAssetMovementForLocationTranslation(
       langCode: map['langCode'] ?? '',
       notes: map['notes'],
     );
@@ -151,8 +140,8 @@ class UpdateAssetMovementTranslation extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory UpdateAssetMovementTranslation.fromJson(String source) =>
-      UpdateAssetMovementTranslation.fromMap(json.decode(source));
+  factory UpdateAssetMovementForLocationTranslation.fromJson(String source) =>
+      UpdateAssetMovementForLocationTranslation.fromMap(json.decode(source));
 
   @override
   List<Object?> get props => [langCode, notes];

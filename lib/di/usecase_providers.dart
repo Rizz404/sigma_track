@@ -1,6 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/di/repository_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 
 // ===== AUTH USECASES =====
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -27,14 +31,12 @@ import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.d
 // ===== ASSET MOVEMENT USECASES =====
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_statistics_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
 
 // ===== CATEGORY USECASES =====
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
@@ -267,12 +269,17 @@ final countAssetMovementsUsecaseProvider = Provider<CountAssetMovementsUsecase>(
   },
 );
 
-final createAssetMovementUsecaseProvider = Provider<CreateAssetMovementUsecase>(
-  (ref) {
-    final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
-    return CreateAssetMovementUsecase(assetMovementRepository);
-  },
-);
+final createAssetMovementForLocationUsecaseProvider =
+    Provider<CreateAssetMovementForLocationUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return CreateAssetMovementForLocationUsecase(assetMovementRepository);
+    });
+
+final createAssetMovementForUserUsecaseProvider =
+    Provider<CreateAssetMovementForUserUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return CreateAssetMovementForUserUsecase(assetMovementRepository);
+    });
 
 final deleteAssetMovementUsecaseProvider = Provider<DeleteAssetMovementUsecase>(
   (ref) {
@@ -312,13 +319,17 @@ final getAssetMovementsUsecaseProvider = Provider<GetAssetMovementsUsecase>((
   return GetAssetMovementsUsecase(assetMovementRepository);
 });
 
-final updateAssetMovementUsecaseProvider = Provider<UpdateAssetMovementUsecase>(
-  (ref) {
-    final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
-    return UpdateAssetMovementUsecase(assetMovementRepository);
-  },
-);
+final updateAssetMovementForLocationUsecaseProvider =
+    Provider<UpdateAssetMovementForLocationUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return UpdateAssetMovementForLocationUsecase(assetMovementRepository);
+    });
 
+final updateAssetMovementForUserUsecaseProvider =
+    Provider<UpdateAssetMovementForUserUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return UpdateAssetMovementForUserUsecase(assetMovementRepository);
+    });
 // =============================================
 // CATEGORY USECASE PROVIDERS
 // =============================================

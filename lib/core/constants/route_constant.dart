@@ -56,7 +56,10 @@ class RouteConstant {
   static const String adminNotifications = '/admin/notifications';
 
   // Admin Upsert Routes (Admin Only)
-  static const String adminAssetMovementUpsert = '/admin/asset-movement/upsert';
+  static const String adminAssetMovementUpsertForLocation =
+      '/admin/asset-movement/upsert/location';
+  static const String adminAssetMovementUpsertForUser =
+      '/admin/asset-movement/upsert/user';
   static const String adminCategoryUpsert = '/admin/category/upsert';
   static const String adminLocationUpsert = '/admin/location/upsert';
   static const String adminMaintenanceScheduleUpsert =

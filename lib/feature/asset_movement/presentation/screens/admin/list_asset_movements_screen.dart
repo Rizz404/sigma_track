@@ -84,7 +84,7 @@ class _ListAssetMovementsScreenState
       builder: (context) => AppListOptionsBottomSheet(
         onCreate: () {
           Navigator.pop(context);
-          context.push(RouteConstant.adminAssetMovementUpsert);
+          _showCreateAssetMovementDialog();
           this.logPresentation('Create assetMovement pressed');
         },
         onSelectMany: () {
@@ -102,6 +102,41 @@ class _ListAssetMovementsScreenState
         selectManySubtitle: 'Select multiple assetMovements to delete',
         filterSortTitle: 'Filter & Sort',
         filterSortSubtitle: 'Customize assetMovement display',
+      ),
+    );
+  }
+
+  void _showCreateAssetMovementDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const AppText(
+          'Create Asset Movement',
+          style: AppTextStyle.titleMedium,
+        ),
+        content: const AppText(
+          'Choose movement type:',
+          style: AppTextStyle.bodyMedium,
+        ),
+        actionsAlignment: MainAxisAlignment.end,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.push(RouteConstant.adminAssetMovementUpsertForLocation);
+            },
+            child: const AppText('For Location'),
+          ),
+          const SizedBox(width: 8),
+          AppButton(
+            text: 'For User',
+            isFullWidth: false,
+            onPressed: () {
+              Navigator.pop(context);
+              context.push(RouteConstant.adminAssetMovementUpsertForUser);
+            },
+          ),
+        ],
       ),
     );
   }

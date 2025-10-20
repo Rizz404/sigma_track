@@ -81,14 +81,53 @@ class _AssetMovementDetailScreenState
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
-    if (isAdmin) {
-      context.push(
-        RouteConstant.adminAssetMovementUpsert,
-        extra: _assetMovement,
-      );
-    } else {
+    if (!isAdmin) {
       AppToast.warning('Only admin can edit asset movements');
+      return;
     }
+
+    _showEditAssetMovementDialog();
+  }
+
+  void _showEditAssetMovementDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const AppText(
+          'Edit Asset Movement',
+          style: AppTextStyle.titleMedium,
+        ),
+        content: const AppText(
+          'Choose movement type:',
+          style: AppTextStyle.bodyMedium,
+        ),
+        actionsAlignment: MainAxisAlignment.end,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.push(
+                RouteConstant.adminAssetMovementUpsertForLocation,
+                extra: _assetMovement,
+              );
+            },
+            child: const AppText('For Location'),
+          ),
+          const SizedBox(width: 8),
+          AppButton(
+            text: 'For User',
+            isFullWidth: false,
+            onPressed: () {
+              Navigator.pop(context);
+              context.push(
+                RouteConstant.adminAssetMovementUpsertForUser,
+                extra: _assetMovement,
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void _handleDelete() async {

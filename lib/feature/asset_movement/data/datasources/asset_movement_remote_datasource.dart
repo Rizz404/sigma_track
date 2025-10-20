@@ -7,18 +7,17 @@ import 'package:sigma_track/feature/asset_movement/data/models/asset_movement_mo
 import 'package:sigma_track/feature/asset_movement/data/models/asset_movement_statistics_model.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
-import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 
 abstract class AssetMovementRemoteDatasource {
-  Future<ApiResponse<AssetMovementModel>> createAssetMovement(
-    CreateAssetMovementUsecaseParams params,
-  );
   Future<ApiOffsetPaginationResponse<AssetMovementModel>> getAssetMovements(
     GetAssetMovementsUsecaseParams params,
   );
@@ -37,11 +36,20 @@ abstract class AssetMovementRemoteDatasource {
   Future<ApiResponse<AssetMovementModel>> getAssetMovementById(
     GetAssetMovementByIdUsecaseParams params,
   );
-  Future<ApiResponse<AssetMovementModel>> updateAssetMovement(
-    UpdateAssetMovementUsecaseParams params,
-  );
   Future<ApiResponse<dynamic>> deleteAssetMovement(
     DeleteAssetMovementUsecaseParams params,
+  );
+  Future<ApiResponse<AssetMovementModel>> createAssetMovementForLocation(
+    CreateAssetMovementForLocationUsecaseParams params,
+  );
+  Future<ApiResponse<AssetMovementModel>> createAssetMovementForUser(
+    CreateAssetMovementForUserUsecaseParams params,
+  );
+  Future<ApiResponse<AssetMovementModel>> updateAssetMovementForLocation(
+    UpdateAssetMovementForLocationUsecaseParams params,
+  );
+  Future<ApiResponse<AssetMovementModel>> updateAssetMovementForUser(
+    UpdateAssetMovementForUserUsecaseParams params,
   );
 }
 
@@ -50,22 +58,6 @@ class AssetMovementRemoteDatasourceImpl
   final DioClient _dioClient;
 
   AssetMovementRemoteDatasourceImpl(this._dioClient);
-
-  @override
-  Future<ApiResponse<AssetMovementModel>> createAssetMovement(
-    CreateAssetMovementUsecaseParams params,
-  ) async {
-    try {
-      final response = await _dioClient.post(
-        ApiConstant.createAssetMovement,
-        data: params.toMap(),
-        fromJson: (json) => AssetMovementModel.fromMap(json),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
 
   @override
   Future<ApiOffsetPaginationResponse<AssetMovementModel>> getAssetMovements(
@@ -176,12 +168,26 @@ class AssetMovementRemoteDatasourceImpl
   }
 
   @override
-  Future<ApiResponse<AssetMovementModel>> updateAssetMovement(
-    UpdateAssetMovementUsecaseParams params,
+  Future<ApiResponse<dynamic>> deleteAssetMovement(
+    DeleteAssetMovementUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.patch(
-        ApiConstant.updateAssetMovement(params.id),
+      final response = await _dioClient.delete(
+        ApiConstant.deleteAssetMovement(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AssetMovementModel>> createAssetMovementForLocation(
+    CreateAssetMovementForLocationUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.createAssetMovementForLocation,
         data: params.toMap(),
         fromJson: (json) => AssetMovementModel.fromMap(json),
       );
@@ -192,12 +198,46 @@ class AssetMovementRemoteDatasourceImpl
   }
 
   @override
-  Future<ApiResponse<dynamic>> deleteAssetMovement(
-    DeleteAssetMovementUsecaseParams params,
+  Future<ApiResponse<AssetMovementModel>> createAssetMovementForUser(
+    CreateAssetMovementForUserUsecaseParams params,
   ) async {
     try {
-      final response = await _dioClient.delete(
-        ApiConstant.deleteAssetMovement(params.id),
+      final response = await _dioClient.post(
+        ApiConstant.createAssetMovementForUser,
+        data: params.toMap(),
+        fromJson: (json) => AssetMovementModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AssetMovementModel>> updateAssetMovementForLocation(
+    UpdateAssetMovementForLocationUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.patch(
+        ApiConstant.updateAssetMovementForLocation(params.id),
+        data: params.toMap(),
+        fromJson: (json) => AssetMovementModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<AssetMovementModel>> updateAssetMovementForUser(
+    UpdateAssetMovementForUserUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.patch(
+        ApiConstant.updateAssetMovementForUser(params.id),
+        data: params.toMap(),
+        fromJson: (json) => AssetMovementModel.fromMap(json),
       );
       return response;
     } catch (e) {

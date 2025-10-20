@@ -1,7 +1,14 @@
-class AssetMovementUpsertValidator {
+class AssetMovementUpsertForUserValidator {
   static String? validateAssetId(String? value, {bool isUpdate = false}) {
     if (!isUpdate && (value == null || value.isEmpty)) {
       return 'Asset is required';
+    }
+    return null;
+  }
+
+  static String? validateToUserId(String? value, {bool isUpdate = false}) {
+    if (!isUpdate && (value == null || value.isEmpty)) {
+      return 'To user is required';
     }
     return null;
   }
