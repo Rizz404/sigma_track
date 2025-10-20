@@ -108,13 +108,15 @@ class _IssueReportUpsertScreenState
     final assetId = formData['assetId'] as String;
     final reportedById = formData['reportedById'] as String;
     final issueType = formData['issueType'] as String;
-    final priority = IssuePriority.values.byName(
-      formData['priority'] as String,
+    final priority = IssuePriority.values.firstWhere(
+      (e) => e.value == formData['priority'],
     );
 
     if (_isEdit) {
       final issueReportId = _fetchedIssueReport?.id ?? widget.issueReport!.id;
-      final status = IssueStatus.values.byName(formData['status'] as String);
+      final status = IssueStatus.values.firstWhere(
+        (e) => e.value == formData['status'],
+      );
       final resolutionNotes = formData['resolutionNotes'] as String?;
       final params = UpdateIssueReportUsecaseParams.fromChanges(
         id: issueReportId,

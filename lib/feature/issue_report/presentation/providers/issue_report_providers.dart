@@ -7,6 +7,7 @@ import 'package:sigma_track/feature/issue_report/presentation/providers/issue_re
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_search_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/reopen_issue_report_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/resolve_issue_report_notifier.dart';
+import 'package:sigma_track/feature/issue_report/presentation/providers/my_issue_reports_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_boolean_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_count_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_detail_state.dart';
@@ -60,3 +61,8 @@ final reopenIssueReportProvider =
       ReopenIssueReportNotifier,
       IssueReportDetailState
     >(ReopenIssueReportNotifier.new);
+
+final myIssueReportsProvider =
+    AutoDisposeNotifierProvider<MyIssueReportsNotifier, IssueReportsState>(
+      MyIssueReportsNotifier.new,
+    );
