@@ -99,10 +99,22 @@ class MaintenanceScheduleModel extends Equatable {
                 ) ??
             [],
       ),
-      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
-      createdBy: UserModel.fromMap(
-        map.getField<Map<String, dynamic>>('createdBy'),
-      ),
+      asset:
+          map.getFieldOrNull<Map<String, dynamic>>('asset') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('asset')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
+          ? AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset'))
+          : null,
+      createdBy:
+          map.getFieldOrNull<Map<String, dynamic>>('createdBy') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('createdBy')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('createdBy'))
+          : null,
     );
   }
 

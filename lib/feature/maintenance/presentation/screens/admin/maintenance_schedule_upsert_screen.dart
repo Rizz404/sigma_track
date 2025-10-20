@@ -107,12 +107,10 @@ class _MaintenanceScheduleUpsertScreenState
     }
 
     final assetId = formData['assetId'] as String;
-    final maintenanceType = MaintenanceScheduleType.values.byName(
-      formData['maintenanceType'] as String,
-    );
+    final maintenanceType = formData['maintenanceType'] as String?;
     final scheduledDate = formData['scheduledDate'] as DateTime;
-    final frequencyMonths = formData['frequencyMonths'] as int?;
-    final status = ScheduleStatus.values.byName(formData['status'] as String);
+    final frequencyMonths = formData['frequencyMonths'] as String?;
+    final status = formData['status'] as String?;
     final createdById = formData['createdById'] as String;
 
     if (_isEdit) {
@@ -122,10 +120,18 @@ class _MaintenanceScheduleUpsertScreenState
         id: maintenanceScheduleId,
         original: _fetchedMaintenanceSchedule ?? widget.maintenanceSchedule!,
         assetId: assetId,
-        maintenanceType: maintenanceType,
+        maintenanceType: maintenanceType != null
+            ? MaintenanceScheduleType.values.firstWhere(
+                (e) => e.value == maintenanceType,
+              )
+            : null,
         scheduledDate: scheduledDate,
-        frequencyMonths: frequencyMonths,
-        status: status,
+        frequencyMonths: frequencyMonths != null
+            ? int.tryParse(frequencyMonths)
+            : null,
+        status: status != null
+            ? ScheduleStatus.values.firstWhere((e) => e.value == status)
+            : null,
         createdById: createdById,
         translations: translations.cast<UpdateMaintenanceScheduleTranslation>(),
       );
@@ -135,10 +141,18 @@ class _MaintenanceScheduleUpsertScreenState
     } else {
       final params = CreateMaintenanceScheduleUsecaseParams(
         assetId: assetId,
-        maintenanceType: maintenanceType,
+        maintenanceType: maintenanceType != null
+            ? MaintenanceScheduleType.values.firstWhere(
+                (e) => e.value == maintenanceType,
+              )
+            : MaintenanceScheduleType.preventive,
         scheduledDate: scheduledDate,
-        frequencyMonths: frequencyMonths,
-        status: status,
+        frequencyMonths: frequencyMonths != null
+            ? int.tryParse(frequencyMonths)
+            : null,
+        status: status != null
+            ? ScheduleStatus.values.firstWhere((e) => e.value == status)
+            : ScheduleStatus.scheduled,
         createdById: createdById,
         translations: translations.cast<CreateMaintenanceScheduleTranslation>(),
       );
@@ -410,9 +424,9 @@ class _MaintenanceScheduleUpsertScreenState
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en', 'English'),
+              _buildTranslationFields('en-US', 'English'),
               const SizedBox(height: 12),
-              _buildTranslationFields('ja', 'Japanese'),
+              _buildTranslationFields('ja-JP', 'Japanese'),
             ],
           ),
         ),

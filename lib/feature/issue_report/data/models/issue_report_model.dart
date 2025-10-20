@@ -170,11 +170,28 @@ class IssueReportModel extends Equatable {
                 ) ??
             [],
       ),
-      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
-      reportedBy: UserModel.fromMap(
-        map.getField<Map<String, dynamic>>('reportedBy'),
-      ),
-      resolvedBy: map.getFieldOrNull<Map<String, dynamic>>('resolvedBy') != null
+      asset:
+          map.getFieldOrNull<Map<String, dynamic>>('asset') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('asset')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
+          ? AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset'))
+          : null,
+      reportedBy:
+          map.getFieldOrNull<Map<String, dynamic>>('reportedBy') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('reportedBy')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
+          ? UserModel.fromMap(map.getField<Map<String, dynamic>>('reportedBy'))
+          : null,
+      resolvedBy:
+          map.getFieldOrNull<Map<String, dynamic>>('resolvedBy') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('resolvedBy')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('resolvedBy'))
           : null,
     );

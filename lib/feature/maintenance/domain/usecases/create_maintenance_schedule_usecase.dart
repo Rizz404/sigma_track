@@ -6,6 +6,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_schedule_repository.dart';
@@ -52,10 +53,10 @@ class CreateMaintenanceScheduleUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'assetId': assetId,
-      'maintenanceType': maintenanceType.name,
-      'scheduledDate': scheduledDate.toIso8601String(),
+      'maintenanceType': maintenanceType.value,
+      'scheduledDate': scheduledDate.iso8601Date,
       if (frequencyMonths != null) 'frequencyMonths': frequencyMonths,
-      'status': status.name,
+      'status': status.value,
       'createdById': createdById,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
@@ -66,12 +67,12 @@ class CreateMaintenanceScheduleUsecaseParams extends Equatable {
   ) {
     return CreateMaintenanceScheduleUsecaseParams(
       assetId: map['assetId'] ?? '',
-      maintenanceType: MaintenanceScheduleType.values.byName(
-        map['maintenanceType'],
+      maintenanceType: MaintenanceScheduleType.values.firstWhere(
+        (e) => e.value == map['maintenanceType'],
       ),
       scheduledDate: DateTime.parse(map['scheduledDate']),
       frequencyMonths: map['frequencyMonths']?.toInt(),
-      status: ScheduleStatus.values.byName(map['status']),
+      status: ScheduleStatus.values.firstWhere((e) => e.value == map['status']),
       createdById: map['createdById'] ?? '',
       translations: List<CreateMaintenanceScheduleTranslation>.from(
         map['translations']?.map(

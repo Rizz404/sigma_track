@@ -147,14 +147,32 @@ class MaintenanceRecordModel extends Equatable {
                 ) ??
             [],
       ),
-      schedule: map.getFieldOrNull<Map<String, dynamic>>('schedule') != null
+      schedule:
+          map.getFieldOrNull<Map<String, dynamic>>('schedule') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('schedule')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? MaintenanceScheduleModel.fromMap(
               map.getField<Map<String, dynamic>>('schedule'),
             )
           : null,
-      asset: AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset')),
+      asset:
+          map.getFieldOrNull<Map<String, dynamic>>('asset') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>('asset')?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
+          ? AssetModel.fromMap(map.getField<Map<String, dynamic>>('asset'))
+          : null,
       performedByUser:
-          map.getFieldOrNull<Map<String, dynamic>>('performedByUser') != null
+          map.getFieldOrNull<Map<String, dynamic>>('performedByUser') != null &&
+              (map.getFieldOrNull<Map<String, dynamic>>(
+                            'performedByUser',
+                          )?['id']
+                          as String?)
+                      ?.isNotEmpty ==
+                  true
           ? UserModel.fromMap(
               map.getField<Map<String, dynamic>>('performedByUser'),
             )

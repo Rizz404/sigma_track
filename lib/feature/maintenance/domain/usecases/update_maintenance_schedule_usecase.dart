@@ -6,6 +6,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_schedule_repository.dart';
@@ -85,11 +86,10 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
     return {
       'id': id,
       if (assetId != null) 'assetId': assetId,
-      if (maintenanceType != null) 'maintenanceType': maintenanceType!.name,
-      if (scheduledDate != null)
-        'scheduledDate': scheduledDate!.toIso8601String(),
+      if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
+      if (scheduledDate != null) 'scheduledDate': scheduledDate?.iso8601Date,
       if (frequencyMonths != null) 'frequencyMonths': frequencyMonths,
-      if (status != null) 'status': status!.name,
+      if (status != null) 'status': status!.value,
       if (createdById != null) 'createdById': createdById,
       if (translations != null)
         'translations': translations!.map((x) => x.toMap()).toList(),
@@ -103,14 +103,16 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
       id: map['id'] ?? '',
       assetId: map['assetId'],
       maintenanceType: map['maintenanceType'] != null
-          ? MaintenanceScheduleType.values.byName(map['maintenanceType'])
+          ? MaintenanceScheduleType.values.firstWhere(
+              (e) => e.value == map['maintenanceType'],
+            )
           : null,
       scheduledDate: map['scheduledDate'] != null
           ? DateTime.parse(map['scheduledDate'])
           : null,
       frequencyMonths: map['frequencyMonths']?.toInt(),
       status: map['status'] != null
-          ? ScheduleStatus.values.byName(map['status'])
+          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
       createdById: map['createdById'],
       translations: map['translations'] != null
