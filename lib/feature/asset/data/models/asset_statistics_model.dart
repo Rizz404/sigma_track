@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
-import 'package:sigma_track/feature/category/data/models/category_statistics_model.dart';
-import 'package:sigma_track/feature/location/data/models/location_statistics_model.dart';
 
 class AssetStatisticsModel extends Equatable {
   final AssetCountStatisticsModel total;
@@ -712,5 +710,147 @@ class AssetSummaryStatisticsModel extends Equatable {
   @override
   String toString() {
     return 'AssetSummaryStatisticsModel(totalAssets: $totalAssets, activeAssetsPercentage: $activeAssetsPercentage, maintenanceAssetsPercentage: $maintenanceAssetsPercentage, disposedAssetsPercentage: $disposedAssetsPercentage, lostAssetsPercentage: $lostAssetsPercentage, goodConditionPercentage: $goodConditionPercentage, fairConditionPercentage: $fairConditionPercentage, poorConditionPercentage: $poorConditionPercentage, damagedConditionPercentage: $damagedConditionPercentage, assignedAssetsPercentage: $assignedAssetsPercentage, unassignedAssetsPercentage: $unassignedAssetsPercentage, assetsWithPurchasePrice: $assetsWithPurchasePrice, purchasePricePercentage: $purchasePricePercentage, assetsWithDataMatrix: $assetsWithDataMatrix, dataMatrixPercentage: $dataMatrixPercentage, assetsWithWarranty: $assetsWithWarranty, warrantyPercentage: $warrantyPercentage, totalCategories: $totalCategories, totalLocations: $totalLocations, averageAssetsPerDay: $averageAssetsPerDay, latestCreationDate: $latestCreationDate, earliestCreationDate: $earliestCreationDate, mostExpensiveAssetValue: $mostExpensiveAssetValue, leastExpensiveAssetValue: $leastExpensiveAssetValue)';
+  }
+}
+
+class CategoryStatisticsModel extends Equatable {
+  final String categoryId;
+  final String categoryName;
+  final String categoryCode;
+  final int assetCount;
+  final double percentage;
+
+  const CategoryStatisticsModel({
+    required this.categoryId,
+    required this.categoryName,
+    required this.categoryCode,
+    required this.assetCount,
+    required this.percentage,
+  });
+
+  @override
+  List<Object> get props => [
+    categoryId,
+    categoryName,
+    categoryCode,
+    assetCount,
+    percentage,
+  ];
+
+  CategoryStatisticsModel copyWith({
+    String? categoryId,
+    String? categoryName,
+    String? categoryCode,
+    int? assetCount,
+    double? percentage,
+  }) {
+    return CategoryStatisticsModel(
+      categoryId: categoryId ?? this.categoryId,
+      categoryName: categoryName ?? this.categoryName,
+      categoryCode: categoryCode ?? this.categoryCode,
+      assetCount: assetCount ?? this.assetCount,
+      percentage: percentage ?? this.percentage,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'categoryId': categoryId,
+      'categoryName': categoryName,
+      'categoryCode': categoryCode,
+      'assetCount': assetCount,
+      'percentage': percentage,
+    };
+  }
+
+  factory CategoryStatisticsModel.fromMap(Map<String, dynamic> map) {
+    return CategoryStatisticsModel(
+      categoryId: map['categoryId'] ?? '',
+      categoryName: map['categoryName'] ?? '',
+      categoryCode: map['categoryCode'] ?? '',
+      assetCount: map['assetCount']?.toInt() ?? 0,
+      percentage: map['percentage']?.toDouble() ?? 0.0,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CategoryStatisticsModel.fromJson(String source) =>
+      CategoryStatisticsModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'CategoryStatisticsModel(categoryId: $categoryId, categoryName: $categoryName, categoryCode: $categoryCode, assetCount: $assetCount, percentage: $percentage)';
+  }
+}
+
+class LocationStatisticsModel extends Equatable {
+  final String locationId;
+  final String locationName;
+  final String locationCode;
+  final int assetCount;
+  final double percentage;
+
+  const LocationStatisticsModel({
+    required this.locationId,
+    required this.locationName,
+    required this.locationCode,
+    required this.assetCount,
+    required this.percentage,
+  });
+
+  @override
+  List<Object> get props => [
+    locationId,
+    locationName,
+    locationCode,
+    assetCount,
+    percentage,
+  ];
+
+  LocationStatisticsModel copyWith({
+    String? locationId,
+    String? locationName,
+    String? locationCode,
+    int? assetCount,
+    double? percentage,
+  }) {
+    return LocationStatisticsModel(
+      locationId: locationId ?? this.locationId,
+      locationName: locationName ?? this.locationName,
+      locationCode: locationCode ?? this.locationCode,
+      assetCount: assetCount ?? this.assetCount,
+      percentage: percentage ?? this.percentage,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'locationId': locationId,
+      'locationName': locationName,
+      'locationCode': locationCode,
+      'assetCount': assetCount,
+      'percentage': percentage,
+    };
+  }
+
+  factory LocationStatisticsModel.fromMap(Map<String, dynamic> map) {
+    return LocationStatisticsModel(
+      locationId: map['locationId'] ?? '',
+      locationName: map['locationName'] ?? '',
+      locationCode: map['locationCode'] ?? '',
+      assetCount: map['assetCount']?.toInt() ?? 0,
+      percentage: map['percentage']?.toDouble() ?? 0.0,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory LocationStatisticsModel.fromJson(String source) =>
+      LocationStatisticsModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'LocationStatisticsModel(locationId: $locationId, locationName: $locationName, locationCode: $locationCode, assetCount: $assetCount, percentage: $percentage)';
   }
 }

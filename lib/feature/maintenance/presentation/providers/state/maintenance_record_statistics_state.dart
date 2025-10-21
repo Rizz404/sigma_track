@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record_statistics.dart';
 
+// * State untuk getMaintenanceRecordsStatistics usecase
 class MaintenanceRecordStatisticsState extends Equatable {
   final MaintenanceRecordStatistics? statistics;
   final bool isLoading;
@@ -15,7 +16,17 @@ class MaintenanceRecordStatisticsState extends Equatable {
   });
 
   factory MaintenanceRecordStatisticsState.initial() =>
-      const MaintenanceRecordStatisticsState();
+      const MaintenanceRecordStatisticsState(isLoading: true);
+
+  factory MaintenanceRecordStatisticsState.loading() =>
+      const MaintenanceRecordStatisticsState(isLoading: true);
+
+  factory MaintenanceRecordStatisticsState.success(
+    MaintenanceRecordStatistics statistics,
+  ) => MaintenanceRecordStatisticsState(statistics: statistics);
+
+  factory MaintenanceRecordStatisticsState.error(Failure failure) =>
+      MaintenanceRecordStatisticsState(failure: failure);
 
   MaintenanceRecordStatisticsState copyWith({
     MaintenanceRecordStatistics? statistics,

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement_statistics.dart';
 
+// * State untuk getAssetMovementsStatistics usecase
 class AssetMovementStatisticsState extends Equatable {
   final AssetMovementStatistics? statistics;
   final bool isLoading;
@@ -15,7 +16,17 @@ class AssetMovementStatisticsState extends Equatable {
   });
 
   factory AssetMovementStatisticsState.initial() =>
-      const AssetMovementStatisticsState();
+      const AssetMovementStatisticsState(isLoading: true);
+
+  factory AssetMovementStatisticsState.loading() =>
+      const AssetMovementStatisticsState(isLoading: true);
+
+  factory AssetMovementStatisticsState.success(
+    AssetMovementStatistics statistics,
+  ) => AssetMovementStatisticsState(statistics: statistics);
+
+  factory AssetMovementStatisticsState.error(Failure failure) =>
+      AssetMovementStatisticsState(failure: failure);
 
   AssetMovementStatisticsState copyWith({
     AssetMovementStatistics? statistics,

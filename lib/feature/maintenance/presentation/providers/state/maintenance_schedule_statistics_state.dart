@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule_statistics.dart';
 
+// * State untuk getMaintenanceSchedulesStatistics usecase
 class MaintenanceScheduleStatisticsState extends Equatable {
   final MaintenanceScheduleStatistics? statistics;
   final bool isLoading;
@@ -15,7 +16,17 @@ class MaintenanceScheduleStatisticsState extends Equatable {
   });
 
   factory MaintenanceScheduleStatisticsState.initial() =>
-      const MaintenanceScheduleStatisticsState();
+      const MaintenanceScheduleStatisticsState(isLoading: true);
+
+  factory MaintenanceScheduleStatisticsState.loading() =>
+      const MaintenanceScheduleStatisticsState(isLoading: true);
+
+  factory MaintenanceScheduleStatisticsState.success(
+    MaintenanceScheduleStatistics statistics,
+  ) => MaintenanceScheduleStatisticsState(statistics: statistics);
+
+  factory MaintenanceScheduleStatisticsState.error(Failure failure) =>
+      MaintenanceScheduleStatisticsState(failure: failure);
 
   MaintenanceScheduleStatisticsState copyWith({
     MaintenanceScheduleStatistics? statistics,

@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:sigma_track/feature/category/domain/entities/category_statistics.dart';
-import 'package:sigma_track/feature/location/domain/entities/location_statistics.dart';
 
 class AssetStatistics extends Equatable {
   final AssetCountStatistics total;
@@ -287,5 +285,55 @@ class AssetSummaryStatistics extends Equatable {
     earliestCreationDate,
     mostExpensiveAssetValue,
     leastExpensiveAssetValue,
+  ];
+}
+
+class CategoryStatistics extends Equatable {
+  final String categoryId;
+  final String categoryName;
+  final String categoryCode;
+  final int assetCount;
+  final double percentage;
+
+  const CategoryStatistics({
+    required this.categoryId,
+    required this.categoryName,
+    required this.categoryCode,
+    required this.assetCount,
+    required this.percentage,
+  });
+
+  @override
+  List<Object> get props => [
+    categoryId,
+    categoryName,
+    categoryCode,
+    assetCount,
+    percentage,
+  ];
+}
+
+class LocationStatistics extends Equatable {
+  final String locationId;
+  final String locationName;
+  final String locationCode;
+  final int assetCount;
+  final double percentage;
+
+  const LocationStatistics({
+    required this.locationId,
+    required this.locationName,
+    required this.locationCode,
+    required this.assetCount,
+    required this.percentage,
+  });
+
+  @override
+  List<Object> get props => [
+    locationId,
+    locationName,
+    locationCode,
+    assetCount,
+    percentage,
   ];
 }

@@ -30,13 +30,13 @@ class DashboardScreen extends ConsumerWidget {
     final locationStats = ref.watch(locationStatisticsProvider);
     final scanLogStats = ref.watch(scanLogStatisticsProvider);
     final notificationStats = ref.watch(notificationStatisticsProvider);
-    final assetMovementStats = ref.watch(getAssetMovementsStatisticsProvider);
-    final issueReportStats = ref.watch(getIssueReportsStatisticsProvider);
+    final assetMovementStats = ref.watch(assetMovementsStatisticsProvider);
+    final issueReportStats = ref.watch(issueReportsStatisticsProvider);
     final maintenanceScheduleStats = ref.watch(
-      getMaintenanceSchedulesStatisticsProvider,
+      maintenanceSchedulesStatisticsProvider,
     );
     final maintenanceRecordStats = ref.watch(
-      getMaintenanceRecordsStatisticsProvider,
+      maintenanceRecordsStatisticsProvider,
     );
 
     if (userStats.failure != null) {
@@ -57,11 +57,12 @@ class DashboardScreen extends ConsumerWidget {
               ref.read(locationStatisticsProvider.notifier).refresh(),
               ref.read(scanLogStatisticsProvider.notifier).refresh(),
               ref.read(notificationStatisticsProvider.notifier).refresh(),
-              // ! Skip refresh for providers without refresh method
-              // ref.read(getAssetMovementsStatisticsProvider.notifier).refresh(),
-              // ref.read(getIssueReportsStatisticsProvider.notifier).refresh(),
-              // ref.read(getMaintenanceSchedulesStatisticsProvider.notifier).refresh(),
-              // ref.read(getMaintenanceRecordsStatisticsProvider.notifier).refresh(),
+              ref.read(assetMovementsStatisticsProvider.notifier).refresh(),
+              ref.read(issueReportsStatisticsProvider.notifier).refresh(),
+              ref
+                  .read(maintenanceSchedulesStatisticsProvider.notifier)
+                  .refresh(),
+              ref.read(maintenanceRecordsStatisticsProvider.notifier).refresh(),
             ]);
           },
           child: SingleChildScrollView(

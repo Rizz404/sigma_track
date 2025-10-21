@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/check_issue_report_exists_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/count_issue_reports_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/get_issue_report_by_id_notifier.dart';
-import 'package:sigma_track/feature/issue_report/presentation/providers/get_issue_reports_statistics_notifier.dart';
+import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_statistics_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_reports_search_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/reopen_issue_report_notifier.dart';
@@ -44,11 +44,11 @@ final countIssueReportsProvider =
       IssueReportCountState
     >(CountIssueReportsNotifier.new);
 
-final getIssueReportsStatisticsProvider =
+final issueReportsStatisticsProvider =
     AutoDisposeNotifierProvider<
-      GetIssueReportsStatisticsNotifier,
+      IssueReportsStatisticsNotifier,
       IssueReportStatisticsState
-    >(GetIssueReportsStatisticsNotifier.new);
+    >(IssueReportsStatisticsNotifier.new);
 
 final resolveIssueReportProvider =
     AutoDisposeNotifierProvider<

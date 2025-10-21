@@ -4,9 +4,9 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/check_mai
 import 'package:sigma_track/feature/maintenance/presentation/providers/count_maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/count_maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_record_by_id_notifier.dart';
-import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_records_statistics_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedule_by_id_notifier.dart';
-import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedules_statistics_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
@@ -66,11 +66,11 @@ final countMaintenanceSchedulesProvider =
       MaintenanceScheduleCountState
     >(CountMaintenanceSchedulesNotifier.new);
 
-final getMaintenanceSchedulesStatisticsProvider =
+final maintenanceSchedulesStatisticsProvider =
     AutoDisposeNotifierProvider<
-      GetMaintenanceSchedulesStatisticsNotifier,
+      MaintenanceSchedulesStatisticsNotifier,
       MaintenanceScheduleStatisticsState
-    >(GetMaintenanceSchedulesStatisticsNotifier.new);
+    >(MaintenanceSchedulesStatisticsNotifier.new);
 
 final getMaintenanceRecordByIdProvider =
     AutoDisposeNotifierProviderFamily<
@@ -91,8 +91,8 @@ final countMaintenanceRecordsProvider =
       MaintenanceRecordCountState
     >(CountMaintenanceRecordsNotifier.new);
 
-final getMaintenanceRecordsStatisticsProvider =
+final maintenanceRecordsStatisticsProvider =
     AutoDisposeNotifierProvider<
-      GetMaintenanceRecordsStatisticsNotifier,
+      MaintenanceRecordsStatisticsNotifier,
       MaintenanceRecordStatisticsState
-    >(GetMaintenanceRecordsStatisticsNotifier.new);
+    >(MaintenanceRecordsStatisticsNotifier.new);

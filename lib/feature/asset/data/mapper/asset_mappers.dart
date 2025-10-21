@@ -283,3 +283,43 @@ extension GenerateAssetTagResponseEntityMapper on GenerateAssetTagResponse {
     );
   }
 }
+
+extension CategoryStatisticsModelMapper on CategoryStatisticsModel {
+  CategoryStatistics toEntity() => CategoryStatistics(
+    categoryId: categoryId,
+    categoryName: categoryName,
+    categoryCode: categoryCode,
+    assetCount: assetCount,
+    percentage: percentage,
+  );
+}
+
+extension CategoryStatisticsEntityMapper on CategoryStatistics {
+  CategoryStatisticsModel toModel() => CategoryStatisticsModel(
+    categoryId: categoryId,
+    categoryName: categoryName,
+    categoryCode: categoryCode,
+    assetCount: assetCount,
+    percentage: percentage,
+  );
+}
+
+extension LocationStatisticsModelMapper on LocationStatisticsModel {
+  LocationStatistics toEntity() => LocationStatistics(
+    locationId: locationId,
+    locationName: locationName,
+    locationCode: locationCode,
+    assetCount: assetCount,
+    percentage: percentage,
+  );
+}
+
+extension LocationStatisticsEntityMapper on LocationStatistics {
+  LocationStatisticsModel toModel() => LocationStatisticsModel(
+    locationId: locationId,
+    locationName: locationName,
+    locationCode: locationCode,
+    assetCount: assetCount,
+    percentage: percentage,
+  );
+}

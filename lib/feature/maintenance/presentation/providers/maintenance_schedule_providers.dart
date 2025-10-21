@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/check_maintenance_schedule_exists_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/count_maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedule_by_id_notifier.dart';
-import 'package:sigma_track/feature/maintenance/presentation/providers/get_maintenance_schedules_statistics_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_search_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_boolean_state.dart';
@@ -43,8 +43,8 @@ final countMaintenanceSchedulesProvider =
       MaintenanceScheduleCountState
     >(CountMaintenanceSchedulesNotifier.new);
 
-final getMaintenanceSchedulesStatisticsProvider =
+final maintenanceSchedulesStatisticsProvider =
     AutoDisposeNotifierProvider<
-      GetMaintenanceSchedulesStatisticsNotifier,
+      MaintenanceSchedulesStatisticsNotifier,
       MaintenanceScheduleStatisticsState
-    >(GetMaintenanceSchedulesStatisticsNotifier.new);
+    >(MaintenanceSchedulesStatisticsNotifier.new);
