@@ -112,6 +112,15 @@ class AppEndDrawer extends ConsumerWidget {
                 ),
                 _buildDrawerTile(
                   context: context,
+                  icon: Icons.report_problem,
+                  title: 'My Issue Reports',
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.myIssueReports);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
                   icon: Icons.person,
                   title: context.l10n.profile,
                   onTap: () {

@@ -11,6 +11,7 @@ class RouteConstant {
   static const String home = '/';
   static const String myAssets = '/my-assets';
   static const String myNotifications = '/my-notifications';
+  static const String myIssueReports = '/my-issue-reports';
 
   // ==================== SHARED DETAIL ROUTES (Accessible by both User & Admin) ====================
   static const String assetDetail = '/asset/:assetId';

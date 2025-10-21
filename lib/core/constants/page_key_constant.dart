@@ -12,6 +12,7 @@ class PageKeyConstant {
   static const String home = 'home';
   static const String myAssets = 'my-assets';
   static const String myNotifications = 'my-notifications';
+  static const String myIssueReports = 'my-issue-reports';
   static const String scanAsset = 'scan-asset';
   static const String userDetailProfile = 'user-detail-profile';
   static const String userUpdateProfile = 'user-update-profile';

@@ -26,6 +26,7 @@ import 'package:sigma_track/feature/dashboard/presentation/screens/admin/dashboa
 import 'package:sigma_track/feature/home/presentation/screens/user/home_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/admin/issue_report_upsert_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/admin/list_issue_reports_screen.dart';
+import 'package:sigma_track/feature/issue_report/presentation/screens/user/my_list_issue_reports_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/issue_report_detail_screen.dart';
 import 'package:sigma_track/feature/location/presentation/screens/admin/list_locations_screen.dart';
 import 'package:sigma_track/feature/location/presentation/screens/location_detail_screen.dart';
@@ -312,6 +313,15 @@ class AppRouter {
       pageBuilder: (context, state) => MaterialPage(
         key: state.pageKey,
         child: const MyListNotificationsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.myIssueReports,
+      name: PageKeyConstant.myIssueReports,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const MyListIssueReportsScreen(),
       ),
     ),
     GoRoute(
