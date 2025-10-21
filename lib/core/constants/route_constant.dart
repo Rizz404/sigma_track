@@ -23,6 +23,7 @@ class RouteConstant {
   static const String maintenanceRecordDetail =
       '/maintenance-record/:maintenanceId';
   static const String issueReportDetail = '/issue-report/:issueReportId';
+  static const String issueReportUpsert = '/issue-report/upsert';
   static const String notificationDetail = '/notification/:notificationId';
   static const String scanLogDetail = '/scan-log/:scanLogId';
   static const String userDetail = '/user/:userId';
@@ -67,5 +68,4 @@ class RouteConstant {
       '/admin/maintenance-schedule/upsert';
   static const String adminMaintenanceRecordUpsert =
       '/admin/maintenance-record/upsert';
-  static const String adminIssueReportUpsert = '/admin/issue-report/upsert';
 }

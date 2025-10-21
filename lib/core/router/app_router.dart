@@ -24,7 +24,7 @@ import 'package:sigma_track/feature/category/presentation/screens/category_detai
 import 'package:sigma_track/feature/category/presentation/screens/category_upsert_screen.dart';
 import 'package:sigma_track/feature/dashboard/presentation/screens/admin/dashboard_screen.dart';
 import 'package:sigma_track/feature/home/presentation/screens/user/home_screen.dart';
-import 'package:sigma_track/feature/issue_report/presentation/screens/admin/issue_report_upsert_screen.dart';
+import 'package:sigma_track/feature/issue_report/presentation/screens/issue_report_upsert_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/admin/list_issue_reports_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/user/my_list_issue_reports_screen.dart';
 import 'package:sigma_track/feature/issue_report/presentation/screens/issue_report_detail_screen.dart';
@@ -436,6 +436,22 @@ class AppRouter {
       },
     ),
     GoRoute(
+      path: RouteConstant.issueReportUpsert,
+      name: PageKeyConstant.issueReportUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final issueReportId = state.uri.queryParameters['issueReportId'];
+        final issueReport = state.extra as IssueReport?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: IssueReportUpsertScreen(
+            issueReport: issueReport,
+            issueReportId: issueReportId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
       path: RouteConstant.issueReportDetail,
       name: PageKeyConstant.issueReportDetail,
       parentNavigatorKey: _rootNavigatorKey,
@@ -448,6 +464,7 @@ class AppRouter {
         );
       },
     ),
+
     GoRoute(
       path: RouteConstant.notificationDetail,
       name: PageKeyConstant.notificationDetail,
@@ -736,22 +753,6 @@ class AppRouter {
           child: MaintenanceRecordUpsertScreen(
             maintenanceRecord: maintenanceRecord,
             maintenanceRecordId: maintenanceRecordId,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: RouteConstant.adminIssueReportUpsert,
-      name: PageKeyConstant.adminIssueReportUpsert,
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (context, state) {
-        final issueReportId = state.uri.queryParameters['issueReportId'];
-        final issueReport = state.extra as IssueReport?;
-        return _slideFromBottom(
-          key: state.pageKey,
-          child: IssueReportUpsertScreen(
-            issueReport: issueReport,
-            issueReportId: issueReportId,
           ),
         );
       },

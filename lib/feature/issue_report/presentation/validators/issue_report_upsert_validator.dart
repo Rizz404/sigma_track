@@ -60,6 +60,11 @@ class IssueReportUpsertValidator {
     return null;
   }
 
+  static String? validateResolvedBy(String? value, {bool isUpdate = false}) {
+    // Resolved by is optional for updates
+    return null;
+  }
+
   static String? validateResolutionNotes(
     String? value, {
     bool isUpdate = false,

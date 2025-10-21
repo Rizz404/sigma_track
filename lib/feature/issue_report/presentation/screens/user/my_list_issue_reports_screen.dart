@@ -248,6 +248,11 @@ class _MyListIssueReportsScreenState
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'My Issue Reports'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.push(RouteConstant.issueReportUpsert),
+        tooltip: 'Create Issue Report',
+        child: const Icon(Icons.add),
+      ),
       body: ScreenWrapper(
         child: Column(
           children: [

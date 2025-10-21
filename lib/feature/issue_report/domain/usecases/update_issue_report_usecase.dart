@@ -27,20 +27,16 @@ class UpdateIssueReportUsecase
 
 class UpdateIssueReportUsecaseParams extends Equatable {
   final String id;
-  final String? assetId;
-  final String? issueType;
   final IssuePriority? priority;
   final IssueStatus? status;
-  final String? resolutionNotes;
+  final String? resolvedBy;
   final List<UpdateIssueReportTranslation>? translations;
 
   UpdateIssueReportUsecaseParams({
     required this.id,
-    this.assetId,
-    this.issueType,
     this.priority,
     this.status,
-    this.resolutionNotes,
+    this.resolvedBy,
     this.translations,
   });
 
@@ -48,22 +44,16 @@ class UpdateIssueReportUsecaseParams extends Equatable {
   factory UpdateIssueReportUsecaseParams.fromChanges({
     required String id,
     required IssueReport original,
-    String? assetId,
-    String? issueType,
     IssuePriority? priority,
     IssueStatus? status,
-    String? resolutionNotes,
+    String? resolvedBy,
     List<UpdateIssueReportTranslation>? translations,
   }) {
     return UpdateIssueReportUsecaseParams(
       id: id,
-      assetId: assetId != original.assetId ? assetId : null,
-      issueType: issueType != original.issueType ? issueType : null,
       priority: priority != original.priority ? priority : null,
       status: status != original.status ? status : null,
-      resolutionNotes: resolutionNotes != original.resolutionNotes
-          ? resolutionNotes
-          : null,
+      resolvedBy: resolvedBy,
       translations: translations,
     );
   }
@@ -71,11 +61,9 @@ class UpdateIssueReportUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
 
-    if (assetId != null) map['assetId'] = assetId;
-    if (issueType != null) map['issueType'] = issueType;
     if (priority != null) map['priority'] = priority!.value;
     if (status != null) map['status'] = status!.value;
-    if (resolutionNotes != null) map['resolutionNotes'] = resolutionNotes;
+    if (resolvedBy != null) map['resolvedBy'] = resolvedBy;
     if (translations != null) {
       map['translations'] = translations!.map((x) => x.toMap()).toList();
     }
@@ -86,15 +74,13 @@ class UpdateIssueReportUsecaseParams extends Equatable {
   factory UpdateIssueReportUsecaseParams.fromMap(Map<String, dynamic> map) {
     return UpdateIssueReportUsecaseParams(
       id: map['id'] ?? '',
-      assetId: map['assetId'],
-      issueType: map['issueType'],
       priority: map['priority'] != null
           ? IssuePriority.values.firstWhere((e) => e.value == map['priority'])
           : null,
       status: map['status'] != null
           ? IssueStatus.values.firstWhere((e) => e.value == map['status'])
           : null,
-      resolutionNotes: map['resolutionNotes'],
+      resolvedBy: map['resolvedBy'],
       translations: map['translations'] != null
           ? List<UpdateIssueReportTranslation>.from(
               map['translations']?.map(
@@ -111,54 +97,53 @@ class UpdateIssueReportUsecaseParams extends Equatable {
       UpdateIssueReportUsecaseParams.fromMap(json.decode(source));
 
   @override
-  List<Object?> get props => [
-    id,
-    assetId,
-    issueType,
-    priority,
-    status,
-    resolutionNotes,
-    translations,
-  ];
+  List<Object?> get props => [id, priority, status, resolvedBy, translations];
 }
 
 class UpdateIssueReportTranslation extends Equatable {
   final String langCode;
-  final String title;
+  final String? title;
   final String? description;
+  final String? resolutionNotes;
 
   const UpdateIssueReportTranslation({
     required this.langCode,
-    required this.title,
+    this.title,
     this.description,
+    this.resolutionNotes,
   });
 
   @override
-  List<Object?> get props => [langCode, title, description];
+  List<Object?> get props => [langCode, title, description, resolutionNotes];
 
   UpdateIssueReportTranslation copyWith({
     String? langCode,
     String? title,
     String? description,
+    String? resolutionNotes,
   }) {
     return UpdateIssueReportTranslation(
       langCode: langCode ?? this.langCode,
       title: title ?? this.title,
       description: description ?? this.description,
+      resolutionNotes: resolutionNotes ?? this.resolutionNotes,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{'langCode': langCode, 'title': title};
+    final map = <String, dynamic>{'langCode': langCode};
+    if (title != null) map['title'] = title;
     if (description != null) map['description'] = description;
+    if (resolutionNotes != null) map['resolutionNotes'] = resolutionNotes;
     return map;
   }
 
   factory UpdateIssueReportTranslation.fromMap(Map<String, dynamic> map) {
     return UpdateIssueReportTranslation(
       langCode: map['langCode'] ?? '',
-      title: map['title'] ?? '',
+      title: map['title'],
       description: map['description'],
+      resolutionNotes: map['resolutionNotes'],
     );
   }
 
@@ -169,6 +154,6 @@ class UpdateIssueReportTranslation extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateIssueReportTranslation(langCode: $langCode, title: $title, description: $description)';
+    return 'UpdateIssueReportTranslation(langCode: $langCode, title: $title, description: $description, resolutionNotes: $resolutionNotes)';
   }
 }

@@ -49,7 +49,6 @@ class PageKeyConstant {
       'admin-maintenance-schedule-upsert';
   static const String adminMaintenanceRecordUpsert =
       'admin-maintenance-record-upsert';
-  static const String adminIssueReportUpsert = 'admin-issue-report-upsert';
 
   // ==================== SHARED DETAIL PAGES ====================
   static const String assetDetail = 'asset-detail';
@@ -59,6 +58,7 @@ class PageKeyConstant {
   static const String maintenanceScheduleDetail = 'maintenance-schedule-detail';
   static const String maintenanceRecordDetail = 'maintenance-record-detail';
   static const String issueReportDetail = 'issue-report-detail';
+  static const String issueReportUpsert = 'issue-report-upsert';
   static const String notificationDetail = 'notification-detail';
   static const String scanLogDetail = 'scan-log-detail';
   static const String userDetail = 'user-detail';

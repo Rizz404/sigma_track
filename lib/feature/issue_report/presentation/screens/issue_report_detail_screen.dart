@@ -83,7 +83,7 @@ class _IssueReportDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminIssueReportUpsert, extra: _issueReport);
+      context.push(RouteConstant.issueReportUpsert, extra: _issueReport);
     } else {
       AppToast.warning('Only admin can edit issue reports');
     }

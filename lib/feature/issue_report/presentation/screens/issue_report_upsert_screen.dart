@@ -87,11 +87,14 @@ class _IssueReportUpsertScreenState
 
       if (title != null && title.isNotEmpty) {
         if (_isEdit) {
+          final resolutionNotes =
+              formData['${langCode}_resolutionNotes'] as String?;
           translations.add(
             UpdateIssueReportTranslation(
               langCode: langCode,
               title: title,
               description: description,
+              resolutionNotes: resolutionNotes,
             ),
           );
         } else {
@@ -107,7 +110,6 @@ class _IssueReportUpsertScreenState
     }
 
     final assetId = formData['assetId'] as String;
-    final reportedById = formData['reportedById'] as String;
     final issueType = formData['issueType'] as String;
     final priority = IssuePriority.values.firstWhere(
       (e) => e.value == formData['priority'],
@@ -118,22 +120,18 @@ class _IssueReportUpsertScreenState
       final status = IssueStatus.values.firstWhere(
         (e) => e.value == formData['status'],
       );
-      final resolutionNotes = formData['resolutionNotes'] as String?;
       final params = UpdateIssueReportUsecaseParams.fromChanges(
         id: issueReportId,
         original: _fetchedIssueReport ?? widget.issueReport!,
-        assetId: assetId,
-        issueType: issueType,
         priority: priority,
         status: status,
-        resolutionNotes: resolutionNotes,
+        resolvedBy: formData['resolvedBy'] as String?,
         translations: translations.cast<UpdateIssueReportTranslation>(),
       );
       ref.read(issueReportsProvider.notifier).updateIssueReport(params);
     } else {
       final params = CreateIssueReportUsecaseParams(
         assetId: assetId,
-        reportedById: reportedById,
         issueType: issueType,
         priority: priority,
         translations: translations.cast<CreateIssueReportTranslation>(),
@@ -236,10 +234,6 @@ class _IssueReportUpsertScreenState
                         _buildIssueReportInfoSection(),
                         const SizedBox(height: 24),
                         _buildTranslationsSection(),
-                        if (_isEdit) ...[
-                          const SizedBox(height: 24),
-                          _buildResolutionSection(),
-                        ],
                         const SizedBox(height: 24),
                         AppValidationErrors(errors: validationErrors),
                         if (validationErrors != null &&
@@ -284,7 +278,9 @@ class _IssueReportUpsertScreenState
               name: 'assetId',
               label: 'Asset',
               hintText: 'Search and select asset',
-              initialValue: widget.issueReport?.assetId,
+              initialValue:
+                  (_isEdit ? _fetchedIssueReport?.assetId : null) ??
+                  widget.issueReport?.assetId,
               enableAutocomplete: true,
               onSearch: _searchAssets,
               itemDisplayMapper: (asset) => asset.assetTag,
@@ -301,7 +297,9 @@ class _IssueReportUpsertScreenState
               name: 'reportedById',
               label: 'Reported By',
               hintText: 'Search and select user who reported the issue',
-              initialValue: widget.issueReport?.reportedById,
+              initialValue:
+                  (_isEdit ? _fetchedIssueReport?.reportedById : null) ??
+                  widget.issueReport?.reportedById,
               enableAutocomplete: true,
               onSearch: _searchUsers,
               itemDisplayMapper: (user) => user.name,
@@ -319,7 +317,9 @@ class _IssueReportUpsertScreenState
               name: 'issueType',
               label: 'Issue Type',
               placeHolder: 'Enter issue type (e.g., Hardware, Software)',
-              initialValue: widget.issueReport?.issueType,
+              initialValue:
+                  (_isEdit ? _fetchedIssueReport?.issueType : null) ??
+                  widget.issueReport?.issueType,
               validator: (value) =>
                   IssueReportUpsertValidator.validateIssueType(
                     value,
@@ -340,7 +340,9 @@ class _IssueReportUpsertScreenState
                     ),
                   )
                   .toList(),
-              initialValue: widget.issueReport?.priority.value,
+              initialValue:
+                  (_isEdit ? _fetchedIssueReport?.priority.value : null) ??
+                  widget.issueReport?.priority.value,
               validator: (value) => IssueReportUpsertValidator.validatePriority(
                 value,
                 isUpdate: _isEdit,
@@ -361,11 +363,33 @@ class _IssueReportUpsertScreenState
                       ),
                     )
                     .toList(),
-                initialValue: widget.issueReport?.status.value,
+                initialValue:
+                    _fetchedIssueReport?.status.value ??
+                    widget.issueReport?.status.value,
                 validator: (value) => IssueReportUpsertValidator.validateStatus(
                   value,
                   isUpdate: _isEdit,
                 ),
+              ),
+              const SizedBox(height: 16),
+              AppSearchField<User>(
+                name: 'resolvedBy',
+                label: 'Resolved By',
+                hintText: 'Search and select user who resolved the issue',
+                initialValue:
+                    _fetchedIssueReport?.resolvedById ??
+                    widget.issueReport?.resolvedById,
+                enableAutocomplete: true,
+                onSearch: _searchUsers,
+                itemDisplayMapper: (user) => user.name,
+                itemValueMapper: (user) => user.id,
+                itemSubtitleMapper: (user) => user.email,
+                itemIcon: Icons.person,
+                validator: (value) =>
+                    IssueReportUpsertValidator.validateResolvedBy(
+                      value,
+                      isUpdate: _isEdit,
+                    ),
               ),
             ],
           ],
@@ -456,35 +480,13 @@ class _IssueReportUpsertScreenState
                   isUpdate: _isEdit,
                 ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildResolutionSection() {
-    return Card(
-      color: context.colors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: context.colors.border),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AppText(
-              'Resolution',
-              style: AppTextStyle.titleMedium,
-              fontWeight: FontWeight.bold,
-            ),
-            const SizedBox(height: 16),
+          if (_isEdit) ...[
+            const SizedBox(height: 12),
             AppTextField(
-              name: 'resolutionNotes',
+              name: '${langCode}_resolutionNotes',
               label: 'Resolution Notes',
-              placeHolder: 'Enter resolution notes',
-              initialValue: widget.issueReport?.resolutionNotes,
+              placeHolder: 'Enter resolution notes in $langName',
+              initialValue: translation?.resolutionNotes,
               type: AppTextFieldType.multiline,
               validator: (value) =>
                   IssueReportUpsertValidator.validateResolutionNotes(
@@ -493,7 +495,7 @@ class _IssueReportUpsertScreenState
                   ),
             ),
           ],
-        ),
+        ],
       ),
     );
   }

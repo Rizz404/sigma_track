@@ -83,7 +83,7 @@ class _ListIssueReportsScreenState
       builder: (context) => AppListOptionsBottomSheet(
         onCreate: () {
           Navigator.pop(context);
-          context.push(RouteConstant.adminIssueReportUpsert);
+          context.push(RouteConstant.issueReportUpsert);
           this.logPresentation('Create issueReport pressed');
         },
         onSelectMany: () {
