@@ -6,8 +6,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
+// ignore: unused_import
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -100,8 +103,14 @@ class _UserUpdateProfileScreenState
           _avatarFile = null;
         }
         _filePickerKey.currentState?.reset();
+        // ! Use context.go() instead of context.pop() - route outside shell
+        // ! Check role to navigate to correct profile route
         if (context.mounted) {
-          context.pop();
+          final isAdmin = next.user?.role == UserRole.admin;
+          final profileRoute = isAdmin
+              ? RouteConstant.adminUserDetailProfile
+              : RouteConstant.userDetailProfile;
+          context.go(profileRoute);
         }
       } else if (next.failure != null) {
         if (next.failure is ValidationFailure) {
@@ -272,6 +281,9 @@ class _UserUpdateProfileScreenState
   }
 
   Widget _buildStickyActionButtons() {
+    final currentUserState = ref.watch(currentUserNotifierProvider);
+    final isAdmin = currentUserState.user?.role == UserRole.admin;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -293,7 +305,14 @@ class _UserUpdateProfileScreenState
               child: AppButton(
                 text: 'Cancel',
                 variant: AppButtonVariant.outlined,
-                onPressed: () => context.pop(),
+                // ! Use context.go() instead of context.pop() - route outside shell
+                // ! Check role to navigate to correct profile route
+                onPressed: () {
+                  final profileRoute = isAdmin
+                      ? RouteConstant.adminUserDetailProfile
+                      : RouteConstant.userDetailProfile;
+                  context.go(profileRoute);
+                },
               ),
             ),
             const SizedBox(width: 16),
