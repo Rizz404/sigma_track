@@ -208,7 +208,7 @@ class DashboardScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: color, size: 24),
@@ -670,8 +670,8 @@ class DashboardScreen extends ConsumerWidget {
                     show: true,
                     gradient: LinearGradient(
                       colors: [
-                        context.colors.primary.withOpacity(0.3),
-                        context.colors.primary.withOpacity(0.0),
+                        context.colors.primary.withValues(alpha: 0.3),
+                        context.colors.primary.withValues(alpha: 0.0),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -772,8 +772,8 @@ class DashboardScreen extends ConsumerWidget {
                     show: true,
                     gradient: LinearGradient(
                       colors: [
-                        context.colors.secondary.withOpacity(0.3),
-                        context.colors.secondary.withOpacity(0.0),
+                        context.colors.secondary.withValues(alpha: 0.3),
+                        context.colors.secondary.withValues(alpha: 0.0),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -966,7 +966,7 @@ class DashboardScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: color, size: 20),

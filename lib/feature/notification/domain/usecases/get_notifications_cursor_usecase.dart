@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -51,26 +52,28 @@ class GetNotificationsCursorUsecaseParams extends Equatable {
   });
 
   GetNotificationsCursorUsecaseParams copyWith({
-    String? search,
-    String? userId,
-    String? relatedAssetId,
-    NotificationType? type,
-    bool? isRead,
-    NotificationSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? userId,
+    ValueGetter<String?>? relatedAssetId,
+    ValueGetter<NotificationType?>? type,
+    ValueGetter<bool?>? isRead,
+    ValueGetter<NotificationSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetNotificationsCursorUsecaseParams(
-      search: search ?? this.search,
-      userId: userId ?? this.userId,
-      relatedAssetId: relatedAssetId ?? this.relatedAssetId,
-      type: type ?? this.type,
-      isRead: isRead ?? this.isRead,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      userId: userId != null ? userId() : this.userId,
+      relatedAssetId: relatedAssetId != null
+          ? relatedAssetId()
+          : this.relatedAssetId,
+      type: type != null ? type() : this.type,
+      isRead: isRead != null ? isRead() : this.isRead,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

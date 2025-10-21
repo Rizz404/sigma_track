@@ -21,7 +21,7 @@ class IssueReportsSearchNotifier
   }
 
   Future<IssueReportsState> _loadIssueReports({
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
   }) async {
     this.logPresentation(
       'Loading issue reports with filter: $issueReportsFilter',

@@ -132,7 +132,7 @@ class _ExportAssetsBottomSheetState
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: context.colors.surfaceVariant.withOpacity(0.5),
+                    color: context.colors.surfaceVariant.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: context.colors.border),
                   ),
@@ -175,10 +175,10 @@ class _ExportAssetsBottomSheetState
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: context.semantic.info.withOpacity(0.1),
+                          color: context.semantic.info.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: context.semantic.info.withOpacity(0.3),
+                            color: context.semantic.info.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Row(

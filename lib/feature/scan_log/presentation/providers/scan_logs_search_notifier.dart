@@ -20,7 +20,7 @@ class ScanLogsSearchNotifier extends AutoDisposeNotifier<ScanLogsState> {
   }
 
   Future<ScanLogsState> _loadScanLogs({
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
   }) async {
     this.logPresentation('Loading scan logs with filter: $scanLogsFilter');
 

@@ -11,8 +11,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_providers.dart';
-import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_records_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_record_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -200,10 +200,11 @@ class _ListMaintenanceRecordsScreenState
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = MaintenanceRecordsFilter(
-                          search: currentFilter.search,
-                          // * Reset semua filter kecuali search
-                        );
+                        final newFilter =
+                            GetMaintenanceRecordsCursorUsecaseParams(
+                              search: currentFilter.search,
+                              // * Reset semua filter kecuali search
+                            );
                         Navigator.pop(context);
                         ref
                             .read(maintenanceRecordsProvider.notifier)
@@ -226,22 +227,23 @@ class _ListMaintenanceRecordsScreenState
                           final fromDate = formData['fromDate'] as DateTime?;
                           final toDate = formData['toDate'] as DateTime?;
 
-                          final newFilter = MaintenanceRecordsFilter(
-                            search: currentFilter.search,
-                            sortBy: sortByStr != null
-                                ? MaintenanceRecordSortBy.values.firstWhere(
-                                    (e) => e.value == sortByStr,
-                                  )
-                                : null,
-                            sortOrder: sortOrderStr != null
-                                ? SortOrder.values.firstWhere(
-                                    (e) => e.value == sortOrderStr,
-                                  )
-                                : null,
-                            vendorName: vendorName,
-                            fromDate: fromDate?.toIso8601String(),
-                            toDate: toDate?.toIso8601String(),
-                          );
+                          final newFilter =
+                              GetMaintenanceRecordsCursorUsecaseParams(
+                                search: currentFilter.search,
+                                sortBy: sortByStr != null
+                                    ? MaintenanceRecordSortBy.values.firstWhere(
+                                        (e) => e.value == sortByStr,
+                                      )
+                                    : null,
+                                sortOrder: sortOrderStr != null
+                                    ? SortOrder.values.firstWhere(
+                                        (e) => e.value == sortOrderStr,
+                                      )
+                                    : null,
+                                vendorName: vendorName,
+                                fromDate: fromDate?.toIso8601String(),
+                                toDate: toDate?.toIso8601String(),
+                              );
 
                           Navigator.pop(context);
                           ref
@@ -325,13 +327,18 @@ class _ListMaintenanceRecordsScreenState
     final state = ref.watch(maintenanceRecordsProvider);
 
     ref.listen(maintenanceRecordsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('MaintenanceRecords error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError(
+          'MaintenanceRecords mutation error',
+          next.mutationFailure,
+        );
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -388,7 +395,7 @@ class _ListMaintenanceRecordsScreenState
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

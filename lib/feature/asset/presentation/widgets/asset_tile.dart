@@ -27,7 +27,7 @@ class AssetTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -57,7 +57,9 @@ class AssetTile extends StatelessWidget {
                     child: Icon(
                       Icons.inventory_2_rounded,
                       size: 100,
-                      color: context.colorScheme.primary.withOpacity(0.08),
+                      color: context.colorScheme.primary.withValues(
+                        alpha: 0.08,
+                      ),
                     ),
                   ),
                 ),
@@ -136,7 +138,7 @@ class AssetTile extends StatelessWidget {
                             color: _getStatusColor(
                               context,
                               asset.status,
-                            ).withOpacity(0.1),
+                            ).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: AppText(
@@ -156,7 +158,7 @@ class AssetTile extends StatelessWidget {
                             color: _getConditionColor(
                               context,
                               asset.condition,
-                            ).withOpacity(0.1),
+                            ).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: AppText(

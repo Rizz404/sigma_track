@@ -3,79 +3,71 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
 
-class LocationsFilter extends Equatable {
-  final String? search;
-  final LocationSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class LocationMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  LocationsFilter({
-    this.search,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const LocationMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  LocationsFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<LocationSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return LocationsFilter(
-      search: search != null ? search() : this.search,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [search, sortBy, sortOrder, cursor, limit];
-  }
-
-  @override
-  String toString() {
-    return 'LocationsFilter(search: $search, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class LocationsState extends Equatable {
   final List<Location> locations;
-  final Location? mutatedLocation;
-  final LocationsFilter locationsFilter;
+  final GetLocationsCursorUsecaseParams locationsFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final LocationMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const LocationsState({
     this.locations = const [],
-    this.mutatedLocation,
     required this.locationsFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory LocationsState.initial() =>
-      LocationsState(locationsFilter: LocationsFilter(), isLoading: true);
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory LocationsState.initial() => LocationsState(
+    locationsFilter: GetLocationsCursorUsecaseParams(),
+    isLoading: true,
+  );
 
   factory LocationsState.loading({
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
     List<Location>? currentLocations,
   }) => LocationsState(
     locations: currentLocations ?? const [],
@@ -85,21 +77,17 @@ class LocationsState extends Equatable {
 
   factory LocationsState.success({
     required List<Location> locations,
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
     Cursor? cursor,
-    String? message,
-    Location? mutatedLocation,
   }) => LocationsState(
     locations: locations,
     locationsFilter: locationsFilter,
     cursor: cursor,
-    message: message,
-    mutatedLocation: mutatedLocation,
   );
 
   factory LocationsState.error({
     required Failure failure,
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
     List<Location>? currentLocations,
   }) => LocationsState(
     locations: currentLocations ?? const [],
@@ -109,7 +97,7 @@ class LocationsState extends Equatable {
 
   factory LocationsState.loadingMore({
     required List<Location> currentLocations,
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
     Cursor? cursor,
   }) => LocationsState(
     locations: currentLocations,
@@ -118,42 +106,111 @@ class LocationsState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory LocationsState.creating({
+    required List<Location> currentLocations,
+    required GetLocationsCursorUsecaseParams locationsFilter,
+    Cursor? cursor,
+  }) => LocationsState(
+    locations: currentLocations,
+    locationsFilter: locationsFilter,
+    cursor: cursor,
+    mutation: const LocationMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory LocationsState.updating({
+    required List<Location> currentLocations,
+    required GetLocationsCursorUsecaseParams locationsFilter,
+    Cursor? cursor,
+  }) => LocationsState(
+    locations: currentLocations,
+    locationsFilter: locationsFilter,
+    cursor: cursor,
+    mutation: const LocationMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory LocationsState.deleting({
+    required List<Location> currentLocations,
+    required GetLocationsCursorUsecaseParams locationsFilter,
+    Cursor? cursor,
+  }) => LocationsState(
+    locations: currentLocations,
+    locationsFilter: locationsFilter,
+    cursor: cursor,
+    mutation: const LocationMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory LocationsState.mutationSuccess({
+    required List<Location> locations,
+    required GetLocationsCursorUsecaseParams locationsFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => LocationsState(
+    locations: locations,
+    locationsFilter: locationsFilter,
+    cursor: cursor,
+    mutation: LocationMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory LocationsState.mutationError({
+    required List<Location> currentLocations,
+    required GetLocationsCursorUsecaseParams locationsFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => LocationsState(
+    locations: currentLocations,
+    locationsFilter: locationsFilter,
+    cursor: cursor,
+    mutation: LocationMutationState(type: mutationType, failure: failure),
+  );
+
   LocationsState copyWith({
     List<Location>? locations,
-    ValueGetter<Location?>? mutatedLocation,
-    LocationsFilter? locationsFilter,
+    GetLocationsCursorUsecaseParams? locationsFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<LocationMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return LocationsState(
       locations: locations ?? this.locations,
-      mutatedLocation: mutatedLocation != null
-          ? mutatedLocation()
-          : this.mutatedLocation,
       locationsFilter: locationsFilter ?? this.locationsFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  LocationsState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       locations,
-      mutatedLocation,
       locationsFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

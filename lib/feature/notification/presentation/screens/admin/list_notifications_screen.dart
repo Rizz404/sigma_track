@@ -15,8 +15,8 @@ import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart'
     as notification_entity;
+import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notification_providers.dart';
-import 'package:sigma_track/feature/notification/presentation/providers/state/notifications_state.dart';
 import 'package:sigma_track/feature/notification/presentation/widgets/notification_tile.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -251,7 +251,7 @@ class _ListNotificationsScreenState
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = NotificationsFilter(
+                        final newFilter = GetNotificationsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -279,7 +279,7 @@ class _ListNotificationsScreenState
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
-                          final newFilter = NotificationsFilter(
+                          final newFilter = GetNotificationsCursorUsecaseParams(
                             search: currentFilter.search,
                             userId: userId,
                             relatedAssetId: relatedAssetId,
@@ -383,13 +383,15 @@ class _ListNotificationsScreenState
     final state = ref.watch(notificationsProvider);
 
     ref.listen(notificationsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('Notifications error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('Notifications mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -448,7 +450,7 @@ class _ListNotificationsScreenState
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

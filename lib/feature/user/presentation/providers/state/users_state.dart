@@ -3,100 +3,69 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 
-class UsersFilter extends Equatable {
-  final String? search;
-  final String? role;
-  final bool? isActive;
-  final String? employeeId;
-  final UserSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final int? limit;
-  final String? cursor;
+// * State untuk mutation operation yang lebih descriptive
+class UserMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  UsersFilter({
-    this.search,
-    this.role,
-    this.isActive,
-    this.employeeId,
-    this.sortBy,
-    this.sortOrder,
-    this.limit,
-    this.cursor,
+  const UserMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  UsersFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? role,
-    ValueGetter<bool?>? isActive,
-    ValueGetter<String?>? employeeId,
-    ValueGetter<UserSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<int?>? limit,
-    ValueGetter<String?>? cursor,
-  }) {
-    return UsersFilter(
-      search: search != null ? search() : this.search,
-      role: role != null ? role() : this.role,
-      isActive: isActive != null ? isActive() : this.isActive,
-      employeeId: employeeId != null ? employeeId() : this.employeeId,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      limit: limit != null ? limit() : this.limit,
-      cursor: cursor != null ? cursor() : this.cursor,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      role,
-      isActive,
-      employeeId,
-      sortBy,
-      sortOrder,
-      limit,
-      cursor,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'UsersFilter(search: $search, role: $role, isActive: $isActive, employeeId: $employeeId, sortBy: $sortBy, sortOrder: $sortOrder, limit: $limit, cursor: $cursor)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class UsersState extends Equatable {
   final List<User> users;
-  final User? mutatedUser;
-  final UsersFilter usersFilter;
+  final GetUsersCursorUsecaseParams usersFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final UserMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const UsersState({
     this.users = const [],
-    this.mutatedUser,
     required this.usersFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
   factory UsersState.initial() =>
-      UsersState(usersFilter: UsersFilter(), isLoading: true);
+      UsersState(usersFilter: GetUsersCursorUsecaseParams(), isLoading: true);
 
   factory UsersState.loading({
-    required UsersFilter usersFilter,
+    required GetUsersCursorUsecaseParams usersFilter,
     List<User>? currentUsers,
   }) => UsersState(
     users: currentUsers ?? const [],
@@ -106,21 +75,13 @@ class UsersState extends Equatable {
 
   factory UsersState.success({
     required List<User> users,
-    required UsersFilter usersFilter,
+    required GetUsersCursorUsecaseParams usersFilter,
     Cursor? cursor,
-    String? message,
-    User? mutatedUser,
-  }) => UsersState(
-    users: users,
-    usersFilter: usersFilter,
-    cursor: cursor,
-    message: message,
-    mutatedUser: mutatedUser,
-  );
+  }) => UsersState(users: users, usersFilter: usersFilter, cursor: cursor);
 
   factory UsersState.error({
     required Failure failure,
-    required UsersFilter usersFilter,
+    required GetUsersCursorUsecaseParams usersFilter,
     List<User>? currentUsers,
   }) => UsersState(
     users: currentUsers ?? const [],
@@ -130,7 +91,7 @@ class UsersState extends Equatable {
 
   factory UsersState.loadingMore({
     required List<User> currentUsers,
-    required UsersFilter usersFilter,
+    required GetUsersCursorUsecaseParams usersFilter,
     Cursor? cursor,
   }) => UsersState(
     users: currentUsers,
@@ -139,40 +100,108 @@ class UsersState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory UsersState.creating({
+    required List<User> currentUsers,
+    required GetUsersCursorUsecaseParams usersFilter,
+    Cursor? cursor,
+  }) => UsersState(
+    users: currentUsers,
+    usersFilter: usersFilter,
+    cursor: cursor,
+    mutation: const UserMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory UsersState.updating({
+    required List<User> currentUsers,
+    required GetUsersCursorUsecaseParams usersFilter,
+    Cursor? cursor,
+  }) => UsersState(
+    users: currentUsers,
+    usersFilter: usersFilter,
+    cursor: cursor,
+    mutation: const UserMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory UsersState.deleting({
+    required List<User> currentUsers,
+    required GetUsersCursorUsecaseParams usersFilter,
+    Cursor? cursor,
+  }) => UsersState(
+    users: currentUsers,
+    usersFilter: usersFilter,
+    cursor: cursor,
+    mutation: const UserMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory UsersState.mutationSuccess({
+    required List<User> users,
+    required GetUsersCursorUsecaseParams usersFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => UsersState(
+    users: users,
+    usersFilter: usersFilter,
+    cursor: cursor,
+    mutation: UserMutationState(type: mutationType, successMessage: message),
+  );
+
+  factory UsersState.mutationError({
+    required List<User> currentUsers,
+    required GetUsersCursorUsecaseParams usersFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => UsersState(
+    users: currentUsers,
+    usersFilter: usersFilter,
+    cursor: cursor,
+    mutation: UserMutationState(type: mutationType, failure: failure),
+  );
+
   UsersState copyWith({
     List<User>? users,
-    ValueGetter<User?>? mutatedUser,
-    UsersFilter? usersFilter,
+    GetUsersCursorUsecaseParams? usersFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<UserMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return UsersState(
       users: users ?? this.users,
-      mutatedUser: mutatedUser != null ? mutatedUser() : this.mutatedUser,
       usersFilter: usersFilter ?? this.usersFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  UsersState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       users,
-      mutatedUser,
       usersFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

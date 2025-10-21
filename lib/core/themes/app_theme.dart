@@ -210,7 +210,7 @@ class AppTheme {
         textColor: colors.textPrimary,
         iconColor: colors.textSecondary,
         selectedColor: colors.primary,
-        selectedTileColor: colors.primaryContainer.withOpacity(0.12),
+        selectedTileColor: colors.primaryContainer.withValues(alpha: 0.12),
         titleTextStyle: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -257,10 +257,10 @@ class AppTheme {
             ).copyWith(
               overlayColor: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.hovered)) {
-                  return colors.textOnAccent.withOpacity(0.08);
+                  return colors.textOnAccent.withValues(alpha: 0.08);
                 }
                 if (states.contains(WidgetState.pressed)) {
-                  return colors.textOnAccent.withOpacity(0.12);
+                  return colors.textOnAccent.withValues(alpha: 0.12);
                 }
                 return null;
               }),
@@ -430,7 +430,7 @@ class AppTheme {
         activeTrackColor: colors.primary,
         inactiveTrackColor: colors.border,
         thumbColor: colors.primary,
-        overlayColor: colors.primary.withOpacity(0.12),
+        overlayColor: colors.primary.withValues(alpha: 0.12),
         valueIndicatorColor: colors.primary,
         valueIndicatorTextStyle: TextStyle(color: colors.textOnPrimary),
       ),

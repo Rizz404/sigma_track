@@ -13,8 +13,8 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart'
     as app_notif;
+import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/notification_providers.dart';
-import 'package:sigma_track/feature/notification/presentation/providers/state/notifications_state.dart';
 import 'package:sigma_track/feature/notification/presentation/widgets/notification_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -66,7 +66,7 @@ class _MyListNotificationsScreenState
     if (_filterFormKey.currentState?.saveAndValidate() ?? false) {
       final formData = _filterFormKey.currentState!.value;
 
-      final newFilter = NotificationsFilter(
+      final newFilter = GetNotificationsCursorUsecaseParams(
         type: formData['type'] != null
             ? NotificationType.values.firstWhere(
                 (e) => e.value == formData['type'],
@@ -216,13 +216,15 @@ class _MyListNotificationsScreenState
     final state = ref.watch(myNotificationsProvider);
 
     ref.listen(myNotificationsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('MyNotifications error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('MyNotifications mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 

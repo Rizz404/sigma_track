@@ -19,7 +19,8 @@ class MaintenanceSchedulesSearchNotifier
   }
 
   Future<MaintenanceSchedulesState> _loadMaintenanceSchedules({
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
   }) async {
     this.logPresentation(
       'Loading maintenance schedules with filter: $maintenanceSchedulesFilter',

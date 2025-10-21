@@ -28,7 +28,7 @@ class MaintenanceRecordTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -126,7 +126,9 @@ class MaintenanceRecordTile extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: context.semantic.success.withOpacity(0.1),
+                          color: context.semantic.success.withValues(
+                            alpha: 0.1,
+                          ),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: AppText(

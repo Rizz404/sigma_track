@@ -14,8 +14,8 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_providers.dart';
-import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_logs_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/widgets/scan_log_tile.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -287,7 +287,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = ScanLogsFilter(
+                        final newFilter = GetScanLogsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -320,7 +320,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
-                          final newFilter = ScanLogsFilter(
+                          final newFilter = GetScanLogsCursorUsecaseParams(
                             search: currentFilter.search,
                             assetId: assetId,
                             scannedBy: scannedBy,
@@ -431,13 +431,15 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     final state = ref.watch(scanLogsProvider);
 
     ref.listen(scanLogsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('ScanLogs error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('ScanLogs mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -491,7 +493,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

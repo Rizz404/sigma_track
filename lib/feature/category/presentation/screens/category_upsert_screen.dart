@@ -154,23 +154,29 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
     // * Listen to mutation state
     ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
+      // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (!next.isMutating && next.message != null && next.failure == null) {
-        AppToast.success(next.message ?? 'Category saved successfully');
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage ?? 'Category saved successfully');
         context.pop();
-      } else if (next.failure != null) {
-        if (next.failure is ValidationFailure) {
+      }
+
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        if (next.mutationFailure is ValidationFailure) {
           setState(
-            () => validationErrors = (next.failure as ValidationFailure).errors,
+            () => validationErrors =
+                (next.mutationFailure as ValidationFailure).errors,
           );
         } else {
-          this.logError('Category mutation error', next.failure);
-          AppToast.error(next.failure?.message ?? 'Operation failed');
+          this.logError('Category mutation error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
         }
       }
     });
@@ -325,7 +331,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: context.colors.surfaceVariant.withOpacity(0.3),
+        color: context.colors.surfaceVariant.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: context.colors.border),
       ),
@@ -378,7 +384,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         border: Border(top: BorderSide(color: context.colors.border, width: 1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' hide Category;
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -47,22 +48,22 @@ class GetCategoriesCursorUsecaseParams extends Equatable {
   });
 
   GetCategoriesCursorUsecaseParams copyWith({
-    String? search,
-    String? parentId,
-    bool? hasParent,
-    CategorySortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? parentId,
+    ValueGetter<bool?>? hasParent,
+    ValueGetter<CategorySortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetCategoriesCursorUsecaseParams(
-      search: search ?? this.search,
-      parentId: parentId ?? this.parentId,
-      hasParent: hasParent ?? this.hasParent,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      parentId: parentId != null ? parentId() : this.parentId,
+      hasParent: hasParent != null ? hasParent() : this.hasParent,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

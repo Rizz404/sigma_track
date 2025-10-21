@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -58,32 +59,34 @@ class GetScanLogsCursorUsecaseParams extends Equatable {
   });
 
   GetScanLogsCursorUsecaseParams copyWith({
-    String? search,
-    ScanMethodType? scanMethod,
-    ScanResultType? scanResult,
-    String? scannedBy,
-    String? assetId,
-    String? dateFrom,
-    String? dateTo,
-    bool? hasCoordinates,
-    ScanLogSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<ScanMethodType?>? scanMethod,
+    ValueGetter<ScanResultType?>? scanResult,
+    ValueGetter<String?>? scannedBy,
+    ValueGetter<String?>? assetId,
+    ValueGetter<String?>? dateFrom,
+    ValueGetter<String?>? dateTo,
+    ValueGetter<bool?>? hasCoordinates,
+    ValueGetter<ScanLogSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetScanLogsCursorUsecaseParams(
-      search: search ?? this.search,
-      scanMethod: scanMethod ?? this.scanMethod,
-      scanResult: scanResult ?? this.scanResult,
-      scannedBy: scannedBy ?? this.scannedBy,
-      assetId: assetId ?? this.assetId,
-      dateFrom: dateFrom ?? this.dateFrom,
-      dateTo: dateTo ?? this.dateTo,
-      hasCoordinates: hasCoordinates ?? this.hasCoordinates,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      scanMethod: scanMethod != null ? scanMethod() : this.scanMethod,
+      scanResult: scanResult != null ? scanResult() : this.scanResult,
+      scannedBy: scannedBy != null ? scannedBy() : this.scannedBy,
+      assetId: assetId != null ? assetId() : this.assetId,
+      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
+      dateTo: dateTo != null ? dateTo() : this.dateTo,
+      hasCoordinates: hasCoordinates != null
+          ? hasCoordinates()
+          : this.hasCoordinates,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

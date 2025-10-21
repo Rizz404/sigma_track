@@ -27,7 +27,7 @@ class LocationCard extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? cardColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -54,7 +54,7 @@ class LocationCard extends StatelessWidget {
                   child: Icon(
                     Icons.location_on_rounded,
                     size: 80,
-                    color: context.colorScheme.primary.withOpacity(0.15),
+                    color: context.colorScheme.primary.withValues(alpha: 0.15),
                   ),
                 ),
               Padding(

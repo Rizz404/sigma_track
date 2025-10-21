@@ -187,23 +187,31 @@ class _IssueReportUpsertScreenState
 
     // * Listen to mutation state
     ref.listen<IssueReportsState>(issueReportsProvider, (previous, next) {
+      // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (!next.isMutating && next.message != null && next.failure == null) {
-        AppToast.success(next.message ?? 'Issue report saved successfully');
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(
+          next.mutationMessage ?? 'Issue report saved successfully',
+        );
         context.pop();
-      } else if (next.failure != null) {
-        if (next.failure is ValidationFailure) {
+      }
+
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        if (next.mutationFailure is ValidationFailure) {
           setState(
-            () => validationErrors = (next.failure as ValidationFailure).errors,
+            () => validationErrors =
+                (next.mutationFailure as ValidationFailure).errors,
           );
         } else {
-          this.logError('Issue report mutation error', next.failure);
-          AppToast.error(next.failure?.message ?? 'Operation failed');
+          this.logError('Issue report mutation error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
         }
       }
     });

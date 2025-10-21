@@ -3,66 +3,38 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
 
-class CategoriesFilter extends Equatable {
-  final String? search;
-  final String? parentId;
-  final bool? hasParent;
-  final CategorySortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * Category mutation state
+class CategoryMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  CategoriesFilter({
-    this.search,
-    this.parentId,
-    this.hasParent,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const CategoryMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  CategoriesFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? parentId,
-    ValueGetter<bool?>? hasParent,
-    ValueGetter<CategorySortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return CategoriesFilter(
-      search: search != null ? search() : this.search,
-      parentId: parentId != null ? parentId() : this.parentId,
-      hasParent: hasParent != null ? hasParent() : this.hasParent,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [search, parentId, hasParent, sortBy, sortOrder, cursor, limit];
-  }
-
-  @override
-  String toString() {
-    return 'CategoriesFilter(search: $search, parentId: $parentId, hasParent: $hasParent, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class CategoriesState extends Equatable {
   final List<Category> categories;
   final Category? mutatedCategory;
-  final CategoriesFilter categoriesFilter;
+  final GetCategoriesCursorUsecaseParams categoriesFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
+  final CategoryMutationState? mutation;
   final String? message;
   final Failure? failure;
   final Cursor? cursor;
@@ -73,17 +45,19 @@ class CategoriesState extends Equatable {
     required this.categoriesFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
+    this.mutation,
     this.message,
     this.failure,
     this.cursor,
   });
 
-  factory CategoriesState.initial() =>
-      CategoriesState(categoriesFilter: CategoriesFilter(), isLoading: true);
+  factory CategoriesState.initial() => CategoriesState(
+    categoriesFilter: GetCategoriesCursorUsecaseParams(),
+    isLoading: true,
+  );
 
   factory CategoriesState.loading({
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
     List<Category>? currentCategories,
   }) => CategoriesState(
     categories: currentCategories ?? const [],
@@ -93,7 +67,7 @@ class CategoriesState extends Equatable {
 
   factory CategoriesState.success({
     required List<Category> categories,
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
     Cursor? cursor,
     String? message,
     Category? mutatedCategory,
@@ -107,7 +81,7 @@ class CategoriesState extends Equatable {
 
   factory CategoriesState.error({
     required Failure failure,
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
     List<Category>? currentCategories,
   }) => CategoriesState(
     categories: currentCategories ?? const [],
@@ -117,7 +91,7 @@ class CategoriesState extends Equatable {
 
   factory CategoriesState.loadingMore({
     required List<Category> currentCategories,
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
     Cursor? cursor,
   }) => CategoriesState(
     categories: currentCategories,
@@ -126,13 +100,85 @@ class CategoriesState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Mutation state for descriptive mutation operations
+  factory CategoriesState.creating({
+    required List<Category> currentCategories,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
+    Cursor? cursor,
+  }) => CategoriesState(
+    categories: currentCategories,
+    categoriesFilter: categoriesFilter,
+    cursor: cursor,
+    mutation: const CategoryMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory CategoriesState.updating({
+    required List<Category> currentCategories,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
+    Cursor? cursor,
+  }) => CategoriesState(
+    categories: currentCategories,
+    categoriesFilter: categoriesFilter,
+    cursor: cursor,
+    mutation: const CategoryMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory CategoriesState.deleting({
+    required List<Category> currentCategories,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
+    Cursor? cursor,
+  }) => CategoriesState(
+    categories: currentCategories,
+    categoriesFilter: categoriesFilter,
+    cursor: cursor,
+    mutation: const CategoryMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory CategoriesState.mutationSuccess({
+    required List<Category> categories,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => CategoriesState(
+    categories: categories,
+    categoriesFilter: categoriesFilter,
+    cursor: cursor,
+    mutation: CategoryMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory CategoriesState.mutationError({
+    required List<Category> currentCategories,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => CategoriesState(
+    categories: currentCategories,
+    categoriesFilter: categoriesFilter,
+    cursor: cursor,
+    mutation: CategoryMutationState(type: mutationType, failure: failure),
+  );
+
   CategoriesState copyWith({
     List<Category>? categories,
     ValueGetter<Category?>? mutatedCategory,
-    CategoriesFilter? categoriesFilter,
+    GetCategoriesCursorUsecaseParams? categoriesFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
+    ValueGetter<CategoryMutationState?>? mutation,
     ValueGetter<String?>? message,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
@@ -145,11 +191,29 @@ class CategoriesState extends Equatable {
       categoriesFilter: categoriesFilter ?? this.categoriesFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
+      mutation: mutation != null ? mutation() : this.mutation,
       message: message != null ? message() : this.message,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Computed properties for UI convenience (derived from mutation)
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Helper to clear mutation state after handled
+  CategoriesState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
@@ -160,7 +224,7 @@ class CategoriesState extends Equatable {
       categoriesFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
+      mutation,
       message,
       failure,
       cursor,

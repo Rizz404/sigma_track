@@ -14,8 +14,8 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_report_providers.dart';
-import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_reports_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/widgets/issue_report_tile.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -212,7 +212,7 @@ class _ListIssueReportsScreenState
                 ],
               ),
               const SizedBox(height: 16),
-              AppTextField(
+              const AppTextField(
                 name: 'issueType',
                 label: 'Issue Type',
                 placeHolder: 'Enter issue type...',
@@ -322,7 +322,7 @@ class _ListIssueReportsScreenState
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = IssueReportsFilter(
+                        final newFilter = GetIssueReportsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -354,7 +354,7 @@ class _ListIssueReportsScreenState
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
-                          final newFilter = IssueReportsFilter(
+                          final newFilter = GetIssueReportsCursorUsecaseParams(
                             search: currentFilter.search,
                             assetId: assetId,
                             reportedBy: reportedBy,
@@ -467,13 +467,15 @@ class _ListIssueReportsScreenState
     final state = ref.watch(issueReportsProvider);
 
     ref.listen(issueReportsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('IssueReports error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('IssueReports mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -530,7 +532,7 @@ class _ListIssueReportsScreenState
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

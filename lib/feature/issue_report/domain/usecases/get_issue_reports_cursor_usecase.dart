@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -61,36 +62,36 @@ class GetIssueReportsCursorUsecaseParams extends Equatable {
   });
 
   GetIssueReportsCursorUsecaseParams copyWith({
-    String? search,
-    String? assetId,
-    String? reportedBy,
-    String? resolvedBy,
-    String? issueType,
-    IssuePriority? priority,
-    IssueStatus? status,
-    bool? isResolved,
-    String? dateFrom,
-    String? dateTo,
-    IssueReportSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? assetId,
+    ValueGetter<String?>? reportedBy,
+    ValueGetter<String?>? resolvedBy,
+    ValueGetter<String?>? issueType,
+    ValueGetter<IssuePriority?>? priority,
+    ValueGetter<IssueStatus?>? status,
+    ValueGetter<bool?>? isResolved,
+    ValueGetter<String?>? dateFrom,
+    ValueGetter<String?>? dateTo,
+    ValueGetter<IssueReportSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetIssueReportsCursorUsecaseParams(
-      search: search ?? this.search,
-      assetId: assetId ?? this.assetId,
-      reportedBy: reportedBy ?? this.reportedBy,
-      resolvedBy: resolvedBy ?? this.resolvedBy,
-      issueType: issueType ?? this.issueType,
-      priority: priority ?? this.priority,
-      status: status ?? this.status,
-      isResolved: isResolved ?? this.isResolved,
-      dateFrom: dateFrom ?? this.dateFrom,
-      dateTo: dateTo ?? this.dateTo,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      assetId: assetId != null ? assetId() : this.assetId,
+      reportedBy: reportedBy != null ? reportedBy() : this.reportedBy,
+      resolvedBy: resolvedBy != null ? resolvedBy() : this.resolvedBy,
+      issueType: issueType != null ? issueType() : this.issueType,
+      priority: priority != null ? priority() : this.priority,
+      status: status != null ? status() : this.status,
+      isResolved: isResolved != null ? isResolved() : this.isResolved,
+      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
+      dateTo: dateTo != null ? dateTo() : this.dateTo,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

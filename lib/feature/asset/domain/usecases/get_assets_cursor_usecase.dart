@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -54,32 +55,32 @@ class GetAssetsCursorUsecaseParams extends Equatable {
   });
 
   GetAssetsCursorUsecaseParams copyWith({
-    String? search,
-    AssetStatus? status,
-    AssetCondition? condition,
-    String? categoryId,
-    String? locationId,
-    String? assignedTo,
-    String? brand,
-    String? model,
-    AssetSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<AssetStatus?>? status,
+    ValueGetter<AssetCondition?>? condition,
+    ValueGetter<String?>? categoryId,
+    ValueGetter<String?>? locationId,
+    ValueGetter<String?>? assignedTo,
+    ValueGetter<String?>? brand,
+    ValueGetter<String?>? model,
+    ValueGetter<AssetSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetAssetsCursorUsecaseParams(
-      search: search ?? this.search,
-      status: status ?? this.status,
-      condition: condition ?? this.condition,
-      categoryId: categoryId ?? this.categoryId,
-      locationId: locationId ?? this.locationId,
-      assignedTo: assignedTo ?? this.assignedTo,
-      brand: brand ?? this.brand,
-      model: model ?? this.model,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      status: status != null ? status() : this.status,
+      condition: condition != null ? condition() : this.condition,
+      categoryId: categoryId != null ? categoryId() : this.categoryId,
+      locationId: locationId != null ? locationId() : this.locationId,
+      assignedTo: assignedTo != null ? assignedTo() : this.assignedTo,
+      brand: brand != null ? brand() : this.brand,
+      model: model != null ? model() : this.model,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

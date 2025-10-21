@@ -21,7 +21,7 @@ class AssetMovementsSearchNotifier
   }
 
   Future<AssetMovementsState> _loadAssetMovements({
-    required AssetMovementsFilter assetMovementsFilter,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
   }) async {
     this.logPresentation(
       'Loading asset movements with filter: $assetMovementsFilter',

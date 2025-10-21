@@ -12,8 +12,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_providers.dart';
-import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_schedule_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -223,10 +223,11 @@ class _ListMaintenanceSchedulesScreenState
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = MaintenanceSchedulesFilter(
-                          search: currentFilter.search,
-                          // * Reset semua filter kecuali search
-                        );
+                        final newFilter =
+                            GetMaintenanceSchedulesCursorUsecaseParams(
+                              search: currentFilter.search,
+                              // * Reset semua filter kecuali search
+                            );
                         Navigator.pop(context);
                         ref
                             .read(maintenanceSchedulesProvider.notifier)
@@ -251,31 +252,33 @@ class _ListMaintenanceSchedulesScreenState
                           final fromDate = formData['fromDate'] as DateTime?;
                           final toDate = formData['toDate'] as DateTime?;
 
-                          final newFilter = MaintenanceSchedulesFilter(
-                            search: currentFilter.search,
-                            sortBy: sortByStr != null
-                                ? MaintenanceScheduleSortBy.values.firstWhere(
-                                    (e) => e.value == sortByStr,
-                                  )
-                                : null,
-                            sortOrder: sortOrderStr != null
-                                ? SortOrder.values.firstWhere(
-                                    (e) => e.value == sortOrderStr,
-                                  )
-                                : null,
-                            maintenanceType: maintenanceTypeStr != null
-                                ? MaintenanceScheduleType.values.firstWhere(
-                                    (e) => e.value == maintenanceTypeStr,
-                                  )
-                                : null,
-                            status: statusStr != null
-                                ? ScheduleStatus.values.firstWhere(
-                                    (e) => e.value == statusStr,
-                                  )
-                                : null,
-                            fromDate: fromDate?.toIso8601String(),
-                            toDate: toDate?.toIso8601String(),
-                          );
+                          final newFilter =
+                              GetMaintenanceSchedulesCursorUsecaseParams(
+                                search: currentFilter.search,
+                                sortBy: sortByStr != null
+                                    ? MaintenanceScheduleSortBy.values
+                                          .firstWhere(
+                                            (e) => e.value == sortByStr,
+                                          )
+                                    : null,
+                                sortOrder: sortOrderStr != null
+                                    ? SortOrder.values.firstWhere(
+                                        (e) => e.value == sortOrderStr,
+                                      )
+                                    : null,
+                                maintenanceType: maintenanceTypeStr != null
+                                    ? MaintenanceScheduleType.values.firstWhere(
+                                        (e) => e.value == maintenanceTypeStr,
+                                      )
+                                    : null,
+                                status: statusStr != null
+                                    ? ScheduleStatus.values.firstWhere(
+                                        (e) => e.value == statusStr,
+                                      )
+                                    : null,
+                                fromDate: fromDate?.toIso8601String(),
+                                toDate: toDate?.toIso8601String(),
+                              );
 
                           Navigator.pop(context);
                           ref
@@ -359,13 +362,18 @@ class _ListMaintenanceSchedulesScreenState
     final state = ref.watch(maintenanceSchedulesProvider);
 
     ref.listen(maintenanceSchedulesProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('MaintenanceSchedules error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError(
+          'MaintenanceSchedules mutation error',
+          next.mutationFailure,
+        );
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -422,7 +430,7 @@ class _ListMaintenanceSchedulesScreenState
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

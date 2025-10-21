@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -58,30 +59,32 @@ class GetMaintenanceSchedulesCursorUsecaseParams extends Equatable {
   });
 
   GetMaintenanceSchedulesCursorUsecaseParams copyWith({
-    String? search,
-    String? assetId,
-    MaintenanceScheduleType? maintenanceType,
-    ScheduleStatus? status,
-    String? createdBy,
-    String? fromDate,
-    String? toDate,
-    MaintenanceScheduleSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? assetId,
+    ValueGetter<MaintenanceScheduleType?>? maintenanceType,
+    ValueGetter<ScheduleStatus?>? status,
+    ValueGetter<String?>? createdBy,
+    ValueGetter<String?>? fromDate,
+    ValueGetter<String?>? toDate,
+    ValueGetter<MaintenanceScheduleSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetMaintenanceSchedulesCursorUsecaseParams(
-      search: search ?? this.search,
-      assetId: assetId ?? this.assetId,
-      maintenanceType: maintenanceType ?? this.maintenanceType,
-      status: status ?? this.status,
-      createdBy: createdBy ?? this.createdBy,
-      fromDate: fromDate ?? this.fromDate,
-      toDate: toDate ?? this.toDate,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      assetId: assetId != null ? assetId() : this.assetId,
+      maintenanceType: maintenanceType != null
+          ? maintenanceType()
+          : this.maintenanceType,
+      status: status != null ? status() : this.status,
+      createdBy: createdBy != null ? createdBy() : this.createdBy,
+      fromDate: fromDate != null ? fromDate() : this.fromDate,
+      toDate: toDate != null ? toDate() : this.toDate,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

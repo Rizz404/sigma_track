@@ -266,23 +266,29 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
     // * Listen to mutation state
     ref.listen<LocationsState>(locationsProvider, (previous, next) {
+      // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (!next.isMutating && next.message != null && next.failure == null) {
-        AppToast.success(next.message ?? 'Location saved successfully');
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage ?? 'Location saved successfully');
         context.pop();
-      } else if (next.failure != null) {
-        if (next.failure is ValidationFailure) {
+      }
+
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        if (next.mutationFailure is ValidationFailure) {
           setState(
-            () => validationErrors = (next.failure as ValidationFailure).errors,
+            () => validationErrors =
+                (next.mutationFailure as ValidationFailure).errors,
           );
         } else {
-          this.logError('Location mutation error', next.failure);
-          AppToast.error(next.failure?.message ?? 'Operation failed');
+          this.logError('Location mutation error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
         }
       }
     });
@@ -472,7 +478,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: context.colors.surfaceVariant.withOpacity(0.3),
+        color: context.colors.surfaceVariant.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: context.colors.border),
       ),
@@ -510,7 +516,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         border: Border(top: BorderSide(color: context.colors.border, width: 1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

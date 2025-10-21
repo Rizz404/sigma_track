@@ -30,12 +30,14 @@ class MyIssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       return null;
     }, (success) => success.data?.id);
     state = await _loadIssueReports(
-      issueReportsFilter: IssueReportsFilter(reportedBy: userId),
+      issueReportsFilter: GetIssueReportsCursorUsecaseParams(
+        reportedBy: userId,
+      ),
     );
   }
 
   Future<IssueReportsState> _loadIssueReports({
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     List<IssueReport>? currentIssueReports,
   }) async {
     this.logPresentation(
@@ -95,7 +97,9 @@ class MyIssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     state = await _loadIssueReports(issueReportsFilter: newFilter);
   }
 
-  Future<void> updateFilter(IssueReportsFilter newFilter) async {
+  Future<void> updateFilter(
+    GetIssueReportsCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter

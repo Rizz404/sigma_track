@@ -27,7 +27,7 @@ class CategoryCard extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? cardColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -55,7 +55,7 @@ class CategoryCard extends StatelessWidget {
                   child: Icon(
                     Icons.category_rounded,
                     size: 80,
-                    color: context.colorScheme.primary.withOpacity(0.15),
+                    color: context.colorScheme.primary.withValues(alpha: 0.15),
                   ),
                 ),
               // Content

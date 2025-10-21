@@ -28,7 +28,7 @@ class UserTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -121,7 +121,7 @@ class UserTile extends StatelessWidget {
                         color: _getRoleColor(
                           context,
                           user.role,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(

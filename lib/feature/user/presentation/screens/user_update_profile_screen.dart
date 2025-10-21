@@ -186,7 +186,9 @@ class _UserUpdateProfileScreenState
               child: AppAvatar(
                 size: AvatarSize.xxxLarge,
                 imageUrl: user.avatarUrl,
-                backgroundColor: context.colorScheme.primary.withOpacity(0.1),
+                backgroundColor: context.colorScheme.primary.withValues(
+                  alpha: 0.1,
+                ),
                 placeholder: Icon(
                   Icons.person,
                   size: 50,

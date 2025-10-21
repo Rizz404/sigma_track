@@ -23,7 +23,7 @@ class GetAssetMovementsByAssetIdNotifier
   }
 
   AssetMovementsByAssetState buildWithFilter(
-    AssetMovementsByAssetFilter filter,
+    GetAssetMovementsByAssetIdUsecaseParams filter,
   ) {
     this.logPresentation(
       'Building GetAssetMovementsByAssetIdNotifier with filter: $filter',
@@ -33,34 +33,31 @@ class GetAssetMovementsByAssetIdNotifier
   }
 
   Future<void> _initializeAssetMovements(
-    AssetMovementsByAssetFilter filter,
+    GetAssetMovementsByAssetIdUsecaseParams filter,
   ) async {
     state = await _loadAssetMovements(filter: filter);
   }
 
   Future<AssetMovementsByAssetState> _loadAssetMovements({
-    required AssetMovementsByAssetFilter filter,
+    required GetAssetMovementsByAssetIdUsecaseParams filter,
     List<AssetMovement>? currentAssetMovements,
   }) async {
     this.logPresentation(
       'Loading asset movements by asset id with filter: $filter',
     );
 
-    final page =
-        (currentAssetMovements?.length ?? 0) ~/ (filter.limit ?? 10) + 1;
+    final page = (currentAssetMovements?.length ?? 0) ~/ (filter.limit) + 1;
 
     final result = await _getAssetMovementsByAssetIdUsecase.call(
       GetAssetMovementsByAssetIdUsecaseParams(
         assetId: filter.assetId,
         page: page,
-        limit: filter.limit ?? 10,
+        limit: filter.limit,
         search: filter.search,
-        sortBy: filter.sortBy?.name,
-        sortOrder: filter.sortOrder?.name,
-        startDate: filter.dateFrom != null
-            ? DateTime.parse(filter.dateFrom!)
-            : null,
-        endDate: filter.dateTo != null ? DateTime.parse(filter.dateTo!) : null,
+        sortBy: filter.sortBy,
+        sortOrder: filter.sortOrder,
+        startDate: filter.startDate,
+        endDate: filter.endDate,
       ),
     );
 
@@ -87,14 +84,14 @@ class GetAssetMovementsByAssetIdNotifier
           isLoading: false,
           isLoadingMore: false,
           failure: null,
-          hasMore: success.data!.length == (filter.limit ?? 10),
+          hasMore: success.data!.length == filter.limit,
         );
       },
     );
   }
 
   Future<void> loadAssetMovements({
-    AssetMovementsByAssetFilter? newFilter,
+    GetAssetMovementsByAssetIdUsecaseParams? newFilter,
   }) async {
     final filter = newFilter ?? state.filter;
 
@@ -120,7 +117,7 @@ class GetAssetMovementsByAssetIdNotifier
     state = newState;
   }
 
-  void updateFilter(AssetMovementsByAssetFilter newFilter) {
+  void updateFilter(GetAssetMovementsByAssetIdUsecaseParams newFilter) {
     state = state.copyWith(filter: newFilter);
   }
 }

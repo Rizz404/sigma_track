@@ -394,7 +394,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
   Widget _buildScannerOverlay() {
     return Container(
-      decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.5)),
       child: Stack(
         children: [
           // * Dark overlay with transparent center
@@ -425,7 +425,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.black.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const AppText(
@@ -494,7 +494,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
   Widget _buildLoadingOverlay() {
     return Container(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withValues(alpha: 0.7),
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -565,7 +565,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha: 0.7),
             shape: BoxShape.circle,
           ),
           child: IconButton(

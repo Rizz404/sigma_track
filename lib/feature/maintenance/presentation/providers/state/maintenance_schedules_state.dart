@@ -3,120 +3,72 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
 
-class MaintenanceSchedulesFilter extends Equatable {
-  final String? search;
-  final String? assetId;
-  final MaintenanceScheduleType? maintenanceType;
-  final ScheduleStatus? status;
-  final String? createdBy;
-  final String? fromDate;
-  final String? toDate;
-  final MaintenanceScheduleSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class MaintenanceScheduleMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  MaintenanceSchedulesFilter({
-    this.search,
-    this.assetId,
-    this.maintenanceType,
-    this.status,
-    this.createdBy,
-    this.fromDate,
-    this.toDate,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const MaintenanceScheduleMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  MaintenanceSchedulesFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? assetId,
-    ValueGetter<MaintenanceScheduleType?>? maintenanceType,
-    ValueGetter<ScheduleStatus?>? status,
-    ValueGetter<String?>? createdBy,
-    ValueGetter<String?>? fromDate,
-    ValueGetter<String?>? toDate,
-    ValueGetter<MaintenanceScheduleSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return MaintenanceSchedulesFilter(
-      search: search != null ? search() : this.search,
-      assetId: assetId != null ? assetId() : this.assetId,
-      maintenanceType: maintenanceType != null
-          ? maintenanceType()
-          : this.maintenanceType,
-      status: status != null ? status() : this.status,
-      createdBy: createdBy != null ? createdBy() : this.createdBy,
-      fromDate: fromDate != null ? fromDate() : this.fromDate,
-      toDate: toDate != null ? toDate() : this.toDate,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      assetId,
-      maintenanceType,
-      status,
-      createdBy,
-      fromDate,
-      toDate,
-      sortBy,
-      sortOrder,
-      cursor,
-      limit,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'MaintenanceSchedulesFilter(search: $search, assetId: $assetId, maintenanceType: $maintenanceType, status: $status, createdBy: $createdBy, fromDate: $fromDate, toDate: $toDate, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class MaintenanceSchedulesState extends Equatable {
   final List<MaintenanceSchedule> maintenanceSchedules;
-  final MaintenanceSchedule? mutatedMaintenanceSchedule;
-  final MaintenanceSchedulesFilter maintenanceSchedulesFilter;
+  final GetMaintenanceSchedulesCursorUsecaseParams maintenanceSchedulesFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final MaintenanceScheduleMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const MaintenanceSchedulesState({
     this.maintenanceSchedules = const [],
-    this.mutatedMaintenanceSchedule,
     required this.maintenanceSchedulesFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory MaintenanceSchedulesState.initial() => MaintenanceSchedulesState(
-    maintenanceSchedulesFilter: MaintenanceSchedulesFilter(),
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory MaintenanceSchedulesState.initial() => const MaintenanceSchedulesState(
+    maintenanceSchedulesFilter: GetMaintenanceSchedulesCursorUsecaseParams(),
     isLoading: true,
   );
 
   factory MaintenanceSchedulesState.loading({
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
     List<MaintenanceSchedule>? currentMaintenanceSchedules,
   }) => MaintenanceSchedulesState(
     maintenanceSchedules: currentMaintenanceSchedules ?? const [],
@@ -126,21 +78,19 @@ class MaintenanceSchedulesState extends Equatable {
 
   factory MaintenanceSchedulesState.success({
     required List<MaintenanceSchedule> maintenanceSchedules,
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
     Cursor? cursor,
-    String? message,
-    MaintenanceSchedule? mutatedMaintenanceSchedule,
   }) => MaintenanceSchedulesState(
     maintenanceSchedules: maintenanceSchedules,
     maintenanceSchedulesFilter: maintenanceSchedulesFilter,
     cursor: cursor,
-    message: message,
-    mutatedMaintenanceSchedule: mutatedMaintenanceSchedule,
   );
 
   factory MaintenanceSchedulesState.error({
     required Failure failure,
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
     List<MaintenanceSchedule>? currentMaintenanceSchedules,
   }) => MaintenanceSchedulesState(
     maintenanceSchedules: currentMaintenanceSchedules ?? const [],
@@ -150,7 +100,8 @@ class MaintenanceSchedulesState extends Equatable {
 
   factory MaintenanceSchedulesState.loadingMore({
     required List<MaintenanceSchedule> currentMaintenanceSchedules,
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
     Cursor? cursor,
   }) => MaintenanceSchedulesState(
     maintenanceSchedules: currentMaintenanceSchedules,
@@ -159,43 +110,120 @@ class MaintenanceSchedulesState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory MaintenanceSchedulesState.creating({
+    required List<MaintenanceSchedule> currentMaintenanceSchedules,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
+    Cursor? cursor,
+  }) => MaintenanceSchedulesState(
+    maintenanceSchedules: currentMaintenanceSchedules,
+    maintenanceSchedulesFilter: maintenanceSchedulesFilter,
+    cursor: cursor,
+    mutation: const MaintenanceScheduleMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceSchedulesState.updating({
+    required List<MaintenanceSchedule> currentMaintenanceSchedules,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
+    Cursor? cursor,
+  }) => MaintenanceSchedulesState(
+    maintenanceSchedules: currentMaintenanceSchedules,
+    maintenanceSchedulesFilter: maintenanceSchedulesFilter,
+    cursor: cursor,
+    mutation: const MaintenanceScheduleMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceSchedulesState.deleting({
+    required List<MaintenanceSchedule> currentMaintenanceSchedules,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
+    Cursor? cursor,
+  }) => MaintenanceSchedulesState(
+    maintenanceSchedules: currentMaintenanceSchedules,
+    maintenanceSchedulesFilter: maintenanceSchedulesFilter,
+    cursor: cursor,
+    mutation: const MaintenanceScheduleMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceSchedulesState.mutationSuccess({
+    required List<MaintenanceSchedule> maintenanceSchedules,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => MaintenanceSchedulesState(
+    maintenanceSchedules: maintenanceSchedules,
+    maintenanceSchedulesFilter: maintenanceSchedulesFilter,
+    cursor: cursor,
+    mutation: MaintenanceScheduleMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory MaintenanceSchedulesState.mutationError({
+    required List<MaintenanceSchedule> currentMaintenanceSchedules,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => MaintenanceSchedulesState(
+    maintenanceSchedules: currentMaintenanceSchedules,
+    maintenanceSchedulesFilter: maintenanceSchedulesFilter,
+    cursor: cursor,
+    mutation: MaintenanceScheduleMutationState(
+      type: mutationType,
+      failure: failure,
+    ),
+  );
+
   MaintenanceSchedulesState copyWith({
     List<MaintenanceSchedule>? maintenanceSchedules,
-    ValueGetter<MaintenanceSchedule?>? mutatedMaintenanceSchedule,
-    MaintenanceSchedulesFilter? maintenanceSchedulesFilter,
+    GetMaintenanceSchedulesCursorUsecaseParams? maintenanceSchedulesFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<MaintenanceScheduleMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return MaintenanceSchedulesState(
       maintenanceSchedules: maintenanceSchedules ?? this.maintenanceSchedules,
-      mutatedMaintenanceSchedule: mutatedMaintenanceSchedule != null
-          ? mutatedMaintenanceSchedule()
-          : this.mutatedMaintenanceSchedule,
       maintenanceSchedulesFilter:
           maintenanceSchedulesFilter ?? this.maintenanceSchedulesFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  MaintenanceSchedulesState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       maintenanceSchedules,
-      mutatedMaintenanceSchedule,
       maintenanceSchedulesFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

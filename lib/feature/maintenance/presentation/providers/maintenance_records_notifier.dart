@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -31,12 +32,12 @@ class MaintenanceRecordsNotifier
 
   Future<void> _initializeMaintenanceRecords() async {
     state = await _loadMaintenanceRecords(
-      maintenanceRecordsFilter: MaintenanceRecordsFilter(),
+      maintenanceRecordsFilter: const GetMaintenanceRecordsCursorUsecaseParams(),
     );
   }
 
   Future<MaintenanceRecordsState> _loadMaintenanceRecords({
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     List<MaintenanceRecord>? currentMaintenanceRecords,
   }) async {
     this.logPresentation(
@@ -93,7 +94,9 @@ class MaintenanceRecordsNotifier
     state = await _loadMaintenanceRecords(maintenanceRecordsFilter: newFilter);
   }
 
-  Future<void> updateFilter(MaintenanceRecordsFilter newFilter) async {
+  Future<void> updateFilter(
+    GetMaintenanceRecordsCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -178,10 +181,10 @@ class MaintenanceRecordsNotifier
   ) async {
     this.logPresentation('Creating maintenance record');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceRecordsState.creating(
+      currentMaintenanceRecords: state.maintenanceRecords,
+      maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createMaintenanceRecordUsecase.call(params);
@@ -189,22 +192,29 @@ class MaintenanceRecordsNotifier
     result.fold(
       (failure) {
         this.logError('Failed to create maintenance record', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceRecordsState.mutationError(
+          currentMaintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance record created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance record created',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
+
+        state = MaintenanceRecordsState.mutationSuccess(
+          maintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Maintenance record created',
+          cursor: state.cursor,
         );
       },
     );
@@ -215,10 +225,10 @@ class MaintenanceRecordsNotifier
   ) async {
     this.logPresentation('Updating maintenance record: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceRecordsState.updating(
+      currentMaintenanceRecords: state.maintenanceRecords,
+      maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateMaintenanceRecordUsecase.call(params);
@@ -226,22 +236,29 @@ class MaintenanceRecordsNotifier
     result.fold(
       (failure) {
         this.logError('Failed to update maintenance record', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceRecordsState.mutationError(
+          currentMaintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance record updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance record updated',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
+
+        state = MaintenanceRecordsState.mutationSuccess(
+          maintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Maintenance record updated',
+          cursor: state.cursor,
         );
       },
     );
@@ -252,10 +269,10 @@ class MaintenanceRecordsNotifier
   ) async {
     this.logPresentation('Deleting maintenance record: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceRecordsState.deleting(
+      currentMaintenanceRecords: state.maintenanceRecords,
+      maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteMaintenanceRecordUsecase.call(params);
@@ -263,22 +280,29 @@ class MaintenanceRecordsNotifier
     result.fold(
       (failure) {
         this.logError('Failed to delete maintenance record', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceRecordsState.mutationError(
+          currentMaintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance record deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance record deleted',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
+
+        state = MaintenanceRecordsState.mutationSuccess(
+          maintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Maintenance record deleted',
+          cursor: state.cursor,
         );
       },
     );

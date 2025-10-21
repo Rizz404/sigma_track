@@ -28,7 +28,7 @@ class IssueReportTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -108,7 +108,7 @@ class IssueReportTile extends StatelessWidget {
                               color: _getPriorityColor(
                                 context,
                                 issueReport.priority,
-                              ).withOpacity(0.1),
+                              ).withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
@@ -145,7 +145,7 @@ class IssueReportTile extends StatelessWidget {
                         color: _getStatusColor(
                           context,
                           issueReport.status,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(

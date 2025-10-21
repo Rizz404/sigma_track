@@ -21,7 +21,7 @@ class NotificationsSearchNotifier
   }
 
   Future<NotificationsState> _loadNotifications({
-    required NotificationsFilter notificationsFilter,
+    required GetNotificationsCursorUsecaseParams notificationsFilter,
   }) async {
     this.logPresentation(
       'Loading notifications with filter: $notificationsFilter',

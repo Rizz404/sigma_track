@@ -28,7 +28,7 @@ class AssetMovementTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(

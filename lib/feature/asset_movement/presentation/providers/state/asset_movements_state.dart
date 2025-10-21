@@ -3,129 +3,71 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 
-class AssetMovementsFilter extends Equatable {
-  final String? search;
-  final String? assetId;
-  final String? fromLocationId;
-  final String? toLocationId;
-  final String? fromUserId;
-  final String? toUserId;
-  final String? movedBy;
-  final String? dateFrom;
-  final String? dateTo;
-  final AssetMovementSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class AssetMovementMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  AssetMovementsFilter({
-    this.search,
-    this.assetId,
-    this.fromLocationId,
-    this.toLocationId,
-    this.fromUserId,
-    this.toUserId,
-    this.movedBy,
-    this.dateFrom,
-    this.dateTo,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const AssetMovementMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  AssetMovementsFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? assetId,
-    ValueGetter<String?>? fromLocationId,
-    ValueGetter<String?>? toLocationId,
-    ValueGetter<String?>? fromUserId,
-    ValueGetter<String?>? toUserId,
-    ValueGetter<String?>? movedBy,
-    ValueGetter<String?>? dateFrom,
-    ValueGetter<String?>? dateTo,
-    ValueGetter<AssetMovementSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return AssetMovementsFilter(
-      search: search != null ? search() : this.search,
-      assetId: assetId != null ? assetId() : this.assetId,
-      fromLocationId: fromLocationId != null
-          ? fromLocationId()
-          : this.fromLocationId,
-      toLocationId: toLocationId != null ? toLocationId() : this.toLocationId,
-      fromUserId: fromUserId != null ? fromUserId() : this.fromUserId,
-      toUserId: toUserId != null ? toUserId() : this.toUserId,
-      movedBy: movedBy != null ? movedBy() : this.movedBy,
-      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
-      dateTo: dateTo != null ? dateTo() : this.dateTo,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      assetId,
-      fromLocationId,
-      toLocationId,
-      fromUserId,
-      toUserId,
-      movedBy,
-      dateFrom,
-      dateTo,
-      sortBy,
-      sortOrder,
-      cursor,
-      limit,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'AssetMovementsFilter(search: $search, assetId: $assetId, fromLocationId: $fromLocationId, toLocationId: $toLocationId, fromUserId: $fromUserId, toUserId: $toUserId, movedBy: $movedBy, dateFrom: $dateFrom, dateTo: $dateTo, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class AssetMovementsState extends Equatable {
   final List<AssetMovement> assetMovements;
-  final AssetMovement? mutatedAssetMovement;
-  final AssetMovementsFilter assetMovementsFilter;
+  final GetAssetMovementsCursorUsecaseParams assetMovementsFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final AssetMovementMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const AssetMovementsState({
     this.assetMovements = const [],
-    this.mutatedAssetMovement,
     required this.assetMovementsFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory AssetMovementsState.initial() => AssetMovementsState(
-    assetMovementsFilter: AssetMovementsFilter(),
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory AssetMovementsState.initial() => const AssetMovementsState(
+    assetMovementsFilter: GetAssetMovementsCursorUsecaseParams(),
     isLoading: true,
   );
 
   factory AssetMovementsState.loading({
-    required AssetMovementsFilter assetMovementsFilter,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
     List<AssetMovement>? currentAssetMovements,
   }) => AssetMovementsState(
     assetMovements: currentAssetMovements ?? const [],
@@ -135,21 +77,17 @@ class AssetMovementsState extends Equatable {
 
   factory AssetMovementsState.success({
     required List<AssetMovement> assetMovements,
-    required AssetMovementsFilter assetMovementsFilter,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
     Cursor? cursor,
-    String? message,
-    AssetMovement? mutatedAssetMovement,
   }) => AssetMovementsState(
     assetMovements: assetMovements,
     assetMovementsFilter: assetMovementsFilter,
     cursor: cursor,
-    message: message,
-    mutatedAssetMovement: mutatedAssetMovement,
   );
 
   factory AssetMovementsState.error({
     required Failure failure,
-    required AssetMovementsFilter assetMovementsFilter,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
     List<AssetMovement>? currentAssetMovements,
   }) => AssetMovementsState(
     assetMovements: currentAssetMovements ?? const [],
@@ -159,7 +97,7 @@ class AssetMovementsState extends Equatable {
 
   factory AssetMovementsState.loadingMore({
     required List<AssetMovement> currentAssetMovements,
-    required AssetMovementsFilter assetMovementsFilter,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
     Cursor? cursor,
   }) => AssetMovementsState(
     assetMovements: currentAssetMovements,
@@ -168,42 +106,111 @@ class AssetMovementsState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory AssetMovementsState.creating({
+    required List<AssetMovement> currentAssetMovements,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
+    Cursor? cursor,
+  }) => AssetMovementsState(
+    assetMovements: currentAssetMovements,
+    assetMovementsFilter: assetMovementsFilter,
+    cursor: cursor,
+    mutation: const AssetMovementMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory AssetMovementsState.updating({
+    required List<AssetMovement> currentAssetMovements,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
+    Cursor? cursor,
+  }) => AssetMovementsState(
+    assetMovements: currentAssetMovements,
+    assetMovementsFilter: assetMovementsFilter,
+    cursor: cursor,
+    mutation: const AssetMovementMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory AssetMovementsState.deleting({
+    required List<AssetMovement> currentAssetMovements,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
+    Cursor? cursor,
+  }) => AssetMovementsState(
+    assetMovements: currentAssetMovements,
+    assetMovementsFilter: assetMovementsFilter,
+    cursor: cursor,
+    mutation: const AssetMovementMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory AssetMovementsState.mutationSuccess({
+    required List<AssetMovement> assetMovements,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => AssetMovementsState(
+    assetMovements: assetMovements,
+    assetMovementsFilter: assetMovementsFilter,
+    cursor: cursor,
+    mutation: AssetMovementMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory AssetMovementsState.mutationError({
+    required List<AssetMovement> currentAssetMovements,
+    required GetAssetMovementsCursorUsecaseParams assetMovementsFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => AssetMovementsState(
+    assetMovements: currentAssetMovements,
+    assetMovementsFilter: assetMovementsFilter,
+    cursor: cursor,
+    mutation: AssetMovementMutationState(type: mutationType, failure: failure),
+  );
+
   AssetMovementsState copyWith({
     List<AssetMovement>? assetMovements,
-    ValueGetter<AssetMovement?>? mutatedAssetMovement,
-    AssetMovementsFilter? assetMovementsFilter,
+    GetAssetMovementsCursorUsecaseParams? assetMovementsFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<AssetMovementMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return AssetMovementsState(
       assetMovements: assetMovements ?? this.assetMovements,
-      mutatedAssetMovement: mutatedAssetMovement != null
-          ? mutatedAssetMovement()
-          : this.mutatedAssetMovement,
       assetMovementsFilter: assetMovementsFilter ?? this.assetMovementsFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  AssetMovementsState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       assetMovements,
-      mutatedAssetMovement,
       assetMovementsFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

@@ -12,8 +12,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
-import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -64,7 +64,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
     if (_filterFormKey.currentState?.saveAndValidate() ?? false) {
       final formData = _filterFormKey.currentState!.value;
 
-      final newFilter = AssetsFilter(
+      final newFilter = GetAssetsCursorUsecaseParams(
         status: formData['status'] != null
             ? AssetStatus.values.firstWhere(
                 (e) => e.value == formData['status'],

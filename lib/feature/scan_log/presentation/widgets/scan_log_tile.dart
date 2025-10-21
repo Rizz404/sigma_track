@@ -28,7 +28,7 @@ class ScanLogTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -68,7 +68,7 @@ class ScanLogTile extends StatelessWidget {
                     color: _getResultColor(
                       context,
                       scanLog.scanResult,
-                    ).withOpacity(0.1),
+                    ).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -98,7 +98,9 @@ class ScanLogTile extends StatelessWidget {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: context.semantic.info.withOpacity(0.1),
+                              color: context.semantic.info.withValues(
+                                alpha: 0.1,
+                              ),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
@@ -153,7 +155,7 @@ class ScanLogTile extends StatelessWidget {
                         color: _getResultColor(
                           context,
                           scanLog.scanResult,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(

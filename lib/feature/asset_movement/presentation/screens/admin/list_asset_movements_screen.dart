@@ -11,8 +11,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movement_providers.dart';
-import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movements_state.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/widgets/asset_movement_tile.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
@@ -325,13 +325,13 @@ class _ListAssetMovementsScreenState
                 ],
               ),
               const SizedBox(height: 16),
-              AppDateTimePicker(
+              const AppDateTimePicker(
                 name: 'dateFrom',
                 label: 'Date From',
                 inputType: InputType.date,
               ),
               const SizedBox(height: 16),
-              AppDateTimePicker(
+              const AppDateTimePicker(
                 name: 'dateTo',
                 label: 'Date To',
                 inputType: InputType.date,
@@ -381,7 +381,7 @@ class _ListAssetMovementsScreenState
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = AssetMovementsFilter(
+                        final newFilter = GetAssetMovementsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -414,27 +414,28 @@ class _ListAssetMovementsScreenState
                           final dateFrom = formData['dateFrom'] as DateTime?;
                           final dateTo = formData['dateTo'] as DateTime?;
 
-                          final newFilter = AssetMovementsFilter(
-                            search: currentFilter.search,
-                            assetId: assetId,
-                            fromLocationId: fromLocationId,
-                            toLocationId: toLocationId,
-                            fromUserId: fromUserId,
-                            toUserId: toUserId,
-                            movedBy: movedBy,
-                            dateFrom: dateFrom?.toIso8601String(),
-                            dateTo: dateTo?.toIso8601String(),
-                            sortBy: sortByStr != null
-                                ? AssetMovementSortBy.values.firstWhere(
-                                    (e) => e.value == sortByStr,
-                                  )
-                                : null,
-                            sortOrder: sortOrderStr != null
-                                ? SortOrder.values.firstWhere(
-                                    (e) => e.value == sortOrderStr,
-                                  )
-                                : null,
-                          );
+                          final newFilter =
+                              GetAssetMovementsCursorUsecaseParams(
+                                search: currentFilter.search,
+                                assetId: assetId,
+                                fromLocationId: fromLocationId,
+                                toLocationId: toLocationId,
+                                fromUserId: fromUserId,
+                                toUserId: toUserId,
+                                movedBy: movedBy,
+                                dateFrom: dateFrom?.toIso8601String(),
+                                dateTo: dateTo?.toIso8601String(),
+                                sortBy: sortByStr != null
+                                    ? AssetMovementSortBy.values.firstWhere(
+                                        (e) => e.value == sortByStr,
+                                      )
+                                    : null,
+                                sortOrder: sortOrderStr != null
+                                    ? SortOrder.values.firstWhere(
+                                        (e) => e.value == sortOrderStr,
+                                      )
+                                    : null,
+                              );
 
                           Navigator.pop(context);
                           ref
@@ -518,13 +519,15 @@ class _ListAssetMovementsScreenState
     final state = ref.watch(assetMovementsProvider);
 
     ref.listen(assetMovementsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('AssetMovements error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('AssetMovements mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -581,7 +584,7 @@ class _ListAssetMovementsScreenState
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

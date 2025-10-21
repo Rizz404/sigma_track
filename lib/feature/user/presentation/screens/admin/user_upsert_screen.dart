@@ -90,23 +90,29 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen<UsersState>(usersProvider, (previous, next) {
+      // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
       } else {
         context.loaderOverlay.hide();
       }
 
-      if (!next.isMutating && next.message != null && next.failure == null) {
-        AppToast.success(next.message ?? 'User saved successfully');
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage ?? 'User saved successfully');
         context.pop();
-      } else if (next.failure != null) {
-        if (next.failure is ValidationFailure) {
+      }
+
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        if (next.mutationFailure is ValidationFailure) {
           setState(
-            () => validationErrors = (next.failure as ValidationFailure).errors,
+            () => validationErrors =
+                (next.mutationFailure as ValidationFailure).errors,
           );
         } else {
-          this.logError('User mutation error', next.failure);
-          AppToast.error(next.failure?.message ?? 'Operation failed');
+          this.logError('User mutation error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
         }
       }
     });
@@ -269,7 +275,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         border: Border(top: BorderSide(color: context.colors.border, width: 1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

@@ -29,10 +29,10 @@ class NotificationTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : notification.isRead
         ? null
-        : context.colorScheme.primaryContainer.withOpacity(0.05);
+        : context.colorScheme.primaryContainer.withValues(alpha: 0.05);
 
     return Card(
       elevation: 0,
@@ -71,7 +71,7 @@ class NotificationTile extends StatelessWidget {
                     color: _getTypeColor(
                       context,
                       notification.type,
-                    ).withOpacity(0.1),
+                    ).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(

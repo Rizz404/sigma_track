@@ -452,10 +452,10 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: context.colors.surfaceVariant.withOpacity(0.5),
+              color: context.colors.surfaceVariant.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: context.colors.primary.withOpacity(0.3),
+                color: context.colors.primary.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),

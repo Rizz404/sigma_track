@@ -18,7 +18,7 @@ class MaintenanceRecordsSearchNotifier
   }
 
   Future<MaintenanceRecordsState> _loadMaintenanceRecords({
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
   }) async {
     this.logPresentation(
       'Loading maintenance records with filter: $maintenanceRecordsFilter',

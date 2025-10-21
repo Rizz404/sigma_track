@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -26,31 +27,18 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
   }
 
   Future<void> _initializeScanLogs() async {
-    state = await _loadScanLogs(scanLogsFilter: ScanLogsFilter());
+    state = await _loadScanLogs(
+      scanLogsFilter: const GetScanLogsCursorUsecaseParams(),
+    );
   }
 
   Future<ScanLogsState> _loadScanLogs({
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
     List<ScanLog>? currentScanLogs,
   }) async {
     this.logPresentation('Loading scan logs with filter: $scanLogsFilter');
 
-    final result = await _getScanLogsCursorUsecase.call(
-      GetScanLogsCursorUsecaseParams(
-        search: scanLogsFilter.search,
-        scanMethod: scanLogsFilter.scanMethod,
-        scanResult: scanLogsFilter.scanResult,
-        scannedBy: scanLogsFilter.scannedBy,
-        assetId: scanLogsFilter.assetId,
-        dateFrom: scanLogsFilter.dateFrom,
-        dateTo: scanLogsFilter.dateTo,
-        hasCoordinates: scanLogsFilter.hasCoordinates,
-        sortBy: scanLogsFilter.sortBy,
-        sortOrder: scanLogsFilter.sortOrder,
-        cursor: scanLogsFilter.cursor,
-        limit: scanLogsFilter.limit,
-      ),
-    );
+    final result = await _getScanLogsCursorUsecase.call(scanLogsFilter);
 
     return result.fold(
       (failure) {
@@ -84,7 +72,7 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
     state = await _loadScanLogs(scanLogsFilter: newFilter);
   }
 
-  Future<void> updateFilter(ScanLogsFilter newFilter) async {
+  Future<void> updateFilter(GetScanLogsCursorUsecaseParams newFilter) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -164,10 +152,10 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
   Future<void> createScanLog(CreateScanLogUsecaseParams params) async {
     this.logPresentation('Creating scan log');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = ScanLogsState.creating(
+      currentScanLogs: state.scanLogs,
+      scanLogsFilter: state.scanLogsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createScanLogUsecase.call(params);
@@ -175,21 +163,28 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
     result.fold(
       (failure) {
         this.logError('Failed to create scan log', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = ScanLogsState.mutationError(
+          currentScanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Scan log created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Scan log created',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
+
+        state = ScanLogsState.mutationSuccess(
+          scanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Scan log created',
+          cursor: state.cursor,
+        );
       },
     );
   }
@@ -197,10 +192,10 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
   Future<void> deleteScanLog(DeleteScanLogUsecaseParams params) async {
     this.logPresentation('Deleting scan log: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = ScanLogsState.deleting(
+      currentScanLogs: state.scanLogs,
+      scanLogsFilter: state.scanLogsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteScanLogUsecase.call(params);
@@ -208,21 +203,28 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete scan log', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = ScanLogsState.mutationError(
+          currentScanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Scan log deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Scan log deleted',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
+
+        state = ScanLogsState.mutationSuccess(
+          scanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Scan log deleted',
+          cursor: state.cursor,
+        );
       },
     );
   }

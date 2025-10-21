@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
@@ -156,21 +157,17 @@ class _MaintenanceScheduleDetailScreenState
       previous,
       next,
     ) {
-      // * Only handle delete success
-      final wasDeleting =
-          previous?.isMutating == true && previous?.message == null;
-      final isDeleteSuccess =
-          !next.isMutating &&
-          next.message != null &&
-          next.failure == null &&
-          wasDeleting;
-
-      if (isDeleteSuccess) {
-        AppToast.success(next.message ?? 'Operation successful');
-        Navigator.pop(context);
-      } else if (next.failure != null && previous?.isMutating == true) {
-        this.logError('Maintenance schedule mutation error', next.failure);
-        AppToast.error(next.failure?.message ?? 'Operation failed');
+      // * Only handle delete mutation
+      if (next.mutation?.type == MutationType.delete) {
+        if (next.hasMutationSuccess) {
+          AppToast.success(
+            next.mutationMessage ?? 'Maintenance schedule deleted',
+          );
+          context.pop();
+        } else if (next.hasMutationError) {
+          this.logError('Delete error', next.mutationFailure);
+          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+        }
       }
     });
 

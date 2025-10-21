@@ -37,7 +37,7 @@ class NotificationItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: notification.isRead
                 ? context.colors.surface
-                : context.colorScheme.primaryContainer.withOpacity(0.1),
+                : context.colorScheme.primaryContainer.withValues(alpha: 0.1),
             border: Border(
               bottom: BorderSide(color: context.colors.border, width: 1),
             ),
@@ -114,7 +114,7 @@ class NotificationItem extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         shape: BoxShape.circle,
       ),
       child: Icon(icon, color: color, size: 20),

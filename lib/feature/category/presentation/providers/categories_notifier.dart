@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -29,26 +30,18 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   Future<void> _initializeCategories() async {
-    state = await _loadCategories(categoriesFilter: CategoriesFilter());
+    state = await _loadCategories(
+      categoriesFilter: GetCategoriesCursorUsecaseParams(),
+    );
   }
 
   Future<CategoriesState> _loadCategories({
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
     List<Category>? currentCategories,
   }) async {
     this.logPresentation('Loading categories with filter: $categoriesFilter');
 
-    final result = await _getCategoriesCursorUsecase.call(
-      GetCategoriesCursorUsecaseParams(
-        search: categoriesFilter.search,
-        parentId: categoriesFilter.parentId,
-        hasParent: categoriesFilter.hasParent,
-        sortBy: categoriesFilter.sortBy,
-        sortOrder: categoriesFilter.sortOrder,
-        cursor: categoriesFilter.cursor,
-        limit: categoriesFilter.limit,
-      ),
-    );
+    final result = await _getCategoriesCursorUsecase.call(categoriesFilter);
 
     return result.fold(
       (failure) {
@@ -82,7 +75,7 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     state = await _loadCategories(categoriesFilter: newFilter);
   }
 
-  Future<void> updateFilter(CategoriesFilter newFilter) async {
+  Future<void> updateFilter(GetCategoriesCursorUsecaseParams newFilter) async {
     this.logPresentation(
       'Updating filter - received: sortBy=${newFilter.sortBy}, sortOrder=${newFilter.sortOrder}, hasParent=${newFilter.hasParent}, parentId=${newFilter.parentId}',
     );
@@ -156,10 +149,10 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> createCategory(CreateCategoryUsecaseParams params) async {
     this.logPresentation('Creating category');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = CategoriesState.creating(
+      currentCategories: state.categories,
+      categoriesFilter: state.categoriesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createCategoryUsecase.call(params);
@@ -167,21 +160,31 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     result.fold(
       (failure) {
         this.logError('Failed to create category', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = CategoriesState.mutationError(
+          currentCategories: state.categories,
+          categoriesFilter: state.categoriesFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Category created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Category created',
-          isMutating: false,
+        // * Reload categories dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadCategories(
+          categoriesFilter: state.categoriesFilter,
         );
 
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
+        // * Set mutation success setelah reload
+        state = CategoriesState.mutationSuccess(
+          categories: newState.categories,
+          categoriesFilter: newState.categoriesFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Category created',
+          cursor: newState.cursor,
+        );
       },
     );
   }
@@ -189,10 +192,10 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> updateCategory(UpdateCategoryUsecaseParams params) async {
     this.logPresentation('Updating category: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = CategoriesState.updating(
+      currentCategories: state.categories,
+      categoriesFilter: state.categoriesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateCategoryUsecase.call(params);
@@ -200,21 +203,31 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     result.fold(
       (failure) {
         this.logError('Failed to update category', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = CategoriesState.mutationError(
+          currentCategories: state.categories,
+          categoriesFilter: state.categoriesFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Category updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Category updated',
-          isMutating: false,
+        // * Reload categories dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadCategories(
+          categoriesFilter: state.categoriesFilter,
         );
 
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
+        // * Set mutation success setelah reload
+        state = CategoriesState.mutationSuccess(
+          categories: newState.categories,
+          categoriesFilter: newState.categoriesFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Category updated',
+          cursor: newState.cursor,
+        );
       },
     );
   }
@@ -222,10 +235,10 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   Future<void> deleteCategory(DeleteCategoryUsecaseParams params) async {
     this.logPresentation('Deleting category: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = CategoriesState.deleting(
+      currentCategories: state.categories,
+      categoriesFilter: state.categoriesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteCategoryUsecase.call(params);
@@ -233,24 +246,31 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete category', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = CategoriesState.mutationError(
+          currentCategories: state.categories,
+          categoriesFilter: state.categoriesFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Category deleted successfully');
 
-        // * Set message untuk listener (detail screen akan pop)
-        state = state.copyWith(
-          message: () => success.message ?? 'Category deleted',
-          isMutating: false,
+        // * Reload categories dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadCategories(
+          categoriesFilter: state.categoriesFilter,
         );
 
-        // * Wait a bit untuk listener consume message, lalu refresh
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        // * Clear message sebelum refresh untuk avoid double toast
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadCategories(categoriesFilter: state.categoriesFilter);
+        // * Set mutation success setelah reload
+        state = CategoriesState.mutationSuccess(
+          categories: newState.categories,
+          categoriesFilter: newState.categoriesFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Category deleted',
+          cursor: newState.cursor,
+        );
       },
     );
   }

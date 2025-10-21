@@ -28,7 +28,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
         ? context.colorScheme.primary
         : context.colors.border;
     final Color? tileColor = isSelected
-        ? context.colorScheme.primaryContainer.withOpacity(0.3)
+        ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
     return Card(
@@ -99,7 +99,9 @@ class MaintenanceScheduleTile extends StatelessWidget {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: context.semantic.info.withOpacity(0.1),
+                              color: context.semantic.info.withValues(
+                                alpha: 0.1,
+                              ),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
@@ -136,7 +138,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                         color: _getStatusColor(
                           context,
                           maintenanceSchedule.status,
-                        ).withOpacity(0.1),
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(

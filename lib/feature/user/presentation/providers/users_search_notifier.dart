@@ -18,7 +18,9 @@ class UsersSearchNotifier extends AutoDisposeNotifier<UsersState> {
     return UsersState.initial();
   }
 
-  Future<UsersState> _loadUsers({required UsersFilter usersFilter}) async {
+  Future<UsersState> _loadUsers({
+    required GetUsersCursorUsecaseParams usersFilter,
+  }) async {
     this.logPresentation('Loading users with filter: $usersFilter');
 
     final result = await _getUsersCursorUsecase.call(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -32,12 +33,13 @@ class MaintenanceSchedulesNotifier
 
   Future<void> _initializeMaintenanceSchedules() async {
     state = await _loadMaintenanceSchedules(
-      maintenanceSchedulesFilter: MaintenanceSchedulesFilter(),
+      maintenanceSchedulesFilter: const GetMaintenanceSchedulesCursorUsecaseParams(),
     );
   }
 
   Future<MaintenanceSchedulesState> _loadMaintenanceSchedules({
-    required MaintenanceSchedulesFilter maintenanceSchedulesFilter,
+    required GetMaintenanceSchedulesCursorUsecaseParams
+    maintenanceSchedulesFilter,
     List<MaintenanceSchedule>? currentMaintenanceSchedules,
   }) async {
     this.logPresentation(
@@ -97,7 +99,9 @@ class MaintenanceSchedulesNotifier
     );
   }
 
-  Future<void> updateFilter(MaintenanceSchedulesFilter newFilter) async {
+  Future<void> updateFilter(
+    GetMaintenanceSchedulesCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -182,10 +186,10 @@ class MaintenanceSchedulesNotifier
   ) async {
     this.logPresentation('Creating maintenance schedule');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceSchedulesState.creating(
+      currentMaintenanceSchedules: state.maintenanceSchedules,
+      maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createMaintenanceScheduleUsecase.call(params);
@@ -193,22 +197,29 @@ class MaintenanceSchedulesNotifier
     result.fold(
       (failure) {
         this.logError('Failed to create maintenance schedule', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceSchedulesState.mutationError(
+          currentMaintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance schedule created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance schedule created',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
+
+        state = MaintenanceSchedulesState.mutationSuccess(
+          maintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Maintenance schedule created',
+          cursor: state.cursor,
         );
       },
     );
@@ -219,10 +230,10 @@ class MaintenanceSchedulesNotifier
   ) async {
     this.logPresentation('Updating maintenance schedule: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceSchedulesState.updating(
+      currentMaintenanceSchedules: state.maintenanceSchedules,
+      maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateMaintenanceScheduleUsecase.call(params);
@@ -230,22 +241,29 @@ class MaintenanceSchedulesNotifier
     result.fold(
       (failure) {
         this.logError('Failed to update maintenance schedule', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceSchedulesState.mutationError(
+          currentMaintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance schedule updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance schedule updated',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
+
+        state = MaintenanceSchedulesState.mutationSuccess(
+          maintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Maintenance schedule updated',
+          cursor: state.cursor,
         );
       },
     );
@@ -256,10 +274,10 @@ class MaintenanceSchedulesNotifier
   ) async {
     this.logPresentation('Deleting maintenance schedule: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = MaintenanceSchedulesState.deleting(
+      currentMaintenanceSchedules: state.maintenanceSchedules,
+      maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteMaintenanceScheduleUsecase.call(params);
@@ -267,22 +285,29 @@ class MaintenanceSchedulesNotifier
     result.fold(
       (failure) {
         this.logError('Failed to delete maintenance schedule', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = MaintenanceSchedulesState.mutationError(
+          currentMaintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Maintenance schedule deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Maintenance schedule deleted',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
+
+        state = MaintenanceSchedulesState.mutationSuccess(
+          maintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Maintenance schedule deleted',
+          cursor: state.cursor,
         );
       },
     );

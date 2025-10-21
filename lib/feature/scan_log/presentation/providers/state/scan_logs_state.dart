@@ -3,123 +3,71 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
 
-class ScanLogsFilter extends Equatable {
-  final String? search;
-  final ScanMethodType? scanMethod;
-  final ScanResultType? scanResult;
-  final String? scannedBy;
-  final String? assetId;
-  final String? dateFrom;
-  final String? dateTo;
-  final bool? hasCoordinates;
-  final ScanLogSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class ScanLogMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  ScanLogsFilter({
-    this.search,
-    this.scanMethod,
-    this.scanResult,
-    this.scannedBy,
-    this.assetId,
-    this.dateFrom,
-    this.dateTo,
-    this.hasCoordinates,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const ScanLogMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  ScanLogsFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<ScanMethodType?>? scanMethod,
-    ValueGetter<ScanResultType?>? scanResult,
-    ValueGetter<String?>? scannedBy,
-    ValueGetter<String?>? assetId,
-    ValueGetter<String?>? dateFrom,
-    ValueGetter<String?>? dateTo,
-    ValueGetter<bool?>? hasCoordinates,
-    ValueGetter<ScanLogSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return ScanLogsFilter(
-      search: search != null ? search() : this.search,
-      scanMethod: scanMethod != null ? scanMethod() : this.scanMethod,
-      scanResult: scanResult != null ? scanResult() : this.scanResult,
-      scannedBy: scannedBy != null ? scannedBy() : this.scannedBy,
-      assetId: assetId != null ? assetId() : this.assetId,
-      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
-      dateTo: dateTo != null ? dateTo() : this.dateTo,
-      hasCoordinates: hasCoordinates != null
-          ? hasCoordinates()
-          : this.hasCoordinates,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      scanMethod,
-      scanResult,
-      scannedBy,
-      assetId,
-      dateFrom,
-      dateTo,
-      hasCoordinates,
-      sortBy,
-      sortOrder,
-      cursor,
-      limit,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'ScanLogsFilter(search: $search, scanMethod: $scanMethod, scanResult: $scanResult, scannedBy: $scannedBy, assetId: $assetId, dateFrom: $dateFrom, dateTo: $dateTo, hasCoordinates: $hasCoordinates, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class ScanLogsState extends Equatable {
   final List<ScanLog> scanLogs;
-  final ScanLog? mutatedScanLog;
-  final ScanLogsFilter scanLogsFilter;
+  final GetScanLogsCursorUsecaseParams scanLogsFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final ScanLogMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const ScanLogsState({
     this.scanLogs = const [],
-    this.mutatedScanLog,
     required this.scanLogsFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory ScanLogsState.initial() =>
-      ScanLogsState(scanLogsFilter: ScanLogsFilter(), isLoading: true);
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory ScanLogsState.initial() => const ScanLogsState(
+    scanLogsFilter: GetScanLogsCursorUsecaseParams(),
+    isLoading: true,
+  );
 
   factory ScanLogsState.loading({
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
     List<ScanLog>? currentScanLogs,
   }) => ScanLogsState(
     scanLogs: currentScanLogs ?? const [],
@@ -129,21 +77,17 @@ class ScanLogsState extends Equatable {
 
   factory ScanLogsState.success({
     required List<ScanLog> scanLogs,
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
     Cursor? cursor,
-    String? message,
-    ScanLog? mutatedScanLog,
   }) => ScanLogsState(
     scanLogs: scanLogs,
     scanLogsFilter: scanLogsFilter,
     cursor: cursor,
-    message: message,
-    mutatedScanLog: mutatedScanLog,
   );
 
   factory ScanLogsState.error({
     required Failure failure,
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
     List<ScanLog>? currentScanLogs,
   }) => ScanLogsState(
     scanLogs: currentScanLogs ?? const [],
@@ -153,7 +97,7 @@ class ScanLogsState extends Equatable {
 
   factory ScanLogsState.loadingMore({
     required List<ScanLog> currentScanLogs,
-    required ScanLogsFilter scanLogsFilter,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
     Cursor? cursor,
   }) => ScanLogsState(
     scanLogs: currentScanLogs,
@@ -162,42 +106,108 @@ class ScanLogsState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory ScanLogsState.creating({
+    required List<ScanLog> currentScanLogs,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
+    Cursor? cursor,
+  }) => ScanLogsState(
+    scanLogs: currentScanLogs,
+    scanLogsFilter: scanLogsFilter,
+    cursor: cursor,
+    mutation: const ScanLogMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory ScanLogsState.updating({
+    required List<ScanLog> currentScanLogs,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
+    Cursor? cursor,
+  }) => ScanLogsState(
+    scanLogs: currentScanLogs,
+    scanLogsFilter: scanLogsFilter,
+    cursor: cursor,
+    mutation: const ScanLogMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory ScanLogsState.deleting({
+    required List<ScanLog> currentScanLogs,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
+    Cursor? cursor,
+  }) => ScanLogsState(
+    scanLogs: currentScanLogs,
+    scanLogsFilter: scanLogsFilter,
+    cursor: cursor,
+    mutation: const ScanLogMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory ScanLogsState.mutationSuccess({
+    required List<ScanLog> scanLogs,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => ScanLogsState(
+    scanLogs: scanLogs,
+    scanLogsFilter: scanLogsFilter,
+    cursor: cursor,
+    mutation: ScanLogMutationState(type: mutationType, successMessage: message),
+  );
+
+  factory ScanLogsState.mutationError({
+    required List<ScanLog> currentScanLogs,
+    required GetScanLogsCursorUsecaseParams scanLogsFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => ScanLogsState(
+    scanLogs: currentScanLogs,
+    scanLogsFilter: scanLogsFilter,
+    cursor: cursor,
+    mutation: ScanLogMutationState(type: mutationType, failure: failure),
+  );
+
   ScanLogsState copyWith({
     List<ScanLog>? scanLogs,
-    ValueGetter<ScanLog?>? mutatedScanLog,
-    ScanLogsFilter? scanLogsFilter,
+    GetScanLogsCursorUsecaseParams? scanLogsFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<ScanLogMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return ScanLogsState(
       scanLogs: scanLogs ?? this.scanLogs,
-      mutatedScanLog: mutatedScanLog != null
-          ? mutatedScanLog()
-          : this.mutatedScanLog,
       scanLogsFilter: scanLogsFilter ?? this.scanLogsFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  ScanLogsState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       scanLogs,
-      mutatedScanLog,
       scanLogsFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

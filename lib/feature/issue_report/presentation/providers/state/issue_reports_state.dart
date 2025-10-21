@@ -3,133 +3,71 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
-import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
 
-class IssueReportsFilter extends Equatable {
-  final String? search;
-  final String? assetId;
-  final String? reportedBy;
-  final String? resolvedBy;
-  final String? issueType;
-  final IssuePriority? priority;
-  final IssueStatus? status;
-  final bool? isResolved;
-  final String? dateFrom;
-  final String? dateTo;
-  final IssueReportSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class IssueReportMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  IssueReportsFilter({
-    this.search,
-    this.assetId,
-    this.reportedBy,
-    this.resolvedBy,
-    this.issueType,
-    this.priority,
-    this.status,
-    this.isResolved,
-    this.dateFrom,
-    this.dateTo,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const IssueReportMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  IssueReportsFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? assetId,
-    ValueGetter<String?>? reportedBy,
-    ValueGetter<String?>? resolvedBy,
-    ValueGetter<String?>? issueType,
-    ValueGetter<IssuePriority?>? priority,
-    ValueGetter<IssueStatus?>? status,
-    ValueGetter<bool?>? isResolved,
-    ValueGetter<String?>? dateFrom,
-    ValueGetter<String?>? dateTo,
-    ValueGetter<IssueReportSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return IssueReportsFilter(
-      search: search != null ? search() : this.search,
-      assetId: assetId != null ? assetId() : this.assetId,
-      reportedBy: reportedBy != null ? reportedBy() : this.reportedBy,
-      resolvedBy: resolvedBy != null ? resolvedBy() : this.resolvedBy,
-      issueType: issueType != null ? issueType() : this.issueType,
-      priority: priority != null ? priority() : this.priority,
-      status: status != null ? status() : this.status,
-      isResolved: isResolved != null ? isResolved() : this.isResolved,
-      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
-      dateTo: dateTo != null ? dateTo() : this.dateTo,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      assetId,
-      reportedBy,
-      resolvedBy,
-      issueType,
-      priority,
-      status,
-      isResolved,
-      dateFrom,
-      dateTo,
-      sortBy,
-      sortOrder,
-      cursor,
-      limit,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'IssueReportsFilter(search: $search, assetId: $assetId, reportedBy: $reportedBy, resolvedBy: $resolvedBy, issueType: $issueType, priority: $priority, status: $status, isResolved: $isResolved, dateFrom: $dateFrom, dateTo: $dateTo, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class IssueReportsState extends Equatable {
   final List<IssueReport> issueReports;
-  final IssueReport? mutatedIssueReport;
-  final IssueReportsFilter issueReportsFilter;
+  final GetIssueReportsCursorUsecaseParams issueReportsFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final IssueReportMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const IssueReportsState({
     this.issueReports = const [],
-    this.mutatedIssueReport,
     required this.issueReportsFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory IssueReportsState.initial() => IssueReportsState(
-    issueReportsFilter: IssueReportsFilter(),
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory IssueReportsState.initial() => const IssueReportsState(
+    issueReportsFilter: GetIssueReportsCursorUsecaseParams(),
     isLoading: true,
   );
 
   factory IssueReportsState.loading({
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     List<IssueReport>? currentIssueReports,
   }) => IssueReportsState(
     issueReports: currentIssueReports ?? const [],
@@ -139,21 +77,17 @@ class IssueReportsState extends Equatable {
 
   factory IssueReportsState.success({
     required List<IssueReport> issueReports,
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     Cursor? cursor,
-    String? message,
-    IssueReport? mutatedIssueReport,
   }) => IssueReportsState(
     issueReports: issueReports,
     issueReportsFilter: issueReportsFilter,
     cursor: cursor,
-    message: message,
-    mutatedIssueReport: mutatedIssueReport,
   );
 
   factory IssueReportsState.error({
     required Failure failure,
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     List<IssueReport>? currentIssueReports,
   }) => IssueReportsState(
     issueReports: currentIssueReports ?? const [],
@@ -163,7 +97,7 @@ class IssueReportsState extends Equatable {
 
   factory IssueReportsState.loadingMore({
     required List<IssueReport> currentIssueReports,
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     Cursor? cursor,
   }) => IssueReportsState(
     issueReports: currentIssueReports,
@@ -172,42 +106,111 @@ class IssueReportsState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory IssueReportsState.creating({
+    required List<IssueReport> currentIssueReports,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
+    Cursor? cursor,
+  }) => IssueReportsState(
+    issueReports: currentIssueReports,
+    issueReportsFilter: issueReportsFilter,
+    cursor: cursor,
+    mutation: const IssueReportMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory IssueReportsState.updating({
+    required List<IssueReport> currentIssueReports,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
+    Cursor? cursor,
+  }) => IssueReportsState(
+    issueReports: currentIssueReports,
+    issueReportsFilter: issueReportsFilter,
+    cursor: cursor,
+    mutation: const IssueReportMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory IssueReportsState.deleting({
+    required List<IssueReport> currentIssueReports,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
+    Cursor? cursor,
+  }) => IssueReportsState(
+    issueReports: currentIssueReports,
+    issueReportsFilter: issueReportsFilter,
+    cursor: cursor,
+    mutation: const IssueReportMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory IssueReportsState.mutationSuccess({
+    required List<IssueReport> issueReports,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => IssueReportsState(
+    issueReports: issueReports,
+    issueReportsFilter: issueReportsFilter,
+    cursor: cursor,
+    mutation: IssueReportMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory IssueReportsState.mutationError({
+    required List<IssueReport> currentIssueReports,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => IssueReportsState(
+    issueReports: currentIssueReports,
+    issueReportsFilter: issueReportsFilter,
+    cursor: cursor,
+    mutation: IssueReportMutationState(type: mutationType, failure: failure),
+  );
+
   IssueReportsState copyWith({
     List<IssueReport>? issueReports,
-    ValueGetter<IssueReport?>? mutatedIssueReport,
-    IssueReportsFilter? issueReportsFilter,
+    GetIssueReportsCursorUsecaseParams? issueReportsFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<IssueReportMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return IssueReportsState(
       issueReports: issueReports ?? this.issueReports,
-      mutatedIssueReport: mutatedIssueReport != null
-          ? mutatedIssueReport()
-          : this.mutatedIssueReport,
       issueReportsFilter: issueReportsFilter ?? this.issueReportsFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  IssueReportsState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       issueReports,
-      mutatedIssueReport,
       issueReportsFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

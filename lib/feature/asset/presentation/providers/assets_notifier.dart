@@ -30,31 +30,18 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   }
 
   Future<void> _initializeAssets() async {
-    state = await _loadAssets(assetsFilter: AssetsFilter());
+    state = await _loadAssets(
+      assetsFilter: const GetAssetsCursorUsecaseParams(),
+    );
   }
 
   Future<AssetsState> _loadAssets({
-    required AssetsFilter assetsFilter,
+    required GetAssetsCursorUsecaseParams assetsFilter,
     List<Asset>? currentAssets,
   }) async {
     this.logPresentation('Loading assets with filter: $assetsFilter');
 
-    final result = await _getAssetsCursorUsecase.call(
-      GetAssetsCursorUsecaseParams(
-        search: assetsFilter.search,
-        status: assetsFilter.status,
-        condition: assetsFilter.condition,
-        categoryId: assetsFilter.categoryId,
-        locationId: assetsFilter.locationId,
-        assignedTo: assetsFilter.assignedTo,
-        brand: assetsFilter.brand,
-        model: assetsFilter.model,
-        sortBy: assetsFilter.sortBy,
-        sortOrder: assetsFilter.sortOrder,
-        cursor: assetsFilter.cursor,
-        limit: assetsFilter.limit,
-      ),
-    );
+    final result = await _getAssetsCursorUsecase.call(assetsFilter);
 
     return result.fold(
       (failure) {
@@ -88,7 +75,7 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
     state = await _loadAssets(assetsFilter: newFilter);
   }
 
-  Future<void> updateFilter(AssetsFilter newFilter) async {
+  Future<void> updateFilter(GetAssetsCursorUsecaseParams newFilter) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter

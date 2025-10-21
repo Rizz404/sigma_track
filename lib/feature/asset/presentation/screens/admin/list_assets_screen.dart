@@ -13,8 +13,8 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
-import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
 import 'package:sigma_track/feature/asset/presentation/widgets/export_assets_bottom_sheet.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
@@ -223,13 +223,13 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-              AppTextField(
+              const AppTextField(
                 name: 'brand',
                 label: 'Brand',
                 placeHolder: 'Enter brand...',
               ),
               const SizedBox(height: 16),
-              AppTextField(
+              const AppTextField(
                 name: 'model',
                 label: 'Model',
                 placeHolder: 'Enter model...',
@@ -309,7 +309,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = AssetsFilter(
+                        final newFilter = GetAssetsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -339,7 +339,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                           final brand = formData['brand'] as String?;
                           final model = formData['model'] as String?;
 
-                          final newFilter = AssetsFilter(
+                          final newFilter = GetAssetsCursorUsecaseParams(
                             search: currentFilter.search,
                             status: statusStr != null
                                 ? AssetStatus.values.firstWhere(
@@ -530,7 +530,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

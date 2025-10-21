@@ -30,12 +30,12 @@ class MyNotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       return null;
     }, (success) => success.data?.id);
     state = await _loadNotifications(
-      notificationsFilter: NotificationsFilter(userId: userId),
+      notificationsFilter: GetNotificationsCursorUsecaseParams(userId: userId),
     );
   }
 
   Future<NotificationsState> _loadNotifications({
-    required NotificationsFilter notificationsFilter,
+    required GetNotificationsCursorUsecaseParams notificationsFilter,
     List<Notification>? currentNotifications,
   }) async {
     this.logPresentation(
@@ -90,7 +90,9 @@ class MyNotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     state = await _loadNotifications(notificationsFilter: newFilter);
   }
 
-  Future<void> updateFilter(NotificationsFilter newFilter) async {
+  Future<void> updateFilter(
+    GetNotificationsCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter

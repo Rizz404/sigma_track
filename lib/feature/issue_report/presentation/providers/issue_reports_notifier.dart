@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -29,11 +30,13 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   }
 
   Future<void> _initializeIssueReports() async {
-    state = await _loadIssueReports(issueReportsFilter: IssueReportsFilter());
+    state = await _loadIssueReports(
+      issueReportsFilter: const GetIssueReportsCursorUsecaseParams(),
+    );
   }
 
   Future<IssueReportsState> _loadIssueReports({
-    required IssueReportsFilter issueReportsFilter,
+    required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     List<IssueReport>? currentIssueReports,
   }) async {
     this.logPresentation(
@@ -93,7 +96,9 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     state = await _loadIssueReports(issueReportsFilter: newFilter);
   }
 
-  Future<void> updateFilter(IssueReportsFilter newFilter) async {
+  Future<void> updateFilter(
+    GetIssueReportsCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -175,10 +180,10 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   Future<void> createIssueReport(CreateIssueReportUsecaseParams params) async {
     this.logPresentation('Creating issue report');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = IssueReportsState.creating(
+      currentIssueReports: state.issueReports,
+      issueReportsFilter: state.issueReportsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createIssueReportUsecase.call(params);
@@ -186,22 +191,28 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     result.fold(
       (failure) {
         this.logError('Failed to create issue report', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = IssueReportsState.mutationError(
+          currentIssueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Issue report created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Issue report created',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
+        state = state.copyWith(isLoading: true);
         state = await _loadIssueReports(
           issueReportsFilter: state.issueReportsFilter,
+        );
+
+        state = IssueReportsState.mutationSuccess(
+          issueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Issue report created',
+          cursor: state.cursor,
         );
       },
     );
@@ -210,10 +221,10 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   Future<void> updateIssueReport(UpdateIssueReportUsecaseParams params) async {
     this.logPresentation('Updating issue report: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = IssueReportsState.updating(
+      currentIssueReports: state.issueReports,
+      issueReportsFilter: state.issueReportsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateIssueReportUsecase.call(params);
@@ -221,22 +232,28 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     result.fold(
       (failure) {
         this.logError('Failed to update issue report', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = IssueReportsState.mutationError(
+          currentIssueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Issue report updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Issue report updated',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
+        state = state.copyWith(isLoading: true);
         state = await _loadIssueReports(
           issueReportsFilter: state.issueReportsFilter,
+        );
+
+        state = IssueReportsState.mutationSuccess(
+          issueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Issue report updated',
+          cursor: state.cursor,
         );
       },
     );
@@ -245,10 +262,10 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   Future<void> deleteIssueReport(DeleteIssueReportUsecaseParams params) async {
     this.logPresentation('Deleting issue report: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = IssueReportsState.deleting(
+      currentIssueReports: state.issueReports,
+      issueReportsFilter: state.issueReportsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteIssueReportUsecase.call(params);
@@ -256,22 +273,28 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete issue report', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = IssueReportsState.mutationError(
+          currentIssueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Issue report deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Issue report deleted',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
+        state = state.copyWith(isLoading: true);
         state = await _loadIssueReports(
           issueReportsFilter: state.issueReportsFilter,
+        );
+
+        state = IssueReportsState.mutationSuccess(
+          issueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Issue report deleted',
+          cursor: state.cursor,
         );
       },
     );

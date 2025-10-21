@@ -3,119 +3,71 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
-import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
 
-class MaintenanceRecordsFilter extends Equatable {
-  final String? search;
-  final String? assetId;
-  final String? scheduleId;
-  final String? performedByUser;
-  final String? vendorName;
-  final String? fromDate;
-  final String? toDate;
-  final MaintenanceRecordSortBy? sortBy;
-  final SortOrder? sortOrder;
-  final String? cursor;
-  final int? limit;
+// * State untuk mutation operation yang lebih descriptive
+class MaintenanceRecordMutationState extends Equatable {
+  final MutationType type;
+  final bool isLoading;
+  final String? successMessage;
+  final Failure? failure;
 
-  MaintenanceRecordsFilter({
-    this.search,
-    this.assetId,
-    this.scheduleId,
-    this.performedByUser,
-    this.vendorName,
-    this.fromDate,
-    this.toDate,
-    this.sortBy,
-    this.sortOrder,
-    this.cursor,
-    this.limit,
+  const MaintenanceRecordMutationState({
+    required this.type,
+    this.isLoading = false,
+    this.successMessage,
+    this.failure,
   });
 
-  MaintenanceRecordsFilter copyWith({
-    ValueGetter<String?>? search,
-    ValueGetter<String?>? assetId,
-    ValueGetter<String?>? scheduleId,
-    ValueGetter<String?>? performedByUser,
-    ValueGetter<String?>? vendorName,
-    ValueGetter<String?>? fromDate,
-    ValueGetter<String?>? toDate,
-    ValueGetter<MaintenanceRecordSortBy?>? sortBy,
-    ValueGetter<SortOrder?>? sortOrder,
-    ValueGetter<String?>? cursor,
-    ValueGetter<int?>? limit,
-  }) {
-    return MaintenanceRecordsFilter(
-      search: search != null ? search() : this.search,
-      assetId: assetId != null ? assetId() : this.assetId,
-      scheduleId: scheduleId != null ? scheduleId() : this.scheduleId,
-      performedByUser: performedByUser != null
-          ? performedByUser()
-          : this.performedByUser,
-      vendorName: vendorName != null ? vendorName() : this.vendorName,
-      fromDate: fromDate != null ? fromDate() : this.fromDate,
-      toDate: toDate != null ? toDate() : this.toDate,
-      sortBy: sortBy != null ? sortBy() : this.sortBy,
-      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
-      cursor: cursor != null ? cursor() : this.cursor,
-      limit: limit != null ? limit() : this.limit,
-    );
-  }
+  bool get isSuccess => successMessage != null && failure == null;
+  bool get isError => failure != null;
 
   @override
-  List<Object?> get props {
-    return [
-      search,
-      assetId,
-      scheduleId,
-      performedByUser,
-      vendorName,
-      fromDate,
-      toDate,
-      sortBy,
-      sortOrder,
-      cursor,
-      limit,
-    ];
-  }
-
-  @override
-  String toString() {
-    return 'MaintenanceRecordsFilter(search: $search, assetId: $assetId, scheduleId: $scheduleId, performedByUser: $performedByUser, vendorName: $vendorName, fromDate: $fromDate, toDate: $toDate, sortBy: $sortBy, sortOrder: $sortOrder, cursor: $cursor, limit: $limit)';
-  }
+  List<Object?> get props => [type, isLoading, successMessage, failure];
 }
 
 class MaintenanceRecordsState extends Equatable {
   final List<MaintenanceRecord> maintenanceRecords;
-  final MaintenanceRecord? mutatedMaintenanceRecord;
-  final MaintenanceRecordsFilter maintenanceRecordsFilter;
+  final GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter;
   final bool isLoading;
   final bool isLoadingMore;
-  final bool isMutating;
-  final String? message;
+  final MaintenanceRecordMutationState? mutation;
   final Failure? failure;
   final Cursor? cursor;
 
   const MaintenanceRecordsState({
     this.maintenanceRecords = const [],
-    this.mutatedMaintenanceRecord,
     required this.maintenanceRecordsFilter,
     this.isLoading = false,
     this.isLoadingMore = false,
-    this.isMutating = false,
-    this.message,
+    this.mutation,
     this.failure,
     this.cursor,
   });
 
-  factory MaintenanceRecordsState.initial() => MaintenanceRecordsState(
-    maintenanceRecordsFilter: MaintenanceRecordsFilter(),
+  // * Computed properties untuk kemudahan di UI
+  bool get isMutating => mutation?.isLoading ?? false;
+  bool get isCreating =>
+      mutation?.type == MutationType.create && mutation!.isLoading;
+  bool get isUpdating =>
+      mutation?.type == MutationType.update && mutation!.isLoading;
+  bool get isDeleting =>
+      mutation?.type == MutationType.delete && mutation!.isLoading;
+  bool get hasMutationSuccess => mutation?.isSuccess ?? false;
+  bool get hasMutationError => mutation?.isError ?? false;
+  String? get mutationMessage => mutation?.successMessage;
+  Failure? get mutationFailure => mutation?.failure;
+
+  // * Factory methods yang lebih descriptive
+  factory MaintenanceRecordsState.initial() => const MaintenanceRecordsState(
+    maintenanceRecordsFilter: GetMaintenanceRecordsCursorUsecaseParams(),
     isLoading: true,
   );
 
   factory MaintenanceRecordsState.loading({
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     List<MaintenanceRecord>? currentMaintenanceRecords,
   }) => MaintenanceRecordsState(
     maintenanceRecords: currentMaintenanceRecords ?? const [],
@@ -125,21 +77,17 @@ class MaintenanceRecordsState extends Equatable {
 
   factory MaintenanceRecordsState.success({
     required List<MaintenanceRecord> maintenanceRecords,
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     Cursor? cursor,
-    String? message,
-    MaintenanceRecord? mutatedMaintenanceRecord,
   }) => MaintenanceRecordsState(
     maintenanceRecords: maintenanceRecords,
     maintenanceRecordsFilter: maintenanceRecordsFilter,
     cursor: cursor,
-    message: message,
-    mutatedMaintenanceRecord: mutatedMaintenanceRecord,
   );
 
   factory MaintenanceRecordsState.error({
     required Failure failure,
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     List<MaintenanceRecord>? currentMaintenanceRecords,
   }) => MaintenanceRecordsState(
     maintenanceRecords: currentMaintenanceRecords ?? const [],
@@ -149,7 +97,7 @@ class MaintenanceRecordsState extends Equatable {
 
   factory MaintenanceRecordsState.loadingMore({
     required List<MaintenanceRecord> currentMaintenanceRecords,
-    required MaintenanceRecordsFilter maintenanceRecordsFilter,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     Cursor? cursor,
   }) => MaintenanceRecordsState(
     maintenanceRecords: currentMaintenanceRecords,
@@ -158,43 +106,115 @@ class MaintenanceRecordsState extends Equatable {
     isLoadingMore: true,
   );
 
+  // * Factory methods untuk mutation states
+  factory MaintenanceRecordsState.creating({
+    required List<MaintenanceRecord> currentMaintenanceRecords,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
+    Cursor? cursor,
+  }) => MaintenanceRecordsState(
+    maintenanceRecords: currentMaintenanceRecords,
+    maintenanceRecordsFilter: maintenanceRecordsFilter,
+    cursor: cursor,
+    mutation: const MaintenanceRecordMutationState(
+      type: MutationType.create,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceRecordsState.updating({
+    required List<MaintenanceRecord> currentMaintenanceRecords,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
+    Cursor? cursor,
+  }) => MaintenanceRecordsState(
+    maintenanceRecords: currentMaintenanceRecords,
+    maintenanceRecordsFilter: maintenanceRecordsFilter,
+    cursor: cursor,
+    mutation: const MaintenanceRecordMutationState(
+      type: MutationType.update,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceRecordsState.deleting({
+    required List<MaintenanceRecord> currentMaintenanceRecords,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
+    Cursor? cursor,
+  }) => MaintenanceRecordsState(
+    maintenanceRecords: currentMaintenanceRecords,
+    maintenanceRecordsFilter: maintenanceRecordsFilter,
+    cursor: cursor,
+    mutation: const MaintenanceRecordMutationState(
+      type: MutationType.delete,
+      isLoading: true,
+    ),
+  );
+
+  factory MaintenanceRecordsState.mutationSuccess({
+    required List<MaintenanceRecord> maintenanceRecords,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
+    required MutationType mutationType,
+    required String message,
+    Cursor? cursor,
+  }) => MaintenanceRecordsState(
+    maintenanceRecords: maintenanceRecords,
+    maintenanceRecordsFilter: maintenanceRecordsFilter,
+    cursor: cursor,
+    mutation: MaintenanceRecordMutationState(
+      type: mutationType,
+      successMessage: message,
+    ),
+  );
+
+  factory MaintenanceRecordsState.mutationError({
+    required List<MaintenanceRecord> currentMaintenanceRecords,
+    required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
+    required MutationType mutationType,
+    required Failure failure,
+    Cursor? cursor,
+  }) => MaintenanceRecordsState(
+    maintenanceRecords: currentMaintenanceRecords,
+    maintenanceRecordsFilter: maintenanceRecordsFilter,
+    cursor: cursor,
+    mutation: MaintenanceRecordMutationState(
+      type: mutationType,
+      failure: failure,
+    ),
+  );
+
   MaintenanceRecordsState copyWith({
     List<MaintenanceRecord>? maintenanceRecords,
-    ValueGetter<MaintenanceRecord?>? mutatedMaintenanceRecord,
-    MaintenanceRecordsFilter? maintenanceRecordsFilter,
+    GetMaintenanceRecordsCursorUsecaseParams? maintenanceRecordsFilter,
     bool? isLoading,
     bool? isLoadingMore,
-    bool? isMutating,
-    ValueGetter<String?>? message,
+    ValueGetter<MaintenanceRecordMutationState?>? mutation,
     ValueGetter<Failure?>? failure,
     ValueGetter<Cursor?>? cursor,
   }) {
     return MaintenanceRecordsState(
       maintenanceRecords: maintenanceRecords ?? this.maintenanceRecords,
-      mutatedMaintenanceRecord: mutatedMaintenanceRecord != null
-          ? mutatedMaintenanceRecord()
-          : this.mutatedMaintenanceRecord,
       maintenanceRecordsFilter:
           maintenanceRecordsFilter ?? this.maintenanceRecordsFilter,
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      isMutating: isMutating ?? this.isMutating,
-      message: message != null ? message() : this.message,
+      mutation: mutation != null ? mutation() : this.mutation,
       failure: failure != null ? failure() : this.failure,
       cursor: cursor != null ? cursor() : this.cursor,
     );
+  }
+
+  // * Helper untuk clear mutation state setelah handled
+  MaintenanceRecordsState clearMutation() {
+    return copyWith(mutation: () => null);
   }
 
   @override
   List<Object?> get props {
     return [
       maintenanceRecords,
-      mutatedMaintenanceRecord,
       maintenanceRecordsFilter,
       isLoading,
       isLoadingMore,
-      isMutating,
-      message,
+      mutation,
       failure,
       cursor,
     ];

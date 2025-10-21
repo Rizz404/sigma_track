@@ -12,8 +12,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_report_providers.dart';
-import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_reports_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/widgets/issue_report_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -66,7 +66,7 @@ class _MyListIssueReportsScreenState
     if (_filterFormKey.currentState?.saveAndValidate() ?? false) {
       final formData = _filterFormKey.currentState!.value;
 
-      final newFilter = IssueReportsFilter(
+      final newFilter = GetIssueReportsCursorUsecaseParams(
         priority: formData['priority'] != null
             ? IssuePriority.values.firstWhere(
                 (e) => e.value == formData['priority'],
@@ -234,13 +234,15 @@ class _MyListIssueReportsScreenState
     final state = ref.watch(myIssueReportsProvider);
 
     ref.listen(myIssueReportsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('MyIssueReports error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('MyIssueReports mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 

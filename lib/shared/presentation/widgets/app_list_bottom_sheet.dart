@@ -150,7 +150,9 @@ class _OptionTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: context.colorScheme.primaryContainer.withOpacity(0.5),
+                color: context.colorScheme.primaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, color: context.colorScheme.primary),

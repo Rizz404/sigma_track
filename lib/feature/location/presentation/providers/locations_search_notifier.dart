@@ -19,7 +19,7 @@ class LocationsSearchNotifier extends AutoDisposeNotifier<LocationsState> {
   }
 
   Future<LocationsState> _loadLocations({
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
   }) async {
     this.logPresentation('Loading locations with filter: $locationsFilter');
 

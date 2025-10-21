@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -29,24 +30,18 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   }
 
   Future<void> _initializeLocations() async {
-    state = await _loadLocations(locationsFilter: LocationsFilter());
+    state = await _loadLocations(
+      locationsFilter: GetLocationsCursorUsecaseParams(),
+    );
   }
 
   Future<LocationsState> _loadLocations({
-    required LocationsFilter locationsFilter,
+    required GetLocationsCursorUsecaseParams locationsFilter,
     List<Location>? currentLocations,
   }) async {
     this.logPresentation('Loading locations with filter: $locationsFilter');
 
-    final result = await _getLocationsCursorUsecase.call(
-      GetLocationsCursorUsecaseParams(
-        search: locationsFilter.search,
-        sortBy: locationsFilter.sortBy,
-        sortOrder: locationsFilter.sortOrder,
-        cursor: locationsFilter.cursor,
-        limit: locationsFilter.limit,
-      ),
-    );
+    final result = await _getLocationsCursorUsecase.call(locationsFilter);
 
     return result.fold(
       (failure) {
@@ -80,7 +75,7 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
     state = await _loadLocations(locationsFilter: newFilter);
   }
 
-  Future<void> updateFilter(LocationsFilter newFilter) async {
+  Future<void> updateFilter(GetLocationsCursorUsecaseParams newFilter) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -153,10 +148,10 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   Future<void> createLocation(CreateLocationUsecaseParams params) async {
     this.logPresentation('Creating location');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = LocationsState.creating(
+      currentLocations: state.locations,
+      locationsFilter: state.locationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createLocationUsecase.call(params);
@@ -164,21 +159,31 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to create location', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = LocationsState.mutationError(
+          currentLocations: state.locations,
+          locationsFilter: state.locationsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Location created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Location created',
-          isMutating: false,
+        // * Reload locations dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadLocations(
+          locationsFilter: state.locationsFilter,
         );
 
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadLocations(locationsFilter: state.locationsFilter);
+        // * Set mutation success setelah reload
+        state = LocationsState.mutationSuccess(
+          locations: newState.locations,
+          locationsFilter: newState.locationsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Location created',
+          cursor: newState.cursor,
+        );
       },
     );
   }
@@ -186,10 +191,10 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   Future<void> updateLocation(UpdateLocationUsecaseParams params) async {
     this.logPresentation('Updating location: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = LocationsState.updating(
+      currentLocations: state.locations,
+      locationsFilter: state.locationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateLocationUsecase.call(params);
@@ -197,21 +202,31 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to update location', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = LocationsState.mutationError(
+          currentLocations: state.locations,
+          locationsFilter: state.locationsFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Location updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Location updated',
-          isMutating: false,
+        // * Reload locations dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadLocations(
+          locationsFilter: state.locationsFilter,
         );
 
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadLocations(locationsFilter: state.locationsFilter);
+        // * Set mutation success setelah reload
+        state = LocationsState.mutationSuccess(
+          locations: newState.locations,
+          locationsFilter: newState.locationsFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Location updated',
+          cursor: newState.cursor,
+        );
       },
     );
   }
@@ -219,10 +234,10 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   Future<void> deleteLocation(DeleteLocationUsecaseParams params) async {
     this.logPresentation('Deleting location: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = LocationsState.deleting(
+      currentLocations: state.locations,
+      locationsFilter: state.locationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteLocationUsecase.call(params);
@@ -230,21 +245,31 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete location', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = LocationsState.mutationError(
+          currentLocations: state.locations,
+          locationsFilter: state.locationsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Location deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Location deleted',
-          isMutating: false,
+        // * Reload locations dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadLocations(
+          locationsFilter: state.locationsFilter,
         );
 
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadLocations(locationsFilter: state.locationsFilter);
+        // * Set mutation success setelah reload
+        state = LocationsState.mutationSuccess(
+          locations: newState.locations,
+          locationsFilter: newState.locationsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Location deleted',
+          cursor: newState.cursor,
+        );
       },
     );
   }

@@ -19,7 +19,7 @@ class CategoriesSearchNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   Future<CategoriesState> _loadCategories({
-    required CategoriesFilter categoriesFilter,
+    required GetCategoriesCursorUsecaseParams categoriesFilter,
   }) async {
     this.logPresentation('Loading categories with filter: $categoriesFilter');
 

@@ -139,7 +139,9 @@ class UserDetailProfileScreen extends ConsumerWidget {
                 child: AppAvatar(
                   size: AvatarSize.xxxLarge,
                   imageUrl: user.avatarUrl,
-                  backgroundColor: context.colorScheme.primary.withOpacity(0.1),
+                  backgroundColor: context.colorScheme.primary.withValues(
+                    alpha: 0.1,
+                  ),
                   placeholder: Icon(
                     Icons.person,
                     size: 50,
@@ -168,7 +170,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: context.colorScheme.primary.withOpacity(0.1),
+                  color: context.colorScheme.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: AppText(
@@ -245,7 +247,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
   void _showAvatarDialog(BuildContext context, String? imageUrl) {
     showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.8),
+      barrierColor: Colors.black.withValues(alpha: 0.8),
       builder: (context) => Stack(
         children: [
           GestureDetector(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
@@ -59,34 +60,36 @@ class GetAssetMovementsCursorUsecaseParams extends Equatable {
   });
 
   GetAssetMovementsCursorUsecaseParams copyWith({
-    String? search,
-    String? assetId,
-    String? fromLocationId,
-    String? toLocationId,
-    String? fromUserId,
-    String? toUserId,
-    String? movedBy,
-    String? dateFrom,
-    String? dateTo,
-    AssetMovementSortBy? sortBy,
-    SortOrder? sortOrder,
-    String? cursor,
-    int? limit,
+    ValueGetter<String?>? search,
+    ValueGetter<String?>? assetId,
+    ValueGetter<String?>? fromLocationId,
+    ValueGetter<String?>? toLocationId,
+    ValueGetter<String?>? fromUserId,
+    ValueGetter<String?>? toUserId,
+    ValueGetter<String?>? movedBy,
+    ValueGetter<String?>? dateFrom,
+    ValueGetter<String?>? dateTo,
+    ValueGetter<AssetMovementSortBy?>? sortBy,
+    ValueGetter<SortOrder?>? sortOrder,
+    ValueGetter<String?>? cursor,
+    ValueGetter<int?>? limit,
   }) {
     return GetAssetMovementsCursorUsecaseParams(
-      search: search ?? this.search,
-      assetId: assetId ?? this.assetId,
-      fromLocationId: fromLocationId ?? this.fromLocationId,
-      toLocationId: toLocationId ?? this.toLocationId,
-      fromUserId: fromUserId ?? this.fromUserId,
-      toUserId: toUserId ?? this.toUserId,
-      movedBy: movedBy ?? this.movedBy,
-      dateFrom: dateFrom ?? this.dateFrom,
-      dateTo: dateTo ?? this.dateTo,
-      sortBy: sortBy ?? this.sortBy,
-      sortOrder: sortOrder ?? this.sortOrder,
-      cursor: cursor ?? this.cursor,
-      limit: limit ?? this.limit,
+      search: search != null ? search() : this.search,
+      assetId: assetId != null ? assetId() : this.assetId,
+      fromLocationId: fromLocationId != null
+          ? fromLocationId()
+          : this.fromLocationId,
+      toLocationId: toLocationId != null ? toLocationId() : this.toLocationId,
+      fromUserId: fromUserId != null ? fromUserId() : this.fromUserId,
+      toUserId: toUserId != null ? toUserId() : this.toUserId,
+      movedBy: movedBy != null ? movedBy() : this.movedBy,
+      dateFrom: dateFrom != null ? dateFrom() : this.dateFrom,
+      dateTo: dateTo != null ? dateTo() : this.dateTo,
+      sortBy: sortBy != null ? sortBy() : this.sortBy,
+      sortOrder: sortOrder != null ? sortOrder() : this.sortOrder,
+      cursor: cursor != null ? cursor() : this.cursor,
+      limit: limit != null ? limit() : this.limit,
     );
   }
 

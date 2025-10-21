@@ -504,7 +504,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(
+                  const AppText(
                     'Location',
                     style: AppTextStyle.bodyMedium,
                     fontWeight: FontWeight.w600,
@@ -708,7 +708,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         border: Border(top: BorderSide(color: context.colors.border, width: 1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

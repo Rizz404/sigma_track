@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -32,11 +33,11 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   }
 
   Future<void> _initializeUsers() async {
-    state = await _loadUsers(usersFilter: UsersFilter());
+    state = await _loadUsers(usersFilter: GetUsersCursorUsecaseParams());
   }
 
   Future<UsersState> _loadUsers({
-    required UsersFilter usersFilter,
+    required GetUsersCursorUsecaseParams usersFilter,
     List<User>? currentUsers,
   }) async {
     this.logPresentation('Loading users with filter: $usersFilter');
@@ -86,7 +87,7 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
     state = await _loadUsers(usersFilter: newFilter);
   }
 
-  Future<void> updateFilter(UsersFilter newFilter) async {
+  Future<void> updateFilter(GetUsersCursorUsecaseParams newFilter) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -159,10 +160,10 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   Future<void> createUser(CreateUserUsecaseParams params) async {
     this.logPresentation('Creating user');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = UsersState.creating(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createUserUsecase.call(params);
@@ -170,21 +171,29 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
     result.fold(
       (failure) {
         this.logError('Failed to create user', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('User created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'User created',
-          isMutating: false,
+        // * Reload users dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadUsers(usersFilter: state.usersFilter);
+
+        // * Set mutation success setelah reload
+        state = UsersState.mutationSuccess(
+          users: newState.users,
+          usersFilter: newState.usersFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'User created',
+          cursor: newState.cursor,
         );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }
@@ -192,10 +201,10 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   Future<void> updateUser(UpdateUserUsecaseParams params) async {
     this.logPresentation('Updating user: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = UsersState.updating(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateUserUsecase.call(params);
@@ -203,21 +212,29 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
     result.fold(
       (failure) {
         this.logError('Failed to update user', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('User updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'User updated',
-          isMutating: false,
+        // * Reload users dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadUsers(usersFilter: state.usersFilter);
+
+        // * Set mutation success setelah reload
+        state = UsersState.mutationSuccess(
+          users: newState.users,
+          usersFilter: newState.usersFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'User updated',
+          cursor: newState.cursor,
         );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }
@@ -225,10 +242,10 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   Future<void> deleteUser(DeleteUserUsecaseParams params) async {
     this.logPresentation('Deleting user: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = UsersState.deleting(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteUserUsecase.call(params);
@@ -236,21 +253,29 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete user', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('User deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'User deleted',
-          isMutating: false,
+        // * Reload users dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadUsers(usersFilter: state.usersFilter);
+
+        // * Set mutation success setelah reload
+        state = UsersState.mutationSuccess(
+          users: newState.users,
+          usersFilter: newState.usersFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'User deleted',
+          cursor: newState.cursor,
         );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
-
-        state = await _loadUsers(usersFilter: state.usersFilter);
       },
     );
   }
@@ -260,10 +285,10 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   ) async {
     this.logPresentation('Changing password for user: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = UsersState.updating(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
     );
 
     final result = await _changeUserPasswordUsecase.call(params);
@@ -271,13 +296,22 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
     result.fold(
       (failure) {
         this.logError('Failed to change user password', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
-      (success) async {
+      (success) {
         this.logData('User password changed successfully');
-        state = state.copyWith(
-          message: () => success.message ?? 'Password changed',
-          isMutating: false,
+        state = UsersState.mutationSuccess(
+          users: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Password changed',
+          cursor: state.cursor,
         );
         // Note: No refresh needed as password change doesn't affect user list
       },

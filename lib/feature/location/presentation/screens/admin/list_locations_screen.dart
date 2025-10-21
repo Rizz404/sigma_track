@@ -11,8 +11,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
-import 'package:sigma_track/feature/location/presentation/providers/state/locations_state.dart';
 import 'package:sigma_track/feature/location/presentation/widgets/location_card.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -170,7 +170,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = LocationsFilter(
+                        final newFilter = GetLocationsCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -193,7 +193,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                           final sortByStr = formData['sortBy'] as String?;
                           final sortOrderStr = formData['sortOrder'] as String?;
 
-                          final newFilter = LocationsFilter(
+                          final newFilter = GetLocationsCursorUsecaseParams(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
                                 ? LocationSortBy.values.firstWhere(
@@ -289,13 +289,15 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
     final state = ref.watch(locationsProvider);
 
     ref.listen(locationsProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('Locations error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('Locations mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -349,7 +351,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

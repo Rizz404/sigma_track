@@ -11,8 +11,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/category_providers.dart';
-import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/feature/category/presentation/widgets/category_card.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
@@ -204,7 +204,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = CategoriesFilter(
+                        final newFilter = GetCategoriesCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -231,7 +231,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
                           final hasParentValue = hasParentChecked ? true : null;
 
-                          final newFilter = CategoriesFilter(
+                          final newFilter = GetCategoriesCursorUsecaseParams(
                             search: currentFilter.search,
                             sortBy: sortByStr != null
                                 ? CategorySortBy.values.firstWhere(
@@ -329,13 +329,15 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     final state = ref.watch(categoriesProvider);
 
     ref.listen(categoriesProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('Categories error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('Categories mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -392,7 +394,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

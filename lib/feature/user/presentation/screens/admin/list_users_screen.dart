@@ -12,8 +12,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
-import 'package:sigma_track/feature/user/presentation/providers/state/users_state.dart';
 import 'package:sigma_track/feature/user/presentation/widgets/user_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -219,7 +219,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
-                        final newFilter = UsersFilter(
+                        final newFilter = GetUsersCursorUsecaseParams(
                           search: currentFilter.search,
                           // * Reset semua filter kecuali search
                         );
@@ -245,7 +245,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                           final employeeId = formData['employeeId'] as String?;
                           final isActiveStr = formData['isActive'] as String?;
 
-                          final newFilter = UsersFilter(
+                          final newFilter = GetUsersCursorUsecaseParams(
                             search: currentFilter.search,
                             role: roleStr,
                             isActive: isActiveStr != null
@@ -343,13 +343,15 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
     final state = ref.watch(usersProvider);
 
     ref.listen(usersProvider, (previous, next) {
-      if (next.message != null) {
-        AppToast.success(next.message!);
+      // * Handle mutation success
+      if (next.hasMutationSuccess) {
+        AppToast.success(next.mutationMessage!);
       }
 
-      if (next.failure != null) {
-        this.logError('Users error', next.failure);
-        AppToast.error(next.failure!.message);
+      // * Handle mutation error
+      if (next.hasMutationError) {
+        this.logError('Users mutation error', next.mutationFailure);
+        AppToast.error(next.mutationFailure!.message);
       }
     });
 
@@ -403,7 +405,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
         color: context.colorScheme.primary,
         boxShadow: [
           BoxShadow(
-            color: context.colorScheme.shadow.withOpacity(0.1),
+            color: context.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),

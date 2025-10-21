@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/helper_enums.dart';
 
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
@@ -30,12 +31,12 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
 
   Future<void> _initializeNotifications() async {
     state = await _loadNotifications(
-      notificationsFilter: NotificationsFilter(),
+      notificationsFilter: const GetNotificationsCursorUsecaseParams(),
     );
   }
 
   Future<NotificationsState> _loadNotifications({
-    required NotificationsFilter notificationsFilter,
+    required GetNotificationsCursorUsecaseParams notificationsFilter,
     List<Notification>? currentNotifications,
   }) async {
     this.logPresentation(
@@ -43,17 +44,7 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     );
 
     final result = await _getNotificationsCursorUsecase.call(
-      GetNotificationsCursorUsecaseParams(
-        search: notificationsFilter.search,
-        userId: notificationsFilter.userId,
-        relatedAssetId: notificationsFilter.relatedAssetId,
-        type: notificationsFilter.type,
-        isRead: notificationsFilter.isRead,
-        sortBy: notificationsFilter.sortBy,
-        sortOrder: notificationsFilter.sortOrder,
-        cursor: notificationsFilter.cursor,
-        limit: notificationsFilter.limit,
-      ),
+      notificationsFilter,
     );
 
     return result.fold(
@@ -90,7 +81,9 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     state = await _loadNotifications(notificationsFilter: newFilter);
   }
 
-  Future<void> updateFilter(NotificationsFilter newFilter) async {
+  Future<void> updateFilter(
+    GetNotificationsCursorUsecaseParams newFilter,
+  ) async {
     this.logPresentation('Updating filter: $newFilter');
 
     // * Preserve search from current filter
@@ -171,10 +164,10 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
   ) async {
     this.logPresentation('Creating notification');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = NotificationsState.creating(
+      currentNotifications: state.notifications,
+      notificationsFilter: state.notificationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _createNotificationUsecase.call(params);
@@ -182,22 +175,29 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to create notification', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = NotificationsState.mutationError(
+          currentNotifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Notification created successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Notification created',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
           notificationsFilter: state.notificationsFilter,
+        );
+
+        state = NotificationsState.mutationSuccess(
+          notifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.create,
+          message: success.message ?? 'Notification created',
+          cursor: state.cursor,
         );
       },
     );
@@ -208,10 +208,10 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
   ) async {
     this.logPresentation('Updating notification: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = NotificationsState.updating(
+      currentNotifications: state.notifications,
+      notificationsFilter: state.notificationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _updateNotificationUsecase.call(params);
@@ -219,22 +219,29 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to update notification', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = NotificationsState.mutationError(
+          currentNotifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.update,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Notification updated successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Notification updated',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
           notificationsFilter: state.notificationsFilter,
+        );
+
+        state = NotificationsState.mutationSuccess(
+          notifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.update,
+          message: success.message ?? 'Notification updated',
+          cursor: state.cursor,
         );
       },
     );
@@ -245,10 +252,10 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
   ) async {
     this.logPresentation('Deleting notification: ${params.id}');
 
-    state = state.copyWith(
-      isMutating: true,
-      failure: () => null,
-      message: () => null,
+    state = NotificationsState.deleting(
+      currentNotifications: state.notifications,
+      notificationsFilter: state.notificationsFilter,
+      cursor: state.cursor,
     );
 
     final result = await _deleteNotificationUsecase.call(params);
@@ -256,22 +263,29 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     result.fold(
       (failure) {
         this.logError('Failed to delete notification', failure);
-        state = state.copyWith(isMutating: false, failure: () => failure);
+        state = NotificationsState.mutationError(
+          currentNotifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
       },
       (success) async {
         this.logData('Notification deleted successfully');
 
-        state = state.copyWith(
-          message: () => success.message ?? 'Notification deleted',
-          isMutating: false,
-        );
-
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        state = state.copyWith(message: () => null, isLoading: true);
+        state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
           notificationsFilter: state.notificationsFilter,
+        );
+
+        state = NotificationsState.mutationSuccess(
+          notifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.delete,
+          message: success.message ?? 'Notification deleted',
+          cursor: state.cursor,
         );
       },
     );

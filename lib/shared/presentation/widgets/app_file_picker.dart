@@ -118,7 +118,7 @@ class AppFilePickerState extends State<AppFilePicker> {
   void _previewFile(PlatformFile file) {
     showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.8),
+      barrierColor: Colors.black.withValues(alpha: 0.8),
       builder: (context) => _FilePreviewDialog(file: file),
     );
   }
