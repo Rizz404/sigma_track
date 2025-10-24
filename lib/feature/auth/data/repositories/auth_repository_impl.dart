@@ -114,4 +114,24 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(NetworkFailure(message: 'Failed to logout: ${e.toString()}'));
     }
   }
+
+  @override
+  Future<Either<Failure, ItemSuccess<LoginResponse>>> refreshToken(
+    String refreshToken,
+  ) async {
+    try {
+      final response = await _authRemoteDatasource.refreshToken(refreshToken);
+      final loginResponse = response.data.toEntity();
+
+      await _authLocalDatasource.saveAccessToken(loginResponse.accessToken);
+      await _authLocalDatasource.saveRefreshToken(loginResponse.refreshToken);
+      await _authLocalDatasource.saveUser(response.data.user);
+
+      return Right(ItemSuccess(message: response.message, data: loginResponse));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
 }

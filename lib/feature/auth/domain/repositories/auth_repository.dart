@@ -20,4 +20,7 @@ abstract class AuthRepository {
   );
   Future<Either<Failure, ItemSuccess<Auth>>> getCurrentAuth();
   Future<Either<Failure, ActionSuccess>> logout();
+  Future<Either<Failure, ItemSuccess<LoginResponse>>> refreshToken(
+    String refreshToken,
+  );
 }

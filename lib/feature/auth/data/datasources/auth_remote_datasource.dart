@@ -14,6 +14,7 @@ abstract class AuthRemoteDatasource {
   Future<ApiResponse<dynamic>> forgotPassword(
     ForgotPasswordUsecaseParams params,
   );
+  Future<ApiResponse<LoginResponseModel>> refreshToken(String refreshToken);
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
@@ -62,6 +63,23 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       final response = await _dioClient.post(
         ApiConstant.authForgotPassword,
         data: params.toMap(),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<LoginResponseModel>> refreshToken(
+    String refreshToken,
+  ) async {
+    this.logData('refreshToken called');
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.authRefreshToken,
+        data: {'refreshToken': refreshToken},
+        fromJson: (json) => LoginResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {
