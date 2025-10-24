@@ -20,9 +20,11 @@ class NotificationStatistics extends Equatable {
     byType: const NotificationTypeStatistics(
       maintenance: 0,
       warranty: 0,
-      statusChange: 0,
+      issue: 0,
       movement: 0,
-      issueReport: 0,
+      statusChange: 0,
+      locationChange: 0,
+      categoryChange: 0,
     ),
     byStatus: const NotificationStatusStatistics(read: 0, unread: 0),
     creationTrends: const [],
@@ -53,25 +55,31 @@ class NotificationCountStatistics extends Equatable {
 class NotificationTypeStatistics extends Equatable {
   final int maintenance;
   final int warranty;
-  final int statusChange;
+  final int issue;
   final int movement;
-  final int issueReport;
+  final int statusChange;
+  final int locationChange;
+  final int categoryChange;
 
   const NotificationTypeStatistics({
     required this.maintenance,
     required this.warranty,
-    required this.statusChange,
+    required this.issue,
     required this.movement,
-    required this.issueReport,
+    required this.statusChange,
+    required this.locationChange,
+    required this.categoryChange,
   });
 
   @override
   List<Object> get props => [
     maintenance,
     warranty,
-    statusChange,
+    issue,
     movement,
-    issueReport,
+    statusChange,
+    locationChange,
+    categoryChange,
   ];
 }
 

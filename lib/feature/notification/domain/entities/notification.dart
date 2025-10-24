@@ -4,9 +4,14 @@ import 'package:sigma_track/core/enums/model_entity_enums.dart';
 class Notification extends Equatable {
   final String id;
   final String userId;
+  final String? relatedEntityType;
+  final String? relatedEntityId;
   final String? relatedAssetId;
   final NotificationType type;
+  final NotificationPriority priority;
   final bool isRead;
+  final DateTime? readAt;
+  final DateTime? expiresAt;
   final DateTime createdAt;
   final String title;
   final String message;
@@ -15,9 +20,14 @@ class Notification extends Equatable {
   const Notification({
     required this.id,
     required this.userId,
+    this.relatedEntityType,
+    this.relatedEntityId,
     this.relatedAssetId,
     required this.type,
+    required this.priority,
     required this.isRead,
+    this.readAt,
+    this.expiresAt,
     required this.createdAt,
     required this.title,
     required this.message,
@@ -28,6 +38,7 @@ class Notification extends Equatable {
     id: '',
     userId: '',
     type: NotificationType.maintenance,
+    priority: NotificationPriority.normal,
     isRead: false,
     createdAt: DateTime(0),
     title: '',
@@ -39,9 +50,14 @@ class Notification extends Equatable {
     return [
       id,
       userId,
+      relatedEntityType,
+      relatedEntityId,
       relatedAssetId,
       type,
+      priority,
       isRead,
+      readAt,
+      expiresAt,
       createdAt,
       title,
       message,
@@ -51,16 +67,20 @@ class Notification extends Equatable {
 }
 
 class NotificationTranslation extends Equatable {
+  final String id;
+  final String notificationId;
   final String langCode;
   final String title;
   final String message;
 
   const NotificationTranslation({
+    required this.id,
+    required this.notificationId,
     required this.langCode,
     required this.title,
     required this.message,
   });
 
   @override
-  List<Object> get props => [langCode, title, message];
+  List<Object> get props => [id, notificationId, langCode, title, message];
 }

@@ -8,9 +8,14 @@ extension NotificationModelMapper on NotificationModel {
     return Notification(
       id: id,
       userId: userId,
+      relatedEntityType: relatedEntityType,
+      relatedEntityId: relatedEntityId,
       relatedAssetId: relatedAssetId,
       type: type,
+      priority: priority,
       isRead: isRead,
+      readAt: readAt,
+      expiresAt: expiresAt,
       createdAt: createdAt,
       title: title,
       message: message,
@@ -25,9 +30,14 @@ extension NotificationEntityMapper on Notification {
     return NotificationModel(
       id: id,
       userId: userId,
+      relatedEntityType: relatedEntityType,
+      relatedEntityId: relatedEntityId,
       relatedAssetId: relatedAssetId,
       type: type,
+      priority: priority,
       isRead: isRead,
+      readAt: readAt,
+      expiresAt: expiresAt,
       createdAt: createdAt,
       title: title,
       message: message,
@@ -40,6 +50,8 @@ extension NotificationEntityMapper on Notification {
 extension NotificationTranslationModelMapper on NotificationTranslationModel {
   NotificationTranslation toEntity() {
     return NotificationTranslation(
+      id: id,
+      notificationId: notificationId,
       langCode: langCode,
       title: title,
       message: message,
@@ -50,6 +62,8 @@ extension NotificationTranslationModelMapper on NotificationTranslationModel {
 extension NotificationTranslationEntityMapper on NotificationTranslation {
   NotificationTranslationModel toModel() {
     return NotificationTranslationModel(
+      id: id,
+      notificationId: notificationId,
       langCode: langCode,
       title: title,
       message: message,
@@ -98,9 +112,11 @@ extension NotificationTypeStatisticsModelMapper
   NotificationTypeStatistics toEntity() => NotificationTypeStatistics(
     maintenance: maintenance,
     warranty: warranty,
-    statusChange: statusChange,
+    issue: issue,
     movement: movement,
-    issueReport: issueReport,
+    statusChange: statusChange,
+    locationChange: locationChange,
+    categoryChange: categoryChange,
   );
 }
 
@@ -108,9 +124,11 @@ extension NotificationTypeStatisticsEntityMapper on NotificationTypeStatistics {
   NotificationTypeStatisticsModel toModel() => NotificationTypeStatisticsModel(
     maintenance: maintenance,
     warranty: warranty,
-    statusChange: statusChange,
+    issue: issue,
     movement: movement,
-    issueReport: issueReport,
+    statusChange: statusChange,
+    locationChange: locationChange,
+    categoryChange: categoryChange,
   );
 }
 

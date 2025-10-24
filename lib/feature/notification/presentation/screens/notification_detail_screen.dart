@@ -175,11 +175,17 @@ class _NotificationDetailScreenState
             _buildInfoRow('Title', dummyNotification.title),
             _buildInfoRow('Message', dummyNotification.message),
             _buildInfoRow('Type', dummyNotification.type.name),
+            _buildInfoRow('Priority', dummyNotification.priority.name),
             _buildInfoRow('Is Read', dummyNotification.isRead ? 'Yes' : 'No'),
             _buildInfoRow(
               'Created At',
               _formatDateTime(dummyNotification.createdAt),
             ),
+            if (dummyNotification.expiresAt != null)
+              _buildInfoRow(
+                'Expires At',
+                _formatDateTime(dummyNotification.expiresAt!),
+              ),
           ]),
         ],
       ),
@@ -195,11 +201,17 @@ class _NotificationDetailScreenState
             _buildInfoRow('Title', _notification!.title),
             _buildTextBlock('Message', _notification!.message),
             _buildInfoRow('Type', _notification!.type.name),
+            _buildInfoRow('Priority', _notification!.priority.name),
             _buildInfoRow('Is Read', _notification!.isRead ? 'Yes' : 'No'),
             _buildInfoRow(
               'Created At',
               _formatDateTime(_notification!.createdAt),
             ),
+            if (_notification!.expiresAt != null)
+              _buildInfoRow(
+                'Expires At',
+                _formatDateTime(_notification!.expiresAt!),
+              ),
           ]),
         ],
       ),

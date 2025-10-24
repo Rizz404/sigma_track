@@ -120,40 +120,50 @@ class NotificationCountStatisticsModel extends Equatable {
 class NotificationTypeStatisticsModel extends Equatable {
   final int maintenance;
   final int warranty;
-  final int statusChange;
+  final int issue;
   final int movement;
-  final int issueReport;
+  final int statusChange;
+  final int locationChange;
+  final int categoryChange;
 
   const NotificationTypeStatisticsModel({
     required this.maintenance,
     required this.warranty,
-    required this.statusChange,
+    required this.issue,
     required this.movement,
-    required this.issueReport,
+    required this.statusChange,
+    required this.locationChange,
+    required this.categoryChange,
   });
 
   @override
   List<Object> get props => [
     maintenance,
     warranty,
-    statusChange,
+    issue,
     movement,
-    issueReport,
+    statusChange,
+    locationChange,
+    categoryChange,
   ];
 
   NotificationTypeStatisticsModel copyWith({
     int? maintenance,
     int? warranty,
-    int? statusChange,
+    int? issue,
     int? movement,
-    int? issueReport,
+    int? statusChange,
+    int? locationChange,
+    int? categoryChange,
   }) {
     return NotificationTypeStatisticsModel(
       maintenance: maintenance ?? this.maintenance,
       warranty: warranty ?? this.warranty,
-      statusChange: statusChange ?? this.statusChange,
+      issue: issue ?? this.issue,
       movement: movement ?? this.movement,
-      issueReport: issueReport ?? this.issueReport,
+      statusChange: statusChange ?? this.statusChange,
+      locationChange: locationChange ?? this.locationChange,
+      categoryChange: categoryChange ?? this.categoryChange,
     );
   }
 
@@ -161,9 +171,11 @@ class NotificationTypeStatisticsModel extends Equatable {
     return {
       'maintenance': maintenance,
       'warranty': warranty,
-      'statusChange': statusChange,
+      'issue': issue,
       'movement': movement,
-      'issueReport': issueReport,
+      'statusChange': statusChange,
+      'locationChange': locationChange,
+      'categoryChange': categoryChange,
     };
   }
 
@@ -171,9 +183,11 @@ class NotificationTypeStatisticsModel extends Equatable {
     return NotificationTypeStatisticsModel(
       maintenance: map.getFieldOrNull<int>('maintenance') ?? 0,
       warranty: map.getFieldOrNull<int>('warranty') ?? 0,
-      statusChange: map.getFieldOrNull<int>('statusChange') ?? 0,
+      issue: map.getFieldOrNull<int>('issue') ?? 0,
       movement: map.getFieldOrNull<int>('movement') ?? 0,
-      issueReport: map.getFieldOrNull<int>('issueReport') ?? 0,
+      statusChange: map.getFieldOrNull<int>('statusChange') ?? 0,
+      locationChange: map.getFieldOrNull<int>('locationChange') ?? 0,
+      categoryChange: map.getFieldOrNull<int>('categoryChange') ?? 0,
     );
   }
 
@@ -184,7 +198,7 @@ class NotificationTypeStatisticsModel extends Equatable {
 
   @override
   String toString() =>
-      'NotificationTypeStatisticsModel(maintenance: $maintenance, warranty: $warranty, statusChange: $statusChange, movement: $movement, issueReport: $issueReport)';
+      'NotificationTypeStatisticsModel(maintenance: $maintenance, warranty: $warranty, issue: $issue, movement: $movement, statusChange: $statusChange, locationChange: $locationChange, categoryChange: $categoryChange)';
 }
 
 class NotificationStatusStatisticsModel extends Equatable {

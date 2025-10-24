@@ -31,6 +31,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
   final String? relatedAssetId;
   final NotificationType? type;
   final bool? isRead;
+  final NotificationPriority? priority;
+  final DateTime? expiresAt;
   final List<UpdateNotificationTranslation>? translations;
 
   UpdateNotificationUsecaseParams({
@@ -39,6 +41,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
     this.relatedAssetId,
     this.type,
     this.isRead,
+    this.priority,
+    this.expiresAt,
     this.translations,
   });
 
@@ -50,6 +54,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
     String? relatedAssetId,
     NotificationType? type,
     bool? isRead,
+    NotificationPriority? priority,
+    DateTime? expiresAt,
     List<UpdateNotificationTranslation>? translations,
   }) {
     return UpdateNotificationUsecaseParams(
@@ -60,6 +66,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
           : null,
       type: type != original.type ? type : null,
       isRead: isRead != original.isRead ? isRead : null,
+      priority: priority != original.priority ? priority : null,
+      expiresAt: expiresAt != original.expiresAt ? expiresAt : null,
       translations: translations,
     );
   }
@@ -70,6 +78,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
     if (relatedAssetId != null) map['relatedAssetId'] = relatedAssetId;
     if (type != null) map['type'] = type!.value;
     if (isRead != null) map['isRead'] = isRead;
+    if (priority != null) map['priority'] = priority!.value;
+    if (expiresAt != null) map['expiresAt'] = expiresAt!.toIso8601String();
     if (translations != null) {
       map['translations'] = translations!.map((x) => x.toMap()).toList();
     }
@@ -85,6 +95,14 @@ class UpdateNotificationUsecaseParams extends Equatable {
           ? NotificationType.values.firstWhere((e) => e.value == map['type'])
           : null,
       isRead: map['isRead'],
+      priority: map['priority'] != null
+          ? NotificationPriority.values.firstWhere(
+              (e) => e.value == map['priority'],
+            )
+          : null,
+      expiresAt: map['expiresAt'] != null
+          ? DateTime.parse(map['expiresAt'])
+          : null,
       translations: map['translations'] != null
           ? List<UpdateNotificationTranslation>.from(
               map['translations']?.map(
@@ -107,6 +125,8 @@ class UpdateNotificationUsecaseParams extends Equatable {
     relatedAssetId,
     type,
     isRead,
+    priority,
+    expiresAt,
     translations,
   ];
 }

@@ -83,7 +83,9 @@ enum NotificationType {
   warranty('WARRANTY'),
   statusChange('STATUS_CHANGE'),
   movement('MOVEMENT'),
-  issueReport('ISSUE_REPORT');
+  issueReport('ISSUE_REPORT'),
+  locationChange('LOCATION_CHANGE'),
+  categoryChange('CATEGORY_CHANGE');
 
   const NotificationType(this.value);
 
@@ -104,8 +106,26 @@ enum NotificationType {
         return Icons.move_down;
       case NotificationType.issueReport:
         return Icons.report;
+      case NotificationType.locationChange:
+        return Icons.location_on;
+      case NotificationType.categoryChange:
+        return Icons.category;
     }
   }
+}
+
+enum NotificationPriority {
+  low('LOW'),
+  normal('NORMAL'),
+  high('HIGH'),
+  urgent('URGENT');
+
+  const NotificationPriority(this.value);
+
+  final String value;
+
+  // * Dropdown helper
+  String get label => value;
 }
 
 enum ScanMethodType {
