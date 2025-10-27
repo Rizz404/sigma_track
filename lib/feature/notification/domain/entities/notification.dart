@@ -45,6 +45,17 @@ class Notification extends Equatable {
     message: '',
   );
 
+  // * Helper untuk encode navigation data ke payload
+  Map<String, String> toNavigationData() {
+    return {
+      'id': id,
+      'type': type.value,
+      if (relatedEntityType != null) 'entityType': relatedEntityType!,
+      if (relatedEntityId != null) 'entityId': relatedEntityId!,
+      if (relatedAssetId != null) 'assetId': relatedAssetId!,
+    };
+  }
+
   @override
   List<Object?> get props {
     return [

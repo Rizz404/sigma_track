@@ -32,7 +32,7 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
   final String? search;
   final String? assetId;
   final MaintenanceScheduleType? maintenanceType;
-  final ScheduleStatus? status;
+  final ScheduleState? state;
   final String? createdBy;
   final String? fromDate;
   final String? toDate;
@@ -45,7 +45,7 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
     this.search,
     this.assetId,
     this.maintenanceType,
-    this.status,
+    this.state,
     this.createdBy,
     this.fromDate,
     this.toDate,
@@ -59,7 +59,7 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
     String? search,
     String? assetId,
     MaintenanceScheduleType? maintenanceType,
-    ScheduleStatus? status,
+    ScheduleState? state,
     String? createdBy,
     String? fromDate,
     String? toDate,
@@ -72,7 +72,7 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
       search: search ?? this.search,
       assetId: assetId ?? this.assetId,
       maintenanceType: maintenanceType ?? this.maintenanceType,
-      status: status ?? this.status,
+      state: state ?? this.state,
       createdBy: createdBy ?? this.createdBy,
       fromDate: fromDate ?? this.fromDate,
       toDate: toDate ?? this.toDate,
@@ -88,7 +88,7 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
       if (search != null) 'search': search,
       if (assetId != null) 'assetId': assetId,
       if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
-      if (status != null) 'status': status!.value,
+      if (state != null) 'state': state!.value,
       if (createdBy != null) 'createdBy': createdBy,
       if (fromDate != null) 'fromDate': fromDate,
       if (toDate != null) 'toDate': toDate,
@@ -110,8 +110,8 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
               (e) => e.value == map['maintenanceType'],
             )
           : null,
-      status: map['status'] != null
-          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
+      state: map['state'] != null
+          ? ScheduleState.values.firstWhere((e) => e.value == map['state'])
           : null,
       createdBy: map['createdBy'],
       fromDate: map['fromDate'],
@@ -136,14 +136,14 @@ class GetMaintenanceSchedulesUsecaseParams extends Equatable {
 
   @override
   String toString() =>
-      'GetMaintenanceSchedulesUsecaseParams(search: $search, assetId: $assetId, maintenanceType: $maintenanceType, status: $status, createdBy: $createdBy, fromDate: $fromDate, toDate: $toDate, sortBy: $sortBy, sortOrder: $sortOrder, limit: $limit, offset: $offset)';
+      'GetMaintenanceSchedulesUsecaseParams(search: $search, assetId: $assetId, maintenanceType: $maintenanceType, state: $state, createdBy: $createdBy, fromDate: $fromDate, toDate: $toDate, sortBy: $sortBy, sortOrder: $sortOrder, limit: $limit, offset: $offset)';
 
   @override
   List<Object?> get props => [
     search,
     assetId,
     maintenanceType,
-    status,
+    state,
     createdBy,
     fromDate,
     toDate,

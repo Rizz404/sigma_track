@@ -34,18 +34,26 @@ class CreateMaintenanceScheduleUsecase
 class CreateMaintenanceScheduleUsecaseParams extends Equatable {
   final String assetId;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
-  final int? frequencyMonths;
-  final ScheduleStatus status;
+  final bool? isRecurring;
+  final int? intervalValue;
+  final IntervalUnit? intervalUnit;
+  final String? scheduledTime;
+  final DateTime nextScheduledDate;
+  final bool? autoComplete;
+  final double? estimatedCost;
   final String createdById;
   final List<CreateMaintenanceScheduleTranslation> translations;
 
   CreateMaintenanceScheduleUsecaseParams({
     required this.assetId,
     required this.maintenanceType,
-    required this.scheduledDate,
-    this.frequencyMonths,
-    required this.status,
+    this.isRecurring,
+    this.intervalValue,
+    this.intervalUnit,
+    this.scheduledTime,
+    required this.nextScheduledDate,
+    this.autoComplete,
+    this.estimatedCost,
     required this.createdById,
     required this.translations,
   });
@@ -54,9 +62,13 @@ class CreateMaintenanceScheduleUsecaseParams extends Equatable {
     return {
       'assetId': assetId,
       'maintenanceType': maintenanceType.value,
-      'scheduledDate': scheduledDate.iso8601Date,
-      if (frequencyMonths != null) 'frequencyMonths': frequencyMonths,
-      'status': status.value,
+      if (isRecurring != null) 'isRecurring': isRecurring,
+      if (intervalValue != null) 'intervalValue': intervalValue,
+      if (intervalUnit != null) 'intervalUnit': intervalUnit!.value,
+      if (scheduledTime != null) 'scheduledTime': scheduledTime,
+      'nextScheduledDate': nextScheduledDate.iso8601Date,
+      if (autoComplete != null) 'autoComplete': autoComplete,
+      if (estimatedCost != null) 'estimatedCost': estimatedCost,
       'createdById': createdById,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
@@ -70,9 +82,17 @@ class CreateMaintenanceScheduleUsecaseParams extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map['maintenanceType'],
       ),
-      scheduledDate: DateTime.parse(map['scheduledDate']),
-      frequencyMonths: map['frequencyMonths']?.toInt(),
-      status: ScheduleStatus.values.firstWhere((e) => e.value == map['status']),
+      isRecurring: map['isRecurring'],
+      intervalValue: map['intervalValue']?.toInt(),
+      intervalUnit: map['intervalUnit'] != null
+          ? IntervalUnit.values.firstWhere(
+              (e) => e.value == map['intervalUnit'],
+            )
+          : null,
+      scheduledTime: map['scheduledTime'],
+      nextScheduledDate: DateTime.parse(map['nextScheduledDate']),
+      autoComplete: map['autoComplete'],
+      estimatedCost: map['estimatedCost']?.toDouble(),
       createdById: map['createdById'] ?? '',
       translations: List<CreateMaintenanceScheduleTranslation>.from(
         map['translations']?.map(
@@ -92,9 +112,13 @@ class CreateMaintenanceScheduleUsecaseParams extends Equatable {
   List<Object?> get props => [
     assetId,
     maintenanceType,
-    scheduledDate,
-    frequencyMonths,
-    status,
+    isRecurring,
+    intervalValue,
+    intervalUnit,
+    scheduledTime,
+    nextScheduledDate,
+    autoComplete,
+    estimatedCost,
     createdById,
     translations,
   ];

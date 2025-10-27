@@ -33,22 +33,28 @@ class UpdateMaintenanceScheduleUsecase
 
 class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
   final String id;
-  final String? assetId;
   final MaintenanceScheduleType? maintenanceType;
-  final DateTime? scheduledDate;
-  final int? frequencyMonths;
-  final ScheduleStatus? status;
-  final String? createdById;
+  final bool? isRecurring;
+  final int? intervalValue;
+  final IntervalUnit? intervalUnit;
+  final String? scheduledTime;
+  final DateTime? nextScheduledDate;
+  final ScheduleState? state;
+  final bool? autoComplete;
+  final double? estimatedCost;
   final List<UpdateMaintenanceScheduleTranslation>? translations;
 
   UpdateMaintenanceScheduleUsecaseParams({
     required this.id,
-    this.assetId,
     this.maintenanceType,
-    this.scheduledDate,
-    this.frequencyMonths,
-    this.status,
-    this.createdById,
+    this.isRecurring,
+    this.intervalValue,
+    this.intervalUnit,
+    this.scheduledTime,
+    this.nextScheduledDate,
+    this.state,
+    this.autoComplete,
+    this.estimatedCost,
     this.translations,
   });
 
@@ -56,28 +62,38 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
   factory UpdateMaintenanceScheduleUsecaseParams.fromChanges({
     required String id,
     required MaintenanceSchedule original,
-    String? assetId,
     MaintenanceScheduleType? maintenanceType,
-    DateTime? scheduledDate,
-    int? frequencyMonths,
-    ScheduleStatus? status,
-    String? createdById,
+    bool? isRecurring,
+    int? intervalValue,
+    IntervalUnit? intervalUnit,
+    String? scheduledTime,
+    DateTime? nextScheduledDate,
+    ScheduleState? state,
+    bool? autoComplete,
+    double? estimatedCost,
     List<UpdateMaintenanceScheduleTranslation>? translations,
   }) {
     return UpdateMaintenanceScheduleUsecaseParams(
       id: id,
-      assetId: assetId != original.assetId ? assetId : null,
       maintenanceType: maintenanceType != original.maintenanceType
           ? maintenanceType
           : null,
-      scheduledDate: scheduledDate != original.scheduledDate
-          ? scheduledDate
+      isRecurring: isRecurring != original.isRecurring ? isRecurring : null,
+      intervalValue: intervalValue != original.intervalValue
+          ? intervalValue
           : null,
-      frequencyMonths: frequencyMonths != original.frequencyMonths
-          ? frequencyMonths
+      intervalUnit: intervalUnit != original.intervalUnit ? intervalUnit : null,
+      scheduledTime: scheduledTime != original.scheduledTime
+          ? scheduledTime
           : null,
-      status: status != original.status ? status : null,
-      createdById: createdById != original.createdById ? createdById : null,
+      nextScheduledDate: nextScheduledDate != original.nextScheduledDate
+          ? nextScheduledDate
+          : null,
+      state: state != original.state ? state : null,
+      autoComplete: autoComplete != original.autoComplete ? autoComplete : null,
+      estimatedCost: estimatedCost != original.estimatedCost
+          ? estimatedCost
+          : null,
       translations: translations,
     );
   }
@@ -85,12 +101,16 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      if (assetId != null) 'assetId': assetId,
       if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
-      if (scheduledDate != null) 'scheduledDate': scheduledDate?.iso8601Date,
-      if (frequencyMonths != null) 'frequencyMonths': frequencyMonths,
-      if (status != null) 'status': status!.value,
-      if (createdById != null) 'createdById': createdById,
+      if (isRecurring != null) 'isRecurring': isRecurring,
+      if (intervalValue != null) 'intervalValue': intervalValue,
+      if (intervalUnit != null) 'intervalUnit': intervalUnit!.value,
+      if (scheduledTime != null) 'scheduledTime': scheduledTime,
+      if (nextScheduledDate != null)
+        'nextScheduledDate': nextScheduledDate?.iso8601Date,
+      if (state != null) 'state': state!.value,
+      if (autoComplete != null) 'autoComplete': autoComplete,
+      if (estimatedCost != null) 'estimatedCost': estimatedCost,
       if (translations != null)
         'translations': translations!.map((x) => x.toMap()).toList(),
     };
@@ -101,20 +121,27 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
   ) {
     return UpdateMaintenanceScheduleUsecaseParams(
       id: map['id'] ?? '',
-      assetId: map['assetId'],
       maintenanceType: map['maintenanceType'] != null
           ? MaintenanceScheduleType.values.firstWhere(
               (e) => e.value == map['maintenanceType'],
             )
           : null,
-      scheduledDate: map['scheduledDate'] != null
-          ? DateTime.parse(map['scheduledDate'])
+      isRecurring: map['isRecurring'],
+      intervalValue: map['intervalValue']?.toInt(),
+      intervalUnit: map['intervalUnit'] != null
+          ? IntervalUnit.values.firstWhere(
+              (e) => e.value == map['intervalUnit'],
+            )
           : null,
-      frequencyMonths: map['frequencyMonths']?.toInt(),
-      status: map['status'] != null
-          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
+      scheduledTime: map['scheduledTime'],
+      nextScheduledDate: map['nextScheduledDate'] != null
+          ? DateTime.parse(map['nextScheduledDate'])
           : null,
-      createdById: map['createdById'],
+      state: map['state'] != null
+          ? ScheduleState.values.firstWhere((e) => e.value == map['state'])
+          : null,
+      autoComplete: map['autoComplete'],
+      estimatedCost: map['estimatedCost']?.toDouble(),
       translations: map['translations'] != null
           ? List<UpdateMaintenanceScheduleTranslation>.from(
               map['translations']?.map(
@@ -134,12 +161,15 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    assetId,
     maintenanceType,
-    scheduledDate,
-    frequencyMonths,
-    status,
-    createdById,
+    isRecurring,
+    intervalValue,
+    intervalUnit,
+    scheduledTime,
+    nextScheduledDate,
+    state,
+    autoComplete,
+    estimatedCost,
     translations,
   ];
 }

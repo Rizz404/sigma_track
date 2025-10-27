@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
@@ -13,8 +14,11 @@ class MaintenanceRecordModel extends Equatable {
   final String? scheduleId;
   final String assetId;
   final DateTime maintenanceDate;
+  final DateTime? completionDate;
+  final int? durationMinutes;
   final String? performedByUserId;
   final String? performedByVendor;
+  final MaintenanceResult result;
   final double? actualCost;
   final String title;
   final String? notes;
@@ -30,8 +34,11 @@ class MaintenanceRecordModel extends Equatable {
     this.scheduleId,
     required this.assetId,
     required this.maintenanceDate,
+    this.completionDate,
+    this.durationMinutes,
     this.performedByUserId,
     this.performedByVendor,
+    required this.result,
     this.actualCost,
     required this.title,
     this.notes,
@@ -49,8 +56,11 @@ class MaintenanceRecordModel extends Equatable {
     scheduleId,
     assetId,
     maintenanceDate,
+    completionDate,
+    durationMinutes,
     performedByUserId,
     performedByVendor,
+    result,
     actualCost,
     title,
     notes,
@@ -67,8 +77,11 @@ class MaintenanceRecordModel extends Equatable {
     ValueGetter<String?>? scheduleId,
     String? assetId,
     DateTime? maintenanceDate,
+    ValueGetter<DateTime?>? completionDate,
+    ValueGetter<int?>? durationMinutes,
     ValueGetter<String?>? performedByUserId,
     ValueGetter<String?>? performedByVendor,
+    MaintenanceResult? result,
     ValueGetter<double?>? actualCost,
     String? title,
     ValueGetter<String?>? notes,
@@ -84,12 +97,19 @@ class MaintenanceRecordModel extends Equatable {
       scheduleId: scheduleId != null ? scheduleId() : this.scheduleId,
       assetId: assetId ?? this.assetId,
       maintenanceDate: maintenanceDate ?? this.maintenanceDate,
+      completionDate: completionDate != null
+          ? completionDate()
+          : this.completionDate,
+      durationMinutes: durationMinutes != null
+          ? durationMinutes()
+          : this.durationMinutes,
       performedByUserId: performedByUserId != null
           ? performedByUserId()
           : this.performedByUserId,
       performedByVendor: performedByVendor != null
           ? performedByVendor()
           : this.performedByVendor,
+      result: result ?? this.result,
       actualCost: actualCost != null ? actualCost() : this.actualCost,
       title: title ?? this.title,
       notes: notes != null ? notes() : this.notes,
@@ -110,8 +130,11 @@ class MaintenanceRecordModel extends Equatable {
       'scheduleId': scheduleId,
       'assetId': assetId,
       'maintenanceDate': maintenanceDate.iso8601String,
+      'completionDate': completionDate?.iso8601String,
+      'durationMinutes': durationMinutes,
       'performedByUserId': performedByUserId,
       'performedByVendor': performedByVendor,
+      'result': result.value,
       'actualCost': actualCost,
       'title': title,
       'notes': notes,
@@ -130,8 +153,14 @@ class MaintenanceRecordModel extends Equatable {
       scheduleId: map.getFieldOrNull<String>('scheduleId'),
       assetId: map.getField<String>('assetId'),
       maintenanceDate: map.getField<DateTime>('maintenanceDate'),
+      completionDate: map.getFieldOrNull<DateTime>('completionDate'),
+      durationMinutes: map.getFieldOrNull<int>('durationMinutes'),
       performedByUserId: map.getFieldOrNull<String>('performedByUserId'),
       performedByVendor: map.getFieldOrNull<String>('performedByVendor'),
+      result: MaintenanceResult.values.firstWhere(
+        (e) => e.value == map.getField<String>('result'),
+        orElse: () => MaintenanceResult.success,
+      ),
       actualCost: map.getFieldOrNull<double>('actualCost'),
       title: map.getField<String>('title'),
       notes: map.getFieldOrNull<String>('notes'),

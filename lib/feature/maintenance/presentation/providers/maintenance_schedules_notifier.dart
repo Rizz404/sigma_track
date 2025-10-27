@@ -33,7 +33,8 @@ class MaintenanceSchedulesNotifier
 
   Future<void> _initializeMaintenanceSchedules() async {
     state = await _loadMaintenanceSchedules(
-      maintenanceSchedulesFilter: const GetMaintenanceSchedulesCursorUsecaseParams(),
+      maintenanceSchedulesFilter:
+          const GetMaintenanceSchedulesCursorUsecaseParams(),
     );
   }
 
@@ -51,7 +52,7 @@ class MaintenanceSchedulesNotifier
         search: maintenanceSchedulesFilter.search,
         assetId: maintenanceSchedulesFilter.assetId,
         maintenanceType: maintenanceSchedulesFilter.maintenanceType,
-        status: maintenanceSchedulesFilter.status,
+        state: maintenanceSchedulesFilter.state,
         createdBy: maintenanceSchedulesFilter.createdBy,
         fromDate: maintenanceSchedulesFilter.fromDate,
         toDate: maintenanceSchedulesFilter.toDate,
@@ -145,7 +146,7 @@ class MaintenanceSchedulesNotifier
         search: newFilter.search,
         assetId: newFilter.assetId,
         maintenanceType: newFilter.maintenanceType,
-        status: newFilter.status,
+        state: newFilter.state,
         createdBy: newFilter.createdBy,
         fromDate: newFilter.fromDate,
         toDate: newFilter.toDate,

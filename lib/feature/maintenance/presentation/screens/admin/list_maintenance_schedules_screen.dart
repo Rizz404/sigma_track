@@ -183,15 +183,15 @@ class _ListMaintenanceSchedulesScreenState
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
-                name: 'status',
-                label: 'Status',
-                initialValue: currentFilter.status?.value,
-                items: ScheduleStatus.values
+                name: 'state',
+                label: 'State',
+                initialValue: currentFilter.state?.value,
+                items: ScheduleState.values
                     .map(
-                      (status) => AppDropdownItem<String>(
-                        value: status.value,
-                        label: status.label,
-                        icon: Icon(status.icon, size: 18),
+                      (state) => AppDropdownItem<String>(
+                        value: state.value,
+                        label: state.label,
+                        icon: Icon(state.icon, size: 18),
                       ),
                     )
                     .toList(),
@@ -248,7 +248,7 @@ class _ListMaintenanceSchedulesScreenState
                           final sortOrderStr = formData['sortOrder'] as String?;
                           final maintenanceTypeStr =
                               formData['maintenanceType'] as String?;
-                          final statusStr = formData['status'] as String?;
+                          final stateStr = formData['state'] as String?;
                           final fromDate = formData['fromDate'] as DateTime?;
                           final toDate = formData['toDate'] as DateTime?;
 
@@ -271,9 +271,9 @@ class _ListMaintenanceSchedulesScreenState
                                         (e) => e.value == maintenanceTypeStr,
                                       )
                                     : null,
-                                status: statusStr != null
-                                    ? ScheduleStatus.values.firstWhere(
-                                        (e) => e.value == statusStr,
+                                state: stateStr != null
+                                    ? ScheduleState.values.firstWhere(
+                                        (e) => e.value == stateStr,
                                       )
                                     : null,
                                 fromDate: fromDate?.toIso8601String(),

@@ -25,8 +25,13 @@ class MaintenanceRecordUpsertValidator {
   }
 
   static String? validatePerformedById(String? value, {bool isUpdate = false}) {
+    // performedById is optional, user can use vendor instead
+    return null;
+  }
+
+  static String? validateResult(String? value, {bool isUpdate = false}) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Performed by is required';
+      return 'Result is required';
     }
     return null;
   }

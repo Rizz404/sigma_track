@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -112,10 +113,12 @@ class MaintenanceScheduleTile extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          if (maintenanceSchedule.frequencyMonths != null) ...[
+                          if (maintenanceSchedule.isRecurring &&
+                              maintenanceSchedule.intervalValue != null &&
+                              maintenanceSchedule.intervalUnit != null) ...[
                             const SizedBox(width: 8),
                             AppText(
-                              'Every ${maintenanceSchedule.frequencyMonths} months',
+                              'Every ${maintenanceSchedule.intervalValue} ${maintenanceSchedule.intervalUnit!.label}',
                               style: AppTextStyle.labelSmall,
                               color: context.colors.textSecondary,
                             ),
@@ -135,18 +138,18 @@ class MaintenanceScheduleTile extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: _getStatusColor(
+                        color: _getStateColor(
                           context,
-                          maintenanceSchedule.status,
+                          maintenanceSchedule.state,
                         ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        maintenanceSchedule.status.name.toUpperCase(),
+                        maintenanceSchedule.state.value.toUpperCase(),
                         style: AppTextStyle.labelSmall,
-                        color: _getStatusColor(
+                        color: _getStateColor(
                           context,
-                          maintenanceSchedule.status,
+                          maintenanceSchedule.state,
                         ),
                         fontWeight: FontWeight.w600,
                       ),
@@ -155,7 +158,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                     AppText(
                       DateFormat(
                         'dd MMM yyyy',
-                      ).format(maintenanceSchedule.scheduledDate),
+                      ).format(maintenanceSchedule.nextScheduledDate),
                       style: AppTextStyle.bodySmall,
                       color: context.colors.textSecondary,
                     ),
@@ -169,18 +172,16 @@ class MaintenanceScheduleTile extends StatelessWidget {
     );
   }
 
-  Color _getStatusColor(BuildContext context, dynamic status) {
-    switch (status.toString().split('.').last) {
-      case 'pending':
-        return context.semantic.warning;
-      case 'completed':
+  Color _getStateColor(BuildContext context, ScheduleState state) {
+    switch (state) {
+      case ScheduleState.active:
         return context.semantic.success;
-      case 'cancelled':
+      case ScheduleState.paused:
+        return context.semantic.warning;
+      case ScheduleState.stopped:
         return context.colors.textSecondary;
-      case 'overdue':
-        return context.semantic.error;
-      default:
-        return context.colors.textPrimary;
+      case ScheduleState.completed:
+        return context.semantic.info;
     }
   }
 }

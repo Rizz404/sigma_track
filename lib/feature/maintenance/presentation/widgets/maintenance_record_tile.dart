@@ -101,7 +101,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: AppText(
-                              maintenanceRecord.performedByUser?.fullName ??
+                              maintenanceRecord.performedByUser?.name ??
                                   maintenanceRecord.performedByVendor ??
                                   'Unknown',
                               style: AppTextStyle.labelSmall,

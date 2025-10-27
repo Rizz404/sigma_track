@@ -11,11 +11,18 @@ class MaintenanceScheduleModel extends Equatable {
   final String id;
   final String assetId;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
-  final int? frequencyMonths;
-  final ScheduleStatus status;
+  final bool isRecurring;
+  final int? intervalValue;
+  final IntervalUnit? intervalUnit;
+  final String? scheduledTime;
+  final DateTime nextScheduledDate;
+  final DateTime? lastExecutedDate;
+  final ScheduleState state;
+  final bool autoComplete;
+  final double? estimatedCost;
   final String createdById;
   final DateTime createdAt;
+  final DateTime updatedAt;
   final String title;
   final String? description;
   final List<MaintenanceScheduleTranslationModel>? translations;
@@ -26,11 +33,18 @@ class MaintenanceScheduleModel extends Equatable {
     required this.id,
     required this.assetId,
     required this.maintenanceType,
-    required this.scheduledDate,
-    this.frequencyMonths,
-    required this.status,
+    required this.isRecurring,
+    this.intervalValue,
+    this.intervalUnit,
+    this.scheduledTime,
+    required this.nextScheduledDate,
+    this.lastExecutedDate,
+    required this.state,
+    required this.autoComplete,
+    this.estimatedCost,
     required this.createdById,
     required this.createdAt,
+    required this.updatedAt,
     required this.title,
     this.description,
     this.translations,
@@ -43,11 +57,18 @@ class MaintenanceScheduleModel extends Equatable {
     id,
     assetId,
     maintenanceType,
-    scheduledDate,
-    frequencyMonths,
-    status,
+    isRecurring,
+    intervalValue,
+    intervalUnit,
+    scheduledTime,
+    nextScheduledDate,
+    lastExecutedDate,
+    state,
+    autoComplete,
+    estimatedCost,
     createdById,
     createdAt,
+    updatedAt,
     title,
     description,
     translations,
@@ -60,11 +81,18 @@ class MaintenanceScheduleModel extends Equatable {
       'id': id,
       'assetId': assetId,
       'maintenanceType': maintenanceType.value,
-      'scheduledDate': scheduledDate.iso8601String,
-      'frequencyMonths': frequencyMonths,
-      'status': status.value,
+      'isRecurring': isRecurring,
+      'intervalValue': intervalValue,
+      'intervalUnit': intervalUnit?.value,
+      'scheduledTime': scheduledTime,
+      'nextScheduledDate': nextScheduledDate.iso8601String,
+      'lastExecutedDate': lastExecutedDate?.iso8601String,
+      'state': state.value,
+      'autoComplete': autoComplete,
+      'estimatedCost': estimatedCost,
       'createdById': createdById,
       'createdAt': createdAt.iso8601String,
+      'updatedAt': updatedAt.iso8601String,
       'title': title,
       'description': description,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
@@ -80,13 +108,24 @@ class MaintenanceScheduleModel extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map.getField<String>('maintenanceType'),
       ),
-      scheduledDate: map.getField<DateTime>('scheduledDate'),
-      frequencyMonths: map.getFieldOrNull<int>('frequencyMonths'),
-      status: ScheduleStatus.values.firstWhere(
-        (e) => e.value == map.getField<String>('status'),
+      isRecurring: map.getField<bool>('isRecurring'),
+      intervalValue: map.getFieldOrNull<int>('intervalValue'),
+      intervalUnit: map.getFieldOrNull<String>('intervalUnit') != null
+          ? IntervalUnit.values.firstWhere(
+              (e) => e.value == map.getField<String>('intervalUnit'),
+            )
+          : null,
+      scheduledTime: map.getFieldOrNull<String>('scheduledTime'),
+      nextScheduledDate: map.getField<DateTime>('nextScheduledDate'),
+      lastExecutedDate: map.getFieldOrNull<DateTime>('lastExecutedDate'),
+      state: ScheduleState.values.firstWhere(
+        (e) => e.value == map.getField<String>('state'),
       ),
+      autoComplete: map.getField<bool>('autoComplete'),
+      estimatedCost: map.getFieldOrNull<double>('estimatedCost'),
       createdById: map.getField<String>('createdById'),
       createdAt: map.getField<DateTime>('createdAt'),
+      updatedAt: map.getField<DateTime>('updatedAt'),
       title: map.getField<String>('title'),
       description: map.getFieldOrNull<String>('description'),
       translations: List<MaintenanceScheduleTranslationModel>.from(

@@ -175,11 +175,15 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   // * Handle notification navigation based on data
   void _handleNotificationNavigation(Map<String, dynamic> data) {
-    logger.info('App opened from notification with data: $data');
+    final dataString = data.map((k, v) => MapEntry(k, v.toString()));
+    logger.info('Handling notification navigation with data: $dataString');
 
-    // * App berhasil dibuka dari notifikasi
-    // * Implementasi navigasi ke screen spesifik akan ditambahkan nanti
-    // * Contoh data yang bisa diparse: type, id, action, etc
+    // * Delay navigation sampai router ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final router = ref.read(routerProvider);
+      final navigationService = ref.read(notificationNavigationServiceProvider);
+      navigationService.handleNotificationNavigation(router, dataString);
+    });
   }
 
   // * Handle notification tap
@@ -187,11 +191,13 @@ class _MyAppState extends ConsumerState<MyApp> {
     logger.info('Local notification tapped: ${response.payload}');
 
     if (response.payload != null && response.payload!.isNotEmpty) {
-      final params = Uri.splitQueryString(response.payload!);
+      final navigationService = ref.read(notificationNavigationServiceProvider);
+      final params = navigationService.parsePayload(response.payload);
       logger.info('Notification payload params: $params');
 
-      // * App berhasil dibuka dari local notification
-      // * Implementasi navigasi akan ditambahkan nanti
+      // * Navigate to relevant screen
+      final router = ref.read(routerProvider);
+      navigationService.handleNotificationNavigation(router, params);
     }
   }
 

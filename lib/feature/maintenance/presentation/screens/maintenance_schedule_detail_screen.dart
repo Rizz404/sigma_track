@@ -221,17 +221,39 @@ class _MaintenanceScheduleDetailScreenState
               dummySchedule.maintenanceType.name,
             ),
             _buildInfoRow(
-              'Scheduled Date',
-              _formatDateTime(dummySchedule.scheduledDate),
+              'Is Recurring',
+              dummySchedule.isRecurring ? 'Yes' : 'No',
             ),
             _buildInfoRow(
-              'Frequency (Months)',
-              dummySchedule.frequencyMonths?.toString() ?? '-',
+              'Interval',
+              dummySchedule.intervalValue != null &&
+                      dummySchedule.intervalUnit != null
+                  ? '${dummySchedule.intervalValue} ${dummySchedule.intervalUnit!.label}'
+                  : '-',
             ),
-            _buildInfoRow('Status', dummySchedule.status.name),
+            _buildInfoRow('Scheduled Time', dummySchedule.scheduledTime ?? '-'),
+            _buildInfoRow(
+              'Next Scheduled Date',
+              _formatDateTime(dummySchedule.nextScheduledDate),
+            ),
+            _buildInfoRow(
+              'Last Executed Date',
+              dummySchedule.lastExecutedDate != null
+                  ? _formatDateTime(dummySchedule.lastExecutedDate!)
+                  : '-',
+            ),
+            _buildInfoRow('State', dummySchedule.state.name),
+            _buildInfoRow(
+              'Auto Complete',
+              dummySchedule.autoComplete ? 'Yes' : 'No',
+            ),
+            _buildInfoRow(
+              'Estimated Cost',
+              dummySchedule.estimatedCost?.toString() ?? '-',
+            ),
             _buildInfoRow(
               'Created By',
-              dummySchedule.createdBy?.fullName ?? 'Unknown User',
+              dummySchedule.createdBy?.name ?? 'Unknown User',
             ),
           ]),
         ],
@@ -256,17 +278,42 @@ class _MaintenanceScheduleDetailScreenState
               _maintenanceSchedule!.maintenanceType.name,
             ),
             _buildInfoRow(
-              'Scheduled Date',
-              _formatDateTime(_maintenanceSchedule!.scheduledDate),
+              'Is Recurring',
+              _maintenanceSchedule!.isRecurring ? 'Yes' : 'No',
             ),
             _buildInfoRow(
-              'Frequency (Months)',
-              _maintenanceSchedule!.frequencyMonths?.toString() ?? '-',
+              'Interval',
+              _maintenanceSchedule!.intervalValue != null &&
+                      _maintenanceSchedule!.intervalUnit != null
+                  ? '${_maintenanceSchedule!.intervalValue} ${_maintenanceSchedule!.intervalUnit!.label}'
+                  : '-',
             ),
-            _buildInfoRow('Status', _maintenanceSchedule!.status.name),
+            _buildInfoRow(
+              'Scheduled Time',
+              _maintenanceSchedule!.scheduledTime ?? '-',
+            ),
+            _buildInfoRow(
+              'Next Scheduled Date',
+              _formatDateTime(_maintenanceSchedule!.nextScheduledDate),
+            ),
+            _buildInfoRow(
+              'Last Executed Date',
+              _maintenanceSchedule!.lastExecutedDate != null
+                  ? _formatDateTime(_maintenanceSchedule!.lastExecutedDate!)
+                  : '-',
+            ),
+            _buildInfoRow('State', _maintenanceSchedule!.state.name),
+            _buildInfoRow(
+              'Auto Complete',
+              _maintenanceSchedule!.autoComplete ? 'Yes' : 'No',
+            ),
+            _buildInfoRow(
+              'Estimated Cost',
+              _maintenanceSchedule!.estimatedCost?.toString() ?? '-',
+            ),
             _buildInfoRow(
               'Created By',
-              _maintenanceSchedule!.createdBy?.fullName ?? 'Unknown User',
+              _maintenanceSchedule!.createdBy?.name ?? 'Unknown User',
             ),
           ]),
           const SizedBox(height: 16),
@@ -274,6 +321,10 @@ class _MaintenanceScheduleDetailScreenState
             _buildInfoRow(
               'Created At',
               _formatDateTime(_maintenanceSchedule!.createdAt),
+            ),
+            _buildInfoRow(
+              'Updated At',
+              _formatDateTime(_maintenanceSchedule!.updatedAt),
             ),
           ]),
         ],

@@ -20,6 +20,7 @@ import 'package:sigma_track/feature/maintenance/presentation/validators/maintena
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
@@ -108,9 +109,14 @@ class _MaintenanceScheduleUpsertScreenState
 
     final assetId = formData['assetId'] as String;
     final maintenanceType = formData['maintenanceType'] as String?;
-    final scheduledDate = formData['scheduledDate'] as DateTime;
-    final frequencyMonths = formData['frequencyMonths'] as String?;
-    final status = formData['status'] as String?;
+    final isRecurring = formData['isRecurring'] as bool? ?? false;
+    final intervalValue = formData['intervalValue'] as String?;
+    final intervalUnit = formData['intervalUnit'] as String?;
+    final scheduledTime = formData['scheduledTime'] as String?;
+    final nextScheduledDate = formData['nextScheduledDate'] as DateTime;
+    final state = formData['state'] as String?;
+    final autoComplete = formData['autoComplete'] as bool? ?? false;
+    final estimatedCost = formData['estimatedCost'] as String?;
     final createdById = formData['createdById'] as String;
 
     if (_isEdit) {
@@ -119,20 +125,27 @@ class _MaintenanceScheduleUpsertScreenState
       final params = UpdateMaintenanceScheduleUsecaseParams.fromChanges(
         id: maintenanceScheduleId,
         original: _fetchedMaintenanceSchedule ?? widget.maintenanceSchedule!,
-        assetId: assetId,
         maintenanceType: maintenanceType != null
             ? MaintenanceScheduleType.values.firstWhere(
                 (e) => e.value == maintenanceType,
               )
             : null,
-        scheduledDate: scheduledDate,
-        frequencyMonths: frequencyMonths != null
-            ? int.tryParse(frequencyMonths)
+        isRecurring: isRecurring,
+        intervalValue: intervalValue != null
+            ? int.tryParse(intervalValue)
             : null,
-        status: status != null
-            ? ScheduleStatus.values.firstWhere((e) => e.value == status)
+        intervalUnit: intervalUnit != null
+            ? IntervalUnit.values.firstWhere((e) => e.value == intervalUnit)
             : null,
-        createdById: createdById,
+        scheduledTime: scheduledTime,
+        nextScheduledDate: nextScheduledDate,
+        state: state != null
+            ? ScheduleState.values.firstWhere((e) => e.value == state)
+            : null,
+        autoComplete: autoComplete,
+        estimatedCost: estimatedCost != null
+            ? double.tryParse(estimatedCost)
+            : null,
         translations: translations.cast<UpdateMaintenanceScheduleTranslation>(),
       );
       ref
@@ -146,13 +159,19 @@ class _MaintenanceScheduleUpsertScreenState
                 (e) => e.value == maintenanceType,
               )
             : MaintenanceScheduleType.preventive,
-        scheduledDate: scheduledDate,
-        frequencyMonths: frequencyMonths != null
-            ? int.tryParse(frequencyMonths)
+        isRecurring: isRecurring,
+        intervalValue: intervalValue != null
+            ? int.tryParse(intervalValue)
             : null,
-        status: status != null
-            ? ScheduleStatus.values.firstWhere((e) => e.value == status)
-            : ScheduleStatus.scheduled,
+        intervalUnit: intervalUnit != null
+            ? IntervalUnit.values.firstWhere((e) => e.value == intervalUnit)
+            : null,
+        scheduledTime: scheduledTime,
+        nextScheduledDate: nextScheduledDate,
+        autoComplete: autoComplete,
+        estimatedCost: estimatedCost != null
+            ? double.tryParse(estimatedCost)
+            : null,
         createdById: createdById,
         translations: translations.cast<CreateMaintenanceScheduleTranslation>(),
       );
@@ -344,46 +363,98 @@ class _MaintenanceScheduleUpsertScreenState
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
-              name: 'scheduledDate',
-              label: 'Scheduled Date',
-              initialValue: widget.maintenanceSchedule?.scheduledDate,
+              name: 'nextScheduledDate',
+              label: 'Next Scheduled Date',
+              initialValue: widget.maintenanceSchedule?.nextScheduledDate,
               validator: (value) =>
-                  MaintenanceScheduleUpsertValidator.validateScheduledDate(
+                  MaintenanceScheduleUpsertValidator.validateNextScheduledDate(
                     value,
                     isUpdate: _isEdit,
                   ),
             ),
             const SizedBox(height: 16),
+            AppCheckbox(
+              name: 'isRecurring',
+              title: const AppText('Is Recurring'),
+              initialValue: widget.maintenanceSchedule?.isRecurring ?? false,
+            ),
+            const SizedBox(height: 16),
             AppTextField(
-              name: 'frequencyMonths',
-              label: 'Frequency (Months)',
-              placeHolder: 'Enter frequency in months (optional)',
-              initialValue: widget.maintenanceSchedule?.frequencyMonths
+              name: 'intervalValue',
+              label: 'Interval Value',
+              placeHolder: 'Enter interval value (e.g., 3)',
+              initialValue: widget.maintenanceSchedule?.intervalValue
                   ?.toString(),
               type: AppTextFieldType.number,
               validator: (value) =>
-                  MaintenanceScheduleUpsertValidator.validateFrequencyMonths(
+                  MaintenanceScheduleUpsertValidator.validateIntervalValue(
                     value,
                     isUpdate: _isEdit,
                   ),
             ),
             const SizedBox(height: 16),
             AppDropdown(
-              name: 'status',
-              label: 'Status',
-              hintText: 'Select status',
-              items: ScheduleStatus.values
+              name: 'intervalUnit',
+              label: 'Interval Unit',
+              hintText: 'Select interval unit',
+              items: IntervalUnit.values
                   .map(
-                    (status) => AppDropdownItem(
-                      value: status.value,
-                      label: status.label,
-                      icon: Icon(status.icon, size: 18),
-                    ),
+                    (unit) =>
+                        AppDropdownItem(value: unit.value, label: unit.label),
                   )
                   .toList(),
-              initialValue: widget.maintenanceSchedule?.status.value,
+              initialValue: widget.maintenanceSchedule?.intervalUnit?.value,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'scheduledTime',
+              label: 'Scheduled Time (HH:mm)',
+              placeHolder: 'e.g., 09:30',
+              initialValue: widget.maintenanceSchedule?.scheduledTime,
               validator: (value) =>
-                  MaintenanceScheduleUpsertValidator.validateStatus(
+                  MaintenanceScheduleUpsertValidator.validateScheduledTime(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            if (_isEdit)
+              AppDropdown(
+                name: 'state',
+                label: 'State',
+                hintText: 'Select state',
+                items: ScheduleState.values
+                    .map(
+                      (state) => AppDropdownItem(
+                        value: state.value,
+                        label: state.label,
+                        icon: Icon(state.icon, size: 18),
+                      ),
+                    )
+                    .toList(),
+                initialValue: widget.maintenanceSchedule?.state.value,
+                validator: (value) =>
+                    MaintenanceScheduleUpsertValidator.validateState(
+                      value,
+                      isUpdate: _isEdit,
+                    ),
+              ),
+            if (_isEdit) const SizedBox(height: 16),
+            AppCheckbox(
+              name: 'autoComplete',
+              title: const AppText('Auto Complete'),
+              initialValue: widget.maintenanceSchedule?.autoComplete ?? false,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'estimatedCost',
+              label: 'Estimated Cost',
+              placeHolder: 'Enter estimated cost (optional)',
+              initialValue: widget.maintenanceSchedule?.estimatedCost
+                  ?.toString(),
+              type: AppTextFieldType.number,
+              validator: (value) =>
+                  MaintenanceScheduleUpsertValidator.validateEstimatedCost(
                     value,
                     isUpdate: _isEdit,
                   ),

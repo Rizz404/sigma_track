@@ -31,7 +31,7 @@ class MaintenanceSchedulesSearchNotifier
         search: maintenanceSchedulesFilter.search,
         assetId: maintenanceSchedulesFilter.assetId,
         maintenanceType: maintenanceSchedulesFilter.maintenanceType,
-        status: maintenanceSchedulesFilter.status,
+        state: maintenanceSchedulesFilter.state,
         createdBy: maintenanceSchedulesFilter.createdBy,
         fromDate: maintenanceSchedulesFilter.fromDate,
         toDate: maintenanceSchedulesFilter.toDate,

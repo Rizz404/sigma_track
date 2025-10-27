@@ -5,6 +5,7 @@ import 'package:fpdart/src/either.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_record_repository.dart';
@@ -31,8 +32,11 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
   final String? scheduleId;
   final String assetId;
   final DateTime maintenanceDate;
+  final DateTime? completionDate;
+  final int? durationMinutes;
   final String? performedByUserId;
   final String? performedByVendor;
+  final MaintenanceResult result;
   final double? actualCost;
   final List<CreateMaintenanceRecordTranslation> translations;
 
@@ -40,8 +44,11 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
     this.scheduleId,
     required this.assetId,
     required this.maintenanceDate,
+    this.completionDate,
+    this.durationMinutes,
     this.performedByUserId,
     this.performedByVendor,
+    required this.result,
     this.actualCost,
     required this.translations,
   });
@@ -51,8 +58,12 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
       if (scheduleId != null) 'scheduleId': scheduleId,
       'assetId': assetId,
       'maintenanceDate': maintenanceDate.toIso8601String(),
+      if (completionDate != null)
+        'completionDate': completionDate!.toIso8601String(),
+      if (durationMinutes != null) 'durationMinutes': durationMinutes,
       if (performedByUserId != null) 'performedByUserId': performedByUserId,
       if (performedByVendor != null) 'performedByVendor': performedByVendor,
+      'result': result.value,
       if (actualCost != null) 'actualCost': actualCost,
       'translations': translations.map((x) => x.toMap()).toList(),
     };
@@ -65,8 +76,16 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
       scheduleId: map['scheduleId'],
       assetId: map['assetId'] ?? '',
       maintenanceDate: DateTime.parse(map['maintenanceDate']),
+      completionDate: map['completionDate'] != null
+          ? DateTime.parse(map['completionDate'])
+          : null,
+      durationMinutes: map['durationMinutes'],
       performedByUserId: map['performedByUserId'],
       performedByVendor: map['performedByVendor'],
+      result: MaintenanceResult.values.firstWhere(
+        (e) => e.value == map['result'],
+        orElse: () => MaintenanceResult.success,
+      ),
       actualCost: map['actualCost']?.toDouble(),
       translations: List<CreateMaintenanceRecordTranslation>.from(
         map['translations']?.map(
@@ -87,8 +106,11 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
     scheduleId,
     assetId,
     maintenanceDate,
+    completionDate,
+    durationMinutes,
     performedByUserId,
     performedByVendor,
+    result,
     actualCost,
     translations,
   ];

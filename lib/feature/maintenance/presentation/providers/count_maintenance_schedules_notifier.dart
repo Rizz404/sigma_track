@@ -20,7 +20,7 @@ class CountMaintenanceSchedulesNotifier
   }
 
   Future<void> countMaintenanceSchedules({
-    ScheduleStatus? status,
+    ScheduleState? scheduleState,
     MaintenanceScheduleType? maintenanceType,
   }) async {
     this.logPresentation('Counting maintenance schedules with filters');
@@ -29,7 +29,7 @@ class CountMaintenanceSchedulesNotifier
 
     final result = await _countMaintenanceSchedulesUsecase.call(
       CountMaintenanceSchedulesUsecaseParams(
-        status: status,
+        state: scheduleState,
         maintenanceType: maintenanceType,
       ),
     );

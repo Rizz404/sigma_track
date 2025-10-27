@@ -7,11 +7,18 @@ class MaintenanceSchedule extends Equatable {
   final String id;
   final String assetId;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
-  final int? frequencyMonths;
-  final ScheduleStatus status;
+  final bool isRecurring;
+  final int? intervalValue;
+  final IntervalUnit? intervalUnit;
+  final String? scheduledTime;
+  final DateTime nextScheduledDate;
+  final DateTime? lastExecutedDate;
+  final ScheduleState state;
+  final bool autoComplete;
+  final double? estimatedCost;
   final String createdById;
   final DateTime createdAt;
+  final DateTime updatedAt;
   final String title;
   final String? description;
   final List<MaintenanceScheduleTranslation>? translations;
@@ -22,11 +29,18 @@ class MaintenanceSchedule extends Equatable {
     required this.id,
     required this.assetId,
     required this.maintenanceType,
-    required this.scheduledDate,
-    this.frequencyMonths,
-    required this.status,
+    required this.isRecurring,
+    this.intervalValue,
+    this.intervalUnit,
+    this.scheduledTime,
+    required this.nextScheduledDate,
+    this.lastExecutedDate,
+    required this.state,
+    required this.autoComplete,
+    this.estimatedCost,
     required this.createdById,
     required this.createdAt,
+    required this.updatedAt,
     required this.title,
     this.description,
     this.translations,
@@ -38,10 +52,13 @@ class MaintenanceSchedule extends Equatable {
     id: '',
     assetId: '',
     maintenanceType: MaintenanceScheduleType.preventive,
-    scheduledDate: DateTime(0),
-    status: ScheduleStatus.scheduled,
+    isRecurring: false,
+    nextScheduledDate: DateTime(0),
+    state: ScheduleState.active,
+    autoComplete: false,
     createdById: '',
     createdAt: DateTime(0),
+    updatedAt: DateTime(0),
     title: '',
   );
 
@@ -50,11 +67,18 @@ class MaintenanceSchedule extends Equatable {
     id,
     assetId,
     maintenanceType,
-    scheduledDate,
-    frequencyMonths,
-    status,
+    isRecurring,
+    intervalValue,
+    intervalUnit,
+    scheduledTime,
+    nextScheduledDate,
+    lastExecutedDate,
+    state,
+    autoComplete,
+    estimatedCost,
     createdById,
     createdAt,
+    updatedAt,
     title,
     description,
     translations,

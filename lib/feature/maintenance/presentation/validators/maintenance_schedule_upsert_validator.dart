@@ -16,19 +16,19 @@ class MaintenanceScheduleUpsertValidator {
     return null;
   }
 
-  static String? validateScheduledDate(
+  static String? validateNextScheduledDate(
     DateTime? value, {
     bool isUpdate = false,
   }) {
     if (!isUpdate && value == null) {
-      return 'Scheduled date is required';
+      return 'Next scheduled date is required';
     }
     return null;
   }
 
-  static String? validateStatus(String? value, {bool isUpdate = false}) {
+  static String? validateState(String? value, {bool isUpdate = false}) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Status is required';
+      return 'State is required';
     }
     return null;
   }
@@ -64,17 +64,38 @@ class MaintenanceScheduleUpsertValidator {
     return null;
   }
 
-  static String? validateFrequencyMonths(
-    String? value, {
-    bool isUpdate = false,
-  }) {
+  static String? validateIntervalValue(String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
-      final freq = int.tryParse(value);
-      if (freq == null) {
-        return 'Frequency months must be a valid number';
+      final interval = int.tryParse(value);
+      if (interval == null) {
+        return 'Interval value must be a valid number';
       }
-      if (freq <= 0) {
-        return 'Frequency months must be greater than 0';
+      if (interval <= 0) {
+        return 'Interval value must be greater than 0';
+      }
+    }
+    return null;
+  }
+
+  static String? validateScheduledTime(String? value, {bool isUpdate = false}) {
+    if (value != null && value.isNotEmpty) {
+      // * Validate time format (HH:mm)
+      final timeRegex = RegExp(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
+      if (!timeRegex.hasMatch(value)) {
+        return 'Scheduled time must be in HH:mm format (e.g., 09:30)';
+      }
+    }
+    return null;
+  }
+
+  static String? validateEstimatedCost(String? value, {bool isUpdate = false}) {
+    if (value != null && value.isNotEmpty) {
+      final cost = double.tryParse(value);
+      if (cost == null) {
+        return 'Estimated cost must be a valid number';
+      }
+      if (cost < 0) {
+        return 'Estimated cost cannot be negative';
       }
     }
     return null;

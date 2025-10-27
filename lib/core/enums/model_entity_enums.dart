@@ -175,7 +175,9 @@ enum ScanResultType {
 
 enum MaintenanceScheduleType {
   preventive('Preventive'),
-  corrective('Corrective');
+  corrective('Corrective'),
+  inspection('Inspection'),
+  calibration('Calibration');
 
   const MaintenanceScheduleType(this.value);
 
@@ -190,16 +192,21 @@ enum MaintenanceScheduleType {
         return Icons.shield;
       case MaintenanceScheduleType.corrective:
         return Icons.build;
+      case MaintenanceScheduleType.inspection:
+        return Icons.visibility;
+      case MaintenanceScheduleType.calibration:
+        return Icons.tune;
     }
   }
 }
 
-enum ScheduleStatus {
-  scheduled('Scheduled'),
-  completed('Completed'),
-  cancelled('Cancelled');
+enum ScheduleState {
+  active('Active'),
+  paused('Paused'),
+  stopped('Stopped'),
+  completed('Completed');
 
-  const ScheduleStatus(this.value);
+  const ScheduleState(this.value);
 
   final String value;
 
@@ -208,14 +215,32 @@ enum ScheduleStatus {
 
   IconData get icon {
     switch (this) {
-      case ScheduleStatus.scheduled:
-        return Icons.schedule;
-      case ScheduleStatus.completed:
+      case ScheduleState.active:
+        return Icons.play_arrow;
+      case ScheduleState.paused:
+        return Icons.pause;
+      case ScheduleState.stopped:
+        return Icons.stop;
+      case ScheduleState.completed:
         return Icons.check_circle;
-      case ScheduleStatus.cancelled:
-        return Icons.cancel;
     }
   }
+}
+
+enum IntervalUnit {
+  minutes('Minutes'),
+  hours('Hours'),
+  days('Days'),
+  weeks('Weeks'),
+  months('Months'),
+  years('Years');
+
+  const IntervalUnit(this.value);
+
+  final String value;
+
+  // * Dropdown helper
+  String get label => value;
 }
 
 enum IssuePriority {
@@ -268,6 +293,33 @@ enum IssueStatus {
         return Icons.check_circle;
       case IssueStatus.closed:
         return Icons.lock;
+    }
+  }
+}
+
+enum MaintenanceResult {
+  success('Success'),
+  partial('Partial'),
+  failed('Failed'),
+  rescheduled('Rescheduled');
+
+  const MaintenanceResult(this.value);
+
+  final String value;
+
+  // * Dropdown helper
+  String get label => value;
+
+  IconData get icon {
+    switch (this) {
+      case MaintenanceResult.success:
+        return Icons.check_circle;
+      case MaintenanceResult.partial:
+        return Icons.warning;
+      case MaintenanceResult.failed:
+        return Icons.error;
+      case MaintenanceResult.rescheduled:
+        return Icons.schedule;
     }
   }
 }

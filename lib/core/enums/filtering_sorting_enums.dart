@@ -261,8 +261,9 @@ enum IssueReportSortBy {
 }
 
 enum MaintenanceScheduleSortBy {
-  scheduledDate('scheduledDate'),
-  title('title'),
+  nextScheduledDate('nextScheduledDate'),
+  maintenanceType('maintenanceType'),
+  state('state'),
   createdAt('createdAt'),
   updatedAt('updatedAt');
 
@@ -274,10 +275,12 @@ enum MaintenanceScheduleSortBy {
 
   IconData get icon {
     switch (this) {
-      case MaintenanceScheduleSortBy.scheduledDate:
+      case MaintenanceScheduleSortBy.nextScheduledDate:
         return Icons.schedule;
-      case MaintenanceScheduleSortBy.title:
-        return Icons.title;
+      case MaintenanceScheduleSortBy.maintenanceType:
+        return Icons.build;
+      case MaintenanceScheduleSortBy.state:
+        return Icons.info;
       case MaintenanceScheduleSortBy.createdAt:
         return Icons.calendar_today;
       case MaintenanceScheduleSortBy.updatedAt:
@@ -288,6 +291,7 @@ enum MaintenanceScheduleSortBy {
 
 enum MaintenanceRecordSortBy {
   maintenanceDate('maintenanceDate'),
+  actualCost('actualCost'),
   title('title'),
   createdAt('createdAt'),
   updatedAt('updatedAt');
@@ -302,6 +306,8 @@ enum MaintenanceRecordSortBy {
     switch (this) {
       case MaintenanceRecordSortBy.maintenanceDate:
         return Icons.build;
+      case MaintenanceRecordSortBy.actualCost:
+        return Icons.attach_money;
       case MaintenanceRecordSortBy.title:
         return Icons.title;
       case MaintenanceRecordSortBy.createdAt:

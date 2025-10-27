@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -22,6 +23,7 @@ import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -119,7 +121,11 @@ class _MaintenanceRecordUpsertScreenState
     final scheduleId = formData['scheduleId'] as String;
     final assetId = formData['assetId'] as String;
     final maintenanceDate = formData['maintenanceDate'] as DateTime;
-    final performedById = formData['performedById'] as String;
+    final completionDate = formData['completionDate'] as DateTime?;
+    final durationMinutes = formData['durationMinutes'] as String?;
+    final performedById = formData['performedById'] as String?;
+    final performedByVendor = formData['performedByVendor'] as String?;
+    final result = formData['result'] as String?;
     final actualCost = formData['actualCost'] != null
         ? double.tryParse(formData['actualCost'] as String)
         : null;
@@ -133,7 +139,15 @@ class _MaintenanceRecordUpsertScreenState
         scheduleId: scheduleId,
         assetId: assetId,
         maintenanceDate: maintenanceDate,
+        completionDate: completionDate,
+        durationMinutes: durationMinutes != null
+            ? int.tryParse(durationMinutes)
+            : null,
         performedByUserId: performedById,
+        performedByVendor: performedByVendor,
+        result: result != null
+            ? MaintenanceResult.values.firstWhere((e) => e.value == result)
+            : null,
         actualCost: actualCost,
         translations: translations.cast<UpdateMaintenanceRecordTranslation>(),
       );
@@ -145,7 +159,15 @@ class _MaintenanceRecordUpsertScreenState
         scheduleId: scheduleId,
         assetId: assetId,
         maintenanceDate: maintenanceDate,
+        completionDate: completionDate,
+        durationMinutes: durationMinutes != null
+            ? int.tryParse(durationMinutes)
+            : null,
         performedByUserId: performedById,
+        performedByVendor: performedByVendor,
+        result: result != null
+            ? MaintenanceResult.values.firstWhere((e) => e.value == result)
+            : MaintenanceResult.success,
         actualCost: actualCost,
         translations: translations.cast<CreateMaintenanceRecordTranslation>(),
       );
@@ -345,9 +367,24 @@ class _MaintenanceRecordUpsertScreenState
                   ),
             ),
             const SizedBox(height: 16),
+            AppDateTimePicker(
+              name: 'completionDate',
+              label: 'Completion Date (Optional)',
+              initialValue: widget.maintenanceRecord?.completionDate,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'durationMinutes',
+              label: 'Duration (Minutes)',
+              placeHolder: 'Enter duration in minutes (optional)',
+              initialValue: widget.maintenanceRecord?.durationMinutes
+                  ?.toString(),
+              type: AppTextFieldType.number,
+            ),
+            const SizedBox(height: 16),
             AppSearchField<User>(
               name: 'performedById',
-              label: 'Performed By',
+              label: 'Performed By User',
               hintText: 'Search and select user who performed the maintenance',
               initialValue: widget.maintenanceRecord?.performedByUserId,
               enableAutocomplete: true,
@@ -356,8 +393,36 @@ class _MaintenanceRecordUpsertScreenState
               itemValueMapper: (user) => user.id,
               itemSubtitleMapper: (user) => user.email,
               itemIcon: Icons.person,
+            ),
+            const SizedBox(height: 16),
+            AppTextField(
+              name: 'performedByVendor',
+              label: 'Performed By Vendor',
+              placeHolder: 'Enter vendor name (optional)',
+              initialValue: widget.maintenanceRecord?.performedByVendor,
               validator: (value) =>
-                  MaintenanceRecordUpsertValidator.validatePerformedById(
+                  MaintenanceRecordUpsertValidator.validatePerformedByVendor(
+                    value,
+                    isUpdate: _isEdit,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            AppDropdown(
+              name: 'result',
+              label: 'Result',
+              hintText: 'Select maintenance result',
+              items: MaintenanceResult.values
+                  .map(
+                    (result) => AppDropdownItem(
+                      value: result.value,
+                      label: result.label,
+                      icon: Icon(result.icon, size: 18),
+                    ),
+                  )
+                  .toList(),
+              initialValue: widget.maintenanceRecord?.result.value,
+              validator: (value) =>
+                  MaintenanceRecordUpsertValidator.validateResult(
                     value,
                     isUpdate: _isEdit,
                   ),

@@ -5,6 +5,7 @@ import 'package:sigma_track/core/services/fcm_token_manager.dart';
 import 'package:sigma_track/core/services/firebase_messaging_service.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/local_notification_service.dart';
+import 'package:sigma_track/core/services/notification_navigation_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/di/datasource_providers.dart';
@@ -53,3 +54,9 @@ final fcmTokenManagerProvider = Provider<FcmTokenManager>((ref) {
   final updateUsecase = ref.watch(updateCurrentUserUsecaseProvider);
   return FcmTokenManager(prefs, messagingService, updateUsecase);
 });
+
+// * Notification Navigation Service provider
+final notificationNavigationServiceProvider =
+    Provider<NotificationNavigationService>((ref) {
+      return const NotificationNavigationService();
+    });

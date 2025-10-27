@@ -219,13 +219,26 @@ class _MaintenanceRecordDetailScreenState
               _formatDateTime(dummyRecord.maintenanceDate),
             ),
             _buildInfoRow(
+              'Completion Date',
+              dummyRecord.completionDate != null
+                  ? _formatDateTime(dummyRecord.completionDate!)
+                  : '-',
+            ),
+            _buildInfoRow(
+              'Duration',
+              dummyRecord.durationMinutes != null
+                  ? '${dummyRecord.durationMinutes} minutes'
+                  : '-',
+            ),
+            _buildInfoRow(
               'Performed By User',
-              dummyRecord.performedByUser?.fullName ?? '-',
+              dummyRecord.performedByUser?.name ?? '-',
             ),
             _buildInfoRow(
               'Performed By Vendor',
               dummyRecord.performedByVendor ?? '-',
             ),
+            _buildInfoRow('Result', dummyRecord.result.label),
             _buildInfoRow(
               'Actual Cost',
               dummyRecord.actualCost != null
@@ -255,13 +268,26 @@ class _MaintenanceRecordDetailScreenState
               _formatDateTime(_maintenanceRecord!.maintenanceDate),
             ),
             _buildInfoRow(
+              'Completion Date',
+              _maintenanceRecord!.completionDate != null
+                  ? _formatDateTime(_maintenanceRecord!.completionDate!)
+                  : '-',
+            ),
+            _buildInfoRow(
+              'Duration',
+              _maintenanceRecord!.durationMinutes != null
+                  ? '${_maintenanceRecord!.durationMinutes} minutes'
+                  : '-',
+            ),
+            _buildInfoRow(
               'Performed By User',
-              _maintenanceRecord!.performedByUser?.fullName ?? '-',
+              _maintenanceRecord!.performedByUser?.name ?? '-',
             ),
             _buildInfoRow(
               'Performed By Vendor',
               _maintenanceRecord!.performedByVendor ?? '-',
             ),
+            _buildInfoRow('Result', _maintenanceRecord!.result.label),
             _buildInfoRow(
               'Actual Cost',
               _maintenanceRecord!.actualCost != null

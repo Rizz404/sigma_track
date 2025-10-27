@@ -26,27 +26,27 @@ class CountMaintenanceSchedulesUsecase
 }
 
 class CountMaintenanceSchedulesUsecaseParams extends Equatable {
-  final ScheduleStatus? status;
+  final ScheduleState? state;
   final MaintenanceScheduleType? maintenanceType;
 
   const CountMaintenanceSchedulesUsecaseParams({
-    this.status,
+    this.state,
     this.maintenanceType,
   });
 
   CountMaintenanceSchedulesUsecaseParams copyWith({
-    ScheduleStatus? status,
+    ScheduleState? state,
     MaintenanceScheduleType? maintenanceType,
   }) {
     return CountMaintenanceSchedulesUsecaseParams(
-      status: status ?? this.status,
+      state: state ?? this.state,
       maintenanceType: maintenanceType ?? this.maintenanceType,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      if (status != null) 'status': status!.value,
+      if (state != null) 'state': state!.value,
       if (maintenanceType != null) 'maintenanceType': maintenanceType!.value,
     };
   }
@@ -55,8 +55,8 @@ class CountMaintenanceSchedulesUsecaseParams extends Equatable {
     Map<String, dynamic> map,
   ) {
     return CountMaintenanceSchedulesUsecaseParams(
-      status: map['status'] != null
-          ? ScheduleStatus.values.firstWhere((e) => e.value == map['status'])
+      state: map['state'] != null
+          ? ScheduleState.values.firstWhere((e) => e.value == map['state'])
           : null,
       maintenanceType: map['maintenanceType'] != null
           ? MaintenanceScheduleType.values.firstWhere(
@@ -73,8 +73,8 @@ class CountMaintenanceSchedulesUsecaseParams extends Equatable {
 
   @override
   String toString() =>
-      'CountMaintenanceSchedulesUsecaseParams(status: $status, maintenanceType: $maintenanceType)';
+      'CountMaintenanceSchedulesUsecaseParams(state: $state, maintenanceType: $maintenanceType)';
 
   @override
-  List<Object?> get props => [status, maintenanceType];
+  List<Object?> get props => [state, maintenanceType];
 }
