@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 
 /// Reusable loader overlay widget
 class AppLoaderOverlay extends StatelessWidget {
@@ -23,17 +23,7 @@ class AppLoaderOverlay extends StatelessWidget {
         alpha: overlayOpacity ?? 0.6,
       ),
       overlayWidgetBuilder: (progress) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const AppImage(
-              assetPath: 'assets/images/splash.png',
-              size: ImageSize.xxxLarge,
-            ),
-            const SizedBox(height: 16),
-            CircularProgressIndicator(color: context.colorScheme.primary),
-          ],
-        ),
+        child: SpinKitThreeBounce(color: context.colorScheme.primary, size: 50),
       ),
       child: child,
     );
