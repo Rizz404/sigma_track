@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -75,15 +76,15 @@ class _ExportAssetsBottomSheetState
                 ),
               ),
               const SizedBox(height: 16),
-              const AppText(
-                'Export Assets',
+              AppText(
+                context.l10n.assetExportAssets,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'format',
-                label: 'Export Format',
+                label: context.l10n.assetExportFormat,
                 initialValue: widget.initialParams.format.value,
                 items: ExportFormat.values
                     .map(
@@ -117,9 +118,9 @@ class _ExportAssetsBottomSheetState
                       color: context.colors.textSecondary,
                     ),
                     const SizedBox(width: 8),
-                    const Expanded(
+                    Expanded(
                       child: AppText(
-                        'Include Data Matrix Images',
+                        context.l10n.assetIncludeDataMatrixImages,
                         style: AppTextStyle.bodyMedium,
                       ),
                     ),
@@ -146,8 +147,8 @@ class _ExportAssetsBottomSheetState
                             size: 20,
                           ),
                           const SizedBox(width: 8),
-                          const AppText(
-                            'Export Ready',
+                          AppText(
+                            context.l10n.assetExportReady,
                             style: AppTextStyle.titleSmall,
                             fontWeight: FontWeight.w600,
                           ),
@@ -161,13 +162,17 @@ class _ExportAssetsBottomSheetState
                       ),
                       const SizedBox(height: 12),
                       AppText(
-                        'Size: ${(previewData.lengthInBytes / 1024).toStringAsFixed(2)} KB',
+                        context.l10n.assetExportSize(
+                          (previewData.lengthInBytes / 1024).toStringAsFixed(2),
+                        ),
                         style: AppTextStyle.bodySmall,
                         color: context.colors.textSecondary,
                       ),
                       const SizedBox(height: 8),
                       AppText(
-                        'Format: ${_selectedFormat?.label.toUpperCase() ?? 'N/A'}',
+                        context.l10n.assetExportFormatDisplay(
+                          _selectedFormat?.label.toUpperCase() ?? 'N/A',
+                        ),
                         style: AppTextStyle.bodySmall,
                         color: context.colors.textSecondary,
                       ),
@@ -191,7 +196,7 @@ class _ExportAssetsBottomSheetState
                             const SizedBox(width: 8),
                             Expanded(
                               child: AppText(
-                                'File will open share menu. Choose app to open or save directly.',
+                                context.l10n.assetExportShareInstruction,
                                 style: AppTextStyle.bodySmall,
                                 color: context.colors.textSecondary,
                               ),
@@ -208,7 +213,7 @@ class _ExportAssetsBottomSheetState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Cancel',
+                      text: context.l10n.assetCancel,
                       color: AppButtonColor.secondary,
                       onPressed: () => Navigator.pop(context),
                     ),
@@ -217,7 +222,7 @@ class _ExportAssetsBottomSheetState
                   if (previewData == null) ...[
                     Expanded(
                       child: AppButton(
-                        text: 'Export',
+                        text: context.l10n.assetExport,
                         leadingIcon: const Icon(Icons.download),
                         isLoading: state.isLoading,
                         onPressed: state.isLoading ? null : _handleExport,
@@ -226,7 +231,7 @@ class _ExportAssetsBottomSheetState
                   ] else ...[
                     Expanded(
                       child: AppButton(
-                        text: 'Share & Save',
+                        text: context.l10n.assetShareAndSave,
                         leadingIcon: const Icon(Icons.share),
                         onPressed: () => _handleOpenAndSave(previewData),
                       ),
@@ -286,7 +291,7 @@ class _ExportAssetsBottomSheetState
       // * User can choose to open with PDF/Excel app or save directly
       final result = await Share.shareXFiles(
         [XFile(tempFilePath)],
-        text: 'Assets Export',
+        text: context.l10n.assetExportSubject,
         subject: fileName,
       );
 
@@ -296,23 +301,23 @@ class _ExportAssetsBottomSheetState
           final shouldSave = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
-              title: const AppText(
-                'Save to Downloads?',
+              title: AppText(
+                context.l10n.assetSaveToDownloads,
                 style: AppTextStyle.titleMedium,
               ),
-              content: const AppText(
-                'File has been shared. Would you like to save a copy to Downloads folder?',
+              content: AppText(
+                context.l10n.assetSaveToDownloadsMessage,
                 style: AppTextStyle.bodyMedium,
               ),
               actionsAlignment: MainAxisAlignment.end,
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: const AppText('No'),
+                  child: AppText(context.l10n.assetNo),
                 ),
                 const SizedBox(width: 8),
                 AppButton(
-                  text: 'Save',
+                  text: context.l10n.assetSave,
                   isFullWidth: false,
                   onPressed: () => Navigator.pop(context, true),
                 ),
@@ -323,16 +328,16 @@ class _ExportAssetsBottomSheetState
           if (shouldSave == true) {
             await _saveFilePermanently(fileData);
           } else {
-            AppToast.success('File shared successfully');
+            AppToast.success(context.l10n.assetFileSharedSuccessfully);
             Navigator.pop(context);
           }
         } else if (result.status == ShareResultStatus.dismissed) {
-          AppToast.info('Share cancelled');
+          AppToast.info(context.l10n.assetShareCancelled);
         }
       }
     } catch (e, s) {
       this.logError('Failed to share/save file', e, s);
-      AppToast.error('Failed to share file: ${e.toString()}');
+      AppToast.error(context.l10n.assetFailedToShareFile(e.toString()));
     }
   }
 
@@ -352,12 +357,12 @@ class _ExportAssetsBottomSheetState
       );
 
       if (mounted) {
-        AppToast.success('File saved successfully to Downloads');
+        AppToast.success(context.l10n.assetFileSavedSuccessfully);
         Navigator.pop(context);
       }
     } catch (e, s) {
       this.logError('Failed to save file permanently', e, s);
-      AppToast.error('Failed to save file: ${e.toString()}');
+      AppToast.error(context.l10n.assetFailedToSaveFile(e.toString()));
     }
   }
 }

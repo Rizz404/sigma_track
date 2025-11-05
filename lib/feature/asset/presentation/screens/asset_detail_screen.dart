@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -97,7 +98,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           );
         } else if (state.failure != null) {
           this.logError('Failed to fetch asset by tag', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load asset');
+          AppToast.error(
+            state.failure?.message ?? context.l10n.assetFailedToLoad,
+          );
           setState(() => _isLoading = false);
         } else {
           // * State masih loading, tunggu dengan listen
@@ -106,7 +109,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       }
     } catch (e, s) {
       this.logError('Error fetching asset', e, s);
-      AppToast.error('Failed to load asset');
+      AppToast.error(context.l10n.assetFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -194,7 +197,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     if (isAdmin) {
       context.push(RouteConstant.adminAssetUpsert, extra: _asset);
     } else {
-      AppToast.warning('Only admin can edit assets');
+      AppToast.warning(context.l10n.assetOnlyAdminCanEdit);
     }
   }
 
@@ -205,27 +208,30 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete assets');
+      AppToast.warning(context.l10n.assetOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText('Delete Asset', style: AppTextStyle.titleMedium),
+        title: AppText(
+          context.l10n.assetDeleteAsset,
+          style: AppTextStyle.titleMedium,
+        ),
         content: AppText(
-          'Are you sure you want to delete "${_asset!.assetName}"?',
+          context.l10n.assetDeleteConfirmation(_asset!.assetName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.assetCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.assetDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -249,11 +255,15 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Asset deleted');
+          AppToast.success(
+            next.mutationMessage ?? context.l10n.assetDeletedSuccess,
+          );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.assetDeletedFailed,
+          );
         }
       }
     });
@@ -265,7 +275,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading ? 'Asset Detail' : _asset!.assetName,
+        title: isLoading ? context.l10n.assetDetail : _asset!.assetName,
       ),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
@@ -294,38 +304,52 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Asset Information', [
-            _buildInfoRow('Asset Tag', dummyAsset.assetTag),
-            _buildInfoRow('Asset Name', dummyAsset.assetName),
-            _buildInfoRow('Category', dummyAsset.category?.categoryName ?? '-'),
-            _buildInfoRow('Brand', dummyAsset.brand ?? '-'),
-            _buildInfoRow('Model', dummyAsset.model ?? '-'),
-            _buildInfoRow('Serial Number', dummyAsset.serialNumber ?? '-'),
-            _buildInfoRow('Status', dummyAsset.status.name),
-            _buildInfoRow('Condition', dummyAsset.condition.name),
-            _buildInfoRow('Location', dummyAsset.location?.locationName ?? '-'),
+          _buildInfoCard(context.l10n.assetInformation, [
+            _buildInfoRow(context.l10n.assetName, dummyAsset.assetName),
             _buildInfoRow(
-              'Assigned To',
+              context.l10n.assetCategory,
+              dummyAsset.category?.categoryName ?? '-',
+            ),
+            _buildInfoRow(context.l10n.assetBrand, dummyAsset.brand ?? '-'),
+            _buildInfoRow(context.l10n.assetModel, dummyAsset.model ?? '-'),
+            _buildInfoRow(
+              context.l10n.assetSerialNumber,
+              dummyAsset.serialNumber ?? '-',
+            ),
+            _buildInfoRow(context.l10n.assetStatus, dummyAsset.status.name),
+            _buildInfoRow(
+              context.l10n.assetCondition,
+              dummyAsset.condition.name,
+            ),
+            _buildInfoRow(
+              context.l10n.assetLocation,
+              dummyAsset.location?.locationName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetAssignedTo,
               dummyAsset.assignedTo?.fullName ?? '-',
             ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Purchase Information', [
+          _buildInfoCard(context.l10n.assetPurchaseInformation, [
             _buildInfoRow(
-              'Purchase Date',
+              context.l10n.assetPurchaseDate,
               dummyAsset.purchaseDate != null
                   ? _formatDateTime(dummyAsset.purchaseDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Purchase Price',
+              context.l10n.assetPurchasePrice,
               dummyAsset.purchasePrice != null
                   ? '\$${dummyAsset.purchasePrice}'
                   : '-',
             ),
-            _buildInfoRow('Vendor Name', dummyAsset.vendorName ?? '-'),
             _buildInfoRow(
-              'Warranty End',
+              context.l10n.assetVendorName,
+              dummyAsset.vendorName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetWarrantyEnd,
               dummyAsset.warrantyEnd != null
                   ? _formatDateTime(dummyAsset.warrantyEnd!)
                   : '-',
@@ -341,48 +365,69 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Asset Information', [
-            _buildInfoRow('Asset Tag', _asset!.assetTag),
-            _buildInfoRow('Asset Name', _asset!.assetName),
-            _buildInfoRow('Category', _asset!.category?.categoryName ?? '-'),
-            _buildInfoRow('Brand', _asset!.brand ?? '-'),
-            _buildInfoRow('Model', _asset!.model ?? '-'),
-            _buildInfoRow('Serial Number', _asset!.serialNumber ?? '-'),
-            _buildInfoRow('Status', _asset!.status.name),
-            _buildInfoRow('Condition', _asset!.condition.name),
-            _buildInfoRow('Location', _asset!.location?.locationName ?? '-'),
-            _buildInfoRow('Assigned To', _asset!.assignedTo?.fullName ?? '-'),
+          _buildInfoCard(context.l10n.assetInformation, [
+            _buildInfoRow(context.l10n.assetTag, _asset!.assetTag),
+            _buildInfoRow(context.l10n.assetName, _asset!.assetName),
+            _buildInfoRow(
+              context.l10n.assetCategory,
+              _asset!.category?.categoryName ?? '-',
+            ),
+            _buildInfoRow(context.l10n.assetBrand, _asset!.brand ?? '-'),
+            _buildInfoRow(context.l10n.assetModel, _asset!.model ?? '-'),
+            _buildInfoRow(
+              context.l10n.assetSerialNumber,
+              _asset!.serialNumber ?? '-',
+            ),
+            _buildInfoRow(context.l10n.assetStatus, _asset!.status.name),
+            _buildInfoRow(context.l10n.assetCondition, _asset!.condition.name),
+            _buildInfoRow(
+              context.l10n.assetLocation,
+              _asset!.location?.locationName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetAssignedTo,
+              _asset!.assignedTo?.fullName ?? '-',
+            ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Purchase Information', [
+          _buildInfoCard(context.l10n.assetPurchaseInformation, [
             _buildInfoRow(
-              'Purchase Date',
+              context.l10n.assetPurchaseDate,
               _asset!.purchaseDate != null
                   ? _formatDateTime(_asset!.purchaseDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Purchase Price',
+              context.l10n.assetPurchasePrice,
               _asset!.purchasePrice != null
                   ? '\$${_asset!.purchasePrice}'
                   : '-',
             ),
-            _buildInfoRow('Vendor Name', _asset!.vendorName ?? '-'),
             _buildInfoRow(
-              'Warranty End',
+              context.l10n.assetVendorName,
+              _asset!.vendorName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetWarrantyEnd,
               _asset!.warrantyEnd != null
                   ? _formatDateTime(_asset!.warrantyEnd!)
                   : '-',
             ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
-            _buildInfoRow('Created At', _formatDateTime(_asset!.createdAt)),
-            _buildInfoRow('Updated At', _formatDateTime(_asset!.updatedAt)),
+          _buildInfoCard(context.l10n.assetMetadata, [
+            _buildInfoRow(
+              context.l10n.assetCreatedAt,
+              _formatDateTime(_asset!.createdAt),
+            ),
+            _buildInfoRow(
+              context.l10n.assetUpdatedAt,
+              _formatDateTime(_asset!.updatedAt),
+            ),
           ]),
           if (_asset!.dataMatrixImageUrl.isNotEmpty) ...[
             const SizedBox(height: 16),
-            _buildInfoCard('Data Matrix Image', [
+            _buildInfoCard(context.l10n.assetDataMatrixImage, [
               AppImage(
                 imageUrl: _asset!.dataMatrixImageUrl,
                 size: ImageSize.fullWidth,

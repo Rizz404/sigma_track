@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -61,7 +62,7 @@ class _AssetMovementDetailScreenState
         } else if (state.failure != null) {
           this.logError('Failed to fetch asset movement by id', state.failure);
           AppToast.error(
-            state.failure?.message ?? 'Failed to load asset movement',
+            state.failure?.message ?? context.l10n.assetMovementFailedToLoad,
           );
           setState(() => _isLoading = false);
         } else {
@@ -71,7 +72,7 @@ class _AssetMovementDetailScreenState
       }
     } catch (e, s) {
       this.logError('Error fetching asset movement', e, s);
-      AppToast.error('Failed to load asset movement');
+      AppToast.error(context.l10n.assetMovementFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -83,7 +84,7 @@ class _AssetMovementDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can edit asset movements');
+      AppToast.warning(context.l10n.assetMovementOnlyAdminCanEdit);
       return;
     }
 
@@ -94,12 +95,12 @@ class _AssetMovementDetailScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Edit Asset Movement',
+        title: AppText(
+          context.l10n.assetMovementEditAssetMovement,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Choose movement type:',
+        content: AppText(
+          context.l10n.assetMovementSelectMovementType,
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -112,11 +113,11 @@ class _AssetMovementDetailScreenState
                 extra: _assetMovement,
               );
             },
-            child: const AppText('For Location'),
+            child: AppText(context.l10n.assetMovementForLocation),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'For User',
+            text: context.l10n.assetMovementForUser,
             isFullWidth: false,
             onPressed: () {
               Navigator.pop(context);
@@ -138,30 +139,30 @@ class _AssetMovementDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete asset movements');
+      AppToast.warning(context.l10n.assetMovementOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Asset Movement',
+        title: AppText(
+          context.l10n.assetMovementDeleteAssetMovement,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Are you sure you want to delete this asset movement?',
+        content: AppText(
+          context.l10n.assetMovementDeleteConfirmation,
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.assetMovementCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.assetMovementDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -187,11 +188,16 @@ class _AssetMovementDetailScreenState
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Asset movement deleted');
+          AppToast.success(
+            next.mutationMessage ?? context.l10n.assetMovementDelete,
+          );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.assetMovementOperationFailed,
+          );
         }
       }
     });
@@ -202,7 +208,7 @@ class _AssetMovementDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Asset Movement Detail'),
+      appBar: CustomAppBar(title: context.l10n.assetMovementDetail),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
@@ -230,30 +236,39 @@ class _AssetMovementDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Asset Movement Information', [
+          _buildInfoCard(context.l10n.assetMovementInformation, [
             _buildInfoRow(
-              'Asset',
-              dummyMovement.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.assetMovementAsset,
+              dummyMovement.asset?.assetName ?? context.l10n.assetMovementAsset,
             ),
             _buildInfoRow(
-              'From Location',
+              context.l10n.assetMovementFromLocation,
               dummyMovement.fromLocation?.locationName ?? '-',
             ),
             _buildInfoRow(
-              'To Location',
+              context.l10n.assetMovementToLocation,
               dummyMovement.toLocation?.locationName ?? '-',
             ),
-            _buildInfoRow('From User', dummyMovement.fromUser?.fullName ?? '-'),
-            _buildInfoRow('To User', dummyMovement.toUser?.fullName ?? '-'),
             _buildInfoRow(
-              'Moved By',
-              dummyMovement.movedBy?.fullName ?? 'Unknown User',
+              context.l10n.assetMovementFromUser,
+              dummyMovement.fromUser?.fullName ?? '-',
             ),
             _buildInfoRow(
-              'Movement Date',
+              context.l10n.assetMovementToUser,
+              dummyMovement.toUser?.fullName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetMovementMovedBy,
+              dummyMovement.movedBy?.fullName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetMovementMovementDate,
               _formatDateTime(dummyMovement.movementDate),
             ),
-            _buildInfoRow('Notes', dummyMovement.notes ?? '-'),
+            _buildInfoRow(
+              context.l10n.assetMovementNotes,
+              dummyMovement.notes ?? '-',
+            ),
           ]),
         ],
       ),
@@ -265,42 +280,49 @@ class _AssetMovementDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Asset Movement Information', [
+          _buildInfoCard(context.l10n.assetMovementInformation, [
             _buildInfoRow(
-              'Asset',
-              _assetMovement!.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.assetMovementAsset,
+              _assetMovement!.asset?.assetName ??
+                  context.l10n.assetMovementAsset,
             ),
             _buildInfoRow(
-              'From Location',
+              context.l10n.assetMovementFromLocation,
               _assetMovement!.fromLocation?.locationName ?? '-',
             ),
             _buildInfoRow(
-              'To Location',
+              context.l10n.assetMovementToLocation,
               _assetMovement!.toLocation?.locationName ?? '-',
             ),
             _buildInfoRow(
-              'From User',
+              context.l10n.assetMovementFromUser,
               _assetMovement!.fromUser?.fullName ?? '-',
             ),
-            _buildInfoRow('To User', _assetMovement!.toUser?.fullName ?? '-'),
             _buildInfoRow(
-              'Moved By',
-              _assetMovement!.movedBy?.fullName ?? 'Unknown User',
+              context.l10n.assetMovementToUser,
+              _assetMovement!.toUser?.fullName ?? '-',
             ),
             _buildInfoRow(
-              'Movement Date',
+              context.l10n.assetMovementMovedBy,
+              _assetMovement!.movedBy?.fullName ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.assetMovementMovementDate,
               _formatDateTime(_assetMovement!.movementDate),
             ),
-            _buildTextBlock('Notes', _assetMovement!.notes),
+            _buildTextBlock(
+              context.l10n.assetMovementNotes,
+              _assetMovement!.notes,
+            ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
+          _buildInfoCard(context.l10n.assetMovementMetadata, [
             _buildInfoRow(
-              'Created At',
+              context.l10n.assetMovementCreatedAt,
               _formatDateTime(_assetMovement!.createdAt),
             ),
             _buildInfoRow(
-              'Updated At',
+              context.l10n.assetMovementUpdatedAt,
               _formatDateTime(_assetMovement!.updatedAt),
             ),
           ]),

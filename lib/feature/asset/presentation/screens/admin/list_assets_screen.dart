@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -94,16 +95,16 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
             _isSelectMode = true;
             _selectedAssetIds.clear();
           });
-          AppToast.info('Select assets to delete');
+          AppToast.info(context.l10n.assetSelectAssetsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
         exportWidgetBuilder: _buildExportBottomSheet,
-        createTitle: 'Create Asset',
-        createSubtitle: 'Add a new asset',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple assets to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize asset display',
+        createTitle: context.l10n.assetCreateAssetTitle,
+        createSubtitle: context.l10n.assetCreateAssetSubtitle,
+        selectManyTitle: context.l10n.assetSelectManyTitle,
+        selectManySubtitle: context.l10n.assetSelectManySubtitle,
+        filterSortTitle: context.l10n.assetFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.assetFilterAndSortSubtitle,
       ),
     );
   }
@@ -165,8 +166,8 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 children: [
                   AppSearchField<Category>(
                     name: 'categoryId',
-                    label: 'Filter by Category',
-                    hintText: 'Search category...',
+                    label: context.l10n.assetFilterByCategory,
+                    hintText: context.l10n.assetSearchCategory,
                     enableAutocomplete: true,
                     onSearch: _searchCategories,
                     itemDisplayMapper: (category) => category.categoryName,
@@ -186,8 +187,8 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 children: [
                   AppSearchField<Location>(
                     name: 'locationId',
-                    label: 'Filter by Location',
-                    hintText: 'Search location...',
+                    label: context.l10n.assetFilterByLocation,
+                    hintText: context.l10n.assetSearchLocation,
                     enableAutocomplete: true,
                     onSearch: _searchLocations,
                     itemDisplayMapper: (location) => location.locationName,
@@ -207,8 +208,8 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 children: [
                   AppSearchField<User>(
                     name: 'assignedTo',
-                    label: 'Filter by Assigned To',
-                    hintText: 'Search user...',
+                    label: context.l10n.assetFilterByAssignedTo,
+                    hintText: context.l10n.assetSearchUser,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -223,27 +224,27 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-              const AppTextField(
+              AppTextField(
                 name: 'brand',
-                label: 'Brand',
-                placeHolder: 'Enter brand...',
+                label: context.l10n.assetBrandLabel,
+                placeHolder: context.l10n.assetEnterBrandFilter,
               ),
               const SizedBox(height: 16),
-              const AppTextField(
+              AppTextField(
                 name: 'model',
-                label: 'Model',
-                placeHolder: 'Enter model...',
+                label: context.l10n.assetModelLabel,
+                placeHolder: context.l10n.assetEnterModelFilter,
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.assetFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.assetSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: AssetSortBy.values
                     .map(
@@ -258,7 +259,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.assetSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -273,7 +274,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'status',
-                label: 'Status',
+                label: context.l10n.assetStatus,
                 initialValue: currentFilter.status?.value,
                 items: AssetStatus.values
                     .map(
@@ -288,7 +289,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'condition',
-                label: 'Condition',
+                label: context.l10n.assetCondition,
                 initialValue: currentFilter.condition?.value,
                 items: AssetCondition.values
                     .map(
@@ -305,7 +306,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.assetReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -317,14 +318,14 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                         ref
                             .read(assetsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.assetFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.assetApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -372,7 +373,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                           ref
                               .read(assetsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(context.l10n.assetFilterApplied);
                         }
                       },
                     ),
@@ -426,27 +427,32 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
 
   Future<void> _deleteSelectedAssets() async {
     if (_selectedAssetIds.isEmpty) {
-      AppToast.warning('No assets selected');
+      AppToast.warning(context.l10n.assetNoAssetsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText('Delete Assets', style: AppTextStyle.titleMedium),
+        title: AppText(
+          context.l10n.assetDeleteAssets,
+          style: AppTextStyle.titleMedium,
+        ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedAssetIds.length} assets?',
+          context.l10n.assetDeleteMultipleConfirmation(
+            _selectedAssetIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.assetCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.assetDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -457,7 +463,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.assetNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -481,7 +487,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Asset Management'),
+      appBar: CustomAppBar(title: context.l10n.assetManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -547,14 +553,14 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedAssetIds.length} selected',
+                context.l10n.assetSelectedCount(_selectedAssetIds.length),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.assetDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedAssets,
@@ -568,7 +574,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search assets...',
+      hintText: context.l10n.assetSearchAssets,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -591,13 +597,13 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No assets found',
+            context.l10n.assetNoAssetsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first asset to get started',
+            context.l10n.assetCreateFirstAsset,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -642,7 +648,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
                         _selectedAssetIds.clear();
                         _selectedAssetIds.add(asset.id);
                       });
-                      AppToast.info('Long press to select more assets');
+                      AppToast.info(context.l10n.assetLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

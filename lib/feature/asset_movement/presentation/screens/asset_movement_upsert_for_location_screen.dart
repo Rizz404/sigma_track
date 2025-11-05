@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -83,7 +84,7 @@ class _AssetMovementUpsertForLocationScreenState
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.assetMovementFillRequiredFields);
       return;
     }
 
@@ -186,7 +187,7 @@ class _AssetMovementUpsertForLocationScreenState
             setState(() => _isLoadingTranslations = false);
             AppToast.error(
               assetMovementDetailState.failure?.message ??
-                  'Failed to load translations',
+                  context.l10n.assetMovementFailedToLoad,
             );
           }
         });
@@ -205,7 +206,7 @@ class _AssetMovementUpsertForLocationScreenState
       // * Handle mutation success
       if (next.hasMutationSuccess) {
         AppToast.success(
-          next.mutationMessage ?? 'Asset movement saved successfully',
+          next.mutationMessage ?? context.l10n.assetMovementSavedSuccessfully,
         );
         context.pop();
       }
@@ -219,7 +220,10 @@ class _AssetMovementUpsertForLocationScreenState
           );
         } else {
           this.logError('Asset movement mutation error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.assetMovementOperationFailed,
+          );
         }
       }
     });
@@ -228,8 +232,8 @@ class _AssetMovementUpsertForLocationScreenState
       child: Scaffold(
         appBar: CustomAppBar(
           title: _isEdit
-              ? 'Edit Asset Movement to Location'
-              : 'Create Asset Movement to Location',
+              ? context.l10n.assetMovementEditAssetMovement
+              : context.l10n.assetMovementCreateAssetMovement,
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -277,16 +281,16 @@ class _AssetMovementUpsertForLocationScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Asset Movement Information',
+            AppText(
+              context.l10n.assetMovementInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppSearchField<Asset>(
               name: 'assetId',
-              label: 'Asset',
-              hintText: 'Search and select asset',
+              label: context.l10n.assetMovementAsset,
+              hintText: context.l10n.assetMovementSearchAsset,
               initialValue: widget.assetMovement?.assetId,
               enableAutocomplete: true,
               onSearch: _searchAssets,
@@ -303,8 +307,8 @@ class _AssetMovementUpsertForLocationScreenState
             const SizedBox(height: 16),
             AppSearchField<Location>(
               name: 'toLocationId',
-              label: 'To Location',
-              hintText: 'Search and select to location',
+              label: context.l10n.assetMovementToLocation,
+              hintText: context.l10n.assetMovementSearchToLocation,
               initialValue: widget.assetMovement?.toLocationId,
               enableAutocomplete: true,
               onSearch: _searchLocations,
@@ -321,8 +325,8 @@ class _AssetMovementUpsertForLocationScreenState
             const SizedBox(height: 16),
             AppSearchField<User>(
               name: 'movedById',
-              label: 'Moved By',
-              hintText: 'Search and select user who moved the asset',
+              label: context.l10n.assetMovementMovedBy,
+              hintText: context.l10n.assetMovementSearchFromUser,
               initialValue: widget.assetMovement?.movedById,
               enableAutocomplete: true,
               onSearch: _searchUsers,
@@ -339,7 +343,7 @@ class _AssetMovementUpsertForLocationScreenState
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'movementDate',
-              label: 'Movement Date',
+              label: context.l10n.assetMovementMovementDate,
               initialValue: widget.assetMovement?.movementDate,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateMovementDate(
@@ -374,9 +378,15 @@ class _AssetMovementUpsertForLocationScreenState
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en-US', 'English'),
+              _buildTranslationFields(
+                'en-US',
+                context.l10n.appEndDrawerEnglish,
+              ),
               const SizedBox(height: 12),
-              _buildTranslationFields('ja-JP', 'Japanese'),
+              _buildTranslationFields(
+                'ja-JP',
+                context.l10n.appEndDrawerJapanese,
+              ),
             ],
           ),
         ),
@@ -412,8 +422,8 @@ class _AssetMovementUpsertForLocationScreenState
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_notes',
-            label: 'Notes',
-            placeHolder: 'Enter notes in $langName',
+            label: context.l10n.assetMovementNotes,
+            placeHolder: context.l10n.assetMovementEnterNotes,
             initialValue: translation?.notes,
             type: AppTextFieldType.multiline,
             validator: (value) =>
@@ -439,7 +449,7 @@ class _AssetMovementUpsertForLocationScreenState
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.assetMovementCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -447,7 +457,9 @@ class _AssetMovementUpsertForLocationScreenState
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.assetMovementUpdate
+                    : context.l10n.assetMovementCreate,
                 onPressed: _handleSubmit,
               ),
             ),

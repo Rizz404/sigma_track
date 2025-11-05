@@ -1,0 +1,367 @@
+{
+  "@@locale": "ja",
+  "assetMovementDeleteAssetMovement": "資産移動を削除",
+  "@assetMovementDeleteAssetMovement": {
+    "description": "Dialog title for deleting an asset movement"
+  },
+  "assetMovementDeleteConfirmation": "この資産移動記録を削除してもよろしいですか？",
+  "@assetMovementDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset movement"
+  },
+  "assetMovementCancel": "キャンセル",
+  "@assetMovementCancel": {
+    "description": "Cancel button label"
+  },
+  "assetMovementDelete": "削除",
+  "@assetMovementDelete": {
+    "description": "Delete button label"
+  },
+  "assetMovementDetail": "資産移動詳細",
+  "@assetMovementDetail": {
+    "description": "Asset movement detail screen title"
+  },
+  "assetMovementInformation": "移動情報",
+  "@assetMovementInformation": {
+    "description": "Asset movement information section title"
+  },
+  "assetMovementId": "移動ID",
+  "@assetMovementId": {
+    "description": "Movement ID label"
+  },
+  "assetMovementAsset": "資産",
+  "@assetMovementAsset": {
+    "description": "Asset label"
+  },
+  "assetMovementMovementType": "移動タイプ",
+  "@assetMovementMovementType": {
+    "description": "Movement type label"
+  },
+  "assetMovementFromLocation": "移動元の場所",
+  "@assetMovementFromLocation": {
+    "description": "From location label"
+  },
+  "assetMovementToLocation": "移動先の場所",
+  "@assetMovementToLocation": {
+    "description": "To location label"
+  },
+  "assetMovementFromUser": "移動元のユーザー",
+  "@assetMovementFromUser": {
+    "description": "From user label"
+  },
+  "assetMovementToUser": "移動先のユーザー",
+  "@assetMovementToUser": {
+    "description": "To user label"
+  },
+  "assetMovementMovedBy": "移動者",
+  "@assetMovementMovedBy": {
+    "description": "Moved by label"
+  },
+  "assetMovementMovementDate": "移動日",
+  "@assetMovementMovementDate": {
+    "description": "Movement date label"
+  },
+  "assetMovementNotes": "メモ",
+  "@assetMovementNotes": {
+    "description": "Notes label"
+  },
+  "assetMovementStatus": "ステータス",
+  "@assetMovementStatus": {
+    "description": "Status label"
+  },
+  "assetMovementMetadata": "メタデータ",
+  "@assetMovementMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetMovementCreatedAt": "作成日時",
+  "@assetMovementCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetMovementUpdatedAt": "更新日時",
+  "@assetMovementUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetMovementOnlyAdminCanEdit": "資産移動を編集できるのは管理者のみです",
+  "@assetMovementOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetMovementOnlyAdminCanDelete": "資産移動を削除できるのは管理者のみです",
+  "@assetMovementOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetMovementFailedToLoad": "資産移動の読み込みに失敗しました",
+  "@assetMovementFailedToLoad": {
+    "description": "Error message when asset movement fails to load"
+  },
+  "assetMovementEditAssetMovement": "資産移動を編集",
+  "@assetMovementEditAssetMovement": {
+    "description": "Edit asset movement screen title"
+  },
+  "assetMovementCreateAssetMovement": "資産移動を作成",
+  "@assetMovementCreateAssetMovement": {
+    "description": "Create asset movement screen title"
+  },
+  "assetMovementFillRequiredFields": "必須フィールドをすべて入力してください",
+  "@assetMovementFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetMovementSelectAsset": "資産を選択してください",
+  "@assetMovementSelectAsset": {
+    "description": "Validation message for asset selection"
+  },
+  "assetMovementSavedSuccessfully": "資産移動が正常に保存されました",
+  "@assetMovementSavedSuccessfully": {
+    "description": "Success message for asset movement save"
+  },
+  "assetMovementOperationFailed": "操作に失敗しました",
+  "@assetMovementOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetMovementBasicInformation": "基本情報",
+  "@assetMovementBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetMovementSelectAssetPlaceholder": "資産を選択",
+  "@assetMovementSelectAssetPlaceholder": {
+    "description": "Select asset placeholder"
+  },
+  "assetMovementSearchAsset": "資産を検索...",
+  "@assetMovementSearchAsset": {
+    "description": "Search asset placeholder"
+  },
+  "assetMovementSelectMovementType": "移動タイプを選択",
+  "@assetMovementSelectMovementType": {
+    "description": "Select movement type placeholder"
+  },
+  "assetMovementLocationDetails": "場所の詳細",
+  "@assetMovementLocationDetails": {
+    "description": "Location details section title"
+  },
+  "assetMovementFromLocationLabel": "移動元の場所",
+  "@assetMovementFromLocationLabel": {
+    "description": "From location input label"
+  },
+  "assetMovementSearchFromLocation": "移動元の場所を検索...",
+  "@assetMovementSearchFromLocation": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementToLocationLabel": "移動先の場所",
+  "@assetMovementToLocationLabel": {
+    "description": "To location input label"
+  },
+  "assetMovementSearchToLocation": "移動先の場所を検索...",
+  "@assetMovementSearchToLocation": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementUserDetails": "ユーザーの詳細",
+  "@assetMovementUserDetails": {
+    "description": "User details section title"
+  },
+  "assetMovementFromUserLabel": "移動元のユーザー",
+  "@assetMovementFromUserLabel": {
+    "description": "From user input label"
+  },
+  "assetMovementSearchFromUser": "移動元のユーザーを検索...",
+  "@assetMovementSearchFromUser": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementToUserLabel": "移動先のユーザー",
+  "@assetMovementToUserLabel": {
+    "description": "To user input label"
+  },
+  "assetMovementSearchToUser": "移動先のユーザーを検索...",
+  "@assetMovementSearchToUser": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementMovementDateLabel": "移動日",
+  "@assetMovementMovementDateLabel": {
+    "description": "Movement date input label"
+  },
+  "assetMovementNotesLabel": "メモ (オプション)",
+  "@assetMovementNotesLabel": {
+    "description": "Notes input label"
+  },
+  "assetMovementEnterNotes": "メモを入力...",
+  "@assetMovementEnterNotes": {
+    "description": "Notes input placeholder"
+  },
+  "assetMovementUpdate": "更新",
+  "@assetMovementUpdate": {
+    "description": "Update button label"
+  },
+  "assetMovementCreate": "作成",
+  "@assetMovementCreate": {
+    "description": "Create button label"
+  },
+  "assetMovementManagement": "資産移動管理",
+  "@assetMovementManagement": {
+    "description": "Asset movement management screen title"
+  },
+  "assetMovementSearchAssetMovements": "資産移動を検索...",
+  "@assetMovementSearchAssetMovements": {
+    "description": "Asset movements search placeholder"
+  },
+  "assetMovementNoMovementsFound": "資産移動が見つかりません",
+  "@assetMovementNoMovementsFound": {
+    "description": "No asset movements found message"
+  },
+  "assetMovementCreateFirstMovement": "最初の資産移動を作成して開始しましょう",
+  "@assetMovementCreateFirstMovement": {
+    "description": "Empty state message for asset movements"
+  },
+  "assetMovementFilterAndSortTitle": "フィルターと並べ替え",
+  "@assetMovementFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetMovementFilterAndSortSubtitle": "資産移動表示をカスタマイズ",
+  "@assetMovementFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetMovementFilterByAsset": "資産でフィルター",
+  "@assetMovementFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "assetMovementFilterByMovementType": "移動タイプでフィルター",
+  "@assetMovementFilterByMovementType": {
+    "description": "Filter by movement type label"
+  },
+  "assetMovementFilterByLocation": "場所でフィルター",
+  "@assetMovementFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetMovementFilterByUser": "ユーザーでフィルター",
+  "@assetMovementFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "assetMovementSortBy": "並べ替え",
+  "@assetMovementSortBy": {
+    "description": "Sort by label"
+  },
+  "assetMovementSortOrder": "並べ替え順序",
+  "@assetMovementSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetMovementReset": "リセット",
+  "@assetMovementReset": {
+    "description": "Reset button label"
+  },
+  "assetMovementApply": "適用",
+  "@assetMovementApply": {
+    "description": "Apply button label"
+  },
+  "assetMovementFilterReset": "フィルターをリセットしました",
+  "@assetMovementFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetMovementFilterApplied": "フィルターを適用しました",
+  "@assetMovementFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetMovementStatistics": "移動統計",
+  "@assetMovementStatistics": {
+    "description": "Movement statistics section title"
+  },
+  "assetMovementTotalMovements": "総移動数",
+  "@assetMovementTotalMovements": {
+    "description": "Total movements label"
+  },
+  "assetMovementByType": "タイプ別移動",
+  "@assetMovementByType": {
+    "description": "Movements by type label"
+  },
+  "assetMovementByStatus": "ステータス別移動",
+  "@assetMovementByStatus": {
+    "description": "Movements by status label"
+  },
+  "assetMovementRecentActivity": "最近のアクティビティ",
+  "@assetMovementRecentActivity": {
+    "description": "Recent activity label"
+  },
+  "assetMovementValidationAssetRequired": "資産は必須です",
+  "@assetMovementValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "assetMovementValidationMovementTypeRequired": "移動タイプは必須です",
+  "@assetMovementValidationMovementTypeRequired": {
+    "description": "Validation error for required movement type"
+  },
+  "assetMovementValidationLocationRequired": "この移動タイプには場所が必要です",
+  "@assetMovementValidationLocationRequired": {
+    "description": "Validation error for required location"
+  },
+  "assetMovementValidationUserRequired": "この移動タイプにはユーザーが必要です",
+  "@assetMovementValidationUserRequired": {
+    "description": "Validation error for required user"
+  },
+  "assetMovementValidationMovementDateRequired": "移動日は必須です",
+  "@assetMovementValidationMovementDateRequired": {
+    "description": "Validation error for required movement date"
+  },
+  "assetMovementValidationNotesMaxLength": "メモは500文字を超えることはできません",
+  "@assetMovementValidationNotesMaxLength": {
+    "description": "Validation error for notes maximum length"
+  },
+  "assetMovementNotSet": "未設定",
+  "@assetMovementNotSet": {
+    "description": "Not set value text"
+  },
+  "assetMovementLocationMovement": "場所移動",
+  "@assetMovementLocationMovement": {
+    "description": "Location movement type label"
+  },
+  "assetMovementUserMovement": "ユーザー移動",
+  "@assetMovementUserMovement": {
+    "description": "User movement type label"
+  },
+  "assetMovementCreateAssetMovementTitle": "資産移動を作成",
+  "@assetMovementCreateAssetMovementTitle": {
+    "description": "Create asset movement option title"
+  },
+  "assetMovementCreateAssetMovementSubtitle": "新しい資産移動を記録",
+  "@assetMovementCreateAssetMovementSubtitle": {
+    "description": "Create asset movement option subtitle"
+  },
+  "assetMovementForLocation": "場所の資産移動",
+  "@assetMovementForLocation": {
+    "description": "Asset movement for location screen title"
+  },
+  "assetMovementForUser": "ユーザーの資産移動",
+  "@assetMovementForUser": {
+    "description": "Asset movement for user screen title"
+  },
+  "assetMovementCurrentLocation": "現在の場所",
+  "@assetMovementCurrentLocation": {
+    "description": "Current location label"
+  },
+  "assetMovementNewLocation": "新しい場所",
+  "@assetMovementNewLocation": {
+    "description": "New location label"
+  },
+  "assetMovementCurrentUser": "現在のユーザー",
+  "@assetMovementCurrentUser": {
+    "description": "Current user label"
+  },
+  "assetMovementNewUser": "新しいユーザー",
+  "@assetMovementNewUser": {
+    "description": "New user label"
+  },
+  "assetMovementMovementHistory": "移動履歴",
+  "@assetMovementMovementHistory": {
+    "description": "Movement history section title"
+  },
+  "assetMovementNoHistory": "移動履歴がありません",
+  "@assetMovementNoHistory": {
+    "description": "No movement history message"
+  },
+  "assetMovementViewAll": "すべて表示",
+  "@assetMovementViewAll": {
+    "description": "View all button label"
+  },
+  "assetMovementMovedTo": "に移動",
+  "@assetMovementMovedTo": {
+    "description": "Moved to prefix text"
+  },
+  "assetMovementAssignedTo": "に割り当て",
+  "@assetMovementAssignedTo": {
+    "description": "Assigned to prefix text"
+  }
+}

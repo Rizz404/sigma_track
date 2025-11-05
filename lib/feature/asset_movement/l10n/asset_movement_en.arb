@@ -1,0 +1,367 @@
+{
+  "@@locale": "en",
+  "assetMovementDeleteAssetMovement": "Delete Asset Movement",
+  "@assetMovementDeleteAssetMovement": {
+    "description": "Dialog title for deleting an asset movement"
+  },
+  "assetMovementDeleteConfirmation": "Are you sure you want to delete this asset movement record?",
+  "@assetMovementDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset movement"
+  },
+  "assetMovementCancel": "Cancel",
+  "@assetMovementCancel": {
+    "description": "Cancel button label"
+  },
+  "assetMovementDelete": "Delete",
+  "@assetMovementDelete": {
+    "description": "Delete button label"
+  },
+  "assetMovementDetail": "Asset Movement Detail",
+  "@assetMovementDetail": {
+    "description": "Asset movement detail screen title"
+  },
+  "assetMovementInformation": "Movement Information",
+  "@assetMovementInformation": {
+    "description": "Asset movement information section title"
+  },
+  "assetMovementId": "Movement ID",
+  "@assetMovementId": {
+    "description": "Movement ID label"
+  },
+  "assetMovementAsset": "Asset",
+  "@assetMovementAsset": {
+    "description": "Asset label"
+  },
+  "assetMovementMovementType": "Movement Type",
+  "@assetMovementMovementType": {
+    "description": "Movement type label"
+  },
+  "assetMovementFromLocation": "From Location",
+  "@assetMovementFromLocation": {
+    "description": "From location label"
+  },
+  "assetMovementToLocation": "To Location",
+  "@assetMovementToLocation": {
+    "description": "To location label"
+  },
+  "assetMovementFromUser": "From User",
+  "@assetMovementFromUser": {
+    "description": "From user label"
+  },
+  "assetMovementToUser": "To User",
+  "@assetMovementToUser": {
+    "description": "To user label"
+  },
+  "assetMovementMovedBy": "Moved By",
+  "@assetMovementMovedBy": {
+    "description": "Moved by label"
+  },
+  "assetMovementMovementDate": "Movement Date",
+  "@assetMovementMovementDate": {
+    "description": "Movement date label"
+  },
+  "assetMovementNotes": "Notes",
+  "@assetMovementNotes": {
+    "description": "Notes label"
+  },
+  "assetMovementStatus": "Status",
+  "@assetMovementStatus": {
+    "description": "Status label"
+  },
+  "assetMovementMetadata": "Metadata",
+  "@assetMovementMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetMovementCreatedAt": "Created At",
+  "@assetMovementCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetMovementUpdatedAt": "Updated At",
+  "@assetMovementUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetMovementOnlyAdminCanEdit": "Only admin can edit asset movements",
+  "@assetMovementOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetMovementOnlyAdminCanDelete": "Only admin can delete asset movements",
+  "@assetMovementOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetMovementFailedToLoad": "Failed to load asset movement",
+  "@assetMovementFailedToLoad": {
+    "description": "Error message when asset movement fails to load"
+  },
+  "assetMovementEditAssetMovement": "Edit Asset Movement",
+  "@assetMovementEditAssetMovement": {
+    "description": "Edit asset movement screen title"
+  },
+  "assetMovementCreateAssetMovement": "Create Asset Movement",
+  "@assetMovementCreateAssetMovement": {
+    "description": "Create asset movement screen title"
+  },
+  "assetMovementFillRequiredFields": "Please fill all required fields",
+  "@assetMovementFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetMovementSelectAsset": "Please select an asset",
+  "@assetMovementSelectAsset": {
+    "description": "Validation message for asset selection"
+  },
+  "assetMovementSavedSuccessfully": "Asset movement saved successfully",
+  "@assetMovementSavedSuccessfully": {
+    "description": "Success message for asset movement save"
+  },
+  "assetMovementOperationFailed": "Operation failed",
+  "@assetMovementOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetMovementBasicInformation": "Basic Information",
+  "@assetMovementBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetMovementSelectAssetPlaceholder": "Select asset",
+  "@assetMovementSelectAssetPlaceholder": {
+    "description": "Select asset placeholder"
+  },
+  "assetMovementSearchAsset": "Search asset...",
+  "@assetMovementSearchAsset": {
+    "description": "Search asset placeholder"
+  },
+  "assetMovementSelectMovementType": "Select movement type",
+  "@assetMovementSelectMovementType": {
+    "description": "Select movement type placeholder"
+  },
+  "assetMovementLocationDetails": "Location Details",
+  "@assetMovementLocationDetails": {
+    "description": "Location details section title"
+  },
+  "assetMovementFromLocationLabel": "From Location",
+  "@assetMovementFromLocationLabel": {
+    "description": "From location input label"
+  },
+  "assetMovementSearchFromLocation": "Search from location...",
+  "@assetMovementSearchFromLocation": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementToLocationLabel": "To Location",
+  "@assetMovementToLocationLabel": {
+    "description": "To location input label"
+  },
+  "assetMovementSearchToLocation": "Search to location...",
+  "@assetMovementSearchToLocation": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementUserDetails": "User Details",
+  "@assetMovementUserDetails": {
+    "description": "User details section title"
+  },
+  "assetMovementFromUserLabel": "From User",
+  "@assetMovementFromUserLabel": {
+    "description": "From user input label"
+  },
+  "assetMovementSearchFromUser": "Search from user...",
+  "@assetMovementSearchFromUser": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementToUserLabel": "To User",
+  "@assetMovementToUserLabel": {
+    "description": "To user input label"
+  },
+  "assetMovementSearchToUser": "Search to user...",
+  "@assetMovementSearchToUser": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementMovementDateLabel": "Movement Date",
+  "@assetMovementMovementDateLabel": {
+    "description": "Movement date input label"
+  },
+  "assetMovementNotesLabel": "Notes (Optional)",
+  "@assetMovementNotesLabel": {
+    "description": "Notes input label"
+  },
+  "assetMovementEnterNotes": "Enter notes...",
+  "@assetMovementEnterNotes": {
+    "description": "Notes input placeholder"
+  },
+  "assetMovementUpdate": "Update",
+  "@assetMovementUpdate": {
+    "description": "Update button label"
+  },
+  "assetMovementCreate": "Create",
+  "@assetMovementCreate": {
+    "description": "Create button label"
+  },
+  "assetMovementManagement": "Asset Movement Management",
+  "@assetMovementManagement": {
+    "description": "Asset movement management screen title"
+  },
+  "assetMovementSearchAssetMovements": "Search asset movements...",
+  "@assetMovementSearchAssetMovements": {
+    "description": "Asset movements search placeholder"
+  },
+  "assetMovementNoMovementsFound": "No asset movements found",
+  "@assetMovementNoMovementsFound": {
+    "description": "No asset movements found message"
+  },
+  "assetMovementCreateFirstMovement": "Create your first asset movement to get started",
+  "@assetMovementCreateFirstMovement": {
+    "description": "Empty state message for asset movements"
+  },
+  "assetMovementFilterAndSortTitle": "Filter & Sort",
+  "@assetMovementFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetMovementFilterAndSortSubtitle": "Customize asset movement display",
+  "@assetMovementFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetMovementFilterByAsset": "Filter by Asset",
+  "@assetMovementFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "assetMovementFilterByMovementType": "Filter by Movement Type",
+  "@assetMovementFilterByMovementType": {
+    "description": "Filter by movement type label"
+  },
+  "assetMovementFilterByLocation": "Filter by Location",
+  "@assetMovementFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetMovementFilterByUser": "Filter by User",
+  "@assetMovementFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "assetMovementSortBy": "Sort By",
+  "@assetMovementSortBy": {
+    "description": "Sort by label"
+  },
+  "assetMovementSortOrder": "Sort Order",
+  "@assetMovementSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetMovementReset": "Reset",
+  "@assetMovementReset": {
+    "description": "Reset button label"
+  },
+  "assetMovementApply": "Apply",
+  "@assetMovementApply": {
+    "description": "Apply button label"
+  },
+  "assetMovementFilterReset": "Filter reset",
+  "@assetMovementFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetMovementFilterApplied": "Filter applied",
+  "@assetMovementFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetMovementStatistics": "Movement Statistics",
+  "@assetMovementStatistics": {
+    "description": "Movement statistics section title"
+  },
+  "assetMovementTotalMovements": "Total Movements",
+  "@assetMovementTotalMovements": {
+    "description": "Total movements label"
+  },
+  "assetMovementByType": "Movements by Type",
+  "@assetMovementByType": {
+    "description": "Movements by type label"
+  },
+  "assetMovementByStatus": "Movements by Status",
+  "@assetMovementByStatus": {
+    "description": "Movements by status label"
+  },
+  "assetMovementRecentActivity": "Recent Activity",
+  "@assetMovementRecentActivity": {
+    "description": "Recent activity label"
+  },
+  "assetMovementValidationAssetRequired": "Asset is required",
+  "@assetMovementValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "assetMovementValidationMovementTypeRequired": "Movement type is required",
+  "@assetMovementValidationMovementTypeRequired": {
+    "description": "Validation error for required movement type"
+  },
+  "assetMovementValidationLocationRequired": "Location is required for this movement type",
+  "@assetMovementValidationLocationRequired": {
+    "description": "Validation error for required location"
+  },
+  "assetMovementValidationUserRequired": "User is required for this movement type",
+  "@assetMovementValidationUserRequired": {
+    "description": "Validation error for required user"
+  },
+  "assetMovementValidationMovementDateRequired": "Movement date is required",
+  "@assetMovementValidationMovementDateRequired": {
+    "description": "Validation error for required movement date"
+  },
+  "assetMovementValidationNotesMaxLength": "Notes must not exceed 500 characters",
+  "@assetMovementValidationNotesMaxLength": {
+    "description": "Validation error for notes maximum length"
+  },
+  "assetMovementNotSet": "Not set",
+  "@assetMovementNotSet": {
+    "description": "Not set value text"
+  },
+  "assetMovementLocationMovement": "Location Movement",
+  "@assetMovementLocationMovement": {
+    "description": "Location movement type label"
+  },
+  "assetMovementUserMovement": "User Movement",
+  "@assetMovementUserMovement": {
+    "description": "User movement type label"
+  },
+  "assetMovementCreateAssetMovementTitle": "Create Asset Movement",
+  "@assetMovementCreateAssetMovementTitle": {
+    "description": "Create asset movement option title"
+  },
+  "assetMovementCreateAssetMovementSubtitle": "Record a new asset movement",
+  "@assetMovementCreateAssetMovementSubtitle": {
+    "description": "Create asset movement option subtitle"
+  },
+  "assetMovementForLocation": "Asset Movement for Location",
+  "@assetMovementForLocation": {
+    "description": "Asset movement for location screen title"
+  },
+  "assetMovementForUser": "Asset Movement for User",
+  "@assetMovementForUser": {
+    "description": "Asset movement for user screen title"
+  },
+  "assetMovementCurrentLocation": "Current Location",
+  "@assetMovementCurrentLocation": {
+    "description": "Current location label"
+  },
+  "assetMovementNewLocation": "New Location",
+  "@assetMovementNewLocation": {
+    "description": "New location label"
+  },
+  "assetMovementCurrentUser": "Current User",
+  "@assetMovementCurrentUser": {
+    "description": "Current user label"
+  },
+  "assetMovementNewUser": "New User",
+  "@assetMovementNewUser": {
+    "description": "New user label"
+  },
+  "assetMovementMovementHistory": "Movement History",
+  "@assetMovementMovementHistory": {
+    "description": "Movement history section title"
+  },
+  "assetMovementNoHistory": "No movement history available",
+  "@assetMovementNoHistory": {
+    "description": "No movement history message"
+  },
+  "assetMovementViewAll": "View All",
+  "@assetMovementViewAll": {
+    "description": "View all button label"
+  },
+  "assetMovementMovedTo": "Moved to",
+  "@assetMovementMovedTo": {
+    "description": "Moved to prefix text"
+  },
+  "assetMovementAssignedTo": "Assigned to",
+  "@assetMovementAssignedTo": {
+    "description": "Assigned to prefix text"
+  }
+}

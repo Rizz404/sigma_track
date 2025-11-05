@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -36,8 +38,11 @@ Future<void> _findAndCombineArbFiles(
 
   for (final file in files) {
     if (file is File && file.path.endsWith('_$locale.arb')) {
-      // Skip file yang sudah ada di l10n_generated
-      if (file.path.contains('l10n_generated')) continue;
+      // Skip file yang sudah ada di l10n_generated atau di lib/l10n (output directory)
+      if (file.path.contains('l10n_generated') ||
+          file.path.contains(r'lib\l10n')) {
+        continue;
+      }
 
       print('📁 Found: ${file.path}');
 

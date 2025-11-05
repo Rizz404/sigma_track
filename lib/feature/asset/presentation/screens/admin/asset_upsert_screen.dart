@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -104,7 +105,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       this.logInfo('Data matrix generated: ${file.path}');
     } catch (e, s) {
       this.logError('Failed to generate data matrix', e, s);
-      AppToast.error('Failed to generate data matrix');
+      AppToast.error(context.l10n.assetFailedToGenerateDataMatrix);
     }
   }
 
@@ -113,7 +114,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         _formKey.currentState?.fields['categoryId']?.value as String?;
 
     if (categoryId == null || categoryId.isEmpty) {
-      AppToast.warning('Please select a category first');
+      AppToast.warning(context.l10n.assetSelectCategoryFirst);
       return;
     }
 
@@ -129,9 +130,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       // * Auto-generate data matrix based on asset tag
       await _generateDataMatrix(suggestedTag);
 
-      AppToast.success('Asset tag generated: $suggestedTag');
+      AppToast.success(context.l10n.assetTagGenerated(suggestedTag));
     } else if (state.failure != null) {
-      AppToast.error(state.failure?.message ?? 'Failed to generate asset tag');
+      AppToast.error(
+        state.failure?.message ?? context.l10n.assetFailedToGenerateTag,
+      );
     }
   }
 
@@ -153,7 +156,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
   void _handleSubmit() async {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.assetFillRequiredFields);
       return;
     }
 
@@ -175,7 +178,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     final assignedTo = formData['assignedTo'] as String?;
 
     if (categoryId == null || categoryId.isEmpty) {
-      AppToast.warning('Please select a category');
+      AppToast.warning(context.l10n.assetSelectCategory);
       return;
     }
 
@@ -255,7 +258,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
       // * Handle mutation success
       if (next.hasMutationSuccess) {
-        AppToast.success(next.mutationMessage ?? 'Asset saved successfully');
+        AppToast.success(
+          next.mutationMessage ?? context.l10n.assetSavedSuccessfully,
+        );
         context.pop();
       }
 
@@ -268,14 +273,20 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
           );
         } else {
           this.logError('Asset mutation error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.assetOperationFailed,
+          );
         }
       }
     });
 
     return AppLoaderOverlay(
       child: Scaffold(
-        appBar: CustomAppBar(title: _isEdit ? 'Edit Asset' : 'Create Asset'),
+        appBar: CustomAppBar(
+          title: _isEdit
+              ? context.l10n.assetEditAsset
+              : context.l10n.assetCreateAsset,
+        ),
         endDrawer: const AppEndDrawer(),
         body: Column(
           children: [
@@ -328,8 +339,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Basic Information',
+            AppText(
+              context.l10n.assetBasicInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
@@ -340,10 +351,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 Expanded(
                   child: AppTextField(
                     name: 'assetTag',
-                    label: 'Asset Tag',
-                    placeHolder: 'Enter asset tag (e.g., AST-001)',
+                    label: context.l10n.assetTag,
+                    placeHolder: context.l10n.assetEnterAssetTag,
                     initialValue: widget.asset?.assetTag,
                     validator: (value) => AssetUpsertValidator.validateAssetTag(
+                      context,
                       value,
                       isUpdate: _isEdit,
                     ),
@@ -364,10 +376,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'assetName',
-              label: 'Asset Name',
-              placeHolder: 'Enter asset name',
+              label: context.l10n.assetName,
+              placeHolder: context.l10n.assetEnterAssetName,
               initialValue: widget.asset?.assetName,
               validator: (value) => AssetUpsertValidator.validateAssetName(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -375,36 +388,43 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'brand',
-              label: 'Brand (Optional)',
-              placeHolder: 'Enter brand name',
+              label: context.l10n.assetBrandOptional,
+              placeHolder: context.l10n.assetEnterBrand,
               initialValue: widget.asset?.brand,
-              validator: (value) =>
-                  AssetUpsertValidator.validateBrand(value, isUpdate: _isEdit),
+              validator: (value) => AssetUpsertValidator.validateBrand(
+                context,
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'model',
-              label: 'Model (Optional)',
-              placeHolder: 'Enter model',
+              label: context.l10n.assetModelOptional,
+              placeHolder: context.l10n.assetEnterModel,
               initialValue: widget.asset?.model,
-              validator: (value) =>
-                  AssetUpsertValidator.validateModel(value, isUpdate: _isEdit),
+              validator: (value) => AssetUpsertValidator.validateModel(
+                context,
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'serialNumber',
-              label: 'Serial Number (Optional)',
-              placeHolder: 'Enter serial number',
+              label: context.l10n.assetSerialNumberOptional,
+              placeHolder: context.l10n.assetEnterSerialNumber,
               initialValue: widget.asset?.serialNumber,
               validator: (value) => AssetUpsertValidator.validateSerialNumber(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
             ),
             const SizedBox(height: 16),
             if (_dataMatrixPreviewData != null) ...[
-              const AppText(
-                'Data Matrix Preview',
+              AppText(
+                context.l10n.assetDataMatrixPreview,
                 style: AppTextStyle.bodyMedium,
                 fontWeight: FontWeight.w600,
               ),
@@ -442,7 +462,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               ),
               const SizedBox(height: 8),
               AppButton(
-                text: 'Regenerate Data Matrix',
+                text: context.l10n.assetRegenerateDataMatrix,
                 variant: AppButtonVariant.outlined,
                 size: AppButtonSize.small,
                 onPressed: () async {
@@ -452,7 +472,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   if (assetTag != null && assetTag.isNotEmpty) {
                     await _generateDataMatrix(assetTag);
                   } else {
-                    AppToast.warning('Please enter asset tag first');
+                    AppToast.warning(context.l10n.assetEnterAssetTagFirst);
                   }
                 },
               ),
@@ -476,16 +496,16 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Category & Location',
+            AppText(
+              context.l10n.assetCategoryAndLocation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppSearchField<Category>(
               name: 'categoryId',
-              label: 'Category',
-              hintText: 'Search category...',
+              label: context.l10n.assetCategory,
+              hintText: context.l10n.assetSearchCategory,
               initialValue: widget.asset?.categoryId,
               initialDisplayText: widget.asset?.category?.categoryName,
               enableAutocomplete: true,
@@ -495,6 +515,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               itemSubtitleMapper: (category) => category.categoryCode,
               itemIcon: Icons.category,
               validator: (value) => AssetUpsertValidator.validateCategoryId(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -504,20 +525,21 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppText(
-                    'Location',
+                  AppText(
+                    context.l10n.assetLocation,
                     style: AppTextStyle.bodyMedium,
                     fontWeight: FontWeight.w600,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    widget.asset?.location?.locationName ?? 'Not set',
+                    widget.asset?.location?.locationName ??
+                        context.l10n.assetNotSet,
                     style: AppTextStyle.bodyMedium,
                     color: context.colors.textSecondary,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    'To change location, use Asset Movement screen',
+                    context.l10n.assetChangeLocationInstruction,
                     style: AppTextStyle.bodySmall,
                     color: context.colors.textSecondary,
                   ),
@@ -526,8 +548,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ] else ...[
               AppSearchField<Location>(
                 name: 'locationId',
-                label: 'Location (Optional)',
-                hintText: 'Search location...',
+                label: context.l10n.assetLocationOptional,
+                hintText: context.l10n.assetSearchLocation,
                 initialValue: widget.asset?.locationId,
                 initialDisplayText: widget.asset?.location?.locationName,
                 enableAutocomplete: true,
@@ -543,20 +565,21 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppText(
-                    'Assigned To',
+                  AppText(
+                    context.l10n.assetAssignedTo,
                     style: AppTextStyle.bodyMedium,
                     fontWeight: FontWeight.w600,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    widget.asset?.assignedTo?.fullName ?? 'Not assigned',
+                    widget.asset?.assignedTo?.fullName ??
+                        context.l10n.assetNotAssigned,
                     style: AppTextStyle.bodyMedium,
                     color: context.colors.textSecondary,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    'To change assignment, use Asset Movement screen',
+                    context.l10n.assetChangeAssignmentInstruction,
                     style: AppTextStyle.bodySmall,
                     color: context.colors.textSecondary,
                   ),
@@ -565,8 +588,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ] else ...[
               AppSearchField<User>(
                 name: 'assignedTo',
-                label: 'Assigned To (Optional)',
-                hintText: 'Search user...',
+                label: context.l10n.assetAssignedToOptional,
+                hintText: context.l10n.assetSearchUser,
                 initialValue: widget.asset?.assignedToId,
                 initialDisplayText: widget.asset?.assignedTo?.fullName,
                 enableAutocomplete: true,
@@ -596,26 +619,27 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Purchase Information',
+            AppText(
+              context.l10n.assetPurchaseInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'purchaseDate',
-              label: 'Purchase Date (Optional)',
+              label: context.l10n.assetPurchaseDateOptional,
               initialValue: widget.asset?.purchaseDate,
               inputType: InputType.date,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'purchasePrice',
-              label: 'Purchase Price (Optional)',
-              placeHolder: 'Enter purchase price',
+              label: context.l10n.assetPurchasePrice,
+              placeHolder: context.l10n.assetEnterPurchasePrice,
               type: AppTextFieldType.number,
               initialValue: widget.asset?.purchasePrice?.toString(),
               validator: (value) => AssetUpsertValidator.validatePurchasePrice(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -623,10 +647,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'vendorName',
-              label: 'Vendor Name (Optional)',
-              placeHolder: 'Enter vendor name',
+              label: context.l10n.assetVendorNameOptional,
+              placeHolder: context.l10n.assetEnterVendorName,
               initialValue: widget.asset?.vendorName,
               validator: (value) => AssetUpsertValidator.validateVendorName(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -634,7 +659,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'warrantyEnd',
-              label: 'Warranty End Date (Optional)',
+              label: context.l10n.assetWarrantyEndDateOptional,
               initialValue: widget.asset?.warrantyEnd,
               inputType: InputType.date,
             ),
@@ -657,16 +682,16 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Status & Condition',
+            AppText(
+              context.l10n.assetStatusAndCondition,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppDropdown(
               name: 'status',
-              label: 'Status',
-              hintText: 'Select status',
+              label: context.l10n.assetStatus,
+              hintText: context.l10n.assetSelectStatus,
               items: AssetStatus.values
                   .map(
                     (status) => AppDropdownItem(
@@ -681,8 +706,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(height: 16),
             AppDropdown(
               name: 'condition',
-              label: 'Condition',
-              hintText: 'Select condition',
+              label: context.l10n.assetCondition,
+              hintText: context.l10n.assetSelectCondition,
               items: AssetCondition.values
                   .map(
                     (condition) => AppDropdownItem(
@@ -720,7 +745,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.assetCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -728,7 +753,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.assetUpdate
+                    : context.l10n.assetCreate,
                 onPressed: _handleSubmit,
               ),
             ),

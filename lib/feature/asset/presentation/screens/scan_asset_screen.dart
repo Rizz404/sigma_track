@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -78,7 +79,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       if (permission == LocationPermission.denied) {
         // * Permission denied, but can try again
         if (mounted) {
-          AppToast.warning('Location permission needed for scan logs');
+          AppToast.warning(context.l10n.assetLocationPermissionNeeded);
         }
       }
 
@@ -100,21 +101,21 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Location Permission Required',
+        title: AppText(
+          context.l10n.assetLocationPermissionRequired,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Location access is needed to track scan logs. Please enable it in settings.',
+        content: AppText(
+          context.l10n.assetLocationPermissionMessage,
           style: AppTextStyle.bodyMedium,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.assetCancel),
           ),
           AppButton(
-            text: 'Open Settings',
+            text: context.l10n.assetOpenSettings,
             isFullWidth: false,
             onPressed: () async {
               Navigator.pop(context);
@@ -186,7 +187,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
     final assetTag = barcode.rawValue;
 
     if (assetTag == null || assetTag.isEmpty) {
-      AppToast.warning('Invalid barcode data');
+      AppToast.warning(context.l10n.assetInvalidBarcode);
       return;
     }
 
@@ -210,7 +211,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
           scanResult: ScanResultType.success,
         );
 
-        AppToast.success('Asset found: ${state.asset!.assetName}');
+        AppToast.success(context.l10n.assetFound(state.asset!.assetName));
 
         if (mounted) {
           // * Navigate to asset detail screen by assetTag (from QR scan)
@@ -229,7 +230,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
         );
 
         this.logError('Failed to fetch asset', state.failure);
-        AppToast.error(state.failure?.message ?? 'Asset not found');
+        AppToast.error(state.failure?.message ?? context.l10n.assetNotFound);
         if (mounted) {
           setState(() => _isProcessing = false);
         }
@@ -242,7 +243,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       );
 
       this.logError('Error processing barcode', e, s);
-      AppToast.error('Failed to process barcode');
+      AppToast.error(context.l10n.assetFailedToProcessBarcode);
       if (mounted) {
         setState(() => _isProcessing = false);
       }
@@ -367,8 +368,8 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                         color: context.colorScheme.error,
                       ),
                       const SizedBox(height: 16),
-                      const AppText(
-                        'Camera Error',
+                      AppText(
+                        context.l10n.assetCameraError,
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.bold,
                       ),
@@ -428,8 +429,8 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                   color: Colors.black.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const AppText(
-                  'Align data matrix within frame',
+                child: AppText(
+                  context.l10n.assetAlignDataMatrix,
                   style: AppTextStyle.bodyMedium,
                   color: Colors.white,
                   textAlign: TextAlign.center,
@@ -511,8 +512,8 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const AppText(
-                'Processing...',
+              AppText(
+                context.l10n.assetProcessing,
                 style: AppTextStyle.bodyMedium,
                 fontWeight: FontWeight.w500,
               ),
@@ -536,7 +537,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
               children: [
                 _buildControlButton(
                   icon: _isTorchOn ? Icons.flash_on : Icons.flash_off,
-                  label: 'Flash',
+                  label: context.l10n.assetFlash,
                   onPressed: () async {
                     await _controller.toggleTorch();
                     setState(() => _isTorchOn = !_isTorchOn);
@@ -545,7 +546,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                 const SizedBox(width: 32),
                 _buildControlButton(
                   icon: Icons.flip_camera_ios,
-                  label: 'Flip',
+                  label: context.l10n.assetFlip,
                   onPressed: () => _controller.switchCamera(),
                 ),
               ],

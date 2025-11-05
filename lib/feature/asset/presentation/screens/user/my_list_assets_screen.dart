@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -125,8 +126,8 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const AppText(
-                      'Filters & Sorting',
+                    AppText(
+                      context.l10n.assetFiltersAndSorting,
                       style: AppTextStyle.titleMedium,
                     ),
                     IconButton(
@@ -146,7 +147,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                     children: [
                       AppDropdown<String>(
                         name: 'status',
-                        label: 'Status',
+                        label: context.l10n.assetStatus,
                         initialValue: currentFilter.status?.value,
                         items: AssetStatus.values
                             .map(
@@ -160,7 +161,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'condition',
-                        label: 'Condition',
+                        label: context.l10n.assetCondition,
                         initialValue: currentFilter.condition?.value,
                         items: AssetCondition.values
                             .map(
@@ -174,21 +175,21 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                       const SizedBox(height: 16),
                       AppTextField(
                         name: 'brand',
-                        label: 'Brand',
-                        placeHolder: 'Enter brand...',
+                        label: context.l10n.assetBrandLabel,
+                        placeHolder: context.l10n.assetEnterBrandFilter,
                         initialValue: currentFilter.brand,
                       ),
                       const SizedBox(height: 16),
                       AppTextField(
                         name: 'model',
-                        label: 'Model',
-                        placeHolder: 'Enter model...',
+                        label: context.l10n.assetModelLabel,
+                        placeHolder: context.l10n.assetEnterModelFilter,
                         initialValue: currentFilter.model,
                       ),
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortBy',
-                        label: 'Sort By',
+                        label: context.l10n.assetSortBy,
                         initialValue: currentFilter.sortBy?.value,
                         items: AssetSortBy.values
                             .map(
@@ -202,7 +203,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortOrder',
-                        label: 'Sort Order',
+                        label: context.l10n.assetSortOrder,
                         initialValue: currentFilter.sortOrder?.value,
                         items: SortOrder.values
                             .map(
@@ -215,7 +216,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                       ),
                       const SizedBox(height: 24),
                       AppButton(
-                        text: 'Apply Filters',
+                        text: context.l10n.assetApplyFilters,
                         onPressed: () {
                           _applyFilter();
                           Navigator.pop(context);
@@ -251,7 +252,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'My Assets'),
+      appBar: CustomAppBar(title: context.l10n.assetMyAssets),
       body: ScreenWrapper(
         child: Column(
           children: [
@@ -279,7 +280,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search my assets...',
+      hintText: context.l10n.assetSearchMyAssets,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -323,7 +324,9 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                hasActiveFilters ? 'Filters Applied' : 'Filter & Sort',
+                hasActiveFilters
+                    ? context.l10n.assetFiltersApplied
+                    : context.l10n.assetFilterAndSortTitle,
                 style: AppTextStyle.bodyMedium,
                 color: hasActiveFilters
                     ? context.colorScheme.primary
@@ -355,13 +358,13 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No assets found',
+            context.l10n.assetNoAssetsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'You have no assigned assets',
+            context.l10n.assetNoAssignedAssets,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
