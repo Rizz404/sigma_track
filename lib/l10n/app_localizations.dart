@@ -1479,6 +1479,60 @@ abstract class L10n {
   /// **'Notes must not exceed 500 characters'**
   String get assetMovementValidationNotesMaxLength;
 
+  /// Validation error for required to location
+  ///
+  /// In en, this message translates to:
+  /// **'To location is required'**
+  String get assetMovementValidationToLocationRequired;
+
+  /// Validation error for required to user
+  ///
+  /// In en, this message translates to:
+  /// **'To user is required'**
+  String get assetMovementValidationToUserRequired;
+
+  /// Validation error for required moved by
+  ///
+  /// In en, this message translates to:
+  /// **'Moved by is required'**
+  String get assetMovementValidationMovedByRequired;
+
+  /// Validation error for movement date in future
+  ///
+  /// In en, this message translates to:
+  /// **'Movement date cannot be in the future'**
+  String get assetMovementValidationMovementDateFuture;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get assetMovementTranslations;
+
+  /// Unknown asset placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Asset'**
+  String get assetMovementUnknownAsset;
+
+  /// Unknown tag placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Tag'**
+  String get assetMovementUnknownTag;
+
+  /// Unknown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get assetMovementUnknown;
+
+  /// Unassigned placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unassigned'**
+  String get assetMovementUnassigned;
+
   /// Not set value text
   ///
   /// In en, this message translates to:
@@ -1574,6 +1628,156 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Assigned to'**
   String get assetMovementAssignedTo;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get assetMovementSelectMany;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple asset movements to delete'**
+  String get assetMovementSelectManySubtitle;
+
+  /// Toast message for select mode
+  ///
+  /// In en, this message translates to:
+  /// **'Select asset movements to delete'**
+  String get assetMovementSelectAssetMovementsToDelete;
+
+  /// Dialog content for choosing movement type
+  ///
+  /// In en, this message translates to:
+  /// **'Choose movement type:'**
+  String get assetMovementChooseMovementType;
+
+  /// Filter by from location label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by From Location'**
+  String get assetMovementFilterByFromLocation;
+
+  /// Filter by to location label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by To Location'**
+  String get assetMovementFilterByToLocation;
+
+  /// Filter by from user label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by From User'**
+  String get assetMovementFilterByFromUser;
+
+  /// Filter by to user label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by To User'**
+  String get assetMovementFilterByToUser;
+
+  /// Filter by moved by label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Moved By'**
+  String get assetMovementFilterByMovedBy;
+
+  /// Date from label
+  ///
+  /// In en, this message translates to:
+  /// **'Date From'**
+  String get assetMovementDateFrom;
+
+  /// Date to label
+  ///
+  /// In en, this message translates to:
+  /// **'Date To'**
+  String get assetMovementDateTo;
+
+  /// Search asset placeholder in filter
+  ///
+  /// In en, this message translates to:
+  /// **'Search asset...'**
+  String get assetMovementSearchAssetPlaceholder;
+
+  /// Search from location placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search from location...'**
+  String get assetMovementSearchFromLocationPlaceholder;
+
+  /// Search to location placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search to location...'**
+  String get assetMovementSearchToLocationPlaceholder;
+
+  /// Search from user placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search from user...'**
+  String get assetMovementSearchFromUserPlaceholder;
+
+  /// Search to user placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search to user...'**
+  String get assetMovementSearchToUserPlaceholder;
+
+  /// Search moved by user placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search moved by user...'**
+  String get assetMovementSearchMovedByPlaceholder;
+
+  /// Dialog title for deleting multiple asset movements
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Asset Movements'**
+  String get assetMovementDeleteAssetMovements;
+
+  /// Confirmation message for deleting multiple asset movements
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} asset movements?'**
+  String assetMovementDeleteManyConfirmation(int count);
+
+  /// Warning message when no asset movements selected
+  ///
+  /// In en, this message translates to:
+  /// **'No asset movements selected'**
+  String get assetMovementNoAssetMovementsSelected;
+
+  /// Info message for not implemented feature
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get assetMovementNotImplementedYet;
+
+  /// Selected count text
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String assetMovementSelectedCount(int count);
+
+  /// Toast message for long press to select
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more asset movements'**
+  String get assetMovementLongPressToSelectMore;
+
+  /// Short label for location movement
+  ///
+  /// In en, this message translates to:
+  /// **'For Location'**
+  String get assetMovementForLocationShort;
+
+  /// Short label for user movement
+  ///
+  /// In en, this message translates to:
+  /// **'For User'**
+  String get assetMovementForUserShort;
 
   /// Admin shell bottom navigation label for dashboard
   ///

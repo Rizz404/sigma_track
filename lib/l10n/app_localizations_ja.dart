@@ -720,6 +720,34 @@ class L10nJa extends L10n {
   String get assetMovementValidationNotesMaxLength => 'メモは500文字を超えることはできません';
 
   @override
+  String get assetMovementValidationToLocationRequired => '移動先の場所は必須です';
+
+  @override
+  String get assetMovementValidationToUserRequired => '移動先のユーザーは必須です';
+
+  @override
+  String get assetMovementValidationMovedByRequired => '移動者は必須です';
+
+  @override
+  String get assetMovementValidationMovementDateFuture =>
+      '移動日は未来の日付にすることはできません';
+
+  @override
+  String get assetMovementTranslations => '翻訳';
+
+  @override
+  String get assetMovementUnknownAsset => '不明な資産';
+
+  @override
+  String get assetMovementUnknownTag => '不明なタグ';
+
+  @override
+  String get assetMovementUnknown => '不明';
+
+  @override
+  String get assetMovementUnassigned => '未割り当て';
+
+  @override
   String get assetMovementNotSet => '未設定';
 
   @override
@@ -766,6 +794,85 @@ class L10nJa extends L10n {
 
   @override
   String get assetMovementAssignedTo => 'に割り当て';
+
+  @override
+  String get assetMovementSelectMany => '複数選択';
+
+  @override
+  String get assetMovementSelectManySubtitle => '複数の資産移動を削除するために選択';
+
+  @override
+  String get assetMovementSelectAssetMovementsToDelete => '削除する資産移動を選択してください';
+
+  @override
+  String get assetMovementChooseMovementType => '移動タイプを選択：';
+
+  @override
+  String get assetMovementFilterByFromLocation => '移動元の場所でフィルター';
+
+  @override
+  String get assetMovementFilterByToLocation => '移動先の場所でフィルター';
+
+  @override
+  String get assetMovementFilterByFromUser => '移動元のユーザーでフィルター';
+
+  @override
+  String get assetMovementFilterByToUser => '移動先のユーザーでフィルター';
+
+  @override
+  String get assetMovementFilterByMovedBy => '移動者でフィルター';
+
+  @override
+  String get assetMovementDateFrom => '開始日';
+
+  @override
+  String get assetMovementDateTo => '終了日';
+
+  @override
+  String get assetMovementSearchAssetPlaceholder => '資産を検索...';
+
+  @override
+  String get assetMovementSearchFromLocationPlaceholder => '移動元の場所を検索...';
+
+  @override
+  String get assetMovementSearchToLocationPlaceholder => '移動先の場所を検索...';
+
+  @override
+  String get assetMovementSearchFromUserPlaceholder => '移動元のユーザーを検索...';
+
+  @override
+  String get assetMovementSearchToUserPlaceholder => '移動先のユーザーを検索...';
+
+  @override
+  String get assetMovementSearchMovedByPlaceholder => '移動者のユーザーを検索...';
+
+  @override
+  String get assetMovementDeleteAssetMovements => '資産移動を削除';
+
+  @override
+  String assetMovementDeleteManyConfirmation(int count) {
+    return '$count件の資産移動を削除してもよろしいですか？';
+  }
+
+  @override
+  String get assetMovementNoAssetMovementsSelected => '資産移動が選択されていません';
+
+  @override
+  String get assetMovementNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String assetMovementSelectedCount(int count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get assetMovementLongPressToSelectMore => '長押しでさらに資産移動を選択';
+
+  @override
+  String get assetMovementForLocationShort => '場所へ';
+
+  @override
+  String get assetMovementForUserShort => 'ユーザーへ';
 
   @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';

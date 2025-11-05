@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
-import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
@@ -94,15 +94,15 @@ class _ListAssetMovementsScreenState
             _isSelectMode = true;
             _selectedAssetMovementIds.clear();
           });
-          AppToast.info('Select assetMovements to delete');
+          AppToast.info(context.l10n.assetMovementSelectAssetMovementsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create AssetMovement',
-        createSubtitle: 'Add a new assetMovement',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple assetMovements to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize assetMovement display',
+        createTitle: context.l10n.assetMovementCreateAssetMovementTitle,
+        createSubtitle: context.l10n.assetMovementCreateAssetMovementSubtitle,
+        selectManyTitle: context.l10n.assetMovementSelectMany,
+        selectManySubtitle: context.l10n.assetMovementSelectManySubtitle,
+        filterSortTitle: context.l10n.assetMovementFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.assetMovementFilterAndSortSubtitle,
       ),
     );
   }
@@ -111,12 +111,12 @@ class _ListAssetMovementsScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Create Asset Movement',
+        title: AppText(
+          context.l10n.assetMovementCreateAssetMovement,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Choose movement type:',
+        content: AppText(
+          context.l10n.assetMovementChooseMovementType,
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -126,11 +126,11 @@ class _ListAssetMovementsScreenState
               Navigator.pop(context);
               context.push(RouteConstant.adminAssetMovementUpsertForLocation);
             },
-            child: const AppText('For Location'),
+            child: AppText(context.l10n.assetMovementForLocationShort),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'For User',
+            text: context.l10n.assetMovementForUserShort,
             isFullWidth: false,
             onPressed: () {
               Navigator.pop(context);
@@ -194,8 +194,8 @@ class _ListAssetMovementsScreenState
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.assetMovementFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
@@ -205,8 +205,8 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<Asset>(
                     name: 'assetId',
-                    label: 'Filter by Asset',
-                    hintText: 'Search asset...',
+                    label: context.l10n.assetMovementFilterByAsset,
+                    hintText: context.l10n.assetMovementSearchAssetPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchAssets,
                     itemDisplayMapper: (asset) => asset.assetName,
@@ -226,8 +226,9 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<Location>(
                     name: 'fromLocationId',
-                    label: 'Filter by From Location',
-                    hintText: 'Search from location...',
+                    label: context.l10n.assetMovementFilterByFromLocation,
+                    hintText:
+                        context.l10n.assetMovementSearchFromLocationPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchLocations,
                     itemDisplayMapper: (location) => location.locationName,
@@ -247,8 +248,9 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<Location>(
                     name: 'toLocationId',
-                    label: 'Filter by To Location',
-                    hintText: 'Search to location...',
+                    label: context.l10n.assetMovementFilterByToLocation,
+                    hintText:
+                        context.l10n.assetMovementSearchToLocationPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchLocations,
                     itemDisplayMapper: (location) => location.locationName,
@@ -268,8 +270,9 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'fromUserId',
-                    label: 'Filter by From User',
-                    hintText: 'Search from user...',
+                    label: context.l10n.assetMovementFilterByFromUser,
+                    hintText:
+                        context.l10n.assetMovementSearchFromUserPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -289,8 +292,8 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'toUserId',
-                    label: 'Filter by To User',
-                    hintText: 'Search to user...',
+                    label: context.l10n.assetMovementFilterByToUser,
+                    hintText: context.l10n.assetMovementSearchToUserPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -310,8 +313,9 @@ class _ListAssetMovementsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'movedBy',
-                    label: 'Filter by Moved By',
-                    hintText: 'Search moved by user...',
+                    label: context.l10n.assetMovementFilterByMovedBy,
+                    hintText:
+                        context.l10n.assetMovementSearchMovedByPlaceholder,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -326,27 +330,27 @@ class _ListAssetMovementsScreenState
                 ],
               ),
               const SizedBox(height: 16),
-              const AppDateTimePicker(
+              AppDateTimePicker(
                 name: 'dateFrom',
-                label: 'Date From',
+                label: context.l10n.assetMovementDateFrom,
                 inputType: InputType.date,
               ),
               const SizedBox(height: 16),
-              const AppDateTimePicker(
+              AppDateTimePicker(
                 name: 'dateTo',
-                label: 'Date To',
+                label: context.l10n.assetMovementDateTo,
                 inputType: InputType.date,
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.assetMovementSortBy,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.assetMovementSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: AssetMovementSortBy.values
                     .map(
@@ -361,7 +365,7 @@ class _ListAssetMovementsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.assetMovementSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -378,7 +382,7 @@ class _ListAssetMovementsScreenState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.assetMovementReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -390,14 +394,14 @@ class _ListAssetMovementsScreenState
                         ref
                             .read(assetMovementsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.assetMovementFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.assetMovementApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -442,7 +446,9 @@ class _ListAssetMovementsScreenState
                           ref
                               .read(assetMovementsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(
+                            context.l10n.assetMovementFilterApplied,
+                          );
                         }
                       },
                     ),
@@ -475,30 +481,32 @@ class _ListAssetMovementsScreenState
 
   Future<void> _deleteSelectedAssetMovements() async {
     if (_selectedAssetMovementIds.isEmpty) {
-      AppToast.warning('No assetMovements selected');
+      AppToast.warning(context.l10n.assetMovementNoAssetMovementsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete AssetMovements',
+        title: AppText(
+          context.l10n.assetMovementDeleteAssetMovements,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedAssetMovementIds.length} assetMovements?',
+          context.l10n.assetMovementDeleteManyConfirmation(
+            _selectedAssetMovementIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.assetMovementCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.assetMovementDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -509,7 +517,7 @@ class _ListAssetMovementsScreenState
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.assetMovementNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -533,7 +541,7 @@ class _ListAssetMovementsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'AssetMovement Management'),
+      appBar: CustomAppBar(title: context.l10n.assetMovementManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -602,14 +610,16 @@ class _ListAssetMovementsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedAssetMovementIds.length} selected',
+                context.l10n.assetMovementSelectedCount(
+                  _selectedAssetMovementIds.length,
+                ),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.assetMovementDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedAssetMovements,
@@ -623,7 +633,7 @@ class _ListAssetMovementsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search assetMovements...',
+      hintText: context.l10n.assetMovementSearchAssetMovements,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -649,13 +659,13 @@ class _ListAssetMovementsScreenState
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No assetMovements found',
+            context.l10n.assetMovementNoMovementsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first assetMovement to get started',
+            context.l10n.assetMovementCreateFirstMovement,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -703,7 +713,9 @@ class _ListAssetMovementsScreenState
                         _selectedAssetMovementIds.clear();
                         _selectedAssetMovementIds.add(assetMovement.id);
                       });
-                      AppToast.info('Long press to select more assetMovements');
+                      AppToast.info(
+                        context.l10n.assetMovementLongPressToSelectMore,
+                      );
                     }
                   },
             onTap: isSkeleton || _isSelectMode

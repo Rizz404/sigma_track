@@ -300,6 +300,42 @@
   "@assetMovementValidationNotesMaxLength": {
     "description": "Validation error for notes maximum length"
   },
+  "assetMovementValidationToLocationRequired": "移動先の場所は必須です",
+  "@assetMovementValidationToLocationRequired": {
+    "description": "Validation error for required to location"
+  },
+  "assetMovementValidationToUserRequired": "移動先のユーザーは必須です",
+  "@assetMovementValidationToUserRequired": {
+    "description": "Validation error for required to user"
+  },
+  "assetMovementValidationMovedByRequired": "移動者は必須です",
+  "@assetMovementValidationMovedByRequired": {
+    "description": "Validation error for required moved by"
+  },
+  "assetMovementValidationMovementDateFuture": "移動日は未来の日付にすることはできません",
+  "@assetMovementValidationMovementDateFuture": {
+    "description": "Validation error for movement date in future"
+  },
+  "assetMovementTranslations": "翻訳",
+  "@assetMovementTranslations": {
+    "description": "Translations section title"
+  },
+  "assetMovementUnknownAsset": "不明な資産",
+  "@assetMovementUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "assetMovementUnknownTag": "不明なタグ",
+  "@assetMovementUnknownTag": {
+    "description": "Unknown tag placeholder"
+  },
+  "assetMovementUnknown": "不明",
+  "@assetMovementUnknown": {
+    "description": "Unknown placeholder"
+  },
+  "assetMovementUnassigned": "未割り当て",
+  "@assetMovementUnassigned": {
+    "description": "Unassigned placeholder"
+  },
   "assetMovementNotSet": "未設定",
   "@assetMovementNotSet": {
     "description": "Not set value text"
@@ -363,5 +399,115 @@
   "assetMovementAssignedTo": "に割り当て",
   "@assetMovementAssignedTo": {
     "description": "Assigned to prefix text"
+  },
+  "assetMovementSelectMany": "複数選択",
+  "@assetMovementSelectMany": {
+    "description": "Select many option title"
+  },
+  "assetMovementSelectManySubtitle": "複数の資産移動を削除するために選択",
+  "@assetMovementSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetMovementSelectAssetMovementsToDelete": "削除する資産移動を選択してください",
+  "@assetMovementSelectAssetMovementsToDelete": {
+    "description": "Toast message for select mode"
+  },
+  "assetMovementChooseMovementType": "移動タイプを選択：",
+  "@assetMovementChooseMovementType": {
+    "description": "Dialog content for choosing movement type"
+  },
+  "assetMovementFilterByFromLocation": "移動元の場所でフィルター",
+  "@assetMovementFilterByFromLocation": {
+    "description": "Filter by from location label"
+  },
+  "assetMovementFilterByToLocation": "移動先の場所でフィルター",
+  "@assetMovementFilterByToLocation": {
+    "description": "Filter by to location label"
+  },
+  "assetMovementFilterByFromUser": "移動元のユーザーでフィルター",
+  "@assetMovementFilterByFromUser": {
+    "description": "Filter by from user label"
+  },
+  "assetMovementFilterByToUser": "移動先のユーザーでフィルター",
+  "@assetMovementFilterByToUser": {
+    "description": "Filter by to user label"
+  },
+  "assetMovementFilterByMovedBy": "移動者でフィルター",
+  "@assetMovementFilterByMovedBy": {
+    "description": "Filter by moved by label"
+  },
+  "assetMovementDateFrom": "開始日",
+  "@assetMovementDateFrom": {
+    "description": "Date from label"
+  },
+  "assetMovementDateTo": "終了日",
+  "@assetMovementDateTo": {
+    "description": "Date to label"
+  },
+  "assetMovementSearchAssetPlaceholder": "資産を検索...",
+  "@assetMovementSearchAssetPlaceholder": {
+    "description": "Search asset placeholder in filter"
+  },
+  "assetMovementSearchFromLocationPlaceholder": "移動元の場所を検索...",
+  "@assetMovementSearchFromLocationPlaceholder": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementSearchToLocationPlaceholder": "移動先の場所を検索...",
+  "@assetMovementSearchToLocationPlaceholder": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementSearchFromUserPlaceholder": "移動元のユーザーを検索...",
+  "@assetMovementSearchFromUserPlaceholder": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementSearchToUserPlaceholder": "移動先のユーザーを検索...",
+  "@assetMovementSearchToUserPlaceholder": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementSearchMovedByPlaceholder": "移動者のユーザーを検索...",
+  "@assetMovementSearchMovedByPlaceholder": {
+    "description": "Search moved by user placeholder"
+  },
+  "assetMovementDeleteAssetMovements": "資産移動を削除",
+  "@assetMovementDeleteAssetMovements": {
+    "description": "Dialog title for deleting multiple asset movements"
+  },
+  "assetMovementDeleteManyConfirmation": "{count}件の資産移動を削除してもよろしいですか？",
+  "@assetMovementDeleteManyConfirmation": {
+    "description": "Confirmation message for deleting multiple asset movements",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementNoAssetMovementsSelected": "資産移動が選択されていません",
+  "@assetMovementNoAssetMovementsSelected": {
+    "description": "Warning message when no asset movements selected"
+  },
+  "assetMovementNotImplementedYet": "まだ実装されていません",
+  "@assetMovementNotImplementedYet": {
+    "description": "Info message for not implemented feature"
+  },
+  "assetMovementSelectedCount": "{count}件選択中",
+  "@assetMovementSelectedCount": {
+    "description": "Selected count text",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementLongPressToSelectMore": "長押しでさらに資産移動を選択",
+  "@assetMovementLongPressToSelectMore": {
+    "description": "Toast message for long press to select"
+  },
+  "assetMovementForLocationShort": "場所へ",
+  "@assetMovementForLocationShort": {
+    "description": "Short label for location movement"
+  },
+  "assetMovementForUserShort": "ユーザーへ",
+  "@assetMovementForUserShort": {
+    "description": "Short label for user movement"
   }
 }

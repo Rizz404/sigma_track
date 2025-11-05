@@ -1,42 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class AssetMovementUpsertForUserValidator {
-  static String? validateAssetId(String? value, {bool isUpdate = false}) {
+  static String? validateAssetId(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Asset is required';
+      return context.l10n.assetMovementValidationAssetRequired;
     }
     return null;
   }
 
-  static String? validateToUserId(String? value, {bool isUpdate = false}) {
+  static String? validateToUserId(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'To user is required';
+      return context.l10n.assetMovementValidationToUserRequired;
     }
     return null;
   }
 
-  static String? validateMovedById(String? value, {bool isUpdate = false}) {
+  static String? validateMovedById(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Moved by is required';
+      return context.l10n.assetMovementValidationMovedByRequired;
     }
     return null;
   }
 
   static String? validateMovementDate(
+    BuildContext context,
     DateTime? value, {
     bool isUpdate = false,
   }) {
     if (!isUpdate && value == null) {
-      return 'Movement date is required';
+      return context.l10n.assetMovementValidationMovementDateRequired;
     }
     if (value != null && value.isAfter(DateTime.now())) {
-      return 'Movement date cannot be in the future';
+      return context.l10n.assetMovementValidationMovementDateFuture;
     }
     return null;
   }
 
-  static String? validateNotes(String? value, {bool isUpdate = false}) {
+  static String? validateNotes(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 500) {
-        return 'Notes must not exceed 500 characters';
+        return context.l10n.assetMovementValidationNotesMaxLength;
       }
     }
     return null;

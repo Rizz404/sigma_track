@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
-class AssetMovementTile extends StatelessWidget {
+class AssetMovementTile extends ConsumerWidget {
   final AssetMovement assetMovement;
   final bool isDisabled;
   final bool isSelected;
@@ -23,7 +25,7 @@ class AssetMovementTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Color borderColor = isSelected
         ? context.colorScheme.primary
         : context.colors.border;
@@ -66,7 +68,8 @@ class AssetMovementTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        assetMovement.asset?.assetName ?? 'Unknown Asset',
+                        assetMovement.asset?.assetName ??
+                            context.l10n.assetMovementUnknownAsset,
                         style: AppTextStyle.titleMedium,
                         fontWeight: FontWeight.w600,
                         maxLines: 1,
@@ -74,7 +77,8 @@ class AssetMovementTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        assetMovement.asset?.assetTag ?? 'Unknown Tag',
+                        assetMovement.asset?.assetTag ??
+                            context.l10n.assetMovementUnknownTag,
                         style: AppTextStyle.bodySmall,
                         color: context.colors.textSecondary,
                         maxLines: 1,
@@ -91,7 +95,7 @@ class AssetMovementTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: AppText(
-                              _getMovementText(),
+                              _getMovementText(context),
                               style: AppTextStyle.bodySmall,
                               color: context.colors.textSecondary,
                               maxLines: 2,
@@ -111,7 +115,7 @@ class AssetMovementTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Expanded(
                             child: AppText(
-                              _getUserMovementText(),
+                              _getUserMovementText(context),
                               style: AppTextStyle.bodySmall,
                               color: context.colors.textSecondary,
                               maxLines: 2,
@@ -150,15 +154,22 @@ class AssetMovementTile extends StatelessWidget {
     );
   }
 
-  String _getMovementText() {
-    final from = assetMovement.fromLocation?.locationName ?? 'Unknown';
-    final to = assetMovement.toLocation?.locationName ?? 'Unknown';
+  String _getMovementText(BuildContext context) {
+    final from =
+        assetMovement.fromLocation?.locationName ??
+        context.l10n.assetMovementUnknown;
+    final to =
+        assetMovement.toLocation?.locationName ??
+        context.l10n.assetMovementUnknown;
     return '$from → $to';
   }
 
-  String _getUserMovementText() {
-    final from = assetMovement.fromUser?.fullName ?? 'Unassigned';
-    final to = assetMovement.toUser?.fullName ?? 'Unassigned';
+  String _getUserMovementText(BuildContext context) {
+    final from =
+        assetMovement.fromUser?.fullName ??
+        context.l10n.assetMovementUnassigned;
+    final to =
+        assetMovement.toUser?.fullName ?? context.l10n.assetMovementUnassigned;
     return '$from → $to';
   }
 }

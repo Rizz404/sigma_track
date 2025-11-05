@@ -748,6 +748,35 @@ class L10nId extends L10n {
       'Notes must not exceed 500 characters';
 
   @override
+  String get assetMovementValidationToLocationRequired =>
+      'To location is required';
+
+  @override
+  String get assetMovementValidationToUserRequired => 'To user is required';
+
+  @override
+  String get assetMovementValidationMovedByRequired => 'Moved by is required';
+
+  @override
+  String get assetMovementValidationMovementDateFuture =>
+      'Movement date cannot be in the future';
+
+  @override
+  String get assetMovementTranslations => 'Translations';
+
+  @override
+  String get assetMovementUnknownAsset => 'Unknown Asset';
+
+  @override
+  String get assetMovementUnknownTag => 'Unknown Tag';
+
+  @override
+  String get assetMovementUnknown => 'Unknown';
+
+  @override
+  String get assetMovementUnassigned => 'Unassigned';
+
+  @override
   String get assetMovementNotSet => 'Not set';
 
   @override
@@ -795,6 +824,91 @@ class L10nId extends L10n {
 
   @override
   String get assetMovementAssignedTo => 'Assigned to';
+
+  @override
+  String get assetMovementSelectMany => 'Select Many';
+
+  @override
+  String get assetMovementSelectManySubtitle =>
+      'Select multiple asset movements to delete';
+
+  @override
+  String get assetMovementSelectAssetMovementsToDelete =>
+      'Select asset movements to delete';
+
+  @override
+  String get assetMovementChooseMovementType => 'Choose movement type:';
+
+  @override
+  String get assetMovementFilterByFromLocation => 'Filter by From Location';
+
+  @override
+  String get assetMovementFilterByToLocation => 'Filter by To Location';
+
+  @override
+  String get assetMovementFilterByFromUser => 'Filter by From User';
+
+  @override
+  String get assetMovementFilterByToUser => 'Filter by To User';
+
+  @override
+  String get assetMovementFilterByMovedBy => 'Filter by Moved By';
+
+  @override
+  String get assetMovementDateFrom => 'Date From';
+
+  @override
+  String get assetMovementDateTo => 'Date To';
+
+  @override
+  String get assetMovementSearchAssetPlaceholder => 'Search asset...';
+
+  @override
+  String get assetMovementSearchFromLocationPlaceholder =>
+      'Search from location...';
+
+  @override
+  String get assetMovementSearchToLocationPlaceholder =>
+      'Search to location...';
+
+  @override
+  String get assetMovementSearchFromUserPlaceholder => 'Search from user...';
+
+  @override
+  String get assetMovementSearchToUserPlaceholder => 'Search to user...';
+
+  @override
+  String get assetMovementSearchMovedByPlaceholder => 'Search moved by user...';
+
+  @override
+  String get assetMovementDeleteAssetMovements => 'Delete Asset Movements';
+
+  @override
+  String assetMovementDeleteManyConfirmation(int count) {
+    return 'Are you sure you want to delete $count asset movements?';
+  }
+
+  @override
+  String get assetMovementNoAssetMovementsSelected =>
+      'No asset movements selected';
+
+  @override
+  String get assetMovementNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String assetMovementSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get assetMovementLongPressToSelectMore =>
+      'Long press to select more asset movements';
+
+  @override
+  String get assetMovementForLocationShort => 'For Location';
+
+  @override
+  String get assetMovementForUserShort => 'For User';
 
   @override
   String get adminShellBottomNavDashboard => 'Dashboard';

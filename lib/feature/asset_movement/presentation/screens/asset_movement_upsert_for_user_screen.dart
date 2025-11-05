@@ -290,6 +290,7 @@ class _AssetMovementUpsertForUserScreenState
               itemIcon: Icons.inventory,
               validator: (value) =>
                   AssetMovementUpsertForUserValidator.validateAssetId(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -308,6 +309,7 @@ class _AssetMovementUpsertForUserScreenState
               itemIcon: Icons.person,
               validator: (value) =>
                   AssetMovementUpsertForUserValidator.validateToUserId(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -326,6 +328,7 @@ class _AssetMovementUpsertForUserScreenState
               itemIcon: Icons.person,
               validator: (value) =>
                   AssetMovementUpsertForUserValidator.validateMovedById(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -337,6 +340,7 @@ class _AssetMovementUpsertForUserScreenState
               initialValue: widget.assetMovement?.movementDate,
               validator: (value) =>
                   AssetMovementUpsertForUserValidator.validateMovementDate(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -362,8 +366,8 @@ class _AssetMovementUpsertForUserScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.assetMovementTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
@@ -418,6 +422,7 @@ class _AssetMovementUpsertForUserScreenState
             type: AppTextFieldType.multiline,
             validator: (value) =>
                 AssetMovementUpsertForUserValidator.validateNotes(
+                  context,
                   value,
                   isUpdate: _isEdit,
                 ),

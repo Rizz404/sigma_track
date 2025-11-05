@@ -974,6 +974,42 @@
   "@assetMovementValidationNotesMaxLength": {
     "description": "Validation error for notes maximum length"
   },
+  "assetMovementValidationToLocationRequired": "To location is required",
+  "@assetMovementValidationToLocationRequired": {
+    "description": "Validation error for required to location"
+  },
+  "assetMovementValidationToUserRequired": "To user is required",
+  "@assetMovementValidationToUserRequired": {
+    "description": "Validation error for required to user"
+  },
+  "assetMovementValidationMovedByRequired": "Moved by is required",
+  "@assetMovementValidationMovedByRequired": {
+    "description": "Validation error for required moved by"
+  },
+  "assetMovementValidationMovementDateFuture": "Movement date cannot be in the future",
+  "@assetMovementValidationMovementDateFuture": {
+    "description": "Validation error for movement date in future"
+  },
+  "assetMovementTranslations": "Translations",
+  "@assetMovementTranslations": {
+    "description": "Translations section title"
+  },
+  "assetMovementUnknownAsset": "Unknown Asset",
+  "@assetMovementUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "assetMovementUnknownTag": "Unknown Tag",
+  "@assetMovementUnknownTag": {
+    "description": "Unknown tag placeholder"
+  },
+  "assetMovementUnknown": "Unknown",
+  "@assetMovementUnknown": {
+    "description": "Unknown placeholder"
+  },
+  "assetMovementUnassigned": "Unassigned",
+  "@assetMovementUnassigned": {
+    "description": "Unassigned placeholder"
+  },
   "assetMovementNotSet": "Not set",
   "@assetMovementNotSet": {
     "description": "Not set value text"
@@ -1037,6 +1073,116 @@
   "assetMovementAssignedTo": "Assigned to",
   "@assetMovementAssignedTo": {
     "description": "Assigned to prefix text"
+  },
+  "assetMovementSelectMany": "Select Many",
+  "@assetMovementSelectMany": {
+    "description": "Select many option title"
+  },
+  "assetMovementSelectManySubtitle": "Select multiple asset movements to delete",
+  "@assetMovementSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetMovementSelectAssetMovementsToDelete": "Select asset movements to delete",
+  "@assetMovementSelectAssetMovementsToDelete": {
+    "description": "Toast message for select mode"
+  },
+  "assetMovementChooseMovementType": "Choose movement type:",
+  "@assetMovementChooseMovementType": {
+    "description": "Dialog content for choosing movement type"
+  },
+  "assetMovementFilterByFromLocation": "Filter by From Location",
+  "@assetMovementFilterByFromLocation": {
+    "description": "Filter by from location label"
+  },
+  "assetMovementFilterByToLocation": "Filter by To Location",
+  "@assetMovementFilterByToLocation": {
+    "description": "Filter by to location label"
+  },
+  "assetMovementFilterByFromUser": "Filter by From User",
+  "@assetMovementFilterByFromUser": {
+    "description": "Filter by from user label"
+  },
+  "assetMovementFilterByToUser": "Filter by To User",
+  "@assetMovementFilterByToUser": {
+    "description": "Filter by to user label"
+  },
+  "assetMovementFilterByMovedBy": "Filter by Moved By",
+  "@assetMovementFilterByMovedBy": {
+    "description": "Filter by moved by label"
+  },
+  "assetMovementDateFrom": "Date From",
+  "@assetMovementDateFrom": {
+    "description": "Date from label"
+  },
+  "assetMovementDateTo": "Date To",
+  "@assetMovementDateTo": {
+    "description": "Date to label"
+  },
+  "assetMovementSearchAssetPlaceholder": "Search asset...",
+  "@assetMovementSearchAssetPlaceholder": {
+    "description": "Search asset placeholder in filter"
+  },
+  "assetMovementSearchFromLocationPlaceholder": "Search from location...",
+  "@assetMovementSearchFromLocationPlaceholder": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementSearchToLocationPlaceholder": "Search to location...",
+  "@assetMovementSearchToLocationPlaceholder": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementSearchFromUserPlaceholder": "Search from user...",
+  "@assetMovementSearchFromUserPlaceholder": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementSearchToUserPlaceholder": "Search to user...",
+  "@assetMovementSearchToUserPlaceholder": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementSearchMovedByPlaceholder": "Search moved by user...",
+  "@assetMovementSearchMovedByPlaceholder": {
+    "description": "Search moved by user placeholder"
+  },
+  "assetMovementDeleteAssetMovements": "Delete Asset Movements",
+  "@assetMovementDeleteAssetMovements": {
+    "description": "Dialog title for deleting multiple asset movements"
+  },
+  "assetMovementDeleteManyConfirmation": "Are you sure you want to delete {count} asset movements?",
+  "@assetMovementDeleteManyConfirmation": {
+    "description": "Confirmation message for deleting multiple asset movements",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementNoAssetMovementsSelected": "No asset movements selected",
+  "@assetMovementNoAssetMovementsSelected": {
+    "description": "Warning message when no asset movements selected"
+  },
+  "assetMovementNotImplementedYet": "Not implemented yet",
+  "@assetMovementNotImplementedYet": {
+    "description": "Info message for not implemented feature"
+  },
+  "assetMovementSelectedCount": "{count} selected",
+  "@assetMovementSelectedCount": {
+    "description": "Selected count text",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementLongPressToSelectMore": "Long press to select more asset movements",
+  "@assetMovementLongPressToSelectMore": {
+    "description": "Toast message for long press to select"
+  },
+  "assetMovementForLocationShort": "For Location",
+  "@assetMovementForLocationShort": {
+    "description": "Short label for location movement"
+  },
+  "assetMovementForUserShort": "For User",
+  "@assetMovementForUserShort": {
+    "description": "Short label for user movement"
   },
   "adminShellBottomNavDashboard": "Dashboard",
   "@adminShellBottomNavDashboard": {

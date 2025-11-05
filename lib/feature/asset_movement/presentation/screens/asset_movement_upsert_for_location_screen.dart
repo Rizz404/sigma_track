@@ -300,6 +300,7 @@ class _AssetMovementUpsertForLocationScreenState
               itemIcon: Icons.inventory,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateAssetId(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -318,6 +319,7 @@ class _AssetMovementUpsertForLocationScreenState
               itemIcon: Icons.location_on,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateToLocationId(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -336,6 +338,7 @@ class _AssetMovementUpsertForLocationScreenState
               itemIcon: Icons.person,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateMovedById(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -347,6 +350,7 @@ class _AssetMovementUpsertForLocationScreenState
               initialValue: widget.assetMovement?.movementDate,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateMovementDate(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -372,8 +376,8 @@ class _AssetMovementUpsertForLocationScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.assetMovementTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
@@ -428,6 +432,7 @@ class _AssetMovementUpsertForLocationScreenState
             type: AppTextFieldType.multiline,
             validator: (value) =>
                 AssetMovementUpsertForLocationValidator.validateNotes(
+                  context,
                   value,
                   isUpdate: _isEdit,
                 ),
