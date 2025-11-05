@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -73,7 +74,7 @@ class AppDropdown<T> extends StatelessWidget {
       isExpanded: isExpanded,
       decoration: InputDecoration(
         labelText: label,
-        hintText: hintText ?? 'Select option',
+        hintText: hintText ?? context.l10n.appDropdownSelectOption,
         hintStyle: context.textTheme.bodyMedium?.copyWith(
           color: context.colors.textTertiary,
         ),

@@ -48,7 +48,7 @@ class AppEndDrawer extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: AppText(
-              'Please login first',
+              context.l10n.appEndDrawerPleaseLoginFirst,
               style: AppTextStyle.bodyMedium,
               color: context.colorScheme.onSurface,
             ),
@@ -77,7 +77,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.home,
-                  title: context.l10n.home,
+                  title: context.l10n.appEndDrawerHome,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.home);
@@ -86,7 +86,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.qr_code_scanner,
-                  title: 'Scan Asset',
+                  title: context.l10n.appEndDrawerScanAsset,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.scanAsset);
@@ -95,7 +95,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.inventory_2,
-                  title: 'My Assets',
+                  title: context.l10n.appEndDrawerMyAssets,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.myAssets);
@@ -104,7 +104,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.notifications,
-                  title: 'Notifications',
+                  title: context.l10n.appEndDrawerNotifications,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.myNotifications);
@@ -113,7 +113,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.report_problem,
-                  title: 'My Issue Reports',
+                  title: context.l10n.appEndDrawerMyIssueReports,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.myIssueReports);
@@ -122,7 +122,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.person,
-                  title: context.l10n.profile,
+                  title: context.l10n.appEndDrawerProfile,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.userDetailProfile);
@@ -157,7 +157,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.dashboard,
-                  title: context.l10n.dashboard,
+                  title: context.l10n.appEndDrawerDashboard,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminDashboard);
@@ -166,7 +166,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.qr_code_scanner,
-                  title: 'Scan Asset',
+                  title: context.l10n.appEndDrawerScanAsset,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.scanAsset);
@@ -177,7 +177,7 @@ class AppEndDrawer extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                   child: AppText(
-                    'Management',
+                    context.l10n.appEndDrawerManagementSection,
                     style: AppTextStyle.labelSmall,
                     color: context.colorScheme.onSurfaceVariant,
                   ),
@@ -185,7 +185,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.inventory_2,
-                  title: 'Assets',
+                  title: context.l10n.appEndDrawerAssets,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminAssets);
@@ -194,7 +194,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.swap_horiz,
-                  title: 'Asset Movements',
+                  title: context.l10n.appEndDrawerAssetMovements,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminAssetMovements);
@@ -203,7 +203,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.category,
-                  title: 'Categories',
+                  title: context.l10n.appEndDrawerCategories,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminCategories);
@@ -212,7 +212,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.location_on,
-                  title: 'Locations',
+                  title: context.l10n.appEndDrawerLocations,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminLocations);
@@ -221,7 +221,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.people,
-                  title: 'Users',
+                  title: context.l10n.appEndDrawerUsers,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminUsers);
@@ -232,7 +232,7 @@ class AppEndDrawer extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                   child: AppText(
-                    'Maintenance',
+                    context.l10n.appEndDrawerMaintenanceSection,
                     style: AppTextStyle.labelSmall,
                     color: context.colorScheme.onSurfaceVariant,
                   ),
@@ -240,7 +240,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.schedule,
-                  title: 'Maintenance Schedules',
+                  title: context.l10n.appEndDrawerMaintenanceSchedules,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminMaintenanceSchedules);
@@ -249,7 +249,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history,
-                  title: 'Maintenance Records',
+                  title: context.l10n.appEndDrawerMaintenanceRecords,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminMaintenanceRecords);
@@ -260,7 +260,7 @@ class AppEndDrawer extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                   child: AppText(
-                    'Reports',
+                    context.l10n.appEndDrawerReports,
                     style: AppTextStyle.labelSmall,
                     color: context.colorScheme.onSurfaceVariant,
                   ),
@@ -268,7 +268,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.report_problem,
-                  title: 'Issue Reports',
+                  title: context.l10n.appEndDrawerIssueReports,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminIssueReports);
@@ -277,7 +277,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history_toggle_off,
-                  title: 'Scan Logs',
+                  title: context.l10n.appEndDrawerScanLogs,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminScanLogs);
@@ -286,7 +286,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.notifications,
-                  title: 'Notifications',
+                  title: context.l10n.appEndDrawerNotifications,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.adminNotifications);
@@ -296,7 +296,7 @@ class AppEndDrawer extends ConsumerWidget {
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.person,
-                  title: context.l10n.profile,
+                  title: context.l10n.appEndDrawerProfile,
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.userDetailProfile);
@@ -328,7 +328,7 @@ class AppEndDrawer extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           AppText(
-            'Sigma Track',
+            context.l10n.appEndDrawerTitle,
             style: AppTextStyle.titleLarge,
             color: context.colorScheme.onPrimaryContainer,
             fontWeight: FontWeight.bold,
@@ -396,13 +396,19 @@ class AppEndDrawer extends ConsumerWidget {
             Icons.brightness_6,
             color: context.colorScheme.onSurface,
           ),
-          title: const AppText('Theme', style: AppTextStyle.bodyLarge),
+          title: AppText(
+            context.l10n.appEndDrawerTheme,
+            style: AppTextStyle.bodyLarge,
+          ),
           trailing: _buildThemeSwitch(context, ref),
         ),
         // * Language Switcher
         ListTile(
           leading: Icon(Icons.language, color: context.colorScheme.onSurface),
-          title: const AppText('Language', style: AppTextStyle.bodyLarge),
+          title: AppText(
+            context.l10n.appEndDrawerLanguage,
+            style: AppTextStyle.bodyLarge,
+          ),
           trailing: _buildLanguageDropdown(context, ref),
         ),
       ],
@@ -432,36 +438,45 @@ class AppEndDrawer extends ConsumerWidget {
       value: currentLocale,
       underline: const SizedBox.shrink(),
       items: [
-        const DropdownMenuItem(
-          value: Locale('en'),
+        DropdownMenuItem(
+          value: const Locale('en'),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('🇬🇧'),
               const SizedBox(width: 8),
-              AppText('English', style: AppTextStyle.bodyMedium),
+              AppText(
+                context.l10n.appEndDrawerEnglish,
+                style: AppTextStyle.bodyMedium,
+              ),
             ],
           ),
         ),
-        // const DropdownMenuItem(
-        //   value: Locale('id'),
+        // DropdownMenuItem(
+        //   value: const Locale('id'),
         //   child: Row(
         //     mainAxisSize: MainAxisSize.min,
         //     children: [
         //       const Text('🇮🇩'),
         //       const SizedBox(width: 8),
-        //       AppText('Indonesia', style: AppTextStyle.bodyMedium),
+        //       AppText(
+        //         context.l10n.appEndDrawerIndonesian,
+        //         style: AppTextStyle.bodyMedium,
+        //       ),
         //     ],
         //   ),
         // ),
-        const DropdownMenuItem(
-          value: Locale('ja'),
+        DropdownMenuItem(
+          value: const Locale('ja'),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('🇯🇵'),
               const SizedBox(width: 8),
-              AppText('日本語', style: AppTextStyle.bodyMedium),
+              AppText(
+                context.l10n.appEndDrawerJapanese,
+                style: AppTextStyle.bodyMedium,
+              ),
             ],
           ),
         ),
@@ -485,7 +500,7 @@ class AppEndDrawer extends ConsumerWidget {
             ref.read(authNotifierProvider.notifier).logout();
           },
           icon: const Icon(Icons.logout),
-          label: const Text('Logout'),
+          label: Text(context.l10n.appEndDrawerLogout),
           style: FilledButton.styleFrom(
             backgroundColor: context.colorScheme.error,
             foregroundColor: context.colorScheme.onError,

@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_id.dart';
 import 'app_localizations_ja.dart';
 
 // ignore_for_file: type=lint
@@ -94,32 +95,243 @@ abstract class L10n {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('id'),
     Locale('ja'),
   ];
 
-  /// No description provided for @home.
-  ///
-  /// In en, this message translates to:
-  /// **'Home'**
-  String get home;
-
-  /// No description provided for @dashboard.
+  /// Admin shell bottom navigation label for dashboard
   ///
   /// In en, this message translates to:
   /// **'Dashboard'**
-  String get dashboard;
+  String get adminShellBottomNavDashboard;
 
-  /// No description provided for @scanAsset.
+  /// Admin shell bottom navigation label for scan asset
   ///
   /// In en, this message translates to:
   /// **'Scan Asset'**
-  String get scanAsset;
+  String get adminShellBottomNavScanAsset;
 
-  /// No description provided for @profile.
+  /// Admin shell bottom navigation label for profile
   ///
   /// In en, this message translates to:
   /// **'Profile'**
-  String get profile;
+  String get adminShellBottomNavProfile;
+
+  /// User shell bottom navigation label for home
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get userShellBottomNavHome;
+
+  /// User shell bottom navigation label for scan asset
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Asset'**
+  String get userShellBottomNavScanAsset;
+
+  /// User shell bottom navigation label for profile
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get userShellBottomNavProfile;
+
+  /// App end drawer title
+  ///
+  /// In en, this message translates to:
+  /// **'Sigma Track'**
+  String get appEndDrawerTitle;
+
+  /// Message shown when user needs to login
+  ///
+  /// In en, this message translates to:
+  /// **'Please login first'**
+  String get appEndDrawerPleaseLoginFirst;
+
+  /// Theme settings label
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get appEndDrawerTheme;
+
+  /// Language settings label
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get appEndDrawerLanguage;
+
+  /// Logout button label
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get appEndDrawerLogout;
+
+  /// Management section header
+  ///
+  /// In en, this message translates to:
+  /// **'Management'**
+  String get appEndDrawerManagementSection;
+
+  /// Maintenance section header
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get appEndDrawerMaintenanceSection;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get appEndDrawerEnglish;
+
+  /// Indonesian language option
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesia'**
+  String get appEndDrawerIndonesian;
+
+  /// Japanese language option
+  ///
+  /// In en, this message translates to:
+  /// **'日本語'**
+  String get appEndDrawerJapanese;
+
+  /// App bar title
+  ///
+  /// In en, this message translates to:
+  /// **'Sigma Track'**
+  String get customAppBarTitle;
+
+  /// Open menu button label
+  ///
+  /// In en, this message translates to:
+  /// **'Open Menu'**
+  String get customAppBarOpenMenu;
+
+  /// Dropdown select option placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select option'**
+  String get appDropdownSelectOption;
+
+  /// Search field hint text
+  ///
+  /// In en, this message translates to:
+  /// **'Search...'**
+  String get appSearchFieldHint;
+
+  /// Clear search button label
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get appSearchFieldClear;
+
+  /// No results found message
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get appSearchFieldNoResultsFound;
+
+  /// My assets menu item
+  ///
+  /// In en, this message translates to:
+  /// **'My Assets'**
+  String get appEndDrawerMyAssets;
+
+  /// Notifications menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get appEndDrawerNotifications;
+
+  /// My issue reports menu item
+  ///
+  /// In en, this message translates to:
+  /// **'My Issue Reports'**
+  String get appEndDrawerMyIssueReports;
+
+  /// Assets menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Assets'**
+  String get appEndDrawerAssets;
+
+  /// Asset movements menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Movements'**
+  String get appEndDrawerAssetMovements;
+
+  /// Categories menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get appEndDrawerCategories;
+
+  /// Locations menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Locations'**
+  String get appEndDrawerLocations;
+
+  /// Users menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Users'**
+  String get appEndDrawerUsers;
+
+  /// Maintenance schedules menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedules'**
+  String get appEndDrawerMaintenanceSchedules;
+
+  /// Maintenance records menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Records'**
+  String get appEndDrawerMaintenanceRecords;
+
+  /// Reports menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get appEndDrawerReports;
+
+  /// Issue reports menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Reports'**
+  String get appEndDrawerIssueReports;
+
+  /// Scan logs menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Logs'**
+  String get appEndDrawerScanLogs;
+
+  /// Scan asset menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Asset'**
+  String get appEndDrawerScanAsset;
+
+  /// Dashboard menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get appEndDrawerDashboard;
+
+  /// Home menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get appEndDrawerHome;
+
+  /// Profile menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get appEndDrawerProfile;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
@@ -132,7 +344,7 @@ class _L10nDelegate extends LocalizationsDelegate<L10n> {
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ja'].contains(locale.languageCode);
+      <String>['en', 'id', 'ja'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_L10nDelegate old) => false;
@@ -143,6 +355,8 @@ L10n lookupL10n(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return L10nEn();
+    case 'id':
+      return L10nId();
     case 'ja':
       return L10nJa();
   }

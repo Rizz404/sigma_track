@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -27,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final titleWidget = AppText(
-      title ?? 'Sigma Track',
+      title ?? context.l10n.customAppBarTitle,
       style: AppTextStyle.titleMedium,
     );
 
@@ -35,7 +36,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final menuButton = Builder(
       builder: (innerContext) => IconButton(
         icon: const Icon(Icons.menu),
-        tooltip: 'Open Menu',
+        tooltip: context.l10n.customAppBarOpenMenu,
         onPressed: () {
           Scaffold.of(innerContext).openEndDrawer();
         },

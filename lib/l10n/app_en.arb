@@ -1,7 +1,159 @@
 {
   "@@locale": "en",
-  "home": "Home",
-  "dashboard": "Dashboard",
-  "scanAsset": "Scan Asset",
-  "profile": "Profile"
+  "adminShellBottomNavDashboard": "Dashboard",
+  "adminShellBottomNavScanAsset": "Scan Asset",
+  "adminShellBottomNavProfile": "Profile",
+  "userShellBottomNavHome": "Home",
+  "userShellBottomNavScanAsset": "Scan Asset",
+  "userShellBottomNavProfile": "Profile",
+  "appEndDrawerTitle": "Sigma Track",
+  "appEndDrawerPleaseLoginFirst": "Please login first",
+  "appEndDrawerTheme": "Theme",
+  "appEndDrawerLanguage": "Language",
+  "appEndDrawerLogout": "Logout",
+  "appEndDrawerManagementSection": "Management",
+  "appEndDrawerMaintenanceSection": "Maintenance",
+  "appEndDrawerEnglish": "English",
+  "appEndDrawerIndonesian": "Indonesia",
+  "appEndDrawerJapanese": "日本語",
+  "customAppBarTitle": "Sigma Track",
+  "customAppBarOpenMenu": "Open Menu",
+  "appDropdownSelectOption": "Select option",
+  "appSearchFieldHint": "Search...",
+  "appSearchFieldClear": "Clear",
+  "appSearchFieldNoResultsFound": "No results found",
+  "appEndDrawerMyAssets": "My Assets",
+  "appEndDrawerNotifications": "Notifications",
+  "appEndDrawerMyIssueReports": "My Issue Reports",
+  "appEndDrawerAssets": "Assets",
+  "appEndDrawerAssetMovements": "Asset Movements",
+  "appEndDrawerCategories": "Categories",
+  "appEndDrawerLocations": "Locations",
+  "appEndDrawerUsers": "Users",
+  "appEndDrawerMaintenanceSchedules": "Maintenance Schedules",
+  "appEndDrawerMaintenanceRecords": "Maintenance Records",
+  "appEndDrawerReports": "Reports",
+  "appEndDrawerIssueReports": "Issue Reports",
+  "appEndDrawerScanLogs": "Scan Logs",
+  "appEndDrawerScanAsset": "Scan Asset",
+  "@adminShellBottomNavDashboard": {
+    "description": "Admin shell bottom navigation label for dashboard"
+  },
+  "@adminShellBottomNavScanAsset": {
+    "description": "Admin shell bottom navigation label for scan asset"
+  },
+  "@adminShellBottomNavProfile": {
+    "description": "Admin shell bottom navigation label for profile"
+  },
+  "@userShellBottomNavHome": {
+    "description": "User shell bottom navigation label for home"
+  },
+  "@userShellBottomNavScanAsset": {
+    "description": "User shell bottom navigation label for scan asset"
+  },
+  "@userShellBottomNavProfile": {
+    "description": "User shell bottom navigation label for profile"
+  },
+  "@appEndDrawerTitle": {
+    "description": "App end drawer title"
+  },
+  "@appEndDrawerPleaseLoginFirst": {
+    "description": "Message shown when user needs to login"
+  },
+  "@appEndDrawerTheme": {
+    "description": "Theme settings label"
+  },
+  "@appEndDrawerLanguage": {
+    "description": "Language settings label"
+  },
+  "@appEndDrawerLogout": {
+    "description": "Logout button label"
+  },
+  "@appEndDrawerManagementSection": {
+    "description": "Management section header"
+  },
+  "@appEndDrawerMaintenanceSection": {
+    "description": "Maintenance section header"
+  },
+  "@appEndDrawerEnglish": {
+    "description": "English language option"
+  },
+  "@appEndDrawerIndonesian": {
+    "description": "Indonesian language option"
+  },
+  "@appEndDrawerJapanese": {
+    "description": "Japanese language option"
+  },
+  "@appEndDrawerMyAssets": {
+    "description": "My assets menu item"
+  },
+  "@appEndDrawerNotifications": {
+    "description": "Notifications menu item"
+  },
+  "@appEndDrawerMyIssueReports": {
+    "description": "My issue reports menu item"
+  },
+  "@appEndDrawerAssets": {
+    "description": "Assets menu item"
+  },
+  "@appEndDrawerAssetMovements": {
+    "description": "Asset movements menu item"
+  },
+  "@appEndDrawerCategories": {
+    "description": "Categories menu item"
+  },
+  "@appEndDrawerLocations": {
+    "description": "Locations menu item"
+  },
+  "@appEndDrawerUsers": {
+    "description": "Users menu item"
+  },
+  "@appEndDrawerMaintenanceSchedules": {
+    "description": "Maintenance schedules menu item"
+  },
+  "@appEndDrawerMaintenanceRecords": {
+    "description": "Maintenance records menu item"
+  },
+  "@appEndDrawerReports": {
+    "description": "Reports menu item"
+  },
+  "@appEndDrawerIssueReports": {
+    "description": "Issue reports menu item"
+  },
+  "@appEndDrawerScanLogs": {
+    "description": "Scan logs menu item"
+  },
+  "@appEndDrawerScanAsset": {
+    "description": "Scan asset menu item"
+  },
+  "appEndDrawerDashboard": "Dashboard",
+  "@appEndDrawerDashboard": {
+    "description": "Dashboard menu item"
+  },
+  "@customAppBarTitle": {
+    "description": "App bar title"
+  },
+  "@customAppBarOpenMenu": {
+    "description": "Open menu button label"
+  },
+  "@appDropdownSelectOption": {
+    "description": "Dropdown select option placeholder"
+  },
+  "@appSearchFieldHint": {
+    "description": "Search field hint text"
+  },
+  "@appSearchFieldClear": {
+    "description": "Clear search button label"
+  },
+  "@appSearchFieldNoResultsFound": {
+    "description": "No results found message"
+  },
+  "appEndDrawerHome": "Home",
+  "@appEndDrawerHome": {
+    "description": "Home menu item"
+  },
+  "appEndDrawerProfile": "Profile",
+  "@appEndDrawerProfile": {
+    "description": "Profile menu item"
+  }
 }

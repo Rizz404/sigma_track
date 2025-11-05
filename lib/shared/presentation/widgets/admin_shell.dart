@@ -28,17 +28,17 @@ class AdminShell extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.dashboard_outlined),
             selectedIcon: const Icon(Icons.dashboard),
-            label: context.l10n.dashboard,
+            label: context.l10n.adminShellBottomNavDashboard,
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.qr_code_scanner_outlined),
-            selectedIcon: Icon(Icons.qr_code_scanner),
-            label: 'Scan',
+          NavigationDestination(
+            icon: const Icon(Icons.qr_code_scanner_outlined),
+            selectedIcon: const Icon(Icons.qr_code_scanner),
+            label: context.l10n.adminShellBottomNavScanAsset,
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline),
             selectedIcon: const Icon(Icons.person),
-            label: context.l10n.profile,
+            label: context.l10n.adminShellBottomNavProfile,
           ),
         ],
       ),

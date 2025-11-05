@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -304,7 +305,7 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Text(
-            'No results found',
+            context.l10n.appSearchFieldNoResultsFound,
             style: context.textTheme.bodyMedium?.copyWith(
               color: context.colors.textSecondary,
             ),
@@ -411,7 +412,7 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
             validator: widget.validator,
             decoration: InputDecoration(
               labelText: widget.label,
-              hintText: widget.hintText ?? 'Search...',
+              hintText: widget.hintText ?? context.l10n.appSearchFieldHint,
               hintStyle: context.textTheme.bodyMedium?.copyWith(
                 color: context.colors.textTertiary,
               ),
@@ -520,7 +521,7 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
       return IconButton(
         icon: Icon(Icons.clear, color: context.colors.textSecondary),
         onPressed: widget.enabled ? _clearText : null,
-        tooltip: 'Clear',
+        tooltip: context.l10n.appSearchFieldClear,
       );
     }
 
