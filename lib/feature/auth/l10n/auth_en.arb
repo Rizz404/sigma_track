@@ -1,10 +1,10 @@
 {
-  "@@locale": "id",
-  "authWelcomeBack": "Selamat Datang Kembali",
+  "@@locale": "en",
+  "authWelcomeBack": "Welcome Back",
   "@authWelcomeBack": {
     "description": "Login screen header title"
   },
-  "authSignInToContinue": "Masuk untuk melanjutkan",
+  "authSignInToContinue": "Sign in to continue",
   "@authSignInToContinue": {
     "description": "Login screen subtitle"
   },
@@ -12,131 +12,131 @@
   "@authEmail": {
     "description": "Email field label"
   },
-  "authEnterYourEmail": "Masukkan email Anda",
+  "authEnterYourEmail": "Enter your email",
   "@authEnterYourEmail": {
     "description": "Email field placeholder"
   },
-  "authPassword": "Kata Sandi",
+  "authPassword": "Password",
   "@authPassword": {
     "description": "Password field label"
   },
-  "authEnterYourPassword": "Masukkan kata sandi Anda",
+  "authEnterYourPassword": "Enter your password",
   "@authEnterYourPassword": {
     "description": "Password field placeholder"
   },
-  "authForgotPassword": "Lupa Kata Sandi?",
+  "authForgotPassword": "Forgot Password?",
   "@authForgotPassword": {
     "description": "Forgot password link text"
   },
-  "authLogin": "Masuk",
+  "authLogin": "Login",
   "@authLogin": {
     "description": "Login button label"
   },
-  "authDontHaveAccount": "Belum punya akun? ",
+  "authDontHaveAccount": "Don't have an account? ",
   "@authDontHaveAccount": {
     "description": "Register link prefix text"
   },
-  "authRegister": "Daftar",
+  "authRegister": "Register",
   "@authRegister": {
     "description": "Register link/button label"
   },
-  "authLoginSuccessful": "Login berhasil",
+  "authLoginSuccessful": "Login successful",
   "@authLoginSuccessful": {
     "description": "Success message after login"
   },
-  "authCreateAccount": "Buat Akun",
+  "authCreateAccount": "Create Account",
   "@authCreateAccount": {
     "description": "Register screen header title"
   },
-  "authSignUpToGetStarted": "Daftar untuk memulai",
+  "authSignUpToGetStarted": "Sign up to get started",
   "@authSignUpToGetStarted": {
     "description": "Register screen subtitle"
   },
-  "authName": "Nama",
+  "authName": "Name",
   "@authName": {
     "description": "Name field label"
   },
-  "authEnterYourName": "Masukkan nama Anda",
+  "authEnterYourName": "Enter your name",
   "@authEnterYourName": {
     "description": "Name field placeholder"
   },
-  "authConfirmPassword": "Konfirmasi Kata Sandi",
+  "authConfirmPassword": "Confirm Password",
   "@authConfirmPassword": {
     "description": "Confirm password field label"
   },
-  "authReEnterYourPassword": "Masukkan ulang kata sandi Anda",
+  "authReEnterYourPassword": "Re-enter your password",
   "@authReEnterYourPassword": {
     "description": "Confirm password field placeholder"
   },
-  "authPasswordMustContain": "Kata sandi harus berisi:",
+  "authPasswordMustContain": "Password must contain:",
   "@authPasswordMustContain": {
     "description": "Password requirements section title"
   },
-  "authPasswordRequirementPlaceholder": "Buat kata sandi saja bro!",
+  "authPasswordRequirementPlaceholder": "Just make the password man!",
   "@authPasswordRequirementPlaceholder": {
     "description": "Placeholder password requirement text"
   },
-  "authRegistrationSuccessful": "Pendaftaran berhasil",
+  "authRegistrationSuccessful": "Registration successful",
   "@authRegistrationSuccessful": {
     "description": "Success message after registration"
   },
-  "authAlreadyHaveAccount": "Sudah punya akun? ",
+  "authAlreadyHaveAccount": "Already have an account? ",
   "@authAlreadyHaveAccount": {
     "description": "Login link prefix text"
   },
-  "authForgotPasswordTitle": "Lupa Kata Sandi",
+  "authForgotPasswordTitle": "Forgot Password",
   "@authForgotPasswordTitle": {
     "description": "Forgot password screen header title"
   },
-  "authEnterEmailToResetPassword": "Masukkan email Anda untuk mereset kata sandi",
+  "authEnterEmailToResetPassword": "Enter your email to reset your password",
   "@authEnterEmailToResetPassword": {
     "description": "Forgot password screen subtitle"
   },
-  "authSendResetLink": "Kirim Tautan Reset",
+  "authSendResetLink": "Send Reset Link",
   "@authSendResetLink": {
     "description": "Send reset link button label"
   },
-  "authEmailSentSuccessfully": "Email berhasil dikirim",
+  "authEmailSentSuccessfully": "Email sent successfully",
   "@authEmailSentSuccessfully": {
     "description": "Success message after sending reset email"
   },
-  "authRememberPassword": "Ingat kata sandi Anda? ",
+  "authRememberPassword": "Remember your password? ",
   "@authRememberPassword": {
     "description": "Back to login link prefix text"
   },
-  "authValidationEmailRequired": "Email wajib diisi",
+  "authValidationEmailRequired": "Email is required",
   "@authValidationEmailRequired": {
     "description": "Validation error for required email"
   },
-  "authValidationEmailInvalid": "Silakan masukkan alamat email yang valid",
+  "authValidationEmailInvalid": "Please enter a valid email address",
   "@authValidationEmailInvalid": {
     "description": "Validation error for invalid email format"
   },
-  "authValidationPasswordRequired": "Kata sandi wajib diisi",
+  "authValidationPasswordRequired": "Password is required",
   "@authValidationPasswordRequired": {
     "description": "Validation error for required password"
   },
-  "authValidationNameRequired": "Nama wajib diisi",
+  "authValidationNameRequired": "Name is required",
   "@authValidationNameRequired": {
     "description": "Validation error for required name"
   },
-  "authValidationNameMinLength": "Nama minimal 3 karakter",
+  "authValidationNameMinLength": "Name must be at least 3 characters",
   "@authValidationNameMinLength": {
     "description": "Validation error for name minimum length"
   },
-  "authValidationNameMaxLength": "Nama maksimal 20 karakter",
+  "authValidationNameMaxLength": "Name must not exceed 20 characters",
   "@authValidationNameMaxLength": {
     "description": "Validation error for name maximum length"
   },
-  "authValidationNameAlphanumeric": "Nama hanya boleh berisi huruf, angka, dan garis bawah",
+  "authValidationNameAlphanumeric": "Name can only contain letters, numbers, and underscores",
   "@authValidationNameAlphanumeric": {
     "description": "Validation error for name format"
   },
-  "authValidationConfirmPasswordRequired": "Silakan konfirmasi kata sandi Anda",
+  "authValidationConfirmPasswordRequired": "Please confirm your password",
   "@authValidationConfirmPasswordRequired": {
     "description": "Validation error for required confirm password"
   },
-  "authValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
+  "authValidationPasswordsDoNotMatch": "Passwords do not match",
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
   }

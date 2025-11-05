@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "homeScreen": "Home",
+  "@homeScreen": {
+    "description": "Home screen title"
+  }
+}

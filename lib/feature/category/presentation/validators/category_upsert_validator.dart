@@ -1,55 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class CategoryUpsertValidator {
-  static String? validateParentId(String? value, {bool isUpdate = false}) {
+  static String? validateParentId(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     // if (!isUpdate && (value == null || value.isEmpty)) {
     //   return 'Parent category is required';
     // }
     return null;
   }
 
-  static String? validateCategoryCode(String? value, {bool isUpdate = false}) {
+  static String? validateCategoryCode(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Category code is required';
+      return context.l10n.categoryValidationCodeRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 2) {
-        return 'Category code must be at least 2 characters';
+        return context.l10n.categoryValidationCodeMinLength;
       }
       if (value.length > 20) {
-        return 'Category code must not exceed 20 characters';
+        return context.l10n.categoryValidationCodeMaxLength;
       }
       // ! Category code hanya boleh alfanumerik dan underscore
       if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-        return 'Category code can only contain letters, numbers, and underscores';
+        return context.l10n.categoryValidationCodeAlphanumeric;
       }
     }
     return null;
   }
 
-  static String? validateCategoryName(String? value, {bool isUpdate = false}) {
+  static String? validateCategoryName(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Category name is required';
+      return context.l10n.categoryValidationNameRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
-        return 'Category name must be at least 3 characters';
+        return context.l10n.categoryValidationNameMinLength;
       }
       if (value.length > 100) {
-        return 'Category name must not exceed 100 characters';
+        return context.l10n.categoryValidationNameMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateDescription(String? value, {bool isUpdate = false}) {
+  static String? validateDescription(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Description is required';
+      return context.l10n.categoryValidationDescriptionRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 10) {
-        return 'Description must be at least 10 characters';
+        return context.l10n.categoryValidationDescriptionMinLength;
       }
       if (value.length > 500) {
-        return 'Description must not exceed 500 characters';
+        return context.l10n.categoryValidationDescriptionMaxLength;
       }
     }
     return null;

@@ -875,6 +875,412 @@ class L10nJa extends L10n {
   String get assetMovementForUserShort => 'ユーザーへ';
 
   @override
+  String get authWelcomeBack => 'おかえりなさい';
+
+  @override
+  String get authSignInToContinue => '続けるにはログインしてください';
+
+  @override
+  String get authEmail => 'メール';
+
+  @override
+  String get authEnterYourEmail => 'メールアドレスを入力';
+
+  @override
+  String get authPassword => 'パスワード';
+
+  @override
+  String get authEnterYourPassword => 'パスワードを入力';
+
+  @override
+  String get authForgotPassword => 'パスワードをお忘れですか？';
+
+  @override
+  String get authLogin => 'ログイン';
+
+  @override
+  String get authDontHaveAccount => 'アカウントをお持ちでないですか？ ';
+
+  @override
+  String get authRegister => '登録';
+
+  @override
+  String get authLoginSuccessful => 'ログイン成功';
+
+  @override
+  String get authCreateAccount => 'アカウント作成';
+
+  @override
+  String get authSignUpToGetStarted => '登録して始めましょう';
+
+  @override
+  String get authName => '名前';
+
+  @override
+  String get authEnterYourName => '名前を入力';
+
+  @override
+  String get authConfirmPassword => 'パスワード確認';
+
+  @override
+  String get authReEnterYourPassword => 'パスワードを再入力';
+
+  @override
+  String get authPasswordMustContain => 'パスワードには以下が必要です：';
+
+  @override
+  String get authPasswordRequirementPlaceholder => 'とにかくパスワードを入力してください！';
+
+  @override
+  String get authRegistrationSuccessful => '登録成功';
+
+  @override
+  String get authAlreadyHaveAccount => '既にアカウントをお持ちですか？ ';
+
+  @override
+  String get authForgotPasswordTitle => 'パスワードを忘れた';
+
+  @override
+  String get authEnterEmailToResetPassword => 'パスワードをリセットするにはメールアドレスを入力してください';
+
+  @override
+  String get authSendResetLink => 'リセットリンクを送信';
+
+  @override
+  String get authEmailSentSuccessfully => 'メール送信成功';
+
+  @override
+  String get authRememberPassword => 'パスワードを思い出しましたか？ ';
+
+  @override
+  String get authValidationEmailRequired => 'メールは必須です';
+
+  @override
+  String get authValidationEmailInvalid => '有効なメールアドレスを入力してください';
+
+  @override
+  String get authValidationPasswordRequired => 'パスワードは必須です';
+
+  @override
+  String get authValidationNameRequired => '名前は必須です';
+
+  @override
+  String get authValidationNameMinLength => '名前は3文字以上である必要があります';
+
+  @override
+  String get authValidationNameMaxLength => '名前は20文字を超えることはできません';
+
+  @override
+  String get authValidationNameAlphanumeric => '名前には英数字とアンダースコアのみ使用できます';
+
+  @override
+  String get authValidationConfirmPasswordRequired => 'パスワードを確認してください';
+
+  @override
+  String get authValidationPasswordsDoNotMatch => 'パスワードが一致しません';
+
+  @override
+  String get categoryDetail => 'カテゴリ詳細';
+
+  @override
+  String get categoryInformation => 'カテゴリ情報';
+
+  @override
+  String get categoryCategoryCode => 'カテゴリコード';
+
+  @override
+  String get categoryCategoryName => 'カテゴリ名';
+
+  @override
+  String get categoryDescription => '説明';
+
+  @override
+  String get categoryParentCategory => '親カテゴリ';
+
+  @override
+  String get categoryMetadata => 'メタデータ';
+
+  @override
+  String get categoryCreatedAt => '作成日時';
+
+  @override
+  String get categoryUpdatedAt => '更新日時';
+
+  @override
+  String get categoryOnlyAdminCanEdit => 'カテゴリを編集できるのは管理者のみです';
+
+  @override
+  String get categoryOnlyAdminCanDelete => 'カテゴリを削除できるのは管理者のみです';
+
+  @override
+  String get categoryDeleteCategory => 'カテゴリを削除';
+
+  @override
+  String categoryDeleteConfirmation(String categoryName) {
+    return '\"$categoryName\"を削除してもよろしいですか？';
+  }
+
+  @override
+  String get categoryCancel => 'キャンセル';
+
+  @override
+  String get categoryDelete => '削除';
+
+  @override
+  String get categoryCategoryDeleted => 'カテゴリが削除されました';
+
+  @override
+  String get categoryDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get categoryEditCategory => 'カテゴリを編集';
+
+  @override
+  String get categoryCreateCategory => 'カテゴリを作成';
+
+  @override
+  String get categorySearchCategory => 'カテゴリを検索...';
+
+  @override
+  String get categoryEnterCategoryCode => 'カテゴリコードを入力 (例: CAT-001)';
+
+  @override
+  String get categoryTranslations => '翻訳';
+
+  @override
+  String get categoryAddTranslations => 'さまざまな言語の翻訳を追加';
+
+  @override
+  String get categoryEnglish => '英語';
+
+  @override
+  String get categoryJapanese => '日本語';
+
+  @override
+  String get categoryEnterCategoryName => 'カテゴリ名を入力';
+
+  @override
+  String get categoryEnterDescription => '説明を入力';
+
+  @override
+  String get categoryUpdate => '更新';
+
+  @override
+  String get categoryCreate => '作成';
+
+  @override
+  String get categoryFillRequiredFields => '必須フィールドをすべて入力してください';
+
+  @override
+  String get categorySavedSuccessfully => 'カテゴリが正常に保存されました';
+
+  @override
+  String get categoryOperationFailed => '操作に失敗しました';
+
+  @override
+  String get categoryFailedToLoadTranslations => '翻訳の読み込みに失敗しました';
+
+  @override
+  String get categoryManagement => 'カテゴリ管理';
+
+  @override
+  String get categorySearchCategories => 'カテゴリを検索...';
+
+  @override
+  String get categoryCreateCategoryTitle => 'カテゴリを作成';
+
+  @override
+  String get categoryCreateCategorySubtitle => '新しいカテゴリを追加';
+
+  @override
+  String get categorySelectManyTitle => '複数選択';
+
+  @override
+  String get categorySelectManySubtitle => '削除する複数のカテゴリを選択';
+
+  @override
+  String get categoryFilterAndSortTitle => 'フィルターと並べ替え';
+
+  @override
+  String get categoryFilterAndSortSubtitle => 'カテゴリ表示をカスタマイズ';
+
+  @override
+  String get categorySelectCategoriesToDelete => '削除するカテゴリを選択';
+
+  @override
+  String get categorySortBy => '並べ替え';
+
+  @override
+  String get categorySortOrder => '並べ替え順序';
+
+  @override
+  String get categoryHasParent => '親カテゴリあり';
+
+  @override
+  String get categoryFilterByParent => '親カテゴリでフィルター';
+
+  @override
+  String get categorySearchParentCategory => '親カテゴリを検索...';
+
+  @override
+  String get categoryReset => 'リセット';
+
+  @override
+  String get categoryApply => '適用';
+
+  @override
+  String get categoryFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get categoryFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get categoryDeleteCategories => 'カテゴリを削除';
+
+  @override
+  String categoryDeleteMultipleConfirmation(int count) {
+    return '$count個のカテゴリを削除してもよろしいですか？';
+  }
+
+  @override
+  String get categoryNoCategoriesSelected => 'カテゴリが選択されていません';
+
+  @override
+  String get categoryNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String categorySelectedCount(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get categoryNoCategoriesFound => 'カテゴリが見つかりません';
+
+  @override
+  String get categoryCreateFirstCategory => '最初のカテゴリを作成して開始しましょう';
+
+  @override
+  String get categoryLongPressToSelect => '長押ししてさらにカテゴリを選択';
+
+  @override
+  String get categoryValidationCodeRequired => 'カテゴリコードは必須です';
+
+  @override
+  String get categoryValidationCodeMinLength => 'カテゴリコードは2文字以上である必要があります';
+
+  @override
+  String get categoryValidationCodeMaxLength => 'カテゴリコードは20文字を超えることはできません';
+
+  @override
+  String get categoryValidationCodeAlphanumeric =>
+      'カテゴリコードには英数字とアンダースコアのみ使用できます';
+
+  @override
+  String get categoryValidationNameRequired => 'カテゴリ名は必須です';
+
+  @override
+  String get categoryValidationNameMinLength => 'カテゴリ名は3文字以上である必要があります';
+
+  @override
+  String get categoryValidationNameMaxLength => 'カテゴリ名は100文字を超えることはできません';
+
+  @override
+  String get categoryValidationDescriptionRequired => '説明は必須です';
+
+  @override
+  String get categoryValidationDescriptionMinLength => '説明は10文字以上である必要があります';
+
+  @override
+  String get categoryValidationDescriptionMaxLength => '説明は500文字を超えることはできません';
+
+  @override
+  String get dashboardTotalUsers => '総ユーザー数';
+
+  @override
+  String get dashboardTotalAssets => '総資産数';
+
+  @override
+  String get dashboardAssetStatusOverview => '資産ステータス概要';
+
+  @override
+  String get dashboardActive => '稼働中';
+
+  @override
+  String get dashboardMaintenance => 'メンテナンス中';
+
+  @override
+  String get dashboardDisposed => '廃棄済み';
+
+  @override
+  String get dashboardLost => '紛失';
+
+  @override
+  String get dashboardUserRoleDistribution => 'ユーザー役割分布';
+
+  @override
+  String get dashboardAdmin => '管理者';
+
+  @override
+  String get dashboardStaff => 'スタッフ';
+
+  @override
+  String get dashboardEmployee => '従業員';
+
+  @override
+  String get dashboardAssetStatusBreakdown => '資産ステータス内訳';
+
+  @override
+  String get dashboardAssetConditionOverview => '資産状態概要';
+
+  @override
+  String get dashboardGood => '良好';
+
+  @override
+  String get dashboardFair => '普通';
+
+  @override
+  String get dashboardPoor => '不良';
+
+  @override
+  String get dashboardDamaged => '破損';
+
+  @override
+  String get dashboardUserRegistrationTrends => 'ユーザー登録推移';
+
+  @override
+  String get dashboardAssetCreationTrends => '資産作成推移';
+
+  @override
+  String get dashboardCategories => 'カテゴリ';
+
+  @override
+  String get dashboardLocations => '場所';
+
+  @override
+  String get dashboardActivityOverview => '活動概要';
+
+  @override
+  String get dashboardScanLogs => 'スキャンログ';
+
+  @override
+  String get dashboardNotifications => '通知';
+
+  @override
+  String get dashboardAssetMovements => '資産移動';
+
+  @override
+  String get dashboardIssueReports => '問題報告';
+
+  @override
+  String get dashboardMaintenanceSchedules => 'メンテナンススケジュール';
+
+  @override
+  String get dashboardMaintenanceRecords => 'メンテナンス記録';
+
+  @override
+  String get homeScreen => 'ホーム';
+
+  @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';
 
   @override

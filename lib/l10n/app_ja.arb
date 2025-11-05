@@ -1184,6 +1184,556 @@
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
   },
+  "authWelcomeBack": "おかえりなさい",
+  "@authWelcomeBack": {
+    "description": "Login screen header title"
+  },
+  "authSignInToContinue": "続けるにはログインしてください",
+  "@authSignInToContinue": {
+    "description": "Login screen subtitle"
+  },
+  "authEmail": "メール",
+  "@authEmail": {
+    "description": "Email field label"
+  },
+  "authEnterYourEmail": "メールアドレスを入力",
+  "@authEnterYourEmail": {
+    "description": "Email field placeholder"
+  },
+  "authPassword": "パスワード",
+  "@authPassword": {
+    "description": "Password field label"
+  },
+  "authEnterYourPassword": "パスワードを入力",
+  "@authEnterYourPassword": {
+    "description": "Password field placeholder"
+  },
+  "authForgotPassword": "パスワードをお忘れですか？",
+  "@authForgotPassword": {
+    "description": "Forgot password link text"
+  },
+  "authLogin": "ログイン",
+  "@authLogin": {
+    "description": "Login button label"
+  },
+  "authDontHaveAccount": "アカウントをお持ちでないですか？ ",
+  "@authDontHaveAccount": {
+    "description": "Register link prefix text"
+  },
+  "authRegister": "登録",
+  "@authRegister": {
+    "description": "Register link/button label"
+  },
+  "authLoginSuccessful": "ログイン成功",
+  "@authLoginSuccessful": {
+    "description": "Success message after login"
+  },
+  "authCreateAccount": "アカウント作成",
+  "@authCreateAccount": {
+    "description": "Register screen header title"
+  },
+  "authSignUpToGetStarted": "登録して始めましょう",
+  "@authSignUpToGetStarted": {
+    "description": "Register screen subtitle"
+  },
+  "authName": "名前",
+  "@authName": {
+    "description": "Name field label"
+  },
+  "authEnterYourName": "名前を入力",
+  "@authEnterYourName": {
+    "description": "Name field placeholder"
+  },
+  "authConfirmPassword": "パスワード確認",
+  "@authConfirmPassword": {
+    "description": "Confirm password field label"
+  },
+  "authReEnterYourPassword": "パスワードを再入力",
+  "@authReEnterYourPassword": {
+    "description": "Confirm password field placeholder"
+  },
+  "authPasswordMustContain": "パスワードには以下が必要です：",
+  "@authPasswordMustContain": {
+    "description": "Password requirements section title"
+  },
+  "authPasswordRequirementPlaceholder": "とにかくパスワードを入力してください！",
+  "@authPasswordRequirementPlaceholder": {
+    "description": "Placeholder password requirement text"
+  },
+  "authRegistrationSuccessful": "登録成功",
+  "@authRegistrationSuccessful": {
+    "description": "Success message after registration"
+  },
+  "authAlreadyHaveAccount": "既にアカウントをお持ちですか？ ",
+  "@authAlreadyHaveAccount": {
+    "description": "Login link prefix text"
+  },
+  "authForgotPasswordTitle": "パスワードを忘れた",
+  "@authForgotPasswordTitle": {
+    "description": "Forgot password screen header title"
+  },
+  "authEnterEmailToResetPassword": "パスワードをリセットするにはメールアドレスを入力してください",
+  "@authEnterEmailToResetPassword": {
+    "description": "Forgot password screen subtitle"
+  },
+  "authSendResetLink": "リセットリンクを送信",
+  "@authSendResetLink": {
+    "description": "Send reset link button label"
+  },
+  "authEmailSentSuccessfully": "メール送信成功",
+  "@authEmailSentSuccessfully": {
+    "description": "Success message after sending reset email"
+  },
+  "authRememberPassword": "パスワードを思い出しましたか？ ",
+  "@authRememberPassword": {
+    "description": "Back to login link prefix text"
+  },
+  "authValidationEmailRequired": "メールは必須です",
+  "@authValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "authValidationEmailInvalid": "有効なメールアドレスを入力してください",
+  "@authValidationEmailInvalid": {
+    "description": "Validation error for invalid email format"
+  },
+  "authValidationPasswordRequired": "パスワードは必須です",
+  "@authValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "authValidationNameRequired": "名前は必須です",
+  "@authValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "authValidationNameMinLength": "名前は3文字以上である必要があります",
+  "@authValidationNameMinLength": {
+    "description": "Validation error for name minimum length"
+  },
+  "authValidationNameMaxLength": "名前は20文字を超えることはできません",
+  "@authValidationNameMaxLength": {
+    "description": "Validation error for name maximum length"
+  },
+  "authValidationNameAlphanumeric": "名前には英数字とアンダースコアのみ使用できます",
+  "@authValidationNameAlphanumeric": {
+    "description": "Validation error for name format"
+  },
+  "authValidationConfirmPasswordRequired": "パスワードを確認してください",
+  "@authValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "authValidationPasswordsDoNotMatch": "パスワードが一致しません",
+  "@authValidationPasswordsDoNotMatch": {
+    "description": "Validation error when passwords don't match"
+  },
+  "categoryDetail": "カテゴリ詳細",
+  "@categoryDetail": {
+    "description": "Category detail screen title"
+  },
+  "categoryInformation": "カテゴリ情報",
+  "@categoryInformation": {
+    "description": "Category information section title"
+  },
+  "categoryCategoryCode": "カテゴリコード",
+  "@categoryCategoryCode": {
+    "description": "Category code label"
+  },
+  "categoryCategoryName": "カテゴリ名",
+  "@categoryCategoryName": {
+    "description": "Category name label"
+  },
+  "categoryDescription": "説明",
+  "@categoryDescription": {
+    "description": "Description label"
+  },
+  "categoryParentCategory": "親カテゴリ",
+  "@categoryParentCategory": {
+    "description": "Parent category label"
+  },
+  "categoryMetadata": "メタデータ",
+  "@categoryMetadata": {
+    "description": "Metadata section title"
+  },
+  "categoryCreatedAt": "作成日時",
+  "@categoryCreatedAt": {
+    "description": "Created at label"
+  },
+  "categoryUpdatedAt": "更新日時",
+  "@categoryUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "categoryOnlyAdminCanEdit": "カテゴリを編集できるのは管理者のみです",
+  "@categoryOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "categoryOnlyAdminCanDelete": "カテゴリを削除できるのは管理者のみです",
+  "@categoryOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "categoryDeleteCategory": "カテゴリを削除",
+  "@categoryDeleteCategory": {
+    "description": "Delete category dialog title"
+  },
+  "categoryDeleteConfirmation": "\"{categoryName}\"を削除してもよろしいですか？",
+  "@categoryDeleteConfirmation": {
+    "description": "Confirmation message for deleting a category",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "Electronics"
+      }
+    }
+  },
+  "categoryCancel": "キャンセル",
+  "@categoryCancel": {
+    "description": "Cancel button label"
+  },
+  "categoryDelete": "削除",
+  "@categoryDelete": {
+    "description": "Delete button label"
+  },
+  "categoryCategoryDeleted": "カテゴリが削除されました",
+  "@categoryCategoryDeleted": {
+    "description": "Success message for category deletion"
+  },
+  "categoryDeleteFailed": "削除に失敗しました",
+  "@categoryDeleteFailed": {
+    "description": "Error message for category deletion failure"
+  },
+  "categoryEditCategory": "カテゴリを編集",
+  "@categoryEditCategory": {
+    "description": "Edit category screen title"
+  },
+  "categoryCreateCategory": "カテゴリを作成",
+  "@categoryCreateCategory": {
+    "description": "Create category screen title"
+  },
+  "categorySearchCategory": "カテゴリを検索...",
+  "@categorySearchCategory": {
+    "description": "Search category placeholder"
+  },
+  "categoryEnterCategoryCode": "カテゴリコードを入力 (例: CAT-001)",
+  "@categoryEnterCategoryCode": {
+    "description": "Category code input placeholder"
+  },
+  "categoryTranslations": "翻訳",
+  "@categoryTranslations": {
+    "description": "Translations section title"
+  },
+  "categoryAddTranslations": "さまざまな言語の翻訳を追加",
+  "@categoryAddTranslations": {
+    "description": "Translations section subtitle"
+  },
+  "categoryEnglish": "英語",
+  "@categoryEnglish": {
+    "description": "English language label"
+  },
+  "categoryJapanese": "日本語",
+  "@categoryJapanese": {
+    "description": "Japanese language label"
+  },
+  "categoryEnterCategoryName": "カテゴリ名を入力",
+  "@categoryEnterCategoryName": {
+    "description": "Category name input placeholder"
+  },
+  "categoryEnterDescription": "説明を入力",
+  "@categoryEnterDescription": {
+    "description": "Description input placeholder"
+  },
+  "categoryUpdate": "更新",
+  "@categoryUpdate": {
+    "description": "Update button label"
+  },
+  "categoryCreate": "作成",
+  "@categoryCreate": {
+    "description": "Create button label"
+  },
+  "categoryFillRequiredFields": "必須フィールドをすべて入力してください",
+  "@categoryFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "categorySavedSuccessfully": "カテゴリが正常に保存されました",
+  "@categorySavedSuccessfully": {
+    "description": "Success message for category save"
+  },
+  "categoryOperationFailed": "操作に失敗しました",
+  "@categoryOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "categoryFailedToLoadTranslations": "翻訳の読み込みに失敗しました",
+  "@categoryFailedToLoadTranslations": {
+    "description": "Error message when translations fail to load"
+  },
+  "categoryManagement": "カテゴリ管理",
+  "@categoryManagement": {
+    "description": "Category management screen title"
+  },
+  "categorySearchCategories": "カテゴリを検索...",
+  "@categorySearchCategories": {
+    "description": "Categories search placeholder"
+  },
+  "categoryCreateCategoryTitle": "カテゴリを作成",
+  "@categoryCreateCategoryTitle": {
+    "description": "Create category option title"
+  },
+  "categoryCreateCategorySubtitle": "新しいカテゴリを追加",
+  "@categoryCreateCategorySubtitle": {
+    "description": "Create category option subtitle"
+  },
+  "categorySelectManyTitle": "複数選択",
+  "@categorySelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "categorySelectManySubtitle": "削除する複数のカテゴリを選択",
+  "@categorySelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "categoryFilterAndSortTitle": "フィルターと並べ替え",
+  "@categoryFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "categoryFilterAndSortSubtitle": "カテゴリ表示をカスタマイズ",
+  "@categoryFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "categorySelectCategoriesToDelete": "削除するカテゴリを選択",
+  "@categorySelectCategoriesToDelete": {
+    "description": "Instruction for selecting categories to delete"
+  },
+  "categorySortBy": "並べ替え",
+  "@categorySortBy": {
+    "description": "Sort by label"
+  },
+  "categorySortOrder": "並べ替え順序",
+  "@categorySortOrder": {
+    "description": "Sort order label"
+  },
+  "categoryHasParent": "親カテゴリあり",
+  "@categoryHasParent": {
+    "description": "Has parent checkbox label"
+  },
+  "categoryFilterByParent": "親カテゴリでフィルター",
+  "@categoryFilterByParent": {
+    "description": "Filter by parent category label"
+  },
+  "categorySearchParentCategory": "親カテゴリを検索...",
+  "@categorySearchParentCategory": {
+    "description": "Search parent category placeholder"
+  },
+  "categoryReset": "リセット",
+  "@categoryReset": {
+    "description": "Reset button label"
+  },
+  "categoryApply": "適用",
+  "@categoryApply": {
+    "description": "Apply button label"
+  },
+  "categoryFilterReset": "フィルターをリセットしました",
+  "@categoryFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "categoryFilterApplied": "フィルターを適用しました",
+  "@categoryFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "categoryDeleteCategories": "カテゴリを削除",
+  "@categoryDeleteCategories": {
+    "description": "Delete categories dialog title"
+  },
+  "categoryDeleteMultipleConfirmation": "{count}個のカテゴリを削除してもよろしいですか？",
+  "@categoryDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "categoryNoCategoriesSelected": "カテゴリが選択されていません",
+  "@categoryNoCategoriesSelected": {
+    "description": "Warning message when no categories are selected"
+  },
+  "categoryNotImplementedYet": "まだ実装されていません",
+  "@categoryNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "categorySelectedCount": "{count}個選択済み",
+  "@categorySelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "categoryNoCategoriesFound": "カテゴリが見つかりません",
+  "@categoryNoCategoriesFound": {
+    "description": "No categories found message"
+  },
+  "categoryCreateFirstCategory": "最初のカテゴリを作成して開始しましょう",
+  "@categoryCreateFirstCategory": {
+    "description": "Empty state message for categories"
+  },
+  "categoryLongPressToSelect": "長押ししてさらにカテゴリを選択",
+  "@categoryLongPressToSelect": {
+    "description": "Instruction for selecting multiple categories"
+  },
+  "categoryValidationCodeRequired": "カテゴリコードは必須です",
+  "@categoryValidationCodeRequired": {
+    "description": "Validation error for required category code"
+  },
+  "categoryValidationCodeMinLength": "カテゴリコードは2文字以上である必要があります",
+  "@categoryValidationCodeMinLength": {
+    "description": "Validation error for category code minimum length"
+  },
+  "categoryValidationCodeMaxLength": "カテゴリコードは20文字を超えることはできません",
+  "@categoryValidationCodeMaxLength": {
+    "description": "Validation error for category code maximum length"
+  },
+  "categoryValidationCodeAlphanumeric": "カテゴリコードには英数字とアンダースコアのみ使用できます",
+  "@categoryValidationCodeAlphanumeric": {
+    "description": "Validation error for category code format"
+  },
+  "categoryValidationNameRequired": "カテゴリ名は必須です",
+  "@categoryValidationNameRequired": {
+    "description": "Validation error for required category name"
+  },
+  "categoryValidationNameMinLength": "カテゴリ名は3文字以上である必要があります",
+  "@categoryValidationNameMinLength": {
+    "description": "Validation error for category name minimum length"
+  },
+  "categoryValidationNameMaxLength": "カテゴリ名は100文字を超えることはできません",
+  "@categoryValidationNameMaxLength": {
+    "description": "Validation error for category name maximum length"
+  },
+  "categoryValidationDescriptionRequired": "説明は必須です",
+  "@categoryValidationDescriptionRequired": {
+    "description": "Validation error for required description"
+  },
+  "categoryValidationDescriptionMinLength": "説明は10文字以上である必要があります",
+  "@categoryValidationDescriptionMinLength": {
+    "description": "Validation error for description minimum length"
+  },
+  "categoryValidationDescriptionMaxLength": "説明は500文字を超えることはできません",
+  "@categoryValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "dashboardTotalUsers": "総ユーザー数",
+  "@dashboardTotalUsers": {
+    "description": "Total users stat card title"
+  },
+  "dashboardTotalAssets": "総資産数",
+  "@dashboardTotalAssets": {
+    "description": "Total assets stat card title"
+  },
+  "dashboardAssetStatusOverview": "資産ステータス概要",
+  "@dashboardAssetStatusOverview": {
+    "description": "Asset status overview chart title"
+  },
+  "dashboardActive": "稼働中",
+  "@dashboardActive": {
+    "description": "Active status label"
+  },
+  "dashboardMaintenance": "メンテナンス中",
+  "@dashboardMaintenance": {
+    "description": "Maintenance status label"
+  },
+  "dashboardDisposed": "廃棄済み",
+  "@dashboardDisposed": {
+    "description": "Disposed status label"
+  },
+  "dashboardLost": "紛失",
+  "@dashboardLost": {
+    "description": "Lost status label"
+  },
+  "dashboardUserRoleDistribution": "ユーザー役割分布",
+  "@dashboardUserRoleDistribution": {
+    "description": "User role distribution chart title"
+  },
+  "dashboardAdmin": "管理者",
+  "@dashboardAdmin": {
+    "description": "Admin role label"
+  },
+  "dashboardStaff": "スタッフ",
+  "@dashboardStaff": {
+    "description": "Staff role label"
+  },
+  "dashboardEmployee": "従業員",
+  "@dashboardEmployee": {
+    "description": "Employee role label"
+  },
+  "dashboardAssetStatusBreakdown": "資産ステータス内訳",
+  "@dashboardAssetStatusBreakdown": {
+    "description": "Asset status breakdown chart title"
+  },
+  "dashboardAssetConditionOverview": "資産状態概要",
+  "@dashboardAssetConditionOverview": {
+    "description": "Asset condition overview chart title"
+  },
+  "dashboardGood": "良好",
+  "@dashboardGood": {
+    "description": "Good condition label"
+  },
+  "dashboardFair": "普通",
+  "@dashboardFair": {
+    "description": "Fair condition label"
+  },
+  "dashboardPoor": "不良",
+  "@dashboardPoor": {
+    "description": "Poor condition label"
+  },
+  "dashboardDamaged": "破損",
+  "@dashboardDamaged": {
+    "description": "Damaged condition label"
+  },
+  "dashboardUserRegistrationTrends": "ユーザー登録推移",
+  "@dashboardUserRegistrationTrends": {
+    "description": "User registration trends chart title"
+  },
+  "dashboardAssetCreationTrends": "資産作成推移",
+  "@dashboardAssetCreationTrends": {
+    "description": "Asset creation trends chart title"
+  },
+  "dashboardCategories": "カテゴリ",
+  "@dashboardCategories": {
+    "description": "Categories stat card title"
+  },
+  "dashboardLocations": "場所",
+  "@dashboardLocations": {
+    "description": "Locations stat card title"
+  },
+  "dashboardActivityOverview": "活動概要",
+  "@dashboardActivityOverview": {
+    "description": "Activity overview section title"
+  },
+  "dashboardScanLogs": "スキャンログ",
+  "@dashboardScanLogs": {
+    "description": "Scan logs stat card title"
+  },
+  "dashboardNotifications": "通知",
+  "@dashboardNotifications": {
+    "description": "Notifications stat card title"
+  },
+  "dashboardAssetMovements": "資産移動",
+  "@dashboardAssetMovements": {
+    "description": "Asset movements stat card title"
+  },
+  "dashboardIssueReports": "問題報告",
+  "@dashboardIssueReports": {
+    "description": "Issue reports stat card title"
+  },
+  "dashboardMaintenanceSchedules": "メンテナンススケジュール",
+  "@dashboardMaintenanceSchedules": {
+    "description": "Maintenance schedules stat card title"
+  },
+  "dashboardMaintenanceRecords": "メンテナンス記録",
+  "@dashboardMaintenanceRecords": {
+    "description": "Maintenance records stat card title"
+  },
+  "homeScreen": "ホーム",
+  "@homeScreen": {
+    "description": "Home screen title"
+  },
   "adminShellBottomNavDashboard": "ダッシュボード",
   "@adminShellBottomNavDashboard": {
     "description": "Admin shell bottom navigation label for dashboard"

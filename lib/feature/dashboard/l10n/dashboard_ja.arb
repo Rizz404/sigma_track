@@ -1,0 +1,115 @@
+{
+  "@@locale": "ja",
+  "dashboardTotalUsers": "総ユーザー数",
+  "@dashboardTotalUsers": {
+    "description": "Total users stat card title"
+  },
+  "dashboardTotalAssets": "総資産数",
+  "@dashboardTotalAssets": {
+    "description": "Total assets stat card title"
+  },
+  "dashboardAssetStatusOverview": "資産ステータス概要",
+  "@dashboardAssetStatusOverview": {
+    "description": "Asset status overview chart title"
+  },
+  "dashboardActive": "稼働中",
+  "@dashboardActive": {
+    "description": "Active status label"
+  },
+  "dashboardMaintenance": "メンテナンス中",
+  "@dashboardMaintenance": {
+    "description": "Maintenance status label"
+  },
+  "dashboardDisposed": "廃棄済み",
+  "@dashboardDisposed": {
+    "description": "Disposed status label"
+  },
+  "dashboardLost": "紛失",
+  "@dashboardLost": {
+    "description": "Lost status label"
+  },
+  "dashboardUserRoleDistribution": "ユーザー役割分布",
+  "@dashboardUserRoleDistribution": {
+    "description": "User role distribution chart title"
+  },
+  "dashboardAdmin": "管理者",
+  "@dashboardAdmin": {
+    "description": "Admin role label"
+  },
+  "dashboardStaff": "スタッフ",
+  "@dashboardStaff": {
+    "description": "Staff role label"
+  },
+  "dashboardEmployee": "従業員",
+  "@dashboardEmployee": {
+    "description": "Employee role label"
+  },
+  "dashboardAssetStatusBreakdown": "資産ステータス内訳",
+  "@dashboardAssetStatusBreakdown": {
+    "description": "Asset status breakdown chart title"
+  },
+  "dashboardAssetConditionOverview": "資産状態概要",
+  "@dashboardAssetConditionOverview": {
+    "description": "Asset condition overview chart title"
+  },
+  "dashboardGood": "良好",
+  "@dashboardGood": {
+    "description": "Good condition label"
+  },
+  "dashboardFair": "普通",
+  "@dashboardFair": {
+    "description": "Fair condition label"
+  },
+  "dashboardPoor": "不良",
+  "@dashboardPoor": {
+    "description": "Poor condition label"
+  },
+  "dashboardDamaged": "破損",
+  "@dashboardDamaged": {
+    "description": "Damaged condition label"
+  },
+  "dashboardUserRegistrationTrends": "ユーザー登録推移",
+  "@dashboardUserRegistrationTrends": {
+    "description": "User registration trends chart title"
+  },
+  "dashboardAssetCreationTrends": "資産作成推移",
+  "@dashboardAssetCreationTrends": {
+    "description": "Asset creation trends chart title"
+  },
+  "dashboardCategories": "カテゴリ",
+  "@dashboardCategories": {
+    "description": "Categories stat card title"
+  },
+  "dashboardLocations": "場所",
+  "@dashboardLocations": {
+    "description": "Locations stat card title"
+  },
+  "dashboardActivityOverview": "活動概要",
+  "@dashboardActivityOverview": {
+    "description": "Activity overview section title"
+  },
+  "dashboardScanLogs": "スキャンログ",
+  "@dashboardScanLogs": {
+    "description": "Scan logs stat card title"
+  },
+  "dashboardNotifications": "通知",
+  "@dashboardNotifications": {
+    "description": "Notifications stat card title"
+  },
+  "dashboardAssetMovements": "資産移動",
+  "@dashboardAssetMovements": {
+    "description": "Asset movements stat card title"
+  },
+  "dashboardIssueReports": "問題報告",
+  "@dashboardIssueReports": {
+    "description": "Issue reports stat card title"
+  },
+  "dashboardMaintenanceSchedules": "メンテナンススケジュール",
+  "@dashboardMaintenanceSchedules": {
+    "description": "Maintenance schedules stat card title"
+  },
+  "dashboardMaintenanceRecords": "メンテナンス記録",
+  "@dashboardMaintenanceRecords": {
+    "description": "Maintenance records stat card title"
+  }
+}

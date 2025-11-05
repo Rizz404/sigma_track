@@ -911,6 +911,426 @@ class L10nId extends L10n {
   String get assetMovementForUserShort => 'For User';
 
   @override
+  String get authWelcomeBack => 'Selamat Datang Kembali';
+
+  @override
+  String get authSignInToContinue => 'Masuk untuk melanjutkan';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authEnterYourEmail => 'Masukkan email Anda';
+
+  @override
+  String get authPassword => 'Kata Sandi';
+
+  @override
+  String get authEnterYourPassword => 'Masukkan kata sandi Anda';
+
+  @override
+  String get authForgotPassword => 'Lupa Kata Sandi?';
+
+  @override
+  String get authLogin => 'Masuk';
+
+  @override
+  String get authDontHaveAccount => 'Belum punya akun? ';
+
+  @override
+  String get authRegister => 'Daftar';
+
+  @override
+  String get authLoginSuccessful => 'Login berhasil';
+
+  @override
+  String get authCreateAccount => 'Buat Akun';
+
+  @override
+  String get authSignUpToGetStarted => 'Daftar untuk memulai';
+
+  @override
+  String get authName => 'Nama';
+
+  @override
+  String get authEnterYourName => 'Masukkan nama Anda';
+
+  @override
+  String get authConfirmPassword => 'Konfirmasi Kata Sandi';
+
+  @override
+  String get authReEnterYourPassword => 'Masukkan ulang kata sandi Anda';
+
+  @override
+  String get authPasswordMustContain => 'Kata sandi harus berisi:';
+
+  @override
+  String get authPasswordRequirementPlaceholder => 'Buat kata sandi saja bro!';
+
+  @override
+  String get authRegistrationSuccessful => 'Pendaftaran berhasil';
+
+  @override
+  String get authAlreadyHaveAccount => 'Sudah punya akun? ';
+
+  @override
+  String get authForgotPasswordTitle => 'Lupa Kata Sandi';
+
+  @override
+  String get authEnterEmailToResetPassword =>
+      'Masukkan email Anda untuk mereset kata sandi';
+
+  @override
+  String get authSendResetLink => 'Kirim Tautan Reset';
+
+  @override
+  String get authEmailSentSuccessfully => 'Email berhasil dikirim';
+
+  @override
+  String get authRememberPassword => 'Ingat kata sandi Anda? ';
+
+  @override
+  String get authValidationEmailRequired => 'Email wajib diisi';
+
+  @override
+  String get authValidationEmailInvalid =>
+      'Silakan masukkan alamat email yang valid';
+
+  @override
+  String get authValidationPasswordRequired => 'Kata sandi wajib diisi';
+
+  @override
+  String get authValidationNameRequired => 'Nama wajib diisi';
+
+  @override
+  String get authValidationNameMinLength => 'Nama minimal 3 karakter';
+
+  @override
+  String get authValidationNameMaxLength => 'Nama maksimal 20 karakter';
+
+  @override
+  String get authValidationNameAlphanumeric =>
+      'Nama hanya boleh berisi huruf, angka, dan garis bawah';
+
+  @override
+  String get authValidationConfirmPasswordRequired =>
+      'Silakan konfirmasi kata sandi Anda';
+
+  @override
+  String get authValidationPasswordsDoNotMatch => 'Kata sandi tidak cocok';
+
+  @override
+  String get categoryDetail => 'Category Detail';
+
+  @override
+  String get categoryInformation => 'Category Information';
+
+  @override
+  String get categoryCategoryCode => 'Category Code';
+
+  @override
+  String get categoryCategoryName => 'Category Name';
+
+  @override
+  String get categoryDescription => 'Description';
+
+  @override
+  String get categoryParentCategory => 'Parent Category';
+
+  @override
+  String get categoryMetadata => 'Metadata';
+
+  @override
+  String get categoryCreatedAt => 'Created At';
+
+  @override
+  String get categoryUpdatedAt => 'Updated At';
+
+  @override
+  String get categoryOnlyAdminCanEdit => 'Only admin can edit categories';
+
+  @override
+  String get categoryOnlyAdminCanDelete => 'Only admin can delete categories';
+
+  @override
+  String get categoryDeleteCategory => 'Delete Category';
+
+  @override
+  String categoryDeleteConfirmation(String categoryName) {
+    return 'Are you sure you want to delete \"$categoryName\"?';
+  }
+
+  @override
+  String get categoryCancel => 'Cancel';
+
+  @override
+  String get categoryDelete => 'Delete';
+
+  @override
+  String get categoryCategoryDeleted => 'Category deleted';
+
+  @override
+  String get categoryDeleteFailed => 'Delete failed';
+
+  @override
+  String get categoryEditCategory => 'Edit Category';
+
+  @override
+  String get categoryCreateCategory => 'Create Category';
+
+  @override
+  String get categorySearchCategory => 'Search category...';
+
+  @override
+  String get categoryEnterCategoryCode => 'Enter category code (e.g., CAT-001)';
+
+  @override
+  String get categoryTranslations => 'Translations';
+
+  @override
+  String get categoryAddTranslations =>
+      'Add translations for different languages';
+
+  @override
+  String get categoryEnglish => 'English';
+
+  @override
+  String get categoryJapanese => 'Japanese';
+
+  @override
+  String get categoryEnterCategoryName => 'Enter category name';
+
+  @override
+  String get categoryEnterDescription => 'Enter description';
+
+  @override
+  String get categoryUpdate => 'Update';
+
+  @override
+  String get categoryCreate => 'Create';
+
+  @override
+  String get categoryFillRequiredFields => 'Please fill all required fields';
+
+  @override
+  String get categorySavedSuccessfully => 'Category saved successfully';
+
+  @override
+  String get categoryOperationFailed => 'Operation failed';
+
+  @override
+  String get categoryFailedToLoadTranslations => 'Failed to load translations';
+
+  @override
+  String get categoryManagement => 'Category Management';
+
+  @override
+  String get categorySearchCategories => 'Search categories...';
+
+  @override
+  String get categoryCreateCategoryTitle => 'Create Category';
+
+  @override
+  String get categoryCreateCategorySubtitle => 'Add a new category';
+
+  @override
+  String get categorySelectManyTitle => 'Select Many';
+
+  @override
+  String get categorySelectManySubtitle =>
+      'Select multiple categories to delete';
+
+  @override
+  String get categoryFilterAndSortTitle => 'Filter & Sort';
+
+  @override
+  String get categoryFilterAndSortSubtitle => 'Customize category display';
+
+  @override
+  String get categorySelectCategoriesToDelete => 'Select categories to delete';
+
+  @override
+  String get categorySortBy => 'Sort By';
+
+  @override
+  String get categorySortOrder => 'Sort Order';
+
+  @override
+  String get categoryHasParent => 'Has Parent';
+
+  @override
+  String get categoryFilterByParent => 'Filter by Parent Category';
+
+  @override
+  String get categorySearchParentCategory => 'Search parent category...';
+
+  @override
+  String get categoryReset => 'Reset';
+
+  @override
+  String get categoryApply => 'Apply';
+
+  @override
+  String get categoryFilterReset => 'Filter reset';
+
+  @override
+  String get categoryFilterApplied => 'Filter applied';
+
+  @override
+  String get categoryDeleteCategories => 'Delete Categories';
+
+  @override
+  String categoryDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count categories?';
+  }
+
+  @override
+  String get categoryNoCategoriesSelected => 'No categories selected';
+
+  @override
+  String get categoryNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String categorySelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get categoryNoCategoriesFound => 'No categories found';
+
+  @override
+  String get categoryCreateFirstCategory =>
+      'Create your first category to get started';
+
+  @override
+  String get categoryLongPressToSelect =>
+      'Long press to select more categories';
+
+  @override
+  String get categoryValidationCodeRequired => 'Category code is required';
+
+  @override
+  String get categoryValidationCodeMinLength =>
+      'Category code must be at least 2 characters';
+
+  @override
+  String get categoryValidationCodeMaxLength =>
+      'Category code must not exceed 20 characters';
+
+  @override
+  String get categoryValidationCodeAlphanumeric =>
+      'Category code can only contain letters, numbers, and underscores';
+
+  @override
+  String get categoryValidationNameRequired => 'Category name is required';
+
+  @override
+  String get categoryValidationNameMinLength =>
+      'Category name must be at least 3 characters';
+
+  @override
+  String get categoryValidationNameMaxLength =>
+      'Category name must not exceed 100 characters';
+
+  @override
+  String get categoryValidationDescriptionRequired => 'Description is required';
+
+  @override
+  String get categoryValidationDescriptionMinLength =>
+      'Description must be at least 10 characters';
+
+  @override
+  String get categoryValidationDescriptionMaxLength =>
+      'Description must not exceed 500 characters';
+
+  @override
+  String get dashboardTotalUsers => 'Total Users';
+
+  @override
+  String get dashboardTotalAssets => 'Total Assets';
+
+  @override
+  String get dashboardAssetStatusOverview => 'Asset Status Overview';
+
+  @override
+  String get dashboardActive => 'Active';
+
+  @override
+  String get dashboardMaintenance => 'Maintenance';
+
+  @override
+  String get dashboardDisposed => 'Disposed';
+
+  @override
+  String get dashboardLost => 'Lost';
+
+  @override
+  String get dashboardUserRoleDistribution => 'User Role Distribution';
+
+  @override
+  String get dashboardAdmin => 'Admin';
+
+  @override
+  String get dashboardStaff => 'Staff';
+
+  @override
+  String get dashboardEmployee => 'Employee';
+
+  @override
+  String get dashboardAssetStatusBreakdown => 'Asset Status Breakdown';
+
+  @override
+  String get dashboardAssetConditionOverview => 'Asset Condition Overview';
+
+  @override
+  String get dashboardGood => 'Good';
+
+  @override
+  String get dashboardFair => 'Fair';
+
+  @override
+  String get dashboardPoor => 'Poor';
+
+  @override
+  String get dashboardDamaged => 'Damaged';
+
+  @override
+  String get dashboardUserRegistrationTrends => 'User Registration Trends';
+
+  @override
+  String get dashboardAssetCreationTrends => 'Asset Creation Trends';
+
+  @override
+  String get dashboardCategories => 'Categories';
+
+  @override
+  String get dashboardLocations => 'Locations';
+
+  @override
+  String get dashboardActivityOverview => 'Activity Overview';
+
+  @override
+  String get dashboardScanLogs => 'Scan Logs';
+
+  @override
+  String get dashboardNotifications => 'Notifications';
+
+  @override
+  String get dashboardAssetMovements => 'Asset Movements';
+
+  @override
+  String get dashboardIssueReports => 'Issue Reports';
+
+  @override
+  String get dashboardMaintenanceSchedules => 'Maintenance Schedules';
+
+  @override
+  String get dashboardMaintenanceRecords => 'Maintenance Records';
+
+  @override
+  String get homeScreen => 'Home';
+
+  @override
   String get adminShellBottomNavDashboard => 'Dashboard';
 
   @override

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -53,7 +54,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.categoryFillRequiredFields);
       return;
     }
 
@@ -145,7 +146,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             setState(() => _isLoadingTranslations = false);
             AppToast.error(
               categoryDetailState.failure?.message ??
-                  'Failed to load translations',
+                  context.l10n.categoryFailedToLoadTranslations,
             );
           }
         });
@@ -163,7 +164,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
       // * Handle mutation success
       if (next.hasMutationSuccess) {
-        AppToast.success(next.mutationMessage ?? 'Category saved successfully');
+        AppToast.success(
+          next.mutationMessage ?? context.l10n.categorySavedSuccessfully,
+        );
         context.pop();
       }
 
@@ -176,7 +179,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           );
         } else {
           this.logError('Category mutation error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.categoryOperationFailed,
+          );
         }
       }
     });
@@ -184,7 +190,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     return AppLoaderOverlay(
       child: Scaffold(
         appBar: CustomAppBar(
-          title: _isEdit ? 'Edit Category' : 'Create Category',
+          title: _isEdit
+              ? context.l10n.categoryEditCategory
+              : context.l10n.categoryCreateCategory,
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -234,16 +242,16 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Category Information',
+            AppText(
+              context.l10n.categoryInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppSearchField<Category>(
               name: 'parentId',
-              label: 'Parent Category',
-              hintText: 'Search category...',
+              label: context.l10n.categoryParentCategory,
+              hintText: context.l10n.categorySearchCategory,
               initialValue:
                   (_isEdit ? _fetchedCategory?.parentId : null) ??
                   widget.category?.parentId,
@@ -254,6 +262,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               itemSubtitleMapper: (category) => category.categoryCode,
               itemIcon: Icons.category,
               validator: (value) => CategoryUpsertValidator.validateParentId(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -262,13 +271,14 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'categoryCode',
-              label: 'Category Code',
-              placeHolder: 'Enter category code (e.g., CAT-001)',
+              label: context.l10n.categoryCategoryCode,
+              placeHolder: context.l10n.categoryEnterCategoryCode,
               initialValue:
                   (_isEdit ? _fetchedCategory?.categoryCode : null) ??
                   widget.category?.categoryCode,
               validator: (value) =>
                   CategoryUpsertValidator.validateCategoryCode(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -294,21 +304,21 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.categoryTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 8),
               AppText(
-                'Add translations for different languages',
+                context.l10n.categoryAddTranslations,
                 style: AppTextStyle.bodySmall,
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en-US', 'English'),
+              _buildTranslationFields('en-US', context.l10n.categoryEnglish),
               const SizedBox(height: 16),
-              _buildTranslationFields('ja-JP', 'Japanese'),
+              _buildTranslationFields('ja-JP', context.l10n.categoryJapanese),
             ],
           ),
         ),
@@ -346,11 +356,12 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_categoryName',
-            label: 'Category Name',
-            placeHolder: 'Enter category name',
+            label: context.l10n.categoryCategoryName,
+            placeHolder: context.l10n.categoryEnterCategoryName,
             initialValue: translation?.categoryName,
             validator: langCode == 'en-US'
                 ? (value) => CategoryUpsertValidator.validateCategoryName(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   )
@@ -359,13 +370,14 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_description',
-            label: 'Description',
-            placeHolder: 'Enter description',
+            label: context.l10n.categoryDescription,
+            placeHolder: context.l10n.categoryEnterDescription,
             type: AppTextFieldType.multiline,
             maxLines: 3,
             initialValue: translation?.description,
             validator: langCode == 'en-US'
                 ? (value) => CategoryUpsertValidator.validateDescription(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   )
@@ -396,7 +408,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.categoryCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -404,7 +416,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.categoryUpdate
+                    : context.l10n.categoryCreate,
                 onPressed: _handleSubmit,
               ),
             ),

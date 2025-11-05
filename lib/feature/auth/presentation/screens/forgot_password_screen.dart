@@ -7,6 +7,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
@@ -64,7 +65,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
       next.whenData((state) {
         if (state.status == AuthStatus.unauthenticated &&
             state.failure == null) {
-          AppToast.success(state.success?.message ?? 'Email sent successfully');
+          AppToast.success(
+            state.success?.message ?? context.l10n.authEmailSentSuccessfully,
+          );
         } else if (state.failure != null) {
           if (state.failure is ValidationFailure) {
             setState(
@@ -95,14 +98,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 children: [
                   // * Header section
                   AppText(
-                    'Forgot Password',
+                    context.l10n.authForgotPasswordTitle,
                     style: AppTextStyle.headlineMedium,
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    'Enter your email to reset your password',
+                    context.l10n.authEnterEmailToResetPassword,
                     style: AppTextStyle.bodyLarge,
                     color: context.colors.textSecondary,
                   ),
@@ -111,10 +114,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   // * Email field
                   AppTextField(
                     name: 'email',
-                    label: 'Email',
-                    placeHolder: 'Enter your email',
+                    label: context.l10n.authEmail,
+                    placeHolder: context.l10n.authEnterYourEmail,
                     type: AppTextFieldType.email,
-                    validator: ForgotPasswordValidator.validateEmail,
+                    validator: (value) =>
+                        ForgotPasswordValidator.validateEmail(context, value),
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: context.colorScheme.primary,
@@ -129,7 +133,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
                   // * Send reset link button
                   AppButton(
-                    text: 'Send Reset Link',
+                    text: context.l10n.authSendResetLink,
                     onPressed: _handleForgotPassword,
                     size: AppButtonSize.large,
                   ),
@@ -140,14 +144,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppText(
-                        'Remember your password? ',
+                        context.l10n.authRememberPassword,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
                         onTap: () => context.push(RouteConstant.login),
                         child: AppText(
-                          'Login',
+                          context.l10n.authLogin,
                           style: AppTextStyle.bodyMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,

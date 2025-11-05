@@ -7,6 +7,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -64,7 +65,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
       next.whenData((state) {
         if (state.status == AuthStatus.authenticated) {
-          AppToast.success(state.success?.message ?? 'Login successful');
+          AppToast.success(
+            state.success?.message ?? context.l10n.authLoginSuccessful,
+          );
           // * Router akan otomatis redirect via _handleRedirect di app_router.dart
         } else if (state.status == AuthStatus.unauthenticated &&
             state.failure != null) {
@@ -98,14 +101,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   // * Header section
                   AppText(
-                    'Welcome Back',
+                    context.l10n.authWelcomeBack,
                     style: AppTextStyle.headlineMedium,
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    'Sign in to continue',
+                    context.l10n.authSignInToContinue,
                     style: AppTextStyle.bodyLarge,
                     color: context.colors.textSecondary,
                   ),
@@ -114,10 +117,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   // * Email field
                   AppTextField(
                     name: 'email',
-                    label: 'Email',
-                    placeHolder: 'Enter your email',
+                    label: context.l10n.authEmail,
+                    placeHolder: context.l10n.authEnterYourEmail,
                     type: AppTextFieldType.email,
-                    validator: LoginValidator.validateEmail,
+                    validator: (value) =>
+                        LoginValidator.validateEmail(context, value),
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: context.colorScheme.primary,
@@ -128,10 +132,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   // * Password field
                   AppTextField(
                     name: 'password',
-                    label: 'Password',
-                    placeHolder: 'Enter your password',
+                    label: context.l10n.authPassword,
+                    placeHolder: context.l10n.authEnterYourPassword,
                     type: AppTextFieldType.password,
-                    validator: LoginValidator.validatePassword,
+                    validator: (value) =>
+                        LoginValidator.validatePassword(context, value),
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colorScheme.primary,
@@ -145,7 +150,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: GestureDetector(
                       onTap: () => context.go(RouteConstant.forgotPassword),
                       child: AppText(
-                        'Forgot Password?',
+                        context.l10n.authForgotPassword,
                         style: AppTextStyle.bodySmall,
                         color: context.colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -161,7 +166,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   // * Login button
                   AppButton(
-                    text: 'Login',
+                    text: context.l10n.authLogin,
                     onPressed: _handleLogin,
                     size: AppButtonSize.large,
                   ),
@@ -172,14 +177,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppText(
-                        'Don\'t have an account? ',
+                        context.l10n.authDontHaveAccount,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
                         onTap: () => context.push(RouteConstant.register),
                         child: AppText(
-                          'Register',
+                          context.l10n.authRegister,
                           style: AppTextStyle.bodyMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,

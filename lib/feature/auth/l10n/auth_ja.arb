@@ -1,142 +1,142 @@
 {
-  "@@locale": "id",
-  "authWelcomeBack": "Selamat Datang Kembali",
+  "@@locale": "ja",
+  "authWelcomeBack": "おかえりなさい",
   "@authWelcomeBack": {
     "description": "Login screen header title"
   },
-  "authSignInToContinue": "Masuk untuk melanjutkan",
+  "authSignInToContinue": "続けるにはログインしてください",
   "@authSignInToContinue": {
     "description": "Login screen subtitle"
   },
-  "authEmail": "Email",
+  "authEmail": "メール",
   "@authEmail": {
     "description": "Email field label"
   },
-  "authEnterYourEmail": "Masukkan email Anda",
+  "authEnterYourEmail": "メールアドレスを入力",
   "@authEnterYourEmail": {
     "description": "Email field placeholder"
   },
-  "authPassword": "Kata Sandi",
+  "authPassword": "パスワード",
   "@authPassword": {
     "description": "Password field label"
   },
-  "authEnterYourPassword": "Masukkan kata sandi Anda",
+  "authEnterYourPassword": "パスワードを入力",
   "@authEnterYourPassword": {
     "description": "Password field placeholder"
   },
-  "authForgotPassword": "Lupa Kata Sandi?",
+  "authForgotPassword": "パスワードをお忘れですか？",
   "@authForgotPassword": {
     "description": "Forgot password link text"
   },
-  "authLogin": "Masuk",
+  "authLogin": "ログイン",
   "@authLogin": {
     "description": "Login button label"
   },
-  "authDontHaveAccount": "Belum punya akun? ",
+  "authDontHaveAccount": "アカウントをお持ちでないですか？ ",
   "@authDontHaveAccount": {
     "description": "Register link prefix text"
   },
-  "authRegister": "Daftar",
+  "authRegister": "登録",
   "@authRegister": {
     "description": "Register link/button label"
   },
-  "authLoginSuccessful": "Login berhasil",
+  "authLoginSuccessful": "ログイン成功",
   "@authLoginSuccessful": {
     "description": "Success message after login"
   },
-  "authCreateAccount": "Buat Akun",
+  "authCreateAccount": "アカウント作成",
   "@authCreateAccount": {
     "description": "Register screen header title"
   },
-  "authSignUpToGetStarted": "Daftar untuk memulai",
+  "authSignUpToGetStarted": "登録して始めましょう",
   "@authSignUpToGetStarted": {
     "description": "Register screen subtitle"
   },
-  "authName": "Nama",
+  "authName": "名前",
   "@authName": {
     "description": "Name field label"
   },
-  "authEnterYourName": "Masukkan nama Anda",
+  "authEnterYourName": "名前を入力",
   "@authEnterYourName": {
     "description": "Name field placeholder"
   },
-  "authConfirmPassword": "Konfirmasi Kata Sandi",
+  "authConfirmPassword": "パスワード確認",
   "@authConfirmPassword": {
     "description": "Confirm password field label"
   },
-  "authReEnterYourPassword": "Masukkan ulang kata sandi Anda",
+  "authReEnterYourPassword": "パスワードを再入力",
   "@authReEnterYourPassword": {
     "description": "Confirm password field placeholder"
   },
-  "authPasswordMustContain": "Kata sandi harus berisi:",
+  "authPasswordMustContain": "パスワードには以下が必要です：",
   "@authPasswordMustContain": {
     "description": "Password requirements section title"
   },
-  "authPasswordRequirementPlaceholder": "Buat kata sandi saja bro!",
+  "authPasswordRequirementPlaceholder": "とにかくパスワードを入力してください！",
   "@authPasswordRequirementPlaceholder": {
     "description": "Placeholder password requirement text"
   },
-  "authRegistrationSuccessful": "Pendaftaran berhasil",
+  "authRegistrationSuccessful": "登録成功",
   "@authRegistrationSuccessful": {
     "description": "Success message after registration"
   },
-  "authAlreadyHaveAccount": "Sudah punya akun? ",
+  "authAlreadyHaveAccount": "既にアカウントをお持ちですか？ ",
   "@authAlreadyHaveAccount": {
     "description": "Login link prefix text"
   },
-  "authForgotPasswordTitle": "Lupa Kata Sandi",
+  "authForgotPasswordTitle": "パスワードを忘れた",
   "@authForgotPasswordTitle": {
     "description": "Forgot password screen header title"
   },
-  "authEnterEmailToResetPassword": "Masukkan email Anda untuk mereset kata sandi",
+  "authEnterEmailToResetPassword": "パスワードをリセットするにはメールアドレスを入力してください",
   "@authEnterEmailToResetPassword": {
     "description": "Forgot password screen subtitle"
   },
-  "authSendResetLink": "Kirim Tautan Reset",
+  "authSendResetLink": "リセットリンクを送信",
   "@authSendResetLink": {
     "description": "Send reset link button label"
   },
-  "authEmailSentSuccessfully": "Email berhasil dikirim",
+  "authEmailSentSuccessfully": "メール送信成功",
   "@authEmailSentSuccessfully": {
     "description": "Success message after sending reset email"
   },
-  "authRememberPassword": "Ingat kata sandi Anda? ",
+  "authRememberPassword": "パスワードを思い出しましたか？ ",
   "@authRememberPassword": {
     "description": "Back to login link prefix text"
   },
-  "authValidationEmailRequired": "Email wajib diisi",
+  "authValidationEmailRequired": "メールは必須です",
   "@authValidationEmailRequired": {
     "description": "Validation error for required email"
   },
-  "authValidationEmailInvalid": "Silakan masukkan alamat email yang valid",
+  "authValidationEmailInvalid": "有効なメールアドレスを入力してください",
   "@authValidationEmailInvalid": {
     "description": "Validation error for invalid email format"
   },
-  "authValidationPasswordRequired": "Kata sandi wajib diisi",
+  "authValidationPasswordRequired": "パスワードは必須です",
   "@authValidationPasswordRequired": {
     "description": "Validation error for required password"
   },
-  "authValidationNameRequired": "Nama wajib diisi",
+  "authValidationNameRequired": "名前は必須です",
   "@authValidationNameRequired": {
     "description": "Validation error for required name"
   },
-  "authValidationNameMinLength": "Nama minimal 3 karakter",
+  "authValidationNameMinLength": "名前は3文字以上である必要があります",
   "@authValidationNameMinLength": {
     "description": "Validation error for name minimum length"
   },
-  "authValidationNameMaxLength": "Nama maksimal 20 karakter",
+  "authValidationNameMaxLength": "名前は20文字を超えることはできません",
   "@authValidationNameMaxLength": {
     "description": "Validation error for name maximum length"
   },
-  "authValidationNameAlphanumeric": "Nama hanya boleh berisi huruf, angka, dan garis bawah",
+  "authValidationNameAlphanumeric": "名前には英数字とアンダースコアのみ使用できます",
   "@authValidationNameAlphanumeric": {
     "description": "Validation error for name format"
   },
-  "authValidationConfirmPasswordRequired": "Silakan konfirmasi kata sandi Anda",
+  "authValidationConfirmPasswordRequired": "パスワードを確認してください",
   "@authValidationConfirmPasswordRequired": {
     "description": "Validation error for required confirm password"
   },
-  "authValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
+  "authValidationPasswordsDoNotMatch": "パスワードが一致しません",
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
   }

@@ -7,6 +7,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
@@ -64,7 +65,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (previous, next) {
       next.whenData((state) {
         if (state.status == AuthStatus.authenticated) {
-          AppToast.success(state.success?.message ?? 'Registration successful');
+          AppToast.success(
+            state.success?.message ?? context.l10n.authRegistrationSuccessful,
+          );
           // * Redirect berdasarkan role user
           context.go(RouteConstant.login);
         } else if (state.status == AuthStatus.unauthenticated &&
@@ -98,14 +101,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 children: [
                   // * Header section
                   AppText(
-                    'Create Account',
+                    context.l10n.authCreateAccount,
                     style: AppTextStyle.headlineMedium,
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    'Sign up to get started',
+                    context.l10n.authSignUpToGetStarted,
                     style: AppTextStyle.bodyLarge,
                     color: context.colors.textSecondary,
                   ),
@@ -114,10 +117,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // * Name field
                   AppTextField(
                     name: 'name',
-                    label: 'Name',
-                    placeHolder: 'Enter your name',
+                    label: context.l10n.authName,
+                    placeHolder: context.l10n.authEnterYourName,
                     type: AppTextFieldType.text,
-                    validator: RegisterValidator.validateName,
+                    validator: (value) =>
+                        RegisterValidator.validateName(context, value),
                     prefixIcon: Icon(
                       Icons.person_outline,
                       color: context.colorScheme.primary,
@@ -128,10 +132,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // * Email field
                   AppTextField(
                     name: 'email',
-                    label: 'Email',
-                    placeHolder: 'Enter your email',
+                    label: context.l10n.authEmail,
+                    placeHolder: context.l10n.authEnterYourEmail,
                     type: AppTextFieldType.email,
-                    validator: RegisterValidator.validateEmail,
+                    validator: (value) =>
+                        RegisterValidator.validateEmail(context, value),
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: context.colorScheme.primary,
@@ -142,10 +147,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // * Password field
                   AppTextField(
                     name: 'password',
-                    label: 'Password',
-                    placeHolder: 'Enter your password',
+                    label: context.l10n.authPassword,
+                    placeHolder: context.l10n.authEnterYourPassword,
                     type: AppTextFieldType.password,
-                    validator: RegisterValidator.validatePassword,
+                    validator: (value) =>
+                        RegisterValidator.validatePassword(context, value),
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colorScheme.primary,
@@ -156,11 +162,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   // * Confirm password field
                   AppTextField(
                     name: 'confirmPassword',
-                    label: 'Confirm Password',
-                    placeHolder: 'Re-enter your password',
+                    label: context.l10n.authConfirmPassword,
+                    placeHolder: context.l10n.authReEnterYourPassword,
                     type: AppTextFieldType.password,
                     validator: (value) =>
                         RegisterValidator.validateConfirmPassword(
+                          context,
                           value,
                           _formKey.currentState?.fields['password']?.value,
                         ),
@@ -186,13 +193,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          'Password must contain:',
+                          context.l10n.authPasswordMustContain,
                           style: AppTextStyle.labelMedium,
                           color: context.colors.textSecondary,
                           fontWeight: FontWeight.bold,
                         ),
                         const SizedBox(height: 4),
-                        _buildRequirement('Just make the password man!'),
+                        _buildRequirement(
+                          context.l10n.authPasswordRequirementPlaceholder,
+                        ),
                         // _buildRequirement('At least 8 characters'),
                         // _buildRequirement('One uppercase letter'),
                         // _buildRequirement('One lowercase letter'),
@@ -209,7 +218,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                   // * Register button
                   AppButton(
-                    text: 'Register',
+                    text: context.l10n.authRegister,
                     onPressed: _handleRegister,
                     size: AppButtonSize.large,
                   ),
@@ -220,14 +229,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppText(
-                        'Already have an account? ',
+                        context.l10n.authAlreadyHaveAccount,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
                         onTap: () => context.push(RouteConstant.login),
                         child: AppText(
-                          'Login',
+                          context.l10n.authLogin,
                           style: AppTextStyle.bodyMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,

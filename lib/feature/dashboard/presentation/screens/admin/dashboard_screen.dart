@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart';
@@ -163,7 +164,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isUserLoading,
             child: _buildStatCard(
               context,
-              title: 'Total Users',
+              title: context.l10n.dashboardTotalUsers,
               value: '${userStats?.total.count ?? 0}',
               icon: Icons.people,
               color: context.colors.primary,
@@ -176,7 +177,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isAssetLoading,
             child: _buildStatCard(
               context,
-              title: 'Total Assets',
+              title: context.l10n.dashboardTotalAssets,
               value: '${assetStats?.total.count ?? 0}',
               icon: Icons.inventory_2,
               color: context.colors.secondary,
@@ -242,22 +243,22 @@ class DashboardScreen extends ConsumerWidget {
     final stats = assetStats ?? AssetStatistics.dummy();
     final sections = [
       _PieSection(
-        'Active',
+        context.l10n.dashboardActive,
         stats.byStatus.active.toDouble(),
         context.semantic.success,
       ),
       _PieSection(
-        'Maintenance',
+        context.l10n.dashboardMaintenance,
         stats.byStatus.maintenance.toDouble(),
         context.semantic.warning,
       ),
       _PieSection(
-        'Disposed',
+        context.l10n.dashboardDisposed,
         stats.byStatus.disposed.toDouble(),
         context.semantic.error,
       ),
       _PieSection(
-        'Lost',
+        context.l10n.dashboardLost,
         stats.byStatus.lost.toDouble(),
         context.colors.textTertiary,
       ),
@@ -267,7 +268,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Asset Status Overview',
+        title: context.l10n.dashboardAssetStatusOverview,
         child: SizedBox(
           height: 250,
           child: PieChart(
@@ -305,17 +306,17 @@ class DashboardScreen extends ConsumerWidget {
     final stats = userStats ?? UserStatistics.dummy();
     final sections = [
       _PieSection(
-        'Admin',
+        context.l10n.dashboardAdmin,
         stats.byRole.admin.toDouble(),
         context.colors.primary,
       ),
       _PieSection(
-        'Staff',
+        context.l10n.dashboardStaff,
         stats.byRole.staff.toDouble(),
         context.colors.secondary,
       ),
       _PieSection(
-        'Employee',
+        context.l10n.dashboardEmployee,
         stats.byRole.employee.toDouble(),
         context.semantic.info,
       ),
@@ -325,7 +326,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'User Role Distribution',
+        title: context.l10n.dashboardUserRoleDistribution,
         child: SizedBox(
           height: 250,
           child: PieChart(
@@ -366,7 +367,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Asset Status Breakdown',
+        title: context.l10n.dashboardAssetStatusBreakdown,
         child: SizedBox(
           height: 250,
           child: BarChart(
@@ -398,11 +399,11 @@ class DashboardScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      const titles = [
-                        'Active',
-                        'Maintenance',
-                        'Disposed',
-                        'Lost',
+                      final titles = [
+                        context.l10n.dashboardActive,
+                        context.l10n.dashboardMaintenance,
+                        context.l10n.dashboardDisposed,
+                        context.l10n.dashboardLost,
                       ];
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
@@ -483,7 +484,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Asset Condition Overview',
+        title: context.l10n.dashboardAssetConditionOverview,
         child: SizedBox(
           height: 250,
           child: BarChart(
@@ -515,7 +516,12 @@ class DashboardScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      const titles = ['Good', 'Fair', 'Poor', 'Damaged'];
+                      final titles = [
+                        context.l10n.dashboardGood,
+                        context.l10n.dashboardFair,
+                        context.l10n.dashboardPoor,
+                        context.l10n.dashboardDamaged,
+                      ];
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
@@ -603,7 +609,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'User Registration Trends',
+        title: context.l10n.dashboardUserRegistrationTrends,
         child: SizedBox(
           height: 250,
           child: LineChart(
@@ -706,7 +712,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Asset Creation Trends',
+        title: context.l10n.dashboardAssetCreationTrends,
         child: SizedBox(
           height: 250,
           child: LineChart(
@@ -803,7 +809,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isCategoryLoading,
             child: _buildInfoCard(
               context,
-              title: 'Categories',
+              title: context.l10n.dashboardCategories,
               value: '${categoryStats?.total.count ?? 0}',
               icon: Icons.category,
               color: context.colors.primary,
@@ -816,7 +822,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isLocationLoading,
             child: _buildInfoCard(
               context,
-              title: 'Locations',
+              title: context.l10n.dashboardLocations,
               value: '${locationStats?.total.count ?? 0}',
               icon: Icons.location_on,
               color: context.colors.secondary,
@@ -841,8 +847,8 @@ class DashboardScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const AppText(
-          'Activity Overview',
+        AppText(
+          context.l10n.dashboardActivityOverview,
           style: AppTextStyle.titleLarge,
           fontWeight: FontWeight.bold,
         ),
@@ -854,7 +860,7 @@ class DashboardScreen extends ConsumerWidget {
                 enabled: isScanLogLoading,
                 child: _buildInfoCard(
                   context,
-                  title: 'Scan Logs',
+                  title: context.l10n.dashboardScanLogs,
                   value: '${scanLogStats?.total.count ?? 0}',
                   icon: Icons.qr_code_scanner,
                   color: context.semantic.info,
@@ -867,7 +873,7 @@ class DashboardScreen extends ConsumerWidget {
                 enabled: isNotificationLoading,
                 child: _buildInfoCard(
                   context,
-                  title: 'Notifications',
+                  title: context.l10n.dashboardNotifications,
                   value: '${notificationStats?.total.count ?? 0}',
                   icon: Icons.notifications,
                   color: context.semantic.warning,
@@ -884,7 +890,7 @@ class DashboardScreen extends ConsumerWidget {
                 enabled: isAssetMovementLoading,
                 child: _buildInfoCard(
                   context,
-                  title: 'Asset Movements',
+                  title: context.l10n.dashboardAssetMovements,
                   value: '${assetMovementStats?.total.count ?? 0}',
                   icon: Icons.swap_horiz,
                   color: context.semantic.info,
@@ -897,7 +903,7 @@ class DashboardScreen extends ConsumerWidget {
                 enabled: isIssueReportLoading,
                 child: _buildInfoCard(
                   context,
-                  title: 'Issue Reports',
+                  title: context.l10n.dashboardIssueReports,
                   value: '${issueReportStats?.total.count ?? 0}',
                   icon: Icons.report_problem,
                   color: context.semantic.error,
@@ -924,7 +930,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isScheduleLoading,
             child: _buildInfoCard(
               context,
-              title: 'Maintenance Schedules',
+              title: context.l10n.dashboardMaintenanceSchedules,
               value: '${scheduleStats?.total.count ?? 0}',
               icon: Icons.schedule,
               color: context.colors.primary,
@@ -937,7 +943,7 @@ class DashboardScreen extends ConsumerWidget {
             enabled: isRecordLoading,
             child: _buildInfoCard(
               context,
-              title: 'Maintenance Records',
+              title: context.l10n.dashboardMaintenanceRecords,
               value: '${recordStats?.total.count ?? 0}',
               icon: Icons.history,
               color: context.colors.secondary,

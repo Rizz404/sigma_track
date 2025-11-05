@@ -1,0 +1,115 @@
+{
+  "@@locale": "en",
+  "dashboardTotalUsers": "Total Users",
+  "@dashboardTotalUsers": {
+    "description": "Total users stat card title"
+  },
+  "dashboardTotalAssets": "Total Assets",
+  "@dashboardTotalAssets": {
+    "description": "Total assets stat card title"
+  },
+  "dashboardAssetStatusOverview": "Asset Status Overview",
+  "@dashboardAssetStatusOverview": {
+    "description": "Asset status overview chart title"
+  },
+  "dashboardActive": "Active",
+  "@dashboardActive": {
+    "description": "Active status label"
+  },
+  "dashboardMaintenance": "Maintenance",
+  "@dashboardMaintenance": {
+    "description": "Maintenance status label"
+  },
+  "dashboardDisposed": "Disposed",
+  "@dashboardDisposed": {
+    "description": "Disposed status label"
+  },
+  "dashboardLost": "Lost",
+  "@dashboardLost": {
+    "description": "Lost status label"
+  },
+  "dashboardUserRoleDistribution": "User Role Distribution",
+  "@dashboardUserRoleDistribution": {
+    "description": "User role distribution chart title"
+  },
+  "dashboardAdmin": "Admin",
+  "@dashboardAdmin": {
+    "description": "Admin role label"
+  },
+  "dashboardStaff": "Staff",
+  "@dashboardStaff": {
+    "description": "Staff role label"
+  },
+  "dashboardEmployee": "Employee",
+  "@dashboardEmployee": {
+    "description": "Employee role label"
+  },
+  "dashboardAssetStatusBreakdown": "Asset Status Breakdown",
+  "@dashboardAssetStatusBreakdown": {
+    "description": "Asset status breakdown chart title"
+  },
+  "dashboardAssetConditionOverview": "Asset Condition Overview",
+  "@dashboardAssetConditionOverview": {
+    "description": "Asset condition overview chart title"
+  },
+  "dashboardGood": "Good",
+  "@dashboardGood": {
+    "description": "Good condition label"
+  },
+  "dashboardFair": "Fair",
+  "@dashboardFair": {
+    "description": "Fair condition label"
+  },
+  "dashboardPoor": "Poor",
+  "@dashboardPoor": {
+    "description": "Poor condition label"
+  },
+  "dashboardDamaged": "Damaged",
+  "@dashboardDamaged": {
+    "description": "Damaged condition label"
+  },
+  "dashboardUserRegistrationTrends": "User Registration Trends",
+  "@dashboardUserRegistrationTrends": {
+    "description": "User registration trends chart title"
+  },
+  "dashboardAssetCreationTrends": "Asset Creation Trends",
+  "@dashboardAssetCreationTrends": {
+    "description": "Asset creation trends chart title"
+  },
+  "dashboardCategories": "Categories",
+  "@dashboardCategories": {
+    "description": "Categories stat card title"
+  },
+  "dashboardLocations": "Locations",
+  "@dashboardLocations": {
+    "description": "Locations stat card title"
+  },
+  "dashboardActivityOverview": "Activity Overview",
+  "@dashboardActivityOverview": {
+    "description": "Activity overview section title"
+  },
+  "dashboardScanLogs": "Scan Logs",
+  "@dashboardScanLogs": {
+    "description": "Scan logs stat card title"
+  },
+  "dashboardNotifications": "Notifications",
+  "@dashboardNotifications": {
+    "description": "Notifications stat card title"
+  },
+  "dashboardAssetMovements": "Asset Movements",
+  "@dashboardAssetMovements": {
+    "description": "Asset movements stat card title"
+  },
+  "dashboardIssueReports": "Issue Reports",
+  "@dashboardIssueReports": {
+    "description": "Issue reports stat card title"
+  },
+  "dashboardMaintenanceSchedules": "Maintenance Schedules",
+  "@dashboardMaintenanceSchedules": {
+    "description": "Maintenance schedules stat card title"
+  },
+  "dashboardMaintenanceRecords": "Maintenance Records",
+  "@dashboardMaintenanceRecords": {
+    "description": "Maintenance records stat card title"
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "@@locale": "en",
+  "categoryDetail": "Category Detail",
+  "@categoryDetail": {
+    "description": "Category detail screen title"
+  },
+  "categoryInformation": "Category Information",
+  "@categoryInformation": {
+    "description": "Category information section title"
+  },
+  "categoryCategoryCode": "Category Code",
+  "@categoryCategoryCode": {
+    "description": "Category code label"
+  },
+  "categoryCategoryName": "Category Name",
+  "@categoryCategoryName": {
+    "description": "Category name label"
+  },
+  "categoryDescription": "Description",
+  "@categoryDescription": {
+    "description": "Description label"
+  },
+  "categoryParentCategory": "Parent Category",
+  "@categoryParentCategory": {
+    "description": "Parent category label"
+  },
+  "categoryMetadata": "Metadata",
+  "@categoryMetadata": {
+    "description": "Metadata section title"
+  },
+  "categoryCreatedAt": "Created At",
+  "@categoryCreatedAt": {
+    "description": "Created at label"
+  },
+  "categoryUpdatedAt": "Updated At",
+  "@categoryUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "categoryOnlyAdminCanEdit": "Only admin can edit categories",
+  "@categoryOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "categoryOnlyAdminCanDelete": "Only admin can delete categories",
+  "@categoryOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "categoryDeleteCategory": "Delete Category",
+  "@categoryDeleteCategory": {
+    "description": "Delete category dialog title"
+  },
+  "categoryDeleteConfirmation": "Are you sure you want to delete \"{categoryName}\"?",
+  "@categoryDeleteConfirmation": {
+    "description": "Confirmation message for deleting a category",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "Electronics"
+      }
+    }
+  },
+  "categoryCancel": "Cancel",
+  "@categoryCancel": {
+    "description": "Cancel button label"
+  },
+  "categoryDelete": "Delete",
+  "@categoryDelete": {
+    "description": "Delete button label"
+  },
+  "categoryCategoryDeleted": "Category deleted",
+  "@categoryCategoryDeleted": {
+    "description": "Success message for category deletion"
+  },
+  "categoryDeleteFailed": "Delete failed",
+  "@categoryDeleteFailed": {
+    "description": "Error message for category deletion failure"
+  },
+  "categoryEditCategory": "Edit Category",
+  "@categoryEditCategory": {
+    "description": "Edit category screen title"
+  },
+  "categoryCreateCategory": "Create Category",
+  "@categoryCreateCategory": {
+    "description": "Create category screen title"
+  },
+  "categorySearchCategory": "Search category...",
+  "@categorySearchCategory": {
+    "description": "Search category placeholder"
+  },
+  "categoryEnterCategoryCode": "Enter category code (e.g., CAT-001)",
+  "@categoryEnterCategoryCode": {
+    "description": "Category code input placeholder"
+  },
+  "categoryTranslations": "Translations",
+  "@categoryTranslations": {
+    "description": "Translations section title"
+  },
+  "categoryAddTranslations": "Add translations for different languages",
+  "@categoryAddTranslations": {
+    "description": "Translations section subtitle"
+  },
+  "categoryEnglish": "English",
+  "@categoryEnglish": {
+    "description": "English language label"
+  },
+  "categoryJapanese": "Japanese",
+  "@categoryJapanese": {
+    "description": "Japanese language label"
+  },
+  "categoryEnterCategoryName": "Enter category name",
+  "@categoryEnterCategoryName": {
+    "description": "Category name input placeholder"
+  },
+  "categoryEnterDescription": "Enter description",
+  "@categoryEnterDescription": {
+    "description": "Description input placeholder"
+  },
+  "categoryUpdate": "Update",
+  "@categoryUpdate": {
+    "description": "Update button label"
+  },
+  "categoryCreate": "Create",
+  "@categoryCreate": {
+    "description": "Create button label"
+  },
+  "categoryFillRequiredFields": "Please fill all required fields",
+  "@categoryFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "categorySavedSuccessfully": "Category saved successfully",
+  "@categorySavedSuccessfully": {
+    "description": "Success message for category save"
+  },
+  "categoryOperationFailed": "Operation failed",
+  "@categoryOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "categoryFailedToLoadTranslations": "Failed to load translations",
+  "@categoryFailedToLoadTranslations": {
+    "description": "Error message when translations fail to load"
+  },
+  "categoryManagement": "Category Management",
+  "@categoryManagement": {
+    "description": "Category management screen title"
+  },
+  "categorySearchCategories": "Search categories...",
+  "@categorySearchCategories": {
+    "description": "Categories search placeholder"
+  },
+  "categoryCreateCategoryTitle": "Create Category",
+  "@categoryCreateCategoryTitle": {
+    "description": "Create category option title"
+  },
+  "categoryCreateCategorySubtitle": "Add a new category",
+  "@categoryCreateCategorySubtitle": {
+    "description": "Create category option subtitle"
+  },
+  "categorySelectManyTitle": "Select Many",
+  "@categorySelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "categorySelectManySubtitle": "Select multiple categories to delete",
+  "@categorySelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "categoryFilterAndSortTitle": "Filter & Sort",
+  "@categoryFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "categoryFilterAndSortSubtitle": "Customize category display",
+  "@categoryFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "categorySelectCategoriesToDelete": "Select categories to delete",
+  "@categorySelectCategoriesToDelete": {
+    "description": "Instruction for selecting categories to delete"
+  },
+  "categorySortBy": "Sort By",
+  "@categorySortBy": {
+    "description": "Sort by label"
+  },
+  "categorySortOrder": "Sort Order",
+  "@categorySortOrder": {
+    "description": "Sort order label"
+  },
+  "categoryHasParent": "Has Parent",
+  "@categoryHasParent": {
+    "description": "Has parent checkbox label"
+  },
+  "categoryFilterByParent": "Filter by Parent Category",
+  "@categoryFilterByParent": {
+    "description": "Filter by parent category label"
+  },
+  "categorySearchParentCategory": "Search parent category...",
+  "@categorySearchParentCategory": {
+    "description": "Search parent category placeholder"
+  },
+  "categoryReset": "Reset",
+  "@categoryReset": {
+    "description": "Reset button label"
+  },
+  "categoryApply": "Apply",
+  "@categoryApply": {
+    "description": "Apply button label"
+  },
+  "categoryFilterReset": "Filter reset",
+  "@categoryFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "categoryFilterApplied": "Filter applied",
+  "@categoryFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "categoryDeleteCategories": "Delete Categories",
+  "@categoryDeleteCategories": {
+    "description": "Delete categories dialog title"
+  },
+  "categoryDeleteMultipleConfirmation": "Are you sure you want to delete {count} categories?",
+  "@categoryDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "categoryNoCategoriesSelected": "No categories selected",
+  "@categoryNoCategoriesSelected": {
+    "description": "Warning message when no categories are selected"
+  },
+  "categoryNotImplementedYet": "Not implemented yet",
+  "@categoryNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "categorySelectedCount": "{count} selected",
+  "@categorySelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "categoryNoCategoriesFound": "No categories found",
+  "@categoryNoCategoriesFound": {
+    "description": "No categories found message"
+  },
+  "categoryCreateFirstCategory": "Create your first category to get started",
+  "@categoryCreateFirstCategory": {
+    "description": "Empty state message for categories"
+  },
+  "categoryLongPressToSelect": "Long press to select more categories",
+  "@categoryLongPressToSelect": {
+    "description": "Instruction for selecting multiple categories"
+  },
+  "categoryValidationCodeRequired": "Category code is required",
+  "@categoryValidationCodeRequired": {
+    "description": "Validation error for required category code"
+  },
+  "categoryValidationCodeMinLength": "Category code must be at least 2 characters",
+  "@categoryValidationCodeMinLength": {
+    "description": "Validation error for category code minimum length"
+  },
+  "categoryValidationCodeMaxLength": "Category code must not exceed 20 characters",
+  "@categoryValidationCodeMaxLength": {
+    "description": "Validation error for category code maximum length"
+  },
+  "categoryValidationCodeAlphanumeric": "Category code can only contain letters, numbers, and underscores",
+  "@categoryValidationCodeAlphanumeric": {
+    "description": "Validation error for category code format"
+  },
+  "categoryValidationNameRequired": "Category name is required",
+  "@categoryValidationNameRequired": {
+    "description": "Validation error for required category name"
+  },
+  "categoryValidationNameMinLength": "Category name must be at least 3 characters",
+  "@categoryValidationNameMinLength": {
+    "description": "Validation error for category name minimum length"
+  },
+  "categoryValidationNameMaxLength": "Category name must not exceed 100 characters",
+  "@categoryValidationNameMaxLength": {
+    "description": "Validation error for category name maximum length"
+  },
+  "categoryValidationDescriptionRequired": "Description is required",
+  "@categoryValidationDescriptionRequired": {
+    "description": "Validation error for required description"
+  },
+  "categoryValidationDescriptionMinLength": "Description must be at least 10 characters",
+  "@categoryValidationDescriptionMinLength": {
+    "description": "Validation error for description minimum length"
+  },
+  "categoryValidationDescriptionMaxLength": "Description must not exceed 500 characters",
+  "@categoryValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  }
+}

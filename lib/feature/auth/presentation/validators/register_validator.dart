@@ -1,38 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class RegisterValidator {
-  static String? validateName(String? value) {
+  static String? validateName(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Name is required';
+      return context.l10n.authValidationNameRequired;
     }
     if (value.length < 3) {
-      return 'Name must be at least 3 characters';
+      return context.l10n.authValidationNameMinLength;
     }
     if (value.length > 20) {
-      return 'Name must not exceed 20 characters';
+      return context.l10n.authValidationNameMaxLength;
     }
     // ! Name hanya boleh alfanumerik dan underscore
     if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-      return 'Name can only contain letters, numbers, and underscores';
+      return context.l10n.authValidationNameAlphanumeric;
     }
     return null;
   }
 
-  static String? validateEmail(String? value) {
+  static String? validateEmail(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return context.l10n.authValidationEmailRequired;
     }
     // * Email regex pattern standar
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
     if (!emailRegex.hasMatch(value)) {
-      return 'Please enter a valid email address';
+      return context.l10n.authValidationEmailInvalid;
     }
     return null;
   }
 
-  static String? validatePassword(String? value) {
+  static String? validatePassword(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return context.l10n.authValidationPasswordRequired;
     }
     // Todo: Uncomment di production
     // if (value.length < 8) {
@@ -54,12 +57,16 @@ class RegisterValidator {
     return null;
   }
 
-  static String? validateConfirmPassword(String? value, String? password) {
+  static String? validateConfirmPassword(
+    BuildContext context,
+    String? value,
+    String? password,
+  ) {
     if (value == null || value.isEmpty) {
-      return 'Please confirm your password';
+      return context.l10n.authValidationConfirmPasswordRequired;
     }
     if (value != password) {
-      return 'Passwords do not match';
+      return context.l10n.authValidationPasswordsDoNotMatch;
     }
     return null;
   }

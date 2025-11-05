@@ -1779,6 +1779,804 @@ abstract class L10n {
   /// **'For User'**
   String get assetMovementForUserShort;
 
+  /// Login screen header title
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back'**
+  String get authWelcomeBack;
+
+  /// Login screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue'**
+  String get authSignInToContinue;
+
+  /// Email field label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get authEmail;
+
+  /// Email field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get authEnterYourEmail;
+
+  /// Password field label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get authPassword;
+
+  /// Password field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get authEnterYourPassword;
+
+  /// Forgot password link text
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get authForgotPassword;
+
+  /// Login button label
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get authLogin;
+
+  /// Register link prefix text
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get authDontHaveAccount;
+
+  /// Register link/button label
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get authRegister;
+
+  /// Success message after login
+  ///
+  /// In en, this message translates to:
+  /// **'Login successful'**
+  String get authLoginSuccessful;
+
+  /// Register screen header title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get authCreateAccount;
+
+  /// Register screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up to get started'**
+  String get authSignUpToGetStarted;
+
+  /// Name field label
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get authName;
+
+  /// Name field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get authEnterYourName;
+
+  /// Confirm password field label
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get authConfirmPassword;
+
+  /// Confirm password field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter your password'**
+  String get authReEnterYourPassword;
+
+  /// Password requirements section title
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain:'**
+  String get authPasswordMustContain;
+
+  /// Placeholder password requirement text
+  ///
+  /// In en, this message translates to:
+  /// **'Just make the password man!'**
+  String get authPasswordRequirementPlaceholder;
+
+  /// Success message after registration
+  ///
+  /// In en, this message translates to:
+  /// **'Registration successful'**
+  String get authRegistrationSuccessful;
+
+  /// Login link prefix text
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get authAlreadyHaveAccount;
+
+  /// Forgot password screen header title
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get authForgotPasswordTitle;
+
+  /// Forgot password screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email to reset your password'**
+  String get authEnterEmailToResetPassword;
+
+  /// Send reset link button label
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Link'**
+  String get authSendResetLink;
+
+  /// Success message after sending reset email
+  ///
+  /// In en, this message translates to:
+  /// **'Email sent successfully'**
+  String get authEmailSentSuccessfully;
+
+  /// Back to login link prefix text
+  ///
+  /// In en, this message translates to:
+  /// **'Remember your password? '**
+  String get authRememberPassword;
+
+  /// Validation error for required email
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get authValidationEmailRequired;
+
+  /// Validation error for invalid email format
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get authValidationEmailInvalid;
+
+  /// Validation error for required password
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get authValidationPasswordRequired;
+
+  /// Validation error for required name
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get authValidationNameRequired;
+
+  /// Validation error for name minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be at least 3 characters'**
+  String get authValidationNameMinLength;
+
+  /// Validation error for name maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Name must not exceed 20 characters'**
+  String get authValidationNameMaxLength;
+
+  /// Validation error for name format
+  ///
+  /// In en, this message translates to:
+  /// **'Name can only contain letters, numbers, and underscores'**
+  String get authValidationNameAlphanumeric;
+
+  /// Validation error for required confirm password
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm your password'**
+  String get authValidationConfirmPasswordRequired;
+
+  /// Validation error when passwords don't match
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get authValidationPasswordsDoNotMatch;
+
+  /// Category detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Category Detail'**
+  String get categoryDetail;
+
+  /// Category information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Category Information'**
+  String get categoryInformation;
+
+  /// Category code label
+  ///
+  /// In en, this message translates to:
+  /// **'Category Code'**
+  String get categoryCategoryCode;
+
+  /// Category name label
+  ///
+  /// In en, this message translates to:
+  /// **'Category Name'**
+  String get categoryCategoryName;
+
+  /// Description label
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get categoryDescription;
+
+  /// Parent category label
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Category'**
+  String get categoryParentCategory;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get categoryMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get categoryCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get categoryUpdatedAt;
+
+  /// Error message for non-admin trying to edit
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit categories'**
+  String get categoryOnlyAdminCanEdit;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete categories'**
+  String get categoryOnlyAdminCanDelete;
+
+  /// Delete category dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Category'**
+  String get categoryDeleteCategory;
+
+  /// Confirmation message for deleting a category
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{categoryName}\"?'**
+  String categoryDeleteConfirmation(String categoryName);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get categoryCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get categoryDelete;
+
+  /// Success message for category deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Category deleted'**
+  String get categoryCategoryDeleted;
+
+  /// Error message for category deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get categoryDeleteFailed;
+
+  /// Edit category screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Category'**
+  String get categoryEditCategory;
+
+  /// Create category screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Category'**
+  String get categoryCreateCategory;
+
+  /// Search category placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search category...'**
+  String get categorySearchCategory;
+
+  /// Category code input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter category code (e.g., CAT-001)'**
+  String get categoryEnterCategoryCode;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get categoryTranslations;
+
+  /// Translations section subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add translations for different languages'**
+  String get categoryAddTranslations;
+
+  /// English language label
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get categoryEnglish;
+
+  /// Japanese language label
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get categoryJapanese;
+
+  /// Category name input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter category name'**
+  String get categoryEnterCategoryName;
+
+  /// Description input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description'**
+  String get categoryEnterDescription;
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get categoryUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get categoryCreate;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get categoryFillRequiredFields;
+
+  /// Success message for category save
+  ///
+  /// In en, this message translates to:
+  /// **'Category saved successfully'**
+  String get categorySavedSuccessfully;
+
+  /// Generic operation failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get categoryOperationFailed;
+
+  /// Error message when translations fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load translations'**
+  String get categoryFailedToLoadTranslations;
+
+  /// Category management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Category Management'**
+  String get categoryManagement;
+
+  /// Categories search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search categories...'**
+  String get categorySearchCategories;
+
+  /// Create category option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Category'**
+  String get categoryCreateCategoryTitle;
+
+  /// Create category option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new category'**
+  String get categoryCreateCategorySubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get categorySelectManyTitle;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple categories to delete'**
+  String get categorySelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get categoryFilterAndSortTitle;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize category display'**
+  String get categoryFilterAndSortSubtitle;
+
+  /// Instruction for selecting categories to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select categories to delete'**
+  String get categorySelectCategoriesToDelete;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get categorySortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get categorySortOrder;
+
+  /// Has parent checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Has Parent'**
+  String get categoryHasParent;
+
+  /// Filter by parent category label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Parent Category'**
+  String get categoryFilterByParent;
+
+  /// Search parent category placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search parent category...'**
+  String get categorySearchParentCategory;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get categoryReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get categoryApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get categoryFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get categoryFilterApplied;
+
+  /// Delete categories dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Categories'**
+  String get categoryDeleteCategories;
+
+  /// Confirmation message for deleting multiple categories
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} categories?'**
+  String categoryDeleteMultipleConfirmation(int count);
+
+  /// Warning message when no categories are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No categories selected'**
+  String get categoryNoCategoriesSelected;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get categoryNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String categorySelectedCount(int count);
+
+  /// No categories found message
+  ///
+  /// In en, this message translates to:
+  /// **'No categories found'**
+  String get categoryNoCategoriesFound;
+
+  /// Empty state message for categories
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first category to get started'**
+  String get categoryCreateFirstCategory;
+
+  /// Instruction for selecting multiple categories
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more categories'**
+  String get categoryLongPressToSelect;
+
+  /// Validation error for required category code
+  ///
+  /// In en, this message translates to:
+  /// **'Category code is required'**
+  String get categoryValidationCodeRequired;
+
+  /// Validation error for category code minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Category code must be at least 2 characters'**
+  String get categoryValidationCodeMinLength;
+
+  /// Validation error for category code maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Category code must not exceed 20 characters'**
+  String get categoryValidationCodeMaxLength;
+
+  /// Validation error for category code format
+  ///
+  /// In en, this message translates to:
+  /// **'Category code can only contain letters, numbers, and underscores'**
+  String get categoryValidationCodeAlphanumeric;
+
+  /// Validation error for required category name
+  ///
+  /// In en, this message translates to:
+  /// **'Category name is required'**
+  String get categoryValidationNameRequired;
+
+  /// Validation error for category name minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Category name must be at least 3 characters'**
+  String get categoryValidationNameMinLength;
+
+  /// Validation error for category name maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Category name must not exceed 100 characters'**
+  String get categoryValidationNameMaxLength;
+
+  /// Validation error for required description
+  ///
+  /// In en, this message translates to:
+  /// **'Description is required'**
+  String get categoryValidationDescriptionRequired;
+
+  /// Validation error for description minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Description must be at least 10 characters'**
+  String get categoryValidationDescriptionMinLength;
+
+  /// Validation error for description maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Description must not exceed 500 characters'**
+  String get categoryValidationDescriptionMaxLength;
+
+  /// Total users stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Total Users'**
+  String get dashboardTotalUsers;
+
+  /// Total assets stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Total Assets'**
+  String get dashboardTotalAssets;
+
+  /// Asset status overview chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Status Overview'**
+  String get dashboardAssetStatusOverview;
+
+  /// Active status label
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get dashboardActive;
+
+  /// Maintenance status label
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get dashboardMaintenance;
+
+  /// Disposed status label
+  ///
+  /// In en, this message translates to:
+  /// **'Disposed'**
+  String get dashboardDisposed;
+
+  /// Lost status label
+  ///
+  /// In en, this message translates to:
+  /// **'Lost'**
+  String get dashboardLost;
+
+  /// User role distribution chart title
+  ///
+  /// In en, this message translates to:
+  /// **'User Role Distribution'**
+  String get dashboardUserRoleDistribution;
+
+  /// Admin role label
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get dashboardAdmin;
+
+  /// Staff role label
+  ///
+  /// In en, this message translates to:
+  /// **'Staff'**
+  String get dashboardStaff;
+
+  /// Employee role label
+  ///
+  /// In en, this message translates to:
+  /// **'Employee'**
+  String get dashboardEmployee;
+
+  /// Asset status breakdown chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Status Breakdown'**
+  String get dashboardAssetStatusBreakdown;
+
+  /// Asset condition overview chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Condition Overview'**
+  String get dashboardAssetConditionOverview;
+
+  /// Good condition label
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get dashboardGood;
+
+  /// Fair condition label
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get dashboardFair;
+
+  /// Poor condition label
+  ///
+  /// In en, this message translates to:
+  /// **'Poor'**
+  String get dashboardPoor;
+
+  /// Damaged condition label
+  ///
+  /// In en, this message translates to:
+  /// **'Damaged'**
+  String get dashboardDamaged;
+
+  /// User registration trends chart title
+  ///
+  /// In en, this message translates to:
+  /// **'User Registration Trends'**
+  String get dashboardUserRegistrationTrends;
+
+  /// Asset creation trends chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Creation Trends'**
+  String get dashboardAssetCreationTrends;
+
+  /// Categories stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get dashboardCategories;
+
+  /// Locations stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Locations'**
+  String get dashboardLocations;
+
+  /// Activity overview section title
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Overview'**
+  String get dashboardActivityOverview;
+
+  /// Scan logs stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Logs'**
+  String get dashboardScanLogs;
+
+  /// Notifications stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get dashboardNotifications;
+
+  /// Asset movements stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Movements'**
+  String get dashboardAssetMovements;
+
+  /// Issue reports stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Reports'**
+  String get dashboardIssueReports;
+
+  /// Maintenance schedules stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedules'**
+  String get dashboardMaintenanceSchedules;
+
+  /// Maintenance records stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Records'**
+  String get dashboardMaintenanceRecords;
+
+  /// Home screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeScreen;
+
   /// Admin shell bottom navigation label for dashboard
   ///
   /// In en, this message translates to:
