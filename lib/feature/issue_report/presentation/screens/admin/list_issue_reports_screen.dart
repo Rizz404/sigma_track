@@ -9,6 +9,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
@@ -92,15 +93,15 @@ class _ListIssueReportsScreenState
             _isSelectMode = true;
             _selectedIssueReportIds.clear();
           });
-          AppToast.info('Select issueReports to delete');
+          AppToast.info(context.l10n.issueReportSelectIssueReportsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create IssueReport',
-        createSubtitle: 'Add a new issueReport',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple issueReports to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize issueReport display',
+        createTitle: context.l10n.issueReportCreateIssueReportTitle,
+        createSubtitle: context.l10n.issueReportCreateIssueReportSubtitle,
+        selectManyTitle: context.l10n.issueReportSelectManyTitle,
+        selectManySubtitle: context.l10n.issueReportSelectManySubtitle,
+        filterSortTitle: context.l10n.issueReportFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.issueReportFilterAndSortSubtitle,
       ),
     );
   }
@@ -154,8 +155,8 @@ class _ListIssueReportsScreenState
                 children: [
                   AppSearchField<Asset>(
                     name: 'assetId',
-                    label: 'Filter by Asset',
-                    hintText: 'Search asset...',
+                    label: context.l10n.issueReportFilterByAsset,
+                    hintText: context.l10n.issueReportSearchAssetFilter,
                     enableAutocomplete: true,
                     onSearch: _searchAssets,
                     itemDisplayMapper: (asset) => asset.assetName,
@@ -175,8 +176,8 @@ class _ListIssueReportsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'reportedBy',
-                    label: 'Filter by Reported By',
-                    hintText: 'Search user...',
+                    label: context.l10n.issueReportFilterByReportedBy,
+                    hintText: context.l10n.issueReportSearchUserFilter,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -196,8 +197,8 @@ class _ListIssueReportsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'resolvedBy',
-                    label: 'Filter by Resolved By',
-                    hintText: 'Search user...',
+                    label: context.l10n.issueReportFilterByResolvedBy,
+                    hintText: context.l10n.issueReportSearchUserFilter,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -212,21 +213,21 @@ class _ListIssueReportsScreenState
                 ],
               ),
               const SizedBox(height: 16),
-              const AppTextField(
+              AppTextField(
                 name: 'issueType',
-                label: 'Issue Type',
-                placeHolder: 'Enter issue type...',
+                label: context.l10n.issueReportIssueType,
+                placeHolder: context.l10n.issueReportEnterIssueTypeFilter,
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.issueReportFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.issueReportSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: IssueReportSortBy.values
                     .map(
@@ -241,7 +242,7 @@ class _ListIssueReportsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.issueReportSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -256,7 +257,7 @@ class _ListIssueReportsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'priority',
-                label: 'Priority',
+                label: context.l10n.issueReportPriority,
                 initialValue: currentFilter.priority?.value,
                 items: IssuePriority.values
                     .map(
@@ -271,7 +272,7 @@ class _ListIssueReportsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'status',
-                label: 'Status',
+                label: context.l10n.issueReportStatus,
                 initialValue: currentFilter.status?.value,
                 items: IssueStatus.values
                     .map(
@@ -286,16 +287,16 @@ class _ListIssueReportsScreenState
               const SizedBox(height: 16),
               FormBuilderCheckbox(
                 name: 'isResolved',
-                title: const AppText('Is Resolved'),
+                title: AppText(context.l10n.issueReportIsResolved),
                 initialValue: currentFilter.isResolved ?? false,
               ),
               const SizedBox(height: 16),
               FormBuilderDateTimePicker(
                 name: 'dateFrom',
                 inputType: InputType.date,
-                decoration: const InputDecoration(
-                  labelText: 'Date From',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: context.l10n.issueReportDateFrom,
+                  border: const OutlineInputBorder(),
                 ),
                 initialValue: currentFilter.dateFrom != null
                     ? DateTime.parse(currentFilter.dateFrom!)
@@ -305,9 +306,9 @@ class _ListIssueReportsScreenState
               FormBuilderDateTimePicker(
                 name: 'dateTo',
                 inputType: InputType.date,
-                decoration: const InputDecoration(
-                  labelText: 'Date To',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: context.l10n.issueReportDateTo,
+                  border: const OutlineInputBorder(),
                 ),
                 initialValue: currentFilter.dateTo != null
                     ? DateTime.parse(currentFilter.dateTo!)
@@ -318,7 +319,7 @@ class _ListIssueReportsScreenState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.issueReportReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -330,14 +331,14 @@ class _ListIssueReportsScreenState
                         ref
                             .read(issueReportsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.issueReportFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.issueReportApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -389,7 +390,9 @@ class _ListIssueReportsScreenState
                           ref
                               .read(issueReportsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(
+                            context.l10n.issueReportFilterApplied,
+                          );
                         }
                       },
                     ),
@@ -422,30 +425,32 @@ class _ListIssueReportsScreenState
 
   Future<void> _deleteSelectedIssueReports() async {
     if (_selectedIssueReportIds.isEmpty) {
-      AppToast.warning('No issueReports selected');
+      AppToast.warning(context.l10n.issueReportNoIssueReportsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete IssueReports',
+        title: AppText(
+          context.l10n.issueReportDeleteIssueReports,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedIssueReportIds.length} issueReports?',
+          context.l10n.issueReportDeleteMultipleConfirmation(
+            _selectedIssueReportIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.issueReportCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.issueReportDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -456,7 +461,7 @@ class _ListIssueReportsScreenState
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.issueReportNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -480,7 +485,7 @@ class _ListIssueReportsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'IssueReport Management'),
+      appBar: CustomAppBar(title: context.l10n.issueReportManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -549,14 +554,16 @@ class _ListIssueReportsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedIssueReportIds.length} selected',
+                context.l10n.issueReportSelectedCount(
+                  _selectedIssueReportIds.length,
+                ),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.issueReportDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedIssueReports,
@@ -570,7 +577,7 @@ class _ListIssueReportsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search issueReports...',
+      hintText: context.l10n.issueReportSearchIssueReports,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -596,13 +603,13 @@ class _ListIssueReportsScreenState
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No issueReports found',
+            context.l10n.issueReportNoIssueReportsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first issueReport to get started',
+            context.l10n.issueReportCreateFirstIssueReport,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -650,7 +657,7 @@ class _ListIssueReportsScreenState
                         _selectedIssueReportIds.clear();
                         _selectedIssueReportIds.add(issueReport.id);
                       });
-                      AppToast.info('Long press to select more issueReports');
+                      AppToast.info(context.l10n.issueReportLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

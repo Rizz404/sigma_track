@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -84,15 +85,15 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
             _isSelectMode = true;
             _selectedScanLogIds.clear();
           });
-          AppToast.info('Select scanLogs to delete');
+          AppToast.info(context.l10n.scanLogSelectScanLogsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create ScanLog',
-        createSubtitle: 'Add a new scanLog',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple scanLogs to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize scanLog display',
+        createTitle: context.l10n.scanLogCreateScanLog,
+        createSubtitle: context.l10n.scanLogCreateScanLogSubtitle,
+        selectManyTitle: context.l10n.scanLogSelectMany,
+        selectManySubtitle: context.l10n.scanLogSelectManySubtitle,
+        filterSortTitle: context.l10n.scanLogFilterAndSort,
+        filterSortSubtitle: context.l10n.scanLogFilterAndSortSubtitle,
       ),
     );
   }
@@ -146,8 +147,8 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 children: [
                   AppSearchField<Asset>(
                     name: 'assetId',
-                    label: 'Filter by Asset',
-                    hintText: 'Search asset...',
+                    label: context.l10n.scanLogFilterByAsset,
+                    hintText: context.l10n.scanLogSearchAsset,
                     enableAutocomplete: true,
                     onSearch: _searchAssets,
                     itemDisplayMapper: (asset) => asset.assetName,
@@ -167,8 +168,8 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 children: [
                   AppSearchField<User>(
                     name: 'scannedBy',
-                    label: 'Filter by Scanned By',
-                    hintText: 'Search user...',
+                    label: context.l10n.scanLogFilterByScannedBy,
+                    hintText: context.l10n.scanLogSearchUser,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -183,15 +184,15 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 ],
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.scanLogFiltersAndSorting,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.scanLogSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: ScanLogSortBy.values
                     .map(
@@ -206,7 +207,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.scanLogSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -221,7 +222,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'scanMethod',
-                label: 'Scan Method',
+                label: context.l10n.scanLogScanMethod,
                 initialValue: currentFilter.scanMethod?.value,
                 items: ScanMethodType.values
                     .map(
@@ -236,7 +237,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'scanResult',
-                label: 'Scan Result',
+                label: context.l10n.scanLogScanResult,
                 initialValue: currentFilter.scanResult?.value,
                 items: ScanResultType.values
                     .map(
@@ -251,16 +252,16 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
               const SizedBox(height: 16),
               FormBuilderCheckbox(
                 name: 'hasCoordinates',
-                title: const AppText('Has Coordinates'),
+                title: AppText(context.l10n.scanLogHasCoordinates),
                 initialValue: currentFilter.hasCoordinates ?? false,
               ),
               const SizedBox(height: 16),
               FormBuilderDateTimePicker(
                 name: 'dateFrom',
                 inputType: InputType.date,
-                decoration: const InputDecoration(
-                  labelText: 'Date From',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: context.l10n.scanLogDateFrom,
+                  border: const OutlineInputBorder(),
                 ),
                 initialValue: currentFilter.dateFrom != null
                     ? DateTime.parse(currentFilter.dateFrom!)
@@ -270,9 +271,9 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
               FormBuilderDateTimePicker(
                 name: 'dateTo',
                 inputType: InputType.date,
-                decoration: const InputDecoration(
-                  labelText: 'Date To',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: context.l10n.scanLogDateTo,
+                  border: const OutlineInputBorder(),
                 ),
                 initialValue: currentFilter.dateTo != null
                     ? DateTime.parse(currentFilter.dateTo!)
@@ -283,7 +284,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.scanLogReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -295,14 +296,14 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                         ref
                             .read(scanLogsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.scanLogFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.scanLogApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -353,7 +354,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                           ref
                               .read(scanLogsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(context.l10n.scanLogFilterApplied);
                         }
                       },
                     ),
@@ -386,30 +387,32 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
 
   Future<void> _deleteSelectedScanLogs() async {
     if (_selectedScanLogIds.isEmpty) {
-      AppToast.warning('No scanLogs selected');
+      AppToast.warning(context.l10n.scanLogNoScanLogsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete ScanLogs',
+        title: AppText(
+          context.l10n.scanLogDeleteScanLog,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedScanLogIds.length} scanLogs?',
+          context.l10n.scanLogDeleteMultipleConfirmation(
+            _selectedScanLogIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.scanLogCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.scanLogDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -420,7 +423,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.scanLogNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -444,7 +447,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'ScanLog Management'),
+      appBar: CustomAppBar(title: context.l10n.scanLogManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -510,14 +513,14 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedScanLogIds.length} selected',
+                context.l10n.scanLogSelectedCount(_selectedScanLogIds.length),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.scanLogDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedScanLogs,
@@ -531,7 +534,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search scanLogs...',
+      hintText: context.l10n.scanLogSearchScanLogs,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -557,13 +560,13 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
           Icon(Icons.data_array, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No scanLogs found',
+            context.l10n.scanLogNoScanLogsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first scanLog to get started',
+            context.l10n.scanLogCreateFirstScanLog,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -612,7 +615,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                         _selectedScanLogIds.clear();
                         _selectedScanLogIds.add(scanLog.id);
                       });
-                      AppToast.info('Long press to select more scanLogs');
+                      AppToast.info(context.l10n.scanLogLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

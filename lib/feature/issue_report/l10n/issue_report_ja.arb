@@ -1,0 +1,431 @@
+{
+  "@@locale": "ja",
+  "issueReportDeleteIssueReport": "問題報告を削除",
+  "@issueReportDeleteIssueReport": {
+    "description": "Dialog title for deleting an issue report"
+  },
+  "issueReportDeleteConfirmation": "\"{title}\"を削除してもよろしいですか？",
+  "@issueReportDeleteConfirmation": {
+    "description": "Confirmation message for deleting an issue report",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Hardware failure"
+      }
+    }
+  },
+  "issueReportCancel": "キャンセル",
+  "@issueReportCancel": {
+    "description": "Cancel button label"
+  },
+  "issueReportDelete": "削除",
+  "@issueReportDelete": {
+    "description": "Delete button label"
+  },
+  "issueReportDetail": "問題報告詳細",
+  "@issueReportDetail": {
+    "description": "Issue report detail screen title"
+  },
+  "issueReportInformation": "問題報告情報",
+  "@issueReportInformation": {
+    "description": "Issue report information section title"
+  },
+  "issueReportTitle": "タイトル",
+  "@issueReportTitle": {
+    "description": "Title label"
+  },
+  "issueReportDescription": "説明",
+  "@issueReportDescription": {
+    "description": "Description label"
+  },
+  "issueReportAsset": "資産",
+  "@issueReportAsset": {
+    "description": "Asset label"
+  },
+  "issueReportIssueType": "問題タイプ",
+  "@issueReportIssueType": {
+    "description": "Issue type label"
+  },
+  "issueReportPriority": "優先度",
+  "@issueReportPriority": {
+    "description": "Priority label"
+  },
+  "issueReportStatus": "ステータス",
+  "@issueReportStatus": {
+    "description": "Status label"
+  },
+  "issueReportReportedBy": "報告者",
+  "@issueReportReportedBy": {
+    "description": "Reported by label"
+  },
+  "issueReportReportedDate": "報告日",
+  "@issueReportReportedDate": {
+    "description": "Reported date label"
+  },
+  "issueReportResolvedDate": "解決日",
+  "@issueReportResolvedDate": {
+    "description": "Resolved date label"
+  },
+  "issueReportResolvedBy": "解決者",
+  "@issueReportResolvedBy": {
+    "description": "Resolved by label"
+  },
+  "issueReportResolutionNotes": "解決メモ",
+  "@issueReportResolutionNotes": {
+    "description": "Resolution notes label"
+  },
+  "issueReportMetadata": "メタデータ",
+  "@issueReportMetadata": {
+    "description": "Metadata section title"
+  },
+  "issueReportCreatedAt": "作成日時",
+  "@issueReportCreatedAt": {
+    "description": "Created at label"
+  },
+  "issueReportUpdatedAt": "更新日時",
+  "@issueReportUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "issueReportOnlyAdminCanEdit": "問題報告を編集できるのは管理者のみです",
+  "@issueReportOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "issueReportOnlyAdminCanDelete": "問題報告を削除できるのは管理者のみです",
+  "@issueReportOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "issueReportFailedToLoad": "問題報告の読み込みに失敗しました",
+  "@issueReportFailedToLoad": {
+    "description": "Error message when issue report fails to load"
+  },
+  "issueReportDeletedSuccess": "問題報告が削除されました",
+  "@issueReportDeletedSuccess": {
+    "description": "Success message for issue report deletion"
+  },
+  "issueReportDeletedFailed": "削除に失敗しました",
+  "@issueReportDeletedFailed": {
+    "description": "Error message for issue report deletion failure"
+  },
+  "issueReportUnknownAsset": "不明な資産",
+  "@issueReportUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "issueReportUnknownUser": "不明なユーザー",
+  "@issueReportUnknownUser": {
+    "description": "Unknown user placeholder"
+  },
+  "issueReportEditIssueReport": "問題報告を編集",
+  "@issueReportEditIssueReport": {
+    "description": "Edit issue report screen title"
+  },
+  "issueReportCreateIssueReport": "問題報告を作成",
+  "@issueReportCreateIssueReport": {
+    "description": "Create issue report screen title"
+  },
+  "issueReportFillRequiredFields": "必須フィールドをすべて入力してください",
+  "@issueReportFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "issueReportSavedSuccessfully": "問題報告が正常に保存されました",
+  "@issueReportSavedSuccessfully": {
+    "description": "Success message for issue report save"
+  },
+  "issueReportOperationFailed": "操作に失敗しました",
+  "@issueReportOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "issueReportFailedToLoadTranslations": "翻訳の読み込みに失敗しました",
+  "@issueReportFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "issueReportSearchAsset": "資産を検索して選択",
+  "@issueReportSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "issueReportSearchReportedBy": "問題を報告したユーザーを検索して選択",
+  "@issueReportSearchReportedBy": {
+    "description": "Reported by search placeholder"
+  },
+  "issueReportEnterIssueType": "問題タイプを入力 (例: ハードウェア、ソフトウェア)",
+  "@issueReportEnterIssueType": {
+    "description": "Issue type input placeholder"
+  },
+  "issueReportSelectPriority": "優先度を選択",
+  "@issueReportSelectPriority": {
+    "description": "Priority dropdown placeholder"
+  },
+  "issueReportSelectStatus": "ステータスを選択",
+  "@issueReportSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "issueReportSearchResolvedBy": "問題を解決したユーザーを検索して選択",
+  "@issueReportSearchResolvedBy": {
+    "description": "Resolved by search placeholder"
+  },
+  "issueReportTranslations": "翻訳",
+  "@issueReportTranslations": {
+    "description": "Translations section title"
+  },
+  "issueReportEnglish": "英語",
+  "@issueReportEnglish": {
+    "description": "English language label"
+  },
+  "issueReportJapanese": "日本語",
+  "@issueReportJapanese": {
+    "description": "Japanese language label"
+  },
+  "issueReportEnterTitleIn": "{language}でタイトルを入力",
+  "@issueReportEnterTitleIn": {
+    "description": "Title input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "英語"
+      }
+    }
+  },
+  "issueReportEnterDescriptionIn": "{language}で説明を入力",
+  "@issueReportEnterDescriptionIn": {
+    "description": "Description input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "英語"
+      }
+    }
+  },
+  "issueReportEnterResolutionNotesIn": "{language}で解決メモを入力",
+  "@issueReportEnterResolutionNotesIn": {
+    "description": "Resolution notes input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "英語"
+      }
+    }
+  },
+  "issueReportUpdate": "更新",
+  "@issueReportUpdate": {
+    "description": "Update button label"
+  },
+  "issueReportCreate": "作成",
+  "@issueReportCreate": {
+    "description": "Create button label"
+  },
+  "issueReportManagement": "問題報告管理",
+  "@issueReportManagement": {
+    "description": "Issue report management screen title"
+  },
+  "issueReportCreateIssueReportTitle": "問題報告を作成",
+  "@issueReportCreateIssueReportTitle": {
+    "description": "Create issue report option title"
+  },
+  "issueReportCreateIssueReportSubtitle": "新しい問題報告を追加",
+  "@issueReportCreateIssueReportSubtitle": {
+    "description": "Create issue report option subtitle"
+  },
+  "issueReportSelectManyTitle": "複数選択",
+  "@issueReportSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "issueReportSelectManySubtitle": "削除する複数の問題報告を選択",
+  "@issueReportSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "issueReportFilterAndSortTitle": "フィルターと並べ替え",
+  "@issueReportFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "issueReportFilterAndSortSubtitle": "問題報告表示をカスタマイズ",
+  "@issueReportFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "issueReportSelectIssueReportsToDelete": "削除する問題報告を選択",
+  "@issueReportSelectIssueReportsToDelete": {
+    "description": "Instruction for selecting issue reports to delete"
+  },
+  "issueReportDeleteIssueReports": "問題報告を削除",
+  "@issueReportDeleteIssueReports": {
+    "description": "Delete issue reports dialog title"
+  },
+  "issueReportDeleteMultipleConfirmation": "{count}個の問題報告を削除してもよろしいですか？",
+  "@issueReportDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple issue reports",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "issueReportNoIssueReportsSelected": "問題報告が選択されていません",
+  "@issueReportNoIssueReportsSelected": {
+    "description": "Warning message when no issue reports are selected"
+  },
+  "issueReportNotImplementedYet": "まだ実装されていません",
+  "@issueReportNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "issueReportSelectedCount": "{count}個選択済み",
+  "@issueReportSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "issueReportSearchIssueReports": "問題報告を検索...",
+  "@issueReportSearchIssueReports": {
+    "description": "Issue reports search placeholder"
+  },
+  "issueReportNoIssueReportsFound": "問題報告が見つかりません",
+  "@issueReportNoIssueReportsFound": {
+    "description": "No issue reports found message"
+  },
+  "issueReportCreateFirstIssueReport": "最初の問題報告を作成して開始しましょう",
+  "@issueReportCreateFirstIssueReport": {
+    "description": "Empty state message for issue reports"
+  },
+  "issueReportLongPressToSelect": "長押ししてさらに問題報告を選択",
+  "@issueReportLongPressToSelect": {
+    "description": "Instruction for selecting multiple issue reports"
+  },
+  "issueReportFilterByAsset": "資産でフィルター",
+  "@issueReportFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "issueReportFilterByReportedBy": "報告者でフィルター",
+  "@issueReportFilterByReportedBy": {
+    "description": "Filter by reported by label"
+  },
+  "issueReportFilterByResolvedBy": "解決者でフィルター",
+  "@issueReportFilterByResolvedBy": {
+    "description": "Filter by resolved by label"
+  },
+  "issueReportSearchAssetFilter": "資産を検索...",
+  "@issueReportSearchAssetFilter": {
+    "description": "Asset filter search placeholder"
+  },
+  "issueReportSearchUserFilter": "ユーザーを検索...",
+  "@issueReportSearchUserFilter": {
+    "description": "User filter search placeholder"
+  },
+  "issueReportEnterIssueTypeFilter": "問題タイプを入力...",
+  "@issueReportEnterIssueTypeFilter": {
+    "description": "Issue type filter input placeholder"
+  },
+  "issueReportSortBy": "並べ替え",
+  "@issueReportSortBy": {
+    "description": "Sort by label"
+  },
+  "issueReportSortOrder": "並べ替え順序",
+  "@issueReportSortOrder": {
+    "description": "Sort order label"
+  },
+  "issueReportIsResolved": "解決済み",
+  "@issueReportIsResolved": {
+    "description": "Is resolved checkbox label"
+  },
+  "issueReportDateFrom": "開始日",
+  "@issueReportDateFrom": {
+    "description": "Date from label"
+  },
+  "issueReportDateTo": "終了日",
+  "@issueReportDateTo": {
+    "description": "Date to label"
+  },
+  "issueReportReset": "リセット",
+  "@issueReportReset": {
+    "description": "Reset button label"
+  },
+  "issueReportApply": "適用",
+  "@issueReportApply": {
+    "description": "Apply button label"
+  },
+  "issueReportFilterReset": "フィルターをリセットしました",
+  "@issueReportFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "issueReportFilterApplied": "フィルターを適用しました",
+  "@issueReportFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "issueReportMyIssueReports": "私の問題報告",
+  "@issueReportMyIssueReports": {
+    "description": "My issue reports screen title"
+  },
+  "issueReportSearchMyIssueReports": "私の問題報告を検索...",
+  "@issueReportSearchMyIssueReports": {
+    "description": "My issue reports search placeholder"
+  },
+  "issueReportFiltersAndSorting": "フィルターと並べ替え",
+  "@issueReportFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "issueReportApplyFilters": "フィルターを適用",
+  "@issueReportApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "issueReportFiltersApplied": "フィルター適用済み",
+  "@issueReportFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "issueReportFilterAndSort": "フィルターと並べ替え",
+  "@issueReportFilterAndSort": {
+    "description": "Filter and sort button label"
+  },
+  "issueReportNoIssueReportsFoundEmpty": "問題報告が見つかりません",
+  "@issueReportNoIssueReportsFoundEmpty": {
+    "description": "Empty state message for my issue reports"
+  },
+  "issueReportYouHaveNoReportedIssues": "報告された問題はありません",
+  "@issueReportYouHaveNoReportedIssues": {
+    "description": "Empty state subtitle for my issue reports"
+  },
+  "issueReportCreateIssueReportTooltip": "問題報告を作成",
+  "@issueReportCreateIssueReportTooltip": {
+    "description": "Create issue report floating action button tooltip"
+  },
+  "issueReportValidationAssetRequired": "資産は必須です",
+  "@issueReportValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "issueReportValidationReportedByRequired": "報告者は必須です",
+  "@issueReportValidationReportedByRequired": {
+    "description": "Validation error for required reported by"
+  },
+  "issueReportValidationIssueTypeRequired": "問題タイプは必須です",
+  "@issueReportValidationIssueTypeRequired": {
+    "description": "Validation error for required issue type"
+  },
+  "issueReportValidationIssueTypeMaxLength": "問題タイプは100文字を超えることはできません",
+  "@issueReportValidationIssueTypeMaxLength": {
+    "description": "Validation error for issue type maximum length"
+  },
+  "issueReportValidationPriorityRequired": "優先度は必須です",
+  "@issueReportValidationPriorityRequired": {
+    "description": "Validation error for required priority"
+  },
+  "issueReportValidationStatusRequired": "ステータスは必須です",
+  "@issueReportValidationStatusRequired": {
+    "description": "Validation error for required status"
+  },
+  "issueReportValidationTitleRequired": "タイトルは必須です",
+  "@issueReportValidationTitleRequired": {
+    "description": "Validation error for required title"
+  },
+  "issueReportValidationTitleMaxLength": "タイトルは200文字を超えることはできません",
+  "@issueReportValidationTitleMaxLength": {
+    "description": "Validation error for title maximum length"
+  },
+  "issueReportValidationDescriptionMaxLength": "説明は1000文字を超えることはできません",
+  "@issueReportValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "issueReportValidationResolutionNotesMaxLength": "解決メモは1000文字を超えることはできません",
+  "@issueReportValidationResolutionNotesMaxLength": {
+    "description": "Validation error for resolution notes maximum length"
+  }
+}

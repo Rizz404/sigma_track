@@ -1,0 +1,391 @@
+{
+  "@@locale": "en",
+  "locationDeleteLocation": "Delete Location",
+  "@locationDeleteLocation": {
+    "description": "Dialog title for deleting a location"
+  },
+  "locationDeleteConfirmation": "Are you sure you want to delete \"{locationName}\"?",
+  "@locationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a location",
+    "placeholders": {
+      "locationName": {
+        "type": "String",
+        "example": "Main Office"
+      }
+    }
+  },
+  "locationCancel": "Cancel",
+  "@locationCancel": {
+    "description": "Cancel button label"
+  },
+  "locationDelete": "Delete",
+  "@locationDelete": {
+    "description": "Delete button label"
+  },
+  "locationDetail": "Location Detail",
+  "@locationDetail": {
+    "description": "Location detail screen title"
+  },
+  "locationInformation": "Location Information",
+  "@locationInformation": {
+    "description": "Location information section title"
+  },
+  "locationCode": "Location Code",
+  "@locationCode": {
+    "description": "Location code label"
+  },
+  "locationName": "Location Name",
+  "@locationName": {
+    "description": "Location name label"
+  },
+  "locationBuilding": "Building",
+  "@locationBuilding": {
+    "description": "Building label"
+  },
+  "locationFloor": "Floor",
+  "@locationFloor": {
+    "description": "Floor label"
+  },
+  "locationLatitude": "Latitude",
+  "@locationLatitude": {
+    "description": "Latitude label"
+  },
+  "locationLongitude": "Longitude",
+  "@locationLongitude": {
+    "description": "Longitude label"
+  },
+  "locationMetadata": "Metadata",
+  "@locationMetadata": {
+    "description": "Metadata section title"
+  },
+  "locationCreatedAt": "Created At",
+  "@locationCreatedAt": {
+    "description": "Created at label"
+  },
+  "locationUpdatedAt": "Updated At",
+  "@locationUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "locationOnlyAdminCanEdit": "Only admin can edit locations",
+  "@locationOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "locationOnlyAdminCanDelete": "Only admin can delete locations",
+  "@locationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "locationFailedToLoad": "Failed to load location",
+  "@locationFailedToLoad": {
+    "description": "Error message when location fails to load"
+  },
+  "locationDeleted": "Location deleted",
+  "@locationDeleted": {
+    "description": "Success message for location deletion"
+  },
+  "locationDeleteFailed": "Delete failed",
+  "@locationDeleteFailed": {
+    "description": "Error message for location deletion failure"
+  },
+  "locationEditLocation": "Edit Location",
+  "@locationEditLocation": {
+    "description": "Edit location screen title"
+  },
+  "locationCreateLocation": "Create Location",
+  "@locationCreateLocation": {
+    "description": "Create location screen title"
+  },
+  "locationFillRequiredFields": "Please fill all required fields",
+  "@locationFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "locationSavedSuccessfully": "Location saved successfully",
+  "@locationSavedSuccessfully": {
+    "description": "Success message for location save"
+  },
+  "locationOperationFailed": "Operation failed",
+  "@locationOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "locationFailedToLoadTranslations": "Failed to load translations",
+  "@locationFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "locationEnterLocationCode": "Enter location code (e.g., LOC-001)",
+  "@locationEnterLocationCode": {
+    "description": "Location code input placeholder"
+  },
+  "locationBuildingOptional": "Building (Optional)",
+  "@locationBuildingOptional": {
+    "description": "Building input label"
+  },
+  "locationEnterBuilding": "Enter building name",
+  "@locationEnterBuilding": {
+    "description": "Building input placeholder"
+  },
+  "locationFloorOptional": "Floor (Optional)",
+  "@locationFloorOptional": {
+    "description": "Floor input label"
+  },
+  "locationEnterFloor": "Enter floor number",
+  "@locationEnterFloor": {
+    "description": "Floor input placeholder"
+  },
+  "locationLatitudeOptional": "Latitude (Optional)",
+  "@locationLatitudeOptional": {
+    "description": "Latitude input label"
+  },
+  "locationEnterLatitude": "Enter latitude",
+  "@locationEnterLatitude": {
+    "description": "Latitude input placeholder"
+  },
+  "locationLongitudeOptional": "Longitude (Optional)",
+  "@locationLongitudeOptional": {
+    "description": "Longitude input label"
+  },
+  "locationEnterLongitude": "Enter longitude",
+  "@locationEnterLongitude": {
+    "description": "Longitude input placeholder"
+  },
+  "locationGettingLocation": "Getting Location...",
+  "@locationGettingLocation": {
+    "description": "Getting location button text when loading"
+  },
+  "locationUseCurrentLocation": "Use Current Location",
+  "@locationUseCurrentLocation": {
+    "description": "Use current location button label"
+  },
+  "locationServicesDisabled": "Location services are disabled",
+  "@locationServicesDisabled": {
+    "description": "Warning message for disabled location services"
+  },
+  "locationServicesDialogTitle": "Location Services Disabled",
+  "@locationServicesDialogTitle": {
+    "description": "Location services dialog title"
+  },
+  "locationServicesDialogMessage": "Location services are required to get your current location. Would you like to enable them?",
+  "@locationServicesDialogMessage": {
+    "description": "Location services dialog message"
+  },
+  "locationOpenSettings": "Open Settings",
+  "@locationOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "locationPermissionDenied": "Location permission denied",
+  "@locationPermissionDenied": {
+    "description": "Error message for denied permission"
+  },
+  "locationPermissionPermanentlyDenied": "Location permission permanently denied",
+  "@locationPermissionPermanentlyDenied": {
+    "description": "Error message for permanently denied permission"
+  },
+  "locationPermissionRequired": "Permission Required",
+  "@locationPermissionRequired": {
+    "description": "Permission required dialog title"
+  },
+  "locationPermissionDialogMessage": "Location permission is permanently denied. Please enable it in app settings.",
+  "@locationPermissionDialogMessage": {
+    "description": "Permission dialog message"
+  },
+  "locationRetrievedSuccessfully": "Current location retrieved successfully",
+  "@locationRetrievedSuccessfully": {
+    "description": "Success message for getting current location"
+  },
+  "locationFailedToGetCurrent": "Failed to get current location",
+  "@locationFailedToGetCurrent": {
+    "description": "Error message for failed location retrieval"
+  },
+  "locationTranslations": "Translations",
+  "@locationTranslations": {
+    "description": "Translations section title"
+  },
+  "locationTranslationsSubtitle": "Add translations for different languages",
+  "@locationTranslationsSubtitle": {
+    "description": "Translations section subtitle"
+  },
+  "locationEnglish": "English",
+  "@locationEnglish": {
+    "description": "English language label"
+  },
+  "locationJapanese": "Japanese",
+  "@locationJapanese": {
+    "description": "Japanese language label"
+  },
+  "locationEnterLocationName": "Enter location name",
+  "@locationEnterLocationName": {
+    "description": "Location name input placeholder"
+  },
+  "locationUpdate": "Update",
+  "@locationUpdate": {
+    "description": "Update button label"
+  },
+  "locationCreate": "Create",
+  "@locationCreate": {
+    "description": "Create button label"
+  },
+  "locationManagement": "Location Management",
+  "@locationManagement": {
+    "description": "Location management screen title"
+  },
+  "locationCreateLocationTitle": "Create Location",
+  "@locationCreateLocationTitle": {
+    "description": "Create location option title"
+  },
+  "locationCreateLocationSubtitle": "Add a new location",
+  "@locationCreateLocationSubtitle": {
+    "description": "Create location option subtitle"
+  },
+  "locationSelectManyTitle": "Select Many",
+  "@locationSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "locationSelectManySubtitle": "Select multiple locations to delete",
+  "@locationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "locationFilterAndSortTitle": "Filter & Sort",
+  "@locationFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "locationFilterAndSortSubtitle": "Customize location display",
+  "@locationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "locationSelectLocationsToDelete": "Select locations to delete",
+  "@locationSelectLocationsToDelete": {
+    "description": "Instruction for selecting locations to delete"
+  },
+  "locationSortBy": "Sort By",
+  "@locationSortBy": {
+    "description": "Sort by label"
+  },
+  "locationSortOrder": "Sort Order",
+  "@locationSortOrder": {
+    "description": "Sort order label"
+  },
+  "locationReset": "Reset",
+  "@locationReset": {
+    "description": "Reset button label"
+  },
+  "locationApply": "Apply",
+  "@locationApply": {
+    "description": "Apply button label"
+  },
+  "locationFilterReset": "Filter reset",
+  "@locationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "locationFilterApplied": "Filter applied",
+  "@locationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "locationDeleteLocations": "Delete Locations",
+  "@locationDeleteLocations": {
+    "description": "Delete locations dialog title"
+  },
+  "locationDeleteMultipleConfirmation": "Are you sure you want to delete {count} locations?",
+  "@locationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple locations",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "locationNoLocationsSelected": "No locations selected",
+  "@locationNoLocationsSelected": {
+    "description": "Warning message when no locations are selected"
+  },
+  "locationNotImplementedYet": "Not implemented yet",
+  "@locationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "locationSelectedCount": "{count} selected",
+  "@locationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "locationSearchLocations": "Search locations...",
+  "@locationSearchLocations": {
+    "description": "Locations search placeholder"
+  },
+  "locationNoLocationsFound": "No locations found",
+  "@locationNoLocationsFound": {
+    "description": "No locations found message"
+  },
+  "locationCreateFirstLocation": "Create your first location to get started",
+  "@locationCreateFirstLocation": {
+    "description": "Empty state message for locations"
+  },
+  "locationLongPressToSelect": "Long press to select more locations",
+  "@locationLongPressToSelect": {
+    "description": "Instruction for selecting multiple locations"
+  },
+  "locationFloorPrefix": "Floor {floor}",
+  "@locationFloorPrefix": {
+    "description": "Floor prefix display",
+    "placeholders": {
+      "floor": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "locationValidationCodeRequired": "Location code is required",
+  "@locationValidationCodeRequired": {
+    "description": "Validation error for required location code"
+  },
+  "locationValidationCodeMinLength": "Location code must be at least 2 characters",
+  "@locationValidationCodeMinLength": {
+    "description": "Validation error for location code minimum length"
+  },
+  "locationValidationCodeMaxLength": "Location code must not exceed 20 characters",
+  "@locationValidationCodeMaxLength": {
+    "description": "Validation error for location code maximum length"
+  },
+  "locationValidationCodeAlphanumeric": "Location code can only contain letters, numbers, and dashes",
+  "@locationValidationCodeAlphanumeric": {
+    "description": "Validation error for location code format"
+  },
+  "locationValidationNameRequired": "Location name is required",
+  "@locationValidationNameRequired": {
+    "description": "Validation error for required location name"
+  },
+  "locationValidationNameMinLength": "Location name must be at least 3 characters",
+  "@locationValidationNameMinLength": {
+    "description": "Validation error for location name minimum length"
+  },
+  "locationValidationNameMaxLength": "Location name must not exceed 100 characters",
+  "@locationValidationNameMaxLength": {
+    "description": "Validation error for location name maximum length"
+  },
+  "locationValidationBuildingMaxLength": "Building must not exceed 50 characters",
+  "@locationValidationBuildingMaxLength": {
+    "description": "Validation error for building maximum length"
+  },
+  "locationValidationFloorMaxLength": "Floor must not exceed 20 characters",
+  "@locationValidationFloorMaxLength": {
+    "description": "Validation error for floor maximum length"
+  },
+  "locationValidationLatitudeInvalid": "Latitude must be a valid number",
+  "@locationValidationLatitudeInvalid": {
+    "description": "Validation error for invalid latitude"
+  },
+  "locationValidationLatitudeRange": "Latitude must be between -90 and 90",
+  "@locationValidationLatitudeRange": {
+    "description": "Validation error for latitude range"
+  },
+  "locationValidationLongitudeInvalid": "Longitude must be a valid number",
+  "@locationValidationLongitudeInvalid": {
+    "description": "Validation error for invalid longitude"
+  },
+  "locationValidationLongitudeRange": "Longitude must be between -180 and 180",
+  "@locationValidationLongitudeRange": {
+    "description": "Validation error for longitude range"
+  }
+}

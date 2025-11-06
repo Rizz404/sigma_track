@@ -1,0 +1,195 @@
+{
+  "@@locale": "en",
+  "scanLogManagement": "Scan Log Management",
+  "@scanLogManagement": {
+    "description": "Scan log management screen title"
+  },
+  "scanLogDetail": "Scan Log Detail",
+  "@scanLogDetail": {
+    "description": "Scan log detail screen title"
+  },
+  "scanLogDeleteScanLog": "Delete Scan Log",
+  "@scanLogDeleteScanLog": {
+    "description": "Dialog title for deleting a scan log"
+  },
+  "scanLogDeleteConfirmation": "Are you sure you want to delete this scan log?",
+  "@scanLogDeleteConfirmation": {
+    "description": "Confirmation message for deleting a scan log"
+  },
+  "scanLogDeleteMultipleConfirmation": "Are you sure you want to delete {count} scan logs?",
+  "@scanLogDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple scan logs",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogCancel": "Cancel",
+  "@scanLogCancel": {
+    "description": "Cancel button label"
+  },
+  "scanLogDelete": "Delete",
+  "@scanLogDelete": {
+    "description": "Delete button label"
+  },
+  "scanLogOnlyAdminCanDelete": "Only admin can delete scan logs",
+  "@scanLogOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "scanLogDeleted": "Scan log deleted",
+  "@scanLogDeleted": {
+    "description": "Success message for scan log deletion"
+  },
+  "scanLogDeleteFailed": "Delete failed",
+  "@scanLogDeleteFailed": {
+    "description": "Error message for scan log deletion failure"
+  },
+  "scanLogFailedToLoad": "Failed to load scan log",
+  "@scanLogFailedToLoad": {
+    "description": "Error message when scan log fails to load"
+  },
+  "scanLogInformation": "Scan Information",
+  "@scanLogInformation": {
+    "description": "Scan information section title"
+  },
+  "scanLogScannedValue": "Scanned Value",
+  "@scanLogScannedValue": {
+    "description": "Scanned value label"
+  },
+  "scanLogScanMethod": "Scan Method",
+  "@scanLogScanMethod": {
+    "description": "Scan method label"
+  },
+  "scanLogScanResult": "Scan Result",
+  "@scanLogScanResult": {
+    "description": "Scan result label"
+  },
+  "scanLogScanTimestamp": "Scan Timestamp",
+  "@scanLogScanTimestamp": {
+    "description": "Scan timestamp label"
+  },
+  "scanLogLocation": "Location",
+  "@scanLogLocation": {
+    "description": "Location label"
+  },
+  "scanLogSearchScanLogs": "Search scan logs...",
+  "@scanLogSearchScanLogs": {
+    "description": "Scan logs search placeholder"
+  },
+  "scanLogNoScanLogsFound": "No scan logs found",
+  "@scanLogNoScanLogsFound": {
+    "description": "No scan logs found message"
+  },
+  "scanLogCreateFirstScanLog": "Create your first scan log to get started",
+  "@scanLogCreateFirstScanLog": {
+    "description": "Empty state message for scan logs"
+  },
+  "scanLogCreateScanLog": "Create Scan Log",
+  "@scanLogCreateScanLog": {
+    "description": "Create scan log option title"
+  },
+  "scanLogCreateScanLogSubtitle": "Add a new scan log",
+  "@scanLogCreateScanLogSubtitle": {
+    "description": "Create scan log option subtitle"
+  },
+  "scanLogSelectMany": "Select Many",
+  "@scanLogSelectMany": {
+    "description": "Select many option title"
+  },
+  "scanLogSelectManySubtitle": "Select multiple scan logs to delete",
+  "@scanLogSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "scanLogFilterAndSort": "Filter & Sort",
+  "@scanLogFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "scanLogFilterAndSortSubtitle": "Customize scan log display",
+  "@scanLogFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "scanLogFiltersAndSorting": "Filters & Sorting",
+  "@scanLogFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "scanLogSelectScanLogsToDelete": "Select scan logs to delete",
+  "@scanLogSelectScanLogsToDelete": {
+    "description": "Instruction for selecting scan logs to delete"
+  },
+  "scanLogLongPressToSelect": "Long press to select more scan logs",
+  "@scanLogLongPressToSelect": {
+    "description": "Instruction for selecting multiple scan logs"
+  },
+  "scanLogSelectedCount": "{count} selected",
+  "@scanLogSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogNoScanLogsSelected": "No scan logs selected",
+  "@scanLogNoScanLogsSelected": {
+    "description": "Warning message when no scan logs are selected"
+  },
+  "scanLogFilterByAsset": "Filter by Asset",
+  "@scanLogFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "scanLogFilterByScannedBy": "Filter by Scanned By",
+  "@scanLogFilterByScannedBy": {
+    "description": "Filter by scanned by label"
+  },
+  "scanLogSearchAsset": "Search asset...",
+  "@scanLogSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "scanLogSearchUser": "Search user...",
+  "@scanLogSearchUser": {
+    "description": "User search placeholder"
+  },
+  "scanLogSortBy": "Sort By",
+  "@scanLogSortBy": {
+    "description": "Sort by label"
+  },
+  "scanLogSortOrder": "Sort Order",
+  "@scanLogSortOrder": {
+    "description": "Sort order label"
+  },
+  "scanLogHasCoordinates": "Has Coordinates",
+  "@scanLogHasCoordinates": {
+    "description": "Has coordinates checkbox label"
+  },
+  "scanLogDateFrom": "Date From",
+  "@scanLogDateFrom": {
+    "description": "Date from label"
+  },
+  "scanLogDateTo": "Date To",
+  "@scanLogDateTo": {
+    "description": "Date to label"
+  },
+  "scanLogReset": "Reset",
+  "@scanLogReset": {
+    "description": "Reset button label"
+  },
+  "scanLogApply": "Apply",
+  "@scanLogApply": {
+    "description": "Apply button label"
+  },
+  "scanLogFilterReset": "Filter reset",
+  "@scanLogFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "scanLogFilterApplied": "Filter applied",
+  "@scanLogFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "scanLogNotImplementedYet": "Not implemented yet",
+  "@scanLogNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  }
+}

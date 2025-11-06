@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -106,7 +107,7 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
     if (isAdmin) {
       context.push(RouteConstant.adminLocationUpsert, extra: _location);
     } else {
-      AppToast.warning('Only admin can edit locations');
+      AppToast.warning(context.l10n.locationOnlyAdminCanEdit);
     }
   }
 
@@ -117,30 +118,30 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete locations');
+      AppToast.warning(context.l10n.locationOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Location',
+        title: AppText(
+          context.l10n.locationDeleteLocation,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete "${_location!.locationName}"?',
+          context.l10n.locationDeleteConfirmation(_location!.locationName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.locationCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.locationDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -164,11 +165,15 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Location deleted');
+          AppToast.success(
+            next.mutationMessage ?? context.l10n.locationDeleted,
+          );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.locationDeleteFailed,
+          );
         }
       }
     });
@@ -180,7 +185,9 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading ? 'Location Detail' : _location!.locationName,
+        title: isLoading
+            ? context.l10n.locationDetail
+            : _location!.locationName,
       ),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
@@ -209,17 +216,32 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Location Information', [
-            _buildInfoRow('Location Code', dummyLocation.locationCode),
-            _buildInfoRow('Location Name', dummyLocation.locationName),
+          _buildInfoCard(context.l10n.locationInformation, [
+            _buildInfoRow(
+              context.l10n.locationCode,
+              dummyLocation.locationCode,
+            ),
+            _buildInfoRow(
+              context.l10n.locationName,
+              dummyLocation.locationName,
+            ),
             if (dummyLocation.building != null)
-              _buildInfoRow('Building', dummyLocation.building!),
+              _buildInfoRow(
+                context.l10n.locationBuilding,
+                dummyLocation.building!,
+              ),
             if (dummyLocation.floor != null)
-              _buildInfoRow('Floor', dummyLocation.floor!),
+              _buildInfoRow(context.l10n.locationFloor, dummyLocation.floor!),
             if (dummyLocation.latitude != null)
-              _buildInfoRow('Latitude', dummyLocation.latitude!.toString()),
+              _buildInfoRow(
+                context.l10n.locationLatitude,
+                dummyLocation.latitude!.toString(),
+              ),
             if (dummyLocation.longitude != null)
-              _buildInfoRow('Longitude', dummyLocation.longitude!.toString()),
+              _buildInfoRow(
+                context.l10n.locationLongitude,
+                dummyLocation.longitude!.toString(),
+              ),
           ]),
         ],
       ),
@@ -231,22 +253,37 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Location Information', [
-            _buildInfoRow('Location Code', _location!.locationCode),
-            _buildInfoRow('Location Name', _location!.locationName),
+          _buildInfoCard(context.l10n.locationInformation, [
+            _buildInfoRow(context.l10n.locationCode, _location!.locationCode),
+            _buildInfoRow(context.l10n.locationName, _location!.locationName),
             if (_location!.building != null)
-              _buildInfoRow('Building', _location!.building!),
+              _buildInfoRow(
+                context.l10n.locationBuilding,
+                _location!.building!,
+              ),
             if (_location!.floor != null)
-              _buildInfoRow('Floor', _location!.floor!),
+              _buildInfoRow(context.l10n.locationFloor, _location!.floor!),
             if (_location!.latitude != null)
-              _buildInfoRow('Latitude', _location!.latitude!.toString()),
+              _buildInfoRow(
+                context.l10n.locationLatitude,
+                _location!.latitude!.toString(),
+              ),
             if (_location!.longitude != null)
-              _buildInfoRow('Longitude', _location!.longitude!.toString()),
+              _buildInfoRow(
+                context.l10n.locationLongitude,
+                _location!.longitude!.toString(),
+              ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
-            _buildInfoRow('Created At', _formatDateTime(_location!.createdAt)),
-            _buildInfoRow('Updated At', _formatDateTime(_location!.updatedAt)),
+          _buildInfoCard(context.l10n.locationMetadata, [
+            _buildInfoRow(
+              context.l10n.locationCreatedAt,
+              _formatDateTime(_location!.createdAt),
+            ),
+            _buildInfoRow(
+              context.l10n.locationUpdatedAt,
+              _formatDateTime(_location!.updatedAt),
+            ),
           ]),
         ],
       ),

@@ -1,77 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class LocationUpsertValidator {
-  static String? validateLocationCode(String? value, {bool isUpdate = false}) {
+  static String? validateLocationCode(BuildContext context, String? value, {bool isUpdate = false}) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Location code is required';
+      return context.l10n.locationValidationCodeRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 2) {
-        return 'Location code must be at least 2 characters';
+        return context.l10n.locationValidationCodeMinLength;
       }
       if (value.length > 20) {
-        return 'Location code must not exceed 20 characters';
+        return context.l10n.locationValidationCodeMaxLength;
       }
       // ! Location code hanya boleh alfanumerik dan dash
       if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
-        return 'Location code can only contain letters, numbers, and dashes';
+        return context.l10n.locationValidationCodeAlphanumeric;
       }
     }
     return null;
   }
 
-  static String? validateLocationName(String? value, {bool isUpdate = false}) {
+  static String? validateLocationName(BuildContext context, String? value, {bool isUpdate = false}) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Location name is required';
+      return context.l10n.locationValidationNameRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
-        return 'Location name must be at least 3 characters';
+        return context.l10n.locationValidationNameMinLength;
       }
       if (value.length > 100) {
-        return 'Location name must not exceed 100 characters';
+        return context.l10n.locationValidationNameMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateBuilding(String? value, {bool isUpdate = false}) {
+  static String? validateBuilding(BuildContext context, String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 50) {
-        return 'Building must not exceed 50 characters';
+        return context.l10n.locationValidationBuildingMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateFloor(String? value, {bool isUpdate = false}) {
+  static String? validateFloor(BuildContext context, String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 20) {
-        return 'Floor must not exceed 20 characters';
+        return context.l10n.locationValidationFloorMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateLatitude(String? value, {bool isUpdate = false}) {
+  static String? validateLatitude(BuildContext context, String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
       final lat = double.tryParse(value);
       if (lat == null) {
-        return 'Latitude must be a valid number';
+        return context.l10n.locationValidationLatitudeInvalid;
       }
       if (lat < -90 || lat > 90) {
-        return 'Latitude must be between -90 and 90';
+        return context.l10n.locationValidationLatitudeRange;
       }
     }
     return null;
   }
 
-  static String? validateLongitude(String? value, {bool isUpdate = false}) {
+  static String? validateLongitude(BuildContext context, String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
       final lng = double.tryParse(value);
       if (lng == null) {
-        return 'Longitude must be a valid number';
+        return context.l10n.locationValidationLongitudeInvalid;
       }
       if (lng < -180 || lng > 180) {
-        return 'Longitude must be between -180 and 180';
+        return context.l10n.locationValidationLongitudeRange;
       }
     }
     return null;

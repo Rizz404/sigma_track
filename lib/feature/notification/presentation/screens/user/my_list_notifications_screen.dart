@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -121,8 +122,8 @@ class _MyListNotificationsScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const AppText(
-                      'Filters & Sorting',
+                    AppText(
+                      context.l10n.notificationFiltersAndSorting,
                       style: AppTextStyle.titleMedium,
                     ),
                     IconButton(
@@ -142,7 +143,7 @@ class _MyListNotificationsScreenState
                     children: [
                       AppDropdown<String>(
                         name: 'type',
-                        label: 'Type',
+                        label: context.l10n.notificationType,
                         initialValue: currentFilter.type?.value,
                         items: NotificationType.values
                             .map(
@@ -156,17 +157,23 @@ class _MyListNotificationsScreenState
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'isRead',
-                        label: 'Read Status',
+                        label: context.l10n.notificationReadStatus,
                         initialValue: currentFilter.isRead?.toString(),
-                        items: const [
-                          AppDropdownItem(value: 'true', label: 'Read'),
-                          AppDropdownItem(value: 'false', label: 'Unread'),
+                        items: [
+                          AppDropdownItem(
+                            value: 'true',
+                            label: context.l10n.notificationRead,
+                          ),
+                          AppDropdownItem(
+                            value: 'false',
+                            label: context.l10n.notificationUnread,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortBy',
-                        label: 'Sort By',
+                        label: context.l10n.notificationSortBy,
                         initialValue: currentFilter.sortBy?.value,
                         items: NotificationSortBy.values
                             .map(
@@ -180,7 +187,7 @@ class _MyListNotificationsScreenState
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortOrder',
-                        label: 'Sort Order',
+                        label: context.l10n.notificationSortOrder,
                         initialValue: currentFilter.sortOrder?.value,
                         items: SortOrder.values
                             .map(
@@ -193,7 +200,7 @@ class _MyListNotificationsScreenState
                       ),
                       const SizedBox(height: 24),
                       AppButton(
-                        text: 'Apply Filters',
+                        text: context.l10n.notificationApplyFilters,
                         onPressed: () {
                           _applyFilter();
                           Navigator.pop(context);
@@ -229,7 +236,7 @@ class _MyListNotificationsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'My Notifications'),
+      appBar: CustomAppBar(title: context.l10n.notificationMyNotifications),
       body: ScreenWrapper(
         child: Column(
           children: [
@@ -260,7 +267,7 @@ class _MyListNotificationsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search my notifications...',
+      hintText: context.l10n.notificationSearchMyNotifications,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -304,7 +311,9 @@ class _MyListNotificationsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                hasActiveFilters ? 'Filters Applied' : 'Filter & Sort',
+                hasActiveFilters
+                    ? context.l10n.notificationFiltersApplied
+                    : context.l10n.notificationFilterAndSort,
                 style: AppTextStyle.bodyMedium,
                 color: hasActiveFilters
                     ? context.colorScheme.primary
@@ -346,13 +355,13 @@ class _MyListNotificationsScreenState
           ),
           const SizedBox(height: 16),
           AppText(
-            'No notifications found',
+            context.l10n.notificationNoNotificationsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'You have no notifications',
+            context.l10n.notificationNoNotificationsYet,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),

@@ -1,0 +1,265 @@
+{
+  "@@locale": "en",
+  "notificationManagement": "Notification Management",
+  "@notificationManagement": {
+    "description": "Notification management screen title"
+  },
+  "notificationDetail": "Notification Detail",
+  "@notificationDetail": {
+    "description": "Notification detail screen title"
+  },
+  "notificationMyNotifications": "My Notifications",
+  "@notificationMyNotifications": {
+    "description": "My notifications screen title"
+  },
+  "notificationDeleteNotification": "Delete Notification",
+  "@notificationDeleteNotification": {
+    "description": "Dialog title for deleting a notification"
+  },
+  "notificationDeleteConfirmation": "Are you sure you want to delete this notification?",
+  "@notificationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a notification"
+  },
+  "notificationDeleteMultipleConfirmation": "Are you sure you want to delete {count} notifications?",
+  "@notificationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple notifications",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationCancel": "Cancel",
+  "@notificationCancel": {
+    "description": "Cancel button label"
+  },
+  "notificationDelete": "Delete",
+  "@notificationDelete": {
+    "description": "Delete button label"
+  },
+  "notificationOnlyAdminCanDelete": "Only admin can delete notifications",
+  "@notificationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "notificationDeleted": "Notification deleted",
+  "@notificationDeleted": {
+    "description": "Success message for notification deletion"
+  },
+  "notificationDeleteFailed": "Delete failed",
+  "@notificationDeleteFailed": {
+    "description": "Error message for notification deletion failure"
+  },
+  "notificationFailedToLoad": "Failed to load notification",
+  "@notificationFailedToLoad": {
+    "description": "Error message when notification fails to load"
+  },
+  "notificationInformation": "Notification Information",
+  "@notificationInformation": {
+    "description": "Notification information section title"
+  },
+  "notificationTitle": "Title",
+  "@notificationTitle": {
+    "description": "Title label"
+  },
+  "notificationMessage": "Message",
+  "@notificationMessage": {
+    "description": "Message label"
+  },
+  "notificationType": "Type",
+  "@notificationType": {
+    "description": "Type label"
+  },
+  "notificationPriority": "Priority",
+  "@notificationPriority": {
+    "description": "Priority label"
+  },
+  "notificationIsRead": "Is Read",
+  "@notificationIsRead": {
+    "description": "Is read label"
+  },
+  "notificationReadStatus": "Read Status",
+  "@notificationReadStatus": {
+    "description": "Read status label"
+  },
+  "notificationRead": "Read",
+  "@notificationRead": {
+    "description": "Read status value"
+  },
+  "notificationUnread": "Unread",
+  "@notificationUnread": {
+    "description": "Unread status value"
+  },
+  "notificationYes": "Yes",
+  "@notificationYes": {
+    "description": "Yes label"
+  },
+  "notificationNo": "No",
+  "@notificationNo": {
+    "description": "No label"
+  },
+  "notificationCreatedAt": "Created At",
+  "@notificationCreatedAt": {
+    "description": "Created at label"
+  },
+  "notificationExpiresAt": "Expires At",
+  "@notificationExpiresAt": {
+    "description": "Expires at label"
+  },
+  "notificationSearchNotifications": "Search notifications...",
+  "@notificationSearchNotifications": {
+    "description": "Notifications search placeholder"
+  },
+  "notificationSearchMyNotifications": "Search my notifications...",
+  "@notificationSearchMyNotifications": {
+    "description": "My notifications search placeholder"
+  },
+  "notificationNoNotificationsFound": "No notifications found",
+  "@notificationNoNotificationsFound": {
+    "description": "No notifications found message"
+  },
+  "notificationNoNotificationsYet": "You have no notifications",
+  "@notificationNoNotificationsYet": {
+    "description": "Empty state message for user notifications"
+  },
+  "notificationCreateFirstNotification": "Create your first notification to get started",
+  "@notificationCreateFirstNotification": {
+    "description": "Empty state message for notifications"
+  },
+  "notificationCreateNotification": "Create Notification",
+  "@notificationCreateNotification": {
+    "description": "Create notification option title"
+  },
+  "notificationCreateNotificationSubtitle": "Add a new notification",
+  "@notificationCreateNotificationSubtitle": {
+    "description": "Create notification option subtitle"
+  },
+  "notificationSelectMany": "Select Many",
+  "@notificationSelectMany": {
+    "description": "Select many option title"
+  },
+  "notificationSelectManySubtitle": "Select multiple notifications to delete",
+  "@notificationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "notificationFilterAndSort": "Filter & Sort",
+  "@notificationFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "notificationFilterAndSortSubtitle": "Customize notification display",
+  "@notificationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "notificationFiltersAndSorting": "Filters & Sorting",
+  "@notificationFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "notificationSelectNotificationsToDelete": "Select notifications to delete",
+  "@notificationSelectNotificationsToDelete": {
+    "description": "Instruction for selecting notifications to delete"
+  },
+  "notificationLongPressToSelect": "Long press to select more notifications",
+  "@notificationLongPressToSelect": {
+    "description": "Instruction for selecting multiple notifications"
+  },
+  "notificationSelectedCount": "{count} selected",
+  "@notificationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationNoNotificationsSelected": "No notifications selected",
+  "@notificationNoNotificationsSelected": {
+    "description": "Warning message when no notifications are selected"
+  },
+  "notificationFilterByUser": "Filter by User",
+  "@notificationFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "notificationFilterByRelatedAsset": "Filter by Related Asset",
+  "@notificationFilterByRelatedAsset": {
+    "description": "Filter by related asset label"
+  },
+  "notificationSearchUser": "Search user...",
+  "@notificationSearchUser": {
+    "description": "User search placeholder"
+  },
+  "notificationSearchAsset": "Search asset...",
+  "@notificationSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "notificationSortBy": "Sort By",
+  "@notificationSortBy": {
+    "description": "Sort by label"
+  },
+  "notificationSortOrder": "Sort Order",
+  "@notificationSortOrder": {
+    "description": "Sort order label"
+  },
+  "notificationReset": "Reset",
+  "@notificationReset": {
+    "description": "Reset button label"
+  },
+  "notificationApply": "Apply",
+  "@notificationApply": {
+    "description": "Apply button label"
+  },
+  "notificationApplyFilters": "Apply Filters",
+  "@notificationApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "notificationFilterReset": "Filter reset",
+  "@notificationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "notificationFilterApplied": "Filter applied",
+  "@notificationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "notificationFiltersApplied": "Filters Applied",
+  "@notificationFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "notificationNotImplementedYet": "Not implemented yet",
+  "@notificationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "notificationJustNow": "Just now",
+  "@notificationJustNow": {
+    "description": "Time ago for just now"
+  },
+  "notificationMinutesAgo": "{minutes}m ago",
+  "@notificationMinutesAgo": {
+    "description": "Time ago in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationHoursAgo": "{hours}h ago",
+  "@notificationHoursAgo": {
+    "description": "Time ago in hours",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "notificationDaysAgo": "{days}d ago",
+  "@notificationDaysAgo": {
+    "description": "Time ago in days",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  }
+}

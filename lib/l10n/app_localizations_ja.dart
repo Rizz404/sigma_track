@@ -1281,6 +1281,1657 @@ class L10nJa extends L10n {
   String get homeScreen => 'ホーム';
 
   @override
+  String get issueReportDeleteIssueReport => '問題報告を削除';
+
+  @override
+  String issueReportDeleteConfirmation(String title) {
+    return '\"$title\"を削除してもよろしいですか？';
+  }
+
+  @override
+  String get issueReportCancel => 'キャンセル';
+
+  @override
+  String get issueReportDelete => '削除';
+
+  @override
+  String get issueReportDetail => '問題報告詳細';
+
+  @override
+  String get issueReportInformation => '問題報告情報';
+
+  @override
+  String get issueReportTitle => 'タイトル';
+
+  @override
+  String get issueReportDescription => '説明';
+
+  @override
+  String get issueReportAsset => '資産';
+
+  @override
+  String get issueReportIssueType => '問題タイプ';
+
+  @override
+  String get issueReportPriority => '優先度';
+
+  @override
+  String get issueReportStatus => 'ステータス';
+
+  @override
+  String get issueReportReportedBy => '報告者';
+
+  @override
+  String get issueReportReportedDate => '報告日';
+
+  @override
+  String get issueReportResolvedDate => '解決日';
+
+  @override
+  String get issueReportResolvedBy => '解決者';
+
+  @override
+  String get issueReportResolutionNotes => '解決メモ';
+
+  @override
+  String get issueReportMetadata => 'メタデータ';
+
+  @override
+  String get issueReportCreatedAt => '作成日時';
+
+  @override
+  String get issueReportUpdatedAt => '更新日時';
+
+  @override
+  String get issueReportOnlyAdminCanEdit => '問題報告を編集できるのは管理者のみです';
+
+  @override
+  String get issueReportOnlyAdminCanDelete => '問題報告を削除できるのは管理者のみです';
+
+  @override
+  String get issueReportFailedToLoad => '問題報告の読み込みに失敗しました';
+
+  @override
+  String get issueReportDeletedSuccess => '問題報告が削除されました';
+
+  @override
+  String get issueReportDeletedFailed => '削除に失敗しました';
+
+  @override
+  String get issueReportUnknownAsset => '不明な資産';
+
+  @override
+  String get issueReportUnknownUser => '不明なユーザー';
+
+  @override
+  String get issueReportEditIssueReport => '問題報告を編集';
+
+  @override
+  String get issueReportCreateIssueReport => '問題報告を作成';
+
+  @override
+  String get issueReportFillRequiredFields => '必須フィールドをすべて入力してください';
+
+  @override
+  String get issueReportSavedSuccessfully => '問題報告が正常に保存されました';
+
+  @override
+  String get issueReportOperationFailed => '操作に失敗しました';
+
+  @override
+  String get issueReportFailedToLoadTranslations => '翻訳の読み込みに失敗しました';
+
+  @override
+  String get issueReportSearchAsset => '資産を検索して選択';
+
+  @override
+  String get issueReportSearchReportedBy => '問題を報告したユーザーを検索して選択';
+
+  @override
+  String get issueReportEnterIssueType => '問題タイプを入力 (例: ハードウェア、ソフトウェア)';
+
+  @override
+  String get issueReportSelectPriority => '優先度を選択';
+
+  @override
+  String get issueReportSelectStatus => 'ステータスを選択';
+
+  @override
+  String get issueReportSearchResolvedBy => '問題を解決したユーザーを検索して選択';
+
+  @override
+  String get issueReportTranslations => '翻訳';
+
+  @override
+  String get issueReportEnglish => '英語';
+
+  @override
+  String get issueReportJapanese => '日本語';
+
+  @override
+  String issueReportEnterTitleIn(String language) {
+    return '$languageでタイトルを入力';
+  }
+
+  @override
+  String issueReportEnterDescriptionIn(String language) {
+    return '$languageで説明を入力';
+  }
+
+  @override
+  String issueReportEnterResolutionNotesIn(String language) {
+    return '$languageで解決メモを入力';
+  }
+
+  @override
+  String get issueReportUpdate => '更新';
+
+  @override
+  String get issueReportCreate => '作成';
+
+  @override
+  String get issueReportManagement => '問題報告管理';
+
+  @override
+  String get issueReportCreateIssueReportTitle => '問題報告を作成';
+
+  @override
+  String get issueReportCreateIssueReportSubtitle => '新しい問題報告を追加';
+
+  @override
+  String get issueReportSelectManyTitle => '複数選択';
+
+  @override
+  String get issueReportSelectManySubtitle => '削除する複数の問題報告を選択';
+
+  @override
+  String get issueReportFilterAndSortTitle => 'フィルターと並べ替え';
+
+  @override
+  String get issueReportFilterAndSortSubtitle => '問題報告表示をカスタマイズ';
+
+  @override
+  String get issueReportSelectIssueReportsToDelete => '削除する問題報告を選択';
+
+  @override
+  String get issueReportDeleteIssueReports => '問題報告を削除';
+
+  @override
+  String issueReportDeleteMultipleConfirmation(int count) {
+    return '$count個の問題報告を削除してもよろしいですか？';
+  }
+
+  @override
+  String get issueReportNoIssueReportsSelected => '問題報告が選択されていません';
+
+  @override
+  String get issueReportNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String issueReportSelectedCount(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get issueReportSearchIssueReports => '問題報告を検索...';
+
+  @override
+  String get issueReportNoIssueReportsFound => '問題報告が見つかりません';
+
+  @override
+  String get issueReportCreateFirstIssueReport => '最初の問題報告を作成して開始しましょう';
+
+  @override
+  String get issueReportLongPressToSelect => '長押ししてさらに問題報告を選択';
+
+  @override
+  String get issueReportFilterByAsset => '資産でフィルター';
+
+  @override
+  String get issueReportFilterByReportedBy => '報告者でフィルター';
+
+  @override
+  String get issueReportFilterByResolvedBy => '解決者でフィルター';
+
+  @override
+  String get issueReportSearchAssetFilter => '資産を検索...';
+
+  @override
+  String get issueReportSearchUserFilter => 'ユーザーを検索...';
+
+  @override
+  String get issueReportEnterIssueTypeFilter => '問題タイプを入力...';
+
+  @override
+  String get issueReportSortBy => '並べ替え';
+
+  @override
+  String get issueReportSortOrder => '並べ替え順序';
+
+  @override
+  String get issueReportIsResolved => '解決済み';
+
+  @override
+  String get issueReportDateFrom => '開始日';
+
+  @override
+  String get issueReportDateTo => '終了日';
+
+  @override
+  String get issueReportReset => 'リセット';
+
+  @override
+  String get issueReportApply => '適用';
+
+  @override
+  String get issueReportFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get issueReportFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get issueReportMyIssueReports => '私の問題報告';
+
+  @override
+  String get issueReportSearchMyIssueReports => '私の問題報告を検索...';
+
+  @override
+  String get issueReportFiltersAndSorting => 'フィルターと並べ替え';
+
+  @override
+  String get issueReportApplyFilters => 'フィルターを適用';
+
+  @override
+  String get issueReportFiltersApplied => 'フィルター適用済み';
+
+  @override
+  String get issueReportFilterAndSort => 'フィルターと並べ替え';
+
+  @override
+  String get issueReportNoIssueReportsFoundEmpty => '問題報告が見つかりません';
+
+  @override
+  String get issueReportYouHaveNoReportedIssues => '報告された問題はありません';
+
+  @override
+  String get issueReportCreateIssueReportTooltip => '問題報告を作成';
+
+  @override
+  String get issueReportValidationAssetRequired => '資産は必須です';
+
+  @override
+  String get issueReportValidationReportedByRequired => '報告者は必須です';
+
+  @override
+  String get issueReportValidationIssueTypeRequired => '問題タイプは必須です';
+
+  @override
+  String get issueReportValidationIssueTypeMaxLength =>
+      '問題タイプは100文字を超えることはできません';
+
+  @override
+  String get issueReportValidationPriorityRequired => '優先度は必須です';
+
+  @override
+  String get issueReportValidationStatusRequired => 'ステータスは必須です';
+
+  @override
+  String get issueReportValidationTitleRequired => 'タイトルは必須です';
+
+  @override
+  String get issueReportValidationTitleMaxLength => 'タイトルは200文字を超えることはできません';
+
+  @override
+  String get issueReportValidationDescriptionMaxLength =>
+      '説明は1000文字を超えることはできません';
+
+  @override
+  String get issueReportValidationResolutionNotesMaxLength =>
+      '解決メモは1000文字を超えることはできません';
+
+  @override
+  String get locationDeleteLocation => '場所を削除';
+
+  @override
+  String locationDeleteConfirmation(String locationName) {
+    return '\"$locationName\"を削除してもよろしいですか？';
+  }
+
+  @override
+  String get locationCancel => 'キャンセル';
+
+  @override
+  String get locationDelete => '削除';
+
+  @override
+  String get locationDetail => '場所詳細';
+
+  @override
+  String get locationInformation => '場所情報';
+
+  @override
+  String get locationCode => '場所コード';
+
+  @override
+  String get locationName => '場所名';
+
+  @override
+  String get locationBuilding => '建物';
+
+  @override
+  String get locationFloor => '階';
+
+  @override
+  String get locationLatitude => '緯度';
+
+  @override
+  String get locationLongitude => '経度';
+
+  @override
+  String get locationMetadata => 'メタデータ';
+
+  @override
+  String get locationCreatedAt => '作成日時';
+
+  @override
+  String get locationUpdatedAt => '更新日時';
+
+  @override
+  String get locationOnlyAdminCanEdit => '場所を編集できるのは管理者のみです';
+
+  @override
+  String get locationOnlyAdminCanDelete => '場所を削除できるのは管理者のみです';
+
+  @override
+  String get locationFailedToLoad => '場所の読み込みに失敗しました';
+
+  @override
+  String get locationDeleted => '場所が削除されました';
+
+  @override
+  String get locationDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get locationEditLocation => '場所を編集';
+
+  @override
+  String get locationCreateLocation => '場所を作成';
+
+  @override
+  String get locationFillRequiredFields => '必須フィールドをすべて入力してください';
+
+  @override
+  String get locationSavedSuccessfully => '場所が正常に保存されました';
+
+  @override
+  String get locationOperationFailed => '操作に失敗しました';
+
+  @override
+  String get locationFailedToLoadTranslations => '翻訳の読み込みに失敗しました';
+
+  @override
+  String get locationEnterLocationCode => '場所コードを入力 (例: LOC-001)';
+
+  @override
+  String get locationBuildingOptional => '建物 (オプション)';
+
+  @override
+  String get locationEnterBuilding => '建物名を入力';
+
+  @override
+  String get locationFloorOptional => '階 (オプション)';
+
+  @override
+  String get locationEnterFloor => '階数を入力';
+
+  @override
+  String get locationLatitudeOptional => '緯度 (オプション)';
+
+  @override
+  String get locationEnterLatitude => '緯度を入力';
+
+  @override
+  String get locationLongitudeOptional => '経度 (オプション)';
+
+  @override
+  String get locationEnterLongitude => '経度を入力';
+
+  @override
+  String get locationGettingLocation => '位置情報取得中...';
+
+  @override
+  String get locationUseCurrentLocation => '現在位置を使用';
+
+  @override
+  String get locationServicesDisabled => '位置情報サービスが無効です';
+
+  @override
+  String get locationServicesDialogTitle => '位置情報サービスが無効です';
+
+  @override
+  String get locationServicesDialogMessage =>
+      '現在位置を取得するには位置情報サービスが必要です。有効にしますか？';
+
+  @override
+  String get locationOpenSettings => '設定を開く';
+
+  @override
+  String get locationPermissionDenied => '位置情報許可が拒否されました';
+
+  @override
+  String get locationPermissionPermanentlyDenied => '位置情報許可が永続的に拒否されました';
+
+  @override
+  String get locationPermissionRequired => '許可が必要です';
+
+  @override
+  String get locationPermissionDialogMessage =>
+      '位置情報許可が永続的に拒否されています。アプリ設定で有効にしてください。';
+
+  @override
+  String get locationRetrievedSuccessfully => '現在位置を正常に取得しました';
+
+  @override
+  String get locationFailedToGetCurrent => '現在位置の取得に失敗しました';
+
+  @override
+  String get locationTranslations => '翻訳';
+
+  @override
+  String get locationTranslationsSubtitle => 'さまざまな言語の翻訳を追加';
+
+  @override
+  String get locationEnglish => '英語';
+
+  @override
+  String get locationJapanese => '日本語';
+
+  @override
+  String get locationEnterLocationName => '場所名を入力';
+
+  @override
+  String get locationUpdate => '更新';
+
+  @override
+  String get locationCreate => '作成';
+
+  @override
+  String get locationManagement => '場所管理';
+
+  @override
+  String get locationCreateLocationTitle => '場所を作成';
+
+  @override
+  String get locationCreateLocationSubtitle => '新しい場所を追加';
+
+  @override
+  String get locationSelectManyTitle => '複数選択';
+
+  @override
+  String get locationSelectManySubtitle => '削除する複数の場所を選択';
+
+  @override
+  String get locationFilterAndSortTitle => 'フィルターと並べ替え';
+
+  @override
+  String get locationFilterAndSortSubtitle => '場所表示をカスタマイズ';
+
+  @override
+  String get locationSelectLocationsToDelete => '削除する場所を選択';
+
+  @override
+  String get locationSortBy => '並べ替え';
+
+  @override
+  String get locationSortOrder => '並べ替え順序';
+
+  @override
+  String get locationReset => 'リセット';
+
+  @override
+  String get locationApply => '適用';
+
+  @override
+  String get locationFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get locationFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get locationDeleteLocations => '場所を削除';
+
+  @override
+  String locationDeleteMultipleConfirmation(int count) {
+    return '$count個の場所を削除してもよろしいですか？';
+  }
+
+  @override
+  String get locationNoLocationsSelected => '場所が選択されていません';
+
+  @override
+  String get locationNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String locationSelectedCount(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get locationSearchLocations => '場所を検索...';
+
+  @override
+  String get locationNoLocationsFound => '場所が見つかりません';
+
+  @override
+  String get locationCreateFirstLocation => '最初の場所を作成して開始しましょう';
+
+  @override
+  String get locationLongPressToSelect => '長押ししてさらに場所を選択';
+
+  @override
+  String locationFloorPrefix(String floor) {
+    return '$floor階';
+  }
+
+  @override
+  String get locationValidationCodeRequired => '場所コードは必須です';
+
+  @override
+  String get locationValidationCodeMinLength => '場所コードは2文字以上である必要があります';
+
+  @override
+  String get locationValidationCodeMaxLength => '場所コードは20文字を超えることはできません';
+
+  @override
+  String get locationValidationCodeAlphanumeric => '場所コードには英数字とダッシュのみ使用できます';
+
+  @override
+  String get locationValidationNameRequired => '場所名は必須です';
+
+  @override
+  String get locationValidationNameMinLength => '場所名は3文字以上である必要があります';
+
+  @override
+  String get locationValidationNameMaxLength => '場所名は100文字を超えることはできません';
+
+  @override
+  String get locationValidationBuildingMaxLength => '建物は50文字を超えることはできません';
+
+  @override
+  String get locationValidationFloorMaxLength => '階は20文字を超えることはできません';
+
+  @override
+  String get locationValidationLatitudeInvalid => '緯度は有効な数値である必要があります';
+
+  @override
+  String get locationValidationLatitudeRange => '緯度は-90から90の間である必要があります';
+
+  @override
+  String get locationValidationLongitudeInvalid => '経度は有効な数値である必要があります';
+
+  @override
+  String get locationValidationLongitudeRange => '経度は-180から180の間である必要があります';
+
+  @override
+  String get maintenanceScheduleDeleteSchedule => 'メンテナンススケジュールの削除';
+
+  @override
+  String maintenanceScheduleDeleteConfirmation(String title) {
+    return '「$title」を削除してもよろしいですか？';
+  }
+
+  @override
+  String get maintenanceScheduleDeleted => 'メンテナンススケジュールを削除しました';
+
+  @override
+  String get maintenanceScheduleDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get maintenanceScheduleDetail => 'メンテナンススケジュール詳細';
+
+  @override
+  String get maintenanceScheduleInformation => 'メンテナンススケジュール情報';
+
+  @override
+  String get maintenanceScheduleTitle => 'タイトル';
+
+  @override
+  String get maintenanceScheduleDescription => '説明';
+
+  @override
+  String get maintenanceScheduleAsset => '資産';
+
+  @override
+  String get maintenanceScheduleMaintenanceType => 'メンテナンスタイプ';
+
+  @override
+  String get maintenanceScheduleIsRecurring => '定期実行';
+
+  @override
+  String get maintenanceScheduleInterval => '間隔';
+
+  @override
+  String get maintenanceScheduleScheduledTime => '予定時刻';
+
+  @override
+  String get maintenanceScheduleNextScheduledDate => '次回実行予定日';
+
+  @override
+  String get maintenanceScheduleLastExecutedDate => '前回実行日';
+
+  @override
+  String get maintenanceScheduleState => '状態';
+
+  @override
+  String get maintenanceScheduleAutoComplete => '自動完了';
+
+  @override
+  String get maintenanceScheduleEstimatedCost => '予想コスト';
+
+  @override
+  String get maintenanceScheduleCreatedBy => '作成者';
+
+  @override
+  String get maintenanceScheduleYes => 'はい';
+
+  @override
+  String get maintenanceScheduleNo => 'いいえ';
+
+  @override
+  String get maintenanceScheduleUnknownAsset => '不明な資産';
+
+  @override
+  String get maintenanceScheduleUnknownUser => '不明なユーザー';
+
+  @override
+  String get maintenanceScheduleOnlyAdminCanEdit => '管理者のみがメンテナンススケジュールを編集できます';
+
+  @override
+  String get maintenanceScheduleOnlyAdminCanDelete =>
+      '管理者のみがメンテナンススケジュールを削除できます';
+
+  @override
+  String get maintenanceScheduleFailedToLoad => 'メンテナンススケジュールの読み込みに失敗しました';
+
+  @override
+  String get maintenanceScheduleEditSchedule => 'メンテナンススケジュールの編集';
+
+  @override
+  String get maintenanceScheduleCreateSchedule => 'メンテナンススケジュールの作成';
+
+  @override
+  String get maintenanceScheduleFillRequiredFields => '必須項目をすべて入力してください';
+
+  @override
+  String get maintenanceScheduleSavedSuccessfully => 'メンテナンススケジュールを正常に保存しました';
+
+  @override
+  String get maintenanceScheduleOperationFailed => '操作に失敗しました';
+
+  @override
+  String get maintenanceScheduleFailedToLoadTranslations => '翻訳の読み込みに失敗しました';
+
+  @override
+  String get maintenanceScheduleSearchAsset => '資産を検索して選択';
+
+  @override
+  String get maintenanceScheduleSelectMaintenanceType => 'メンテナンスタイプを選択';
+
+  @override
+  String get maintenanceScheduleEnterIntervalValue => '間隔値を入力（例：3）';
+
+  @override
+  String get maintenanceScheduleSelectIntervalUnit => '間隔単位を選択';
+
+  @override
+  String get maintenanceScheduleEnterScheduledTime => '例：09:30';
+
+  @override
+  String get maintenanceScheduleSelectState => '状態を選択';
+
+  @override
+  String get maintenanceScheduleEnterEstimatedCost => '予想コストを入力（任意）';
+
+  @override
+  String get maintenanceScheduleSearchUser => 'スケジュールを作成したユーザーを検索して選択';
+
+  @override
+  String get maintenanceScheduleTranslations => '翻訳';
+
+  @override
+  String get maintenanceScheduleEnglish => '英語';
+
+  @override
+  String get maintenanceScheduleJapanese => '日本語';
+
+  @override
+  String maintenanceScheduleEnterTitle(String language) {
+    return '$languageでタイトルを入力';
+  }
+
+  @override
+  String maintenanceScheduleEnterDescription(String language) {
+    return '$languageで説明を入力';
+  }
+
+  @override
+  String get maintenanceScheduleCancel => 'キャンセル';
+
+  @override
+  String get maintenanceScheduleUpdate => '更新';
+
+  @override
+  String get maintenanceScheduleCreate => '作成';
+
+  @override
+  String get maintenanceScheduleManagement => 'メンテナンススケジュール管理';
+
+  @override
+  String get maintenanceScheduleCreateTitle => 'メンテナンススケジュールの作成';
+
+  @override
+  String get maintenanceScheduleCreateSubtitle => '新しいメンテナンススケジュールを追加';
+
+  @override
+  String get maintenanceScheduleSelectManyTitle => '複数選択';
+
+  @override
+  String get maintenanceScheduleSelectManySubtitle => '削除する複数のスケジュールを選択';
+
+  @override
+  String get maintenanceScheduleFilterAndSortTitle => 'フィルターと並び替え';
+
+  @override
+  String get maintenanceScheduleFilterAndSortSubtitle => 'スケジュール表示をカスタマイズ';
+
+  @override
+  String get maintenanceScheduleSelectToDelete => '削除するメンテナンススケジュールを選択';
+
+  @override
+  String get maintenanceScheduleSortBy => '並び替え';
+
+  @override
+  String get maintenanceScheduleSortOrder => '並び順';
+
+  @override
+  String get maintenanceScheduleReset => 'リセット';
+
+  @override
+  String get maintenanceScheduleApply => '適用';
+
+  @override
+  String get maintenanceScheduleFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get maintenanceScheduleFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get maintenanceScheduleDeleteSchedules => 'スケジュールの削除';
+
+  @override
+  String maintenanceScheduleDeleteMultipleConfirmation(int count) {
+    return '$count件のスケジュールを削除してもよろしいですか？';
+  }
+
+  @override
+  String get maintenanceScheduleNoSchedulesSelected => 'スケジュールが選択されていません';
+
+  @override
+  String get maintenanceScheduleNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String maintenanceScheduleSelectedCount(int count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get maintenanceScheduleDelete => '削除';
+
+  @override
+  String get maintenanceScheduleSearch => 'スケジュールを検索...';
+
+  @override
+  String get maintenanceScheduleNoSchedulesFound => 'スケジュールが見つかりません';
+
+  @override
+  String get maintenanceScheduleCreateFirstSchedule => '最初のスケジュールを作成して始めましょう';
+
+  @override
+  String get maintenanceScheduleLongPressToSelect => '長押しして複数のスケジュールを選択';
+
+  @override
+  String get maintenanceScheduleMetadata => 'メタデータ';
+
+  @override
+  String get maintenanceScheduleCreatedAt => '作成日時';
+
+  @override
+  String get maintenanceScheduleUpdatedAt => '更新日時';
+
+  @override
+  String get maintenanceScheduleIntervalValueLabel => '間隔値';
+
+  @override
+  String get maintenanceScheduleIntervalUnitLabel => '間隔単位';
+
+  @override
+  String get maintenanceScheduleScheduledTimeLabel => '予定時刻（HH:mm）';
+
+  @override
+  String get maintenanceRecordDeleteRecord => 'メンテナンス記録の削除';
+
+  @override
+  String maintenanceRecordDeleteConfirmation(String title) {
+    return '「$title」を削除してもよろしいですか？';
+  }
+
+  @override
+  String get maintenanceRecordDeleted => 'メンテナンス記録を削除しました';
+
+  @override
+  String get maintenanceRecordDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get maintenanceRecordDetail => 'メンテナンス記録詳細';
+
+  @override
+  String get maintenanceRecordInformation => 'メンテナンス記録情報';
+
+  @override
+  String get maintenanceRecordTitle => 'タイトル';
+
+  @override
+  String get maintenanceRecordNotes => 'メモ';
+
+  @override
+  String get maintenanceRecordAsset => '資産';
+
+  @override
+  String get maintenanceRecordMaintenanceDate => 'メンテナンス日';
+
+  @override
+  String get maintenanceRecordCompletionDate => '完了日';
+
+  @override
+  String get maintenanceRecordDuration => '所要時間';
+
+  @override
+  String maintenanceRecordDurationMinutes(int minutes) {
+    return '$minutes分';
+  }
+
+  @override
+  String get maintenanceRecordPerformedByUser => '実行者（ユーザー）';
+
+  @override
+  String get maintenanceRecordPerformedByVendor => '実行者（業者）';
+
+  @override
+  String get maintenanceRecordResult => '結果';
+
+  @override
+  String get maintenanceRecordActualCost => '実際のコスト';
+
+  @override
+  String maintenanceRecordActualCostValue(String cost) {
+    return '$cost';
+  }
+
+  @override
+  String get maintenanceRecordUnknownAsset => '不明な資産';
+
+  @override
+  String get maintenanceRecordOnlyAdminCanEdit => '管理者のみがメンテナンス記録を編集できます';
+
+  @override
+  String get maintenanceRecordOnlyAdminCanDelete => '管理者のみがメンテナンス記録を削除できます';
+
+  @override
+  String get maintenanceRecordFailedToLoad => 'メンテナンス記録の読み込みに失敗しました';
+
+  @override
+  String get maintenanceRecordEditRecord => 'メンテナンス記録の編集';
+
+  @override
+  String get maintenanceRecordCreateRecord => 'メンテナンス記録の作成';
+
+  @override
+  String get maintenanceRecordFillRequiredFields => '必須項目をすべて入力してください';
+
+  @override
+  String get maintenanceRecordSavedSuccessfully => 'メンテナンス記録を正常に保存しました';
+
+  @override
+  String get maintenanceRecordOperationFailed => '操作に失敗しました';
+
+  @override
+  String get maintenanceRecordFailedToLoadTranslations => '翻訳の読み込みに失敗しました';
+
+  @override
+  String get maintenanceRecordSearchSchedule => 'メンテナンススケジュールを検索して選択';
+
+  @override
+  String get maintenanceRecordSearchAsset => '資産を検索して選択';
+
+  @override
+  String get maintenanceRecordCompletionDateOptional => '完了日（任意）';
+
+  @override
+  String get maintenanceRecordDurationMinutesLabel => '所要時間（分）';
+
+  @override
+  String get maintenanceRecordEnterDuration => '所要時間を分単位で入力（任意）';
+
+  @override
+  String get maintenanceRecordSearchPerformedByUser => 'メンテナンスを実行したユーザーを検索して選択';
+
+  @override
+  String get maintenanceRecordPerformedByVendorLabel => '実行者（業者）';
+
+  @override
+  String get maintenanceRecordEnterVendor => '業者名を入力（任意）';
+
+  @override
+  String get maintenanceRecordSelectResult => 'メンテナンス結果を選択';
+
+  @override
+  String get maintenanceRecordActualCostLabel => '実際のコスト';
+
+  @override
+  String get maintenanceRecordEnterActualCost => '実際のコストを入力（任意）';
+
+  @override
+  String get maintenanceRecordTranslations => '翻訳';
+
+  @override
+  String get maintenanceRecordEnglish => '英語';
+
+  @override
+  String get maintenanceRecordJapanese => '日本語';
+
+  @override
+  String maintenanceRecordEnterTitle(String language) {
+    return '$languageでタイトルを入力';
+  }
+
+  @override
+  String maintenanceRecordEnterNotes(String language) {
+    return '$languageでメモを入力';
+  }
+
+  @override
+  String get maintenanceRecordCancel => 'キャンセル';
+
+  @override
+  String get maintenanceRecordUpdate => '更新';
+
+  @override
+  String get maintenanceRecordCreate => '作成';
+
+  @override
+  String get maintenanceRecordManagement => 'メンテナンス記録管理';
+
+  @override
+  String get maintenanceRecordCreateTitle => 'メンテナンス記録の作成';
+
+  @override
+  String get maintenanceRecordCreateSubtitle => '新しいメンテナンス記録を追加';
+
+  @override
+  String get maintenanceRecordSelectManyTitle => '複数選択';
+
+  @override
+  String get maintenanceRecordSelectManySubtitle => '削除する複数の記録を選択';
+
+  @override
+  String get maintenanceRecordFilterAndSortTitle => 'フィルターと並び替え';
+
+  @override
+  String get maintenanceRecordFilterAndSortSubtitle => '記録表示をカスタマイズ';
+
+  @override
+  String get maintenanceRecordSelectToDelete => '削除するメンテナンス記録を選択';
+
+  @override
+  String get maintenanceRecordSortBy => '並び替え';
+
+  @override
+  String get maintenanceRecordSortOrder => '並び順';
+
+  @override
+  String get maintenanceRecordReset => 'リセット';
+
+  @override
+  String get maintenanceRecordApply => '適用';
+
+  @override
+  String get maintenanceRecordFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get maintenanceRecordFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get maintenanceRecordDeleteRecords => '記録の削除';
+
+  @override
+  String maintenanceRecordDeleteMultipleConfirmation(int count) {
+    return '$count件の記録を削除してもよろしいですか？';
+  }
+
+  @override
+  String get maintenanceRecordNoRecordsSelected => '記録が選択されていません';
+
+  @override
+  String get maintenanceRecordNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String maintenanceRecordSelectedCount(int count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get maintenanceRecordDelete => '削除';
+
+  @override
+  String get maintenanceRecordSearch => '記録を検索...';
+
+  @override
+  String get maintenanceRecordNoRecordsFound => '記録が見つかりません';
+
+  @override
+  String get maintenanceRecordCreateFirstRecord => '最初の記録を作成して始めましょう';
+
+  @override
+  String get maintenanceRecordLongPressToSelect => '長押しして複数の記録を選択';
+
+  @override
+  String get maintenanceRecordMetadata => 'メタデータ';
+
+  @override
+  String get maintenanceRecordCreatedAt => '作成日時';
+
+  @override
+  String get maintenanceRecordUpdatedAt => '更新日時';
+
+  @override
+  String get maintenanceRecordSchedule => 'メンテナンススケジュール';
+
+  @override
+  String get notificationManagement => '通知管理';
+
+  @override
+  String get notificationDetail => '通知詳細';
+
+  @override
+  String get notificationMyNotifications => '私の通知';
+
+  @override
+  String get notificationDeleteNotification => '通知を削除';
+
+  @override
+  String get notificationDeleteConfirmation => 'この通知を削除してもよろしいですか？';
+
+  @override
+  String notificationDeleteMultipleConfirmation(int count) {
+    return '$count個の通知を削除してもよろしいですか？';
+  }
+
+  @override
+  String get notificationCancel => 'キャンセル';
+
+  @override
+  String get notificationDelete => '削除';
+
+  @override
+  String get notificationOnlyAdminCanDelete => '通知を削除できるのは管理者のみです';
+
+  @override
+  String get notificationDeleted => '通知が削除されました';
+
+  @override
+  String get notificationDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get notificationFailedToLoad => '通知の読み込みに失敗しました';
+
+  @override
+  String get notificationInformation => '通知情報';
+
+  @override
+  String get notificationTitle => 'タイトル';
+
+  @override
+  String get notificationMessage => 'メッセージ';
+
+  @override
+  String get notificationType => 'タイプ';
+
+  @override
+  String get notificationPriority => '優先度';
+
+  @override
+  String get notificationIsRead => '既読';
+
+  @override
+  String get notificationReadStatus => '既読状態';
+
+  @override
+  String get notificationRead => '既読';
+
+  @override
+  String get notificationUnread => '未読';
+
+  @override
+  String get notificationYes => 'はい';
+
+  @override
+  String get notificationNo => 'いいえ';
+
+  @override
+  String get notificationCreatedAt => '作成日時';
+
+  @override
+  String get notificationExpiresAt => '有効期限';
+
+  @override
+  String get notificationSearchNotifications => '通知を検索...';
+
+  @override
+  String get notificationSearchMyNotifications => '私の通知を検索...';
+
+  @override
+  String get notificationNoNotificationsFound => '通知が見つかりません';
+
+  @override
+  String get notificationNoNotificationsYet => '通知はありません';
+
+  @override
+  String get notificationCreateFirstNotification => '最初の通知を作成して開始しましょう';
+
+  @override
+  String get notificationCreateNotification => '通知を作成';
+
+  @override
+  String get notificationCreateNotificationSubtitle => '新しい通知を追加';
+
+  @override
+  String get notificationSelectMany => '複数選択';
+
+  @override
+  String get notificationSelectManySubtitle => '削除する複数の通知を選択';
+
+  @override
+  String get notificationFilterAndSort => 'フィルターと並べ替え';
+
+  @override
+  String get notificationFilterAndSortSubtitle => '通知表示をカスタマイズ';
+
+  @override
+  String get notificationFiltersAndSorting => 'フィルターと並べ替え';
+
+  @override
+  String get notificationSelectNotificationsToDelete => '削除する通知を選択';
+
+  @override
+  String get notificationLongPressToSelect => '長押ししてさらに通知を選択';
+
+  @override
+  String notificationSelectedCount(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get notificationNoNotificationsSelected => '通知が選択されていません';
+
+  @override
+  String get notificationFilterByUser => 'ユーザーでフィルター';
+
+  @override
+  String get notificationFilterByRelatedAsset => '関連資産でフィルター';
+
+  @override
+  String get notificationSearchUser => 'ユーザーを検索...';
+
+  @override
+  String get notificationSearchAsset => '資産を検索...';
+
+  @override
+  String get notificationSortBy => '並べ替え';
+
+  @override
+  String get notificationSortOrder => '並べ替え順序';
+
+  @override
+  String get notificationReset => 'リセット';
+
+  @override
+  String get notificationApply => '適用';
+
+  @override
+  String get notificationApplyFilters => 'フィルターを適用';
+
+  @override
+  String get notificationFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get notificationFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get notificationFiltersApplied => 'フィルター適用済み';
+
+  @override
+  String get notificationNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String get notificationJustNow => 'たった今';
+
+  @override
+  String notificationMinutesAgo(int minutes) {
+    return '$minutes分前';
+  }
+
+  @override
+  String notificationHoursAgo(int hours) {
+    return '$hours時間前';
+  }
+
+  @override
+  String notificationDaysAgo(int days) {
+    return '$days日前';
+  }
+
+  @override
+  String get scanLogManagement => 'スキャンログ管理';
+
+  @override
+  String get scanLogDetail => 'スキャンログ詳細';
+
+  @override
+  String get scanLogDeleteScanLog => 'スキャンログを削除';
+
+  @override
+  String get scanLogDeleteConfirmation => 'このスキャンログを削除してもよろしいですか？';
+
+  @override
+  String scanLogDeleteMultipleConfirmation(int count) {
+    return '$count個のスキャンログを削除してもよろしいですか？';
+  }
+
+  @override
+  String get scanLogCancel => 'キャンセル';
+
+  @override
+  String get scanLogDelete => '削除';
+
+  @override
+  String get scanLogOnlyAdminCanDelete => 'スキャンログを削除できるのは管理者のみです';
+
+  @override
+  String get scanLogDeleted => 'スキャンログが削除されました';
+
+  @override
+  String get scanLogDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get scanLogFailedToLoad => 'スキャンログの読み込みに失敗しました';
+
+  @override
+  String get scanLogInformation => 'スキャン情報';
+
+  @override
+  String get scanLogScannedValue => 'スキャン値';
+
+  @override
+  String get scanLogScanMethod => 'スキャン方法';
+
+  @override
+  String get scanLogScanResult => 'スキャン結果';
+
+  @override
+  String get scanLogScanTimestamp => 'スキャン日時';
+
+  @override
+  String get scanLogLocation => '場所';
+
+  @override
+  String get scanLogSearchScanLogs => 'スキャンログを検索...';
+
+  @override
+  String get scanLogNoScanLogsFound => 'スキャンログが見つかりません';
+
+  @override
+  String get scanLogCreateFirstScanLog => '最初のスキャンログを作成して開始しましょう';
+
+  @override
+  String get scanLogCreateScanLog => 'スキャンログを作成';
+
+  @override
+  String get scanLogCreateScanLogSubtitle => '新しいスキャンログを追加';
+
+  @override
+  String get scanLogSelectMany => '複数選択';
+
+  @override
+  String get scanLogSelectManySubtitle => '削除する複数のスキャンログを選択';
+
+  @override
+  String get scanLogFilterAndSort => 'フィルターと並べ替え';
+
+  @override
+  String get scanLogFilterAndSortSubtitle => 'スキャンログ表示をカスタマイズ';
+
+  @override
+  String get scanLogFiltersAndSorting => 'フィルターと並べ替え';
+
+  @override
+  String get scanLogSelectScanLogsToDelete => '削除するスキャンログを選択';
+
+  @override
+  String get scanLogLongPressToSelect => '長押ししてさらにスキャンログを選択';
+
+  @override
+  String scanLogSelectedCount(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get scanLogNoScanLogsSelected => 'スキャンログが選択されていません';
+
+  @override
+  String get scanLogFilterByAsset => '資産でフィルター';
+
+  @override
+  String get scanLogFilterByScannedBy => 'スキャンユーザーでフィルター';
+
+  @override
+  String get scanLogSearchAsset => '資産を検索...';
+
+  @override
+  String get scanLogSearchUser => 'ユーザーを検索...';
+
+  @override
+  String get scanLogSortBy => '並べ替え';
+
+  @override
+  String get scanLogSortOrder => '並べ替え順序';
+
+  @override
+  String get scanLogHasCoordinates => '座標あり';
+
+  @override
+  String get scanLogDateFrom => '開始日';
+
+  @override
+  String get scanLogDateTo => '終了日';
+
+  @override
+  String get scanLogReset => 'リセット';
+
+  @override
+  String get scanLogApply => '適用';
+
+  @override
+  String get scanLogFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get scanLogFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get scanLogNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String get userManagement => 'ユーザー管理';
+
+  @override
+  String get userCreateUser => 'ユーザーを作成';
+
+  @override
+  String get userAddNewUser => '新しいユーザーを追加';
+
+  @override
+  String get userSelectMany => '複数選択';
+
+  @override
+  String get userSelectMultipleToDelete => '削除する複数のユーザーを選択';
+
+  @override
+  String get userFilterAndSort => 'フィルターと並べ替え';
+
+  @override
+  String get userCustomizeDisplay => 'ユーザー表示をカスタマイズ';
+
+  @override
+  String get userFilters => 'フィルター';
+
+  @override
+  String get userRole => '役割';
+
+  @override
+  String get userEmployeeId => '従業員ID';
+
+  @override
+  String get userEnterEmployeeId => '従業員IDを入力...';
+
+  @override
+  String get userActiveStatus => 'アクティブステータス';
+
+  @override
+  String get userActive => 'アクティブ';
+
+  @override
+  String get userInactive => '非アクティブ';
+
+  @override
+  String get userSort => '並べ替え';
+
+  @override
+  String get userSortBy => '並べ替え';
+
+  @override
+  String get userSortOrder => '並べ替え順序';
+
+  @override
+  String get userAscending => '昇順';
+
+  @override
+  String get userDescending => '降順';
+
+  @override
+  String get userReset => 'リセット';
+
+  @override
+  String get userApply => '適用';
+
+  @override
+  String get userFilterReset => 'フィルターをリセットしました';
+
+  @override
+  String get userFilterApplied => 'フィルターを適用しました';
+
+  @override
+  String get userSelectUsersToDelete => '削除するユーザーを選択';
+
+  @override
+  String get userDeleteUsers => 'ユーザーを削除';
+
+  @override
+  String userDeleteConfirmation(int count) {
+    return '$count人のユーザーを削除してもよろしいですか？';
+  }
+
+  @override
+  String get userCancel => 'キャンセル';
+
+  @override
+  String get userDelete => '削除';
+
+  @override
+  String get userNoUsersSelected => 'ユーザーが選択されていません';
+
+  @override
+  String get userNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String userSelectedCount(int count) {
+    return '$count人選択済み';
+  }
+
+  @override
+  String get userSearchUsers => 'ユーザーを検索...';
+
+  @override
+  String get userNoUsersFound => 'ユーザーが見つかりません';
+
+  @override
+  String get userCreateFirstUser => '最初のユーザーを作成して開始しましょう';
+
+  @override
+  String get userLongPressToSelect => '長押ししてさらにユーザーを選択';
+
+  @override
+  String get userEditUser => 'ユーザーを編集';
+
+  @override
+  String get userPleaseFixErrors => 'すべてのエラーを修正してください';
+
+  @override
+  String get userPleaseSelectRole => '役割を選択してください';
+
+  @override
+  String get userPleaseValidateFields => '必須フィールドをすべて入力してください';
+
+  @override
+  String get userSavedSuccessfully => 'ユーザーが正常に保存されました';
+
+  @override
+  String get userOperationFailed => '操作に失敗しました';
+
+  @override
+  String get userInformation => 'ユーザー情報';
+
+  @override
+  String get userUsername => 'ユーザー名';
+
+  @override
+  String get userEnterUsername => 'ユーザー名を入力';
+
+  @override
+  String get userEmail => 'メールアドレス';
+
+  @override
+  String get userEnterEmail => 'メールアドレスを入力';
+
+  @override
+  String get userPassword => 'パスワード';
+
+  @override
+  String get userEnterPassword => 'パスワードを入力';
+
+  @override
+  String get userFullName => '氏名';
+
+  @override
+  String get userEnterFullName => '氏名を入力';
+
+  @override
+  String get userSelectRole => '役割を選択';
+
+  @override
+  String get userEmployeeIdOptional => '従業員ID (オプション)';
+
+  @override
+  String get userEnterEmployeeIdOptional => '従業員IDを入力';
+
+  @override
+  String get userPreferredLanguage => '優先言語 (オプション)';
+
+  @override
+  String get userSelectLanguage => '言語を選択';
+
+  @override
+  String get userUpdate => '更新';
+
+  @override
+  String get userCreate => '作成';
+
+  @override
+  String get userDetail => 'ユーザー詳細';
+
+  @override
+  String get userOnlyAdminCanEdit => 'ユーザーを編集できるのは管理者のみです';
+
+  @override
+  String get userDeleteUser => 'ユーザーを削除';
+
+  @override
+  String userDeleteSingleConfirmation(String fullName) {
+    return '\"$fullName\"を削除してもよろしいですか？';
+  }
+
+  @override
+  String get userOnlyAdminCanDelete => 'ユーザーを削除できるのは管理者のみです';
+
+  @override
+  String get userDeleted => 'ユーザーが削除されました';
+
+  @override
+  String get userDeleteFailed => '削除に失敗しました';
+
+  @override
+  String get userName => '名前';
+
+  @override
+  String get userPreferredLang => '優先言語';
+
+  @override
+  String get userYes => 'はい';
+
+  @override
+  String get userNo => 'いいえ';
+
+  @override
+  String get userMetadata => 'メタデータ';
+
+  @override
+  String get userCreatedAt => '作成日時';
+
+  @override
+  String get userUpdatedAt => '更新日時';
+
+  @override
+  String get userFailedToLoad => 'ユーザーの読み込みに失敗しました';
+
+  @override
+  String get userFailedToLoadProfile => 'プロフィールの読み込みに失敗しました';
+
+  @override
+  String get userPersonalInformation => '個人情報';
+
+  @override
+  String get userAccountDetails => 'アカウント詳細';
+
+  @override
+  String get userStatus => 'ステータス';
+
+  @override
+  String get userUpdateProfile => 'プロフィールを更新';
+
+  @override
+  String get userNoUserData => 'ユーザーデータがありません';
+
+  @override
+  String get userProfileInformation => 'プロフィール情報';
+
+  @override
+  String get userProfilePicture => 'プロフィール画像';
+
+  @override
+  String get userChooseImage => '画像を選択';
+
+  @override
+  String get userProfileUpdatedSuccessfully => 'プロフィールが正常に更新されました';
+
+  @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';
 
   @override

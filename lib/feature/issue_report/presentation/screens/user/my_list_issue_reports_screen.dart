@@ -9,6 +9,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
@@ -128,8 +129,8 @@ class _MyListIssueReportsScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const AppText(
-                      'Filters & Sorting',
+                    AppText(
+                      context.l10n.issueReportFiltersAndSorting,
                       style: AppTextStyle.titleMedium,
                     ),
                     IconButton(
@@ -149,7 +150,7 @@ class _MyListIssueReportsScreenState
                     children: [
                       AppDropdown<String>(
                         name: 'priority',
-                        label: 'Priority',
+                        label: context.l10n.issueReportPriority,
                         initialValue: currentFilter.priority?.value,
                         items: IssuePriority.values
                             .map(
@@ -163,7 +164,7 @@ class _MyListIssueReportsScreenState
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'status',
-                        label: 'Status',
+                        label: context.l10n.issueReportStatus,
                         initialValue: currentFilter.status?.value,
                         items: IssueStatus.values
                             .map(
@@ -177,14 +178,15 @@ class _MyListIssueReportsScreenState
                       const SizedBox(height: 16),
                       AppTextField(
                         name: 'issueType',
-                        label: 'Issue Type',
-                        placeHolder: 'Enter issue type...',
+                        label: context.l10n.issueReportIssueType,
+                        placeHolder:
+                            context.l10n.issueReportEnterIssueTypeFilter,
                         initialValue: currentFilter.issueType,
                       ),
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortBy',
-                        label: 'Sort By',
+                        label: context.l10n.issueReportSortBy,
                         initialValue: currentFilter.sortBy?.value,
                         items: IssueReportSortBy.values
                             .map(
@@ -198,7 +200,7 @@ class _MyListIssueReportsScreenState
                       const SizedBox(height: 16),
                       AppDropdown<String>(
                         name: 'sortOrder',
-                        label: 'Sort Order',
+                        label: context.l10n.issueReportSortOrder,
                         initialValue: currentFilter.sortOrder?.value,
                         items: SortOrder.values
                             .map(
@@ -211,7 +213,7 @@ class _MyListIssueReportsScreenState
                       ),
                       const SizedBox(height: 24),
                       AppButton(
-                        text: 'Apply Filters',
+                        text: context.l10n.issueReportApplyFilters,
                         onPressed: () {
                           _applyFilter();
                           Navigator.pop(context);
@@ -247,10 +249,10 @@ class _MyListIssueReportsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'My Issue Reports'),
+      appBar: CustomAppBar(title: context.l10n.issueReportMyIssueReports),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(RouteConstant.issueReportUpsert),
-        tooltip: 'Create Issue Report',
+        tooltip: context.l10n.issueReportCreateIssueReportTooltip,
         child: const Icon(Icons.add),
       ),
       body: ScreenWrapper(
@@ -283,7 +285,7 @@ class _MyListIssueReportsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search my issue reports...',
+      hintText: context.l10n.issueReportSearchMyIssueReports,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -326,7 +328,9 @@ class _MyListIssueReportsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                hasActiveFilters ? 'Filters Applied' : 'Filter & Sort',
+                hasActiveFilters
+                    ? context.l10n.issueReportFiltersApplied
+                    : context.l10n.issueReportFilterAndSort,
                 style: AppTextStyle.bodyMedium,
                 color: hasActiveFilters
                     ? context.colorScheme.primary
@@ -365,13 +369,13 @@ class _MyListIssueReportsScreenState
           ),
           const SizedBox(height: 16),
           AppText(
-            'No issue reports found',
+            context.l10n.issueReportNoIssueReportsFoundEmpty,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'You have no reported issues',
+            context.l10n.issueReportYouHaveNoReportedIssues,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),

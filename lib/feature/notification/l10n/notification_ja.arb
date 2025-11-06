@@ -1,0 +1,265 @@
+{
+  "@@locale": "ja",
+  "notificationManagement": "通知管理",
+  "@notificationManagement": {
+    "description": "Notification management screen title"
+  },
+  "notificationDetail": "通知詳細",
+  "@notificationDetail": {
+    "description": "Notification detail screen title"
+  },
+  "notificationMyNotifications": "私の通知",
+  "@notificationMyNotifications": {
+    "description": "My notifications screen title"
+  },
+  "notificationDeleteNotification": "通知を削除",
+  "@notificationDeleteNotification": {
+    "description": "Dialog title for deleting a notification"
+  },
+  "notificationDeleteConfirmation": "この通知を削除してもよろしいですか？",
+  "@notificationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a notification"
+  },
+  "notificationDeleteMultipleConfirmation": "{count}個の通知を削除してもよろしいですか？",
+  "@notificationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple notifications",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationCancel": "キャンセル",
+  "@notificationCancel": {
+    "description": "Cancel button label"
+  },
+  "notificationDelete": "削除",
+  "@notificationDelete": {
+    "description": "Delete button label"
+  },
+  "notificationOnlyAdminCanDelete": "通知を削除できるのは管理者のみです",
+  "@notificationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "notificationDeleted": "通知が削除されました",
+  "@notificationDeleted": {
+    "description": "Success message for notification deletion"
+  },
+  "notificationDeleteFailed": "削除に失敗しました",
+  "@notificationDeleteFailed": {
+    "description": "Error message for notification deletion failure"
+  },
+  "notificationFailedToLoad": "通知の読み込みに失敗しました",
+  "@notificationFailedToLoad": {
+    "description": "Error message when notification fails to load"
+  },
+  "notificationInformation": "通知情報",
+  "@notificationInformation": {
+    "description": "Notification information section title"
+  },
+  "notificationTitle": "タイトル",
+  "@notificationTitle": {
+    "description": "Title label"
+  },
+  "notificationMessage": "メッセージ",
+  "@notificationMessage": {
+    "description": "Message label"
+  },
+  "notificationType": "タイプ",
+  "@notificationType": {
+    "description": "Type label"
+  },
+  "notificationPriority": "優先度",
+  "@notificationPriority": {
+    "description": "Priority label"
+  },
+  "notificationIsRead": "既読",
+  "@notificationIsRead": {
+    "description": "Is read label"
+  },
+  "notificationReadStatus": "既読状態",
+  "@notificationReadStatus": {
+    "description": "Read status label"
+  },
+  "notificationRead": "既読",
+  "@notificationRead": {
+    "description": "Read status value"
+  },
+  "notificationUnread": "未読",
+  "@notificationUnread": {
+    "description": "Unread status value"
+  },
+  "notificationYes": "はい",
+  "@notificationYes": {
+    "description": "Yes label"
+  },
+  "notificationNo": "いいえ",
+  "@notificationNo": {
+    "description": "No label"
+  },
+  "notificationCreatedAt": "作成日時",
+  "@notificationCreatedAt": {
+    "description": "Created at label"
+  },
+  "notificationExpiresAt": "有効期限",
+  "@notificationExpiresAt": {
+    "description": "Expires at label"
+  },
+  "notificationSearchNotifications": "通知を検索...",
+  "@notificationSearchNotifications": {
+    "description": "Notifications search placeholder"
+  },
+  "notificationSearchMyNotifications": "私の通知を検索...",
+  "@notificationSearchMyNotifications": {
+    "description": "My notifications search placeholder"
+  },
+  "notificationNoNotificationsFound": "通知が見つかりません",
+  "@notificationNoNotificationsFound": {
+    "description": "No notifications found message"
+  },
+  "notificationNoNotificationsYet": "通知はありません",
+  "@notificationNoNotificationsYet": {
+    "description": "Empty state message for user notifications"
+  },
+  "notificationCreateFirstNotification": "最初の通知を作成して開始しましょう",
+  "@notificationCreateFirstNotification": {
+    "description": "Empty state message for notifications"
+  },
+  "notificationCreateNotification": "通知を作成",
+  "@notificationCreateNotification": {
+    "description": "Create notification option title"
+  },
+  "notificationCreateNotificationSubtitle": "新しい通知を追加",
+  "@notificationCreateNotificationSubtitle": {
+    "description": "Create notification option subtitle"
+  },
+  "notificationSelectMany": "複数選択",
+  "@notificationSelectMany": {
+    "description": "Select many option title"
+  },
+  "notificationSelectManySubtitle": "削除する複数の通知を選択",
+  "@notificationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "notificationFilterAndSort": "フィルターと並べ替え",
+  "@notificationFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "notificationFilterAndSortSubtitle": "通知表示をカスタマイズ",
+  "@notificationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "notificationFiltersAndSorting": "フィルターと並べ替え",
+  "@notificationFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "notificationSelectNotificationsToDelete": "削除する通知を選択",
+  "@notificationSelectNotificationsToDelete": {
+    "description": "Instruction for selecting notifications to delete"
+  },
+  "notificationLongPressToSelect": "長押ししてさらに通知を選択",
+  "@notificationLongPressToSelect": {
+    "description": "Instruction for selecting multiple notifications"
+  },
+  "notificationSelectedCount": "{count}個選択済み",
+  "@notificationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationNoNotificationsSelected": "通知が選択されていません",
+  "@notificationNoNotificationsSelected": {
+    "description": "Warning message when no notifications are selected"
+  },
+  "notificationFilterByUser": "ユーザーでフィルター",
+  "@notificationFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "notificationFilterByRelatedAsset": "関連資産でフィルター",
+  "@notificationFilterByRelatedAsset": {
+    "description": "Filter by related asset label"
+  },
+  "notificationSearchUser": "ユーザーを検索...",
+  "@notificationSearchUser": {
+    "description": "User search placeholder"
+  },
+  "notificationSearchAsset": "資産を検索...",
+  "@notificationSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "notificationSortBy": "並べ替え",
+  "@notificationSortBy": {
+    "description": "Sort by label"
+  },
+  "notificationSortOrder": "並べ替え順序",
+  "@notificationSortOrder": {
+    "description": "Sort order label"
+  },
+  "notificationReset": "リセット",
+  "@notificationReset": {
+    "description": "Reset button label"
+  },
+  "notificationApply": "適用",
+  "@notificationApply": {
+    "description": "Apply button label"
+  },
+  "notificationApplyFilters": "フィルターを適用",
+  "@notificationApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "notificationFilterReset": "フィルターをリセットしました",
+  "@notificationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "notificationFilterApplied": "フィルターを適用しました",
+  "@notificationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "notificationFiltersApplied": "フィルター適用済み",
+  "@notificationFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "notificationNotImplementedYet": "まだ実装されていません",
+  "@notificationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "notificationJustNow": "たった今",
+  "@notificationJustNow": {
+    "description": "Time ago for just now"
+  },
+  "notificationMinutesAgo": "{minutes}分前",
+  "@notificationMinutesAgo": {
+    "description": "Time ago in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationHoursAgo": "{hours}時間前",
+  "@notificationHoursAgo": {
+    "description": "Time ago in hours",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "notificationDaysAgo": "{days}日前",
+  "@notificationDaysAgo": {
+    "description": "Time ago in days",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  }
+}

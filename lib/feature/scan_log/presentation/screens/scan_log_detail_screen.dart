@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -79,30 +80,30 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete scan logs');
+      AppToast.warning(context.l10n.scanLogOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Scan Log',
+        title: AppText(
+          context.l10n.scanLogDeleteScanLog,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Are you sure you want to delete this scan log?',
+        content: AppText(
+          context.l10n.scanLogDeleteConfirmation,
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.scanLogCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.scanLogDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -125,11 +126,13 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Scan log deleted');
+          AppToast.success(next.mutationMessage ?? context.l10n.scanLogDeleted);
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.scanLogDeleteFailed,
+          );
         }
       }
     });
@@ -140,7 +143,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Scan Log Detail'),
+      appBar: CustomAppBar(title: context.l10n.scanLogDetail),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
@@ -165,16 +168,25 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Scan Information', [
-            _buildInfoRow('Scanned Value', dummyScanLog.scannedValue),
-            _buildInfoRow('Scan Method', dummyScanLog.scanMethod.name),
-            _buildInfoRow('Scan Result', dummyScanLog.scanResult.name),
+          _buildInfoCard(context.l10n.scanLogInformation, [
             _buildInfoRow(
-              'Scan Timestamp',
+              context.l10n.scanLogScannedValue,
+              dummyScanLog.scannedValue,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanMethod,
+              dummyScanLog.scanMethod.name,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanResult,
+              dummyScanLog.scanResult.name,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanTimestamp,
               _formatDateTime(dummyScanLog.scanTimestamp),
             ),
             _buildInfoRow(
-              'Location',
+              context.l10n.scanLogLocation,
               dummyScanLog.scanLocationLat != null &&
                       dummyScanLog.scanLocationLng != null
                   ? '${dummyScanLog.scanLocationLat}, ${dummyScanLog.scanLocationLng}'
@@ -191,16 +203,25 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Scan Information', [
-            _buildInfoRow('Scanned Value', _scanLog!.scannedValue),
-            _buildInfoRow('Scan Method', _scanLog!.scanMethod.name),
-            _buildInfoRow('Scan Result', _scanLog!.scanResult.name),
+          _buildInfoCard(context.l10n.scanLogInformation, [
             _buildInfoRow(
-              'Scan Timestamp',
+              context.l10n.scanLogScannedValue,
+              _scanLog!.scannedValue,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanMethod,
+              _scanLog!.scanMethod.name,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanResult,
+              _scanLog!.scanResult.name,
+            ),
+            _buildInfoRow(
+              context.l10n.scanLogScanTimestamp,
               _formatDateTime(_scanLog!.scanTimestamp),
             ),
             _buildInfoRow(
-              'Location',
+              context.l10n.scanLogLocation,
               _scanLog!.scanLocationLat != null &&
                       _scanLog!.scanLocationLng != null
                   ? '${_scanLog!.scanLocationLat}, ${_scanLog!.scanLocationLng}'

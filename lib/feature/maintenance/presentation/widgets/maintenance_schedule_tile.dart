@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -75,7 +76,8 @@ class MaintenanceScheduleTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        maintenanceSchedule.asset?.assetName ?? 'Unknown Asset',
+                        maintenanceSchedule.asset?.assetName ??
+                            context.l10n.maintenanceScheduleUnknownAsset,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,

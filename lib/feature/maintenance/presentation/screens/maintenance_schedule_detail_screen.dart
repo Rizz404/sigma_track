@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -68,7 +69,8 @@ class _MaintenanceScheduleDetailScreenState
             state.failure,
           );
           AppToast.error(
-            state.failure?.message ?? 'Failed to load maintenance schedule',
+            state.failure?.message ??
+                context.l10n.maintenanceScheduleFailedToLoad,
           );
           setState(() => _isLoading = false);
         } else {
@@ -78,7 +80,7 @@ class _MaintenanceScheduleDetailScreenState
       }
     } catch (e, s) {
       this.logError('Error fetching maintenance schedule', e, s);
-      AppToast.error('Failed to load maintenance schedule');
+      AppToast.error(context.l10n.maintenanceScheduleFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -95,7 +97,7 @@ class _MaintenanceScheduleDetailScreenState
         extra: _maintenanceSchedule,
       );
     } else {
-      AppToast.warning('Only admin can edit maintenance schedules');
+      AppToast.warning(context.l10n.maintenanceScheduleOnlyAdminCanEdit);
     }
   }
 
@@ -106,30 +108,32 @@ class _MaintenanceScheduleDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete maintenance schedules');
+      AppToast.warning(context.l10n.maintenanceScheduleOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Maintenance Schedule',
+        title: AppText(
+          context.l10n.maintenanceScheduleDeleteSchedule,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete "${_maintenanceSchedule!.title}"?',
+          context.l10n.maintenanceScheduleDeleteConfirmation(
+            _maintenanceSchedule!.title,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.maintenanceScheduleCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.maintenanceScheduleDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -161,12 +165,15 @@ class _MaintenanceScheduleDetailScreenState
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
-            next.mutationMessage ?? 'Maintenance schedule deleted',
+            next.mutationMessage ?? context.l10n.maintenanceScheduleDeleted,
           );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.maintenanceScheduleDeleteFailed,
+          );
         }
       }
     });
@@ -179,7 +186,7 @@ class _MaintenanceScheduleDetailScreenState
     return Scaffold(
       appBar: CustomAppBar(
         title: isLoading
-            ? 'Maintenance Schedule Detail'
+            ? context.l10n.maintenanceScheduleDetail
             : _maintenanceSchedule!.title,
       ),
       endDrawer: const AppEndDrawer(),
@@ -209,51 +216,69 @@ class _MaintenanceScheduleDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Maintenance Schedule Information', [
-            _buildInfoRow('Title', dummySchedule.title),
-            _buildInfoRow('Description', dummySchedule.description ?? '-'),
+          _buildInfoCard(context.l10n.maintenanceScheduleInformation, [
             _buildInfoRow(
-              'Asset',
-              dummySchedule.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.maintenanceScheduleTitle,
+              dummySchedule.title,
             ),
             _buildInfoRow(
-              'Maintenance Type',
+              context.l10n.maintenanceScheduleDescription,
+              dummySchedule.description ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleAsset,
+              dummySchedule.asset?.assetName ??
+                  context.l10n.maintenanceScheduleUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleMaintenanceType,
               dummySchedule.maintenanceType.name,
             ),
             _buildInfoRow(
-              'Is Recurring',
-              dummySchedule.isRecurring ? 'Yes' : 'No',
+              context.l10n.maintenanceScheduleIsRecurring,
+              dummySchedule.isRecurring
+                  ? context.l10n.maintenanceScheduleYes
+                  : context.l10n.maintenanceScheduleNo,
             ),
             _buildInfoRow(
-              'Interval',
+              context.l10n.maintenanceScheduleInterval,
               dummySchedule.intervalValue != null &&
                       dummySchedule.intervalUnit != null
                   ? '${dummySchedule.intervalValue} ${dummySchedule.intervalUnit!.label}'
                   : '-',
             ),
-            _buildInfoRow('Scheduled Time', dummySchedule.scheduledTime ?? '-'),
             _buildInfoRow(
-              'Next Scheduled Date',
+              context.l10n.maintenanceScheduleScheduledTime,
+              dummySchedule.scheduledTime ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleNextScheduledDate,
               _formatDateTime(dummySchedule.nextScheduledDate),
             ),
             _buildInfoRow(
-              'Last Executed Date',
+              context.l10n.maintenanceScheduleLastExecutedDate,
               dummySchedule.lastExecutedDate != null
                   ? _formatDateTime(dummySchedule.lastExecutedDate!)
                   : '-',
             ),
-            _buildInfoRow('State', dummySchedule.state.name),
             _buildInfoRow(
-              'Auto Complete',
-              dummySchedule.autoComplete ? 'Yes' : 'No',
+              context.l10n.maintenanceScheduleState,
+              dummySchedule.state.name,
             ),
             _buildInfoRow(
-              'Estimated Cost',
+              context.l10n.maintenanceScheduleAutoComplete,
+              dummySchedule.autoComplete
+                  ? context.l10n.maintenanceScheduleYes
+                  : context.l10n.maintenanceScheduleNo,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleEstimatedCost,
               dummySchedule.estimatedCost?.toString() ?? '-',
             ),
             _buildInfoRow(
-              'Created By',
-              dummySchedule.createdBy?.name ?? 'Unknown User',
+              context.l10n.maintenanceScheduleCreatedBy,
+              dummySchedule.createdBy?.name ??
+                  context.l10n.maintenanceScheduleUnknownUser,
             ),
           ]),
         ],
@@ -266,64 +291,79 @@ class _MaintenanceScheduleDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Maintenance Schedule Information', [
-            _buildInfoRow('Title', _maintenanceSchedule!.title),
-            _buildTextBlock('Description', _maintenanceSchedule!.description),
+          _buildInfoCard(context.l10n.maintenanceScheduleInformation, [
             _buildInfoRow(
-              'Asset',
-              _maintenanceSchedule!.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.maintenanceScheduleTitle,
+              _maintenanceSchedule!.title,
+            ),
+            _buildTextBlock(
+              context.l10n.maintenanceScheduleDescription,
+              _maintenanceSchedule!.description,
             ),
             _buildInfoRow(
-              'Maintenance Type',
+              context.l10n.maintenanceScheduleAsset,
+              _maintenanceSchedule!.asset?.assetName ??
+                  context.l10n.maintenanceScheduleUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleMaintenanceType,
               _maintenanceSchedule!.maintenanceType.name,
             ),
             _buildInfoRow(
-              'Is Recurring',
-              _maintenanceSchedule!.isRecurring ? 'Yes' : 'No',
+              context.l10n.maintenanceScheduleIsRecurring,
+              _maintenanceSchedule!.isRecurring
+                  ? context.l10n.maintenanceScheduleYes
+                  : context.l10n.maintenanceScheduleNo,
             ),
             _buildInfoRow(
-              'Interval',
+              context.l10n.maintenanceScheduleInterval,
               _maintenanceSchedule!.intervalValue != null &&
                       _maintenanceSchedule!.intervalUnit != null
                   ? '${_maintenanceSchedule!.intervalValue} ${_maintenanceSchedule!.intervalUnit!.label}'
                   : '-',
             ),
             _buildInfoRow(
-              'Scheduled Time',
+              context.l10n.maintenanceScheduleScheduledTime,
               _maintenanceSchedule!.scheduledTime ?? '-',
             ),
             _buildInfoRow(
-              'Next Scheduled Date',
+              context.l10n.maintenanceScheduleNextScheduledDate,
               _formatDateTime(_maintenanceSchedule!.nextScheduledDate),
             ),
             _buildInfoRow(
-              'Last Executed Date',
+              context.l10n.maintenanceScheduleLastExecutedDate,
               _maintenanceSchedule!.lastExecutedDate != null
                   ? _formatDateTime(_maintenanceSchedule!.lastExecutedDate!)
                   : '-',
             ),
-            _buildInfoRow('State', _maintenanceSchedule!.state.name),
             _buildInfoRow(
-              'Auto Complete',
-              _maintenanceSchedule!.autoComplete ? 'Yes' : 'No',
+              context.l10n.maintenanceScheduleState,
+              _maintenanceSchedule!.state.name,
             ),
             _buildInfoRow(
-              'Estimated Cost',
+              context.l10n.maintenanceScheduleAutoComplete,
+              _maintenanceSchedule!.autoComplete
+                  ? context.l10n.maintenanceScheduleYes
+                  : context.l10n.maintenanceScheduleNo,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceScheduleEstimatedCost,
               _maintenanceSchedule!.estimatedCost?.toString() ?? '-',
             ),
             _buildInfoRow(
-              'Created By',
-              _maintenanceSchedule!.createdBy?.name ?? 'Unknown User',
+              context.l10n.maintenanceScheduleCreatedBy,
+              _maintenanceSchedule!.createdBy?.name ??
+                  context.l10n.maintenanceScheduleUnknownUser,
             ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
+          _buildInfoCard(context.l10n.maintenanceScheduleMetadata, [
             _buildInfoRow(
-              'Created At',
+              context.l10n.maintenanceScheduleCreatedAt,
               _formatDateTime(_maintenanceSchedule!.createdAt),
             ),
             _buildInfoRow(
-              'Updated At',
+              context.l10n.maintenanceScheduleUpdatedAt,
               _formatDateTime(_maintenanceSchedule!.updatedAt),
             ),
           ]),

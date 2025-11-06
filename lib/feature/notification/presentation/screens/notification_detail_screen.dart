@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -83,30 +84,30 @@ class _NotificationDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete notifications');
+      AppToast.warning(context.l10n.notificationOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Notification',
+        title: AppText(
+          context.l10n.notificationDeleteNotification,
           style: AppTextStyle.titleMedium,
         ),
-        content: const AppText(
-          'Are you sure you want to delete this notification?',
+        content: AppText(
+          context.l10n.notificationDeleteConfirmation,
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.notificationCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.notificationDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -131,11 +132,16 @@ class _NotificationDetailScreenState
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Notification deleted');
+          AppToast.success(
+            next.mutationMessage ?? context.l10n.notificationDeleted,
+          );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.notificationDeleteFailed,
+          );
         }
       }
     });
@@ -146,7 +152,7 @@ class _NotificationDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Notification Detail'),
+      appBar: CustomAppBar(title: context.l10n.notificationDetail),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
@@ -171,19 +177,36 @@ class _NotificationDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Notification Information', [
-            _buildInfoRow('Title', dummyNotification.title),
-            _buildInfoRow('Message', dummyNotification.message),
-            _buildInfoRow('Type', dummyNotification.type.name),
-            _buildInfoRow('Priority', dummyNotification.priority.name),
-            _buildInfoRow('Is Read', dummyNotification.isRead ? 'Yes' : 'No'),
+          _buildInfoCard(context.l10n.notificationInformation, [
             _buildInfoRow(
-              'Created At',
+              context.l10n.notificationTitle,
+              dummyNotification.title,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationMessage,
+              dummyNotification.message,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationType,
+              dummyNotification.type.name,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationPriority,
+              dummyNotification.priority.name,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationIsRead,
+              dummyNotification.isRead
+                  ? context.l10n.notificationYes
+                  : context.l10n.notificationNo,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationCreatedAt,
               _formatDateTime(dummyNotification.createdAt),
             ),
             if (dummyNotification.expiresAt != null)
               _buildInfoRow(
-                'Expires At',
+                context.l10n.notificationExpiresAt,
                 _formatDateTime(dummyNotification.expiresAt!),
               ),
           ]),
@@ -197,19 +220,33 @@ class _NotificationDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Notification Information', [
-            _buildInfoRow('Title', _notification!.title),
-            _buildTextBlock('Message', _notification!.message),
-            _buildInfoRow('Type', _notification!.type.name),
-            _buildInfoRow('Priority', _notification!.priority.name),
-            _buildInfoRow('Is Read', _notification!.isRead ? 'Yes' : 'No'),
+          _buildInfoCard(context.l10n.notificationInformation, [
+            _buildInfoRow(context.l10n.notificationTitle, _notification!.title),
+            _buildTextBlock(
+              context.l10n.notificationMessage,
+              _notification!.message,
+            ),
             _buildInfoRow(
-              'Created At',
+              context.l10n.notificationType,
+              _notification!.type.name,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationPriority,
+              _notification!.priority.name,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationIsRead,
+              _notification!.isRead
+                  ? context.l10n.notificationYes
+                  : context.l10n.notificationNo,
+            ),
+            _buildInfoRow(
+              context.l10n.notificationCreatedAt,
               _formatDateTime(_notification!.createdAt),
             ),
             if (_notification!.expiresAt != null)
               _buildInfoRow(
-                'Expires At',
+                context.l10n.notificationExpiresAt,
                 _formatDateTime(_notification!.expiresAt!),
               ),
           ]),

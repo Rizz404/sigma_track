@@ -1,77 +1,113 @@
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:flutter/material.dart';
+
 class IssueReportUpsertValidator {
-  static String? validateAssetId(String? value, {bool isUpdate = false}) {
+  static String? validateAssetId(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Asset is required';
+      return context.l10n.issueReportValidationAssetRequired;
     }
     return null;
   }
 
-  static String? validateReportedById(String? value, {bool isUpdate = false}) {
+  static String? validateReportedById(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Reported by is required';
+      return context.l10n.issueReportValidationReportedByRequired;
     }
     return null;
   }
 
-  static String? validateIssueType(String? value, {bool isUpdate = false}) {
+  static String? validateIssueType(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Issue type is required';
+      return context.l10n.issueReportValidationIssueTypeRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length > 100) {
-        return 'Issue type must not exceed 100 characters';
+        return context.l10n.issueReportValidationIssueTypeMaxLength;
       }
     }
     return null;
   }
 
-  static String? validatePriority(String? value, {bool isUpdate = false}) {
+  static String? validatePriority(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Priority is required';
+      return context.l10n.issueReportValidationPriorityRequired;
     }
     return null;
   }
 
-  static String? validateStatus(String? value, {bool isUpdate = false}) {
+  static String? validateStatus(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Status is required';
+      return context.l10n.issueReportValidationStatusRequired;
     }
     return null;
   }
 
-  static String? validateTitle(String? value, {bool isUpdate = false}) {
+  static String? validateTitle(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Title is required';
+      return context.l10n.issueReportValidationTitleRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length > 200) {
-        return 'Title must not exceed 200 characters';
+        return context.l10n.issueReportValidationTitleMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateDescription(String? value, {bool isUpdate = false}) {
+  static String? validateDescription(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 1000) {
-        return 'Description must not exceed 1000 characters';
+        return context.l10n.issueReportValidationDescriptionMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateResolvedBy(String? value, {bool isUpdate = false}) {
+  static String? validateResolvedBy(
+    String? value, {
+    required BuildContext context,
+    bool isUpdate = false,
+  }) {
     // Resolved by is optional for updates
     return null;
   }
 
   static String? validateResolutionNotes(
     String? value, {
+    required BuildContext context,
     bool isUpdate = false,
   }) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 1000) {
-        return 'Resolution notes must not exceed 1000 characters';
+        return context.l10n.issueReportValidationResolutionNotesMaxLength;
       }
     }
     return null;

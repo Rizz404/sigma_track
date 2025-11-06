@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -68,7 +69,8 @@ class _MaintenanceRecordDetailScreenState
             state.failure,
           );
           AppToast.error(
-            state.failure?.message ?? 'Failed to load maintenance record',
+            state.failure?.message ??
+                context.l10n.maintenanceRecordFailedToLoad,
           );
           setState(() => _isLoading = false);
         } else {
@@ -78,7 +80,7 @@ class _MaintenanceRecordDetailScreenState
       }
     } catch (e, s) {
       this.logError('Error fetching maintenance record', e, s);
-      AppToast.error('Failed to load maintenance record');
+      AppToast.error(context.l10n.maintenanceRecordFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -95,7 +97,7 @@ class _MaintenanceRecordDetailScreenState
         extra: _maintenanceRecord,
       );
     } else {
-      AppToast.warning('Only admin can edit maintenance records');
+      AppToast.warning(context.l10n.maintenanceRecordOnlyAdminCanEdit);
     }
   }
 
@@ -106,30 +108,32 @@ class _MaintenanceRecordDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete maintenance records');
+      AppToast.warning(context.l10n.maintenanceRecordOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Maintenance Record',
+        title: AppText(
+          context.l10n.maintenanceRecordDeleteRecord,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete "${_maintenanceRecord!.title}"?',
+          context.l10n.maintenanceRecordDeleteConfirmation(
+            _maintenanceRecord!.title,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.maintenanceRecordCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.maintenanceRecordDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -159,12 +163,15 @@ class _MaintenanceRecordDetailScreenState
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
-            next.mutationMessage ?? 'Maintenance record deleted',
+            next.mutationMessage ?? context.l10n.maintenanceRecordDeleted,
           );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.maintenanceRecordDeleteFailed,
+          );
         }
       }
     });
@@ -177,7 +184,7 @@ class _MaintenanceRecordDetailScreenState
     return Scaffold(
       appBar: CustomAppBar(
         title: isLoading
-            ? 'Maintenance Record Detail'
+            ? context.l10n.maintenanceRecordDetail
             : _maintenanceRecord!.title,
       ),
       endDrawer: const AppEndDrawer(),
@@ -207,42 +214,56 @@ class _MaintenanceRecordDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Maintenance Record Information', [
-            _buildInfoRow('Title', dummyRecord.title),
-            _buildInfoRow('Notes', dummyRecord.notes ?? '-'),
+          _buildInfoCard(context.l10n.maintenanceRecordInformation, [
             _buildInfoRow(
-              'Asset',
-              dummyRecord.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.maintenanceRecordTitle,
+              dummyRecord.title,
             ),
             _buildInfoRow(
-              'Maintenance Date',
+              context.l10n.maintenanceRecordNotes,
+              dummyRecord.notes ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceRecordAsset,
+              dummyRecord.asset?.assetName ??
+                  context.l10n.maintenanceRecordUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceRecordMaintenanceDate,
               _formatDateTime(dummyRecord.maintenanceDate),
             ),
             _buildInfoRow(
-              'Completion Date',
+              context.l10n.maintenanceRecordCompletionDate,
               dummyRecord.completionDate != null
                   ? _formatDateTime(dummyRecord.completionDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Duration',
+              context.l10n.maintenanceRecordDuration,
               dummyRecord.durationMinutes != null
-                  ? '${dummyRecord.durationMinutes} minutes'
+                  ? context.l10n.maintenanceRecordDurationMinutes(
+                      dummyRecord.durationMinutes!,
+                    )
                   : '-',
             ),
             _buildInfoRow(
-              'Performed By User',
+              context.l10n.maintenanceRecordPerformedByUser,
               dummyRecord.performedByUser?.name ?? '-',
             ),
             _buildInfoRow(
-              'Performed By Vendor',
+              context.l10n.maintenanceRecordPerformedByVendor,
               dummyRecord.performedByVendor ?? '-',
             ),
-            _buildInfoRow('Result', dummyRecord.result.label),
             _buildInfoRow(
-              'Actual Cost',
+              context.l10n.maintenanceRecordResult,
+              dummyRecord.result.label,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceRecordActualCost,
               dummyRecord.actualCost != null
-                  ? '\$${dummyRecord.actualCost}'
+                  ? context.l10n.maintenanceRecordActualCostValue(
+                      dummyRecord.actualCost.toString(),
+                    )
                   : '-',
             ),
           ]),
@@ -256,53 +277,67 @@ class _MaintenanceRecordDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Maintenance Record Information', [
-            _buildInfoRow('Title', _maintenanceRecord!.title),
-            _buildTextBlock('Notes', _maintenanceRecord!.notes),
+          _buildInfoCard(context.l10n.maintenanceRecordInformation, [
             _buildInfoRow(
-              'Asset',
-              _maintenanceRecord!.asset?.assetName ?? 'Unknown Asset',
+              context.l10n.maintenanceRecordTitle,
+              _maintenanceRecord!.title,
+            ),
+            _buildTextBlock(
+              context.l10n.maintenanceRecordNotes,
+              _maintenanceRecord!.notes,
             ),
             _buildInfoRow(
-              'Maintenance Date',
+              context.l10n.maintenanceRecordAsset,
+              _maintenanceRecord!.asset?.assetName ??
+                  context.l10n.maintenanceRecordUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceRecordMaintenanceDate,
               _formatDateTime(_maintenanceRecord!.maintenanceDate),
             ),
             _buildInfoRow(
-              'Completion Date',
+              context.l10n.maintenanceRecordCompletionDate,
               _maintenanceRecord!.completionDate != null
                   ? _formatDateTime(_maintenanceRecord!.completionDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Duration',
+              context.l10n.maintenanceRecordDuration,
               _maintenanceRecord!.durationMinutes != null
-                  ? '${_maintenanceRecord!.durationMinutes} minutes'
+                  ? context.l10n.maintenanceRecordDurationMinutes(
+                      _maintenanceRecord!.durationMinutes!,
+                    )
                   : '-',
             ),
             _buildInfoRow(
-              'Performed By User',
+              context.l10n.maintenanceRecordPerformedByUser,
               _maintenanceRecord!.performedByUser?.name ?? '-',
             ),
             _buildInfoRow(
-              'Performed By Vendor',
+              context.l10n.maintenanceRecordPerformedByVendor,
               _maintenanceRecord!.performedByVendor ?? '-',
             ),
-            _buildInfoRow('Result', _maintenanceRecord!.result.label),
             _buildInfoRow(
-              'Actual Cost',
+              context.l10n.maintenanceRecordResult,
+              _maintenanceRecord!.result.label,
+            ),
+            _buildInfoRow(
+              context.l10n.maintenanceRecordActualCost,
               _maintenanceRecord!.actualCost != null
-                  ? '\$${_maintenanceRecord!.actualCost}'
+                  ? context.l10n.maintenanceRecordActualCostValue(
+                      _maintenanceRecord!.actualCost.toString(),
+                    )
                   : '-',
             ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
+          _buildInfoCard(context.l10n.maintenanceRecordMetadata, [
             _buildInfoRow(
-              'Created At',
+              context.l10n.maintenanceRecordCreatedAt,
               _formatDateTime(_maintenanceRecord!.createdAt),
             ),
             _buildInfoRow(
-              'Updated At',
+              context.l10n.maintenanceRecordUpdatedAt,
               _formatDateTime(_maintenanceRecord!.updatedAt),
             ),
           ]),

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -88,15 +89,15 @@ class _ListMaintenanceRecordsScreenState
             _isSelectMode = true;
             _selectedMaintenanceRecordIds.clear();
           });
-          AppToast.info('Select maintenanceRecords to delete');
+          AppToast.info(context.l10n.maintenanceRecordSelectToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create MaintenanceRecord',
-        createSubtitle: 'Add a new maintenanceRecord',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple maintenanceRecords to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize maintenanceRecord display',
+        createTitle: context.l10n.maintenanceRecordCreateTitle,
+        createSubtitle: context.l10n.maintenanceRecordCreateSubtitle,
+        selectManyTitle: context.l10n.maintenanceRecordSelectManyTitle,
+        selectManySubtitle: context.l10n.maintenanceRecordSelectManySubtitle,
+        filterSortTitle: context.l10n.maintenanceRecordFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.maintenanceRecordFilterAndSortSubtitle,
       ),
     );
   }
@@ -131,15 +132,15 @@ class _ListMaintenanceRecordsScreenState
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.maintenanceRecordFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.maintenanceRecordSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: MaintenanceRecordSortBy.values
                     .map(
@@ -154,7 +155,7 @@ class _ListMaintenanceRecordsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.maintenanceRecordSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -196,7 +197,7 @@ class _ListMaintenanceRecordsScreenState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.maintenanceRecordReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -209,14 +210,16 @@ class _ListMaintenanceRecordsScreenState
                         ref
                             .read(maintenanceRecordsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(
+                          context.l10n.maintenanceRecordFilterReset,
+                        );
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.maintenanceRecordApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -249,7 +252,9 @@ class _ListMaintenanceRecordsScreenState
                           ref
                               .read(maintenanceRecordsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(
+                            context.l10n.maintenanceRecordFilterApplied,
+                          );
                         }
                       },
                     ),
@@ -282,30 +287,32 @@ class _ListMaintenanceRecordsScreenState
 
   Future<void> _deleteSelectedMaintenanceRecords() async {
     if (_selectedMaintenanceRecordIds.isEmpty) {
-      AppToast.warning('No maintenanceRecords selected');
+      AppToast.warning(context.l10n.maintenanceRecordNoRecordsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete MaintenanceRecords',
+        title: AppText(
+          context.l10n.maintenanceRecordDeleteRecords,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedMaintenanceRecordIds.length} maintenanceRecords?',
+          context.l10n.maintenanceRecordDeleteMultipleConfirmation(
+            _selectedMaintenanceRecordIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.maintenanceRecordCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.maintenanceRecordDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -316,7 +323,7 @@ class _ListMaintenanceRecordsScreenState
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.maintenanceRecordNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -343,7 +350,7 @@ class _ListMaintenanceRecordsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'MaintenanceRecord Management'),
+      appBar: CustomAppBar(title: context.l10n.maintenanceRecordManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -412,14 +419,16 @@ class _ListMaintenanceRecordsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedMaintenanceRecordIds.length} selected',
+                context.l10n.maintenanceRecordSelectedCount(
+                  _selectedMaintenanceRecordIds.length,
+                ),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.maintenanceRecordDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedMaintenanceRecords,
@@ -433,7 +442,7 @@ class _ListMaintenanceRecordsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search maintenanceRecords...',
+      hintText: context.l10n.maintenanceRecordSearch,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -462,13 +471,13 @@ class _ListMaintenanceRecordsScreenState
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No maintenanceRecords found',
+            context.l10n.maintenanceRecordNoRecordsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first maintenanceRecord to get started',
+            context.l10n.maintenanceRecordCreateFirstRecord,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -520,7 +529,7 @@ class _ListMaintenanceRecordsScreenState
                         _selectedMaintenanceRecordIds.add(maintenanceRecord.id);
                       });
                       AppToast.info(
-                        'Long press to select more maintenanceRecords',
+                        context.l10n.maintenanceRecordLongPressToSelect,
                       );
                     }
                   },

@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -43,7 +44,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.userPleaseValidateFields);
       return;
     }
 
@@ -99,7 +100,9 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
 
       // * Handle mutation success
       if (next.hasMutationSuccess) {
-        AppToast.success(next.mutationMessage ?? 'User saved successfully');
+        AppToast.success(
+          next.mutationMessage ?? context.l10n.userSavedSuccessfully,
+        );
         context.pop();
       }
 
@@ -112,14 +115,20 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
           );
         } else {
           this.logError('User mutation error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.userOperationFailed,
+          );
         }
       }
     });
 
     return AppLoaderOverlay(
       child: Scaffold(
-        appBar: CustomAppBar(title: _isEdit ? 'Edit User' : 'Create User'),
+        appBar: CustomAppBar(
+          title: _isEdit
+              ? context.l10n.userEditUser
+              : context.l10n.userCreateUser,
+        ),
         endDrawer: const AppEndDrawer(),
         body: Column(
           children: [
@@ -164,16 +173,16 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'User Information',
+            AppText(
+              context.l10n.userInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'name',
-              label: 'Username',
-              placeHolder: 'Enter username',
+              label: context.l10n.userUsername,
+              placeHolder: context.l10n.userEnterUsername,
               initialValue: widget.user?.name,
               validator: (value) =>
                   UserUpsertValidator.validateName(value, isUpdate: _isEdit),
@@ -181,8 +190,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'email',
-              label: 'Email',
-              placeHolder: 'Enter email',
+              label: context.l10n.userEmail,
+              placeHolder: context.l10n.userEnterEmail,
               initialValue: widget.user?.email,
               validator: (value) =>
                   UserUpsertValidator.validateEmail(value, isUpdate: _isEdit),
@@ -191,8 +200,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             if (!_isEdit) ...[
               AppTextField(
                 name: 'password',
-                label: 'Password',
-                placeHolder: 'Enter password',
+                label: context.l10n.userPassword,
+                placeHolder: context.l10n.userEnterPassword,
                 type: AppTextFieldType.password,
                 validator: (value) => UserUpsertValidator.validatePassword(
                   value,
@@ -203,8 +212,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             ],
             AppTextField(
               name: 'fullName',
-              label: 'Full Name',
-              placeHolder: 'Enter full name',
+              label: context.l10n.userFullName,
+              placeHolder: context.l10n.userEnterFullName,
               initialValue: widget.user?.fullName,
               validator: (value) => UserUpsertValidator.validateFullName(
                 value,
@@ -214,8 +223,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             const SizedBox(height: 16),
             AppDropdown(
               name: 'role',
-              label: 'Role',
-              hintText: 'Select role',
+              label: context.l10n.userRole,
+              hintText: context.l10n.userSelectRole,
               items: UserRole.values
                   .map(
                     (role) => AppDropdownItem(
@@ -232,16 +241,16 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'employeeId',
-              label: 'Employee ID (Optional)',
-              placeHolder: 'Enter employee ID',
+              label: context.l10n.userEmployeeIdOptional,
+              placeHolder: context.l10n.userEnterEmployeeIdOptional,
               initialValue: widget.user?.employeeId,
               validator: UserUpsertValidator.validateEmployeeId,
             ),
             const SizedBox(height: 16),
             AppDropdown(
               name: 'preferredLang',
-              label: 'Preferred Language (Optional)',
-              hintText: 'Select language',
+              label: context.l10n.userPreferredLanguage,
+              hintText: context.l10n.userSelectLanguage,
               items: Language.values
                   .map(
                     (lang) => AppDropdownItem(
@@ -257,7 +266,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               const SizedBox(height: 16),
               AppCheckbox(
                 name: 'isActive',
-                title: const AppText('Active'),
+                title: AppText(context.l10n.userActive),
                 initialValue: widget.user?.isActive ?? true,
               ),
             ],
@@ -287,7 +296,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.userCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -295,7 +304,9 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.userUpdate
+                    : context.l10n.userCreate,
                 onPressed: _handleSubmit,
               ),
             ),

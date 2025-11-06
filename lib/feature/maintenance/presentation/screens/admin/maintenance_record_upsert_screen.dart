@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -86,7 +87,7 @@ class _MaintenanceRecordUpsertScreenState
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.maintenanceRecordFillRequiredFields);
       return;
     }
 
@@ -216,7 +217,7 @@ class _MaintenanceRecordUpsertScreenState
             setState(() => _isLoadingTranslations = false);
             AppToast.error(
               maintenanceRecordDetailState.failure?.message ??
-                  'Failed to load translations',
+                  context.l10n.maintenanceRecordFailedToLoadTranslations,
             );
           }
         });
@@ -238,7 +239,8 @@ class _MaintenanceRecordUpsertScreenState
       // * Handle mutation success
       if (next.hasMutationSuccess) {
         AppToast.success(
-          next.mutationMessage ?? 'Maintenance record saved successfully',
+          next.mutationMessage ??
+              context.l10n.maintenanceRecordSavedSuccessfully,
         );
         context.pop();
       }
@@ -255,7 +257,10 @@ class _MaintenanceRecordUpsertScreenState
             'Maintenance record mutation error',
             next.mutationFailure,
           );
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.maintenanceRecordOperationFailed,
+          );
         }
       }
     });
@@ -264,8 +269,8 @@ class _MaintenanceRecordUpsertScreenState
       child: Scaffold(
         appBar: CustomAppBar(
           title: _isEdit
-              ? 'Edit Maintenance Record'
-              : 'Create Maintenance Record',
+              ? context.l10n.maintenanceRecordEditRecord
+              : context.l10n.maintenanceRecordCreateRecord,
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -313,23 +318,24 @@ class _MaintenanceRecordUpsertScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Maintenance Record Information',
+            AppText(
+              context.l10n.maintenanceRecordInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppSearchField<MaintenanceSchedule>(
               name: 'scheduleId',
-              label: 'Maintenance Schedule',
-              hintText: 'Search and select maintenance schedule',
+              label: context.l10n.maintenanceRecordSchedule,
+              hintText: context.l10n.maintenanceRecordSearchSchedule,
               initialValue: widget.maintenanceRecord?.scheduleId,
               enableAutocomplete: true,
               onSearch: _searchMaintenanceSchedules,
               itemDisplayMapper: (schedule) => schedule.title,
               itemValueMapper: (schedule) => schedule.id,
               itemSubtitleMapper: (schedule) =>
-                  schedule.asset?.assetName ?? 'Unknown Asset',
+                  schedule.asset?.assetName ??
+                  context.l10n.maintenanceRecordUnknownAsset,
               itemIcon: Icons.schedule,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateScheduleId(
@@ -340,8 +346,8 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppSearchField<Asset>(
               name: 'assetId',
-              label: 'Asset',
-              hintText: 'Search and select asset',
+              label: context.l10n.maintenanceRecordAsset,
+              hintText: context.l10n.maintenanceRecordSearchAsset,
               initialValue: widget.maintenanceRecord?.assetId,
               enableAutocomplete: true,
               onSearch: _searchAssets,
@@ -358,7 +364,7 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'maintenanceDate',
-              label: 'Maintenance Date',
+              label: context.l10n.maintenanceRecordMaintenanceDate,
               initialValue: widget.maintenanceRecord?.maintenanceDate,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateMaintenanceDate(
@@ -369,14 +375,14 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'completionDate',
-              label: 'Completion Date (Optional)',
+              label: context.l10n.maintenanceRecordCompletionDateOptional,
               initialValue: widget.maintenanceRecord?.completionDate,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'durationMinutes',
-              label: 'Duration (Minutes)',
-              placeHolder: 'Enter duration in minutes (optional)',
+              label: context.l10n.maintenanceRecordDurationMinutesLabel,
+              placeHolder: context.l10n.maintenanceRecordEnterDuration,
               initialValue: widget.maintenanceRecord?.durationMinutes
                   ?.toString(),
               type: AppTextFieldType.number,
@@ -384,8 +390,8 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppSearchField<User>(
               name: 'performedById',
-              label: 'Performed By User',
-              hintText: 'Search and select user who performed the maintenance',
+              label: context.l10n.maintenanceRecordPerformedByUser,
+              hintText: context.l10n.maintenanceRecordSearchPerformedByUser,
               initialValue: widget.maintenanceRecord?.performedByUserId,
               enableAutocomplete: true,
               onSearch: _searchUsers,
@@ -397,8 +403,8 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'performedByVendor',
-              label: 'Performed By Vendor',
-              placeHolder: 'Enter vendor name (optional)',
+              label: context.l10n.maintenanceRecordPerformedByVendorLabel,
+              placeHolder: context.l10n.maintenanceRecordEnterVendor,
               initialValue: widget.maintenanceRecord?.performedByVendor,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validatePerformedByVendor(
@@ -409,8 +415,8 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppDropdown(
               name: 'result',
-              label: 'Result',
-              hintText: 'Select maintenance result',
+              label: context.l10n.maintenanceRecordResult,
+              hintText: context.l10n.maintenanceRecordSelectResult,
               items: MaintenanceResult.values
                   .map(
                     (result) => AppDropdownItem(
@@ -430,8 +436,8 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'actualCost',
-              label: 'Actual Cost',
-              placeHolder: 'Enter actual cost (optional)',
+              label: context.l10n.maintenanceRecordActualCostLabel,
+              placeHolder: context.l10n.maintenanceRecordEnterActualCost,
               initialValue: widget.maintenanceRecord?.actualCost?.toString(),
               type: AppTextFieldType.priceUS,
               validator: (value) =>
@@ -461,15 +467,21 @@ class _MaintenanceRecordUpsertScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.maintenanceRecordTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en-US', 'English'),
+              _buildTranslationFields(
+                'en-US',
+                context.l10n.maintenanceRecordEnglish,
+              ),
               const SizedBox(height: 12),
-              _buildTranslationFields('ja-JP', 'Japanese'),
+              _buildTranslationFields(
+                'ja-JP',
+                context.l10n.maintenanceRecordJapanese,
+              ),
             ],
           ),
         ),
@@ -509,8 +521,8 @@ class _MaintenanceRecordUpsertScreenState
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_title',
-            label: 'Title',
-            placeHolder: 'Enter title in $langName',
+            label: context.l10n.maintenanceRecordTitle,
+            placeHolder: context.l10n.maintenanceRecordEnterTitle(langName),
             initialValue: translation?.title,
             validator: (value) =>
                 MaintenanceRecordUpsertValidator.validateTitle(
@@ -521,8 +533,8 @@ class _MaintenanceRecordUpsertScreenState
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_notes',
-            label: 'Notes',
-            placeHolder: 'Enter notes in $langName',
+            label: context.l10n.maintenanceRecordNotes,
+            placeHolder: context.l10n.maintenanceRecordEnterNotes(langName),
             initialValue: translation?.notes,
             type: AppTextFieldType.multiline,
             validator: (value) =>
@@ -548,7 +560,7 @@ class _MaintenanceRecordUpsertScreenState
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.maintenanceRecordCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -556,7 +568,9 @@ class _MaintenanceRecordUpsertScreenState
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.maintenanceRecordUpdate
+                    : context.l10n.maintenanceRecordCreate,
                 onPressed: _handleSubmit,
               ),
             ),

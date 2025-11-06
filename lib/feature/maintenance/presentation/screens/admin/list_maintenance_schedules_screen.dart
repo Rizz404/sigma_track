@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -88,15 +89,16 @@ class _ListMaintenanceSchedulesScreenState
             _isSelectMode = true;
             _selectedMaintenanceScheduleIds.clear();
           });
-          AppToast.info('Select maintenanceSchedules to delete');
+          AppToast.info(context.l10n.maintenanceScheduleSelectToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create MaintenanceSchedule',
-        createSubtitle: 'Add a new maintenanceSchedule',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple maintenanceSchedules to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize maintenanceSchedule display',
+        createTitle: context.l10n.maintenanceScheduleCreateTitle,
+        createSubtitle: context.l10n.maintenanceScheduleCreateSubtitle,
+        selectManyTitle: context.l10n.maintenanceScheduleSelectManyTitle,
+        selectManySubtitle: context.l10n.maintenanceScheduleSelectManySubtitle,
+        filterSortTitle: context.l10n.maintenanceScheduleFilterAndSortTitle,
+        filterSortSubtitle:
+            context.l10n.maintenanceScheduleFilterAndSortSubtitle,
       ),
     );
   }
@@ -131,15 +133,15 @@ class _ListMaintenanceSchedulesScreenState
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.maintenanceScheduleFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.maintenanceScheduleSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: MaintenanceScheduleSortBy.values
                     .map(
@@ -154,7 +156,7 @@ class _ListMaintenanceSchedulesScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.maintenanceScheduleSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -169,7 +171,7 @@ class _ListMaintenanceSchedulesScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'maintenanceType',
-                label: 'Maintenance Type',
+                label: context.l10n.maintenanceScheduleMaintenanceType,
                 initialValue: currentFilter.maintenanceType?.value,
                 items: MaintenanceScheduleType.values
                     .map(
@@ -184,7 +186,7 @@ class _ListMaintenanceSchedulesScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'state',
-                label: 'State',
+                label: context.l10n.maintenanceScheduleState,
                 initialValue: currentFilter.state?.value,
                 items: ScheduleState.values
                     .map(
@@ -219,7 +221,7 @@ class _ListMaintenanceSchedulesScreenState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.maintenanceScheduleReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -232,14 +234,16 @@ class _ListMaintenanceSchedulesScreenState
                         ref
                             .read(maintenanceSchedulesProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(
+                          context.l10n.maintenanceScheduleFilterReset,
+                        );
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.maintenanceScheduleApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -284,7 +288,9 @@ class _ListMaintenanceSchedulesScreenState
                           ref
                               .read(maintenanceSchedulesProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(
+                            context.l10n.maintenanceScheduleFilterApplied,
+                          );
                         }
                       },
                     ),
@@ -317,30 +323,32 @@ class _ListMaintenanceSchedulesScreenState
 
   Future<void> _deleteSelectedMaintenanceSchedules() async {
     if (_selectedMaintenanceScheduleIds.isEmpty) {
-      AppToast.warning('No maintenanceSchedules selected');
+      AppToast.warning(context.l10n.maintenanceScheduleNoSchedulesSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete MaintenanceSchedules',
+        title: AppText(
+          context.l10n.maintenanceScheduleDeleteSchedules,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedMaintenanceScheduleIds.length} maintenanceSchedules?',
+          context.l10n.maintenanceScheduleDeleteMultipleConfirmation(
+            _selectedMaintenanceScheduleIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.maintenanceScheduleCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.maintenanceScheduleDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -351,7 +359,7 @@ class _ListMaintenanceSchedulesScreenState
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.maintenanceScheduleNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -378,7 +386,7 @@ class _ListMaintenanceSchedulesScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'MaintenanceSchedule Management'),
+      appBar: CustomAppBar(title: context.l10n.maintenanceScheduleManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -447,14 +455,16 @@ class _ListMaintenanceSchedulesScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedMaintenanceScheduleIds.length} selected',
+                context.l10n.maintenanceScheduleSelectedCount(
+                  _selectedMaintenanceScheduleIds.length,
+                ),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.maintenanceScheduleDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedMaintenanceSchedules,
@@ -468,7 +478,7 @@ class _ListMaintenanceSchedulesScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search maintenanceSchedules...',
+      hintText: context.l10n.maintenanceScheduleSearch,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -497,13 +507,13 @@ class _ListMaintenanceSchedulesScreenState
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No maintenanceSchedules found',
+            context.l10n.maintenanceScheduleNoSchedulesFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first maintenanceSchedule to get started',
+            context.l10n.maintenanceScheduleCreateFirstSchedule,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -559,7 +569,7 @@ class _ListMaintenanceSchedulesScreenState
                         );
                       });
                       AppToast.info(
-                        'Long press to select more maintenanceSchedules',
+                        context.l10n.maintenanceScheduleLongPressToSelect,
                       );
                     }
                   },

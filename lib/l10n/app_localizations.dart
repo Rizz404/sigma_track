@@ -2577,6 +2577,3168 @@ abstract class L10n {
   /// **'Home'**
   String get homeScreen;
 
+  /// Dialog title for deleting an issue report
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Issue Report'**
+  String get issueReportDeleteIssueReport;
+
+  /// Confirmation message for deleting an issue report
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{title}\"?'**
+  String issueReportDeleteConfirmation(String title);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get issueReportCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get issueReportDelete;
+
+  /// Issue report detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Report Detail'**
+  String get issueReportDetail;
+
+  /// Issue report information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Report Information'**
+  String get issueReportInformation;
+
+  /// Title label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get issueReportTitle;
+
+  /// Description label
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get issueReportDescription;
+
+  /// Asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Asset'**
+  String get issueReportAsset;
+
+  /// Issue type label
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Type'**
+  String get issueReportIssueType;
+
+  /// Priority label
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get issueReportPriority;
+
+  /// Status label
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get issueReportStatus;
+
+  /// Reported by label
+  ///
+  /// In en, this message translates to:
+  /// **'Reported By'**
+  String get issueReportReportedBy;
+
+  /// Reported date label
+  ///
+  /// In en, this message translates to:
+  /// **'Reported Date'**
+  String get issueReportReportedDate;
+
+  /// Resolved date label
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved Date'**
+  String get issueReportResolvedDate;
+
+  /// Resolved by label
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved By'**
+  String get issueReportResolvedBy;
+
+  /// Resolution notes label
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution Notes'**
+  String get issueReportResolutionNotes;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get issueReportMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get issueReportCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get issueReportUpdatedAt;
+
+  /// Error message for non-admin trying to edit
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit issue reports'**
+  String get issueReportOnlyAdminCanEdit;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete issue reports'**
+  String get issueReportOnlyAdminCanDelete;
+
+  /// Error message when issue report fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load issue report'**
+  String get issueReportFailedToLoad;
+
+  /// Success message for issue report deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Issue report deleted'**
+  String get issueReportDeletedSuccess;
+
+  /// Error message for issue report deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get issueReportDeletedFailed;
+
+  /// Unknown asset placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Asset'**
+  String get issueReportUnknownAsset;
+
+  /// Unknown user placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown User'**
+  String get issueReportUnknownUser;
+
+  /// Edit issue report screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Issue Report'**
+  String get issueReportEditIssueReport;
+
+  /// Create issue report screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Issue Report'**
+  String get issueReportCreateIssueReport;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get issueReportFillRequiredFields;
+
+  /// Success message for issue report save
+  ///
+  /// In en, this message translates to:
+  /// **'Issue report saved successfully'**
+  String get issueReportSavedSuccessfully;
+
+  /// Generic operation failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get issueReportOperationFailed;
+
+  /// Error message for translation loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load translations'**
+  String get issueReportFailedToLoadTranslations;
+
+  /// Asset search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select asset'**
+  String get issueReportSearchAsset;
+
+  /// Reported by search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select user who reported the issue'**
+  String get issueReportSearchReportedBy;
+
+  /// Issue type input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter issue type (e.g., Hardware, Software)'**
+  String get issueReportEnterIssueType;
+
+  /// Priority dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select priority'**
+  String get issueReportSelectPriority;
+
+  /// Status dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select status'**
+  String get issueReportSelectStatus;
+
+  /// Resolved by search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select user who resolved the issue'**
+  String get issueReportSearchResolvedBy;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get issueReportTranslations;
+
+  /// English language label
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get issueReportEnglish;
+
+  /// Japanese language label
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get issueReportJapanese;
+
+  /// Title input placeholder with language
+  ///
+  /// In en, this message translates to:
+  /// **'Enter title in {language}'**
+  String issueReportEnterTitleIn(String language);
+
+  /// Description input placeholder with language
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description in {language}'**
+  String issueReportEnterDescriptionIn(String language);
+
+  /// Resolution notes input placeholder with language
+  ///
+  /// In en, this message translates to:
+  /// **'Enter resolution notes in {language}'**
+  String issueReportEnterResolutionNotesIn(String language);
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get issueReportUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get issueReportCreate;
+
+  /// Issue report management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'IssueReport Management'**
+  String get issueReportManagement;
+
+  /// Create issue report option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create IssueReport'**
+  String get issueReportCreateIssueReportTitle;
+
+  /// Create issue report option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new issueReport'**
+  String get issueReportCreateIssueReportSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get issueReportSelectManyTitle;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple issueReports to delete'**
+  String get issueReportSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get issueReportFilterAndSortTitle;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize issueReport display'**
+  String get issueReportFilterAndSortSubtitle;
+
+  /// Instruction for selecting issue reports to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select issueReports to delete'**
+  String get issueReportSelectIssueReportsToDelete;
+
+  /// Delete issue reports dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete IssueReports'**
+  String get issueReportDeleteIssueReports;
+
+  /// Confirmation message for deleting multiple issue reports
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} issueReports?'**
+  String issueReportDeleteMultipleConfirmation(int count);
+
+  /// Warning message when no issue reports are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No issueReports selected'**
+  String get issueReportNoIssueReportsSelected;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get issueReportNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String issueReportSelectedCount(int count);
+
+  /// Issue reports search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search issueReports...'**
+  String get issueReportSearchIssueReports;
+
+  /// No issue reports found message
+  ///
+  /// In en, this message translates to:
+  /// **'No issueReports found'**
+  String get issueReportNoIssueReportsFound;
+
+  /// Empty state message for issue reports
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first issueReport to get started'**
+  String get issueReportCreateFirstIssueReport;
+
+  /// Instruction for selecting multiple issue reports
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more issueReports'**
+  String get issueReportLongPressToSelect;
+
+  /// Filter by asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Asset'**
+  String get issueReportFilterByAsset;
+
+  /// Filter by reported by label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Reported By'**
+  String get issueReportFilterByReportedBy;
+
+  /// Filter by resolved by label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Resolved By'**
+  String get issueReportFilterByResolvedBy;
+
+  /// Asset filter search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search asset...'**
+  String get issueReportSearchAssetFilter;
+
+  /// User filter search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search user...'**
+  String get issueReportSearchUserFilter;
+
+  /// Issue type filter input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter issue type...'**
+  String get issueReportEnterIssueTypeFilter;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get issueReportSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get issueReportSortOrder;
+
+  /// Is resolved checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Is Resolved'**
+  String get issueReportIsResolved;
+
+  /// Date from label
+  ///
+  /// In en, this message translates to:
+  /// **'Date From'**
+  String get issueReportDateFrom;
+
+  /// Date to label
+  ///
+  /// In en, this message translates to:
+  /// **'Date To'**
+  String get issueReportDateTo;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get issueReportReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get issueReportApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get issueReportFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get issueReportFilterApplied;
+
+  /// My issue reports screen title
+  ///
+  /// In en, this message translates to:
+  /// **'My Issue Reports'**
+  String get issueReportMyIssueReports;
+
+  /// My issue reports search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search my issue reports...'**
+  String get issueReportSearchMyIssueReports;
+
+  /// Filters and sorting bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Sorting'**
+  String get issueReportFiltersAndSorting;
+
+  /// Apply filters button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get issueReportApplyFilters;
+
+  /// Filters applied state text
+  ///
+  /// In en, this message translates to:
+  /// **'Filters Applied'**
+  String get issueReportFiltersApplied;
+
+  /// Filter and sort button label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get issueReportFilterAndSort;
+
+  /// Empty state message for my issue reports
+  ///
+  /// In en, this message translates to:
+  /// **'No issue reports found'**
+  String get issueReportNoIssueReportsFoundEmpty;
+
+  /// Empty state subtitle for my issue reports
+  ///
+  /// In en, this message translates to:
+  /// **'You have no reported issues'**
+  String get issueReportYouHaveNoReportedIssues;
+
+  /// Create issue report floating action button tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Create Issue Report'**
+  String get issueReportCreateIssueReportTooltip;
+
+  /// Validation error for required asset
+  ///
+  /// In en, this message translates to:
+  /// **'Asset is required'**
+  String get issueReportValidationAssetRequired;
+
+  /// Validation error for required reported by
+  ///
+  /// In en, this message translates to:
+  /// **'Reported by is required'**
+  String get issueReportValidationReportedByRequired;
+
+  /// Validation error for required issue type
+  ///
+  /// In en, this message translates to:
+  /// **'Issue type is required'**
+  String get issueReportValidationIssueTypeRequired;
+
+  /// Validation error for issue type maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Issue type must not exceed 100 characters'**
+  String get issueReportValidationIssueTypeMaxLength;
+
+  /// Validation error for required priority
+  ///
+  /// In en, this message translates to:
+  /// **'Priority is required'**
+  String get issueReportValidationPriorityRequired;
+
+  /// Validation error for required status
+  ///
+  /// In en, this message translates to:
+  /// **'Status is required'**
+  String get issueReportValidationStatusRequired;
+
+  /// Validation error for required title
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get issueReportValidationTitleRequired;
+
+  /// Validation error for title maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Title must not exceed 200 characters'**
+  String get issueReportValidationTitleMaxLength;
+
+  /// Validation error for description maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Description must not exceed 1000 characters'**
+  String get issueReportValidationDescriptionMaxLength;
+
+  /// Validation error for resolution notes maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution notes must not exceed 1000 characters'**
+  String get issueReportValidationResolutionNotesMaxLength;
+
+  /// Dialog title for deleting a location
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Location'**
+  String get locationDeleteLocation;
+
+  /// Confirmation message for deleting a location
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{locationName}\"?'**
+  String locationDeleteConfirmation(String locationName);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get locationCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get locationDelete;
+
+  /// Location detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Location Detail'**
+  String get locationDetail;
+
+  /// Location information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Location Information'**
+  String get locationInformation;
+
+  /// Location code label
+  ///
+  /// In en, this message translates to:
+  /// **'Location Code'**
+  String get locationCode;
+
+  /// Location name label
+  ///
+  /// In en, this message translates to:
+  /// **'Location Name'**
+  String get locationName;
+
+  /// Building label
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get locationBuilding;
+
+  /// Floor label
+  ///
+  /// In en, this message translates to:
+  /// **'Floor'**
+  String get locationFloor;
+
+  /// Latitude label
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude'**
+  String get locationLatitude;
+
+  /// Longitude label
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude'**
+  String get locationLongitude;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get locationMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get locationCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get locationUpdatedAt;
+
+  /// Error message for non-admin trying to edit
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit locations'**
+  String get locationOnlyAdminCanEdit;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete locations'**
+  String get locationOnlyAdminCanDelete;
+
+  /// Error message when location fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load location'**
+  String get locationFailedToLoad;
+
+  /// Success message for location deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Location deleted'**
+  String get locationDeleted;
+
+  /// Error message for location deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get locationDeleteFailed;
+
+  /// Edit location screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Location'**
+  String get locationEditLocation;
+
+  /// Create location screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Location'**
+  String get locationCreateLocation;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get locationFillRequiredFields;
+
+  /// Success message for location save
+  ///
+  /// In en, this message translates to:
+  /// **'Location saved successfully'**
+  String get locationSavedSuccessfully;
+
+  /// Generic operation failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get locationOperationFailed;
+
+  /// Error message for translation loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load translations'**
+  String get locationFailedToLoadTranslations;
+
+  /// Location code input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter location code (e.g., LOC-001)'**
+  String get locationEnterLocationCode;
+
+  /// Building input label
+  ///
+  /// In en, this message translates to:
+  /// **'Building (Optional)'**
+  String get locationBuildingOptional;
+
+  /// Building input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter building name'**
+  String get locationEnterBuilding;
+
+  /// Floor input label
+  ///
+  /// In en, this message translates to:
+  /// **'Floor (Optional)'**
+  String get locationFloorOptional;
+
+  /// Floor input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter floor number'**
+  String get locationEnterFloor;
+
+  /// Latitude input label
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude (Optional)'**
+  String get locationLatitudeOptional;
+
+  /// Latitude input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter latitude'**
+  String get locationEnterLatitude;
+
+  /// Longitude input label
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude (Optional)'**
+  String get locationLongitudeOptional;
+
+  /// Longitude input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter longitude'**
+  String get locationEnterLongitude;
+
+  /// Getting location button text when loading
+  ///
+  /// In en, this message translates to:
+  /// **'Getting Location...'**
+  String get locationGettingLocation;
+
+  /// Use current location button label
+  ///
+  /// In en, this message translates to:
+  /// **'Use Current Location'**
+  String get locationUseCurrentLocation;
+
+  /// Warning message for disabled location services
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled'**
+  String get locationServicesDisabled;
+
+  /// Location services dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Location Services Disabled'**
+  String get locationServicesDialogTitle;
+
+  /// Location services dialog message
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are required to get your current location. Would you like to enable them?'**
+  String get locationServicesDialogMessage;
+
+  /// Open settings button label
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get locationOpenSettings;
+
+  /// Error message for denied permission
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied'**
+  String get locationPermissionDenied;
+
+  /// Error message for permanently denied permission
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission permanently denied'**
+  String get locationPermissionPermanentlyDenied;
+
+  /// Permission required dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Permission Required'**
+  String get locationPermissionRequired;
+
+  /// Permission dialog message
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is permanently denied. Please enable it in app settings.'**
+  String get locationPermissionDialogMessage;
+
+  /// Success message for getting current location
+  ///
+  /// In en, this message translates to:
+  /// **'Current location retrieved successfully'**
+  String get locationRetrievedSuccessfully;
+
+  /// Error message for failed location retrieval
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get current location'**
+  String get locationFailedToGetCurrent;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get locationTranslations;
+
+  /// Translations section subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add translations for different languages'**
+  String get locationTranslationsSubtitle;
+
+  /// English language label
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get locationEnglish;
+
+  /// Japanese language label
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get locationJapanese;
+
+  /// Location name input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter location name'**
+  String get locationEnterLocationName;
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get locationUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get locationCreate;
+
+  /// Location management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Location Management'**
+  String get locationManagement;
+
+  /// Create location option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Location'**
+  String get locationCreateLocationTitle;
+
+  /// Create location option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new location'**
+  String get locationCreateLocationSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get locationSelectManyTitle;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple locations to delete'**
+  String get locationSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get locationFilterAndSortTitle;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize location display'**
+  String get locationFilterAndSortSubtitle;
+
+  /// Instruction for selecting locations to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select locations to delete'**
+  String get locationSelectLocationsToDelete;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get locationSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get locationSortOrder;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get locationReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get locationApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get locationFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get locationFilterApplied;
+
+  /// Delete locations dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Locations'**
+  String get locationDeleteLocations;
+
+  /// Confirmation message for deleting multiple locations
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} locations?'**
+  String locationDeleteMultipleConfirmation(int count);
+
+  /// Warning message when no locations are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No locations selected'**
+  String get locationNoLocationsSelected;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get locationNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String locationSelectedCount(int count);
+
+  /// Locations search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search locations...'**
+  String get locationSearchLocations;
+
+  /// No locations found message
+  ///
+  /// In en, this message translates to:
+  /// **'No locations found'**
+  String get locationNoLocationsFound;
+
+  /// Empty state message for locations
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first location to get started'**
+  String get locationCreateFirstLocation;
+
+  /// Instruction for selecting multiple locations
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more locations'**
+  String get locationLongPressToSelect;
+
+  /// Floor prefix display
+  ///
+  /// In en, this message translates to:
+  /// **'Floor {floor}'**
+  String locationFloorPrefix(String floor);
+
+  /// Validation error for required location code
+  ///
+  /// In en, this message translates to:
+  /// **'Location code is required'**
+  String get locationValidationCodeRequired;
+
+  /// Validation error for location code minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Location code must be at least 2 characters'**
+  String get locationValidationCodeMinLength;
+
+  /// Validation error for location code maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Location code must not exceed 20 characters'**
+  String get locationValidationCodeMaxLength;
+
+  /// Validation error for location code format
+  ///
+  /// In en, this message translates to:
+  /// **'Location code can only contain letters, numbers, and dashes'**
+  String get locationValidationCodeAlphanumeric;
+
+  /// Validation error for required location name
+  ///
+  /// In en, this message translates to:
+  /// **'Location name is required'**
+  String get locationValidationNameRequired;
+
+  /// Validation error for location name minimum length
+  ///
+  /// In en, this message translates to:
+  /// **'Location name must be at least 3 characters'**
+  String get locationValidationNameMinLength;
+
+  /// Validation error for location name maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Location name must not exceed 100 characters'**
+  String get locationValidationNameMaxLength;
+
+  /// Validation error for building maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Building must not exceed 50 characters'**
+  String get locationValidationBuildingMaxLength;
+
+  /// Validation error for floor maximum length
+  ///
+  /// In en, this message translates to:
+  /// **'Floor must not exceed 20 characters'**
+  String get locationValidationFloorMaxLength;
+
+  /// Validation error for invalid latitude
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude must be a valid number'**
+  String get locationValidationLatitudeInvalid;
+
+  /// Validation error for latitude range
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude must be between -90 and 90'**
+  String get locationValidationLatitudeRange;
+
+  /// Validation error for invalid longitude
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude must be a valid number'**
+  String get locationValidationLongitudeInvalid;
+
+  /// Validation error for longitude range
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude must be between -180 and 180'**
+  String get locationValidationLongitudeRange;
+
+  /// Dialog title for deleting a maintenance schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Maintenance Schedule'**
+  String get maintenanceScheduleDeleteSchedule;
+
+  /// Confirmation message for deleting a maintenance schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{title}\"?'**
+  String maintenanceScheduleDeleteConfirmation(String title);
+
+  /// Success message for schedule deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance schedule deleted'**
+  String get maintenanceScheduleDeleted;
+
+  /// Error message for schedule deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get maintenanceScheduleDeleteFailed;
+
+  /// Schedule detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedule Detail'**
+  String get maintenanceScheduleDetail;
+
+  /// Schedule information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedule Information'**
+  String get maintenanceScheduleInformation;
+
+  /// Title label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get maintenanceScheduleTitle;
+
+  /// Description label
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get maintenanceScheduleDescription;
+
+  /// Asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Asset'**
+  String get maintenanceScheduleAsset;
+
+  /// Maintenance type label
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Type'**
+  String get maintenanceScheduleMaintenanceType;
+
+  /// Is recurring label
+  ///
+  /// In en, this message translates to:
+  /// **'Is Recurring'**
+  String get maintenanceScheduleIsRecurring;
+
+  /// Interval label
+  ///
+  /// In en, this message translates to:
+  /// **'Interval'**
+  String get maintenanceScheduleInterval;
+
+  /// Scheduled time label
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled Time'**
+  String get maintenanceScheduleScheduledTime;
+
+  /// Next scheduled date label
+  ///
+  /// In en, this message translates to:
+  /// **'Next Scheduled Date'**
+  String get maintenanceScheduleNextScheduledDate;
+
+  /// Last executed date label
+  ///
+  /// In en, this message translates to:
+  /// **'Last Executed Date'**
+  String get maintenanceScheduleLastExecutedDate;
+
+  /// State label
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get maintenanceScheduleState;
+
+  /// Auto complete label
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Complete'**
+  String get maintenanceScheduleAutoComplete;
+
+  /// Estimated cost label
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Cost'**
+  String get maintenanceScheduleEstimatedCost;
+
+  /// Created by label
+  ///
+  /// In en, this message translates to:
+  /// **'Created By'**
+  String get maintenanceScheduleCreatedBy;
+
+  /// Yes value
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get maintenanceScheduleYes;
+
+  /// No value
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get maintenanceScheduleNo;
+
+  /// Unknown asset text
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Asset'**
+  String get maintenanceScheduleUnknownAsset;
+
+  /// Unknown user text
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown User'**
+  String get maintenanceScheduleUnknownUser;
+
+  /// Error message for non-admin trying to edit
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit maintenance schedules'**
+  String get maintenanceScheduleOnlyAdminCanEdit;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete maintenance schedules'**
+  String get maintenanceScheduleOnlyAdminCanDelete;
+
+  /// Error message when schedule fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load maintenance schedule'**
+  String get maintenanceScheduleFailedToLoad;
+
+  /// Edit schedule screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Maintenance Schedule'**
+  String get maintenanceScheduleEditSchedule;
+
+  /// Create schedule screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Maintenance Schedule'**
+  String get maintenanceScheduleCreateSchedule;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get maintenanceScheduleFillRequiredFields;
+
+  /// Success message for schedule save
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance schedule saved successfully'**
+  String get maintenanceScheduleSavedSuccessfully;
+
+  /// Generic operation failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get maintenanceScheduleOperationFailed;
+
+  /// Error message for translation loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load translations'**
+  String get maintenanceScheduleFailedToLoadTranslations;
+
+  /// Asset search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select asset'**
+  String get maintenanceScheduleSearchAsset;
+
+  /// Maintenance type dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select maintenance type'**
+  String get maintenanceScheduleSelectMaintenanceType;
+
+  /// Interval value input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter interval value (e.g., 3)'**
+  String get maintenanceScheduleEnterIntervalValue;
+
+  /// Interval unit dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select interval unit'**
+  String get maintenanceScheduleSelectIntervalUnit;
+
+  /// Scheduled time input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., 09:30'**
+  String get maintenanceScheduleEnterScheduledTime;
+
+  /// State dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select state'**
+  String get maintenanceScheduleSelectState;
+
+  /// Estimated cost input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter estimated cost (optional)'**
+  String get maintenanceScheduleEnterEstimatedCost;
+
+  /// User search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select user who created the schedule'**
+  String get maintenanceScheduleSearchUser;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get maintenanceScheduleTranslations;
+
+  /// English language label
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get maintenanceScheduleEnglish;
+
+  /// Japanese language label
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get maintenanceScheduleJapanese;
+
+  /// Title input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter title in {language}'**
+  String maintenanceScheduleEnterTitle(String language);
+
+  /// Description input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter description in {language}'**
+  String maintenanceScheduleEnterDescription(String language);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get maintenanceScheduleCancel;
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get maintenanceScheduleUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get maintenanceScheduleCreate;
+
+  /// Schedule management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedule Management'**
+  String get maintenanceScheduleManagement;
+
+  /// Create schedule option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Maintenance Schedule'**
+  String get maintenanceScheduleCreateTitle;
+
+  /// Create schedule option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new maintenance schedule'**
+  String get maintenanceScheduleCreateSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get maintenanceScheduleSelectManyTitle;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple schedules to delete'**
+  String get maintenanceScheduleSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get maintenanceScheduleFilterAndSortTitle;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize schedule display'**
+  String get maintenanceScheduleFilterAndSortSubtitle;
+
+  /// Instruction for selecting schedules to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select maintenance schedules to delete'**
+  String get maintenanceScheduleSelectToDelete;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get maintenanceScheduleSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get maintenanceScheduleSortOrder;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get maintenanceScheduleReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get maintenanceScheduleApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get maintenanceScheduleFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get maintenanceScheduleFilterApplied;
+
+  /// Delete schedules dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Schedules'**
+  String get maintenanceScheduleDeleteSchedules;
+
+  /// Confirmation message for deleting multiple schedules
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} schedules?'**
+  String maintenanceScheduleDeleteMultipleConfirmation(int count);
+
+  /// Warning message when no schedules are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No schedules selected'**
+  String get maintenanceScheduleNoSchedulesSelected;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get maintenanceScheduleNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String maintenanceScheduleSelectedCount(int count);
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get maintenanceScheduleDelete;
+
+  /// Schedules search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search schedules...'**
+  String get maintenanceScheduleSearch;
+
+  /// No schedules found message
+  ///
+  /// In en, this message translates to:
+  /// **'No schedules found'**
+  String get maintenanceScheduleNoSchedulesFound;
+
+  /// Empty state message for schedules
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first schedule to get started'**
+  String get maintenanceScheduleCreateFirstSchedule;
+
+  /// Instruction for selecting multiple schedules
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more schedules'**
+  String get maintenanceScheduleLongPressToSelect;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get maintenanceScheduleMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get maintenanceScheduleCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get maintenanceScheduleUpdatedAt;
+
+  /// Interval value field label
+  ///
+  /// In en, this message translates to:
+  /// **'Interval Value'**
+  String get maintenanceScheduleIntervalValueLabel;
+
+  /// Interval unit field label
+  ///
+  /// In en, this message translates to:
+  /// **'Interval Unit'**
+  String get maintenanceScheduleIntervalUnitLabel;
+
+  /// Scheduled time field label
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled Time (HH:mm)'**
+  String get maintenanceScheduleScheduledTimeLabel;
+
+  /// Dialog title for deleting a maintenance record
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Maintenance Record'**
+  String get maintenanceRecordDeleteRecord;
+
+  /// Confirmation message for deleting a maintenance record
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{title}\"?'**
+  String maintenanceRecordDeleteConfirmation(String title);
+
+  /// Success message for record deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance record deleted'**
+  String get maintenanceRecordDeleted;
+
+  /// Error message for record deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get maintenanceRecordDeleteFailed;
+
+  /// Record detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Record Detail'**
+  String get maintenanceRecordDetail;
+
+  /// Record information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Record Information'**
+  String get maintenanceRecordInformation;
+
+  /// Title label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get maintenanceRecordTitle;
+
+  /// Notes label
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get maintenanceRecordNotes;
+
+  /// Asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Asset'**
+  String get maintenanceRecordAsset;
+
+  /// Maintenance date label
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Date'**
+  String get maintenanceRecordMaintenanceDate;
+
+  /// Completion date label
+  ///
+  /// In en, this message translates to:
+  /// **'Completion Date'**
+  String get maintenanceRecordCompletionDate;
+
+  /// Duration label
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get maintenanceRecordDuration;
+
+  /// Duration in minutes format
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String maintenanceRecordDurationMinutes(int minutes);
+
+  /// Performed by user label
+  ///
+  /// In en, this message translates to:
+  /// **'Performed By User'**
+  String get maintenanceRecordPerformedByUser;
+
+  /// Performed by vendor label
+  ///
+  /// In en, this message translates to:
+  /// **'Performed By Vendor'**
+  String get maintenanceRecordPerformedByVendor;
+
+  /// Result label
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get maintenanceRecordResult;
+
+  /// Actual cost label
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Cost'**
+  String get maintenanceRecordActualCost;
+
+  /// Actual cost value format
+  ///
+  /// In en, this message translates to:
+  /// **'\${cost}'**
+  String maintenanceRecordActualCostValue(String cost);
+
+  /// Unknown asset text
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Asset'**
+  String get maintenanceRecordUnknownAsset;
+
+  /// Error message for non-admin trying to edit
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit maintenance records'**
+  String get maintenanceRecordOnlyAdminCanEdit;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete maintenance records'**
+  String get maintenanceRecordOnlyAdminCanDelete;
+
+  /// Error message when record fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load maintenance record'**
+  String get maintenanceRecordFailedToLoad;
+
+  /// Edit record screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Maintenance Record'**
+  String get maintenanceRecordEditRecord;
+
+  /// Create record screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Maintenance Record'**
+  String get maintenanceRecordCreateRecord;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get maintenanceRecordFillRequiredFields;
+
+  /// Success message for record save
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance record saved successfully'**
+  String get maintenanceRecordSavedSuccessfully;
+
+  /// Generic operation failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get maintenanceRecordOperationFailed;
+
+  /// Error message for translation loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load translations'**
+  String get maintenanceRecordFailedToLoadTranslations;
+
+  /// Schedule search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select maintenance schedule'**
+  String get maintenanceRecordSearchSchedule;
+
+  /// Asset search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select asset'**
+  String get maintenanceRecordSearchAsset;
+
+  /// Completion date field label
+  ///
+  /// In en, this message translates to:
+  /// **'Completion Date (Optional)'**
+  String get maintenanceRecordCompletionDateOptional;
+
+  /// Duration field label
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (Minutes)'**
+  String get maintenanceRecordDurationMinutesLabel;
+
+  /// Duration input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter duration in minutes (optional)'**
+  String get maintenanceRecordEnterDuration;
+
+  /// User search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search and select user who performed the maintenance'**
+  String get maintenanceRecordSearchPerformedByUser;
+
+  /// Vendor field label
+  ///
+  /// In en, this message translates to:
+  /// **'Performed By Vendor'**
+  String get maintenanceRecordPerformedByVendorLabel;
+
+  /// Vendor input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter vendor name (optional)'**
+  String get maintenanceRecordEnterVendor;
+
+  /// Result dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select maintenance result'**
+  String get maintenanceRecordSelectResult;
+
+  /// Actual cost field label
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Cost'**
+  String get maintenanceRecordActualCostLabel;
+
+  /// Actual cost input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter actual cost (optional)'**
+  String get maintenanceRecordEnterActualCost;
+
+  /// Translations section title
+  ///
+  /// In en, this message translates to:
+  /// **'Translations'**
+  String get maintenanceRecordTranslations;
+
+  /// English language label
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get maintenanceRecordEnglish;
+
+  /// Japanese language label
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get maintenanceRecordJapanese;
+
+  /// Title input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter title in {language}'**
+  String maintenanceRecordEnterTitle(String language);
+
+  /// Notes input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter notes in {language}'**
+  String maintenanceRecordEnterNotes(String language);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get maintenanceRecordCancel;
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get maintenanceRecordUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get maintenanceRecordCreate;
+
+  /// Record management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Record Management'**
+  String get maintenanceRecordManagement;
+
+  /// Create record option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Maintenance Record'**
+  String get maintenanceRecordCreateTitle;
+
+  /// Create record option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new maintenance record'**
+  String get maintenanceRecordCreateSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get maintenanceRecordSelectManyTitle;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple records to delete'**
+  String get maintenanceRecordSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get maintenanceRecordFilterAndSortTitle;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize record display'**
+  String get maintenanceRecordFilterAndSortSubtitle;
+
+  /// Instruction for selecting records to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select maintenance records to delete'**
+  String get maintenanceRecordSelectToDelete;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get maintenanceRecordSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get maintenanceRecordSortOrder;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get maintenanceRecordReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get maintenanceRecordApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get maintenanceRecordFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get maintenanceRecordFilterApplied;
+
+  /// Delete records dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Records'**
+  String get maintenanceRecordDeleteRecords;
+
+  /// Confirmation message for deleting multiple records
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} records?'**
+  String maintenanceRecordDeleteMultipleConfirmation(int count);
+
+  /// Warning message when no records are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No records selected'**
+  String get maintenanceRecordNoRecordsSelected;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get maintenanceRecordNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String maintenanceRecordSelectedCount(int count);
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get maintenanceRecordDelete;
+
+  /// Records search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search records...'**
+  String get maintenanceRecordSearch;
+
+  /// No records found message
+  ///
+  /// In en, this message translates to:
+  /// **'No records found'**
+  String get maintenanceRecordNoRecordsFound;
+
+  /// Empty state message for records
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first record to get started'**
+  String get maintenanceRecordCreateFirstRecord;
+
+  /// Instruction for selecting multiple records
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more records'**
+  String get maintenanceRecordLongPressToSelect;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get maintenanceRecordMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get maintenanceRecordCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get maintenanceRecordUpdatedAt;
+
+  /// Schedule label
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedule'**
+  String get maintenanceRecordSchedule;
+
+  /// Notification management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Management'**
+  String get notificationManagement;
+
+  /// Notification detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Detail'**
+  String get notificationDetail;
+
+  /// My notifications screen title
+  ///
+  /// In en, this message translates to:
+  /// **'My Notifications'**
+  String get notificationMyNotifications;
+
+  /// Dialog title for deleting a notification
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Notification'**
+  String get notificationDeleteNotification;
+
+  /// Confirmation message for deleting a notification
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this notification?'**
+  String get notificationDeleteConfirmation;
+
+  /// Confirmation message for deleting multiple notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} notifications?'**
+  String notificationDeleteMultipleConfirmation(int count);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get notificationCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get notificationDelete;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete notifications'**
+  String get notificationOnlyAdminCanDelete;
+
+  /// Success message for notification deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Notification deleted'**
+  String get notificationDeleted;
+
+  /// Error message for notification deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get notificationDeleteFailed;
+
+  /// Error message when notification fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load notification'**
+  String get notificationFailedToLoad;
+
+  /// Notification information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Information'**
+  String get notificationInformation;
+
+  /// Title label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get notificationTitle;
+
+  /// Message label
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get notificationMessage;
+
+  /// Type label
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get notificationType;
+
+  /// Priority label
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get notificationPriority;
+
+  /// Is read label
+  ///
+  /// In en, this message translates to:
+  /// **'Is Read'**
+  String get notificationIsRead;
+
+  /// Read status label
+  ///
+  /// In en, this message translates to:
+  /// **'Read Status'**
+  String get notificationReadStatus;
+
+  /// Read status value
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get notificationRead;
+
+  /// Unread status value
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get notificationUnread;
+
+  /// Yes label
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get notificationYes;
+
+  /// No label
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get notificationNo;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get notificationCreatedAt;
+
+  /// Expires at label
+  ///
+  /// In en, this message translates to:
+  /// **'Expires At'**
+  String get notificationExpiresAt;
+
+  /// Notifications search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search notifications...'**
+  String get notificationSearchNotifications;
+
+  /// My notifications search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search my notifications...'**
+  String get notificationSearchMyNotifications;
+
+  /// No notifications found message
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications found'**
+  String get notificationNoNotificationsFound;
+
+  /// Empty state message for user notifications
+  ///
+  /// In en, this message translates to:
+  /// **'You have no notifications'**
+  String get notificationNoNotificationsYet;
+
+  /// Empty state message for notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first notification to get started'**
+  String get notificationCreateFirstNotification;
+
+  /// Create notification option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Notification'**
+  String get notificationCreateNotification;
+
+  /// Create notification option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new notification'**
+  String get notificationCreateNotificationSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get notificationSelectMany;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple notifications to delete'**
+  String get notificationSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get notificationFilterAndSort;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize notification display'**
+  String get notificationFilterAndSortSubtitle;
+
+  /// Filters and sorting bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Sorting'**
+  String get notificationFiltersAndSorting;
+
+  /// Instruction for selecting notifications to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select notifications to delete'**
+  String get notificationSelectNotificationsToDelete;
+
+  /// Instruction for selecting multiple notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more notifications'**
+  String get notificationLongPressToSelect;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String notificationSelectedCount(int count);
+
+  /// Warning message when no notifications are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications selected'**
+  String get notificationNoNotificationsSelected;
+
+  /// Filter by user label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by User'**
+  String get notificationFilterByUser;
+
+  /// Filter by related asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Related Asset'**
+  String get notificationFilterByRelatedAsset;
+
+  /// User search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search user...'**
+  String get notificationSearchUser;
+
+  /// Asset search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search asset...'**
+  String get notificationSearchAsset;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get notificationSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get notificationSortOrder;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get notificationReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get notificationApply;
+
+  /// Apply filters button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get notificationApplyFilters;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get notificationFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get notificationFilterApplied;
+
+  /// Filters applied state text
+  ///
+  /// In en, this message translates to:
+  /// **'Filters Applied'**
+  String get notificationFiltersApplied;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get notificationNotImplementedYet;
+
+  /// Time ago for just now
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get notificationJustNow;
+
+  /// Time ago in minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m ago'**
+  String notificationMinutesAgo(int minutes);
+
+  /// Time ago in hours
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h ago'**
+  String notificationHoursAgo(int hours);
+
+  /// Time ago in days
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d ago'**
+  String notificationDaysAgo(int days);
+
+  /// Scan log management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Log Management'**
+  String get scanLogManagement;
+
+  /// Scan log detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Log Detail'**
+  String get scanLogDetail;
+
+  /// Dialog title for deleting a scan log
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Scan Log'**
+  String get scanLogDeleteScanLog;
+
+  /// Confirmation message for deleting a scan log
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this scan log?'**
+  String get scanLogDeleteConfirmation;
+
+  /// Confirmation message for deleting multiple scan logs
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} scan logs?'**
+  String scanLogDeleteMultipleConfirmation(int count);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get scanLogCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get scanLogDelete;
+
+  /// Error message for non-admin trying to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete scan logs'**
+  String get scanLogOnlyAdminCanDelete;
+
+  /// Success message for scan log deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Scan log deleted'**
+  String get scanLogDeleted;
+
+  /// Error message for scan log deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get scanLogDeleteFailed;
+
+  /// Error message when scan log fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load scan log'**
+  String get scanLogFailedToLoad;
+
+  /// Scan information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Information'**
+  String get scanLogInformation;
+
+  /// Scanned value label
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned Value'**
+  String get scanLogScannedValue;
+
+  /// Scan method label
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Method'**
+  String get scanLogScanMethod;
+
+  /// Scan result label
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Result'**
+  String get scanLogScanResult;
+
+  /// Scan timestamp label
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Timestamp'**
+  String get scanLogScanTimestamp;
+
+  /// Location label
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get scanLogLocation;
+
+  /// Scan logs search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search scan logs...'**
+  String get scanLogSearchScanLogs;
+
+  /// No scan logs found message
+  ///
+  /// In en, this message translates to:
+  /// **'No scan logs found'**
+  String get scanLogNoScanLogsFound;
+
+  /// Empty state message for scan logs
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first scan log to get started'**
+  String get scanLogCreateFirstScanLog;
+
+  /// Create scan log option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create Scan Log'**
+  String get scanLogCreateScanLog;
+
+  /// Create scan log option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new scan log'**
+  String get scanLogCreateScanLogSubtitle;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get scanLogSelectMany;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple scan logs to delete'**
+  String get scanLogSelectManySubtitle;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get scanLogFilterAndSort;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize scan log display'**
+  String get scanLogFilterAndSortSubtitle;
+
+  /// Filters and sorting bottom sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Filters & Sorting'**
+  String get scanLogFiltersAndSorting;
+
+  /// Instruction for selecting scan logs to delete
+  ///
+  /// In en, this message translates to:
+  /// **'Select scan logs to delete'**
+  String get scanLogSelectScanLogsToDelete;
+
+  /// Instruction for selecting multiple scan logs
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more scan logs'**
+  String get scanLogLongPressToSelect;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String scanLogSelectedCount(int count);
+
+  /// Warning message when no scan logs are selected
+  ///
+  /// In en, this message translates to:
+  /// **'No scan logs selected'**
+  String get scanLogNoScanLogsSelected;
+
+  /// Filter by asset label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Asset'**
+  String get scanLogFilterByAsset;
+
+  /// Filter by scanned by label
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Scanned By'**
+  String get scanLogFilterByScannedBy;
+
+  /// Asset search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search asset...'**
+  String get scanLogSearchAsset;
+
+  /// User search placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search user...'**
+  String get scanLogSearchUser;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get scanLogSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get scanLogSortOrder;
+
+  /// Has coordinates checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Has Coordinates'**
+  String get scanLogHasCoordinates;
+
+  /// Date from label
+  ///
+  /// In en, this message translates to:
+  /// **'Date From'**
+  String get scanLogDateFrom;
+
+  /// Date to label
+  ///
+  /// In en, this message translates to:
+  /// **'Date To'**
+  String get scanLogDateTo;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get scanLogReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get scanLogApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get scanLogFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get scanLogFilterApplied;
+
+  /// Placeholder message for unimplemented features
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get scanLogNotImplementedYet;
+
+  /// User management screen title
+  ///
+  /// In en, this message translates to:
+  /// **'User Management'**
+  String get userManagement;
+
+  /// Create user option title
+  ///
+  /// In en, this message translates to:
+  /// **'Create User'**
+  String get userCreateUser;
+
+  /// Create user option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new user'**
+  String get userAddNewUser;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get userSelectMany;
+
+  /// Select many option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple users to delete'**
+  String get userSelectMultipleToDelete;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get userFilterAndSort;
+
+  /// Filter and sort option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize user display'**
+  String get userCustomizeDisplay;
+
+  /// Filters section title
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get userFilters;
+
+  /// Role label
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get userRole;
+
+  /// Employee ID label
+  ///
+  /// In en, this message translates to:
+  /// **'Employee ID'**
+  String get userEmployeeId;
+
+  /// Employee ID input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter employee ID...'**
+  String get userEnterEmployeeId;
+
+  /// Active status label
+  ///
+  /// In en, this message translates to:
+  /// **'Active Status'**
+  String get userActiveStatus;
+
+  /// Active status value
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get userActive;
+
+  /// Inactive status value
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get userInactive;
+
+  /// Sort section title
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get userSort;
+
+  /// Sort by label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get userSortBy;
+
+  /// Sort order label
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Order'**
+  String get userSortOrder;
+
+  /// Ascending sort order
+  ///
+  /// In en, this message translates to:
+  /// **'Ascending'**
+  String get userAscending;
+
+  /// Descending sort order
+  ///
+  /// In en, this message translates to:
+  /// **'Descending'**
+  String get userDescending;
+
+  /// Reset button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get userReset;
+
+  /// Apply button label
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get userApply;
+
+  /// Filter reset success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter reset'**
+  String get userFilterReset;
+
+  /// Filter applied success message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter applied'**
+  String get userFilterApplied;
+
+  /// Select mode instruction
+  ///
+  /// In en, this message translates to:
+  /// **'Select users to delete'**
+  String get userSelectUsersToDelete;
+
+  /// Delete users dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Users'**
+  String get userDeleteUsers;
+
+  /// Delete confirmation message
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {count} users?'**
+  String userDeleteConfirmation(int count);
+
+  /// Cancel button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get userCancel;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get userDelete;
+
+  /// No users selected warning
+  ///
+  /// In en, this message translates to:
+  /// **'No users selected'**
+  String get userNoUsersSelected;
+
+  /// Not implemented message
+  ///
+  /// In en, this message translates to:
+  /// **'Not implemented yet'**
+  String get userNotImplementedYet;
+
+  /// Selected count display
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String userSelectedCount(int count);
+
+  /// Search users placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Search users...'**
+  String get userSearchUsers;
+
+  /// No users found message
+  ///
+  /// In en, this message translates to:
+  /// **'No users found'**
+  String get userNoUsersFound;
+
+  /// Empty state message
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first user to get started'**
+  String get userCreateFirstUser;
+
+  /// Long press instruction
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to select more users'**
+  String get userLongPressToSelect;
+
+  /// Edit user screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit User'**
+  String get userEditUser;
+
+  /// Form validation error message
+  ///
+  /// In en, this message translates to:
+  /// **'Please fix all errors'**
+  String get userPleaseFixErrors;
+
+  /// Role validation message
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a role'**
+  String get userPleaseSelectRole;
+
+  /// Required fields validation message
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all required fields'**
+  String get userPleaseValidateFields;
+
+  /// User save success message
+  ///
+  /// In en, this message translates to:
+  /// **'User saved successfully'**
+  String get userSavedSuccessfully;
+
+  /// Operation failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed'**
+  String get userOperationFailed;
+
+  /// User information section title
+  ///
+  /// In en, this message translates to:
+  /// **'User Information'**
+  String get userInformation;
+
+  /// Username label
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get userUsername;
+
+  /// Username input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter username'**
+  String get userEnterUsername;
+
+  /// Email label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get userEmail;
+
+  /// Email input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter email'**
+  String get userEnterEmail;
+
+  /// Password label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get userPassword;
+
+  /// Password input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter password'**
+  String get userEnterPassword;
+
+  /// Full name label
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get userFullName;
+
+  /// Full name input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter full name'**
+  String get userEnterFullName;
+
+  /// Role dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select role'**
+  String get userSelectRole;
+
+  /// Employee ID optional label
+  ///
+  /// In en, this message translates to:
+  /// **'Employee ID (Optional)'**
+  String get userEmployeeIdOptional;
+
+  /// Employee ID input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter employee ID'**
+  String get userEnterEmployeeIdOptional;
+
+  /// Preferred language label
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred Language (Optional)'**
+  String get userPreferredLanguage;
+
+  /// Language dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select language'**
+  String get userSelectLanguage;
+
+  /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get userUpdate;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get userCreate;
+
+  /// User detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'User Detail'**
+  String get userDetail;
+
+  /// Admin only edit warning
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can edit users'**
+  String get userOnlyAdminCanEdit;
+
+  /// Delete user dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete User'**
+  String get userDeleteUser;
+
+  /// Delete single user confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{fullName}\"?'**
+  String userDeleteSingleConfirmation(String fullName);
+
+  /// Admin only delete warning
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can delete users'**
+  String get userOnlyAdminCanDelete;
+
+  /// User deleted success message
+  ///
+  /// In en, this message translates to:
+  /// **'User deleted'**
+  String get userDeleted;
+
+  /// Delete failed error message
+  ///
+  /// In en, this message translates to:
+  /// **'Delete failed'**
+  String get userDeleteFailed;
+
+  /// Name label
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get userName;
+
+  /// Preferred language label
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred Language'**
+  String get userPreferredLang;
+
+  /// Yes text
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get userYes;
+
+  /// No text
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get userNo;
+
+  /// Metadata section title
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get userMetadata;
+
+  /// Created at label
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get userCreatedAt;
+
+  /// Updated at label
+  ///
+  /// In en, this message translates to:
+  /// **'Updated At'**
+  String get userUpdatedAt;
+
+  /// Failed to load error message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load user'**
+  String get userFailedToLoad;
+
+  /// Failed to load profile error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load profile'**
+  String get userFailedToLoadProfile;
+
+  /// Personal information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get userPersonalInformation;
+
+  /// Account details section title
+  ///
+  /// In en, this message translates to:
+  /// **'Account Details'**
+  String get userAccountDetails;
+
+  /// Status label
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get userStatus;
+
+  /// Update profile screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Update Profile'**
+  String get userUpdateProfile;
+
+  /// No user data message
+  ///
+  /// In en, this message translates to:
+  /// **'No user data available'**
+  String get userNoUserData;
+
+  /// Profile information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Information'**
+  String get userProfileInformation;
+
+  /// Profile picture label
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Picture'**
+  String get userProfilePicture;
+
+  /// Choose image button text
+  ///
+  /// In en, this message translates to:
+  /// **'Choose image'**
+  String get userChooseImage;
+
+  /// Profile update success message
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get userProfileUpdatedSuccessfully;
+
   /// Admin shell bottom navigation label for dashboard
   ///
   /// In en, this message translates to:

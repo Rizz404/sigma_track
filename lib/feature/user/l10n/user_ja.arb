@@ -1,0 +1,349 @@
+{
+  "@@locale": "ja",
+  "userManagement": "ユーザー管理",
+  "@userManagement": {
+    "description": "User management screen title"
+  },
+  "userCreateUser": "ユーザーを作成",
+  "@userCreateUser": {
+    "description": "Create user option title"
+  },
+  "userAddNewUser": "新しいユーザーを追加",
+  "@userAddNewUser": {
+    "description": "Create user option subtitle"
+  },
+  "userSelectMany": "複数選択",
+  "@userSelectMany": {
+    "description": "Select many option title"
+  },
+  "userSelectMultipleToDelete": "削除する複数のユーザーを選択",
+  "@userSelectMultipleToDelete": {
+    "description": "Select many option subtitle"
+  },
+  "userFilterAndSort": "フィルターと並べ替え",
+  "@userFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "userCustomizeDisplay": "ユーザー表示をカスタマイズ",
+  "@userCustomizeDisplay": {
+    "description": "Filter and sort option subtitle"
+  },
+  "userFilters": "フィルター",
+  "@userFilters": {
+    "description": "Filters section title"
+  },
+  "userRole": "役割",
+  "@userRole": {
+    "description": "Role label"
+  },
+  "userEmployeeId": "従業員ID",
+  "@userEmployeeId": {
+    "description": "Employee ID label"
+  },
+  "userEnterEmployeeId": "従業員IDを入力...",
+  "@userEnterEmployeeId": {
+    "description": "Employee ID input placeholder"
+  },
+  "userActiveStatus": "アクティブステータス",
+  "@userActiveStatus": {
+    "description": "Active status label"
+  },
+  "userActive": "アクティブ",
+  "@userActive": {
+    "description": "Active status value"
+  },
+  "userInactive": "非アクティブ",
+  "@userInactive": {
+    "description": "Inactive status value"
+  },
+  "userSort": "並べ替え",
+  "@userSort": {
+    "description": "Sort section title"
+  },
+  "userSortBy": "並べ替え",
+  "@userSortBy": {
+    "description": "Sort by label"
+  },
+  "userSortOrder": "並べ替え順序",
+  "@userSortOrder": {
+    "description": "Sort order label"
+  },
+  "userAscending": "昇順",
+  "@userAscending": {
+    "description": "Ascending sort order"
+  },
+  "userDescending": "降順",
+  "@userDescending": {
+    "description": "Descending sort order"
+  },
+  "userReset": "リセット",
+  "@userReset": {
+    "description": "Reset button label"
+  },
+  "userApply": "適用",
+  "@userApply": {
+    "description": "Apply button label"
+  },
+  "userFilterReset": "フィルターをリセットしました",
+  "@userFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "userFilterApplied": "フィルターを適用しました",
+  "@userFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "userSelectUsersToDelete": "削除するユーザーを選択",
+  "@userSelectUsersToDelete": {
+    "description": "Select mode instruction"
+  },
+  "userDeleteUsers": "ユーザーを削除",
+  "@userDeleteUsers": {
+    "description": "Delete users dialog title"
+  },
+  "userDeleteConfirmation": "{count}人のユーザーを削除してもよろしいですか？",
+  "@userDeleteConfirmation": {
+    "description": "Delete confirmation message",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userCancel": "キャンセル",
+  "@userCancel": {
+    "description": "Cancel button label"
+  },
+  "userDelete": "削除",
+  "@userDelete": {
+    "description": "Delete button label"
+  },
+  "userNoUsersSelected": "ユーザーが選択されていません",
+  "@userNoUsersSelected": {
+    "description": "No users selected warning"
+  },
+  "userNotImplementedYet": "まだ実装されていません",
+  "@userNotImplementedYet": {
+    "description": "Not implemented message"
+  },
+  "userSelectedCount": "{count}人選択済み",
+  "@userSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "userSearchUsers": "ユーザーを検索...",
+  "@userSearchUsers": {
+    "description": "Search users placeholder"
+  },
+  "userNoUsersFound": "ユーザーが見つかりません",
+  "@userNoUsersFound": {
+    "description": "No users found message"
+  },
+  "userCreateFirstUser": "最初のユーザーを作成して開始しましょう",
+  "@userCreateFirstUser": {
+    "description": "Empty state message"
+  },
+  "userLongPressToSelect": "長押ししてさらにユーザーを選択",
+  "@userLongPressToSelect": {
+    "description": "Long press instruction"
+  },
+  "userEditUser": "ユーザーを編集",
+  "@userEditUser": {
+    "description": "Edit user screen title"
+  },
+  "userPleaseFixErrors": "すべてのエラーを修正してください",
+  "@userPleaseFixErrors": {
+    "description": "Form validation error message"
+  },
+  "userPleaseSelectRole": "役割を選択してください",
+  "@userPleaseSelectRole": {
+    "description": "Role validation message"
+  },
+  "userPleaseValidateFields": "必須フィールドをすべて入力してください",
+  "@userPleaseValidateFields": {
+    "description": "Required fields validation message"
+  },
+  "userSavedSuccessfully": "ユーザーが正常に保存されました",
+  "@userSavedSuccessfully": {
+    "description": "User save success message"
+  },
+  "userOperationFailed": "操作に失敗しました",
+  "@userOperationFailed": {
+    "description": "Operation failed message"
+  },
+  "userInformation": "ユーザー情報",
+  "@userInformation": {
+    "description": "User information section title"
+  },
+  "userUsername": "ユーザー名",
+  "@userUsername": {
+    "description": "Username label"
+  },
+  "userEnterUsername": "ユーザー名を入力",
+  "@userEnterUsername": {
+    "description": "Username input placeholder"
+  },
+  "userEmail": "メールアドレス",
+  "@userEmail": {
+    "description": "Email label"
+  },
+  "userEnterEmail": "メールアドレスを入力",
+  "@userEnterEmail": {
+    "description": "Email input placeholder"
+  },
+  "userPassword": "パスワード",
+  "@userPassword": {
+    "description": "Password label"
+  },
+  "userEnterPassword": "パスワードを入力",
+  "@userEnterPassword": {
+    "description": "Password input placeholder"
+  },
+  "userFullName": "氏名",
+  "@userFullName": {
+    "description": "Full name label"
+  },
+  "userEnterFullName": "氏名を入力",
+  "@userEnterFullName": {
+    "description": "Full name input placeholder"
+  },
+  "userSelectRole": "役割を選択",
+  "@userSelectRole": {
+    "description": "Role dropdown placeholder"
+  },
+  "userEmployeeIdOptional": "従業員ID (オプション)",
+  "@userEmployeeIdOptional": {
+    "description": "Employee ID optional label"
+  },
+  "userEnterEmployeeIdOptional": "従業員IDを入力",
+  "@userEnterEmployeeIdOptional": {
+    "description": "Employee ID input placeholder"
+  },
+  "userPreferredLanguage": "優先言語 (オプション)",
+  "@userPreferredLanguage": {
+    "description": "Preferred language label"
+  },
+  "userSelectLanguage": "言語を選択",
+  "@userSelectLanguage": {
+    "description": "Language dropdown placeholder"
+  },
+  "userUpdate": "更新",
+  "@userUpdate": {
+    "description": "Update button label"
+  },
+  "userCreate": "作成",
+  "@userCreate": {
+    "description": "Create button label"
+  },
+  "userDetail": "ユーザー詳細",
+  "@userDetail": {
+    "description": "User detail screen title"
+  },
+  "userOnlyAdminCanEdit": "ユーザーを編集できるのは管理者のみです",
+  "@userOnlyAdminCanEdit": {
+    "description": "Admin only edit warning"
+  },
+  "userDeleteUser": "ユーザーを削除",
+  "@userDeleteUser": {
+    "description": "Delete user dialog title"
+  },
+  "userDeleteSingleConfirmation": "\"{fullName}\"を削除してもよろしいですか？",
+  "@userDeleteSingleConfirmation": {
+    "description": "Delete single user confirmation",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "山田太郎"
+      }
+    }
+  },
+  "userOnlyAdminCanDelete": "ユーザーを削除できるのは管理者のみです",
+  "@userOnlyAdminCanDelete": {
+    "description": "Admin only delete warning"
+  },
+  "userDeleted": "ユーザーが削除されました",
+  "@userDeleted": {
+    "description": "User deleted success message"
+  },
+  "userDeleteFailed": "削除に失敗しました",
+  "@userDeleteFailed": {
+    "description": "Delete failed error message"
+  },
+  "userName": "名前",
+  "@userName": {
+    "description": "Name label"
+  },
+  "userPreferredLang": "優先言語",
+  "@userPreferredLang": {
+    "description": "Preferred language label"
+  },
+  "userYes": "はい",
+  "@userYes": {
+    "description": "Yes text"
+  },
+  "userNo": "いいえ",
+  "@userNo": {
+    "description": "No text"
+  },
+  "userMetadata": "メタデータ",
+  "@userMetadata": {
+    "description": "Metadata section title"
+  },
+  "userCreatedAt": "作成日時",
+  "@userCreatedAt": {
+    "description": "Created at label"
+  },
+  "userUpdatedAt": "更新日時",
+  "@userUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "userFailedToLoad": "ユーザーの読み込みに失敗しました",
+  "@userFailedToLoad": {
+    "description": "Failed to load error message"
+  },
+  "userFailedToLoadProfile": "プロフィールの読み込みに失敗しました",
+  "@userFailedToLoadProfile": {
+    "description": "Failed to load profile error"
+  },
+  "userPersonalInformation": "個人情報",
+  "@userPersonalInformation": {
+    "description": "Personal information section title"
+  },
+  "userAccountDetails": "アカウント詳細",
+  "@userAccountDetails": {
+    "description": "Account details section title"
+  },
+  "userStatus": "ステータス",
+  "@userStatus": {
+    "description": "Status label"
+  },
+  "userUpdateProfile": "プロフィールを更新",
+  "@userUpdateProfile": {
+    "description": "Update profile screen title"
+  },
+  "userNoUserData": "ユーザーデータがありません",
+  "@userNoUserData": {
+    "description": "No user data message"
+  },
+  "userProfileInformation": "プロフィール情報",
+  "@userProfileInformation": {
+    "description": "Profile information section title"
+  },
+  "userProfilePicture": "プロフィール画像",
+  "@userProfilePicture": {
+    "description": "Profile picture label"
+  },
+  "userChooseImage": "画像を選択",
+  "@userChooseImage": {
+    "description": "Choose image button text"
+  },
+  "userProfileUpdatedSuccessfully": "プロフィールが正常に更新されました",
+  "@userProfileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  }
+}

@@ -1734,6 +1734,2306 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
+  "issueReportDeleteIssueReport": "Delete Issue Report",
+  "@issueReportDeleteIssueReport": {
+    "description": "Dialog title for deleting an issue report"
+  },
+  "issueReportDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@issueReportDeleteConfirmation": {
+    "description": "Confirmation message for deleting an issue report",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Hardware failure"
+      }
+    }
+  },
+  "issueReportCancel": "Cancel",
+  "@issueReportCancel": {
+    "description": "Cancel button label"
+  },
+  "issueReportDelete": "Delete",
+  "@issueReportDelete": {
+    "description": "Delete button label"
+  },
+  "issueReportDetail": "Issue Report Detail",
+  "@issueReportDetail": {
+    "description": "Issue report detail screen title"
+  },
+  "issueReportInformation": "Issue Report Information",
+  "@issueReportInformation": {
+    "description": "Issue report information section title"
+  },
+  "issueReportTitle": "Title",
+  "@issueReportTitle": {
+    "description": "Title label"
+  },
+  "issueReportDescription": "Description",
+  "@issueReportDescription": {
+    "description": "Description label"
+  },
+  "issueReportAsset": "Asset",
+  "@issueReportAsset": {
+    "description": "Asset label"
+  },
+  "issueReportIssueType": "Issue Type",
+  "@issueReportIssueType": {
+    "description": "Issue type label"
+  },
+  "issueReportPriority": "Priority",
+  "@issueReportPriority": {
+    "description": "Priority label"
+  },
+  "issueReportStatus": "Status",
+  "@issueReportStatus": {
+    "description": "Status label"
+  },
+  "issueReportReportedBy": "Reported By",
+  "@issueReportReportedBy": {
+    "description": "Reported by label"
+  },
+  "issueReportReportedDate": "Reported Date",
+  "@issueReportReportedDate": {
+    "description": "Reported date label"
+  },
+  "issueReportResolvedDate": "Resolved Date",
+  "@issueReportResolvedDate": {
+    "description": "Resolved date label"
+  },
+  "issueReportResolvedBy": "Resolved By",
+  "@issueReportResolvedBy": {
+    "description": "Resolved by label"
+  },
+  "issueReportResolutionNotes": "Resolution Notes",
+  "@issueReportResolutionNotes": {
+    "description": "Resolution notes label"
+  },
+  "issueReportMetadata": "Metadata",
+  "@issueReportMetadata": {
+    "description": "Metadata section title"
+  },
+  "issueReportCreatedAt": "Created At",
+  "@issueReportCreatedAt": {
+    "description": "Created at label"
+  },
+  "issueReportUpdatedAt": "Updated At",
+  "@issueReportUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "issueReportOnlyAdminCanEdit": "Only admin can edit issue reports",
+  "@issueReportOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "issueReportOnlyAdminCanDelete": "Only admin can delete issue reports",
+  "@issueReportOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "issueReportFailedToLoad": "Failed to load issue report",
+  "@issueReportFailedToLoad": {
+    "description": "Error message when issue report fails to load"
+  },
+  "issueReportDeletedSuccess": "Issue report deleted",
+  "@issueReportDeletedSuccess": {
+    "description": "Success message for issue report deletion"
+  },
+  "issueReportDeletedFailed": "Delete failed",
+  "@issueReportDeletedFailed": {
+    "description": "Error message for issue report deletion failure"
+  },
+  "issueReportUnknownAsset": "Unknown Asset",
+  "@issueReportUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "issueReportUnknownUser": "Unknown User",
+  "@issueReportUnknownUser": {
+    "description": "Unknown user placeholder"
+  },
+  "issueReportEditIssueReport": "Edit Issue Report",
+  "@issueReportEditIssueReport": {
+    "description": "Edit issue report screen title"
+  },
+  "issueReportCreateIssueReport": "Create Issue Report",
+  "@issueReportCreateIssueReport": {
+    "description": "Create issue report screen title"
+  },
+  "issueReportFillRequiredFields": "Please fill all required fields",
+  "@issueReportFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "issueReportSavedSuccessfully": "Issue report saved successfully",
+  "@issueReportSavedSuccessfully": {
+    "description": "Success message for issue report save"
+  },
+  "issueReportOperationFailed": "Operation failed",
+  "@issueReportOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "issueReportFailedToLoadTranslations": "Failed to load translations",
+  "@issueReportFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "issueReportSearchAsset": "Search and select asset",
+  "@issueReportSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "issueReportSearchReportedBy": "Search and select user who reported the issue",
+  "@issueReportSearchReportedBy": {
+    "description": "Reported by search placeholder"
+  },
+  "issueReportEnterIssueType": "Enter issue type (e.g., Hardware, Software)",
+  "@issueReportEnterIssueType": {
+    "description": "Issue type input placeholder"
+  },
+  "issueReportSelectPriority": "Select priority",
+  "@issueReportSelectPriority": {
+    "description": "Priority dropdown placeholder"
+  },
+  "issueReportSelectStatus": "Select status",
+  "@issueReportSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "issueReportSearchResolvedBy": "Search and select user who resolved the issue",
+  "@issueReportSearchResolvedBy": {
+    "description": "Resolved by search placeholder"
+  },
+  "issueReportTranslations": "Translations",
+  "@issueReportTranslations": {
+    "description": "Translations section title"
+  },
+  "issueReportEnglish": "English",
+  "@issueReportEnglish": {
+    "description": "English language label"
+  },
+  "issueReportJapanese": "Japanese",
+  "@issueReportJapanese": {
+    "description": "Japanese language label"
+  },
+  "issueReportEnterTitleIn": "Enter title in {language}",
+  "@issueReportEnterTitleIn": {
+    "description": "Title input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterDescriptionIn": "Enter description in {language}",
+  "@issueReportEnterDescriptionIn": {
+    "description": "Description input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterResolutionNotesIn": "Enter resolution notes in {language}",
+  "@issueReportEnterResolutionNotesIn": {
+    "description": "Resolution notes input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportUpdate": "Update",
+  "@issueReportUpdate": {
+    "description": "Update button label"
+  },
+  "issueReportCreate": "Create",
+  "@issueReportCreate": {
+    "description": "Create button label"
+  },
+  "issueReportManagement": "IssueReport Management",
+  "@issueReportManagement": {
+    "description": "Issue report management screen title"
+  },
+  "issueReportCreateIssueReportTitle": "Create IssueReport",
+  "@issueReportCreateIssueReportTitle": {
+    "description": "Create issue report option title"
+  },
+  "issueReportCreateIssueReportSubtitle": "Add a new issueReport",
+  "@issueReportCreateIssueReportSubtitle": {
+    "description": "Create issue report option subtitle"
+  },
+  "issueReportSelectManyTitle": "Select Many",
+  "@issueReportSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "issueReportSelectManySubtitle": "Select multiple issueReports to delete",
+  "@issueReportSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "issueReportFilterAndSortTitle": "Filter & Sort",
+  "@issueReportFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "issueReportFilterAndSortSubtitle": "Customize issueReport display",
+  "@issueReportFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "issueReportSelectIssueReportsToDelete": "Select issueReports to delete",
+  "@issueReportSelectIssueReportsToDelete": {
+    "description": "Instruction for selecting issue reports to delete"
+  },
+  "issueReportDeleteIssueReports": "Delete IssueReports",
+  "@issueReportDeleteIssueReports": {
+    "description": "Delete issue reports dialog title"
+  },
+  "issueReportDeleteMultipleConfirmation": "Are you sure you want to delete {count} issueReports?",
+  "@issueReportDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple issue reports",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "issueReportNoIssueReportsSelected": "No issueReports selected",
+  "@issueReportNoIssueReportsSelected": {
+    "description": "Warning message when no issue reports are selected"
+  },
+  "issueReportNotImplementedYet": "Not implemented yet",
+  "@issueReportNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "issueReportSelectedCount": "{count} selected",
+  "@issueReportSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "issueReportSearchIssueReports": "Search issueReports...",
+  "@issueReportSearchIssueReports": {
+    "description": "Issue reports search placeholder"
+  },
+  "issueReportNoIssueReportsFound": "No issueReports found",
+  "@issueReportNoIssueReportsFound": {
+    "description": "No issue reports found message"
+  },
+  "issueReportCreateFirstIssueReport": "Create your first issueReport to get started",
+  "@issueReportCreateFirstIssueReport": {
+    "description": "Empty state message for issue reports"
+  },
+  "issueReportLongPressToSelect": "Long press to select more issueReports",
+  "@issueReportLongPressToSelect": {
+    "description": "Instruction for selecting multiple issue reports"
+  },
+  "issueReportFilterByAsset": "Filter by Asset",
+  "@issueReportFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "issueReportFilterByReportedBy": "Filter by Reported By",
+  "@issueReportFilterByReportedBy": {
+    "description": "Filter by reported by label"
+  },
+  "issueReportFilterByResolvedBy": "Filter by Resolved By",
+  "@issueReportFilterByResolvedBy": {
+    "description": "Filter by resolved by label"
+  },
+  "issueReportSearchAssetFilter": "Search asset...",
+  "@issueReportSearchAssetFilter": {
+    "description": "Asset filter search placeholder"
+  },
+  "issueReportSearchUserFilter": "Search user...",
+  "@issueReportSearchUserFilter": {
+    "description": "User filter search placeholder"
+  },
+  "issueReportEnterIssueTypeFilter": "Enter issue type...",
+  "@issueReportEnterIssueTypeFilter": {
+    "description": "Issue type filter input placeholder"
+  },
+  "issueReportSortBy": "Sort By",
+  "@issueReportSortBy": {
+    "description": "Sort by label"
+  },
+  "issueReportSortOrder": "Sort Order",
+  "@issueReportSortOrder": {
+    "description": "Sort order label"
+  },
+  "issueReportIsResolved": "Is Resolved",
+  "@issueReportIsResolved": {
+    "description": "Is resolved checkbox label"
+  },
+  "issueReportDateFrom": "Date From",
+  "@issueReportDateFrom": {
+    "description": "Date from label"
+  },
+  "issueReportDateTo": "Date To",
+  "@issueReportDateTo": {
+    "description": "Date to label"
+  },
+  "issueReportReset": "Reset",
+  "@issueReportReset": {
+    "description": "Reset button label"
+  },
+  "issueReportApply": "Apply",
+  "@issueReportApply": {
+    "description": "Apply button label"
+  },
+  "issueReportFilterReset": "Filter reset",
+  "@issueReportFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "issueReportFilterApplied": "Filter applied",
+  "@issueReportFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "issueReportMyIssueReports": "My Issue Reports",
+  "@issueReportMyIssueReports": {
+    "description": "My issue reports screen title"
+  },
+  "issueReportSearchMyIssueReports": "Search my issue reports...",
+  "@issueReportSearchMyIssueReports": {
+    "description": "My issue reports search placeholder"
+  },
+  "issueReportFiltersAndSorting": "Filters & Sorting",
+  "@issueReportFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "issueReportApplyFilters": "Apply Filters",
+  "@issueReportApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "issueReportFiltersApplied": "Filters Applied",
+  "@issueReportFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "issueReportFilterAndSort": "Filter & Sort",
+  "@issueReportFilterAndSort": {
+    "description": "Filter and sort button label"
+  },
+  "issueReportNoIssueReportsFoundEmpty": "No issue reports found",
+  "@issueReportNoIssueReportsFoundEmpty": {
+    "description": "Empty state message for my issue reports"
+  },
+  "issueReportYouHaveNoReportedIssues": "You have no reported issues",
+  "@issueReportYouHaveNoReportedIssues": {
+    "description": "Empty state subtitle for my issue reports"
+  },
+  "issueReportCreateIssueReportTooltip": "Create Issue Report",
+  "@issueReportCreateIssueReportTooltip": {
+    "description": "Create issue report floating action button tooltip"
+  },
+  "issueReportValidationAssetRequired": "Asset is required",
+  "@issueReportValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "issueReportValidationReportedByRequired": "Reported by is required",
+  "@issueReportValidationReportedByRequired": {
+    "description": "Validation error for required reported by"
+  },
+  "issueReportValidationIssueTypeRequired": "Issue type is required",
+  "@issueReportValidationIssueTypeRequired": {
+    "description": "Validation error for required issue type"
+  },
+  "issueReportValidationIssueTypeMaxLength": "Issue type must not exceed 100 characters",
+  "@issueReportValidationIssueTypeMaxLength": {
+    "description": "Validation error for issue type maximum length"
+  },
+  "issueReportValidationPriorityRequired": "Priority is required",
+  "@issueReportValidationPriorityRequired": {
+    "description": "Validation error for required priority"
+  },
+  "issueReportValidationStatusRequired": "Status is required",
+  "@issueReportValidationStatusRequired": {
+    "description": "Validation error for required status"
+  },
+  "issueReportValidationTitleRequired": "Title is required",
+  "@issueReportValidationTitleRequired": {
+    "description": "Validation error for required title"
+  },
+  "issueReportValidationTitleMaxLength": "Title must not exceed 200 characters",
+  "@issueReportValidationTitleMaxLength": {
+    "description": "Validation error for title maximum length"
+  },
+  "issueReportValidationDescriptionMaxLength": "Description must not exceed 1000 characters",
+  "@issueReportValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "issueReportValidationResolutionNotesMaxLength": "Resolution notes must not exceed 1000 characters",
+  "@issueReportValidationResolutionNotesMaxLength": {
+    "description": "Validation error for resolution notes maximum length"
+  },
+  "locationDeleteLocation": "Delete Location",
+  "@locationDeleteLocation": {
+    "description": "Dialog title for deleting a location"
+  },
+  "locationDeleteConfirmation": "Are you sure you want to delete \"{locationName}\"?",
+  "@locationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a location",
+    "placeholders": {
+      "locationName": {
+        "type": "String",
+        "example": "Main Office"
+      }
+    }
+  },
+  "locationCancel": "Cancel",
+  "@locationCancel": {
+    "description": "Cancel button label"
+  },
+  "locationDelete": "Delete",
+  "@locationDelete": {
+    "description": "Delete button label"
+  },
+  "locationDetail": "Location Detail",
+  "@locationDetail": {
+    "description": "Location detail screen title"
+  },
+  "locationInformation": "Location Information",
+  "@locationInformation": {
+    "description": "Location information section title"
+  },
+  "locationCode": "Location Code",
+  "@locationCode": {
+    "description": "Location code label"
+  },
+  "locationName": "Location Name",
+  "@locationName": {
+    "description": "Location name label"
+  },
+  "locationBuilding": "Building",
+  "@locationBuilding": {
+    "description": "Building label"
+  },
+  "locationFloor": "Floor",
+  "@locationFloor": {
+    "description": "Floor label"
+  },
+  "locationLatitude": "Latitude",
+  "@locationLatitude": {
+    "description": "Latitude label"
+  },
+  "locationLongitude": "Longitude",
+  "@locationLongitude": {
+    "description": "Longitude label"
+  },
+  "locationMetadata": "Metadata",
+  "@locationMetadata": {
+    "description": "Metadata section title"
+  },
+  "locationCreatedAt": "Created At",
+  "@locationCreatedAt": {
+    "description": "Created at label"
+  },
+  "locationUpdatedAt": "Updated At",
+  "@locationUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "locationOnlyAdminCanEdit": "Only admin can edit locations",
+  "@locationOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "locationOnlyAdminCanDelete": "Only admin can delete locations",
+  "@locationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "locationFailedToLoad": "Failed to load location",
+  "@locationFailedToLoad": {
+    "description": "Error message when location fails to load"
+  },
+  "locationDeleted": "Location deleted",
+  "@locationDeleted": {
+    "description": "Success message for location deletion"
+  },
+  "locationDeleteFailed": "Delete failed",
+  "@locationDeleteFailed": {
+    "description": "Error message for location deletion failure"
+  },
+  "locationEditLocation": "Edit Location",
+  "@locationEditLocation": {
+    "description": "Edit location screen title"
+  },
+  "locationCreateLocation": "Create Location",
+  "@locationCreateLocation": {
+    "description": "Create location screen title"
+  },
+  "locationFillRequiredFields": "Please fill all required fields",
+  "@locationFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "locationSavedSuccessfully": "Location saved successfully",
+  "@locationSavedSuccessfully": {
+    "description": "Success message for location save"
+  },
+  "locationOperationFailed": "Operation failed",
+  "@locationOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "locationFailedToLoadTranslations": "Failed to load translations",
+  "@locationFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "locationEnterLocationCode": "Enter location code (e.g., LOC-001)",
+  "@locationEnterLocationCode": {
+    "description": "Location code input placeholder"
+  },
+  "locationBuildingOptional": "Building (Optional)",
+  "@locationBuildingOptional": {
+    "description": "Building input label"
+  },
+  "locationEnterBuilding": "Enter building name",
+  "@locationEnterBuilding": {
+    "description": "Building input placeholder"
+  },
+  "locationFloorOptional": "Floor (Optional)",
+  "@locationFloorOptional": {
+    "description": "Floor input label"
+  },
+  "locationEnterFloor": "Enter floor number",
+  "@locationEnterFloor": {
+    "description": "Floor input placeholder"
+  },
+  "locationLatitudeOptional": "Latitude (Optional)",
+  "@locationLatitudeOptional": {
+    "description": "Latitude input label"
+  },
+  "locationEnterLatitude": "Enter latitude",
+  "@locationEnterLatitude": {
+    "description": "Latitude input placeholder"
+  },
+  "locationLongitudeOptional": "Longitude (Optional)",
+  "@locationLongitudeOptional": {
+    "description": "Longitude input label"
+  },
+  "locationEnterLongitude": "Enter longitude",
+  "@locationEnterLongitude": {
+    "description": "Longitude input placeholder"
+  },
+  "locationGettingLocation": "Getting Location...",
+  "@locationGettingLocation": {
+    "description": "Getting location button text when loading"
+  },
+  "locationUseCurrentLocation": "Use Current Location",
+  "@locationUseCurrentLocation": {
+    "description": "Use current location button label"
+  },
+  "locationServicesDisabled": "Location services are disabled",
+  "@locationServicesDisabled": {
+    "description": "Warning message for disabled location services"
+  },
+  "locationServicesDialogTitle": "Location Services Disabled",
+  "@locationServicesDialogTitle": {
+    "description": "Location services dialog title"
+  },
+  "locationServicesDialogMessage": "Location services are required to get your current location. Would you like to enable them?",
+  "@locationServicesDialogMessage": {
+    "description": "Location services dialog message"
+  },
+  "locationOpenSettings": "Open Settings",
+  "@locationOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "locationPermissionDenied": "Location permission denied",
+  "@locationPermissionDenied": {
+    "description": "Error message for denied permission"
+  },
+  "locationPermissionPermanentlyDenied": "Location permission permanently denied",
+  "@locationPermissionPermanentlyDenied": {
+    "description": "Error message for permanently denied permission"
+  },
+  "locationPermissionRequired": "Permission Required",
+  "@locationPermissionRequired": {
+    "description": "Permission required dialog title"
+  },
+  "locationPermissionDialogMessage": "Location permission is permanently denied. Please enable it in app settings.",
+  "@locationPermissionDialogMessage": {
+    "description": "Permission dialog message"
+  },
+  "locationRetrievedSuccessfully": "Current location retrieved successfully",
+  "@locationRetrievedSuccessfully": {
+    "description": "Success message for getting current location"
+  },
+  "locationFailedToGetCurrent": "Failed to get current location",
+  "@locationFailedToGetCurrent": {
+    "description": "Error message for failed location retrieval"
+  },
+  "locationTranslations": "Translations",
+  "@locationTranslations": {
+    "description": "Translations section title"
+  },
+  "locationTranslationsSubtitle": "Add translations for different languages",
+  "@locationTranslationsSubtitle": {
+    "description": "Translations section subtitle"
+  },
+  "locationEnglish": "English",
+  "@locationEnglish": {
+    "description": "English language label"
+  },
+  "locationJapanese": "Japanese",
+  "@locationJapanese": {
+    "description": "Japanese language label"
+  },
+  "locationEnterLocationName": "Enter location name",
+  "@locationEnterLocationName": {
+    "description": "Location name input placeholder"
+  },
+  "locationUpdate": "Update",
+  "@locationUpdate": {
+    "description": "Update button label"
+  },
+  "locationCreate": "Create",
+  "@locationCreate": {
+    "description": "Create button label"
+  },
+  "locationManagement": "Location Management",
+  "@locationManagement": {
+    "description": "Location management screen title"
+  },
+  "locationCreateLocationTitle": "Create Location",
+  "@locationCreateLocationTitle": {
+    "description": "Create location option title"
+  },
+  "locationCreateLocationSubtitle": "Add a new location",
+  "@locationCreateLocationSubtitle": {
+    "description": "Create location option subtitle"
+  },
+  "locationSelectManyTitle": "Select Many",
+  "@locationSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "locationSelectManySubtitle": "Select multiple locations to delete",
+  "@locationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "locationFilterAndSortTitle": "Filter & Sort",
+  "@locationFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "locationFilterAndSortSubtitle": "Customize location display",
+  "@locationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "locationSelectLocationsToDelete": "Select locations to delete",
+  "@locationSelectLocationsToDelete": {
+    "description": "Instruction for selecting locations to delete"
+  },
+  "locationSortBy": "Sort By",
+  "@locationSortBy": {
+    "description": "Sort by label"
+  },
+  "locationSortOrder": "Sort Order",
+  "@locationSortOrder": {
+    "description": "Sort order label"
+  },
+  "locationReset": "Reset",
+  "@locationReset": {
+    "description": "Reset button label"
+  },
+  "locationApply": "Apply",
+  "@locationApply": {
+    "description": "Apply button label"
+  },
+  "locationFilterReset": "Filter reset",
+  "@locationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "locationFilterApplied": "Filter applied",
+  "@locationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "locationDeleteLocations": "Delete Locations",
+  "@locationDeleteLocations": {
+    "description": "Delete locations dialog title"
+  },
+  "locationDeleteMultipleConfirmation": "Are you sure you want to delete {count} locations?",
+  "@locationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple locations",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "locationNoLocationsSelected": "No locations selected",
+  "@locationNoLocationsSelected": {
+    "description": "Warning message when no locations are selected"
+  },
+  "locationNotImplementedYet": "Not implemented yet",
+  "@locationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "locationSelectedCount": "{count} selected",
+  "@locationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "locationSearchLocations": "Search locations...",
+  "@locationSearchLocations": {
+    "description": "Locations search placeholder"
+  },
+  "locationNoLocationsFound": "No locations found",
+  "@locationNoLocationsFound": {
+    "description": "No locations found message"
+  },
+  "locationCreateFirstLocation": "Create your first location to get started",
+  "@locationCreateFirstLocation": {
+    "description": "Empty state message for locations"
+  },
+  "locationLongPressToSelect": "Long press to select more locations",
+  "@locationLongPressToSelect": {
+    "description": "Instruction for selecting multiple locations"
+  },
+  "locationFloorPrefix": "Floor {floor}",
+  "@locationFloorPrefix": {
+    "description": "Floor prefix display",
+    "placeholders": {
+      "floor": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "locationValidationCodeRequired": "Location code is required",
+  "@locationValidationCodeRequired": {
+    "description": "Validation error for required location code"
+  },
+  "locationValidationCodeMinLength": "Location code must be at least 2 characters",
+  "@locationValidationCodeMinLength": {
+    "description": "Validation error for location code minimum length"
+  },
+  "locationValidationCodeMaxLength": "Location code must not exceed 20 characters",
+  "@locationValidationCodeMaxLength": {
+    "description": "Validation error for location code maximum length"
+  },
+  "locationValidationCodeAlphanumeric": "Location code can only contain letters, numbers, and dashes",
+  "@locationValidationCodeAlphanumeric": {
+    "description": "Validation error for location code format"
+  },
+  "locationValidationNameRequired": "Location name is required",
+  "@locationValidationNameRequired": {
+    "description": "Validation error for required location name"
+  },
+  "locationValidationNameMinLength": "Location name must be at least 3 characters",
+  "@locationValidationNameMinLength": {
+    "description": "Validation error for location name minimum length"
+  },
+  "locationValidationNameMaxLength": "Location name must not exceed 100 characters",
+  "@locationValidationNameMaxLength": {
+    "description": "Validation error for location name maximum length"
+  },
+  "locationValidationBuildingMaxLength": "Building must not exceed 50 characters",
+  "@locationValidationBuildingMaxLength": {
+    "description": "Validation error for building maximum length"
+  },
+  "locationValidationFloorMaxLength": "Floor must not exceed 20 characters",
+  "@locationValidationFloorMaxLength": {
+    "description": "Validation error for floor maximum length"
+  },
+  "locationValidationLatitudeInvalid": "Latitude must be a valid number",
+  "@locationValidationLatitudeInvalid": {
+    "description": "Validation error for invalid latitude"
+  },
+  "locationValidationLatitudeRange": "Latitude must be between -90 and 90",
+  "@locationValidationLatitudeRange": {
+    "description": "Validation error for latitude range"
+  },
+  "locationValidationLongitudeInvalid": "Longitude must be a valid number",
+  "@locationValidationLongitudeInvalid": {
+    "description": "Validation error for invalid longitude"
+  },
+  "locationValidationLongitudeRange": "Longitude must be between -180 and 180",
+  "@locationValidationLongitudeRange": {
+    "description": "Validation error for longitude range"
+  },
+  "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
+  "@maintenanceScheduleDeleteSchedule": {
+    "description": "Dialog title for deleting a maintenance schedule"
+  },
+  "maintenanceScheduleDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@maintenanceScheduleDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance schedule",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Monthly Equipment Check"
+      }
+    }
+  },
+  "maintenanceScheduleDeleted": "Maintenance schedule deleted",
+  "@maintenanceScheduleDeleted": {
+    "description": "Success message for schedule deletion"
+  },
+  "maintenanceScheduleDeleteFailed": "Delete failed",
+  "@maintenanceScheduleDeleteFailed": {
+    "description": "Error message for schedule deletion failure"
+  },
+  "maintenanceScheduleDetail": "Maintenance Schedule Detail",
+  "@maintenanceScheduleDetail": {
+    "description": "Schedule detail screen title"
+  },
+  "maintenanceScheduleInformation": "Maintenance Schedule Information",
+  "@maintenanceScheduleInformation": {
+    "description": "Schedule information section title"
+  },
+  "maintenanceScheduleTitle": "Title",
+  "@maintenanceScheduleTitle": {
+    "description": "Title label"
+  },
+  "maintenanceScheduleDescription": "Description",
+  "@maintenanceScheduleDescription": {
+    "description": "Description label"
+  },
+  "maintenanceScheduleAsset": "Asset",
+  "@maintenanceScheduleAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceScheduleMaintenanceType": "Maintenance Type",
+  "@maintenanceScheduleMaintenanceType": {
+    "description": "Maintenance type label"
+  },
+  "maintenanceScheduleIsRecurring": "Is Recurring",
+  "@maintenanceScheduleIsRecurring": {
+    "description": "Is recurring label"
+  },
+  "maintenanceScheduleInterval": "Interval",
+  "@maintenanceScheduleInterval": {
+    "description": "Interval label"
+  },
+  "maintenanceScheduleScheduledTime": "Scheduled Time",
+  "@maintenanceScheduleScheduledTime": {
+    "description": "Scheduled time label"
+  },
+  "maintenanceScheduleNextScheduledDate": "Next Scheduled Date",
+  "@maintenanceScheduleNextScheduledDate": {
+    "description": "Next scheduled date label"
+  },
+  "maintenanceScheduleLastExecutedDate": "Last Executed Date",
+  "@maintenanceScheduleLastExecutedDate": {
+    "description": "Last executed date label"
+  },
+  "maintenanceScheduleState": "State",
+  "@maintenanceScheduleState": {
+    "description": "State label"
+  },
+  "maintenanceScheduleAutoComplete": "Auto Complete",
+  "@maintenanceScheduleAutoComplete": {
+    "description": "Auto complete label"
+  },
+  "maintenanceScheduleEstimatedCost": "Estimated Cost",
+  "@maintenanceScheduleEstimatedCost": {
+    "description": "Estimated cost label"
+  },
+  "maintenanceScheduleCreatedBy": "Created By",
+  "@maintenanceScheduleCreatedBy": {
+    "description": "Created by label"
+  },
+  "maintenanceScheduleYes": "Yes",
+  "@maintenanceScheduleYes": {
+    "description": "Yes value"
+  },
+  "maintenanceScheduleNo": "No",
+  "@maintenanceScheduleNo": {
+    "description": "No value"
+  },
+  "maintenanceScheduleUnknownAsset": "Unknown Asset",
+  "@maintenanceScheduleUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceScheduleUnknownUser": "Unknown User",
+  "@maintenanceScheduleUnknownUser": {
+    "description": "Unknown user text"
+  },
+  "maintenanceScheduleOnlyAdminCanEdit": "Only admin can edit maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceScheduleOnlyAdminCanDelete": "Only admin can delete maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceScheduleFailedToLoad": "Failed to load maintenance schedule",
+  "@maintenanceScheduleFailedToLoad": {
+    "description": "Error message when schedule fails to load"
+  },
+  "maintenanceScheduleEditSchedule": "Edit Maintenance Schedule",
+  "@maintenanceScheduleEditSchedule": {
+    "description": "Edit schedule screen title"
+  },
+  "maintenanceScheduleCreateSchedule": "Create Maintenance Schedule",
+  "@maintenanceScheduleCreateSchedule": {
+    "description": "Create schedule screen title"
+  },
+  "maintenanceScheduleFillRequiredFields": "Please fill all required fields",
+  "@maintenanceScheduleFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceScheduleSavedSuccessfully": "Maintenance schedule saved successfully",
+  "@maintenanceScheduleSavedSuccessfully": {
+    "description": "Success message for schedule save"
+  },
+  "maintenanceScheduleOperationFailed": "Operation failed",
+  "@maintenanceScheduleOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceScheduleFailedToLoadTranslations": "Failed to load translations",
+  "@maintenanceScheduleFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceScheduleSearchAsset": "Search and select asset",
+  "@maintenanceScheduleSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceScheduleSelectMaintenanceType": "Select maintenance type",
+  "@maintenanceScheduleSelectMaintenanceType": {
+    "description": "Maintenance type dropdown placeholder"
+  },
+  "maintenanceScheduleEnterIntervalValue": "Enter interval value (e.g., 3)",
+  "@maintenanceScheduleEnterIntervalValue": {
+    "description": "Interval value input placeholder"
+  },
+  "maintenanceScheduleSelectIntervalUnit": "Select interval unit",
+  "@maintenanceScheduleSelectIntervalUnit": {
+    "description": "Interval unit dropdown placeholder"
+  },
+  "maintenanceScheduleEnterScheduledTime": "e.g., 09:30",
+  "@maintenanceScheduleEnterScheduledTime": {
+    "description": "Scheduled time input placeholder"
+  },
+  "maintenanceScheduleSelectState": "Select state",
+  "@maintenanceScheduleSelectState": {
+    "description": "State dropdown placeholder"
+  },
+  "maintenanceScheduleEnterEstimatedCost": "Enter estimated cost (optional)",
+  "@maintenanceScheduleEnterEstimatedCost": {
+    "description": "Estimated cost input placeholder"
+  },
+  "maintenanceScheduleSearchUser": "Search and select user who created the schedule",
+  "@maintenanceScheduleSearchUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceScheduleTranslations": "Translations",
+  "@maintenanceScheduleTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceScheduleEnglish": "English",
+  "@maintenanceScheduleEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceScheduleJapanese": "Japanese",
+  "@maintenanceScheduleJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceScheduleEnterTitle": "Enter title in {language}",
+  "@maintenanceScheduleEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleEnterDescription": "Enter description in {language}",
+  "@maintenanceScheduleEnterDescription": {
+    "description": "Description input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleCancel": "Cancel",
+  "@maintenanceScheduleCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceScheduleUpdate": "Update",
+  "@maintenanceScheduleUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceScheduleCreate": "Create",
+  "@maintenanceScheduleCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceScheduleManagement": "Maintenance Schedule Management",
+  "@maintenanceScheduleManagement": {
+    "description": "Schedule management screen title"
+  },
+  "maintenanceScheduleCreateTitle": "Create Maintenance Schedule",
+  "@maintenanceScheduleCreateTitle": {
+    "description": "Create schedule option title"
+  },
+  "maintenanceScheduleCreateSubtitle": "Add a new maintenance schedule",
+  "@maintenanceScheduleCreateSubtitle": {
+    "description": "Create schedule option subtitle"
+  },
+  "maintenanceScheduleSelectManyTitle": "Select Many",
+  "@maintenanceScheduleSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceScheduleSelectManySubtitle": "Select multiple schedules to delete",
+  "@maintenanceScheduleSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceScheduleFilterAndSortTitle": "Filter & Sort",
+  "@maintenanceScheduleFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceScheduleFilterAndSortSubtitle": "Customize schedule display",
+  "@maintenanceScheduleFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceScheduleSelectToDelete": "Select maintenance schedules to delete",
+  "@maintenanceScheduleSelectToDelete": {
+    "description": "Instruction for selecting schedules to delete"
+  },
+  "maintenanceScheduleSortBy": "Sort By",
+  "@maintenanceScheduleSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceScheduleSortOrder": "Sort Order",
+  "@maintenanceScheduleSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceScheduleReset": "Reset",
+  "@maintenanceScheduleReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceScheduleApply": "Apply",
+  "@maintenanceScheduleApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceScheduleFilterReset": "Filter reset",
+  "@maintenanceScheduleFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceScheduleFilterApplied": "Filter applied",
+  "@maintenanceScheduleFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceScheduleDeleteSchedules": "Delete Schedules",
+  "@maintenanceScheduleDeleteSchedules": {
+    "description": "Delete schedules dialog title"
+  },
+  "maintenanceScheduleDeleteMultipleConfirmation": "Are you sure you want to delete {count} schedules?",
+  "@maintenanceScheduleDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple schedules",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceScheduleNoSchedulesSelected": "No schedules selected",
+  "@maintenanceScheduleNoSchedulesSelected": {
+    "description": "Warning message when no schedules are selected"
+  },
+  "maintenanceScheduleNotImplementedYet": "Not implemented yet",
+  "@maintenanceScheduleNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceScheduleSelectedCount": "{count} selected",
+  "@maintenanceScheduleSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceScheduleDelete": "Delete",
+  "@maintenanceScheduleDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceScheduleSearch": "Search schedules...",
+  "@maintenanceScheduleSearch": {
+    "description": "Schedules search placeholder"
+  },
+  "maintenanceScheduleNoSchedulesFound": "No schedules found",
+  "@maintenanceScheduleNoSchedulesFound": {
+    "description": "No schedules found message"
+  },
+  "maintenanceScheduleCreateFirstSchedule": "Create your first schedule to get started",
+  "@maintenanceScheduleCreateFirstSchedule": {
+    "description": "Empty state message for schedules"
+  },
+  "maintenanceScheduleLongPressToSelect": "Long press to select more schedules",
+  "@maintenanceScheduleLongPressToSelect": {
+    "description": "Instruction for selecting multiple schedules"
+  },
+  "maintenanceScheduleMetadata": "Metadata",
+  "@maintenanceScheduleMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceScheduleCreatedAt": "Created At",
+  "@maintenanceScheduleCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceScheduleUpdatedAt": "Updated At",
+  "@maintenanceScheduleUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceScheduleIntervalValueLabel": "Interval Value",
+  "@maintenanceScheduleIntervalValueLabel": {
+    "description": "Interval value field label"
+  },
+  "maintenanceScheduleIntervalUnitLabel": "Interval Unit",
+  "@maintenanceScheduleIntervalUnitLabel": {
+    "description": "Interval unit field label"
+  },
+  "maintenanceScheduleScheduledTimeLabel": "Scheduled Time (HH:mm)",
+  "@maintenanceScheduleScheduledTimeLabel": {
+    "description": "Scheduled time field label"
+  },
+  "maintenanceRecordDeleteRecord": "Delete Maintenance Record",
+  "@maintenanceRecordDeleteRecord": {
+    "description": "Dialog title for deleting a maintenance record"
+  },
+  "maintenanceRecordDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@maintenanceRecordDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance record",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Equipment Repair"
+      }
+    }
+  },
+  "maintenanceRecordDeleted": "Maintenance record deleted",
+  "@maintenanceRecordDeleted": {
+    "description": "Success message for record deletion"
+  },
+  "maintenanceRecordDeleteFailed": "Delete failed",
+  "@maintenanceRecordDeleteFailed": {
+    "description": "Error message for record deletion failure"
+  },
+  "maintenanceRecordDetail": "Maintenance Record Detail",
+  "@maintenanceRecordDetail": {
+    "description": "Record detail screen title"
+  },
+  "maintenanceRecordInformation": "Maintenance Record Information",
+  "@maintenanceRecordInformation": {
+    "description": "Record information section title"
+  },
+  "maintenanceRecordTitle": "Title",
+  "@maintenanceRecordTitle": {
+    "description": "Title label"
+  },
+  "maintenanceRecordNotes": "Notes",
+  "@maintenanceRecordNotes": {
+    "description": "Notes label"
+  },
+  "maintenanceRecordAsset": "Asset",
+  "@maintenanceRecordAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceRecordMaintenanceDate": "Maintenance Date",
+  "@maintenanceRecordMaintenanceDate": {
+    "description": "Maintenance date label"
+  },
+  "maintenanceRecordCompletionDate": "Completion Date",
+  "@maintenanceRecordCompletionDate": {
+    "description": "Completion date label"
+  },
+  "maintenanceRecordDuration": "Duration",
+  "@maintenanceRecordDuration": {
+    "description": "Duration label"
+  },
+  "maintenanceRecordDurationMinutes": "{minutes} minutes",
+  "@maintenanceRecordDurationMinutes": {
+    "description": "Duration in minutes format",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "maintenanceRecordPerformedByUser": "Performed By User",
+  "@maintenanceRecordPerformedByUser": {
+    "description": "Performed by user label"
+  },
+  "maintenanceRecordPerformedByVendor": "Performed By Vendor",
+  "@maintenanceRecordPerformedByVendor": {
+    "description": "Performed by vendor label"
+  },
+  "maintenanceRecordResult": "Result",
+  "@maintenanceRecordResult": {
+    "description": "Result label"
+  },
+  "maintenanceRecordActualCost": "Actual Cost",
+  "@maintenanceRecordActualCost": {
+    "description": "Actual cost label"
+  },
+  "maintenanceRecordActualCostValue": "${cost}",
+  "@maintenanceRecordActualCostValue": {
+    "description": "Actual cost value format",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "example": "1500.00"
+      }
+    }
+  },
+  "maintenanceRecordUnknownAsset": "Unknown Asset",
+  "@maintenanceRecordUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceRecordOnlyAdminCanEdit": "Only admin can edit maintenance records",
+  "@maintenanceRecordOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceRecordOnlyAdminCanDelete": "Only admin can delete maintenance records",
+  "@maintenanceRecordOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceRecordFailedToLoad": "Failed to load maintenance record",
+  "@maintenanceRecordFailedToLoad": {
+    "description": "Error message when record fails to load"
+  },
+  "maintenanceRecordEditRecord": "Edit Maintenance Record",
+  "@maintenanceRecordEditRecord": {
+    "description": "Edit record screen title"
+  },
+  "maintenanceRecordCreateRecord": "Create Maintenance Record",
+  "@maintenanceRecordCreateRecord": {
+    "description": "Create record screen title"
+  },
+  "maintenanceRecordFillRequiredFields": "Please fill all required fields",
+  "@maintenanceRecordFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceRecordSavedSuccessfully": "Maintenance record saved successfully",
+  "@maintenanceRecordSavedSuccessfully": {
+    "description": "Success message for record save"
+  },
+  "maintenanceRecordOperationFailed": "Operation failed",
+  "@maintenanceRecordOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceRecordFailedToLoadTranslations": "Failed to load translations",
+  "@maintenanceRecordFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceRecordSearchSchedule": "Search and select maintenance schedule",
+  "@maintenanceRecordSearchSchedule": {
+    "description": "Schedule search placeholder"
+  },
+  "maintenanceRecordSearchAsset": "Search and select asset",
+  "@maintenanceRecordSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceRecordCompletionDateOptional": "Completion Date (Optional)",
+  "@maintenanceRecordCompletionDateOptional": {
+    "description": "Completion date field label"
+  },
+  "maintenanceRecordDurationMinutesLabel": "Duration (Minutes)",
+  "@maintenanceRecordDurationMinutesLabel": {
+    "description": "Duration field label"
+  },
+  "maintenanceRecordEnterDuration": "Enter duration in minutes (optional)",
+  "@maintenanceRecordEnterDuration": {
+    "description": "Duration input placeholder"
+  },
+  "maintenanceRecordSearchPerformedByUser": "Search and select user who performed the maintenance",
+  "@maintenanceRecordSearchPerformedByUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceRecordPerformedByVendorLabel": "Performed By Vendor",
+  "@maintenanceRecordPerformedByVendorLabel": {
+    "description": "Vendor field label"
+  },
+  "maintenanceRecordEnterVendor": "Enter vendor name (optional)",
+  "@maintenanceRecordEnterVendor": {
+    "description": "Vendor input placeholder"
+  },
+  "maintenanceRecordSelectResult": "Select maintenance result",
+  "@maintenanceRecordSelectResult": {
+    "description": "Result dropdown placeholder"
+  },
+  "maintenanceRecordActualCostLabel": "Actual Cost",
+  "@maintenanceRecordActualCostLabel": {
+    "description": "Actual cost field label"
+  },
+  "maintenanceRecordEnterActualCost": "Enter actual cost (optional)",
+  "@maintenanceRecordEnterActualCost": {
+    "description": "Actual cost input placeholder"
+  },
+  "maintenanceRecordTranslations": "Translations",
+  "@maintenanceRecordTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceRecordEnglish": "English",
+  "@maintenanceRecordEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceRecordJapanese": "Japanese",
+  "@maintenanceRecordJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceRecordEnterTitle": "Enter title in {language}",
+  "@maintenanceRecordEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordEnterNotes": "Enter notes in {language}",
+  "@maintenanceRecordEnterNotes": {
+    "description": "Notes input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordCancel": "Cancel",
+  "@maintenanceRecordCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceRecordUpdate": "Update",
+  "@maintenanceRecordUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceRecordCreate": "Create",
+  "@maintenanceRecordCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceRecordManagement": "Maintenance Record Management",
+  "@maintenanceRecordManagement": {
+    "description": "Record management screen title"
+  },
+  "maintenanceRecordCreateTitle": "Create Maintenance Record",
+  "@maintenanceRecordCreateTitle": {
+    "description": "Create record option title"
+  },
+  "maintenanceRecordCreateSubtitle": "Add a new maintenance record",
+  "@maintenanceRecordCreateSubtitle": {
+    "description": "Create record option subtitle"
+  },
+  "maintenanceRecordSelectManyTitle": "Select Many",
+  "@maintenanceRecordSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceRecordSelectManySubtitle": "Select multiple records to delete",
+  "@maintenanceRecordSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceRecordFilterAndSortTitle": "Filter & Sort",
+  "@maintenanceRecordFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceRecordFilterAndSortSubtitle": "Customize record display",
+  "@maintenanceRecordFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceRecordSelectToDelete": "Select maintenance records to delete",
+  "@maintenanceRecordSelectToDelete": {
+    "description": "Instruction for selecting records to delete"
+  },
+  "maintenanceRecordSortBy": "Sort By",
+  "@maintenanceRecordSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceRecordSortOrder": "Sort Order",
+  "@maintenanceRecordSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceRecordReset": "Reset",
+  "@maintenanceRecordReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceRecordApply": "Apply",
+  "@maintenanceRecordApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceRecordFilterReset": "Filter reset",
+  "@maintenanceRecordFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceRecordFilterApplied": "Filter applied",
+  "@maintenanceRecordFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceRecordDeleteRecords": "Delete Records",
+  "@maintenanceRecordDeleteRecords": {
+    "description": "Delete records dialog title"
+  },
+  "maintenanceRecordDeleteMultipleConfirmation": "Are you sure you want to delete {count} records?",
+  "@maintenanceRecordDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple records",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceRecordNoRecordsSelected": "No records selected",
+  "@maintenanceRecordNoRecordsSelected": {
+    "description": "Warning message when no records are selected"
+  },
+  "maintenanceRecordNotImplementedYet": "Not implemented yet",
+  "@maintenanceRecordNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceRecordSelectedCount": "{count} selected",
+  "@maintenanceRecordSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceRecordDelete": "Delete",
+  "@maintenanceRecordDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceRecordSearch": "Search records...",
+  "@maintenanceRecordSearch": {
+    "description": "Records search placeholder"
+  },
+  "maintenanceRecordNoRecordsFound": "No records found",
+  "@maintenanceRecordNoRecordsFound": {
+    "description": "No records found message"
+  },
+  "maintenanceRecordCreateFirstRecord": "Create your first record to get started",
+  "@maintenanceRecordCreateFirstRecord": {
+    "description": "Empty state message for records"
+  },
+  "maintenanceRecordLongPressToSelect": "Long press to select more records",
+  "@maintenanceRecordLongPressToSelect": {
+    "description": "Instruction for selecting multiple records"
+  },
+  "maintenanceRecordMetadata": "Metadata",
+  "@maintenanceRecordMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceRecordCreatedAt": "Created At",
+  "@maintenanceRecordCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceRecordUpdatedAt": "Updated At",
+  "@maintenanceRecordUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceRecordSchedule": "Maintenance Schedule",
+  "@maintenanceRecordSchedule": {
+    "description": "Schedule label"
+  },
+  "notificationManagement": "Notification Management",
+  "@notificationManagement": {
+    "description": "Notification management screen title"
+  },
+  "notificationDetail": "Notification Detail",
+  "@notificationDetail": {
+    "description": "Notification detail screen title"
+  },
+  "notificationMyNotifications": "My Notifications",
+  "@notificationMyNotifications": {
+    "description": "My notifications screen title"
+  },
+  "notificationDeleteNotification": "Delete Notification",
+  "@notificationDeleteNotification": {
+    "description": "Dialog title for deleting a notification"
+  },
+  "notificationDeleteConfirmation": "Are you sure you want to delete this notification?",
+  "@notificationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a notification"
+  },
+  "notificationDeleteMultipleConfirmation": "Are you sure you want to delete {count} notifications?",
+  "@notificationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple notifications",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationCancel": "Cancel",
+  "@notificationCancel": {
+    "description": "Cancel button label"
+  },
+  "notificationDelete": "Delete",
+  "@notificationDelete": {
+    "description": "Delete button label"
+  },
+  "notificationOnlyAdminCanDelete": "Only admin can delete notifications",
+  "@notificationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "notificationDeleted": "Notification deleted",
+  "@notificationDeleted": {
+    "description": "Success message for notification deletion"
+  },
+  "notificationDeleteFailed": "Delete failed",
+  "@notificationDeleteFailed": {
+    "description": "Error message for notification deletion failure"
+  },
+  "notificationFailedToLoad": "Failed to load notification",
+  "@notificationFailedToLoad": {
+    "description": "Error message when notification fails to load"
+  },
+  "notificationInformation": "Notification Information",
+  "@notificationInformation": {
+    "description": "Notification information section title"
+  },
+  "notificationTitle": "Title",
+  "@notificationTitle": {
+    "description": "Title label"
+  },
+  "notificationMessage": "Message",
+  "@notificationMessage": {
+    "description": "Message label"
+  },
+  "notificationType": "Type",
+  "@notificationType": {
+    "description": "Type label"
+  },
+  "notificationPriority": "Priority",
+  "@notificationPriority": {
+    "description": "Priority label"
+  },
+  "notificationIsRead": "Is Read",
+  "@notificationIsRead": {
+    "description": "Is read label"
+  },
+  "notificationReadStatus": "Read Status",
+  "@notificationReadStatus": {
+    "description": "Read status label"
+  },
+  "notificationRead": "Read",
+  "@notificationRead": {
+    "description": "Read status value"
+  },
+  "notificationUnread": "Unread",
+  "@notificationUnread": {
+    "description": "Unread status value"
+  },
+  "notificationYes": "Yes",
+  "@notificationYes": {
+    "description": "Yes label"
+  },
+  "notificationNo": "No",
+  "@notificationNo": {
+    "description": "No label"
+  },
+  "notificationCreatedAt": "Created At",
+  "@notificationCreatedAt": {
+    "description": "Created at label"
+  },
+  "notificationExpiresAt": "Expires At",
+  "@notificationExpiresAt": {
+    "description": "Expires at label"
+  },
+  "notificationSearchNotifications": "Search notifications...",
+  "@notificationSearchNotifications": {
+    "description": "Notifications search placeholder"
+  },
+  "notificationSearchMyNotifications": "Search my notifications...",
+  "@notificationSearchMyNotifications": {
+    "description": "My notifications search placeholder"
+  },
+  "notificationNoNotificationsFound": "No notifications found",
+  "@notificationNoNotificationsFound": {
+    "description": "No notifications found message"
+  },
+  "notificationNoNotificationsYet": "You have no notifications",
+  "@notificationNoNotificationsYet": {
+    "description": "Empty state message for user notifications"
+  },
+  "notificationCreateFirstNotification": "Create your first notification to get started",
+  "@notificationCreateFirstNotification": {
+    "description": "Empty state message for notifications"
+  },
+  "notificationCreateNotification": "Create Notification",
+  "@notificationCreateNotification": {
+    "description": "Create notification option title"
+  },
+  "notificationCreateNotificationSubtitle": "Add a new notification",
+  "@notificationCreateNotificationSubtitle": {
+    "description": "Create notification option subtitle"
+  },
+  "notificationSelectMany": "Select Many",
+  "@notificationSelectMany": {
+    "description": "Select many option title"
+  },
+  "notificationSelectManySubtitle": "Select multiple notifications to delete",
+  "@notificationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "notificationFilterAndSort": "Filter & Sort",
+  "@notificationFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "notificationFilterAndSortSubtitle": "Customize notification display",
+  "@notificationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "notificationFiltersAndSorting": "Filters & Sorting",
+  "@notificationFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "notificationSelectNotificationsToDelete": "Select notifications to delete",
+  "@notificationSelectNotificationsToDelete": {
+    "description": "Instruction for selecting notifications to delete"
+  },
+  "notificationLongPressToSelect": "Long press to select more notifications",
+  "@notificationLongPressToSelect": {
+    "description": "Instruction for selecting multiple notifications"
+  },
+  "notificationSelectedCount": "{count} selected",
+  "@notificationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationNoNotificationsSelected": "No notifications selected",
+  "@notificationNoNotificationsSelected": {
+    "description": "Warning message when no notifications are selected"
+  },
+  "notificationFilterByUser": "Filter by User",
+  "@notificationFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "notificationFilterByRelatedAsset": "Filter by Related Asset",
+  "@notificationFilterByRelatedAsset": {
+    "description": "Filter by related asset label"
+  },
+  "notificationSearchUser": "Search user...",
+  "@notificationSearchUser": {
+    "description": "User search placeholder"
+  },
+  "notificationSearchAsset": "Search asset...",
+  "@notificationSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "notificationSortBy": "Sort By",
+  "@notificationSortBy": {
+    "description": "Sort by label"
+  },
+  "notificationSortOrder": "Sort Order",
+  "@notificationSortOrder": {
+    "description": "Sort order label"
+  },
+  "notificationReset": "Reset",
+  "@notificationReset": {
+    "description": "Reset button label"
+  },
+  "notificationApply": "Apply",
+  "@notificationApply": {
+    "description": "Apply button label"
+  },
+  "notificationApplyFilters": "Apply Filters",
+  "@notificationApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "notificationFilterReset": "Filter reset",
+  "@notificationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "notificationFilterApplied": "Filter applied",
+  "@notificationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "notificationFiltersApplied": "Filters Applied",
+  "@notificationFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "notificationNotImplementedYet": "Not implemented yet",
+  "@notificationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "notificationJustNow": "Just now",
+  "@notificationJustNow": {
+    "description": "Time ago for just now"
+  },
+  "notificationMinutesAgo": "{minutes}m ago",
+  "@notificationMinutesAgo": {
+    "description": "Time ago in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationHoursAgo": "{hours}h ago",
+  "@notificationHoursAgo": {
+    "description": "Time ago in hours",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "notificationDaysAgo": "{days}d ago",
+  "@notificationDaysAgo": {
+    "description": "Time ago in days",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogManagement": "Scan Log Management",
+  "@scanLogManagement": {
+    "description": "Scan log management screen title"
+  },
+  "scanLogDetail": "Scan Log Detail",
+  "@scanLogDetail": {
+    "description": "Scan log detail screen title"
+  },
+  "scanLogDeleteScanLog": "Delete Scan Log",
+  "@scanLogDeleteScanLog": {
+    "description": "Dialog title for deleting a scan log"
+  },
+  "scanLogDeleteConfirmation": "Are you sure you want to delete this scan log?",
+  "@scanLogDeleteConfirmation": {
+    "description": "Confirmation message for deleting a scan log"
+  },
+  "scanLogDeleteMultipleConfirmation": "Are you sure you want to delete {count} scan logs?",
+  "@scanLogDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple scan logs",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogCancel": "Cancel",
+  "@scanLogCancel": {
+    "description": "Cancel button label"
+  },
+  "scanLogDelete": "Delete",
+  "@scanLogDelete": {
+    "description": "Delete button label"
+  },
+  "scanLogOnlyAdminCanDelete": "Only admin can delete scan logs",
+  "@scanLogOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "scanLogDeleted": "Scan log deleted",
+  "@scanLogDeleted": {
+    "description": "Success message for scan log deletion"
+  },
+  "scanLogDeleteFailed": "Delete failed",
+  "@scanLogDeleteFailed": {
+    "description": "Error message for scan log deletion failure"
+  },
+  "scanLogFailedToLoad": "Failed to load scan log",
+  "@scanLogFailedToLoad": {
+    "description": "Error message when scan log fails to load"
+  },
+  "scanLogInformation": "Scan Information",
+  "@scanLogInformation": {
+    "description": "Scan information section title"
+  },
+  "scanLogScannedValue": "Scanned Value",
+  "@scanLogScannedValue": {
+    "description": "Scanned value label"
+  },
+  "scanLogScanMethod": "Scan Method",
+  "@scanLogScanMethod": {
+    "description": "Scan method label"
+  },
+  "scanLogScanResult": "Scan Result",
+  "@scanLogScanResult": {
+    "description": "Scan result label"
+  },
+  "scanLogScanTimestamp": "Scan Timestamp",
+  "@scanLogScanTimestamp": {
+    "description": "Scan timestamp label"
+  },
+  "scanLogLocation": "Location",
+  "@scanLogLocation": {
+    "description": "Location label"
+  },
+  "scanLogSearchScanLogs": "Search scan logs...",
+  "@scanLogSearchScanLogs": {
+    "description": "Scan logs search placeholder"
+  },
+  "scanLogNoScanLogsFound": "No scan logs found",
+  "@scanLogNoScanLogsFound": {
+    "description": "No scan logs found message"
+  },
+  "scanLogCreateFirstScanLog": "Create your first scan log to get started",
+  "@scanLogCreateFirstScanLog": {
+    "description": "Empty state message for scan logs"
+  },
+  "scanLogCreateScanLog": "Create Scan Log",
+  "@scanLogCreateScanLog": {
+    "description": "Create scan log option title"
+  },
+  "scanLogCreateScanLogSubtitle": "Add a new scan log",
+  "@scanLogCreateScanLogSubtitle": {
+    "description": "Create scan log option subtitle"
+  },
+  "scanLogSelectMany": "Select Many",
+  "@scanLogSelectMany": {
+    "description": "Select many option title"
+  },
+  "scanLogSelectManySubtitle": "Select multiple scan logs to delete",
+  "@scanLogSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "scanLogFilterAndSort": "Filter & Sort",
+  "@scanLogFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "scanLogFilterAndSortSubtitle": "Customize scan log display",
+  "@scanLogFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "scanLogFiltersAndSorting": "Filters & Sorting",
+  "@scanLogFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "scanLogSelectScanLogsToDelete": "Select scan logs to delete",
+  "@scanLogSelectScanLogsToDelete": {
+    "description": "Instruction for selecting scan logs to delete"
+  },
+  "scanLogLongPressToSelect": "Long press to select more scan logs",
+  "@scanLogLongPressToSelect": {
+    "description": "Instruction for selecting multiple scan logs"
+  },
+  "scanLogSelectedCount": "{count} selected",
+  "@scanLogSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogNoScanLogsSelected": "No scan logs selected",
+  "@scanLogNoScanLogsSelected": {
+    "description": "Warning message when no scan logs are selected"
+  },
+  "scanLogFilterByAsset": "Filter by Asset",
+  "@scanLogFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "scanLogFilterByScannedBy": "Filter by Scanned By",
+  "@scanLogFilterByScannedBy": {
+    "description": "Filter by scanned by label"
+  },
+  "scanLogSearchAsset": "Search asset...",
+  "@scanLogSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "scanLogSearchUser": "Search user...",
+  "@scanLogSearchUser": {
+    "description": "User search placeholder"
+  },
+  "scanLogSortBy": "Sort By",
+  "@scanLogSortBy": {
+    "description": "Sort by label"
+  },
+  "scanLogSortOrder": "Sort Order",
+  "@scanLogSortOrder": {
+    "description": "Sort order label"
+  },
+  "scanLogHasCoordinates": "Has Coordinates",
+  "@scanLogHasCoordinates": {
+    "description": "Has coordinates checkbox label"
+  },
+  "scanLogDateFrom": "Date From",
+  "@scanLogDateFrom": {
+    "description": "Date from label"
+  },
+  "scanLogDateTo": "Date To",
+  "@scanLogDateTo": {
+    "description": "Date to label"
+  },
+  "scanLogReset": "Reset",
+  "@scanLogReset": {
+    "description": "Reset button label"
+  },
+  "scanLogApply": "Apply",
+  "@scanLogApply": {
+    "description": "Apply button label"
+  },
+  "scanLogFilterReset": "Filter reset",
+  "@scanLogFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "scanLogFilterApplied": "Filter applied",
+  "@scanLogFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "scanLogNotImplementedYet": "Not implemented yet",
+  "@scanLogNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "userManagement": "User Management",
+  "@userManagement": {
+    "description": "User management screen title"
+  },
+  "userCreateUser": "Create User",
+  "@userCreateUser": {
+    "description": "Create user option title"
+  },
+  "userAddNewUser": "Add a new user",
+  "@userAddNewUser": {
+    "description": "Create user option subtitle"
+  },
+  "userSelectMany": "Select Many",
+  "@userSelectMany": {
+    "description": "Select many option title"
+  },
+  "userSelectMultipleToDelete": "Select multiple users to delete",
+  "@userSelectMultipleToDelete": {
+    "description": "Select many option subtitle"
+  },
+  "userFilterAndSort": "Filter & Sort",
+  "@userFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "userCustomizeDisplay": "Customize user display",
+  "@userCustomizeDisplay": {
+    "description": "Filter and sort option subtitle"
+  },
+  "userFilters": "Filters",
+  "@userFilters": {
+    "description": "Filters section title"
+  },
+  "userRole": "Role",
+  "@userRole": {
+    "description": "Role label"
+  },
+  "userEmployeeId": "Employee ID",
+  "@userEmployeeId": {
+    "description": "Employee ID label"
+  },
+  "userEnterEmployeeId": "Enter employee ID...",
+  "@userEnterEmployeeId": {
+    "description": "Employee ID input placeholder"
+  },
+  "userActiveStatus": "Active Status",
+  "@userActiveStatus": {
+    "description": "Active status label"
+  },
+  "userActive": "Active",
+  "@userActive": {
+    "description": "Active status value"
+  },
+  "userInactive": "Inactive",
+  "@userInactive": {
+    "description": "Inactive status value"
+  },
+  "userSort": "Sort",
+  "@userSort": {
+    "description": "Sort section title"
+  },
+  "userSortBy": "Sort By",
+  "@userSortBy": {
+    "description": "Sort by label"
+  },
+  "userSortOrder": "Sort Order",
+  "@userSortOrder": {
+    "description": "Sort order label"
+  },
+  "userAscending": "Ascending",
+  "@userAscending": {
+    "description": "Ascending sort order"
+  },
+  "userDescending": "Descending",
+  "@userDescending": {
+    "description": "Descending sort order"
+  },
+  "userReset": "Reset",
+  "@userReset": {
+    "description": "Reset button label"
+  },
+  "userApply": "Apply",
+  "@userApply": {
+    "description": "Apply button label"
+  },
+  "userFilterReset": "Filter reset",
+  "@userFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "userFilterApplied": "Filter applied",
+  "@userFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "userSelectUsersToDelete": "Select users to delete",
+  "@userSelectUsersToDelete": {
+    "description": "Select mode instruction"
+  },
+  "userDeleteUsers": "Delete Users",
+  "@userDeleteUsers": {
+    "description": "Delete users dialog title"
+  },
+  "userDeleteConfirmation": "Are you sure you want to delete {count} users?",
+  "@userDeleteConfirmation": {
+    "description": "Delete confirmation message",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userCancel": "Cancel",
+  "@userCancel": {
+    "description": "Cancel button label"
+  },
+  "userDelete": "Delete",
+  "@userDelete": {
+    "description": "Delete button label"
+  },
+  "userNoUsersSelected": "No users selected",
+  "@userNoUsersSelected": {
+    "description": "No users selected warning"
+  },
+  "userNotImplementedYet": "Not implemented yet",
+  "@userNotImplementedYet": {
+    "description": "Not implemented message"
+  },
+  "userSelectedCount": "{count} selected",
+  "@userSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "userSearchUsers": "Search users...",
+  "@userSearchUsers": {
+    "description": "Search users placeholder"
+  },
+  "userNoUsersFound": "No users found",
+  "@userNoUsersFound": {
+    "description": "No users found message"
+  },
+  "userCreateFirstUser": "Create your first user to get started",
+  "@userCreateFirstUser": {
+    "description": "Empty state message"
+  },
+  "userLongPressToSelect": "Long press to select more users",
+  "@userLongPressToSelect": {
+    "description": "Long press instruction"
+  },
+  "userEditUser": "Edit User",
+  "@userEditUser": {
+    "description": "Edit user screen title"
+  },
+  "userPleaseFixErrors": "Please fix all errors",
+  "@userPleaseFixErrors": {
+    "description": "Form validation error message"
+  },
+  "userPleaseSelectRole": "Please select a role",
+  "@userPleaseSelectRole": {
+    "description": "Role validation message"
+  },
+  "userPleaseValidateFields": "Please fill all required fields",
+  "@userPleaseValidateFields": {
+    "description": "Required fields validation message"
+  },
+  "userSavedSuccessfully": "User saved successfully",
+  "@userSavedSuccessfully": {
+    "description": "User save success message"
+  },
+  "userOperationFailed": "Operation failed",
+  "@userOperationFailed": {
+    "description": "Operation failed message"
+  },
+  "userInformation": "User Information",
+  "@userInformation": {
+    "description": "User information section title"
+  },
+  "userUsername": "Username",
+  "@userUsername": {
+    "description": "Username label"
+  },
+  "userEnterUsername": "Enter username",
+  "@userEnterUsername": {
+    "description": "Username input placeholder"
+  },
+  "userEmail": "Email",
+  "@userEmail": {
+    "description": "Email label"
+  },
+  "userEnterEmail": "Enter email",
+  "@userEnterEmail": {
+    "description": "Email input placeholder"
+  },
+  "userPassword": "Password",
+  "@userPassword": {
+    "description": "Password label"
+  },
+  "userEnterPassword": "Enter password",
+  "@userEnterPassword": {
+    "description": "Password input placeholder"
+  },
+  "userFullName": "Full Name",
+  "@userFullName": {
+    "description": "Full name label"
+  },
+  "userEnterFullName": "Enter full name",
+  "@userEnterFullName": {
+    "description": "Full name input placeholder"
+  },
+  "userSelectRole": "Select role",
+  "@userSelectRole": {
+    "description": "Role dropdown placeholder"
+  },
+  "userEmployeeIdOptional": "Employee ID (Optional)",
+  "@userEmployeeIdOptional": {
+    "description": "Employee ID optional label"
+  },
+  "userEnterEmployeeIdOptional": "Enter employee ID",
+  "@userEnterEmployeeIdOptional": {
+    "description": "Employee ID input placeholder"
+  },
+  "userPreferredLanguage": "Preferred Language (Optional)",
+  "@userPreferredLanguage": {
+    "description": "Preferred language label"
+  },
+  "userSelectLanguage": "Select language",
+  "@userSelectLanguage": {
+    "description": "Language dropdown placeholder"
+  },
+  "userUpdate": "Update",
+  "@userUpdate": {
+    "description": "Update button label"
+  },
+  "userCreate": "Create",
+  "@userCreate": {
+    "description": "Create button label"
+  },
+  "userDetail": "User Detail",
+  "@userDetail": {
+    "description": "User detail screen title"
+  },
+  "userOnlyAdminCanEdit": "Only admin can edit users",
+  "@userOnlyAdminCanEdit": {
+    "description": "Admin only edit warning"
+  },
+  "userDeleteUser": "Delete User",
+  "@userDeleteUser": {
+    "description": "Delete user dialog title"
+  },
+  "userDeleteSingleConfirmation": "Are you sure you want to delete \"{fullName}\"?",
+  "@userDeleteSingleConfirmation": {
+    "description": "Delete single user confirmation",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "userOnlyAdminCanDelete": "Only admin can delete users",
+  "@userOnlyAdminCanDelete": {
+    "description": "Admin only delete warning"
+  },
+  "userDeleted": "User deleted",
+  "@userDeleted": {
+    "description": "User deleted success message"
+  },
+  "userDeleteFailed": "Delete failed",
+  "@userDeleteFailed": {
+    "description": "Delete failed error message"
+  },
+  "userName": "Name",
+  "@userName": {
+    "description": "Name label"
+  },
+  "userPreferredLang": "Preferred Language",
+  "@userPreferredLang": {
+    "description": "Preferred language label"
+  },
+  "userYes": "Yes",
+  "@userYes": {
+    "description": "Yes text"
+  },
+  "userNo": "No",
+  "@userNo": {
+    "description": "No text"
+  },
+  "userMetadata": "Metadata",
+  "@userMetadata": {
+    "description": "Metadata section title"
+  },
+  "userCreatedAt": "Created At",
+  "@userCreatedAt": {
+    "description": "Created at label"
+  },
+  "userUpdatedAt": "Updated At",
+  "@userUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "userFailedToLoad": "Failed to load user",
+  "@userFailedToLoad": {
+    "description": "Failed to load error message"
+  },
+  "userFailedToLoadProfile": "Failed to load profile",
+  "@userFailedToLoadProfile": {
+    "description": "Failed to load profile error"
+  },
+  "userPersonalInformation": "Personal Information",
+  "@userPersonalInformation": {
+    "description": "Personal information section title"
+  },
+  "userAccountDetails": "Account Details",
+  "@userAccountDetails": {
+    "description": "Account details section title"
+  },
+  "userStatus": "Status",
+  "@userStatus": {
+    "description": "Status label"
+  },
+  "userUpdateProfile": "Update Profile",
+  "@userUpdateProfile": {
+    "description": "Update profile screen title"
+  },
+  "userNoUserData": "No user data available",
+  "@userNoUserData": {
+    "description": "No user data message"
+  },
+  "userProfileInformation": "Profile Information",
+  "@userProfileInformation": {
+    "description": "Profile information section title"
+  },
+  "userProfilePicture": "Profile Picture",
+  "@userProfilePicture": {
+    "description": "Profile picture label"
+  },
+  "userChooseImage": "Choose image",
+  "@userChooseImage": {
+    "description": "Choose image button text"
+  },
+  "userProfileUpdatedSuccessfully": "Profile updated successfully",
+  "@userProfileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  },
   "adminShellBottomNavDashboard": "Dashboard",
   "@adminShellBottomNavDashboard": {
     "description": "Admin shell bottom navigation label for dashboard"

@@ -1,0 +1,349 @@
+{
+  "@@locale": "en",
+  "userManagement": "User Management",
+  "@userManagement": {
+    "description": "User management screen title"
+  },
+  "userCreateUser": "Create User",
+  "@userCreateUser": {
+    "description": "Create user option title"
+  },
+  "userAddNewUser": "Add a new user",
+  "@userAddNewUser": {
+    "description": "Create user option subtitle"
+  },
+  "userSelectMany": "Select Many",
+  "@userSelectMany": {
+    "description": "Select many option title"
+  },
+  "userSelectMultipleToDelete": "Select multiple users to delete",
+  "@userSelectMultipleToDelete": {
+    "description": "Select many option subtitle"
+  },
+  "userFilterAndSort": "Filter & Sort",
+  "@userFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "userCustomizeDisplay": "Customize user display",
+  "@userCustomizeDisplay": {
+    "description": "Filter and sort option subtitle"
+  },
+  "userFilters": "Filters",
+  "@userFilters": {
+    "description": "Filters section title"
+  },
+  "userRole": "Role",
+  "@userRole": {
+    "description": "Role label"
+  },
+  "userEmployeeId": "Employee ID",
+  "@userEmployeeId": {
+    "description": "Employee ID label"
+  },
+  "userEnterEmployeeId": "Enter employee ID...",
+  "@userEnterEmployeeId": {
+    "description": "Employee ID input placeholder"
+  },
+  "userActiveStatus": "Active Status",
+  "@userActiveStatus": {
+    "description": "Active status label"
+  },
+  "userActive": "Active",
+  "@userActive": {
+    "description": "Active status value"
+  },
+  "userInactive": "Inactive",
+  "@userInactive": {
+    "description": "Inactive status value"
+  },
+  "userSort": "Sort",
+  "@userSort": {
+    "description": "Sort section title"
+  },
+  "userSortBy": "Sort By",
+  "@userSortBy": {
+    "description": "Sort by label"
+  },
+  "userSortOrder": "Sort Order",
+  "@userSortOrder": {
+    "description": "Sort order label"
+  },
+  "userAscending": "Ascending",
+  "@userAscending": {
+    "description": "Ascending sort order"
+  },
+  "userDescending": "Descending",
+  "@userDescending": {
+    "description": "Descending sort order"
+  },
+  "userReset": "Reset",
+  "@userReset": {
+    "description": "Reset button label"
+  },
+  "userApply": "Apply",
+  "@userApply": {
+    "description": "Apply button label"
+  },
+  "userFilterReset": "Filter reset",
+  "@userFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "userFilterApplied": "Filter applied",
+  "@userFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "userSelectUsersToDelete": "Select users to delete",
+  "@userSelectUsersToDelete": {
+    "description": "Select mode instruction"
+  },
+  "userDeleteUsers": "Delete Users",
+  "@userDeleteUsers": {
+    "description": "Delete users dialog title"
+  },
+  "userDeleteConfirmation": "Are you sure you want to delete {count} users?",
+  "@userDeleteConfirmation": {
+    "description": "Delete confirmation message",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userCancel": "Cancel",
+  "@userCancel": {
+    "description": "Cancel button label"
+  },
+  "userDelete": "Delete",
+  "@userDelete": {
+    "description": "Delete button label"
+  },
+  "userNoUsersSelected": "No users selected",
+  "@userNoUsersSelected": {
+    "description": "No users selected warning"
+  },
+  "userNotImplementedYet": "Not implemented yet",
+  "@userNotImplementedYet": {
+    "description": "Not implemented message"
+  },
+  "userSelectedCount": "{count} selected",
+  "@userSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "userSearchUsers": "Search users...",
+  "@userSearchUsers": {
+    "description": "Search users placeholder"
+  },
+  "userNoUsersFound": "No users found",
+  "@userNoUsersFound": {
+    "description": "No users found message"
+  },
+  "userCreateFirstUser": "Create your first user to get started",
+  "@userCreateFirstUser": {
+    "description": "Empty state message"
+  },
+  "userLongPressToSelect": "Long press to select more users",
+  "@userLongPressToSelect": {
+    "description": "Long press instruction"
+  },
+  "userEditUser": "Edit User",
+  "@userEditUser": {
+    "description": "Edit user screen title"
+  },
+  "userPleaseFixErrors": "Please fix all errors",
+  "@userPleaseFixErrors": {
+    "description": "Form validation error message"
+  },
+  "userPleaseSelectRole": "Please select a role",
+  "@userPleaseSelectRole": {
+    "description": "Role validation message"
+  },
+  "userPleaseValidateFields": "Please fill all required fields",
+  "@userPleaseValidateFields": {
+    "description": "Required fields validation message"
+  },
+  "userSavedSuccessfully": "User saved successfully",
+  "@userSavedSuccessfully": {
+    "description": "User save success message"
+  },
+  "userOperationFailed": "Operation failed",
+  "@userOperationFailed": {
+    "description": "Operation failed message"
+  },
+  "userInformation": "User Information",
+  "@userInformation": {
+    "description": "User information section title"
+  },
+  "userUsername": "Username",
+  "@userUsername": {
+    "description": "Username label"
+  },
+  "userEnterUsername": "Enter username",
+  "@userEnterUsername": {
+    "description": "Username input placeholder"
+  },
+  "userEmail": "Email",
+  "@userEmail": {
+    "description": "Email label"
+  },
+  "userEnterEmail": "Enter email",
+  "@userEnterEmail": {
+    "description": "Email input placeholder"
+  },
+  "userPassword": "Password",
+  "@userPassword": {
+    "description": "Password label"
+  },
+  "userEnterPassword": "Enter password",
+  "@userEnterPassword": {
+    "description": "Password input placeholder"
+  },
+  "userFullName": "Full Name",
+  "@userFullName": {
+    "description": "Full name label"
+  },
+  "userEnterFullName": "Enter full name",
+  "@userEnterFullName": {
+    "description": "Full name input placeholder"
+  },
+  "userSelectRole": "Select role",
+  "@userSelectRole": {
+    "description": "Role dropdown placeholder"
+  },
+  "userEmployeeIdOptional": "Employee ID (Optional)",
+  "@userEmployeeIdOptional": {
+    "description": "Employee ID optional label"
+  },
+  "userEnterEmployeeIdOptional": "Enter employee ID",
+  "@userEnterEmployeeIdOptional": {
+    "description": "Employee ID input placeholder"
+  },
+  "userPreferredLanguage": "Preferred Language (Optional)",
+  "@userPreferredLanguage": {
+    "description": "Preferred language label"
+  },
+  "userSelectLanguage": "Select language",
+  "@userSelectLanguage": {
+    "description": "Language dropdown placeholder"
+  },
+  "userUpdate": "Update",
+  "@userUpdate": {
+    "description": "Update button label"
+  },
+  "userCreate": "Create",
+  "@userCreate": {
+    "description": "Create button label"
+  },
+  "userDetail": "User Detail",
+  "@userDetail": {
+    "description": "User detail screen title"
+  },
+  "userOnlyAdminCanEdit": "Only admin can edit users",
+  "@userOnlyAdminCanEdit": {
+    "description": "Admin only edit warning"
+  },
+  "userDeleteUser": "Delete User",
+  "@userDeleteUser": {
+    "description": "Delete user dialog title"
+  },
+  "userDeleteSingleConfirmation": "Are you sure you want to delete \"{fullName}\"?",
+  "@userDeleteSingleConfirmation": {
+    "description": "Delete single user confirmation",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "userOnlyAdminCanDelete": "Only admin can delete users",
+  "@userOnlyAdminCanDelete": {
+    "description": "Admin only delete warning"
+  },
+  "userDeleted": "User deleted",
+  "@userDeleted": {
+    "description": "User deleted success message"
+  },
+  "userDeleteFailed": "Delete failed",
+  "@userDeleteFailed": {
+    "description": "Delete failed error message"
+  },
+  "userName": "Name",
+  "@userName": {
+    "description": "Name label"
+  },
+  "userPreferredLang": "Preferred Language",
+  "@userPreferredLang": {
+    "description": "Preferred language label"
+  },
+  "userYes": "Yes",
+  "@userYes": {
+    "description": "Yes text"
+  },
+  "userNo": "No",
+  "@userNo": {
+    "description": "No text"
+  },
+  "userMetadata": "Metadata",
+  "@userMetadata": {
+    "description": "Metadata section title"
+  },
+  "userCreatedAt": "Created At",
+  "@userCreatedAt": {
+    "description": "Created at label"
+  },
+  "userUpdatedAt": "Updated At",
+  "@userUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "userFailedToLoad": "Failed to load user",
+  "@userFailedToLoad": {
+    "description": "Failed to load error message"
+  },
+  "userFailedToLoadProfile": "Failed to load profile",
+  "@userFailedToLoadProfile": {
+    "description": "Failed to load profile error"
+  },
+  "userPersonalInformation": "Personal Information",
+  "@userPersonalInformation": {
+    "description": "Personal information section title"
+  },
+  "userAccountDetails": "Account Details",
+  "@userAccountDetails": {
+    "description": "Account details section title"
+  },
+  "userStatus": "Status",
+  "@userStatus": {
+    "description": "Status label"
+  },
+  "userUpdateProfile": "Update Profile",
+  "@userUpdateProfile": {
+    "description": "Update profile screen title"
+  },
+  "userNoUserData": "No user data available",
+  "@userNoUserData": {
+    "description": "No user data message"
+  },
+  "userProfileInformation": "Profile Information",
+  "@userProfileInformation": {
+    "description": "Profile information section title"
+  },
+  "userProfilePicture": "Profile Picture",
+  "@userProfilePicture": {
+    "description": "Profile picture label"
+  },
+  "userChooseImage": "Choose image",
+  "@userChooseImage": {
+    "description": "Choose image button text"
+  },
+  "userProfileUpdatedSuccessfully": "Profile updated successfully",
+  "@userProfileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  }
+}

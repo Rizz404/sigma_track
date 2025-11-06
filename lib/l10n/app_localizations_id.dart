@@ -1331,6 +1331,1726 @@ class L10nId extends L10n {
   String get homeScreen => 'Home';
 
   @override
+  String get issueReportDeleteIssueReport => 'Delete Issue Report';
+
+  @override
+  String issueReportDeleteConfirmation(String title) {
+    return 'Are you sure you want to delete \"$title\"?';
+  }
+
+  @override
+  String get issueReportCancel => 'Cancel';
+
+  @override
+  String get issueReportDelete => 'Delete';
+
+  @override
+  String get issueReportDetail => 'Issue Report Detail';
+
+  @override
+  String get issueReportInformation => 'Issue Report Information';
+
+  @override
+  String get issueReportTitle => 'Title';
+
+  @override
+  String get issueReportDescription => 'Description';
+
+  @override
+  String get issueReportAsset => 'Asset';
+
+  @override
+  String get issueReportIssueType => 'Issue Type';
+
+  @override
+  String get issueReportPriority => 'Priority';
+
+  @override
+  String get issueReportStatus => 'Status';
+
+  @override
+  String get issueReportReportedBy => 'Reported By';
+
+  @override
+  String get issueReportReportedDate => 'Reported Date';
+
+  @override
+  String get issueReportResolvedDate => 'Resolved Date';
+
+  @override
+  String get issueReportResolvedBy => 'Resolved By';
+
+  @override
+  String get issueReportResolutionNotes => 'Resolution Notes';
+
+  @override
+  String get issueReportMetadata => 'Metadata';
+
+  @override
+  String get issueReportCreatedAt => 'Created At';
+
+  @override
+  String get issueReportUpdatedAt => 'Updated At';
+
+  @override
+  String get issueReportOnlyAdminCanEdit => 'Only admin can edit issue reports';
+
+  @override
+  String get issueReportOnlyAdminCanDelete =>
+      'Only admin can delete issue reports';
+
+  @override
+  String get issueReportFailedToLoad => 'Failed to load issue report';
+
+  @override
+  String get issueReportDeletedSuccess => 'Issue report deleted';
+
+  @override
+  String get issueReportDeletedFailed => 'Delete failed';
+
+  @override
+  String get issueReportUnknownAsset => 'Unknown Asset';
+
+  @override
+  String get issueReportUnknownUser => 'Unknown User';
+
+  @override
+  String get issueReportEditIssueReport => 'Edit Issue Report';
+
+  @override
+  String get issueReportCreateIssueReport => 'Create Issue Report';
+
+  @override
+  String get issueReportFillRequiredFields => 'Please fill all required fields';
+
+  @override
+  String get issueReportSavedSuccessfully => 'Issue report saved successfully';
+
+  @override
+  String get issueReportOperationFailed => 'Operation failed';
+
+  @override
+  String get issueReportFailedToLoadTranslations =>
+      'Failed to load translations';
+
+  @override
+  String get issueReportSearchAsset => 'Search and select asset';
+
+  @override
+  String get issueReportSearchReportedBy =>
+      'Search and select user who reported the issue';
+
+  @override
+  String get issueReportEnterIssueType =>
+      'Enter issue type (e.g., Hardware, Software)';
+
+  @override
+  String get issueReportSelectPriority => 'Select priority';
+
+  @override
+  String get issueReportSelectStatus => 'Select status';
+
+  @override
+  String get issueReportSearchResolvedBy =>
+      'Search and select user who resolved the issue';
+
+  @override
+  String get issueReportTranslations => 'Translations';
+
+  @override
+  String get issueReportEnglish => 'English';
+
+  @override
+  String get issueReportJapanese => 'Japanese';
+
+  @override
+  String issueReportEnterTitleIn(String language) {
+    return 'Enter title in $language';
+  }
+
+  @override
+  String issueReportEnterDescriptionIn(String language) {
+    return 'Enter description in $language';
+  }
+
+  @override
+  String issueReportEnterResolutionNotesIn(String language) {
+    return 'Enter resolution notes in $language';
+  }
+
+  @override
+  String get issueReportUpdate => 'Update';
+
+  @override
+  String get issueReportCreate => 'Create';
+
+  @override
+  String get issueReportManagement => 'IssueReport Management';
+
+  @override
+  String get issueReportCreateIssueReportTitle => 'Create IssueReport';
+
+  @override
+  String get issueReportCreateIssueReportSubtitle => 'Add a new issueReport';
+
+  @override
+  String get issueReportSelectManyTitle => 'Select Many';
+
+  @override
+  String get issueReportSelectManySubtitle =>
+      'Select multiple issueReports to delete';
+
+  @override
+  String get issueReportFilterAndSortTitle => 'Filter & Sort';
+
+  @override
+  String get issueReportFilterAndSortSubtitle =>
+      'Customize issueReport display';
+
+  @override
+  String get issueReportSelectIssueReportsToDelete =>
+      'Select issueReports to delete';
+
+  @override
+  String get issueReportDeleteIssueReports => 'Delete IssueReports';
+
+  @override
+  String issueReportDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count issueReports?';
+  }
+
+  @override
+  String get issueReportNoIssueReportsSelected => 'No issueReports selected';
+
+  @override
+  String get issueReportNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String issueReportSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get issueReportSearchIssueReports => 'Search issueReports...';
+
+  @override
+  String get issueReportNoIssueReportsFound => 'No issueReports found';
+
+  @override
+  String get issueReportCreateFirstIssueReport =>
+      'Create your first issueReport to get started';
+
+  @override
+  String get issueReportLongPressToSelect =>
+      'Long press to select more issueReports';
+
+  @override
+  String get issueReportFilterByAsset => 'Filter by Asset';
+
+  @override
+  String get issueReportFilterByReportedBy => 'Filter by Reported By';
+
+  @override
+  String get issueReportFilterByResolvedBy => 'Filter by Resolved By';
+
+  @override
+  String get issueReportSearchAssetFilter => 'Search asset...';
+
+  @override
+  String get issueReportSearchUserFilter => 'Search user...';
+
+  @override
+  String get issueReportEnterIssueTypeFilter => 'Enter issue type...';
+
+  @override
+  String get issueReportSortBy => 'Sort By';
+
+  @override
+  String get issueReportSortOrder => 'Sort Order';
+
+  @override
+  String get issueReportIsResolved => 'Is Resolved';
+
+  @override
+  String get issueReportDateFrom => 'Date From';
+
+  @override
+  String get issueReportDateTo => 'Date To';
+
+  @override
+  String get issueReportReset => 'Reset';
+
+  @override
+  String get issueReportApply => 'Apply';
+
+  @override
+  String get issueReportFilterReset => 'Filter reset';
+
+  @override
+  String get issueReportFilterApplied => 'Filter applied';
+
+  @override
+  String get issueReportMyIssueReports => 'My Issue Reports';
+
+  @override
+  String get issueReportSearchMyIssueReports => 'Search my issue reports...';
+
+  @override
+  String get issueReportFiltersAndSorting => 'Filters & Sorting';
+
+  @override
+  String get issueReportApplyFilters => 'Apply Filters';
+
+  @override
+  String get issueReportFiltersApplied => 'Filters Applied';
+
+  @override
+  String get issueReportFilterAndSort => 'Filter & Sort';
+
+  @override
+  String get issueReportNoIssueReportsFoundEmpty => 'No issue reports found';
+
+  @override
+  String get issueReportYouHaveNoReportedIssues =>
+      'You have no reported issues';
+
+  @override
+  String get issueReportCreateIssueReportTooltip => 'Create Issue Report';
+
+  @override
+  String get issueReportValidationAssetRequired => 'Asset is required';
+
+  @override
+  String get issueReportValidationReportedByRequired =>
+      'Reported by is required';
+
+  @override
+  String get issueReportValidationIssueTypeRequired => 'Issue type is required';
+
+  @override
+  String get issueReportValidationIssueTypeMaxLength =>
+      'Issue type must not exceed 100 characters';
+
+  @override
+  String get issueReportValidationPriorityRequired => 'Priority is required';
+
+  @override
+  String get issueReportValidationStatusRequired => 'Status is required';
+
+  @override
+  String get issueReportValidationTitleRequired => 'Title is required';
+
+  @override
+  String get issueReportValidationTitleMaxLength =>
+      'Title must not exceed 200 characters';
+
+  @override
+  String get issueReportValidationDescriptionMaxLength =>
+      'Description must not exceed 1000 characters';
+
+  @override
+  String get issueReportValidationResolutionNotesMaxLength =>
+      'Resolution notes must not exceed 1000 characters';
+
+  @override
+  String get locationDeleteLocation => 'Delete Location';
+
+  @override
+  String locationDeleteConfirmation(String locationName) {
+    return 'Are you sure you want to delete \"$locationName\"?';
+  }
+
+  @override
+  String get locationCancel => 'Cancel';
+
+  @override
+  String get locationDelete => 'Delete';
+
+  @override
+  String get locationDetail => 'Location Detail';
+
+  @override
+  String get locationInformation => 'Location Information';
+
+  @override
+  String get locationCode => 'Location Code';
+
+  @override
+  String get locationName => 'Location Name';
+
+  @override
+  String get locationBuilding => 'Building';
+
+  @override
+  String get locationFloor => 'Floor';
+
+  @override
+  String get locationLatitude => 'Latitude';
+
+  @override
+  String get locationLongitude => 'Longitude';
+
+  @override
+  String get locationMetadata => 'Metadata';
+
+  @override
+  String get locationCreatedAt => 'Created At';
+
+  @override
+  String get locationUpdatedAt => 'Updated At';
+
+  @override
+  String get locationOnlyAdminCanEdit => 'Only admin can edit locations';
+
+  @override
+  String get locationOnlyAdminCanDelete => 'Only admin can delete locations';
+
+  @override
+  String get locationFailedToLoad => 'Failed to load location';
+
+  @override
+  String get locationDeleted => 'Location deleted';
+
+  @override
+  String get locationDeleteFailed => 'Delete failed';
+
+  @override
+  String get locationEditLocation => 'Edit Location';
+
+  @override
+  String get locationCreateLocation => 'Create Location';
+
+  @override
+  String get locationFillRequiredFields => 'Please fill all required fields';
+
+  @override
+  String get locationSavedSuccessfully => 'Location saved successfully';
+
+  @override
+  String get locationOperationFailed => 'Operation failed';
+
+  @override
+  String get locationFailedToLoadTranslations => 'Failed to load translations';
+
+  @override
+  String get locationEnterLocationCode => 'Enter location code (e.g., LOC-001)';
+
+  @override
+  String get locationBuildingOptional => 'Building (Optional)';
+
+  @override
+  String get locationEnterBuilding => 'Enter building name';
+
+  @override
+  String get locationFloorOptional => 'Floor (Optional)';
+
+  @override
+  String get locationEnterFloor => 'Enter floor number';
+
+  @override
+  String get locationLatitudeOptional => 'Latitude (Optional)';
+
+  @override
+  String get locationEnterLatitude => 'Enter latitude';
+
+  @override
+  String get locationLongitudeOptional => 'Longitude (Optional)';
+
+  @override
+  String get locationEnterLongitude => 'Enter longitude';
+
+  @override
+  String get locationGettingLocation => 'Getting Location...';
+
+  @override
+  String get locationUseCurrentLocation => 'Use Current Location';
+
+  @override
+  String get locationServicesDisabled => 'Location services are disabled';
+
+  @override
+  String get locationServicesDialogTitle => 'Location Services Disabled';
+
+  @override
+  String get locationServicesDialogMessage =>
+      'Location services are required to get your current location. Would you like to enable them?';
+
+  @override
+  String get locationOpenSettings => 'Open Settings';
+
+  @override
+  String get locationPermissionDenied => 'Location permission denied';
+
+  @override
+  String get locationPermissionPermanentlyDenied =>
+      'Location permission permanently denied';
+
+  @override
+  String get locationPermissionRequired => 'Permission Required';
+
+  @override
+  String get locationPermissionDialogMessage =>
+      'Location permission is permanently denied. Please enable it in app settings.';
+
+  @override
+  String get locationRetrievedSuccessfully =>
+      'Current location retrieved successfully';
+
+  @override
+  String get locationFailedToGetCurrent => 'Failed to get current location';
+
+  @override
+  String get locationTranslations => 'Translations';
+
+  @override
+  String get locationTranslationsSubtitle =>
+      'Add translations for different languages';
+
+  @override
+  String get locationEnglish => 'English';
+
+  @override
+  String get locationJapanese => 'Japanese';
+
+  @override
+  String get locationEnterLocationName => 'Enter location name';
+
+  @override
+  String get locationUpdate => 'Update';
+
+  @override
+  String get locationCreate => 'Create';
+
+  @override
+  String get locationManagement => 'Location Management';
+
+  @override
+  String get locationCreateLocationTitle => 'Create Location';
+
+  @override
+  String get locationCreateLocationSubtitle => 'Add a new location';
+
+  @override
+  String get locationSelectManyTitle => 'Select Many';
+
+  @override
+  String get locationSelectManySubtitle =>
+      'Select multiple locations to delete';
+
+  @override
+  String get locationFilterAndSortTitle => 'Filter & Sort';
+
+  @override
+  String get locationFilterAndSortSubtitle => 'Customize location display';
+
+  @override
+  String get locationSelectLocationsToDelete => 'Select locations to delete';
+
+  @override
+  String get locationSortBy => 'Sort By';
+
+  @override
+  String get locationSortOrder => 'Sort Order';
+
+  @override
+  String get locationReset => 'Reset';
+
+  @override
+  String get locationApply => 'Apply';
+
+  @override
+  String get locationFilterReset => 'Filter reset';
+
+  @override
+  String get locationFilterApplied => 'Filter applied';
+
+  @override
+  String get locationDeleteLocations => 'Delete Locations';
+
+  @override
+  String locationDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count locations?';
+  }
+
+  @override
+  String get locationNoLocationsSelected => 'No locations selected';
+
+  @override
+  String get locationNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String locationSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get locationSearchLocations => 'Search locations...';
+
+  @override
+  String get locationNoLocationsFound => 'No locations found';
+
+  @override
+  String get locationCreateFirstLocation =>
+      'Create your first location to get started';
+
+  @override
+  String get locationLongPressToSelect => 'Long press to select more locations';
+
+  @override
+  String locationFloorPrefix(String floor) {
+    return 'Floor $floor';
+  }
+
+  @override
+  String get locationValidationCodeRequired => 'Location code is required';
+
+  @override
+  String get locationValidationCodeMinLength =>
+      'Location code must be at least 2 characters';
+
+  @override
+  String get locationValidationCodeMaxLength =>
+      'Location code must not exceed 20 characters';
+
+  @override
+  String get locationValidationCodeAlphanumeric =>
+      'Location code can only contain letters, numbers, and dashes';
+
+  @override
+  String get locationValidationNameRequired => 'Location name is required';
+
+  @override
+  String get locationValidationNameMinLength =>
+      'Location name must be at least 3 characters';
+
+  @override
+  String get locationValidationNameMaxLength =>
+      'Location name must not exceed 100 characters';
+
+  @override
+  String get locationValidationBuildingMaxLength =>
+      'Building must not exceed 50 characters';
+
+  @override
+  String get locationValidationFloorMaxLength =>
+      'Floor must not exceed 20 characters';
+
+  @override
+  String get locationValidationLatitudeInvalid =>
+      'Latitude must be a valid number';
+
+  @override
+  String get locationValidationLatitudeRange =>
+      'Latitude must be between -90 and 90';
+
+  @override
+  String get locationValidationLongitudeInvalid =>
+      'Longitude must be a valid number';
+
+  @override
+  String get locationValidationLongitudeRange =>
+      'Longitude must be between -180 and 180';
+
+  @override
+  String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
+
+  @override
+  String maintenanceScheduleDeleteConfirmation(String title) {
+    return 'Are you sure you want to delete \"$title\"?';
+  }
+
+  @override
+  String get maintenanceScheduleDeleted => 'Maintenance schedule deleted';
+
+  @override
+  String get maintenanceScheduleDeleteFailed => 'Delete failed';
+
+  @override
+  String get maintenanceScheduleDetail => 'Maintenance Schedule Detail';
+
+  @override
+  String get maintenanceScheduleInformation =>
+      'Maintenance Schedule Information';
+
+  @override
+  String get maintenanceScheduleTitle => 'Title';
+
+  @override
+  String get maintenanceScheduleDescription => 'Description';
+
+  @override
+  String get maintenanceScheduleAsset => 'Asset';
+
+  @override
+  String get maintenanceScheduleMaintenanceType => 'Maintenance Type';
+
+  @override
+  String get maintenanceScheduleIsRecurring => 'Is Recurring';
+
+  @override
+  String get maintenanceScheduleInterval => 'Interval';
+
+  @override
+  String get maintenanceScheduleScheduledTime => 'Scheduled Time';
+
+  @override
+  String get maintenanceScheduleNextScheduledDate => 'Next Scheduled Date';
+
+  @override
+  String get maintenanceScheduleLastExecutedDate => 'Last Executed Date';
+
+  @override
+  String get maintenanceScheduleState => 'State';
+
+  @override
+  String get maintenanceScheduleAutoComplete => 'Auto Complete';
+
+  @override
+  String get maintenanceScheduleEstimatedCost => 'Estimated Cost';
+
+  @override
+  String get maintenanceScheduleCreatedBy => 'Created By';
+
+  @override
+  String get maintenanceScheduleYes => 'Yes';
+
+  @override
+  String get maintenanceScheduleNo => 'No';
+
+  @override
+  String get maintenanceScheduleUnknownAsset => 'Unknown Asset';
+
+  @override
+  String get maintenanceScheduleUnknownUser => 'Unknown User';
+
+  @override
+  String get maintenanceScheduleOnlyAdminCanEdit =>
+      'Only admin can edit maintenance schedules';
+
+  @override
+  String get maintenanceScheduleOnlyAdminCanDelete =>
+      'Only admin can delete maintenance schedules';
+
+  @override
+  String get maintenanceScheduleFailedToLoad =>
+      'Failed to load maintenance schedule';
+
+  @override
+  String get maintenanceScheduleEditSchedule => 'Edit Maintenance Schedule';
+
+  @override
+  String get maintenanceScheduleCreateSchedule => 'Create Maintenance Schedule';
+
+  @override
+  String get maintenanceScheduleFillRequiredFields =>
+      'Please fill all required fields';
+
+  @override
+  String get maintenanceScheduleSavedSuccessfully =>
+      'Maintenance schedule saved successfully';
+
+  @override
+  String get maintenanceScheduleOperationFailed => 'Operation failed';
+
+  @override
+  String get maintenanceScheduleFailedToLoadTranslations =>
+      'Failed to load translations';
+
+  @override
+  String get maintenanceScheduleSearchAsset => 'Search and select asset';
+
+  @override
+  String get maintenanceScheduleSelectMaintenanceType =>
+      'Select maintenance type';
+
+  @override
+  String get maintenanceScheduleEnterIntervalValue =>
+      'Enter interval value (e.g., 3)';
+
+  @override
+  String get maintenanceScheduleSelectIntervalUnit => 'Select interval unit';
+
+  @override
+  String get maintenanceScheduleEnterScheduledTime => 'e.g., 09:30';
+
+  @override
+  String get maintenanceScheduleSelectState => 'Select state';
+
+  @override
+  String get maintenanceScheduleEnterEstimatedCost =>
+      'Enter estimated cost (optional)';
+
+  @override
+  String get maintenanceScheduleSearchUser =>
+      'Search and select user who created the schedule';
+
+  @override
+  String get maintenanceScheduleTranslations => 'Translations';
+
+  @override
+  String get maintenanceScheduleEnglish => 'English';
+
+  @override
+  String get maintenanceScheduleJapanese => 'Japanese';
+
+  @override
+  String maintenanceScheduleEnterTitle(String language) {
+    return 'Enter title in $language';
+  }
+
+  @override
+  String maintenanceScheduleEnterDescription(String language) {
+    return 'Enter description in $language';
+  }
+
+  @override
+  String get maintenanceScheduleCancel => 'Cancel';
+
+  @override
+  String get maintenanceScheduleUpdate => 'Update';
+
+  @override
+  String get maintenanceScheduleCreate => 'Create';
+
+  @override
+  String get maintenanceScheduleManagement => 'Maintenance Schedule Management';
+
+  @override
+  String get maintenanceScheduleCreateTitle => 'Create Maintenance Schedule';
+
+  @override
+  String get maintenanceScheduleCreateSubtitle =>
+      'Add a new maintenance schedule';
+
+  @override
+  String get maintenanceScheduleSelectManyTitle => 'Select Many';
+
+  @override
+  String get maintenanceScheduleSelectManySubtitle =>
+      'Select multiple schedules to delete';
+
+  @override
+  String get maintenanceScheduleFilterAndSortTitle => 'Filter & Sort';
+
+  @override
+  String get maintenanceScheduleFilterAndSortSubtitle =>
+      'Customize schedule display';
+
+  @override
+  String get maintenanceScheduleSelectToDelete =>
+      'Select maintenance schedules to delete';
+
+  @override
+  String get maintenanceScheduleSortBy => 'Sort By';
+
+  @override
+  String get maintenanceScheduleSortOrder => 'Sort Order';
+
+  @override
+  String get maintenanceScheduleReset => 'Reset';
+
+  @override
+  String get maintenanceScheduleApply => 'Apply';
+
+  @override
+  String get maintenanceScheduleFilterReset => 'Filter reset';
+
+  @override
+  String get maintenanceScheduleFilterApplied => 'Filter applied';
+
+  @override
+  String get maintenanceScheduleDeleteSchedules => 'Delete Schedules';
+
+  @override
+  String maintenanceScheduleDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count schedules?';
+  }
+
+  @override
+  String get maintenanceScheduleNoSchedulesSelected => 'No schedules selected';
+
+  @override
+  String get maintenanceScheduleNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String maintenanceScheduleSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get maintenanceScheduleDelete => 'Delete';
+
+  @override
+  String get maintenanceScheduleSearch => 'Search schedules...';
+
+  @override
+  String get maintenanceScheduleNoSchedulesFound => 'No schedules found';
+
+  @override
+  String get maintenanceScheduleCreateFirstSchedule =>
+      'Create your first schedule to get started';
+
+  @override
+  String get maintenanceScheduleLongPressToSelect =>
+      'Long press to select more schedules';
+
+  @override
+  String get maintenanceScheduleMetadata => 'Metadata';
+
+  @override
+  String get maintenanceScheduleCreatedAt => 'Created At';
+
+  @override
+  String get maintenanceScheduleUpdatedAt => 'Updated At';
+
+  @override
+  String get maintenanceScheduleIntervalValueLabel => 'Interval Value';
+
+  @override
+  String get maintenanceScheduleIntervalUnitLabel => 'Interval Unit';
+
+  @override
+  String get maintenanceScheduleScheduledTimeLabel => 'Scheduled Time (HH:mm)';
+
+  @override
+  String get maintenanceRecordDeleteRecord => 'Delete Maintenance Record';
+
+  @override
+  String maintenanceRecordDeleteConfirmation(String title) {
+    return 'Are you sure you want to delete \"$title\"?';
+  }
+
+  @override
+  String get maintenanceRecordDeleted => 'Maintenance record deleted';
+
+  @override
+  String get maintenanceRecordDeleteFailed => 'Delete failed';
+
+  @override
+  String get maintenanceRecordDetail => 'Maintenance Record Detail';
+
+  @override
+  String get maintenanceRecordInformation => 'Maintenance Record Information';
+
+  @override
+  String get maintenanceRecordTitle => 'Title';
+
+  @override
+  String get maintenanceRecordNotes => 'Notes';
+
+  @override
+  String get maintenanceRecordAsset => 'Asset';
+
+  @override
+  String get maintenanceRecordMaintenanceDate => 'Maintenance Date';
+
+  @override
+  String get maintenanceRecordCompletionDate => 'Completion Date';
+
+  @override
+  String get maintenanceRecordDuration => 'Duration';
+
+  @override
+  String maintenanceRecordDurationMinutes(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
+  String get maintenanceRecordPerformedByUser => 'Performed By User';
+
+  @override
+  String get maintenanceRecordPerformedByVendor => 'Performed By Vendor';
+
+  @override
+  String get maintenanceRecordResult => 'Result';
+
+  @override
+  String get maintenanceRecordActualCost => 'Actual Cost';
+
+  @override
+  String maintenanceRecordActualCostValue(String cost) {
+    return '\$$cost';
+  }
+
+  @override
+  String get maintenanceRecordUnknownAsset => 'Unknown Asset';
+
+  @override
+  String get maintenanceRecordOnlyAdminCanEdit =>
+      'Only admin can edit maintenance records';
+
+  @override
+  String get maintenanceRecordOnlyAdminCanDelete =>
+      'Only admin can delete maintenance records';
+
+  @override
+  String get maintenanceRecordFailedToLoad =>
+      'Failed to load maintenance record';
+
+  @override
+  String get maintenanceRecordEditRecord => 'Edit Maintenance Record';
+
+  @override
+  String get maintenanceRecordCreateRecord => 'Create Maintenance Record';
+
+  @override
+  String get maintenanceRecordFillRequiredFields =>
+      'Please fill all required fields';
+
+  @override
+  String get maintenanceRecordSavedSuccessfully =>
+      'Maintenance record saved successfully';
+
+  @override
+  String get maintenanceRecordOperationFailed => 'Operation failed';
+
+  @override
+  String get maintenanceRecordFailedToLoadTranslations =>
+      'Failed to load translations';
+
+  @override
+  String get maintenanceRecordSearchSchedule =>
+      'Search and select maintenance schedule';
+
+  @override
+  String get maintenanceRecordSearchAsset => 'Search and select asset';
+
+  @override
+  String get maintenanceRecordCompletionDateOptional =>
+      'Completion Date (Optional)';
+
+  @override
+  String get maintenanceRecordDurationMinutesLabel => 'Duration (Minutes)';
+
+  @override
+  String get maintenanceRecordEnterDuration =>
+      'Enter duration in minutes (optional)';
+
+  @override
+  String get maintenanceRecordSearchPerformedByUser =>
+      'Search and select user who performed the maintenance';
+
+  @override
+  String get maintenanceRecordPerformedByVendorLabel => 'Performed By Vendor';
+
+  @override
+  String get maintenanceRecordEnterVendor => 'Enter vendor name (optional)';
+
+  @override
+  String get maintenanceRecordSelectResult => 'Select maintenance result';
+
+  @override
+  String get maintenanceRecordActualCostLabel => 'Actual Cost';
+
+  @override
+  String get maintenanceRecordEnterActualCost => 'Enter actual cost (optional)';
+
+  @override
+  String get maintenanceRecordTranslations => 'Translations';
+
+  @override
+  String get maintenanceRecordEnglish => 'English';
+
+  @override
+  String get maintenanceRecordJapanese => 'Japanese';
+
+  @override
+  String maintenanceRecordEnterTitle(String language) {
+    return 'Enter title in $language';
+  }
+
+  @override
+  String maintenanceRecordEnterNotes(String language) {
+    return 'Enter notes in $language';
+  }
+
+  @override
+  String get maintenanceRecordCancel => 'Cancel';
+
+  @override
+  String get maintenanceRecordUpdate => 'Update';
+
+  @override
+  String get maintenanceRecordCreate => 'Create';
+
+  @override
+  String get maintenanceRecordManagement => 'Maintenance Record Management';
+
+  @override
+  String get maintenanceRecordCreateTitle => 'Create Maintenance Record';
+
+  @override
+  String get maintenanceRecordCreateSubtitle => 'Add a new maintenance record';
+
+  @override
+  String get maintenanceRecordSelectManyTitle => 'Select Many';
+
+  @override
+  String get maintenanceRecordSelectManySubtitle =>
+      'Select multiple records to delete';
+
+  @override
+  String get maintenanceRecordFilterAndSortTitle => 'Filter & Sort';
+
+  @override
+  String get maintenanceRecordFilterAndSortSubtitle =>
+      'Customize record display';
+
+  @override
+  String get maintenanceRecordSelectToDelete =>
+      'Select maintenance records to delete';
+
+  @override
+  String get maintenanceRecordSortBy => 'Sort By';
+
+  @override
+  String get maintenanceRecordSortOrder => 'Sort Order';
+
+  @override
+  String get maintenanceRecordReset => 'Reset';
+
+  @override
+  String get maintenanceRecordApply => 'Apply';
+
+  @override
+  String get maintenanceRecordFilterReset => 'Filter reset';
+
+  @override
+  String get maintenanceRecordFilterApplied => 'Filter applied';
+
+  @override
+  String get maintenanceRecordDeleteRecords => 'Delete Records';
+
+  @override
+  String maintenanceRecordDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count records?';
+  }
+
+  @override
+  String get maintenanceRecordNoRecordsSelected => 'No records selected';
+
+  @override
+  String get maintenanceRecordNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String maintenanceRecordSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get maintenanceRecordDelete => 'Delete';
+
+  @override
+  String get maintenanceRecordSearch => 'Search records...';
+
+  @override
+  String get maintenanceRecordNoRecordsFound => 'No records found';
+
+  @override
+  String get maintenanceRecordCreateFirstRecord =>
+      'Create your first record to get started';
+
+  @override
+  String get maintenanceRecordLongPressToSelect =>
+      'Long press to select more records';
+
+  @override
+  String get maintenanceRecordMetadata => 'Metadata';
+
+  @override
+  String get maintenanceRecordCreatedAt => 'Created At';
+
+  @override
+  String get maintenanceRecordUpdatedAt => 'Updated At';
+
+  @override
+  String get maintenanceRecordSchedule => 'Maintenance Schedule';
+
+  @override
+  String get notificationManagement => 'Notification Management';
+
+  @override
+  String get notificationDetail => 'Notification Detail';
+
+  @override
+  String get notificationMyNotifications => 'My Notifications';
+
+  @override
+  String get notificationDeleteNotification => 'Delete Notification';
+
+  @override
+  String get notificationDeleteConfirmation =>
+      'Are you sure you want to delete this notification?';
+
+  @override
+  String notificationDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count notifications?';
+  }
+
+  @override
+  String get notificationCancel => 'Cancel';
+
+  @override
+  String get notificationDelete => 'Delete';
+
+  @override
+  String get notificationOnlyAdminCanDelete =>
+      'Only admin can delete notifications';
+
+  @override
+  String get notificationDeleted => 'Notification deleted';
+
+  @override
+  String get notificationDeleteFailed => 'Delete failed';
+
+  @override
+  String get notificationFailedToLoad => 'Failed to load notification';
+
+  @override
+  String get notificationInformation => 'Notification Information';
+
+  @override
+  String get notificationTitle => 'Title';
+
+  @override
+  String get notificationMessage => 'Message';
+
+  @override
+  String get notificationType => 'Type';
+
+  @override
+  String get notificationPriority => 'Priority';
+
+  @override
+  String get notificationIsRead => 'Is Read';
+
+  @override
+  String get notificationReadStatus => 'Read Status';
+
+  @override
+  String get notificationRead => 'Read';
+
+  @override
+  String get notificationUnread => 'Unread';
+
+  @override
+  String get notificationYes => 'Yes';
+
+  @override
+  String get notificationNo => 'No';
+
+  @override
+  String get notificationCreatedAt => 'Created At';
+
+  @override
+  String get notificationExpiresAt => 'Expires At';
+
+  @override
+  String get notificationSearchNotifications => 'Search notifications...';
+
+  @override
+  String get notificationSearchMyNotifications => 'Search my notifications...';
+
+  @override
+  String get notificationNoNotificationsFound => 'No notifications found';
+
+  @override
+  String get notificationNoNotificationsYet => 'You have no notifications';
+
+  @override
+  String get notificationCreateFirstNotification =>
+      'Create your first notification to get started';
+
+  @override
+  String get notificationCreateNotification => 'Create Notification';
+
+  @override
+  String get notificationCreateNotificationSubtitle => 'Add a new notification';
+
+  @override
+  String get notificationSelectMany => 'Select Many';
+
+  @override
+  String get notificationSelectManySubtitle =>
+      'Select multiple notifications to delete';
+
+  @override
+  String get notificationFilterAndSort => 'Filter & Sort';
+
+  @override
+  String get notificationFilterAndSortSubtitle =>
+      'Customize notification display';
+
+  @override
+  String get notificationFiltersAndSorting => 'Filters & Sorting';
+
+  @override
+  String get notificationSelectNotificationsToDelete =>
+      'Select notifications to delete';
+
+  @override
+  String get notificationLongPressToSelect =>
+      'Long press to select more notifications';
+
+  @override
+  String notificationSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get notificationNoNotificationsSelected => 'No notifications selected';
+
+  @override
+  String get notificationFilterByUser => 'Filter by User';
+
+  @override
+  String get notificationFilterByRelatedAsset => 'Filter by Related Asset';
+
+  @override
+  String get notificationSearchUser => 'Search user...';
+
+  @override
+  String get notificationSearchAsset => 'Search asset...';
+
+  @override
+  String get notificationSortBy => 'Sort By';
+
+  @override
+  String get notificationSortOrder => 'Sort Order';
+
+  @override
+  String get notificationReset => 'Reset';
+
+  @override
+  String get notificationApply => 'Apply';
+
+  @override
+  String get notificationApplyFilters => 'Apply Filters';
+
+  @override
+  String get notificationFilterReset => 'Filter reset';
+
+  @override
+  String get notificationFilterApplied => 'Filter applied';
+
+  @override
+  String get notificationFiltersApplied => 'Filters Applied';
+
+  @override
+  String get notificationNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String get notificationJustNow => 'Just now';
+
+  @override
+  String notificationMinutesAgo(int minutes) {
+    return '${minutes}m ago';
+  }
+
+  @override
+  String notificationHoursAgo(int hours) {
+    return '${hours}h ago';
+  }
+
+  @override
+  String notificationDaysAgo(int days) {
+    return '${days}d ago';
+  }
+
+  @override
+  String get scanLogManagement => 'Scan Log Management';
+
+  @override
+  String get scanLogDetail => 'Scan Log Detail';
+
+  @override
+  String get scanLogDeleteScanLog => 'Delete Scan Log';
+
+  @override
+  String get scanLogDeleteConfirmation =>
+      'Are you sure you want to delete this scan log?';
+
+  @override
+  String scanLogDeleteMultipleConfirmation(int count) {
+    return 'Are you sure you want to delete $count scan logs?';
+  }
+
+  @override
+  String get scanLogCancel => 'Cancel';
+
+  @override
+  String get scanLogDelete => 'Delete';
+
+  @override
+  String get scanLogOnlyAdminCanDelete => 'Only admin can delete scan logs';
+
+  @override
+  String get scanLogDeleted => 'Scan log deleted';
+
+  @override
+  String get scanLogDeleteFailed => 'Delete failed';
+
+  @override
+  String get scanLogFailedToLoad => 'Failed to load scan log';
+
+  @override
+  String get scanLogInformation => 'Scan Information';
+
+  @override
+  String get scanLogScannedValue => 'Scanned Value';
+
+  @override
+  String get scanLogScanMethod => 'Scan Method';
+
+  @override
+  String get scanLogScanResult => 'Scan Result';
+
+  @override
+  String get scanLogScanTimestamp => 'Scan Timestamp';
+
+  @override
+  String get scanLogLocation => 'Location';
+
+  @override
+  String get scanLogSearchScanLogs => 'Search scan logs...';
+
+  @override
+  String get scanLogNoScanLogsFound => 'No scan logs found';
+
+  @override
+  String get scanLogCreateFirstScanLog =>
+      'Create your first scan log to get started';
+
+  @override
+  String get scanLogCreateScanLog => 'Create Scan Log';
+
+  @override
+  String get scanLogCreateScanLogSubtitle => 'Add a new scan log';
+
+  @override
+  String get scanLogSelectMany => 'Select Many';
+
+  @override
+  String get scanLogSelectManySubtitle => 'Select multiple scan logs to delete';
+
+  @override
+  String get scanLogFilterAndSort => 'Filter & Sort';
+
+  @override
+  String get scanLogFilterAndSortSubtitle => 'Customize scan log display';
+
+  @override
+  String get scanLogFiltersAndSorting => 'Filters & Sorting';
+
+  @override
+  String get scanLogSelectScanLogsToDelete => 'Select scan logs to delete';
+
+  @override
+  String get scanLogLongPressToSelect => 'Long press to select more scan logs';
+
+  @override
+  String scanLogSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get scanLogNoScanLogsSelected => 'No scan logs selected';
+
+  @override
+  String get scanLogFilterByAsset => 'Filter by Asset';
+
+  @override
+  String get scanLogFilterByScannedBy => 'Filter by Scanned By';
+
+  @override
+  String get scanLogSearchAsset => 'Search asset...';
+
+  @override
+  String get scanLogSearchUser => 'Search user...';
+
+  @override
+  String get scanLogSortBy => 'Sort By';
+
+  @override
+  String get scanLogSortOrder => 'Sort Order';
+
+  @override
+  String get scanLogHasCoordinates => 'Has Coordinates';
+
+  @override
+  String get scanLogDateFrom => 'Date From';
+
+  @override
+  String get scanLogDateTo => 'Date To';
+
+  @override
+  String get scanLogReset => 'Reset';
+
+  @override
+  String get scanLogApply => 'Apply';
+
+  @override
+  String get scanLogFilterReset => 'Filter reset';
+
+  @override
+  String get scanLogFilterApplied => 'Filter applied';
+
+  @override
+  String get scanLogNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String get userManagement => 'User Management';
+
+  @override
+  String get userCreateUser => 'Create User';
+
+  @override
+  String get userAddNewUser => 'Add a new user';
+
+  @override
+  String get userSelectMany => 'Select Many';
+
+  @override
+  String get userSelectMultipleToDelete => 'Select multiple users to delete';
+
+  @override
+  String get userFilterAndSort => 'Filter & Sort';
+
+  @override
+  String get userCustomizeDisplay => 'Customize user display';
+
+  @override
+  String get userFilters => 'Filters';
+
+  @override
+  String get userRole => 'Role';
+
+  @override
+  String get userEmployeeId => 'Employee ID';
+
+  @override
+  String get userEnterEmployeeId => 'Enter employee ID...';
+
+  @override
+  String get userActiveStatus => 'Active Status';
+
+  @override
+  String get userActive => 'Active';
+
+  @override
+  String get userInactive => 'Inactive';
+
+  @override
+  String get userSort => 'Sort';
+
+  @override
+  String get userSortBy => 'Sort By';
+
+  @override
+  String get userSortOrder => 'Sort Order';
+
+  @override
+  String get userAscending => 'Ascending';
+
+  @override
+  String get userDescending => 'Descending';
+
+  @override
+  String get userReset => 'Reset';
+
+  @override
+  String get userApply => 'Apply';
+
+  @override
+  String get userFilterReset => 'Filter reset';
+
+  @override
+  String get userFilterApplied => 'Filter applied';
+
+  @override
+  String get userSelectUsersToDelete => 'Select users to delete';
+
+  @override
+  String get userDeleteUsers => 'Delete Users';
+
+  @override
+  String userDeleteConfirmation(int count) {
+    return 'Are you sure you want to delete $count users?';
+  }
+
+  @override
+  String get userCancel => 'Cancel';
+
+  @override
+  String get userDelete => 'Delete';
+
+  @override
+  String get userNoUsersSelected => 'No users selected';
+
+  @override
+  String get userNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String userSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get userSearchUsers => 'Search users...';
+
+  @override
+  String get userNoUsersFound => 'No users found';
+
+  @override
+  String get userCreateFirstUser => 'Create your first user to get started';
+
+  @override
+  String get userLongPressToSelect => 'Long press to select more users';
+
+  @override
+  String get userEditUser => 'Edit User';
+
+  @override
+  String get userPleaseFixErrors => 'Please fix all errors';
+
+  @override
+  String get userPleaseSelectRole => 'Please select a role';
+
+  @override
+  String get userPleaseValidateFields => 'Please fill all required fields';
+
+  @override
+  String get userSavedSuccessfully => 'User saved successfully';
+
+  @override
+  String get userOperationFailed => 'Operation failed';
+
+  @override
+  String get userInformation => 'User Information';
+
+  @override
+  String get userUsername => 'Username';
+
+  @override
+  String get userEnterUsername => 'Enter username';
+
+  @override
+  String get userEmail => 'Email';
+
+  @override
+  String get userEnterEmail => 'Enter email';
+
+  @override
+  String get userPassword => 'Password';
+
+  @override
+  String get userEnterPassword => 'Enter password';
+
+  @override
+  String get userFullName => 'Full Name';
+
+  @override
+  String get userEnterFullName => 'Enter full name';
+
+  @override
+  String get userSelectRole => 'Select role';
+
+  @override
+  String get userEmployeeIdOptional => 'Employee ID (Optional)';
+
+  @override
+  String get userEnterEmployeeIdOptional => 'Enter employee ID';
+
+  @override
+  String get userPreferredLanguage => 'Preferred Language (Optional)';
+
+  @override
+  String get userSelectLanguage => 'Select language';
+
+  @override
+  String get userUpdate => 'Update';
+
+  @override
+  String get userCreate => 'Create';
+
+  @override
+  String get userDetail => 'User Detail';
+
+  @override
+  String get userOnlyAdminCanEdit => 'Only admin can edit users';
+
+  @override
+  String get userDeleteUser => 'Delete User';
+
+  @override
+  String userDeleteSingleConfirmation(String fullName) {
+    return 'Are you sure you want to delete \"$fullName\"?';
+  }
+
+  @override
+  String get userOnlyAdminCanDelete => 'Only admin can delete users';
+
+  @override
+  String get userDeleted => 'User deleted';
+
+  @override
+  String get userDeleteFailed => 'Delete failed';
+
+  @override
+  String get userName => 'Name';
+
+  @override
+  String get userPreferredLang => 'Preferred Language';
+
+  @override
+  String get userYes => 'Yes';
+
+  @override
+  String get userNo => 'No';
+
+  @override
+  String get userMetadata => 'Metadata';
+
+  @override
+  String get userCreatedAt => 'Created At';
+
+  @override
+  String get userUpdatedAt => 'Updated At';
+
+  @override
+  String get userFailedToLoad => 'Failed to load user';
+
+  @override
+  String get userFailedToLoadProfile => 'Failed to load profile';
+
+  @override
+  String get userPersonalInformation => 'Personal Information';
+
+  @override
+  String get userAccountDetails => 'Account Details';
+
+  @override
+  String get userStatus => 'Status';
+
+  @override
+  String get userUpdateProfile => 'Update Profile';
+
+  @override
+  String get userNoUserData => 'No user data available';
+
+  @override
+  String get userProfileInformation => 'Profile Information';
+
+  @override
+  String get userProfilePicture => 'Profile Picture';
+
+  @override
+  String get userChooseImage => 'Choose image';
+
+  @override
+  String get userProfileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
   String get adminShellBottomNavDashboard => 'Dashboard';
 
   @override

@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -87,15 +88,15 @@ class _ListNotificationsScreenState
             _isSelectMode = true;
             _selectedNotificationIds.clear();
           });
-          AppToast.info('Select notifications to delete');
+          AppToast.info(context.l10n.notificationSelectNotificationsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create notification_entity.Notification',
-        createSubtitle: 'Add a new notification',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple notifications to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize notification display',
+        createTitle: context.l10n.notificationCreateNotification,
+        createSubtitle: context.l10n.notificationCreateNotificationSubtitle,
+        selectManyTitle: context.l10n.notificationSelectMany,
+        selectManySubtitle: context.l10n.notificationSelectManySubtitle,
+        filterSortTitle: context.l10n.notificationFilterAndSort,
+        filterSortSubtitle: context.l10n.notificationFilterAndSortSubtitle,
       ),
     );
   }
@@ -149,8 +150,8 @@ class _ListNotificationsScreenState
                 children: [
                   AppSearchField<User>(
                     name: 'userId',
-                    label: 'Filter by User',
-                    hintText: 'Search user...',
+                    label: context.l10n.notificationFilterByUser,
+                    hintText: context.l10n.notificationSearchUser,
                     enableAutocomplete: true,
                     onSearch: _searchUsers,
                     itemDisplayMapper: (user) => user.fullName,
@@ -170,8 +171,8 @@ class _ListNotificationsScreenState
                 children: [
                   AppSearchField<Asset>(
                     name: 'relatedAssetId',
-                    label: 'Filter by Related Asset',
-                    hintText: 'Search asset...',
+                    label: context.l10n.notificationFilterByRelatedAsset,
+                    hintText: context.l10n.notificationSearchAsset,
                     enableAutocomplete: true,
                     onSearch: _searchAssets,
                     itemDisplayMapper: (asset) => asset.assetName,
@@ -186,15 +187,15 @@ class _ListNotificationsScreenState
                 ],
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.notificationFiltersAndSorting,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.notificationSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: NotificationSortBy.values
                     .map(
@@ -209,7 +210,7 @@ class _ListNotificationsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.notificationSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -224,7 +225,7 @@ class _ListNotificationsScreenState
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'type',
-                label: 'Type',
+                label: context.l10n.notificationType,
                 initialValue: currentFilter.type?.value,
                 items: NotificationType.values
                     .map(
@@ -239,7 +240,7 @@ class _ListNotificationsScreenState
               const SizedBox(height: 16),
               FormBuilderCheckbox(
                 name: 'isRead',
-                title: const AppText('Is Read'),
+                title: AppText(context.l10n.notificationIsRead),
                 initialValue: currentFilter.isRead ?? false,
               ),
               const SizedBox(height: 32),
@@ -247,7 +248,7 @@ class _ListNotificationsScreenState
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.notificationReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -259,14 +260,14 @@ class _ListNotificationsScreenState
                         ref
                             .read(notificationsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.notificationFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.notificationApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -305,7 +306,9 @@ class _ListNotificationsScreenState
                           ref
                               .read(notificationsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(
+                            context.l10n.notificationFilterApplied,
+                          );
                         }
                       },
                     ),
@@ -338,30 +341,32 @@ class _ListNotificationsScreenState
 
   Future<void> _deleteSelectedNotifications() async {
     if (_selectedNotificationIds.isEmpty) {
-      AppToast.warning('No notifications selected');
+      AppToast.warning(context.l10n.notificationNoNotificationsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Notifications',
+        title: AppText(
+          context.l10n.notificationDeleteNotification,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedNotificationIds.length} notifications?',
+          context.l10n.notificationDeleteMultipleConfirmation(
+            _selectedNotificationIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.notificationCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.notificationDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -372,7 +377,7 @@ class _ListNotificationsScreenState
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.notificationNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -396,9 +401,7 @@ class _ListNotificationsScreenState
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'notification_entity.Notification Management',
-      ),
+      appBar: CustomAppBar(title: context.l10n.notificationManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -467,14 +470,16 @@ class _ListNotificationsScreenState
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedNotificationIds.length} selected',
+                context.l10n.notificationSelectedCount(
+                  _selectedNotificationIds.length,
+                ),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.notificationDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedNotifications,
@@ -488,7 +493,7 @@ class _ListNotificationsScreenState
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search notifications...',
+      hintText: context.l10n.notificationSearchNotifications,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -521,13 +526,13 @@ class _ListNotificationsScreenState
           ),
           const SizedBox(height: 16),
           AppText(
-            'No notifications found',
+            context.l10n.notificationNoNotificationsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first notification to get started',
+            context.l10n.notificationCreateFirstNotification,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -576,7 +581,7 @@ class _ListNotificationsScreenState
                         _selectedNotificationIds.clear();
                         _selectedNotificationIds.add(notification.id);
                       });
-                      AppToast.info('Long press to select more notifications');
+                      AppToast.info(context.l10n.notificationLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

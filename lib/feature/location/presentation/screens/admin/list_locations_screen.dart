@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -85,15 +86,15 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
             _isSelectMode = true;
             _selectedLocationIds.clear();
           });
-          AppToast.info('Select locations to delete');
+          AppToast.info(context.l10n.locationSelectLocationsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create Location',
-        createSubtitle: 'Add a new location',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple locations to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize location display',
+        createTitle: context.l10n.locationCreateLocationTitle,
+        createSubtitle: context.l10n.locationCreateLocationSubtitle,
+        selectManyTitle: context.l10n.locationSelectManyTitle,
+        selectManySubtitle: context.l10n.locationSelectManySubtitle,
+        filterSortTitle: context.l10n.locationFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.locationFilterAndSortSubtitle,
       ),
     );
   }
@@ -126,15 +127,15 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.locationFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.locationSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: LocationSortBy.values
                     .map(
@@ -149,7 +150,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.locationSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -166,7 +167,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.locationReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -178,14 +179,14 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                         ref
                             .read(locationsProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.locationFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.locationApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -211,7 +212,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                           ref
                               .read(locationsProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(context.l10n.locationFilterApplied);
                         }
                       },
                     ),
@@ -244,30 +245,32 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
 
   Future<void> _deleteSelectedLocations() async {
     if (_selectedLocationIds.isEmpty) {
-      AppToast.warning('No locations selected');
+      AppToast.warning(context.l10n.locationNoLocationsSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Locations',
+        title: AppText(
+          context.l10n.locationDeleteLocations,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedLocationIds.length} locations?',
+          context.l10n.locationDeleteMultipleConfirmation(
+            _selectedLocationIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.locationCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.locationDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -278,7 +281,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.locationNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -302,7 +305,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Location Management'),
+      appBar: CustomAppBar(title: context.l10n.locationManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -368,14 +371,14 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedLocationIds.length} selected',
+                context.l10n.locationSelectedCount(_selectedLocationIds.length),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.locationDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedLocations,
@@ -389,7 +392,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search locations...',
+      hintText: context.l10n.locationSearchLocations,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -419,13 +422,13 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
           ),
           const SizedBox(height: 16),
           AppText(
-            'No locations found',
+            context.l10n.locationNoLocationsFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first location to get started',
+            context.l10n.locationCreateFirstLocation,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -479,7 +482,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                         _selectedLocationIds.clear();
                         _selectedLocationIds.add(location.id);
                       });
-                      AppToast.info('Long press to select more locations');
+                      AppToast.info(context.l10n.locationLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

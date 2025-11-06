@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -58,7 +59,9 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
           });
         } else if (state.failure != null) {
           this.logError('Failed to fetch user by id', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load user');
+          AppToast.error(
+            state.failure?.message ?? context.l10n.userFailedToLoad,
+          );
           setState(() => _isLoading = false);
         } else {
           // * State masih loading, tunggu dengan listen
@@ -67,7 +70,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       }
     } catch (e, s) {
       this.logError('Error fetching user', e, s);
-      AppToast.error('Failed to load user');
+      AppToast.error(context.l10n.userFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -81,7 +84,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     if (isAdmin) {
       context.push(RouteConstant.adminUserUpsert, extra: _user);
     } else {
-      AppToast.warning('Only admin can edit users');
+      AppToast.warning(context.l10n.userOnlyAdminCanEdit);
     }
   }
 
@@ -92,27 +95,30 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete users');
+      AppToast.warning(context.l10n.userOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText('Delete User', style: AppTextStyle.titleMedium),
+        title: AppText(
+          context.l10n.userDeleteUser,
+          style: AppTextStyle.titleMedium,
+        ),
         content: AppText(
-          'Are you sure you want to delete "${_user!.fullName}"?',
+          context.l10n.userDeleteSingleConfirmation(_user!.fullName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.userCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.userDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -136,11 +142,13 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'User deleted');
+          AppToast.success(next.mutationMessage ?? context.l10n.userDeleted);
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ?? context.l10n.userDeleteFailed,
+          );
         }
       }
     });
@@ -151,7 +159,9 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(title: isLoading ? 'User Detail' : _user!.fullName),
+      appBar: CustomAppBar(
+        title: isLoading ? context.l10n.userDetail : _user!.fullName,
+      ),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
         enabled: isLoading,
@@ -179,14 +189,23 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('User Information', [
-            _buildInfoRow('Name', dummyUser.name),
-            _buildInfoRow('Email', dummyUser.email),
-            _buildInfoRow('Full Name', dummyUser.fullName),
-            _buildInfoRow('Role', dummyUser.role.value),
-            _buildInfoRow('Employee ID', dummyUser.employeeId ?? '-'),
-            _buildInfoRow('Preferred Language', dummyUser.preferredLang),
-            _buildInfoRow('Active', dummyUser.isActive ? 'Yes' : 'No'),
+          _buildInfoCard(context.l10n.userInformation, [
+            _buildInfoRow(context.l10n.userName, dummyUser.name),
+            _buildInfoRow(context.l10n.userEmail, dummyUser.email),
+            _buildInfoRow(context.l10n.userFullName, dummyUser.fullName),
+            _buildInfoRow(context.l10n.userRole, dummyUser.role.value),
+            _buildInfoRow(
+              context.l10n.userEmployeeId,
+              dummyUser.employeeId ?? '-',
+            ),
+            _buildInfoRow(
+              context.l10n.userPreferredLang,
+              dummyUser.preferredLang,
+            ),
+            _buildInfoRow(
+              context.l10n.userActive,
+              dummyUser.isActive ? context.l10n.userYes : context.l10n.userNo,
+            ),
           ]),
         ],
       ),
@@ -198,19 +217,31 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('User Information', [
-            _buildInfoRow('Name', _user!.name),
-            _buildInfoRow('Email', _user!.email),
-            _buildInfoRow('Full Name', _user!.fullName),
-            _buildInfoRow('Role', _user!.role.value),
-            _buildInfoRow('Employee ID', _user!.employeeId ?? '-'),
-            _buildInfoRow('Preferred Language', _user!.preferredLang),
-            _buildInfoRow('Active', _user!.isActive ? 'Yes' : 'No'),
+          _buildInfoCard(context.l10n.userInformation, [
+            _buildInfoRow(context.l10n.userName, _user!.name),
+            _buildInfoRow(context.l10n.userEmail, _user!.email),
+            _buildInfoRow(context.l10n.userFullName, _user!.fullName),
+            _buildInfoRow(context.l10n.userRole, _user!.role.value),
+            _buildInfoRow(
+              context.l10n.userEmployeeId,
+              _user!.employeeId ?? '-',
+            ),
+            _buildInfoRow(context.l10n.userPreferredLang, _user!.preferredLang),
+            _buildInfoRow(
+              context.l10n.userActive,
+              _user!.isActive ? context.l10n.userYes : context.l10n.userNo,
+            ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
-            _buildInfoRow('Created At', _formatDateTime(_user!.createdAt)),
-            _buildInfoRow('Updated At', _formatDateTime(_user!.updatedAt)),
+          _buildInfoCard(context.l10n.userMetadata, [
+            _buildInfoRow(
+              context.l10n.userCreatedAt,
+              _formatDateTime(_user!.createdAt),
+            ),
+            _buildInfoRow(
+              context.l10n.userUpdatedAt,
+              _formatDateTime(_user!.updatedAt),
+            ),
           ]),
         ],
       ),

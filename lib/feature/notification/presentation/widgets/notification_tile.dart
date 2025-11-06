@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart'
     as app_notif;
@@ -120,7 +121,7 @@ class NotificationTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        _getTimeAgo(notification.createdAt),
+                        _getTimeAgo(context, notification.createdAt),
                         style: AppTextStyle.labelSmall,
                         color: context.colors.textSecondary,
                       ),
@@ -169,19 +170,19 @@ class NotificationTile extends StatelessWidget {
     }
   }
 
-  String _getTimeAgo(DateTime dateTime) {
+  String _getTimeAgo(BuildContext context, DateTime dateTime) {
     final Duration difference = DateTime.now().difference(dateTime);
 
     if (difference.inDays > 7) {
       return DateFormat('dd MMM yyyy').format(dateTime);
     } else if (difference.inDays > 0) {
-      return '${difference.inDays}d ago';
+      return context.l10n.notificationDaysAgo(difference.inDays);
     } else if (difference.inHours > 0) {
-      return '${difference.inHours}h ago';
+      return context.l10n.notificationHoursAgo(difference.inHours);
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes}m ago';
+      return context.l10n.notificationMinutesAgo(difference.inMinutes);
     } else {
-      return 'Just now';
+      return context.l10n.notificationJustNow;
     }
   }
 }

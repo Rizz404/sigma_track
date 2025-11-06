@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -75,7 +76,7 @@ class _MaintenanceScheduleUpsertScreenState
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.maintenanceScheduleFillRequiredFields);
       return;
     }
 
@@ -220,7 +221,7 @@ class _MaintenanceScheduleUpsertScreenState
             setState(() => _isLoadingTranslations = false);
             AppToast.error(
               maintenanceScheduleDetailState.failure?.message ??
-                  'Failed to load translations',
+                  context.l10n.maintenanceScheduleFailedToLoadTranslations,
             );
           }
         });
@@ -242,7 +243,8 @@ class _MaintenanceScheduleUpsertScreenState
       // * Handle mutation success
       if (next.hasMutationSuccess) {
         AppToast.success(
-          next.mutationMessage ?? 'Maintenance schedule saved successfully',
+          next.mutationMessage ??
+              context.l10n.maintenanceScheduleSavedSuccessfully,
         );
         context.pop();
       }
@@ -259,7 +261,10 @@ class _MaintenanceScheduleUpsertScreenState
             'Maintenance schedule mutation error',
             next.mutationFailure,
           );
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.maintenanceScheduleOperationFailed,
+          );
         }
       }
     });
@@ -268,8 +273,8 @@ class _MaintenanceScheduleUpsertScreenState
       child: Scaffold(
         appBar: CustomAppBar(
           title: _isEdit
-              ? 'Edit Maintenance Schedule'
-              : 'Create Maintenance Schedule',
+              ? context.l10n.maintenanceScheduleEditSchedule
+              : context.l10n.maintenanceScheduleCreateSchedule,
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -317,16 +322,16 @@ class _MaintenanceScheduleUpsertScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Maintenance Schedule Information',
+            AppText(
+              context.l10n.maintenanceScheduleInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppSearchField<Asset>(
               name: 'assetId',
-              label: 'Asset',
-              hintText: 'Search and select asset',
+              label: context.l10n.maintenanceScheduleAsset,
+              hintText: context.l10n.maintenanceScheduleSearchAsset,
               initialValue: widget.maintenanceSchedule?.assetId,
               enableAutocomplete: true,
               onSearch: _searchAssets,
@@ -343,8 +348,8 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppDropdown(
               name: 'maintenanceType',
-              label: 'Maintenance Type',
-              hintText: 'Select maintenance type',
+              label: context.l10n.maintenanceScheduleMaintenanceType,
+              hintText: context.l10n.maintenanceScheduleSelectMaintenanceType,
               items: MaintenanceScheduleType.values
                   .map(
                     (type) => AppDropdownItem(
@@ -364,7 +369,7 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'nextScheduledDate',
-              label: 'Next Scheduled Date',
+              label: context.l10n.maintenanceScheduleNextScheduledDate,
               initialValue: widget.maintenanceSchedule?.nextScheduledDate,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateNextScheduledDate(
@@ -375,14 +380,14 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppCheckbox(
               name: 'isRecurring',
-              title: const AppText('Is Recurring'),
+              title: AppText(context.l10n.maintenanceScheduleIsRecurring),
               initialValue: widget.maintenanceSchedule?.isRecurring ?? false,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'intervalValue',
-              label: 'Interval Value',
-              placeHolder: 'Enter interval value (e.g., 3)',
+              label: context.l10n.maintenanceScheduleIntervalValueLabel,
+              placeHolder: context.l10n.maintenanceScheduleEnterIntervalValue,
               initialValue: widget.maintenanceSchedule?.intervalValue
                   ?.toString(),
               type: AppTextFieldType.number,
@@ -395,8 +400,8 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppDropdown(
               name: 'intervalUnit',
-              label: 'Interval Unit',
-              hintText: 'Select interval unit',
+              label: context.l10n.maintenanceScheduleIntervalUnitLabel,
+              hintText: context.l10n.maintenanceScheduleSelectIntervalUnit,
               items: IntervalUnit.values
                   .map(
                     (unit) =>
@@ -408,8 +413,8 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'scheduledTime',
-              label: 'Scheduled Time (HH:mm)',
-              placeHolder: 'e.g., 09:30',
+              label: context.l10n.maintenanceScheduleScheduledTimeLabel,
+              placeHolder: context.l10n.maintenanceScheduleEnterScheduledTime,
               initialValue: widget.maintenanceSchedule?.scheduledTime,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateScheduledTime(
@@ -421,8 +426,8 @@ class _MaintenanceScheduleUpsertScreenState
             if (_isEdit)
               AppDropdown(
                 name: 'state',
-                label: 'State',
-                hintText: 'Select state',
+                label: context.l10n.maintenanceScheduleState,
+                hintText: context.l10n.maintenanceScheduleSelectState,
                 items: ScheduleState.values
                     .map(
                       (state) => AppDropdownItem(
@@ -442,14 +447,14 @@ class _MaintenanceScheduleUpsertScreenState
             if (_isEdit) const SizedBox(height: 16),
             AppCheckbox(
               name: 'autoComplete',
-              title: const AppText('Auto Complete'),
+              title: AppText(context.l10n.maintenanceScheduleAutoComplete),
               initialValue: widget.maintenanceSchedule?.autoComplete ?? false,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'estimatedCost',
-              label: 'Estimated Cost',
-              placeHolder: 'Enter estimated cost (optional)',
+              label: context.l10n.maintenanceScheduleEstimatedCost,
+              placeHolder: context.l10n.maintenanceScheduleEnterEstimatedCost,
               initialValue: widget.maintenanceSchedule?.estimatedCost
                   ?.toString(),
               type: AppTextFieldType.number,
@@ -462,8 +467,8 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(height: 16),
             AppSearchField<User>(
               name: 'createdById',
-              label: 'Created By',
-              hintText: 'Search and select user who created the schedule',
+              label: context.l10n.maintenanceScheduleCreatedBy,
+              hintText: context.l10n.maintenanceScheduleSearchUser,
               initialValue: widget.maintenanceSchedule?.createdById,
               enableAutocomplete: true,
               onSearch: _searchUsers,
@@ -498,15 +503,21 @@ class _MaintenanceScheduleUpsertScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.maintenanceScheduleTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en-US', 'English'),
+              _buildTranslationFields(
+                'en-US',
+                context.l10n.maintenanceScheduleEnglish,
+              ),
               const SizedBox(height: 12),
-              _buildTranslationFields('ja-JP', 'Japanese'),
+              _buildTranslationFields(
+                'ja-JP',
+                context.l10n.maintenanceScheduleJapanese,
+              ),
             ],
           ),
         ),
@@ -546,8 +557,8 @@ class _MaintenanceScheduleUpsertScreenState
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_title',
-            label: 'Title',
-            placeHolder: 'Enter title in $langName',
+            label: context.l10n.maintenanceScheduleTitle,
+            placeHolder: context.l10n.maintenanceScheduleEnterTitle(langName),
             initialValue: translation?.title,
             validator: (value) =>
                 MaintenanceScheduleUpsertValidator.validateTitle(
@@ -558,8 +569,10 @@ class _MaintenanceScheduleUpsertScreenState
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_description',
-            label: 'Description',
-            placeHolder: 'Enter description in $langName',
+            label: context.l10n.maintenanceScheduleDescription,
+            placeHolder: context.l10n.maintenanceScheduleEnterDescription(
+              langName,
+            ),
             initialValue: translation?.description,
             type: AppTextFieldType.multiline,
             validator: (value) =>
@@ -585,7 +598,7 @@ class _MaintenanceScheduleUpsertScreenState
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.maintenanceScheduleCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -593,7 +606,9 @@ class _MaintenanceScheduleUpsertScreenState
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.maintenanceScheduleUpdate
+                    : context.l10n.maintenanceScheduleCreate,
                 onPressed: _handleSubmit,
               ),
             ),

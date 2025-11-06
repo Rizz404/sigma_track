@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -51,7 +52,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         if (mounted) {
-          AppToast.warning('Location services are disabled');
+          AppToast.warning(context.l10n.locationServicesDisabled);
           final openSettings = await _showLocationServiceDialog();
           if (openSettings) {
             await Geolocator.openLocationSettings();
@@ -65,7 +66,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
           if (mounted) {
-            AppToast.error('Location permission denied');
+            AppToast.error(context.l10n.locationPermissionDenied);
           }
           return;
         }
@@ -73,7 +74,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
       if (permission == LocationPermission.deniedForever) {
         if (mounted) {
-          AppToast.error('Location permission permanently denied');
+          AppToast.error(context.l10n.locationPermissionPermanentlyDenied);
           final openSettings = await _showPermissionDeniedDialog();
           if (openSettings) {
             await Geolocator.openAppSettings();
@@ -95,13 +96,13 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         _formKey.currentState?.fields['longitude']?.didChange(
           position.longitude.toString(),
         );
-        AppToast.success('Current location retrieved successfully');
+        AppToast.success(context.l10n.locationRetrievedSuccessfully);
         this.logInfo('Location: ${position.latitude}, ${position.longitude}');
       }
     } catch (e, s) {
       this.logError('Failed to get current location', e, s);
       if (mounted) {
-        AppToast.error('Failed to get current location');
+        AppToast.error(context.l10n.locationFailedToGetCurrent);
       }
     } finally {
       if (mounted) {
@@ -114,18 +115,16 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const AppText('Location Services Disabled'),
-            content: const AppText(
-              'Location services are required to get your current location. Would you like to enable them?',
-            ),
+            title: AppText(context.l10n.locationServicesDialogTitle),
+            content: AppText(context.l10n.locationServicesDialogMessage),
             actions: [
               AppButton(
-                text: 'Cancel',
+                text: context.l10n.locationCancel,
                 variant: AppButtonVariant.text,
                 onPressed: () => context.pop(false),
               ),
               AppButton(
-                text: 'Open Settings',
+                text: context.l10n.locationOpenSettings,
                 onPressed: () => context.pop(true),
               ),
             ],
@@ -138,18 +137,16 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const AppText('Permission Required'),
-            content: const AppText(
-              'Location permission is permanently denied. Please enable it in app settings.',
-            ),
+            title: AppText(context.l10n.locationPermissionRequired),
+            content: AppText(context.l10n.locationPermissionDialogMessage),
             actions: [
               AppButton(
-                text: 'Cancel',
+                text: context.l10n.locationCancel,
                 variant: AppButtonVariant.text,
                 onPressed: () => context.pop(false),
               ),
               AppButton(
-                text: 'Open Settings',
+                text: context.l10n.locationOpenSettings,
                 onPressed: () => context.pop(true),
               ),
             ],
@@ -160,7 +157,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fill all required fields');
+      AppToast.warning(context.l10n.locationFillRequiredFields);
       return;
     }
 
@@ -257,7 +254,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             setState(() => _isLoadingTranslations = false);
             AppToast.error(
               locationDetailState.failure?.message ??
-                  'Failed to load translations',
+                  context.l10n.locationFailedToLoadTranslations,
             );
           }
         });
@@ -275,7 +272,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
       // * Handle mutation success
       if (next.hasMutationSuccess) {
-        AppToast.success(next.mutationMessage ?? 'Location saved successfully');
+        AppToast.success(
+          next.mutationMessage ?? context.l10n.locationSavedSuccessfully,
+        );
         context.pop();
       }
 
@@ -288,7 +287,10 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           );
         } else {
           this.logError('Location mutation error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.locationOperationFailed,
+          );
         }
       }
     });
@@ -296,7 +298,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     return AppLoaderOverlay(
       child: Scaffold(
         appBar: CustomAppBar(
-          title: _isEdit ? 'Edit Location' : 'Create Location',
+          title: _isEdit
+              ? context.l10n.locationEditLocation
+              : context.l10n.locationCreateLocation,
         ),
         endDrawer: const AppEndDrawer(),
         body: Column(
@@ -346,19 +350,20 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Location Information',
+            AppText(
+              context.l10n.locationInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'locationCode',
-              label: 'Location Code',
-              placeHolder: 'Enter location code (e.g., LOC-001)',
+              label: context.l10n.locationCode,
+              placeHolder: context.l10n.locationEnterLocationCode,
               initialValue: widget.location?.locationCode,
               validator: (value) =>
                   LocationUpsertValidator.validateLocationCode(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   ),
@@ -366,15 +371,15 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             const SizedBox(height: 16),
             AppTextField(
               name: 'building',
-              label: 'Building (Optional)',
-              placeHolder: 'Enter building name',
+              label: context.l10n.locationBuildingOptional,
+              placeHolder: context.l10n.locationEnterBuilding,
               initialValue: widget.location?.building,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'floor',
-              label: 'Floor (Optional)',
-              placeHolder: 'Enter floor number',
+              label: context.l10n.locationFloorOptional,
+              placeHolder: context.l10n.locationEnterFloor,
               initialValue: widget.location?.floor,
             ),
             const SizedBox(height: 16),
@@ -383,11 +388,12 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                 Expanded(
                   child: AppTextField(
                     name: 'latitude',
-                    label: 'Latitude (Optional)',
-                    placeHolder: 'Enter latitude',
+                    label: context.l10n.locationLatitudeOptional,
+                    placeHolder: context.l10n.locationEnterLatitude,
                     initialValue: widget.location?.latitude?.toString(),
                     validator: (value) =>
                         LocationUpsertValidator.validateLatitude(
+                          context,
                           value,
                           isUpdate: _isEdit,
                         ),
@@ -397,11 +403,12 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                 Expanded(
                   child: AppTextField(
                     name: 'longitude',
-                    label: 'Longitude (Optional)',
-                    placeHolder: 'Enter longitude',
+                    label: context.l10n.locationLongitudeOptional,
+                    placeHolder: context.l10n.locationEnterLongitude,
                     initialValue: widget.location?.longitude?.toString(),
                     validator: (value) =>
                         LocationUpsertValidator.validateLongitude(
+                          context,
                           value,
                           isUpdate: _isEdit,
                         ),
@@ -412,8 +419,8 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             const SizedBox(height: 12),
             AppButton(
               text: _isLoadingCurrentLocation
-                  ? 'Getting Location...'
-                  : 'Use Current Location',
+                  ? context.l10n.locationGettingLocation
+                  : context.l10n.locationUseCurrentLocation,
               variant: AppButtonVariant.outlined,
               onPressed: _isLoadingCurrentLocation ? null : _getCurrentLocation,
               leadingIcon: _isLoadingCurrentLocation
@@ -445,21 +452,21 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AppText(
-                'Translations',
+              AppText(
+                context.l10n.locationTranslations,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 8),
               AppText(
-                'Add translations for different languages',
+                context.l10n.locationTranslationsSubtitle,
                 style: AppTextStyle.bodySmall,
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 16),
-              _buildTranslationFields('en-US', 'English'),
+              _buildTranslationFields('en-US', context.l10n.locationEnglish),
               const SizedBox(height: 16),
-              _buildTranslationFields('ja-JP', 'Japanese'),
+              _buildTranslationFields('ja-JP', context.l10n.locationJapanese),
             ],
           ),
         ),
@@ -493,11 +500,12 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           const SizedBox(height: 12),
           AppTextField(
             name: '${langCode}_locationName',
-            label: 'Location Name',
-            placeHolder: 'Enter location name',
+            label: context.l10n.locationName,
+            placeHolder: context.l10n.locationEnterLocationName,
             initialValue: translation?.locationName,
             validator: langCode == 'en-US'
                 ? (value) => LocationUpsertValidator.validateLocationName(
+                    context,
                     value,
                     isUpdate: _isEdit,
                   )
@@ -528,7 +536,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.locationCancel,
                 variant: AppButtonVariant.outlined,
                 onPressed: () => context.pop(),
               ),
@@ -536,7 +544,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit ? 'Update' : 'Create',
+                text: _isEdit
+                    ? context.l10n.locationUpdate
+                    : context.l10n.locationCreate,
                 onPressed: _handleSubmit,
               ),
             ),

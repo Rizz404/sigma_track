@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -99,7 +100,8 @@ class LocationCard extends StatelessWidget {
                       AppText(
                         [
                           if (location.building != null) location.building!,
-                          if (location.floor != null) 'Floor ${location.floor}',
+                          if (location.floor != null)
+                            context.l10n.locationFloorPrefix(location.floor!),
                         ].join(' • '),
                         style: AppTextStyle.labelSmall,
                         color: context.colors.textSecondary,

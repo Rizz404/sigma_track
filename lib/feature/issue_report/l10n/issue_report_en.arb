@@ -1,0 +1,431 @@
+{
+  "@@locale": "en",
+  "issueReportDeleteIssueReport": "Delete Issue Report",
+  "@issueReportDeleteIssueReport": {
+    "description": "Dialog title for deleting an issue report"
+  },
+  "issueReportDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@issueReportDeleteConfirmation": {
+    "description": "Confirmation message for deleting an issue report",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Hardware failure"
+      }
+    }
+  },
+  "issueReportCancel": "Cancel",
+  "@issueReportCancel": {
+    "description": "Cancel button label"
+  },
+  "issueReportDelete": "Delete",
+  "@issueReportDelete": {
+    "description": "Delete button label"
+  },
+  "issueReportDetail": "Issue Report Detail",
+  "@issueReportDetail": {
+    "description": "Issue report detail screen title"
+  },
+  "issueReportInformation": "Issue Report Information",
+  "@issueReportInformation": {
+    "description": "Issue report information section title"
+  },
+  "issueReportTitle": "Title",
+  "@issueReportTitle": {
+    "description": "Title label"
+  },
+  "issueReportDescription": "Description",
+  "@issueReportDescription": {
+    "description": "Description label"
+  },
+  "issueReportAsset": "Asset",
+  "@issueReportAsset": {
+    "description": "Asset label"
+  },
+  "issueReportIssueType": "Issue Type",
+  "@issueReportIssueType": {
+    "description": "Issue type label"
+  },
+  "issueReportPriority": "Priority",
+  "@issueReportPriority": {
+    "description": "Priority label"
+  },
+  "issueReportStatus": "Status",
+  "@issueReportStatus": {
+    "description": "Status label"
+  },
+  "issueReportReportedBy": "Reported By",
+  "@issueReportReportedBy": {
+    "description": "Reported by label"
+  },
+  "issueReportReportedDate": "Reported Date",
+  "@issueReportReportedDate": {
+    "description": "Reported date label"
+  },
+  "issueReportResolvedDate": "Resolved Date",
+  "@issueReportResolvedDate": {
+    "description": "Resolved date label"
+  },
+  "issueReportResolvedBy": "Resolved By",
+  "@issueReportResolvedBy": {
+    "description": "Resolved by label"
+  },
+  "issueReportResolutionNotes": "Resolution Notes",
+  "@issueReportResolutionNotes": {
+    "description": "Resolution notes label"
+  },
+  "issueReportMetadata": "Metadata",
+  "@issueReportMetadata": {
+    "description": "Metadata section title"
+  },
+  "issueReportCreatedAt": "Created At",
+  "@issueReportCreatedAt": {
+    "description": "Created at label"
+  },
+  "issueReportUpdatedAt": "Updated At",
+  "@issueReportUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "issueReportOnlyAdminCanEdit": "Only admin can edit issue reports",
+  "@issueReportOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "issueReportOnlyAdminCanDelete": "Only admin can delete issue reports",
+  "@issueReportOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "issueReportFailedToLoad": "Failed to load issue report",
+  "@issueReportFailedToLoad": {
+    "description": "Error message when issue report fails to load"
+  },
+  "issueReportDeletedSuccess": "Issue report deleted",
+  "@issueReportDeletedSuccess": {
+    "description": "Success message for issue report deletion"
+  },
+  "issueReportDeletedFailed": "Delete failed",
+  "@issueReportDeletedFailed": {
+    "description": "Error message for issue report deletion failure"
+  },
+  "issueReportUnknownAsset": "Unknown Asset",
+  "@issueReportUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "issueReportUnknownUser": "Unknown User",
+  "@issueReportUnknownUser": {
+    "description": "Unknown user placeholder"
+  },
+  "issueReportEditIssueReport": "Edit Issue Report",
+  "@issueReportEditIssueReport": {
+    "description": "Edit issue report screen title"
+  },
+  "issueReportCreateIssueReport": "Create Issue Report",
+  "@issueReportCreateIssueReport": {
+    "description": "Create issue report screen title"
+  },
+  "issueReportFillRequiredFields": "Please fill all required fields",
+  "@issueReportFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "issueReportSavedSuccessfully": "Issue report saved successfully",
+  "@issueReportSavedSuccessfully": {
+    "description": "Success message for issue report save"
+  },
+  "issueReportOperationFailed": "Operation failed",
+  "@issueReportOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "issueReportFailedToLoadTranslations": "Failed to load translations",
+  "@issueReportFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "issueReportSearchAsset": "Search and select asset",
+  "@issueReportSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "issueReportSearchReportedBy": "Search and select user who reported the issue",
+  "@issueReportSearchReportedBy": {
+    "description": "Reported by search placeholder"
+  },
+  "issueReportEnterIssueType": "Enter issue type (e.g., Hardware, Software)",
+  "@issueReportEnterIssueType": {
+    "description": "Issue type input placeholder"
+  },
+  "issueReportSelectPriority": "Select priority",
+  "@issueReportSelectPriority": {
+    "description": "Priority dropdown placeholder"
+  },
+  "issueReportSelectStatus": "Select status",
+  "@issueReportSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "issueReportSearchResolvedBy": "Search and select user who resolved the issue",
+  "@issueReportSearchResolvedBy": {
+    "description": "Resolved by search placeholder"
+  },
+  "issueReportTranslations": "Translations",
+  "@issueReportTranslations": {
+    "description": "Translations section title"
+  },
+  "issueReportEnglish": "English",
+  "@issueReportEnglish": {
+    "description": "English language label"
+  },
+  "issueReportJapanese": "Japanese",
+  "@issueReportJapanese": {
+    "description": "Japanese language label"
+  },
+  "issueReportEnterTitleIn": "Enter title in {language}",
+  "@issueReportEnterTitleIn": {
+    "description": "Title input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterDescriptionIn": "Enter description in {language}",
+  "@issueReportEnterDescriptionIn": {
+    "description": "Description input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterResolutionNotesIn": "Enter resolution notes in {language}",
+  "@issueReportEnterResolutionNotesIn": {
+    "description": "Resolution notes input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportUpdate": "Update",
+  "@issueReportUpdate": {
+    "description": "Update button label"
+  },
+  "issueReportCreate": "Create",
+  "@issueReportCreate": {
+    "description": "Create button label"
+  },
+  "issueReportManagement": "IssueReport Management",
+  "@issueReportManagement": {
+    "description": "Issue report management screen title"
+  },
+  "issueReportCreateIssueReportTitle": "Create IssueReport",
+  "@issueReportCreateIssueReportTitle": {
+    "description": "Create issue report option title"
+  },
+  "issueReportCreateIssueReportSubtitle": "Add a new issueReport",
+  "@issueReportCreateIssueReportSubtitle": {
+    "description": "Create issue report option subtitle"
+  },
+  "issueReportSelectManyTitle": "Select Many",
+  "@issueReportSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "issueReportSelectManySubtitle": "Select multiple issueReports to delete",
+  "@issueReportSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "issueReportFilterAndSortTitle": "Filter & Sort",
+  "@issueReportFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "issueReportFilterAndSortSubtitle": "Customize issueReport display",
+  "@issueReportFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "issueReportSelectIssueReportsToDelete": "Select issueReports to delete",
+  "@issueReportSelectIssueReportsToDelete": {
+    "description": "Instruction for selecting issue reports to delete"
+  },
+  "issueReportDeleteIssueReports": "Delete IssueReports",
+  "@issueReportDeleteIssueReports": {
+    "description": "Delete issue reports dialog title"
+  },
+  "issueReportDeleteMultipleConfirmation": "Are you sure you want to delete {count} issueReports?",
+  "@issueReportDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple issue reports",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "issueReportNoIssueReportsSelected": "No issueReports selected",
+  "@issueReportNoIssueReportsSelected": {
+    "description": "Warning message when no issue reports are selected"
+  },
+  "issueReportNotImplementedYet": "Not implemented yet",
+  "@issueReportNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "issueReportSelectedCount": "{count} selected",
+  "@issueReportSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "issueReportSearchIssueReports": "Search issueReports...",
+  "@issueReportSearchIssueReports": {
+    "description": "Issue reports search placeholder"
+  },
+  "issueReportNoIssueReportsFound": "No issueReports found",
+  "@issueReportNoIssueReportsFound": {
+    "description": "No issue reports found message"
+  },
+  "issueReportCreateFirstIssueReport": "Create your first issueReport to get started",
+  "@issueReportCreateFirstIssueReport": {
+    "description": "Empty state message for issue reports"
+  },
+  "issueReportLongPressToSelect": "Long press to select more issueReports",
+  "@issueReportLongPressToSelect": {
+    "description": "Instruction for selecting multiple issue reports"
+  },
+  "issueReportFilterByAsset": "Filter by Asset",
+  "@issueReportFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "issueReportFilterByReportedBy": "Filter by Reported By",
+  "@issueReportFilterByReportedBy": {
+    "description": "Filter by reported by label"
+  },
+  "issueReportFilterByResolvedBy": "Filter by Resolved By",
+  "@issueReportFilterByResolvedBy": {
+    "description": "Filter by resolved by label"
+  },
+  "issueReportSearchAssetFilter": "Search asset...",
+  "@issueReportSearchAssetFilter": {
+    "description": "Asset filter search placeholder"
+  },
+  "issueReportSearchUserFilter": "Search user...",
+  "@issueReportSearchUserFilter": {
+    "description": "User filter search placeholder"
+  },
+  "issueReportEnterIssueTypeFilter": "Enter issue type...",
+  "@issueReportEnterIssueTypeFilter": {
+    "description": "Issue type filter input placeholder"
+  },
+  "issueReportSortBy": "Sort By",
+  "@issueReportSortBy": {
+    "description": "Sort by label"
+  },
+  "issueReportSortOrder": "Sort Order",
+  "@issueReportSortOrder": {
+    "description": "Sort order label"
+  },
+  "issueReportIsResolved": "Is Resolved",
+  "@issueReportIsResolved": {
+    "description": "Is resolved checkbox label"
+  },
+  "issueReportDateFrom": "Date From",
+  "@issueReportDateFrom": {
+    "description": "Date from label"
+  },
+  "issueReportDateTo": "Date To",
+  "@issueReportDateTo": {
+    "description": "Date to label"
+  },
+  "issueReportReset": "Reset",
+  "@issueReportReset": {
+    "description": "Reset button label"
+  },
+  "issueReportApply": "Apply",
+  "@issueReportApply": {
+    "description": "Apply button label"
+  },
+  "issueReportFilterReset": "Filter reset",
+  "@issueReportFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "issueReportFilterApplied": "Filter applied",
+  "@issueReportFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "issueReportMyIssueReports": "My Issue Reports",
+  "@issueReportMyIssueReports": {
+    "description": "My issue reports screen title"
+  },
+  "issueReportSearchMyIssueReports": "Search my issue reports...",
+  "@issueReportSearchMyIssueReports": {
+    "description": "My issue reports search placeholder"
+  },
+  "issueReportFiltersAndSorting": "Filters & Sorting",
+  "@issueReportFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "issueReportApplyFilters": "Apply Filters",
+  "@issueReportApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "issueReportFiltersApplied": "Filters Applied",
+  "@issueReportFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "issueReportFilterAndSort": "Filter & Sort",
+  "@issueReportFilterAndSort": {
+    "description": "Filter and sort button label"
+  },
+  "issueReportNoIssueReportsFoundEmpty": "No issue reports found",
+  "@issueReportNoIssueReportsFoundEmpty": {
+    "description": "Empty state message for my issue reports"
+  },
+  "issueReportYouHaveNoReportedIssues": "You have no reported issues",
+  "@issueReportYouHaveNoReportedIssues": {
+    "description": "Empty state subtitle for my issue reports"
+  },
+  "issueReportCreateIssueReportTooltip": "Create Issue Report",
+  "@issueReportCreateIssueReportTooltip": {
+    "description": "Create issue report floating action button tooltip"
+  },
+  "issueReportValidationAssetRequired": "Asset is required",
+  "@issueReportValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "issueReportValidationReportedByRequired": "Reported by is required",
+  "@issueReportValidationReportedByRequired": {
+    "description": "Validation error for required reported by"
+  },
+  "issueReportValidationIssueTypeRequired": "Issue type is required",
+  "@issueReportValidationIssueTypeRequired": {
+    "description": "Validation error for required issue type"
+  },
+  "issueReportValidationIssueTypeMaxLength": "Issue type must not exceed 100 characters",
+  "@issueReportValidationIssueTypeMaxLength": {
+    "description": "Validation error for issue type maximum length"
+  },
+  "issueReportValidationPriorityRequired": "Priority is required",
+  "@issueReportValidationPriorityRequired": {
+    "description": "Validation error for required priority"
+  },
+  "issueReportValidationStatusRequired": "Status is required",
+  "@issueReportValidationStatusRequired": {
+    "description": "Validation error for required status"
+  },
+  "issueReportValidationTitleRequired": "Title is required",
+  "@issueReportValidationTitleRequired": {
+    "description": "Validation error for required title"
+  },
+  "issueReportValidationTitleMaxLength": "Title must not exceed 200 characters",
+  "@issueReportValidationTitleMaxLength": {
+    "description": "Validation error for title maximum length"
+  },
+  "issueReportValidationDescriptionMaxLength": "Description must not exceed 1000 characters",
+  "@issueReportValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "issueReportValidationResolutionNotesMaxLength": "Resolution notes must not exceed 1000 characters",
+  "@issueReportValidationResolutionNotesMaxLength": {
+    "description": "Validation error for resolution notes maximum length"
+  }
+}

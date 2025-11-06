@@ -11,6 +11,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 // ignore: unused_import
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -47,7 +48,7 @@ class _UserUpdateProfileScreenState
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
-      AppToast.warning('Please fix all errors');
+      AppToast.warning(context.l10n.userPleaseFixErrors);
       return;
     }
 
@@ -96,7 +97,9 @@ class _UserUpdateProfileScreenState
       }
 
       if (!next.isMutating && next.message != null && next.failure == null) {
-        AppToast.success(next.message ?? 'Profile updated successfully');
+        AppToast.success(
+          next.message ?? context.l10n.userProfileUpdatedSuccessfully,
+        );
         // * Clean up selected file and reset picker
         if (_avatarFile != null) {
           _avatarFile!.deleteSync();
@@ -119,7 +122,9 @@ class _UserUpdateProfileScreenState
           );
         } else {
           this.logError('Profile update error', next.failure);
-          AppToast.error(next.failure?.message ?? 'Operation failed');
+          AppToast.error(
+            next.failure?.message ?? context.l10n.userOperationFailed,
+          );
         }
       }
     });
@@ -128,11 +133,11 @@ class _UserUpdateProfileScreenState
     final user = currentUserState.user;
 
     if (user == null) {
-      return const AppLoaderOverlay(
+      return AppLoaderOverlay(
         child: Scaffold(
-          appBar: CustomAppBar(title: 'Update Profile'),
-          endDrawer: AppEndDrawer(),
-          body: Center(child: AppText('No user data available')),
+          appBar: CustomAppBar(title: context.l10n.userUpdateProfile),
+          endDrawer: const AppEndDrawer(),
+          body: Center(child: AppText(context.l10n.userNoUserData)),
         ),
       );
     }
@@ -140,7 +145,7 @@ class _UserUpdateProfileScreenState
     // * Main content with form
     return AppLoaderOverlay(
       child: Scaffold(
-        appBar: const CustomAppBar(title: 'Update Profile'),
+        appBar: CustomAppBar(title: context.l10n.userUpdateProfile),
         endDrawer: const AppEndDrawer(),
         body: Column(
           children: [
@@ -185,8 +190,8 @@ class _UserUpdateProfileScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppText(
-              'Profile Information',
+            AppText(
+              context.l10n.userProfileInformation,
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
@@ -209,8 +214,8 @@ class _UserUpdateProfileScreenState
             AppFilePicker(
               key: _filePickerKey,
               name: 'avatar',
-              label: 'Profile Picture',
-              hintText: 'Choose image',
+              label: context.l10n.userProfilePicture,
+              hintText: context.l10n.userChooseImage,
               fileType: FileType.image,
               allowMultiple: false,
               maxFiles: 1,
@@ -221,8 +226,8 @@ class _UserUpdateProfileScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'name',
-              label: 'Username',
-              placeHolder: 'Enter username',
+              label: context.l10n.userUsername,
+              placeHolder: context.l10n.userEnterUsername,
               initialValue: user.name,
               validator: (value) =>
                   UserUpdateProfileValidator.validateName(value),
@@ -230,8 +235,8 @@ class _UserUpdateProfileScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'email',
-              label: 'Email',
-              placeHolder: 'Enter email',
+              label: context.l10n.userEmail,
+              placeHolder: context.l10n.userEnterEmail,
               initialValue: user.email,
               validator: (value) =>
                   UserUpdateProfileValidator.validateEmail(value),
@@ -239,8 +244,8 @@ class _UserUpdateProfileScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'fullName',
-              label: 'Full Name',
-              placeHolder: 'Enter full name',
+              label: context.l10n.userFullName,
+              placeHolder: context.l10n.userEnterFullName,
               initialValue: user.fullName,
               validator: (value) =>
                   UserUpdateProfileValidator.validateFullName(value),
@@ -248,16 +253,16 @@ class _UserUpdateProfileScreenState
             const SizedBox(height: 16),
             AppTextField(
               name: 'employeeId',
-              label: 'Employee ID (Optional)',
-              placeHolder: 'Enter employee ID',
+              label: context.l10n.userEmployeeIdOptional,
+              placeHolder: context.l10n.userEnterEmployeeIdOptional,
               initialValue: user.employeeId,
               validator: UserUpdateProfileValidator.validateEmployeeId,
             ),
             const SizedBox(height: 16),
             AppDropdown(
               name: 'preferredLang',
-              label: 'Preferred Language (Optional)',
-              hintText: 'Select language',
+              label: context.l10n.userPreferredLanguage,
+              hintText: context.l10n.userSelectLanguage,
               items: Language.values
                   .map(
                     (lang) => AppDropdownItem(
@@ -303,7 +308,7 @@ class _UserUpdateProfileScreenState
           children: [
             Expanded(
               child: AppButton(
-                text: 'Cancel',
+                text: context.l10n.userCancel,
                 variant: AppButtonVariant.outlined,
                 // ! Use context.go() instead of context.pop() - route outside shell
                 // ! Check role to navigate to correct profile route
@@ -317,7 +322,10 @@ class _UserUpdateProfileScreenState
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: AppButton(text: 'Update', onPressed: _handleSubmit),
+              child: AppButton(
+                text: context.l10n.userUpdate,
+                onPressed: _handleSubmit,
+              ),
             ),
           ],
         ),

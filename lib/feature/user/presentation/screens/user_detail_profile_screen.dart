@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -45,11 +46,19 @@ class UserDetailProfileScreen extends ConsumerWidget {
         children: [
           _buildProfileHeader(context, dummyUser),
           const SizedBox(height: 16),
-          _buildInfoCard(context, 'Personal Information', [
-            _buildInfoRow(context, 'Full Name', dummyUser.fullName),
-            _buildInfoRow(context, 'Username', dummyUser.name),
-            _buildInfoRow(context, 'Email', dummyUser.email),
-            _buildInfoRow(context, 'Employee ID', dummyUser.employeeId ?? '-'),
+          _buildInfoCard(context, context.l10n.userPersonalInformation, [
+            _buildInfoRow(
+              context,
+              context.l10n.userFullName,
+              dummyUser.fullName,
+            ),
+            _buildInfoRow(context, context.l10n.userUsername, dummyUser.name),
+            _buildInfoRow(context, context.l10n.userEmail, dummyUser.email),
+            _buildInfoRow(
+              context,
+              context.l10n.userEmployeeId,
+              dummyUser.employeeId ?? '-',
+            ),
           ]),
         ],
       ),
@@ -63,32 +72,46 @@ class UserDetailProfileScreen extends ConsumerWidget {
         children: [
           _buildProfileHeader(context, user),
           const SizedBox(height: 16),
-          _buildInfoCard(context, 'Personal Information', [
-            _buildInfoRow(context, 'Full Name', user.fullName),
-            _buildInfoRow(context, 'Username', user.name),
-            _buildInfoRow(context, 'Email', user.email),
-            _buildInfoRow(context, 'Employee ID', user.employeeId ?? '-'),
-          ]),
-          const SizedBox(height: 16),
-          _buildInfoCard(context, 'Account Details', [
-            _buildInfoRow(context, 'Role', user.role.name.toUpperCase()),
+          _buildInfoCard(context, context.l10n.userPersonalInformation, [
+            _buildInfoRow(context, context.l10n.userFullName, user.fullName),
+            _buildInfoRow(context, context.l10n.userUsername, user.name),
+            _buildInfoRow(context, context.l10n.userEmail, user.email),
             _buildInfoRow(
               context,
-              'Status',
-              user.isActive ? 'Active' : 'Inactive',
+              context.l10n.userEmployeeId,
+              user.employeeId ?? '-',
             ),
-            _buildInfoRow(context, 'Preferred Language', user.preferredLang),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard(context, 'Metadata', [
+          _buildInfoCard(context, context.l10n.userAccountDetails, [
             _buildInfoRow(
               context,
-              'Created At',
+              context.l10n.userRole,
+              user.role.name.toUpperCase(),
+            ),
+            _buildInfoRow(
+              context,
+              context.l10n.userStatus,
+              user.isActive
+                  ? context.l10n.userActive
+                  : context.l10n.userInactive,
+            ),
+            _buildInfoRow(
+              context,
+              context.l10n.userPreferredLang,
+              user.preferredLang,
+            ),
+          ]),
+          const SizedBox(height: 16),
+          _buildInfoCard(context, context.l10n.userMetadata, [
+            _buildInfoRow(
+              context,
+              context.l10n.userCreatedAt,
               _formatDateTime(user.createdAt),
             ),
             _buildInfoRow(
               context,
-              'Updated At',
+              context.l10n.userUpdatedAt,
               _formatDateTime(user.updatedAt),
             ),
           ]),
@@ -110,7 +133,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
           Icon(Icons.error_outline, size: 64, color: context.semantic.error),
           const SizedBox(height: 16),
           AppText(
-            errorMessage ?? 'Failed to load profile',
+            errorMessage ?? context.l10n.userFailedToLoadProfile,
             style: AppTextStyle.bodyLarge,
             color: context.semantic.error,
             textAlign: TextAlign.center,

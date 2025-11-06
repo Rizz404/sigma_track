@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -86,15 +87,15 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
             _isSelectMode = true;
             _selectedUserIds.clear();
           });
-          AppToast.info('Select users to delete');
+          AppToast.info(context.l10n.userSelectUsersToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create User',
-        createSubtitle: 'Add a new user',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple users to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize user display',
+        createTitle: context.l10n.userCreateUser,
+        createSubtitle: context.l10n.userAddNewUser,
+        selectManyTitle: context.l10n.userSelectMany,
+        selectManySubtitle: context.l10n.userSelectMultipleToDelete,
+        filterSortTitle: context.l10n.userFilterAndSort,
+        filterSortSubtitle: context.l10n.userCustomizeDisplay,
       ),
     );
   }
@@ -127,15 +128,15 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filters',
+              AppText(
+                context.l10n.userFilters,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'role',
-                label: 'Role',
+                label: context.l10n.userRole,
                 initialValue: currentFilter.role,
                 items: UserRole.values
                     .map(
@@ -150,38 +151,38 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
               const SizedBox(height: 16),
               AppTextField(
                 name: 'employeeId',
-                label: 'Employee ID',
-                placeHolder: 'Enter employee ID...',
+                label: context.l10n.userEmployeeId,
+                placeHolder: context.l10n.userEnterEmployeeId,
                 initialValue: currentFilter.employeeId,
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'isActive',
-                label: 'Active Status',
+                label: context.l10n.userActiveStatus,
                 initialValue: currentFilter.isActive?.toString(),
-                items: const [
+                items: [
                   AppDropdownItem(
                     value: 'true',
-                    label: 'Active',
-                    icon: Icon(Icons.check_circle, size: 18),
+                    label: context.l10n.userActive,
+                    icon: const Icon(Icons.check_circle, size: 18),
                   ),
                   AppDropdownItem(
                     value: 'false',
-                    label: 'Inactive',
-                    icon: Icon(Icons.cancel, size: 18),
+                    label: context.l10n.userInactive,
+                    icon: const Icon(Icons.cancel, size: 18),
                   ),
                 ],
               ),
               const SizedBox(height: 32),
-              const AppText(
-                'Sort',
+              AppText(
+                context.l10n.userSort,
                 style: AppTextStyle.titleMedium,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.userSortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: UserSortBy.values
                     .map(
@@ -196,18 +197,18 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.userSortOrder,
                 initialValue: currentFilter.sortOrder?.value,
-                items: const [
+                items: [
                   AppDropdownItem(
                     value: 'asc',
-                    label: 'Ascending',
-                    icon: Icon(Icons.arrow_upward, size: 18),
+                    label: context.l10n.userAscending,
+                    icon: const Icon(Icons.arrow_upward, size: 18),
                   ),
                   AppDropdownItem(
                     value: 'desc',
-                    label: 'Descending',
-                    icon: Icon(Icons.arrow_downward, size: 18),
+                    label: context.l10n.userDescending,
+                    icon: const Icon(Icons.arrow_downward, size: 18),
                   ),
                 ],
               ),
@@ -215,7 +216,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.userReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -227,14 +228,14 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                         ref
                             .read(usersProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.userFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.userApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -268,7 +269,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                           ref
                               .read(usersProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(context.l10n.userFilterApplied);
                         }
                       },
                     ),
@@ -301,27 +302,30 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
 
   Future<void> _deleteSelectedUsers() async {
     if (_selectedUserIds.isEmpty) {
-      AppToast.warning('No users selected');
+      AppToast.warning(context.l10n.userNoUsersSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText('Delete Users', style: AppTextStyle.titleMedium),
+        title: AppText(
+          context.l10n.userDeleteUsers,
+          style: AppTextStyle.titleMedium,
+        ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedUserIds.length} users?',
+          context.l10n.userDeleteConfirmation(_selectedUserIds.length),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.userCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.userDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -332,7 +336,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
 
     if (confirmed == true && mounted) {
       // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      AppToast.info(context.l10n.userNotImplementedYet);
       _cancelSelectMode();
       await _onRefresh();
     }
@@ -356,7 +360,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'User Management'),
+      appBar: CustomAppBar(title: context.l10n.userManagement),
       endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
@@ -422,14 +426,14 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedUserIds.length} selected',
+                context.l10n.userSelectedCount(_selectedUserIds.length),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.userDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedUsers,
@@ -443,7 +447,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search users...',
+      hintText: context.l10n.userSearchUsers,
       onChanged: (value) {
         _debounceTimer?.cancel();
         _debounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -466,13 +470,13 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
           Icon(Icons.assessment, size: 80, color: context.colors.textDisabled),
           const SizedBox(height: 16),
           AppText(
-            'No users found',
+            context.l10n.userNoUsersFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first user to get started',
+            context.l10n.userCreateFirstUser,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -515,7 +519,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
                         _selectedUserIds.clear();
                         _selectedUserIds.add(user.id);
                       });
-                      AppToast.info('Long press to select more users');
+                      AppToast.info(context.l10n.userLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

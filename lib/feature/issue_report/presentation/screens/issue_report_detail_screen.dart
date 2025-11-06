@@ -5,6 +5,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
@@ -61,7 +62,7 @@ class _IssueReportDetailScreenState
         } else if (state.failure != null) {
           this.logError('Failed to fetch issue report by id', state.failure);
           AppToast.error(
-            state.failure?.message ?? 'Failed to load issue report',
+            state.failure?.message ?? context.l10n.issueReportFailedToLoad,
           );
           setState(() => _isLoading = false);
         } else {
@@ -71,7 +72,7 @@ class _IssueReportDetailScreenState
       }
     } catch (e, s) {
       this.logError('Error fetching issue report', e, s);
-      AppToast.error('Failed to load issue report');
+      AppToast.error(context.l10n.issueReportFailedToLoad);
       setState(() => _isLoading = false);
     }
   }
@@ -85,7 +86,7 @@ class _IssueReportDetailScreenState
     if (isAdmin) {
       context.push(RouteConstant.issueReportUpsert, extra: _issueReport);
     } else {
-      AppToast.warning('Only admin can edit issue reports');
+      AppToast.warning(context.l10n.issueReportOnlyAdminCanEdit);
     }
   }
 
@@ -96,30 +97,30 @@ class _IssueReportDetailScreenState
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (!isAdmin) {
-      AppToast.warning('Only admin can delete issue reports');
+      AppToast.warning(context.l10n.issueReportOnlyAdminCanDelete);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Issue Report',
+        title: AppText(
+          context.l10n.issueReportDeleteIssueReport,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete "${_issueReport!.title}"?',
+          context.l10n.issueReportDeleteConfirmation(_issueReport!.title),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const AppText('Cancel'),
+            child: AppText(context.l10n.issueReportCancel),
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.issueReportDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -145,11 +146,16 @@ class _IssueReportDetailScreenState
       // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
-          AppToast.success(next.mutationMessage ?? 'Issue report deleted');
+          AppToast.success(
+            next.mutationMessage ?? context.l10n.issueReportDeletedSuccess,
+          );
           context.pop();
         } else if (next.hasMutationError) {
           this.logError('Delete error', next.mutationFailure);
-          AppToast.error(next.mutationFailure?.message ?? 'Delete failed');
+          AppToast.error(
+            next.mutationFailure?.message ??
+                context.l10n.issueReportDeletedFailed,
+          );
         }
       }
     });
@@ -161,7 +167,7 @@ class _IssueReportDetailScreenState
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading ? 'Issue Report Detail' : _issueReport!.title,
+        title: isLoading ? context.l10n.issueReportDetail : _issueReport!.title,
       ),
       endDrawer: const AppEndDrawer(),
       body: Skeletonizer(
@@ -190,36 +196,50 @@ class _IssueReportDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Issue Report Information', [
-            _buildInfoRow('Title', dummyReport.title),
-            _buildInfoRow('Description', dummyReport.description ?? '-'),
+          _buildInfoCard(context.l10n.issueReportInformation, [
+            _buildInfoRow(context.l10n.issueReportTitle, dummyReport.title),
             _buildInfoRow(
-              'Asset',
-              dummyReport.asset?.assetName ?? 'Unknown Asset',
-            ),
-            _buildInfoRow('Issue Type', dummyReport.issueType),
-            _buildInfoRow('Priority', dummyReport.priority.name),
-            _buildInfoRow('Status', dummyReport.status.name),
-            _buildInfoRow(
-              'Reported By',
-              dummyReport.reportedBy?.fullName ?? 'Unknown User',
+              context.l10n.issueReportDescription,
+              dummyReport.description ?? '-',
             ),
             _buildInfoRow(
-              'Reported Date',
+              context.l10n.issueReportAsset,
+              dummyReport.asset?.assetName ??
+                  context.l10n.issueReportUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportIssueType,
+              dummyReport.issueType,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportPriority,
+              dummyReport.priority.name,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportStatus,
+              dummyReport.status.name,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportReportedBy,
+              dummyReport.reportedBy?.fullName ??
+                  context.l10n.issueReportUnknownUser,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportReportedDate,
               _formatDateTime(dummyReport.reportedDate),
             ),
             _buildInfoRow(
-              'Resolved Date',
+              context.l10n.issueReportResolvedDate,
               dummyReport.resolvedDate != null
                   ? _formatDateTime(dummyReport.resolvedDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Resolved By',
+              context.l10n.issueReportResolvedBy,
               dummyReport.resolvedBy?.fullName ?? '-',
             ),
             _buildInfoRow(
-              'Resolution Notes',
+              context.l10n.issueReportResolutionNotes,
               dummyReport.resolutionNotes ?? '-',
             ),
           ]),
@@ -233,44 +253,61 @@ class _IssueReportDetailScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoCard('Issue Report Information', [
-            _buildInfoRow('Title', _issueReport!.title),
-            _buildTextBlock('Description', _issueReport!.description),
-            _buildInfoRow(
-              'Asset',
-              _issueReport!.asset?.assetName ?? 'Unknown Asset',
-            ),
-            _buildInfoRow('Issue Type', _issueReport!.issueType),
-            _buildInfoRow('Priority', _issueReport!.priority.name),
-            _buildInfoRow('Status', _issueReport!.status.name),
-            _buildInfoRow(
-              'Reported By',
-              _issueReport!.reportedBy?.fullName ?? 'Unknown User',
+          _buildInfoCard(context.l10n.issueReportInformation, [
+            _buildInfoRow(context.l10n.issueReportTitle, _issueReport!.title),
+            _buildTextBlock(
+              context.l10n.issueReportDescription,
+              _issueReport!.description,
             ),
             _buildInfoRow(
-              'Reported Date',
+              context.l10n.issueReportAsset,
+              _issueReport!.asset?.assetName ??
+                  context.l10n.issueReportUnknownAsset,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportIssueType,
+              _issueReport!.issueType,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportPriority,
+              _issueReport!.priority.name,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportStatus,
+              _issueReport!.status.name,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportReportedBy,
+              _issueReport!.reportedBy?.fullName ??
+                  context.l10n.issueReportUnknownUser,
+            ),
+            _buildInfoRow(
+              context.l10n.issueReportReportedDate,
               _formatDateTime(_issueReport!.reportedDate),
             ),
             _buildInfoRow(
-              'Resolved Date',
+              context.l10n.issueReportResolvedDate,
               _issueReport!.resolvedDate != null
                   ? _formatDateTime(_issueReport!.resolvedDate!)
                   : '-',
             ),
             _buildInfoRow(
-              'Resolved By',
+              context.l10n.issueReportResolvedBy,
               _issueReport!.resolvedBy?.fullName ?? '-',
             ),
-            _buildTextBlock('Resolution Notes', _issueReport!.resolutionNotes),
+            _buildTextBlock(
+              context.l10n.issueReportResolutionNotes,
+              _issueReport!.resolutionNotes,
+            ),
           ]),
           const SizedBox(height: 16),
-          _buildInfoCard('Metadata', [
+          _buildInfoCard(context.l10n.issueReportMetadata, [
             _buildInfoRow(
-              'Created At',
+              context.l10n.issueReportCreatedAt,
               _formatDateTime(_issueReport!.createdAt),
             ),
             _buildInfoRow(
-              'Updated At',
+              context.l10n.issueReportUpdatedAt,
               _formatDateTime(_issueReport!.updatedAt),
             ),
           ]),

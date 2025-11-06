@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -74,7 +75,8 @@ class MaintenanceRecordTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       AppText(
-                        maintenanceRecord.asset?.assetName ?? 'Unknown Asset',
+                        maintenanceRecord.asset?.assetName ??
+                            context.l10n.maintenanceRecordUnknownAsset,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                         maxLines: 1,

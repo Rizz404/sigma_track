@@ -1,0 +1,391 @@
+{
+  "@@locale": "ja",
+  "locationDeleteLocation": "場所を削除",
+  "@locationDeleteLocation": {
+    "description": "Dialog title for deleting a location"
+  },
+  "locationDeleteConfirmation": "\"{locationName}\"を削除してもよろしいですか？",
+  "@locationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a location",
+    "placeholders": {
+      "locationName": {
+        "type": "String",
+        "example": "Main Office"
+      }
+    }
+  },
+  "locationCancel": "キャンセル",
+  "@locationCancel": {
+    "description": "Cancel button label"
+  },
+  "locationDelete": "削除",
+  "@locationDelete": {
+    "description": "Delete button label"
+  },
+  "locationDetail": "場所詳細",
+  "@locationDetail": {
+    "description": "Location detail screen title"
+  },
+  "locationInformation": "場所情報",
+  "@locationInformation": {
+    "description": "Location information section title"
+  },
+  "locationCode": "場所コード",
+  "@locationCode": {
+    "description": "Location code label"
+  },
+  "locationName": "場所名",
+  "@locationName": {
+    "description": "Location name label"
+  },
+  "locationBuilding": "建物",
+  "@locationBuilding": {
+    "description": "Building label"
+  },
+  "locationFloor": "階",
+  "@locationFloor": {
+    "description": "Floor label"
+  },
+  "locationLatitude": "緯度",
+  "@locationLatitude": {
+    "description": "Latitude label"
+  },
+  "locationLongitude": "経度",
+  "@locationLongitude": {
+    "description": "Longitude label"
+  },
+  "locationMetadata": "メタデータ",
+  "@locationMetadata": {
+    "description": "Metadata section title"
+  },
+  "locationCreatedAt": "作成日時",
+  "@locationCreatedAt": {
+    "description": "Created at label"
+  },
+  "locationUpdatedAt": "更新日時",
+  "@locationUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "locationOnlyAdminCanEdit": "場所を編集できるのは管理者のみです",
+  "@locationOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "locationOnlyAdminCanDelete": "場所を削除できるのは管理者のみです",
+  "@locationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "locationFailedToLoad": "場所の読み込みに失敗しました",
+  "@locationFailedToLoad": {
+    "description": "Error message when location fails to load"
+  },
+  "locationDeleted": "場所が削除されました",
+  "@locationDeleted": {
+    "description": "Success message for location deletion"
+  },
+  "locationDeleteFailed": "削除に失敗しました",
+  "@locationDeleteFailed": {
+    "description": "Error message for location deletion failure"
+  },
+  "locationEditLocation": "場所を編集",
+  "@locationEditLocation": {
+    "description": "Edit location screen title"
+  },
+  "locationCreateLocation": "場所を作成",
+  "@locationCreateLocation": {
+    "description": "Create location screen title"
+  },
+  "locationFillRequiredFields": "必須フィールドをすべて入力してください",
+  "@locationFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "locationSavedSuccessfully": "場所が正常に保存されました",
+  "@locationSavedSuccessfully": {
+    "description": "Success message for location save"
+  },
+  "locationOperationFailed": "操作に失敗しました",
+  "@locationOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "locationFailedToLoadTranslations": "翻訳の読み込みに失敗しました",
+  "@locationFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "locationEnterLocationCode": "場所コードを入力 (例: LOC-001)",
+  "@locationEnterLocationCode": {
+    "description": "Location code input placeholder"
+  },
+  "locationBuildingOptional": "建物 (オプション)",
+  "@locationBuildingOptional": {
+    "description": "Building input label"
+  },
+  "locationEnterBuilding": "建物名を入力",
+  "@locationEnterBuilding": {
+    "description": "Building input placeholder"
+  },
+  "locationFloorOptional": "階 (オプション)",
+  "@locationFloorOptional": {
+    "description": "Floor input label"
+  },
+  "locationEnterFloor": "階数を入力",
+  "@locationEnterFloor": {
+    "description": "Floor input placeholder"
+  },
+  "locationLatitudeOptional": "緯度 (オプション)",
+  "@locationLatitudeOptional": {
+    "description": "Latitude input label"
+  },
+  "locationEnterLatitude": "緯度を入力",
+  "@locationEnterLatitude": {
+    "description": "Latitude input placeholder"
+  },
+  "locationLongitudeOptional": "経度 (オプション)",
+  "@locationLongitudeOptional": {
+    "description": "Longitude input label"
+  },
+  "locationEnterLongitude": "経度を入力",
+  "@locationEnterLongitude": {
+    "description": "Longitude input placeholder"
+  },
+  "locationGettingLocation": "位置情報取得中...",
+  "@locationGettingLocation": {
+    "description": "Getting location button text when loading"
+  },
+  "locationUseCurrentLocation": "現在位置を使用",
+  "@locationUseCurrentLocation": {
+    "description": "Use current location button label"
+  },
+  "locationServicesDisabled": "位置情報サービスが無効です",
+  "@locationServicesDisabled": {
+    "description": "Warning message for disabled location services"
+  },
+  "locationServicesDialogTitle": "位置情報サービスが無効です",
+  "@locationServicesDialogTitle": {
+    "description": "Location services dialog title"
+  },
+  "locationServicesDialogMessage": "現在位置を取得するには位置情報サービスが必要です。有効にしますか？",
+  "@locationServicesDialogMessage": {
+    "description": "Location services dialog message"
+  },
+  "locationOpenSettings": "設定を開く",
+  "@locationOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "locationPermissionDenied": "位置情報許可が拒否されました",
+  "@locationPermissionDenied": {
+    "description": "Error message for denied permission"
+  },
+  "locationPermissionPermanentlyDenied": "位置情報許可が永続的に拒否されました",
+  "@locationPermissionPermanentlyDenied": {
+    "description": "Error message for permanently denied permission"
+  },
+  "locationPermissionRequired": "許可が必要です",
+  "@locationPermissionRequired": {
+    "description": "Permission required dialog title"
+  },
+  "locationPermissionDialogMessage": "位置情報許可が永続的に拒否されています。アプリ設定で有効にしてください。",
+  "@locationPermissionDialogMessage": {
+    "description": "Permission dialog message"
+  },
+  "locationRetrievedSuccessfully": "現在位置を正常に取得しました",
+  "@locationRetrievedSuccessfully": {
+    "description": "Success message for getting current location"
+  },
+  "locationFailedToGetCurrent": "現在位置の取得に失敗しました",
+  "@locationFailedToGetCurrent": {
+    "description": "Error message for failed location retrieval"
+  },
+  "locationTranslations": "翻訳",
+  "@locationTranslations": {
+    "description": "Translations section title"
+  },
+  "locationTranslationsSubtitle": "さまざまな言語の翻訳を追加",
+  "@locationTranslationsSubtitle": {
+    "description": "Translations section subtitle"
+  },
+  "locationEnglish": "英語",
+  "@locationEnglish": {
+    "description": "English language label"
+  },
+  "locationJapanese": "日本語",
+  "@locationJapanese": {
+    "description": "Japanese language label"
+  },
+  "locationEnterLocationName": "場所名を入力",
+  "@locationEnterLocationName": {
+    "description": "Location name input placeholder"
+  },
+  "locationUpdate": "更新",
+  "@locationUpdate": {
+    "description": "Update button label"
+  },
+  "locationCreate": "作成",
+  "@locationCreate": {
+    "description": "Create button label"
+  },
+  "locationManagement": "場所管理",
+  "@locationManagement": {
+    "description": "Location management screen title"
+  },
+  "locationCreateLocationTitle": "場所を作成",
+  "@locationCreateLocationTitle": {
+    "description": "Create location option title"
+  },
+  "locationCreateLocationSubtitle": "新しい場所を追加",
+  "@locationCreateLocationSubtitle": {
+    "description": "Create location option subtitle"
+  },
+  "locationSelectManyTitle": "複数選択",
+  "@locationSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "locationSelectManySubtitle": "削除する複数の場所を選択",
+  "@locationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "locationFilterAndSortTitle": "フィルターと並べ替え",
+  "@locationFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "locationFilterAndSortSubtitle": "場所表示をカスタマイズ",
+  "@locationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "locationSelectLocationsToDelete": "削除する場所を選択",
+  "@locationSelectLocationsToDelete": {
+    "description": "Instruction for selecting locations to delete"
+  },
+  "locationSortBy": "並べ替え",
+  "@locationSortBy": {
+    "description": "Sort by label"
+  },
+  "locationSortOrder": "並べ替え順序",
+  "@locationSortOrder": {
+    "description": "Sort order label"
+  },
+  "locationReset": "リセット",
+  "@locationReset": {
+    "description": "Reset button label"
+  },
+  "locationApply": "適用",
+  "@locationApply": {
+    "description": "Apply button label"
+  },
+  "locationFilterReset": "フィルターをリセットしました",
+  "@locationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "locationFilterApplied": "フィルターを適用しました",
+  "@locationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "locationDeleteLocations": "場所を削除",
+  "@locationDeleteLocations": {
+    "description": "Delete locations dialog title"
+  },
+  "locationDeleteMultipleConfirmation": "{count}個の場所を削除してもよろしいですか？",
+  "@locationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple locations",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "locationNoLocationsSelected": "場所が選択されていません",
+  "@locationNoLocationsSelected": {
+    "description": "Warning message when no locations are selected"
+  },
+  "locationNotImplementedYet": "まだ実装されていません",
+  "@locationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "locationSelectedCount": "{count}個選択済み",
+  "@locationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "locationSearchLocations": "場所を検索...",
+  "@locationSearchLocations": {
+    "description": "Locations search placeholder"
+  },
+  "locationNoLocationsFound": "場所が見つかりません",
+  "@locationNoLocationsFound": {
+    "description": "No locations found message"
+  },
+  "locationCreateFirstLocation": "最初の場所を作成して開始しましょう",
+  "@locationCreateFirstLocation": {
+    "description": "Empty state message for locations"
+  },
+  "locationLongPressToSelect": "長押ししてさらに場所を選択",
+  "@locationLongPressToSelect": {
+    "description": "Instruction for selecting multiple locations"
+  },
+  "locationFloorPrefix": "{floor}階",
+  "@locationFloorPrefix": {
+    "description": "Floor prefix display",
+    "placeholders": {
+      "floor": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "locationValidationCodeRequired": "場所コードは必須です",
+  "@locationValidationCodeRequired": {
+    "description": "Validation error for required location code"
+  },
+  "locationValidationCodeMinLength": "場所コードは2文字以上である必要があります",
+  "@locationValidationCodeMinLength": {
+    "description": "Validation error for location code minimum length"
+  },
+  "locationValidationCodeMaxLength": "場所コードは20文字を超えることはできません",
+  "@locationValidationCodeMaxLength": {
+    "description": "Validation error for location code maximum length"
+  },
+  "locationValidationCodeAlphanumeric": "場所コードには英数字とダッシュのみ使用できます",
+  "@locationValidationCodeAlphanumeric": {
+    "description": "Validation error for location code format"
+  },
+  "locationValidationNameRequired": "場所名は必須です",
+  "@locationValidationNameRequired": {
+    "description": "Validation error for required location name"
+  },
+  "locationValidationNameMinLength": "場所名は3文字以上である必要があります",
+  "@locationValidationNameMinLength": {
+    "description": "Validation error for location name minimum length"
+  },
+  "locationValidationNameMaxLength": "場所名は100文字を超えることはできません",
+  "@locationValidationNameMaxLength": {
+    "description": "Validation error for location name maximum length"
+  },
+  "locationValidationBuildingMaxLength": "建物は50文字を超えることはできません",
+  "@locationValidationBuildingMaxLength": {
+    "description": "Validation error for building maximum length"
+  },
+  "locationValidationFloorMaxLength": "階は20文字を超えることはできません",
+  "@locationValidationFloorMaxLength": {
+    "description": "Validation error for floor maximum length"
+  },
+  "locationValidationLatitudeInvalid": "緯度は有効な数値である必要があります",
+  "@locationValidationLatitudeInvalid": {
+    "description": "Validation error for invalid latitude"
+  },
+  "locationValidationLatitudeRange": "緯度は-90から90の間である必要があります",
+  "@locationValidationLatitudeRange": {
+    "description": "Validation error for latitude range"
+  },
+  "locationValidationLongitudeInvalid": "経度は有効な数値である必要があります",
+  "@locationValidationLongitudeInvalid": {
+    "description": "Validation error for invalid longitude"
+  },
+  "locationValidationLongitudeRange": "経度は-180から180の間である必要があります",
+  "@locationValidationLongitudeRange": {
+    "description": "Validation error for longitude range"
+  }
+}

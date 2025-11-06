@@ -1,0 +1,687 @@
+{
+  "@@locale": "en",
+  "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
+  "@maintenanceScheduleDeleteSchedule": {
+    "description": "Dialog title for deleting a maintenance schedule"
+  },
+  "maintenanceScheduleDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@maintenanceScheduleDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance schedule",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Monthly Equipment Check"
+      }
+    }
+  },
+  "maintenanceScheduleDeleted": "Maintenance schedule deleted",
+  "@maintenanceScheduleDeleted": {
+    "description": "Success message for schedule deletion"
+  },
+  "maintenanceScheduleDeleteFailed": "Delete failed",
+  "@maintenanceScheduleDeleteFailed": {
+    "description": "Error message for schedule deletion failure"
+  },
+  "maintenanceScheduleDetail": "Maintenance Schedule Detail",
+  "@maintenanceScheduleDetail": {
+    "description": "Schedule detail screen title"
+  },
+  "maintenanceScheduleInformation": "Maintenance Schedule Information",
+  "@maintenanceScheduleInformation": {
+    "description": "Schedule information section title"
+  },
+  "maintenanceScheduleTitle": "Title",
+  "@maintenanceScheduleTitle": {
+    "description": "Title label"
+  },
+  "maintenanceScheduleDescription": "Description",
+  "@maintenanceScheduleDescription": {
+    "description": "Description label"
+  },
+  "maintenanceScheduleAsset": "Asset",
+  "@maintenanceScheduleAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceScheduleMaintenanceType": "Maintenance Type",
+  "@maintenanceScheduleMaintenanceType": {
+    "description": "Maintenance type label"
+  },
+  "maintenanceScheduleIsRecurring": "Is Recurring",
+  "@maintenanceScheduleIsRecurring": {
+    "description": "Is recurring label"
+  },
+  "maintenanceScheduleInterval": "Interval",
+  "@maintenanceScheduleInterval": {
+    "description": "Interval label"
+  },
+  "maintenanceScheduleScheduledTime": "Scheduled Time",
+  "@maintenanceScheduleScheduledTime": {
+    "description": "Scheduled time label"
+  },
+  "maintenanceScheduleNextScheduledDate": "Next Scheduled Date",
+  "@maintenanceScheduleNextScheduledDate": {
+    "description": "Next scheduled date label"
+  },
+  "maintenanceScheduleLastExecutedDate": "Last Executed Date",
+  "@maintenanceScheduleLastExecutedDate": {
+    "description": "Last executed date label"
+  },
+  "maintenanceScheduleState": "State",
+  "@maintenanceScheduleState": {
+    "description": "State label"
+  },
+  "maintenanceScheduleAutoComplete": "Auto Complete",
+  "@maintenanceScheduleAutoComplete": {
+    "description": "Auto complete label"
+  },
+  "maintenanceScheduleEstimatedCost": "Estimated Cost",
+  "@maintenanceScheduleEstimatedCost": {
+    "description": "Estimated cost label"
+  },
+  "maintenanceScheduleCreatedBy": "Created By",
+  "@maintenanceScheduleCreatedBy": {
+    "description": "Created by label"
+  },
+  "maintenanceScheduleYes": "Yes",
+  "@maintenanceScheduleYes": {
+    "description": "Yes value"
+  },
+  "maintenanceScheduleNo": "No",
+  "@maintenanceScheduleNo": {
+    "description": "No value"
+  },
+  "maintenanceScheduleUnknownAsset": "Unknown Asset",
+  "@maintenanceScheduleUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceScheduleUnknownUser": "Unknown User",
+  "@maintenanceScheduleUnknownUser": {
+    "description": "Unknown user text"
+  },
+  "maintenanceScheduleOnlyAdminCanEdit": "Only admin can edit maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceScheduleOnlyAdminCanDelete": "Only admin can delete maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceScheduleFailedToLoad": "Failed to load maintenance schedule",
+  "@maintenanceScheduleFailedToLoad": {
+    "description": "Error message when schedule fails to load"
+  },
+  "maintenanceScheduleEditSchedule": "Edit Maintenance Schedule",
+  "@maintenanceScheduleEditSchedule": {
+    "description": "Edit schedule screen title"
+  },
+  "maintenanceScheduleCreateSchedule": "Create Maintenance Schedule",
+  "@maintenanceScheduleCreateSchedule": {
+    "description": "Create schedule screen title"
+  },
+  "maintenanceScheduleFillRequiredFields": "Please fill all required fields",
+  "@maintenanceScheduleFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceScheduleSavedSuccessfully": "Maintenance schedule saved successfully",
+  "@maintenanceScheduleSavedSuccessfully": {
+    "description": "Success message for schedule save"
+  },
+  "maintenanceScheduleOperationFailed": "Operation failed",
+  "@maintenanceScheduleOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceScheduleFailedToLoadTranslations": "Failed to load translations",
+  "@maintenanceScheduleFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceScheduleSearchAsset": "Search and select asset",
+  "@maintenanceScheduleSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceScheduleSelectMaintenanceType": "Select maintenance type",
+  "@maintenanceScheduleSelectMaintenanceType": {
+    "description": "Maintenance type dropdown placeholder"
+  },
+  "maintenanceScheduleEnterIntervalValue": "Enter interval value (e.g., 3)",
+  "@maintenanceScheduleEnterIntervalValue": {
+    "description": "Interval value input placeholder"
+  },
+  "maintenanceScheduleSelectIntervalUnit": "Select interval unit",
+  "@maintenanceScheduleSelectIntervalUnit": {
+    "description": "Interval unit dropdown placeholder"
+  },
+  "maintenanceScheduleEnterScheduledTime": "e.g., 09:30",
+  "@maintenanceScheduleEnterScheduledTime": {
+    "description": "Scheduled time input placeholder"
+  },
+  "maintenanceScheduleSelectState": "Select state",
+  "@maintenanceScheduleSelectState": {
+    "description": "State dropdown placeholder"
+  },
+  "maintenanceScheduleEnterEstimatedCost": "Enter estimated cost (optional)",
+  "@maintenanceScheduleEnterEstimatedCost": {
+    "description": "Estimated cost input placeholder"
+  },
+  "maintenanceScheduleSearchUser": "Search and select user who created the schedule",
+  "@maintenanceScheduleSearchUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceScheduleTranslations": "Translations",
+  "@maintenanceScheduleTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceScheduleEnglish": "English",
+  "@maintenanceScheduleEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceScheduleJapanese": "Japanese",
+  "@maintenanceScheduleJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceScheduleEnterTitle": "Enter title in {language}",
+  "@maintenanceScheduleEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleEnterDescription": "Enter description in {language}",
+  "@maintenanceScheduleEnterDescription": {
+    "description": "Description input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleCancel": "Cancel",
+  "@maintenanceScheduleCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceScheduleUpdate": "Update",
+  "@maintenanceScheduleUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceScheduleCreate": "Create",
+  "@maintenanceScheduleCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceScheduleManagement": "Maintenance Schedule Management",
+  "@maintenanceScheduleManagement": {
+    "description": "Schedule management screen title"
+  },
+  "maintenanceScheduleCreateTitle": "Create Maintenance Schedule",
+  "@maintenanceScheduleCreateTitle": {
+    "description": "Create schedule option title"
+  },
+  "maintenanceScheduleCreateSubtitle": "Add a new maintenance schedule",
+  "@maintenanceScheduleCreateSubtitle": {
+    "description": "Create schedule option subtitle"
+  },
+  "maintenanceScheduleSelectManyTitle": "Select Many",
+  "@maintenanceScheduleSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceScheduleSelectManySubtitle": "Select multiple schedules to delete",
+  "@maintenanceScheduleSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceScheduleFilterAndSortTitle": "Filter & Sort",
+  "@maintenanceScheduleFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceScheduleFilterAndSortSubtitle": "Customize schedule display",
+  "@maintenanceScheduleFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceScheduleSelectToDelete": "Select maintenance schedules to delete",
+  "@maintenanceScheduleSelectToDelete": {
+    "description": "Instruction for selecting schedules to delete"
+  },
+  "maintenanceScheduleSortBy": "Sort By",
+  "@maintenanceScheduleSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceScheduleSortOrder": "Sort Order",
+  "@maintenanceScheduleSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceScheduleReset": "Reset",
+  "@maintenanceScheduleReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceScheduleApply": "Apply",
+  "@maintenanceScheduleApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceScheduleFilterReset": "Filter reset",
+  "@maintenanceScheduleFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceScheduleFilterApplied": "Filter applied",
+  "@maintenanceScheduleFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceScheduleDeleteSchedules": "Delete Schedules",
+  "@maintenanceScheduleDeleteSchedules": {
+    "description": "Delete schedules dialog title"
+  },
+  "maintenanceScheduleDeleteMultipleConfirmation": "Are you sure you want to delete {count} schedules?",
+  "@maintenanceScheduleDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple schedules",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceScheduleNoSchedulesSelected": "No schedules selected",
+  "@maintenanceScheduleNoSchedulesSelected": {
+    "description": "Warning message when no schedules are selected"
+  },
+  "maintenanceScheduleNotImplementedYet": "Not implemented yet",
+  "@maintenanceScheduleNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceScheduleSelectedCount": "{count} selected",
+  "@maintenanceScheduleSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceScheduleDelete": "Delete",
+  "@maintenanceScheduleDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceScheduleSearch": "Search schedules...",
+  "@maintenanceScheduleSearch": {
+    "description": "Schedules search placeholder"
+  },
+  "maintenanceScheduleNoSchedulesFound": "No schedules found",
+  "@maintenanceScheduleNoSchedulesFound": {
+    "description": "No schedules found message"
+  },
+  "maintenanceScheduleCreateFirstSchedule": "Create your first schedule to get started",
+  "@maintenanceScheduleCreateFirstSchedule": {
+    "description": "Empty state message for schedules"
+  },
+  "maintenanceScheduleLongPressToSelect": "Long press to select more schedules",
+  "@maintenanceScheduleLongPressToSelect": {
+    "description": "Instruction for selecting multiple schedules"
+  },
+  "maintenanceScheduleMetadata": "Metadata",
+  "@maintenanceScheduleMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceScheduleCreatedAt": "Created At",
+  "@maintenanceScheduleCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceScheduleUpdatedAt": "Updated At",
+  "@maintenanceScheduleUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceScheduleIntervalValueLabel": "Interval Value",
+  "@maintenanceScheduleIntervalValueLabel": {
+    "description": "Interval value field label"
+  },
+  "maintenanceScheduleIntervalUnitLabel": "Interval Unit",
+  "@maintenanceScheduleIntervalUnitLabel": {
+    "description": "Interval unit field label"
+  },
+  "maintenanceScheduleScheduledTimeLabel": "Scheduled Time (HH:mm)",
+  "@maintenanceScheduleScheduledTimeLabel": {
+    "description": "Scheduled time field label"
+  },
+  "maintenanceRecordDeleteRecord": "Delete Maintenance Record",
+  "@maintenanceRecordDeleteRecord": {
+    "description": "Dialog title for deleting a maintenance record"
+  },
+  "maintenanceRecordDeleteConfirmation": "Are you sure you want to delete \"{title}\"?",
+  "@maintenanceRecordDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance record",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Equipment Repair"
+      }
+    }
+  },
+  "maintenanceRecordDeleted": "Maintenance record deleted",
+  "@maintenanceRecordDeleted": {
+    "description": "Success message for record deletion"
+  },
+  "maintenanceRecordDeleteFailed": "Delete failed",
+  "@maintenanceRecordDeleteFailed": {
+    "description": "Error message for record deletion failure"
+  },
+  "maintenanceRecordDetail": "Maintenance Record Detail",
+  "@maintenanceRecordDetail": {
+    "description": "Record detail screen title"
+  },
+  "maintenanceRecordInformation": "Maintenance Record Information",
+  "@maintenanceRecordInformation": {
+    "description": "Record information section title"
+  },
+  "maintenanceRecordTitle": "Title",
+  "@maintenanceRecordTitle": {
+    "description": "Title label"
+  },
+  "maintenanceRecordNotes": "Notes",
+  "@maintenanceRecordNotes": {
+    "description": "Notes label"
+  },
+  "maintenanceRecordAsset": "Asset",
+  "@maintenanceRecordAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceRecordMaintenanceDate": "Maintenance Date",
+  "@maintenanceRecordMaintenanceDate": {
+    "description": "Maintenance date label"
+  },
+  "maintenanceRecordCompletionDate": "Completion Date",
+  "@maintenanceRecordCompletionDate": {
+    "description": "Completion date label"
+  },
+  "maintenanceRecordDuration": "Duration",
+  "@maintenanceRecordDuration": {
+    "description": "Duration label"
+  },
+  "maintenanceRecordDurationMinutes": "{minutes} minutes",
+  "@maintenanceRecordDurationMinutes": {
+    "description": "Duration in minutes format",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "maintenanceRecordPerformedByUser": "Performed By User",
+  "@maintenanceRecordPerformedByUser": {
+    "description": "Performed by user label"
+  },
+  "maintenanceRecordPerformedByVendor": "Performed By Vendor",
+  "@maintenanceRecordPerformedByVendor": {
+    "description": "Performed by vendor label"
+  },
+  "maintenanceRecordResult": "Result",
+  "@maintenanceRecordResult": {
+    "description": "Result label"
+  },
+  "maintenanceRecordActualCost": "Actual Cost",
+  "@maintenanceRecordActualCost": {
+    "description": "Actual cost label"
+  },
+  "maintenanceRecordActualCostValue": "${cost}",
+  "@maintenanceRecordActualCostValue": {
+    "description": "Actual cost value format",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "example": "1500.00"
+      }
+    }
+  },
+  "maintenanceRecordUnknownAsset": "Unknown Asset",
+  "@maintenanceRecordUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceRecordOnlyAdminCanEdit": "Only admin can edit maintenance records",
+  "@maintenanceRecordOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceRecordOnlyAdminCanDelete": "Only admin can delete maintenance records",
+  "@maintenanceRecordOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceRecordFailedToLoad": "Failed to load maintenance record",
+  "@maintenanceRecordFailedToLoad": {
+    "description": "Error message when record fails to load"
+  },
+  "maintenanceRecordEditRecord": "Edit Maintenance Record",
+  "@maintenanceRecordEditRecord": {
+    "description": "Edit record screen title"
+  },
+  "maintenanceRecordCreateRecord": "Create Maintenance Record",
+  "@maintenanceRecordCreateRecord": {
+    "description": "Create record screen title"
+  },
+  "maintenanceRecordFillRequiredFields": "Please fill all required fields",
+  "@maintenanceRecordFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceRecordSavedSuccessfully": "Maintenance record saved successfully",
+  "@maintenanceRecordSavedSuccessfully": {
+    "description": "Success message for record save"
+  },
+  "maintenanceRecordOperationFailed": "Operation failed",
+  "@maintenanceRecordOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceRecordFailedToLoadTranslations": "Failed to load translations",
+  "@maintenanceRecordFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceRecordSearchSchedule": "Search and select maintenance schedule",
+  "@maintenanceRecordSearchSchedule": {
+    "description": "Schedule search placeholder"
+  },
+  "maintenanceRecordSearchAsset": "Search and select asset",
+  "@maintenanceRecordSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceRecordCompletionDateOptional": "Completion Date (Optional)",
+  "@maintenanceRecordCompletionDateOptional": {
+    "description": "Completion date field label"
+  },
+  "maintenanceRecordDurationMinutesLabel": "Duration (Minutes)",
+  "@maintenanceRecordDurationMinutesLabel": {
+    "description": "Duration field label"
+  },
+  "maintenanceRecordEnterDuration": "Enter duration in minutes (optional)",
+  "@maintenanceRecordEnterDuration": {
+    "description": "Duration input placeholder"
+  },
+  "maintenanceRecordSearchPerformedByUser": "Search and select user who performed the maintenance",
+  "@maintenanceRecordSearchPerformedByUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceRecordPerformedByVendorLabel": "Performed By Vendor",
+  "@maintenanceRecordPerformedByVendorLabel": {
+    "description": "Vendor field label"
+  },
+  "maintenanceRecordEnterVendor": "Enter vendor name (optional)",
+  "@maintenanceRecordEnterVendor": {
+    "description": "Vendor input placeholder"
+  },
+  "maintenanceRecordSelectResult": "Select maintenance result",
+  "@maintenanceRecordSelectResult": {
+    "description": "Result dropdown placeholder"
+  },
+  "maintenanceRecordActualCostLabel": "Actual Cost",
+  "@maintenanceRecordActualCostLabel": {
+    "description": "Actual cost field label"
+  },
+  "maintenanceRecordEnterActualCost": "Enter actual cost (optional)",
+  "@maintenanceRecordEnterActualCost": {
+    "description": "Actual cost input placeholder"
+  },
+  "maintenanceRecordTranslations": "Translations",
+  "@maintenanceRecordTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceRecordEnglish": "English",
+  "@maintenanceRecordEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceRecordJapanese": "Japanese",
+  "@maintenanceRecordJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceRecordEnterTitle": "Enter title in {language}",
+  "@maintenanceRecordEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordEnterNotes": "Enter notes in {language}",
+  "@maintenanceRecordEnterNotes": {
+    "description": "Notes input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordCancel": "Cancel",
+  "@maintenanceRecordCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceRecordUpdate": "Update",
+  "@maintenanceRecordUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceRecordCreate": "Create",
+  "@maintenanceRecordCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceRecordManagement": "Maintenance Record Management",
+  "@maintenanceRecordManagement": {
+    "description": "Record management screen title"
+  },
+  "maintenanceRecordCreateTitle": "Create Maintenance Record",
+  "@maintenanceRecordCreateTitle": {
+    "description": "Create record option title"
+  },
+  "maintenanceRecordCreateSubtitle": "Add a new maintenance record",
+  "@maintenanceRecordCreateSubtitle": {
+    "description": "Create record option subtitle"
+  },
+  "maintenanceRecordSelectManyTitle": "Select Many",
+  "@maintenanceRecordSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceRecordSelectManySubtitle": "Select multiple records to delete",
+  "@maintenanceRecordSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceRecordFilterAndSortTitle": "Filter & Sort",
+  "@maintenanceRecordFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceRecordFilterAndSortSubtitle": "Customize record display",
+  "@maintenanceRecordFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceRecordSelectToDelete": "Select maintenance records to delete",
+  "@maintenanceRecordSelectToDelete": {
+    "description": "Instruction for selecting records to delete"
+  },
+  "maintenanceRecordSortBy": "Sort By",
+  "@maintenanceRecordSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceRecordSortOrder": "Sort Order",
+  "@maintenanceRecordSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceRecordReset": "Reset",
+  "@maintenanceRecordReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceRecordApply": "Apply",
+  "@maintenanceRecordApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceRecordFilterReset": "Filter reset",
+  "@maintenanceRecordFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceRecordFilterApplied": "Filter applied",
+  "@maintenanceRecordFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceRecordDeleteRecords": "Delete Records",
+  "@maintenanceRecordDeleteRecords": {
+    "description": "Delete records dialog title"
+  },
+  "maintenanceRecordDeleteMultipleConfirmation": "Are you sure you want to delete {count} records?",
+  "@maintenanceRecordDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple records",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceRecordNoRecordsSelected": "No records selected",
+  "@maintenanceRecordNoRecordsSelected": {
+    "description": "Warning message when no records are selected"
+  },
+  "maintenanceRecordNotImplementedYet": "Not implemented yet",
+  "@maintenanceRecordNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceRecordSelectedCount": "{count} selected",
+  "@maintenanceRecordSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceRecordDelete": "Delete",
+  "@maintenanceRecordDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceRecordSearch": "Search records...",
+  "@maintenanceRecordSearch": {
+    "description": "Records search placeholder"
+  },
+  "maintenanceRecordNoRecordsFound": "No records found",
+  "@maintenanceRecordNoRecordsFound": {
+    "description": "No records found message"
+  },
+  "maintenanceRecordCreateFirstRecord": "Create your first record to get started",
+  "@maintenanceRecordCreateFirstRecord": {
+    "description": "Empty state message for records"
+  },
+  "maintenanceRecordLongPressToSelect": "Long press to select more records",
+  "@maintenanceRecordLongPressToSelect": {
+    "description": "Instruction for selecting multiple records"
+  },
+  "maintenanceRecordMetadata": "Metadata",
+  "@maintenanceRecordMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceRecordCreatedAt": "Created At",
+  "@maintenanceRecordCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceRecordUpdatedAt": "Updated At",
+  "@maintenanceRecordUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceRecordSchedule": "Maintenance Schedule",
+  "@maintenanceRecordSchedule": {
+    "description": "Schedule label"
+  }
+}

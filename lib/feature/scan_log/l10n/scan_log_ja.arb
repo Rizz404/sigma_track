@@ -1,0 +1,195 @@
+{
+  "@@locale": "ja",
+  "scanLogManagement": "スキャンログ管理",
+  "@scanLogManagement": {
+    "description": "Scan log management screen title"
+  },
+  "scanLogDetail": "スキャンログ詳細",
+  "@scanLogDetail": {
+    "description": "Scan log detail screen title"
+  },
+  "scanLogDeleteScanLog": "スキャンログを削除",
+  "@scanLogDeleteScanLog": {
+    "description": "Dialog title for deleting a scan log"
+  },
+  "scanLogDeleteConfirmation": "このスキャンログを削除してもよろしいですか？",
+  "@scanLogDeleteConfirmation": {
+    "description": "Confirmation message for deleting a scan log"
+  },
+  "scanLogDeleteMultipleConfirmation": "{count}個のスキャンログを削除してもよろしいですか？",
+  "@scanLogDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple scan logs",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogCancel": "キャンセル",
+  "@scanLogCancel": {
+    "description": "Cancel button label"
+  },
+  "scanLogDelete": "削除",
+  "@scanLogDelete": {
+    "description": "Delete button label"
+  },
+  "scanLogOnlyAdminCanDelete": "スキャンログを削除できるのは管理者のみです",
+  "@scanLogOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "scanLogDeleted": "スキャンログが削除されました",
+  "@scanLogDeleted": {
+    "description": "Success message for scan log deletion"
+  },
+  "scanLogDeleteFailed": "削除に失敗しました",
+  "@scanLogDeleteFailed": {
+    "description": "Error message for scan log deletion failure"
+  },
+  "scanLogFailedToLoad": "スキャンログの読み込みに失敗しました",
+  "@scanLogFailedToLoad": {
+    "description": "Error message when scan log fails to load"
+  },
+  "scanLogInformation": "スキャン情報",
+  "@scanLogInformation": {
+    "description": "Scan information section title"
+  },
+  "scanLogScannedValue": "スキャン値",
+  "@scanLogScannedValue": {
+    "description": "Scanned value label"
+  },
+  "scanLogScanMethod": "スキャン方法",
+  "@scanLogScanMethod": {
+    "description": "Scan method label"
+  },
+  "scanLogScanResult": "スキャン結果",
+  "@scanLogScanResult": {
+    "description": "Scan result label"
+  },
+  "scanLogScanTimestamp": "スキャン日時",
+  "@scanLogScanTimestamp": {
+    "description": "Scan timestamp label"
+  },
+  "scanLogLocation": "場所",
+  "@scanLogLocation": {
+    "description": "Location label"
+  },
+  "scanLogSearchScanLogs": "スキャンログを検索...",
+  "@scanLogSearchScanLogs": {
+    "description": "Scan logs search placeholder"
+  },
+  "scanLogNoScanLogsFound": "スキャンログが見つかりません",
+  "@scanLogNoScanLogsFound": {
+    "description": "No scan logs found message"
+  },
+  "scanLogCreateFirstScanLog": "最初のスキャンログを作成して開始しましょう",
+  "@scanLogCreateFirstScanLog": {
+    "description": "Empty state message for scan logs"
+  },
+  "scanLogCreateScanLog": "スキャンログを作成",
+  "@scanLogCreateScanLog": {
+    "description": "Create scan log option title"
+  },
+  "scanLogCreateScanLogSubtitle": "新しいスキャンログを追加",
+  "@scanLogCreateScanLogSubtitle": {
+    "description": "Create scan log option subtitle"
+  },
+  "scanLogSelectMany": "複数選択",
+  "@scanLogSelectMany": {
+    "description": "Select many option title"
+  },
+  "scanLogSelectManySubtitle": "削除する複数のスキャンログを選択",
+  "@scanLogSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "scanLogFilterAndSort": "フィルターと並べ替え",
+  "@scanLogFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "scanLogFilterAndSortSubtitle": "スキャンログ表示をカスタマイズ",
+  "@scanLogFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "scanLogFiltersAndSorting": "フィルターと並べ替え",
+  "@scanLogFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "scanLogSelectScanLogsToDelete": "削除するスキャンログを選択",
+  "@scanLogSelectScanLogsToDelete": {
+    "description": "Instruction for selecting scan logs to delete"
+  },
+  "scanLogLongPressToSelect": "長押ししてさらにスキャンログを選択",
+  "@scanLogLongPressToSelect": {
+    "description": "Instruction for selecting multiple scan logs"
+  },
+  "scanLogSelectedCount": "{count}個選択済み",
+  "@scanLogSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogNoScanLogsSelected": "スキャンログが選択されていません",
+  "@scanLogNoScanLogsSelected": {
+    "description": "Warning message when no scan logs are selected"
+  },
+  "scanLogFilterByAsset": "資産でフィルター",
+  "@scanLogFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "scanLogFilterByScannedBy": "スキャンユーザーでフィルター",
+  "@scanLogFilterByScannedBy": {
+    "description": "Filter by scanned by label"
+  },
+  "scanLogSearchAsset": "資産を検索...",
+  "@scanLogSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "scanLogSearchUser": "ユーザーを検索...",
+  "@scanLogSearchUser": {
+    "description": "User search placeholder"
+  },
+  "scanLogSortBy": "並べ替え",
+  "@scanLogSortBy": {
+    "description": "Sort by label"
+  },
+  "scanLogSortOrder": "並べ替え順序",
+  "@scanLogSortOrder": {
+    "description": "Sort order label"
+  },
+  "scanLogHasCoordinates": "座標あり",
+  "@scanLogHasCoordinates": {
+    "description": "Has coordinates checkbox label"
+  },
+  "scanLogDateFrom": "開始日",
+  "@scanLogDateFrom": {
+    "description": "Date from label"
+  },
+  "scanLogDateTo": "終了日",
+  "@scanLogDateTo": {
+    "description": "Date to label"
+  },
+  "scanLogReset": "リセット",
+  "@scanLogReset": {
+    "description": "Reset button label"
+  },
+  "scanLogApply": "適用",
+  "@scanLogApply": {
+    "description": "Apply button label"
+  },
+  "scanLogFilterReset": "フィルターをリセットしました",
+  "@scanLogFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "scanLogFilterApplied": "フィルターを適用しました",
+  "@scanLogFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "scanLogNotImplementedYet": "まだ実装されていません",
+  "@scanLogNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  }
+}
