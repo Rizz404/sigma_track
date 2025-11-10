@@ -12,6 +12,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -59,5 +60,8 @@ abstract class AssetRepository {
   generateAssetTagSuggestion(GenerateAssetTagSuggestionUsecaseParams params);
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetList(
     ExportAssetListUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetDataMatrix(
+    ExportAssetDataMatrixUsecaseParams params,
   );
 }

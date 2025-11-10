@@ -18,6 +18,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -299,6 +300,22 @@ class AssetRepositoryImpl implements AssetRepository {
   ) async {
     try {
       final response = await _assetRemoteDatasource.exportAssetList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetDataMatrix(
+    ExportAssetDataMatrixUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetRemoteDatasource.exportAssetDataMatrix(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

@@ -16,6 +16,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
@@ -56,6 +57,9 @@ abstract class AssetRemoteDatasource {
   );
   Future<ApiResponse<Uint8List>> exportAssetList(
     ExportAssetListUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportAssetDataMatrix(
+    ExportAssetDataMatrixUsecaseParams params,
   );
 }
 
@@ -299,6 +303,23 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     try {
       final response = await _dioClient.postForBinary(
         ApiConstant.exportAssetList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportAssetDataMatrix(
+    ExportAssetDataMatrixUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportAssetDataMatrix,
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
