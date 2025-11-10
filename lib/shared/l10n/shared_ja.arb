@@ -155,5 +155,17 @@
   "appSearchFieldNoResultsFound": "結果が見つかりません",
   "@appSearchFieldNoResultsFound": {
     "description": "No results found message"
+  },
+  "staffShellBottomNavDashboard": "ダッシュボード",
+  "@staffShellBottomNavDashboard": {
+    "description": "Staff shell bottom navigation label for dashboard"
+  },
+  "staffShellBottomNavScanAsset": "資産をスキャン",
+  "@staffShellBottomNavScanAsset": {
+    "description": "Staff shell bottom navigation label for scan asset"
+  },
+  "staffShellBottomNavProfile": "プロフィール",
+  "@staffShellBottomNavProfile": {
+    "description": "Staff shell bottom navigation label for profile"
   }
 }

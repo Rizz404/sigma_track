@@ -3168,4 +3168,13 @@ class L10nEn extends L10n {
 
   @override
   String get appSearchFieldNoResultsFound => 'No results found';
+
+  @override
+  String get staffShellBottomNavDashboard => 'Dashboard';
+
+  @override
+  String get staffShellBottomNavScanAsset => 'Scan Asset';
+
+  @override
+  String get staffShellBottomNavProfile => 'Profile';
 }

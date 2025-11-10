@@ -943,6 +943,9 @@
     "appDropdownSelectOption",
     "appSearchFieldHint",
     "appSearchFieldClear",
-    "appSearchFieldNoResultsFound"
+    "appSearchFieldNoResultsFound",
+    "staffShellBottomNavDashboard",
+    "staffShellBottomNavScanAsset",
+    "staffShellBottomNavProfile"
   ]
 }

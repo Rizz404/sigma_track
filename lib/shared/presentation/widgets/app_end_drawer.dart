@@ -27,9 +27,15 @@ class AppEndDrawer extends ConsumerWidget {
           }
 
           final isAdmin = state.user?.role == UserRole.admin;
-          return isAdmin
-              ? _buildAdminDrawer(context, ref, state)
-              : _buildUserDrawer(context, ref, state);
+          final isStaff = state.user?.role == UserRole.staff;
+
+          if (isAdmin) {
+            return _buildAdminDrawer(context, ref, state);
+          } else if (isStaff) {
+            return _buildStaffDrawer(context, ref, state);
+          } else {
+            return _buildUserDrawer(context, ref, state);
+          }
         },
         loading: () => Center(
           child: CircularProgressIndicator(color: context.colorScheme.primary),
@@ -300,6 +306,153 @@ class AppEndDrawer extends ConsumerWidget {
                   onTap: () {
                     context.pop();
                     context.push(RouteConstant.userDetailProfile);
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Divider(),
+          _buildSettingsSection(context, ref),
+          _buildLogoutButton(context, ref),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStaffDrawer(
+    BuildContext context,
+    WidgetRef ref,
+    AuthState state,
+  ) {
+    return SafeArea(
+      child: Column(
+        children: [
+          _buildDrawerHeader(context),
+          _buildUserInfo(context, state),
+          const Divider(),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.dashboard,
+                  title: context.l10n.appEndDrawerDashboard,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffDashboard);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.qr_code_scanner,
+                  title: context.l10n.appEndDrawerScanAsset,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffScanAsset);
+                  },
+                ),
+                const Divider(),
+                // * Management Section
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                  child: AppText(
+                    context.l10n.appEndDrawerManagementSection,
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.inventory_2,
+                  title: context.l10n.appEndDrawerAssets,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffAssets);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.swap_horiz,
+                  title: context.l10n.appEndDrawerAssetMovements,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffAssetMovements);
+                  },
+                ),
+                const Divider(),
+                // * Maintenance Section
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                  child: AppText(
+                    context.l10n.appEndDrawerMaintenanceSection,
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.schedule,
+                  title: context.l10n.appEndDrawerMaintenanceSchedules,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffMaintenanceSchedules);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.history,
+                  title: context.l10n.appEndDrawerMaintenanceRecords,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffMaintenanceRecords);
+                  },
+                ),
+                const Divider(),
+                // * Reports Section
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                  child: AppText(
+                    context.l10n.appEndDrawerReports,
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.report_problem,
+                  title: context.l10n.appEndDrawerIssueReports,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffIssueReports);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.history_toggle_off,
+                  title: context.l10n.appEndDrawerScanLogs,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffScanLogs);
+                  },
+                ),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.notifications,
+                  title: context.l10n.appEndDrawerNotifications,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffNotifications);
+                  },
+                ),
+                const Divider(),
+                _buildDrawerTile(
+                  context: context,
+                  icon: Icons.person,
+                  title: context.l10n.appEndDrawerProfile,
+                  onTap: () {
+                    context.pop();
+                    context.push(RouteConstant.staffUserDetailProfile);
                   },
                 ),
               ],

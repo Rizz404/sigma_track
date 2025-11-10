@@ -3047,4 +3047,13 @@ class L10nJa extends L10n {
 
   @override
   String get appSearchFieldNoResultsFound => '結果が見つかりません';
+
+  @override
+  String get staffShellBottomNavDashboard => 'ダッシュボード';
+
+  @override
+  String get staffShellBottomNavScanAsset => '資産をスキャン';
+
+  @override
+  String get staffShellBottomNavProfile => 'プロフィール';
 }

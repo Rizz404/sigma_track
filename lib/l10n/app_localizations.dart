@@ -5972,6 +5972,24 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'No results found'**
   String get appSearchFieldNoResultsFound;
+
+  /// Staff shell bottom navigation label for dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get staffShellBottomNavDashboard;
+
+  /// Staff shell bottom navigation label for scan asset
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Asset'**
+  String get staffShellBottomNavScanAsset;
+
+  /// Staff shell bottom navigation label for profile
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get staffShellBottomNavProfile;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -4189,5 +4189,17 @@
   "appSearchFieldNoResultsFound": "No results found",
   "@appSearchFieldNoResultsFound": {
     "description": "No results found message"
+  },
+  "staffShellBottomNavDashboard": "Dashboard",
+  "@staffShellBottomNavDashboard": {
+    "description": "Staff shell bottom navigation label for dashboard"
+  },
+  "staffShellBottomNavScanAsset": "Scan Asset",
+  "@staffShellBottomNavScanAsset": {
+    "description": "Staff shell bottom navigation label for scan asset"
+  },
+  "staffShellBottomNavProfile": "Profile",
+  "@staffShellBottomNavProfile": {
+    "description": "Staff shell bottom navigation label for profile"
   }
 }

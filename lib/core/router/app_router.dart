@@ -60,6 +60,7 @@ import 'package:sigma_track/feature/user/presentation/screens/user_detail_screen
 import 'package:sigma_track/feature/user/presentation/screens/user_update_profile_screen.dart';
 import 'package:sigma_track/shared/presentation/widgets/user_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/admin_shell.dart';
+import 'package:sigma_track/shared/presentation/widgets/staff_shell.dart';
 
 /// * GoRouter configuration untuk aplikasi Sigma Track
 /// * Menggunakan static GlobalKeys untuk refreshListenable pattern
@@ -76,6 +77,8 @@ class AppRouter {
       GlobalKey<NavigatorState>(debugLabel: 'userShell');
   static final GlobalKey<NavigatorState> _adminShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'adminShell');
+  static final GlobalKey<NavigatorState> _staffShellNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'staffShell');
 
   // ==================== TRANSITION HELPERS ====================
 
@@ -190,12 +193,21 @@ class AppRouter {
     final isAuthenticated =
         currentAuthState?.status == AuthStatus.authenticated;
     final isAdmin = currentAuthState?.user?.role == UserRole.admin;
+    final isStaff = currentAuthState?.user?.role == UserRole.staff;
 
     if (!isAuthenticated) {
       return RouteConstant.login;
     }
 
-    return isAdmin ? RouteConstant.adminDashboard : RouteConstant.home;
+    if (isAdmin) {
+      return RouteConstant.adminDashboard;
+    }
+
+    if (isStaff) {
+      return RouteConstant.staffDashboard;
+    }
+
+    return RouteConstant.home;
   }
 
   /// * Handle redirect logic berdasarkan auth state
@@ -211,19 +223,31 @@ class AppRouter {
     final currentIsAuthenticated =
         currentAuthState?.status == AuthStatus.authenticated;
     final currentIsAdmin = currentAuthState?.user?.role == UserRole.admin;
+    final currentIsStaff = currentAuthState?.user?.role == UserRole.staff;
 
     final isGoingToAuth = state.matchedLocation.startsWith('/auth');
     final isGoingToAdmin = state.matchedLocation.startsWith('/admin');
+    final isGoingToStaff = state.matchedLocation.startsWith('/staff');
 
     if (!currentIsAuthenticated && !isGoingToAuth) {
       return RouteConstant.login;
     }
 
     if (currentIsAuthenticated && isGoingToAuth) {
-      return currentIsAdmin ? RouteConstant.adminDashboard : RouteConstant.home;
+      if (currentIsAdmin) {
+        return RouteConstant.adminDashboard;
+      }
+      if (currentIsStaff) {
+        return RouteConstant.staffDashboard;
+      }
+      return RouteConstant.home;
     }
 
     if (!currentIsAdmin && isGoingToAdmin) {
+      return RouteConstant.home;
+    }
+
+    if (!currentIsStaff && isGoingToStaff) {
       return RouteConstant.home;
     }
 
@@ -336,7 +360,7 @@ class AppRouter {
       },
     ),
 
-    // ==================== SHARED DETAIL ROUTES (Accessible by both User & Admin) ====================
+    // ==================== SHARED DETAIL ROUTES (Accessible by both User, Staff & Admin) ====================
     GoRoute(
       path: RouteConstant.assetDetail,
       name: PageKeyConstant.assetDetail,
@@ -542,6 +566,51 @@ class AppRouter {
             GoRoute(
               path: RouteConstant.adminUserDetailProfile,
               name: PageKeyConstant.adminUserDetailProfile,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: UserDetailProfileScreen()),
+            ),
+          ],
+        ),
+      ],
+    ),
+
+    // ==================== STAFF SHELL ====================
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return StaffShell(navigationShell: navigationShell);
+      },
+      branches: [
+        // * Branch 1: Staff Dashboard
+        StatefulShellBranch(
+          navigatorKey: _staffShellNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteConstant.staffDashboard,
+              name: PageKeyConstant.staffDashboard,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: DashboardScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 2: Scan Asset (Staff)
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.staffScanAsset,
+              name: PageKeyConstant.staffScanAsset,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: ScanAssetScreen()),
+            ),
+          ],
+        ),
+
+        // * Branch 3: Staff Profile
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: RouteConstant.staffUserDetailProfile,
+              name: PageKeyConstant.staffUserDetailProfile,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: UserDetailProfileScreen()),
             ),
@@ -770,10 +839,166 @@ class AppRouter {
         );
       },
     ),
+
+    // ==================== STAFF LIST ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.staffAssets,
+      name: PageKeyConstant.staffAssets,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListAssetsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.staffAssetMovements,
+      name: PageKeyConstant.staffAssetMovements,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListAssetMovementsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.staffMaintenanceSchedules,
+      name: PageKeyConstant.staffMaintenanceSchedules,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListMaintenanceSchedulesScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.staffMaintenanceRecords,
+      name: PageKeyConstant.staffMaintenanceRecords,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListMaintenanceRecordsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.staffIssueReports,
+      name: PageKeyConstant.staffIssueReports,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListIssueReportsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: RouteConstant.staffScanLogs,
+      name: PageKeyConstant.staffScanLogs,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ListScanLogsScreen()),
+    ),
+    GoRoute(
+      path: RouteConstant.staffNotifications,
+      name: PageKeyConstant.staffNotifications,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        key: state.pageKey,
+        child: const ListNotificationsScreen(),
+      ),
+    ),
+
+    // ==================== STAFF UPSERT ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.staffAssetUpsert,
+      name: PageKeyConstant.staffAssetUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetId = state.uri.queryParameters['assetId'];
+        final asset = state.extra as Asset?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: AssetUpsertScreen(asset: asset, assetId: assetId),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.staffAssetMovementUpsertForLocation,
+      name: PageKeyConstant.staffAssetMovementUpsertForLocation,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetMovementId = state.uri.queryParameters['movementId'];
+        final assetMovement = state.extra as AssetMovement?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: AssetMovementUpsertForLocationScreen(
+            assetMovement: assetMovement,
+            assetMovementId: assetMovementId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.staffAssetMovementUpsertForUser,
+      name: PageKeyConstant.staffAssetMovementUpsertForUser,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final assetMovementId = state.uri.queryParameters['movementId'];
+        final assetMovement = state.extra as AssetMovement?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: AssetMovementUpsertForUserScreen(
+            assetMovement: assetMovement,
+            assetMovementId: assetMovementId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.staffMaintenanceScheduleUpsert,
+      name: PageKeyConstant.staffMaintenanceScheduleUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceId = state.uri.queryParameters['maintenanceId'];
+        final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: MaintenanceScheduleUpsertScreen(
+            maintenanceSchedule: maintenanceSchedule,
+            maintenanceId: maintenanceId,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.staffMaintenanceRecordUpsert,
+      name: PageKeyConstant.staffMaintenanceRecordUpsert,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final maintenanceRecordId =
+            state.uri.queryParameters['maintenanceRecordId'];
+        final maintenanceRecord = state.extra as MaintenanceRecord?;
+        return _slideFromBottom(
+          key: state.pageKey,
+          child: MaintenanceRecordUpsertScreen(
+            maintenanceRecord: maintenanceRecord,
+            maintenanceRecordId: maintenanceRecordId,
+          ),
+        );
+      },
+    ),
+
+    // ==================== STAFF SPECIFIC ROUTES (Outside shell) ====================
+    GoRoute(
+      path: RouteConstant.staffUserUpdateProfile,
+      name: PageKeyConstant.staffUserUpdateProfile,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return _fadeScale(
+          key: state.pageKey,
+          child: const UserUpdateProfileScreen(),
+        );
+      },
+    ),
   ];
 
   GlobalKey<NavigatorState> get rootNavigatorKey => _rootNavigatorKey;
   GlobalKey<NavigatorState> get userShellNavigatorKey => _userShellNavigatorKey;
   GlobalKey<NavigatorState> get adminShellNavigatorKey =>
       _adminShellNavigatorKey;
+  GlobalKey<NavigatorState> get staffShellNavigatorKey =>
+      _staffShellNavigatorKey;
 }
