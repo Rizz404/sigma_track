@@ -18,6 +18,7 @@ import 'package:sigma_track/feature/issue_report/presentation/providers/issue_re
 import 'package:sigma_track/feature/issue_report/presentation/widgets/issue_report_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -250,6 +251,7 @@ class _MyListIssueReportsScreenState
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.issueReportMyIssueReports),
+      endDrawer: const AppEndDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(RouteConstant.issueReportUpsert),
         tooltip: context.l10n.issueReportCreateIssueReportTooltip,

@@ -18,6 +18,7 @@ import 'package:sigma_track/feature/asset/presentation/providers/asset_providers
 import 'package:sigma_track/feature/asset/presentation/widgets/asset_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -253,6 +254,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMyAssets),
+      endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
           children: [

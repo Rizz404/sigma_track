@@ -390,7 +390,28 @@ class L10nId extends L10n {
   String get assetNoAssignedAssets => 'You have no assigned assets';
 
   @override
-  String get assetExportAssets => 'Export Assets';
+  String get assetExportAssets => 'Ekspor Aset';
+
+  @override
+  String get assetSelectExportType => 'Pilih jenis ekspor yang ingin Anda buat';
+
+  @override
+  String get assetExportList => 'Ekspor Daftar Aset';
+
+  @override
+  String get assetExportListSubtitle =>
+      'Ekspor aset dalam format PDF, Excel, atau CSV';
+
+  @override
+  String get assetExportDataMatrix => 'Ekspor Data Matrix';
+
+  @override
+  String get assetExportDataMatrixSubtitle =>
+      'Ekspor aset dengan kode Data Matrix (hanya PDF)';
+
+  @override
+  String get assetDataMatrixPdfOnly =>
+      'Ekspor Data Matrix hanya tersedia dalam format PDF';
 
   @override
   String get assetExportFormat => 'Export Format';

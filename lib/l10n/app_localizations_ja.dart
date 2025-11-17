@@ -389,6 +389,24 @@ class L10nJa extends L10n {
   String get assetExportAssets => '資産をエクスポート';
 
   @override
+  String get assetSelectExportType => '生成するエクスポートのタイプを選択してください';
+
+  @override
+  String get assetExportList => '資産リストのエクスポート';
+
+  @override
+  String get assetExportListSubtitle => 'PDF、Excel、またはCSV形式で資産をエクスポート';
+
+  @override
+  String get assetExportDataMatrix => 'データマトリックスのエクスポート';
+
+  @override
+  String get assetExportDataMatrixSubtitle => 'データマトリックスコード付きで資産をエクスポート（PDFのみ）';
+
+  @override
+  String get assetDataMatrixPdfOnly => 'データマトリックスのエクスポートはPDF形式でのみ利用可能です';
+
+  @override
   String get assetExportFormat => 'エクスポート形式';
 
   @override

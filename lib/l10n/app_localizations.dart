@@ -837,6 +837,42 @@ abstract class L10n {
   /// **'Export Assets'**
   String get assetExportAssets;
 
+  /// Export type selection subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select the type of export you want to generate'**
+  String get assetSelectExportType;
+
+  /// Export list option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export Asset List'**
+  String get assetExportList;
+
+  /// Export list option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export assets in PDF, Excel, or CSV format'**
+  String get assetExportListSubtitle;
+
+  /// Export data matrix option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data Matrix'**
+  String get assetExportDataMatrix;
+
+  /// Export data matrix option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export assets with Data Matrix codes (PDF only)'**
+  String get assetExportDataMatrixSubtitle;
+
+  /// Data matrix PDF only info message
+  ///
+  /// In en, this message translates to:
+  /// **'Data Matrix export is only available in PDF format'**
+  String get assetDataMatrixPdfOnly;
+
   /// Export format dropdown label
   ///
   /// In en, this message translates to:

@@ -19,6 +19,7 @@ import 'package:sigma_track/feature/notification/presentation/providers/notifica
 import 'package:sigma_track/feature/notification/presentation/widgets/notification_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -237,6 +238,7 @@ class _MyListNotificationsScreenState
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationMyNotifications),
+      endDrawer: const AppEndDrawer(),
       body: ScreenWrapper(
         child: Column(
           children: [

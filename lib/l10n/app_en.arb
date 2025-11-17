@@ -522,6 +522,30 @@
   "@assetExportAssets": {
     "description": "Export assets bottom sheet title"
   },
+  "assetSelectExportType": "Select the type of export you want to generate",
+  "@assetSelectExportType": {
+    "description": "Export type selection subtitle"
+  },
+  "assetExportList": "Export Asset List",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "Export assets in PDF, Excel, or CSV format",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "Export Data Matrix",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "Export assets with Data Matrix codes (PDF only)",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "Data Matrix export is only available in PDF format",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Data matrix PDF only info message"
+  },
   "assetExportFormat": "Export Format",
   "@assetExportFormat": {
     "description": "Export format dropdown label"

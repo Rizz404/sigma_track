@@ -3,6 +3,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.d
 import 'package:sigma_track/feature/asset/presentation/providers/assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_search_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/export_assets_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/export_asset_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_statistics_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_exists_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_serial_exists_notifier.dart';
@@ -102,3 +103,10 @@ final exportAssetsProvider =
     AutoDisposeNotifierProvider<ExportAssetsNotifier, ExportAssetsState>(
       ExportAssetsNotifier.new,
     );
+
+// * Provider untuk export asset data matrix
+final exportAssetDataMatrixProvider =
+    AutoDisposeNotifierProvider<
+      ExportAssetDataMatrixNotifier,
+      ExportAssetsState
+    >(ExportAssetDataMatrixNotifier.new);

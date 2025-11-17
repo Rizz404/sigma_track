@@ -139,5 +139,12 @@
   "authValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
-  }
+  },
+  "assetExportAssets": "Ekspor Aset",
+  "assetSelectExportType": "Pilih jenis ekspor yang ingin Anda buat",
+  "assetExportList": "Ekspor Daftar Aset",
+  "assetExportListSubtitle": "Ekspor aset dalam format PDF, Excel, atau CSV",
+  "assetExportDataMatrix": "Ekspor Data Matrix",
+  "assetExportDataMatrixSubtitle": "Ekspor aset dengan kode Data Matrix (hanya PDF)",
+  "assetDataMatrixPdfOnly": "Ekspor Data Matrix hanya tersedia dalam format PDF"
 }

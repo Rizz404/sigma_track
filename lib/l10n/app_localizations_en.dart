@@ -393,6 +393,28 @@ class L10nEn extends L10n {
   String get assetExportAssets => 'Export Assets';
 
   @override
+  String get assetSelectExportType =>
+      'Select the type of export you want to generate';
+
+  @override
+  String get assetExportList => 'Export Asset List';
+
+  @override
+  String get assetExportListSubtitle =>
+      'Export assets in PDF, Excel, or CSV format';
+
+  @override
+  String get assetExportDataMatrix => 'Export Data Matrix';
+
+  @override
+  String get assetExportDataMatrixSubtitle =>
+      'Export assets with Data Matrix codes (PDF only)';
+
+  @override
+  String get assetDataMatrixPdfOnly =>
+      'Data Matrix export is only available in PDF format';
+
+  @override
   String get assetExportFormat => 'Export Format';
 
   @override

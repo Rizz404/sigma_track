@@ -26,6 +26,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usec
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_statistics_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 
 // ===== ASSET MOVEMENT USECASES =====
@@ -246,6 +247,12 @@ final exportAssetListUsecaseProvider = Provider<ExportAssetListUsecase>((ref) {
   final assetRepository = ref.read(assetRepositoryProvider);
   return ExportAssetListUsecase(assetRepository);
 });
+
+final exportAssetDataMatrixUsecaseProvider =
+    Provider<ExportAssetDataMatrixUsecase>((ref) {
+      final assetRepository = ref.read(assetRepositoryProvider);
+      return ExportAssetDataMatrixUsecase(assetRepository);
+    });
 
 final getGenerateAssetTagSuggestionProvider =
     Provider<GenerateAssetTagSuggestionUsecase>((ref) {
