@@ -128,6 +128,7 @@ class NotificationModel extends Equatable {
       relatedAssetId: map.getFieldOrNull<String>('relatedAssetId'),
       type: NotificationType.values.firstWhere(
         (e) => e.value == map.getField<String>('type'),
+        orElse: () => NotificationType.movement,
       ),
       priority: NotificationPriority.values.firstWhere(
         (e) => e.value == map.getField<String>('priority'),

@@ -81,9 +81,9 @@ enum AssetCondition {
 enum NotificationType {
   maintenance('MAINTENANCE'),
   warranty('WARRANTY'),
-  statusChange('STATUS_CHANGE'),
+  issue('ISSUE'),
   movement('MOVEMENT'),
-  issueReport('ISSUE_REPORT'),
+  statusChange('STATUS_CHANGE'),
   locationChange('LOCATION_CHANGE'),
   categoryChange('CATEGORY_CHANGE');
 
@@ -100,12 +100,12 @@ enum NotificationType {
         return Icons.build;
       case NotificationType.warranty:
         return Icons.shield;
-      case NotificationType.statusChange:
-        return Icons.swap_horiz;
+      case NotificationType.issue:
+        return Icons.report;
       case NotificationType.movement:
         return Icons.move_down;
-      case NotificationType.issueReport:
-        return Icons.report;
+      case NotificationType.statusChange:
+        return Icons.swap_horiz;
       case NotificationType.locationChange:
         return Icons.location_on;
       case NotificationType.categoryChange:

@@ -131,7 +131,7 @@ class NotificationItem extends StatelessWidget {
         return (Icons.swap_horiz_outlined, Colors.orange);
       case NotificationType.movement:
         return (Icons.local_shipping_outlined, Colors.purple);
-      case NotificationType.issueReport:
+      case NotificationType.issue:
         return (Icons.warning_amber_outlined, context.colorScheme.error);
       case NotificationType.locationChange:
         return (Icons.location_on_outlined, Colors.green);
