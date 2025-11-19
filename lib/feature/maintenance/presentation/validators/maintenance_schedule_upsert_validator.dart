@@ -79,10 +79,10 @@ class MaintenanceScheduleUpsertValidator {
 
   static String? validateScheduledTime(String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
-      // * Validate time format (HH:mm)
-      final timeRegex = RegExp(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
+      // * Validate time format (HH:mm:ss)
+      final timeRegex = RegExp(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$');
       if (!timeRegex.hasMatch(value)) {
-        return 'Scheduled time must be in HH:mm format (e.g., 09:30)';
+        return 'Scheduled time must be in HH:mm:ss format (e.g., 09:30:00)';
       }
     }
     return null;

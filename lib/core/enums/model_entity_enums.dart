@@ -228,8 +228,6 @@ enum ScheduleState {
 }
 
 enum IntervalUnit {
-  minutes('Minutes'),
-  hours('Hours'),
   days('Days'),
   weeks('Weeks'),
   months('Months'),

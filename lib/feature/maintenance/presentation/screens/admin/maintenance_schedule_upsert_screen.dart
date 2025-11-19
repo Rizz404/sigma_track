@@ -29,6 +29,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -57,6 +58,15 @@ class _MaintenanceScheduleUpsertScreenState
       widget.maintenanceSchedule != null || widget.maintenanceId != null;
   MaintenanceSchedule? _fetchedMaintenanceSchedule;
   bool _isLoadingTranslations = false;
+
+  TimeOfDay? _parseTimeOfDay(String? timeString) {
+    if (timeString == null || timeString.isEmpty) return null;
+    final parts = timeString.split(':');
+    if (parts.length >= 2) {
+      return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+    }
+    return null;
+  }
 
   Future<List<Asset>> _searchAssets(String query) async {
     final notifier = ref.read(assetsSearchProvider.notifier);
@@ -113,7 +123,10 @@ class _MaintenanceScheduleUpsertScreenState
     final isRecurring = formData['isRecurring'] as bool? ?? false;
     final intervalValue = formData['intervalValue'] as String?;
     final intervalUnit = formData['intervalUnit'] as String?;
-    final scheduledTime = formData['scheduledTime'] as String?;
+    final scheduledTimeData = formData['scheduledTime'] as TimeOfDay?;
+    final scheduledTime = scheduledTimeData != null
+        ? '${scheduledTimeData.hour.toString().padLeft(2, '0')}:${scheduledTimeData.minute.toString().padLeft(2, '0')}:00'
+        : null;
     final nextScheduledDate = formData['nextScheduledDate'] as DateTime;
     final state = formData['state'] as String?;
     final autoComplete = formData['autoComplete'] as bool? ?? false;
@@ -411,16 +424,12 @@ class _MaintenanceScheduleUpsertScreenState
               initialValue: widget.maintenanceSchedule?.intervalUnit?.value,
             ),
             const SizedBox(height: 16),
-            AppTextField(
+            AppTimePicker(
               name: 'scheduledTime',
               label: context.l10n.maintenanceScheduleScheduledTimeLabel,
-              placeHolder: context.l10n.maintenanceScheduleEnterScheduledTime,
-              initialValue: widget.maintenanceSchedule?.scheduledTime,
-              validator: (value) =>
-                  MaintenanceScheduleUpsertValidator.validateScheduledTime(
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+              initialValue: _parseTimeOfDay(
+                widget.maintenanceSchedule?.scheduledTime,
+              ),
             ),
             const SizedBox(height: 16),
             if (_isEdit)
