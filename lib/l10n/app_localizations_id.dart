@@ -390,28 +390,7 @@ class L10nId extends L10n {
   String get assetNoAssignedAssets => 'You have no assigned assets';
 
   @override
-  String get assetExportAssets => 'Ekspor Aset';
-
-  @override
-  String get assetSelectExportType => 'Pilih jenis ekspor yang ingin Anda buat';
-
-  @override
-  String get assetExportList => 'Ekspor Daftar Aset';
-
-  @override
-  String get assetExportListSubtitle =>
-      'Ekspor aset dalam format PDF, Excel, atau CSV';
-
-  @override
-  String get assetExportDataMatrix => 'Ekspor Data Matrix';
-
-  @override
-  String get assetExportDataMatrixSubtitle =>
-      'Ekspor aset dengan kode Data Matrix (hanya PDF)';
-
-  @override
-  String get assetDataMatrixPdfOnly =>
-      'Ekspor Data Matrix hanya tersedia dalam format PDF';
+  String get assetExportAssets => 'Export Assets';
 
   @override
   String get assetExportFormat => 'Export Format';
@@ -530,6 +509,26 @@ class L10nId extends L10n {
 
   @override
   String get assetExport => 'Export';
+
+  @override
+  String get assetSelectExportType => 'Select export type';
+
+  @override
+  String get assetExportList => 'Export List';
+
+  @override
+  String get assetExportListSubtitle => 'Export assets as a list';
+
+  @override
+  String get assetExportDataMatrix => 'Export Data Matrix';
+
+  @override
+  String get assetExportDataMatrixSubtitle =>
+      'Export data matrix codes for assets';
+
+  @override
+  String get assetDataMatrixPdfOnly =>
+      'Data matrix export is only available in PDF format';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
@@ -2676,6 +2675,22 @@ class L10nId extends L10n {
   @override
   String notificationDaysAgo(int days) {
     return '${days}d ago';
+  }
+
+  @override
+  String get notificationMarkAsRead => 'Mark as Read';
+
+  @override
+  String get notificationMarkAsUnread => 'Mark as Unread';
+
+  @override
+  String notificationMarkedAsRead(int count) {
+    return '$count marked as read';
+  }
+
+  @override
+  String notificationMarkedAsUnread(int count) {
+    return '$count marked as unread';
   }
 
   @override

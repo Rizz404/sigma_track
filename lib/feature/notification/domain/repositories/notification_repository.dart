@@ -10,8 +10,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/delete_notifica
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notification_by_id_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_read_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_unread_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 
 abstract class NotificationRepository {
@@ -33,13 +33,12 @@ abstract class NotificationRepository {
   Future<Either<Failure, ItemSuccess<Notification>>> getNotificationById(
     GetNotificationByIdUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<Notification>>> markNotificationAsRead(
-    MarkNotificationAsReadUsecaseParams params,
+  Future<Either<Failure, ActionSuccess>> markNotificationsAsRead(
+    MarkNotificationsAsReadUsecaseParams params,
   );
-  Future<Either<Failure, ItemSuccess<Notification>>> markNotificationAsUnread(
-    MarkNotificationAsUnreadUsecaseParams params,
+  Future<Either<Failure, ActionSuccess>> markNotificationsAsUnread(
+    MarkNotificationsAsUnreadUsecaseParams params,
   );
-  Future<Either<Failure, ActionSuccess>> markAllNotificationsAsRead();
   Future<Either<Failure, ItemSuccess<Notification>>> updateNotification(
     UpdateNotificationUsecaseParams params,
   );

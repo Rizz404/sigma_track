@@ -393,28 +393,6 @@ class L10nEn extends L10n {
   String get assetExportAssets => 'Export Assets';
 
   @override
-  String get assetSelectExportType =>
-      'Select the type of export you want to generate';
-
-  @override
-  String get assetExportList => 'Export Asset List';
-
-  @override
-  String get assetExportListSubtitle =>
-      'Export assets in PDF, Excel, or CSV format';
-
-  @override
-  String get assetExportDataMatrix => 'Export Data Matrix';
-
-  @override
-  String get assetExportDataMatrixSubtitle =>
-      'Export assets with Data Matrix codes (PDF only)';
-
-  @override
-  String get assetDataMatrixPdfOnly =>
-      'Data Matrix export is only available in PDF format';
-
-  @override
   String get assetExportFormat => 'Export Format';
 
   @override
@@ -531,6 +509,26 @@ class L10nEn extends L10n {
 
   @override
   String get assetExport => 'Export';
+
+  @override
+  String get assetSelectExportType => 'Select export type';
+
+  @override
+  String get assetExportList => 'Export List';
+
+  @override
+  String get assetExportListSubtitle => 'Export assets as a list';
+
+  @override
+  String get assetExportDataMatrix => 'Export Data Matrix';
+
+  @override
+  String get assetExportDataMatrixSubtitle =>
+      'Export data matrix codes for assets';
+
+  @override
+  String get assetDataMatrixPdfOnly =>
+      'Data matrix export is only available in PDF format';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
@@ -2679,6 +2677,22 @@ class L10nEn extends L10n {
   @override
   String notificationDaysAgo(int days) {
     return '${days}d ago';
+  }
+
+  @override
+  String get notificationMarkAsRead => 'Mark as Read';
+
+  @override
+  String get notificationMarkAsUnread => 'Mark as Unread';
+
+  @override
+  String notificationMarkedAsRead(int count) {
+    return '$count marked as read';
+  }
+
+  @override
+  String notificationMarkedAsUnread(int count) {
+    return '$count marked as unread';
   }
 
   @override

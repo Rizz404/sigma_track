@@ -837,42 +837,6 @@ abstract class L10n {
   /// **'Export Assets'**
   String get assetExportAssets;
 
-  /// Export type selection subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Select the type of export you want to generate'**
-  String get assetSelectExportType;
-
-  /// Export list option title
-  ///
-  /// In en, this message translates to:
-  /// **'Export Asset List'**
-  String get assetExportList;
-
-  /// Export list option subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Export assets in PDF, Excel, or CSV format'**
-  String get assetExportListSubtitle;
-
-  /// Export data matrix option title
-  ///
-  /// In en, this message translates to:
-  /// **'Export Data Matrix'**
-  String get assetExportDataMatrix;
-
-  /// Export data matrix option subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Export assets with Data Matrix codes (PDF only)'**
-  String get assetExportDataMatrixSubtitle;
-
-  /// Data matrix PDF only info message
-  ///
-  /// In en, this message translates to:
-  /// **'Data Matrix export is only available in PDF format'**
-  String get assetDataMatrixPdfOnly;
-
   /// Export format dropdown label
   ///
   /// In en, this message translates to:
@@ -1064,6 +1028,42 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Export'**
   String get assetExport;
+
+  /// Instruction to select export type
+  ///
+  /// In en, this message translates to:
+  /// **'Select export type'**
+  String get assetSelectExportType;
+
+  /// Export list option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export List'**
+  String get assetExportList;
+
+  /// Export list option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export assets as a list'**
+  String get assetExportListSubtitle;
+
+  /// Export data matrix option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data Matrix'**
+  String get assetExportDataMatrix;
+
+  /// Export data matrix option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export data matrix codes for assets'**
+  String get assetExportDataMatrixSubtitle;
+
+  /// Information about data matrix export format limitation
+  ///
+  /// In en, this message translates to:
+  /// **'Data matrix export is only available in PDF format'**
+  String get assetDataMatrixPdfOnly;
 
   /// Dialog title for deleting an asset movement
   ///
@@ -5012,6 +5012,30 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'{days}d ago'**
   String notificationDaysAgo(int days);
+
+  /// Mark as read option
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Read'**
+  String get notificationMarkAsRead;
+
+  /// Mark as unread option
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Unread'**
+  String get notificationMarkAsUnread;
+
+  /// Success message for marking notifications as read
+  ///
+  /// In en, this message translates to:
+  /// **'{count} marked as read'**
+  String notificationMarkedAsRead(int count);
+
+  /// Success message for marking notifications as unread
+  ///
+  /// In en, this message translates to:
+  /// **'{count} marked as unread'**
+  String notificationMarkedAsUnread(int count);
 
   /// Scan log management screen title
   ///

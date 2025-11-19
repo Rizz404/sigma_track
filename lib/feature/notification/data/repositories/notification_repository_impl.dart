@@ -16,8 +16,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/delete_notifica
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notification_by_id_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_read_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_unread_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -173,14 +173,13 @@ class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<Notification>>> markNotificationAsRead(
-    MarkNotificationAsReadUsecaseParams params,
+  Future<Either<Failure, ActionSuccess>> markNotificationsAsRead(
+    MarkNotificationsAsReadUsecaseParams params,
   ) async {
     try {
       final response = await _notificationRemoteDatasource
-          .markNotificationAsRead(params);
-      final notification = response.data.toEntity();
-      return Right(ItemSuccess(message: response.message, data: notification));
+          .markNotificationsAsRead(params);
+      return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
@@ -189,26 +188,12 @@ class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<Notification>>> markNotificationAsUnread(
-    MarkNotificationAsUnreadUsecaseParams params,
+  Future<Either<Failure, ActionSuccess>> markNotificationsAsUnread(
+    MarkNotificationsAsUnreadUsecaseParams params,
   ) async {
     try {
       final response = await _notificationRemoteDatasource
-          .markNotificationAsUnread(params);
-      final notification = response.data.toEntity();
-      return Right(ItemSuccess(message: response.message, data: notification));
-    } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, ActionSuccess>> markAllNotificationsAsRead() async {
-    try {
-      final response = await _notificationRemoteDatasource
-          .markAllNotificationsAsRead();
+          .markNotificationsAsUnread(params);
       return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -268,4 +253,3 @@ class NotificationRepositoryImpl implements NotificationRepository {
     }
   }
 }
-

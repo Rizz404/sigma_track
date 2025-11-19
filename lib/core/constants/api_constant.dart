@@ -119,12 +119,9 @@ class ApiConstant {
   static String checkNotificationExists(String id) =>
       '$notificationPrefix/check/$id';
   static String getNotificationById(String id) => '$notificationPrefix/$id';
-  static String markNotificationAsRead(String id) =>
-      '$notificationPrefix/$id/read';
-  static String markNotificationAsUnread(String id) =>
-      '$notificationPrefix/$id/unread';
-  static const String markAllNotificationsAsRead =
-      '$notificationPrefix/mark-all-read';
+  static const String markNotificationsAsRead = '$notificationPrefix/mark-read';
+  static const String markNotificationsAsUnread =
+      '$notificationPrefix/mark-unread';
   static String updateNotification(String id) => '$notificationPrefix/$id';
   static String deleteNotification(String id) => '$notificationPrefix/$id';
 

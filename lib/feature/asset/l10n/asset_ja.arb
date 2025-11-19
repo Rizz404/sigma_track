@@ -673,5 +673,29 @@
   "assetExport": "エクスポート",
   "@assetExport": {
     "description": "Export button label"
+  },
+  "assetSelectExportType": "エクスポートタイプを選択",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "リストをエクスポート",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "資産をリストとしてエクスポート",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "データマトリックスをエクスポート",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "資産のデータマトリックスコードをエクスポート",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "データマトリックスのエクスポートはPDF形式のみ利用可能です",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
   }
 }

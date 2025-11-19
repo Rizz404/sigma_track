@@ -522,30 +522,6 @@
   "@assetExportAssets": {
     "description": "Export assets bottom sheet title"
   },
-  "assetSelectExportType": "Select the type of export you want to generate",
-  "@assetSelectExportType": {
-    "description": "Export type selection subtitle"
-  },
-  "assetExportList": "Export Asset List",
-  "@assetExportList": {
-    "description": "Export list option title"
-  },
-  "assetExportListSubtitle": "Export assets in PDF, Excel, or CSV format",
-  "@assetExportListSubtitle": {
-    "description": "Export list option subtitle"
-  },
-  "assetExportDataMatrix": "Export Data Matrix",
-  "@assetExportDataMatrix": {
-    "description": "Export data matrix option title"
-  },
-  "assetExportDataMatrixSubtitle": "Export assets with Data Matrix codes (PDF only)",
-  "@assetExportDataMatrixSubtitle": {
-    "description": "Export data matrix option subtitle"
-  },
-  "assetDataMatrixPdfOnly": "Data Matrix export is only available in PDF format",
-  "@assetDataMatrixPdfOnly": {
-    "description": "Data matrix PDF only info message"
-  },
   "assetExportFormat": "Export Format",
   "@assetExportFormat": {
     "description": "Export format dropdown label"
@@ -697,6 +673,30 @@
   "assetExport": "Export",
   "@assetExport": {
     "description": "Export button label"
+  },
+  "assetSelectExportType": "Select export type",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "Export List",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "Export assets as a list",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "Export Data Matrix",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "Export data matrix codes for assets",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "Data matrix export is only available in PDF format",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
   },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
@@ -3517,6 +3517,34 @@
       "days": {
         "type": "int",
         "example": "3"
+      }
+    }
+  },
+  "notificationMarkAsRead": "Mark as Read",
+  "@notificationMarkAsRead": {
+    "description": "Mark as read option"
+  },
+  "notificationMarkAsUnread": "Mark as Unread",
+  "@notificationMarkAsUnread": {
+    "description": "Mark as unread option"
+  },
+  "notificationMarkedAsRead": "{count} marked as read",
+  "@notificationMarkedAsRead": {
+    "description": "Success message for marking notifications as read",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationMarkedAsUnread": "{count} marked as unread",
+  "@notificationMarkedAsUnread": {
+    "description": "Success message for marking notifications as unread",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
       }
     }
   },

@@ -522,30 +522,6 @@
   "@assetExportAssets": {
     "description": "Export assets bottom sheet title"
   },
-  "assetSelectExportType": "生成するエクスポートのタイプを選択してください",
-  "@assetSelectExportType": {
-    "description": "Export type selection subtitle"
-  },
-  "assetExportList": "資産リストのエクスポート",
-  "@assetExportList": {
-    "description": "Export list option title"
-  },
-  "assetExportListSubtitle": "PDF、Excel、またはCSV形式で資産をエクスポート",
-  "@assetExportListSubtitle": {
-    "description": "Export list option subtitle"
-  },
-  "assetExportDataMatrix": "データマトリックスのエクスポート",
-  "@assetExportDataMatrix": {
-    "description": "Export data matrix option title"
-  },
-  "assetExportDataMatrixSubtitle": "データマトリックスコード付きで資産をエクスポート（PDFのみ）",
-  "@assetExportDataMatrixSubtitle": {
-    "description": "Export data matrix option subtitle"
-  },
-  "assetDataMatrixPdfOnly": "データマトリックスのエクスポートはPDF形式でのみ利用可能です",
-  "@assetDataMatrixPdfOnly": {
-    "description": "Data matrix PDF only info message"
-  },
   "assetExportFormat": "エクスポート形式",
   "@assetExportFormat": {
     "description": "Export format dropdown label"
@@ -697,6 +673,30 @@
   "assetExport": "エクスポート",
   "@assetExport": {
     "description": "Export button label"
+  },
+  "assetSelectExportType": "エクスポートタイプを選択",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "リストをエクスポート",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "資産をリストとしてエクスポート",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "データマトリックスをエクスポート",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "資産のデータマトリックスコードをエクスポート",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "データマトリックスのエクスポートはPDF形式のみ利用可能です",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
   },
   "assetMovementDeleteAssetMovement": "資産移動を削除",
   "@assetMovementDeleteAssetMovement": {
@@ -2986,6 +2986,34 @@
       "days": {
         "type": "int",
         "example": "3"
+      }
+    }
+  },
+  "notificationMarkAsRead": "既読にする",
+  "@notificationMarkAsRead": {
+    "description": "Mark as read option"
+  },
+  "notificationMarkAsUnread": "未読にする",
+  "@notificationMarkAsUnread": {
+    "description": "Mark as unread option"
+  },
+  "notificationMarkedAsRead": "{count}件を既読にしました",
+  "@notificationMarkedAsRead": {
+    "description": "Success message for marking notifications as read",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationMarkedAsUnread": "{count}件を未読にしました",
+  "@notificationMarkedAsUnread": {
+    "description": "Success message for marking notifications as unread",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
       }
     }
   },

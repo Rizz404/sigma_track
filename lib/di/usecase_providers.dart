@@ -109,9 +109,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/get_notificatio
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_statistics_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_all_notifications_as_read_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_read_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_unread_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 
 // ===== SCAN LOG USECASES =====
@@ -758,22 +757,16 @@ final getNotificationsUsecaseProvider = Provider<GetNotificationsUsecase>((
   return GetNotificationsUsecase(notificationRepository);
 });
 
-final markAllNotificationsAsReadUsecaseProvider =
-    Provider<MarkAllNotificationsAsReadUsecase>((ref) {
+final markNotificationsAsReadUsecaseProvider =
+    Provider<MarkNotificationsAsReadUsecase>((ref) {
       final notificationRepository = ref.read(notificationRepositoryProvider);
-      return MarkAllNotificationsAsReadUsecase(notificationRepository);
+      return MarkNotificationsAsReadUsecase(notificationRepository);
     });
 
-final markNotificationAsReadUsecaseProvider =
-    Provider<MarkNotificationAsReadUsecase>((ref) {
+final markNotificationsAsUnreadUsecaseProvider =
+    Provider<MarkNotificationsAsUnreadUsecase>((ref) {
       final notificationRepository = ref.read(notificationRepositoryProvider);
-      return MarkNotificationAsReadUsecase(notificationRepository);
-    });
-
-final markNotificationAsUnreadUsecaseProvider =
-    Provider<MarkNotificationAsUnreadUsecase>((ref) {
-      final notificationRepository = ref.read(notificationRepositoryProvider);
-      return MarkNotificationAsUnreadUsecase(notificationRepository);
+      return MarkNotificationsAsUnreadUsecase(notificationRepository);
     });
 
 final updateNotificationUsecaseProvider = Provider<UpdateNotificationUsecase>((

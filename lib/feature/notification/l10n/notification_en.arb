@@ -261,5 +261,33 @@
         "example": "3"
       }
     }
+  },
+  "notificationMarkAsRead": "Mark as Read",
+  "@notificationMarkAsRead": {
+    "description": "Mark as read option"
+  },
+  "notificationMarkAsUnread": "Mark as Unread",
+  "@notificationMarkAsUnread": {
+    "description": "Mark as unread option"
+  },
+  "notificationMarkedAsRead": "{count} marked as read",
+  "@notificationMarkedAsRead": {
+    "description": "Success message for marking notifications as read",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationMarkedAsUnread": "{count} marked as unread",
+  "@notificationMarkedAsUnread": {
+    "description": "Success message for marking notifications as unread",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   }
 }

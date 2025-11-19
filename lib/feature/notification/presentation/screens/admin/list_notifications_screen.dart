@@ -339,48 +339,36 @@ class _ListNotificationsScreenState
     });
   }
 
-  Future<void> _deleteSelectedNotifications() async {
+  Future<void> _markSelectedAsRead() async {
     if (_selectedNotificationIds.isEmpty) {
       AppToast.warning(context.l10n.notificationNoNotificationsSelected);
       return;
     }
 
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: AppText(
-          context.l10n.notificationDeleteNotification,
-          style: AppTextStyle.titleMedium,
-        ),
-        content: AppText(
-          context.l10n.notificationDeleteMultipleConfirmation(
-            _selectedNotificationIds.length,
-          ),
-          style: AppTextStyle.bodyMedium,
-        ),
-        actionsAlignment: MainAxisAlignment.end,
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: AppText(context.l10n.notificationCancel),
-          ),
-          const SizedBox(width: 8),
-          AppButton(
-            text: context.l10n.notificationDelete,
-            color: AppButtonColor.error,
-            isFullWidth: false,
-            onPressed: () => Navigator.pop(context, true),
-          ),
-        ],
-      ),
-    );
+    await ref
+        .read(notificationsProvider.notifier)
+        .markManyAsRead(_selectedNotificationIds.toList());
 
-    if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.notificationNotImplementedYet);
-      _cancelSelectMode();
-      await _onRefresh();
+    AppToast.success(
+      context.l10n.notificationMarkedAsRead(_selectedNotificationIds.length),
+    );
+    _cancelSelectMode();
+  }
+
+  Future<void> _markSelectedAsUnread() async {
+    if (_selectedNotificationIds.isEmpty) {
+      AppToast.warning(context.l10n.notificationNoNotificationsSelected);
+      return;
     }
+
+    await ref
+        .read(notificationsProvider.notifier)
+        .markManyAsUnread(_selectedNotificationIds.toList());
+
+    AppToast.success(
+      context.l10n.notificationMarkedAsUnread(_selectedNotificationIds.length),
+    );
+    _cancelSelectMode();
   }
 
   @override
@@ -479,10 +467,17 @@ class _ListNotificationsScreenState
               ),
             ),
             AppButton(
-              text: context.l10n.notificationDelete,
-              color: AppButtonColor.error,
+              text: context.l10n.notificationMarkAsUnread,
+              color: AppButtonColor.secondary,
               isFullWidth: false,
-              onPressed: _deleteSelectedNotifications,
+              onPressed: _markSelectedAsUnread,
+            ),
+            const SizedBox(width: 8),
+            AppButton(
+              text: context.l10n.notificationMarkAsRead,
+              color: AppButtonColor.secondary,
+              isFullWidth: false,
+              onPressed: _markSelectedAsRead,
             ),
           ],
         ),
@@ -574,15 +569,15 @@ class _ListNotificationsScreenState
                 : null,
             onLongPress: isSkeleton
                 ? null
+                : _isSelectMode
+                ? null
                 : () {
-                    if (!_isSelectMode) {
-                      setState(() {
-                        _isSelectMode = true;
-                        _selectedNotificationIds.clear();
-                        _selectedNotificationIds.add(notification.id);
-                      });
-                      AppToast.info(context.l10n.notificationLongPressToSelect);
-                    }
+                    setState(() {
+                      _isSelectMode = true;
+                      _selectedNotificationIds.clear();
+                      _selectedNotificationIds.add(notification.id);
+                    });
+                    AppToast.info(context.l10n.notificationLongPressToSelect);
                   },
             onTap: isSkeleton || _isSelectMode
                 ? null

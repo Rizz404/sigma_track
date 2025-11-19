@@ -673,5 +673,29 @@
   "assetExport": "Export",
   "@assetExport": {
     "description": "Export button label"
+  },
+  "assetSelectExportType": "Select export type",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "Export List",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "Export assets as a list",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "Export Data Matrix",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "Export data matrix codes for assets",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "Data matrix export is only available in PDF format",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
   }
 }

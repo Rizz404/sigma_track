@@ -43,6 +43,28 @@ class _NotificationDetailScreenState
     _notification = widget.notification;
     if (_notification == null && widget.id != null) {
       _fetchNotification();
+    } else if (_notification != null && !_notification!.isRead) {
+      // * Auto mark as read ketika notification detail screen dibuka
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _markNotificationAsRead();
+      });
+    }
+  }
+
+  Future<void> _markNotificationAsRead() async {
+    if (_notification == null) return;
+
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (isAdmin) {
+      await ref
+          .read(notificationsProvider.notifier)
+          .markAsRead(_notification!.id);
+    } else {
+      await ref
+          .read(myNotificationsProvider.notifier)
+          .markAsRead(_notification!.id);
     }
   }
 

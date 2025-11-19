@@ -12,8 +12,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/delete_notifica
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notification_by_id_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_read_usecase.dart';
-import 'package:sigma_track/feature/notification/domain/usecases/mark_notification_as_unread_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 
 abstract class NotificationRemoteDatasource {
@@ -36,13 +36,12 @@ abstract class NotificationRemoteDatasource {
   Future<ApiResponse<NotificationModel>> getNotificationById(
     GetNotificationByIdUsecaseParams params,
   );
-  Future<ApiResponse<NotificationModel>> markNotificationAsRead(
-    MarkNotificationAsReadUsecaseParams params,
+  Future<ApiResponse<dynamic>> markNotificationsAsRead(
+    MarkNotificationsAsReadUsecaseParams params,
   );
-  Future<ApiResponse<NotificationModel>> markNotificationAsUnread(
-    MarkNotificationAsUnreadUsecaseParams params,
+  Future<ApiResponse<dynamic>> markNotificationsAsUnread(
+    MarkNotificationsAsUnreadUsecaseParams params,
   );
-  Future<ApiResponse<dynamic>> markAllNotificationsAsRead();
   Future<ApiResponse<NotificationModel>> updateNotification(
     UpdateNotificationUsecaseParams params,
   );
@@ -165,13 +164,13 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<NotificationModel>> markNotificationAsRead(
-    MarkNotificationAsReadUsecaseParams params,
+  Future<ApiResponse<dynamic>> markNotificationsAsRead(
+    MarkNotificationsAsReadUsecaseParams params,
   ) async {
     try {
       final response = await _dioClient.patch(
-        ApiConstant.markNotificationAsRead(params.id),
-        fromJson: (json) => NotificationModel.fromMap(json),
+        ApiConstant.markNotificationsAsRead,
+        data: params.toMap(),
       );
       return response;
     } catch (e) {
@@ -180,25 +179,13 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   }
 
   @override
-  Future<ApiResponse<NotificationModel>> markNotificationAsUnread(
-    MarkNotificationAsUnreadUsecaseParams params,
+  Future<ApiResponse<dynamic>> markNotificationsAsUnread(
+    MarkNotificationsAsUnreadUsecaseParams params,
   ) async {
     try {
       final response = await _dioClient.patch(
-        ApiConstant.markNotificationAsUnread(params.id),
-        fromJson: (json) => NotificationModel.fromMap(json),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<ApiResponse<dynamic>> markAllNotificationsAsRead() async {
-    try {
-      final response = await _dioClient.patch(
-        ApiConstant.markAllNotificationsAsRead,
+        ApiConstant.markNotificationsAsUnread,
+        data: params.toMap(),
       );
       return response;
     } catch (e) {
