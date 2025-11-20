@@ -38,11 +38,13 @@ import 'package:skeletonizer/skeletonizer.dart';
 class MaintenanceScheduleUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceSchedule? maintenanceSchedule;
   final String? maintenanceId;
+  final Asset? prePopulatedAsset;
 
   const MaintenanceScheduleUpsertScreen({
     super.key,
     this.maintenanceSchedule,
     this.maintenanceId,
+    this.prePopulatedAsset,
   });
 
   @override
@@ -56,6 +58,7 @@ class _MaintenanceScheduleUpsertScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceSchedule != null || widget.maintenanceId != null;
+  bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   MaintenanceSchedule? _fetchedMaintenanceSchedule;
   bool _isLoadingTranslations = false;
 
@@ -345,7 +348,12 @@ class _MaintenanceScheduleUpsertScreenState
               name: 'assetId',
               label: context.l10n.maintenanceScheduleAsset,
               hintText: context.l10n.maintenanceScheduleSearchAsset,
-              initialValue: widget.maintenanceSchedule?.assetId,
+              initialValue: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.id
+                  : widget.maintenanceSchedule?.assetId,
+              initialDisplayText: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.assetTag
+                  : null,
               enableAutocomplete: true,
               onSearch: _searchAssets,
               itemDisplayMapper: (asset) => asset.assetTag,

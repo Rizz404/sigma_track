@@ -531,6 +531,24 @@ class L10nEn extends L10n {
       'Data matrix export is only available in PDF format';
 
   @override
+  String get assetQuickActions => 'Quick Actions';
+
+  @override
+  String get assetReportIssue => 'Report\nIssue';
+
+  @override
+  String get assetMoveToUser => 'Move to\nUser';
+
+  @override
+  String get assetMoveToLocation => 'Move to\nLocation';
+
+  @override
+  String get assetScheduleMaintenance => 'Schedule\nMaint.';
+
+  @override
+  String get assetRecordMaintenance => 'Record\nMaint.';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
 
   @override

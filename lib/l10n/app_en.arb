@@ -698,6 +698,30 @@
   "@assetDataMatrixPdfOnly": {
     "description": "Information about data matrix export format limitation"
   },
+  "assetQuickActions": "Quick Actions",
+  "@assetQuickActions": {
+    "description": "Quick actions section title"
+  },
+  "assetReportIssue": "Report\nIssue",
+  "@assetReportIssue": {
+    "description": "Report issue action label"
+  },
+  "assetMoveToUser": "Move to\nUser",
+  "@assetMoveToUser": {
+    "description": "Move to user action label"
+  },
+  "assetMoveToLocation": "Move to\nLocation",
+  "@assetMoveToLocation": {
+    "description": "Move to location action label"
+  },
+  "assetScheduleMaintenance": "Schedule\nMaint.",
+  "@assetScheduleMaintenance": {
+    "description": "Schedule maintenance action label"
+  },
+  "assetRecordMaintenance": "Record\nMaint.",
+  "@assetRecordMaintenance": {
+    "description": "Record maintenance action label"
+  },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"

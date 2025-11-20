@@ -697,5 +697,29 @@
   "assetDataMatrixPdfOnly": "データマトリックスのエクスポートはPDF形式のみ利用可能です",
   "@assetDataMatrixPdfOnly": {
     "description": "Information about data matrix export format limitation"
+  },
+  "assetQuickActions": "クイックアクション",
+  "@assetQuickActions": {
+    "description": "Quick actions section title"
+  },
+  "assetReportIssue": "問題を\n報告",
+  "@assetReportIssue": {
+    "description": "Report issue action label"
+  },
+  "assetMoveToUser": "ユーザーに\n移動",
+  "@assetMoveToUser": {
+    "description": "Move to user action label"
+  },
+  "assetMoveToLocation": "場所に\n移動",
+  "@assetMoveToLocation": {
+    "description": "Move to location action label"
+  },
+  "assetScheduleMaintenance": "メンテを\nスケジュール",
+  "@assetScheduleMaintenance": {
+    "description": "Schedule maintenance action label"
+  },
+  "assetRecordMaintenance": "メンテを\n記録",
+  "@assetRecordMaintenance": {
+    "description": "Record maintenance action label"
   }
 }

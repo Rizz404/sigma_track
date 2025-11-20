@@ -513,6 +513,24 @@ class L10nJa extends L10n {
   String get assetDataMatrixPdfOnly => 'データマトリックスのエクスポートはPDF形式のみ利用可能です';
 
   @override
+  String get assetQuickActions => 'クイックアクション';
+
+  @override
+  String get assetReportIssue => '問題を\n報告';
+
+  @override
+  String get assetMoveToUser => 'ユーザーに\n移動';
+
+  @override
+  String get assetMoveToLocation => '場所に\n移動';
+
+  @override
+  String get assetScheduleMaintenance => 'メンテを\nスケジュール';
+
+  @override
+  String get assetRecordMaintenance => 'メンテを\n記録';
+
+  @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';
 
   @override

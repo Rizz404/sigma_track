@@ -362,9 +362,11 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
   Widget _buildContent() {
     return SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 1. Info Utama Dulu
           _buildInfoCard(context.l10n.assetInformation, [
             _buildInfoRow(context.l10n.assetTag, _asset!.assetTag),
             _buildInfoRow(context.l10n.assetName, _asset!.assetName),
@@ -389,7 +391,23 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
               _asset!.assignedTo?.fullName ?? '-',
             ),
           ]),
-          const SizedBox(height: 16),
+
+          const SizedBox(height: 24),
+
+          // 2. Section Quick Actions (Card/Button Style)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: AppText(
+              context.l10n.assetQuickActions,
+              style: AppTextStyle.titleMedium,
+            ),
+          ),
+          const SizedBox(height: 12),
+          _buildQuickActionsMenu(),
+
+          const SizedBox(height: 24),
+
+          // 3. Info Tambahan
           _buildInfoCard(context.l10n.assetPurchaseInformation, [
             _buildInfoRow(
               context.l10n.assetPurchaseDate,
@@ -414,7 +432,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
                   : '-',
             ),
           ]),
+
           const SizedBox(height: 16),
+
           _buildInfoCard(context.l10n.assetMetadata, [
             _buildInfoRow(
               context.l10n.assetCreatedAt,
@@ -425,6 +445,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
               _formatDateTime(_asset!.updatedAt),
             ),
           ]),
+
           if (_asset!.dataMatrixImageUrl.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildInfoCard(context.l10n.assetDataMatrixImage, [
@@ -497,4 +518,124 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
+
+  Widget _buildQuickActionsMenu() {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    final actions = [
+      _ActionItem(
+        icon: Icons.report_problem_rounded,
+        label: context.l10n.assetReportIssue,
+        color: Colors.orange, // Opsional: Highlight color
+        onTap: () => context.push(
+          RouteConstant.issueReportUpsert,
+          extra: {'prePopulatedAsset': _asset},
+        ),
+      ),
+      _ActionItem(
+        icon: Icons.person_outline_rounded,
+        label: context.l10n.assetMoveToUser,
+        onTap: () {
+          final route = isAdmin
+              ? RouteConstant.adminAssetMovementUpsertForUser
+              : RouteConstant.staffAssetMovementUpsertForUser;
+          context.push(route, extra: {'prePopulatedAsset': _asset});
+        },
+      ),
+      _ActionItem(
+        icon: Icons.location_on_outlined,
+        label: context.l10n.assetMoveToLocation,
+        onTap: () {
+          final route = isAdmin
+              ? RouteConstant.adminAssetMovementUpsertForLocation
+              : RouteConstant.staffAssetMovementUpsertForLocation;
+          context.push(route, extra: {'prePopulatedAsset': _asset});
+        },
+      ),
+      if (isAdmin) ...[
+        _ActionItem(
+          icon: Icons.calendar_month_outlined,
+          label: context.l10n.assetScheduleMaintenance,
+          onTap: () => context.push(
+            RouteConstant.adminMaintenanceScheduleUpsert,
+            extra: {'prePopulatedAsset': _asset},
+          ),
+        ),
+        _ActionItem(
+          icon: Icons.build_circle_outlined,
+          label: context.l10n.assetRecordMaintenance,
+          onTap: () => context.push(
+            RouteConstant.adminMaintenanceRecordUpsert,
+            extra: {'prePopulatedAsset': _asset},
+          ),
+        ),
+      ],
+    ];
+
+    return SizedBox(
+      height: 90,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: actions.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          final item = actions[index];
+          final activeColor = item.color ?? Theme.of(context).primaryColor;
+
+          return Material(
+            color: context.colors.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: context.colors.border, width: 1),
+            ),
+            child: InkWell(
+              onTap: item.onTap,
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                width: 100,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(item.icon, color: activeColor, size: 26),
+                    const SizedBox(height: 8),
+                    Text(
+                      item.label,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      // Manual styling biar pas ukurannya
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _ActionItem {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final Color? color;
+
+  _ActionItem({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+    this.color,
+  });
 }

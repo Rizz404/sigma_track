@@ -1065,6 +1065,42 @@ abstract class L10n {
   /// **'Data matrix export is only available in PDF format'**
   String get assetDataMatrixPdfOnly;
 
+  /// Quick actions section title
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get assetQuickActions;
+
+  /// Report issue action label
+  ///
+  /// In en, this message translates to:
+  /// **'Report\nIssue'**
+  String get assetReportIssue;
+
+  /// Move to user action label
+  ///
+  /// In en, this message translates to:
+  /// **'Move to\nUser'**
+  String get assetMoveToUser;
+
+  /// Move to location action label
+  ///
+  /// In en, this message translates to:
+  /// **'Move to\nLocation'**
+  String get assetMoveToLocation;
+
+  /// Schedule maintenance action label
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule\nMaint.'**
+  String get assetScheduleMaintenance;
+
+  /// Record maintenance action label
+  ///
+  /// In en, this message translates to:
+  /// **'Record\nMaint.'**
+  String get assetRecordMaintenance;
+
   /// Dialog title for deleting an asset movement
   ///
   /// In en, this message translates to:

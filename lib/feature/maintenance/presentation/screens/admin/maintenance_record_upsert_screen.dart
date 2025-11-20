@@ -38,11 +38,13 @@ import 'package:skeletonizer/skeletonizer.dart';
 class MaintenanceRecordUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceRecord? maintenanceRecord;
   final String? maintenanceRecordId;
+  final Asset? prePopulatedAsset;
 
   const MaintenanceRecordUpsertScreen({
     super.key,
     this.maintenanceRecord,
     this.maintenanceRecordId,
+    this.prePopulatedAsset,
   });
 
   @override
@@ -56,6 +58,7 @@ class _MaintenanceRecordUpsertScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceRecord != null || widget.maintenanceRecordId != null;
+  bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   MaintenanceRecord? _fetchedMaintenanceRecord;
   bool _isLoadingTranslations = false;
 
@@ -348,7 +351,12 @@ class _MaintenanceRecordUpsertScreenState
               name: 'assetId',
               label: context.l10n.maintenanceRecordAsset,
               hintText: context.l10n.maintenanceRecordSearchAsset,
-              initialValue: widget.maintenanceRecord?.assetId,
+              initialValue: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.id
+                  : widget.maintenanceRecord?.assetId,
+              initialDisplayText: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.assetTag
+                  : null,
               enableAutocomplete: true,
               onSearch: _searchAssets,
               itemDisplayMapper: (asset) => asset.assetTag,

@@ -465,12 +465,23 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final issueReportId = state.uri.queryParameters['issueReportId'];
-        final issueReport = state.extra as IssueReport?;
+        final extra = state.extra;
+        IssueReport? issueReport;
+        Asset? prePopulatedAsset;
+
+        if (extra is IssueReport) {
+          issueReport = extra;
+        } else if (extra is Map<String, dynamic>) {
+          issueReport = extra['issueReport'] as IssueReport?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: IssueReportUpsertScreen(
             issueReport: issueReport,
             issueReportId: issueReportId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -722,12 +733,23 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
-        final assetMovement = state.extra as AssetMovement?;
+        final extra = state.extra;
+        AssetMovement? assetMovement;
+        Asset? prePopulatedAsset;
+
+        if (extra is AssetMovement) {
+          assetMovement = extra;
+        } else if (extra is Map<String, dynamic>) {
+          assetMovement = extra['assetMovement'] as AssetMovement?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: AssetMovementUpsertForLocationScreen(
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -738,12 +760,23 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
-        final assetMovement = state.extra as AssetMovement?;
+        final extra = state.extra;
+        AssetMovement? assetMovement;
+        Asset? prePopulatedAsset;
+
+        if (extra is AssetMovement) {
+          assetMovement = extra;
+        } else if (extra is Map<String, dynamic>) {
+          assetMovement = extra['assetMovement'] as AssetMovement?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: AssetMovementUpsertForUserScreen(
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -799,12 +832,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
-        final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+        final extra = state.extra;
+        MaintenanceSchedule? maintenanceSchedule;
+        Asset? prePopulatedAsset;
+
+        if (extra is MaintenanceSchedule) {
+          maintenanceSchedule = extra;
+        } else if (extra is Map<String, dynamic>) {
+          maintenanceSchedule =
+              extra['maintenanceSchedule'] as MaintenanceSchedule?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceScheduleUpsertScreen(
             maintenanceSchedule: maintenanceSchedule,
             maintenanceId: maintenanceId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -816,12 +861,23 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceRecordId =
             state.uri.queryParameters['maintenanceRecordId'];
-        final maintenanceRecord = state.extra as MaintenanceRecord?;
+        final extra = state.extra;
+        MaintenanceRecord? maintenanceRecord;
+        Asset? prePopulatedAsset;
+
+        if (extra is MaintenanceRecord) {
+          maintenanceRecord = extra;
+        } else if (extra is Map<String, dynamic>) {
+          maintenanceRecord = extra['maintenanceRecord'] as MaintenanceRecord?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceRecordUpsertScreen(
             maintenanceRecord: maintenanceRecord,
             maintenanceRecordId: maintenanceRecordId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -921,12 +977,23 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
-        final assetMovement = state.extra as AssetMovement?;
+        final extra = state.extra;
+        AssetMovement? assetMovement;
+        Asset? prePopulatedAsset;
+
+        if (extra is AssetMovement) {
+          assetMovement = extra;
+        } else if (extra is Map<String, dynamic>) {
+          assetMovement = extra['assetMovement'] as AssetMovement?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: AssetMovementUpsertForLocationScreen(
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -937,12 +1004,23 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovementId = state.uri.queryParameters['movementId'];
-        final assetMovement = state.extra as AssetMovement?;
+        final extra = state.extra;
+        AssetMovement? assetMovement;
+        Asset? prePopulatedAsset;
+
+        if (extra is AssetMovement) {
+          assetMovement = extra;
+        } else if (extra is Map<String, dynamic>) {
+          assetMovement = extra['assetMovement'] as AssetMovement?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: AssetMovementUpsertForUserScreen(
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -953,12 +1031,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
-        final maintenanceSchedule = state.extra as MaintenanceSchedule?;
+        final extra = state.extra;
+        MaintenanceSchedule? maintenanceSchedule;
+        Asset? prePopulatedAsset;
+
+        if (extra is MaintenanceSchedule) {
+          maintenanceSchedule = extra;
+        } else if (extra is Map<String, dynamic>) {
+          maintenanceSchedule =
+              extra['maintenanceSchedule'] as MaintenanceSchedule?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceScheduleUpsertScreen(
             maintenanceSchedule: maintenanceSchedule,
             maintenanceId: maintenanceId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },
@@ -970,12 +1060,23 @@ class AppRouter {
       pageBuilder: (context, state) {
         final maintenanceRecordId =
             state.uri.queryParameters['maintenanceRecordId'];
-        final maintenanceRecord = state.extra as MaintenanceRecord?;
+        final extra = state.extra;
+        MaintenanceRecord? maintenanceRecord;
+        Asset? prePopulatedAsset;
+
+        if (extra is MaintenanceRecord) {
+          maintenanceRecord = extra;
+        } else if (extra is Map<String, dynamic>) {
+          maintenanceRecord = extra['maintenanceRecord'] as MaintenanceRecord?;
+          prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: MaintenanceRecordUpsertScreen(
             maintenanceRecord: maintenanceRecord,
             maintenanceRecordId: maintenanceRecordId,
+            prePopulatedAsset: prePopulatedAsset,
           ),
         );
       },

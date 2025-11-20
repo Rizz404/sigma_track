@@ -37,11 +37,13 @@ import 'package:skeletonizer/skeletonizer.dart';
 class AssetMovementUpsertForLocationScreen extends ConsumerStatefulWidget {
   final AssetMovement? assetMovement;
   final String? assetMovementId;
+  final Asset? prePopulatedAsset;
 
   const AssetMovementUpsertForLocationScreen({
     super.key,
     this.assetMovement,
     this.assetMovementId,
+    this.prePopulatedAsset,
   });
 
   @override
@@ -55,6 +57,7 @@ class _AssetMovementUpsertForLocationScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.assetMovement != null || widget.assetMovementId != null;
+  bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   AssetMovement? _fetchedAssetMovement;
   bool _isLoadingTranslations = false;
 
@@ -291,7 +294,12 @@ class _AssetMovementUpsertForLocationScreenState
               name: 'assetId',
               label: context.l10n.assetMovementAsset,
               hintText: context.l10n.assetMovementSearchAsset,
-              initialValue: widget.assetMovement?.assetId,
+              initialValue: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.id
+                  : widget.assetMovement?.assetId,
+              initialDisplayText: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.assetTag
+                  : null,
               enableAutocomplete: true,
               onSearch: _searchAssets,
               itemDisplayMapper: (asset) => asset.assetTag,

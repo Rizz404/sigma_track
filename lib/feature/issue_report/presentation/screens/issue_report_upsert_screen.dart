@@ -36,11 +36,13 @@ import 'package:skeletonizer/skeletonizer.dart';
 class IssueReportUpsertScreen extends ConsumerStatefulWidget {
   final IssueReport? issueReport;
   final String? issueReportId;
+  final Asset? prePopulatedAsset;
 
   const IssueReportUpsertScreen({
     super.key,
     this.issueReport,
     this.issueReportId,
+    this.prePopulatedAsset,
   });
 
   @override
@@ -54,6 +56,7 @@ class _IssueReportUpsertScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.issueReport != null || widget.issueReportId != null;
+  bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   IssueReport? _fetchedIssueReport;
   bool _isLoadingTranslations = false;
 
@@ -284,9 +287,13 @@ class _IssueReportUpsertScreenState
               name: 'assetId',
               label: context.l10n.issueReportAsset,
               hintText: context.l10n.issueReportSearchAsset,
-              initialValue:
-                  (_isEdit ? _fetchedIssueReport?.assetId : null) ??
-                  widget.issueReport?.assetId,
+              initialValue: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.id
+                  : ((_isEdit ? _fetchedIssueReport?.assetId : null) ??
+                        widget.issueReport?.assetId),
+              initialDisplayText: _hasPrePopulatedAsset
+                  ? widget.prePopulatedAsset!.assetTag
+                  : null,
               enableAutocomplete: true,
               onSearch: _searchAssets,
               itemDisplayMapper: (asset) => asset.assetTag,
