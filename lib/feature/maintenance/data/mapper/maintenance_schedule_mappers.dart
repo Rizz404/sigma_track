@@ -135,6 +135,8 @@ extension MaintenanceTypeStatisticsModelMapper
     return MaintenanceTypeStatistics(
       preventive: preventive,
       corrective: corrective,
+      inspection: inspection,
+      calibration: calibration,
     );
   }
 }
@@ -144,6 +146,8 @@ extension MaintenanceTypeStatisticsEntityMapper on MaintenanceTypeStatistics {
     return MaintenanceTypeStatisticsModel(
       preventive: preventive,
       corrective: corrective,
+      inspection: inspection,
+      calibration: calibration,
     );
   }
 }
@@ -152,9 +156,10 @@ extension MaintenanceScheduleStatusStatisticsModelMapper
     on MaintenanceScheduleStatusStatisticsModel {
   MaintenanceScheduleStatusStatistics toEntity() {
     return MaintenanceScheduleStatusStatistics(
-      scheduled: scheduled,
+      active: active,
+      paused: paused,
+      stopped: stopped,
       completed: completed,
-      cancelled: cancelled,
     );
   }
 }
@@ -163,9 +168,10 @@ extension MaintenanceScheduleStatusStatisticsEntityMapper
     on MaintenanceScheduleStatusStatistics {
   MaintenanceScheduleStatusStatisticsModel toModel() {
     return MaintenanceScheduleStatusStatisticsModel(
-      scheduled: scheduled,
+      active: active,
+      paused: paused,
+      stopped: stopped,
       completed: completed,
-      cancelled: cancelled,
     );
   }
 }
@@ -229,7 +235,7 @@ extension UpcomingMaintenanceScheduleModelMapper
       assetName: assetName,
       assetTag: assetTag,
       maintenanceType: maintenanceType,
-      scheduledDate: scheduledDate,
+      nextScheduledDate: nextScheduledDate,
       daysUntilDue: daysUntilDue,
       title: title,
       description: description,
@@ -246,7 +252,7 @@ extension UpcomingMaintenanceScheduleEntityMapper
       assetName: assetName,
       assetTag: assetTag,
       maintenanceType: maintenanceType,
-      scheduledDate: scheduledDate,
+      nextScheduledDate: nextScheduledDate,
       daysUntilDue: daysUntilDue,
       title: title,
       description: description,
@@ -263,7 +269,7 @@ extension OverdueMaintenanceScheduleModelMapper
       assetName: assetName,
       assetTag: assetTag,
       maintenanceType: maintenanceType,
-      scheduledDate: scheduledDate,
+      nextScheduledDate: nextScheduledDate,
       daysOverdue: daysOverdue,
       title: title,
       description: description,
@@ -279,7 +285,7 @@ extension OverdueMaintenanceScheduleEntityMapper on OverdueMaintenanceSchedule {
       assetName: assetName,
       assetTag: assetTag,
       maintenanceType: maintenanceType,
-      scheduledDate: scheduledDate,
+      nextScheduledDate: nextScheduledDate,
       daysOverdue: daysOverdue,
       title: title,
       description: description,
@@ -311,11 +317,14 @@ extension MaintenanceScheduleSummaryStatisticsModelMapper
   MaintenanceScheduleSummaryStatistics toEntity() {
     return MaintenanceScheduleSummaryStatistics(
       totalSchedules: totalSchedules,
-      scheduledMaintenancePercentage: scheduledMaintenancePercentage,
+      activeMaintenancePercentage: activeMaintenancePercentage,
+      pausedMaintenancePercentage: pausedMaintenancePercentage,
+      stoppedMaintenancePercentage: stoppedMaintenancePercentage,
       completedMaintenancePercentage: completedMaintenancePercentage,
-      cancelledMaintenancePercentage: cancelledMaintenancePercentage,
       preventiveMaintenancePercentage: preventiveMaintenancePercentage,
       correctiveMaintenancePercentage: correctiveMaintenancePercentage,
+      inspectionMaintenancePercentage: inspectionMaintenancePercentage,
+      calibrationMaintenancePercentage: calibrationMaintenancePercentage,
       averageScheduleFrequency: averageScheduleFrequency,
       upcomingMaintenanceCount: upcomingMaintenanceCount,
       overdueMaintenanceCount: overdueMaintenanceCount,
@@ -334,11 +343,14 @@ extension MaintenanceScheduleSummaryStatisticsEntityMapper
   MaintenanceScheduleSummaryStatisticsModel toModel() {
     return MaintenanceScheduleSummaryStatisticsModel(
       totalSchedules: totalSchedules,
-      scheduledMaintenancePercentage: scheduledMaintenancePercentage,
+      activeMaintenancePercentage: activeMaintenancePercentage,
+      pausedMaintenancePercentage: pausedMaintenancePercentage,
+      stoppedMaintenancePercentage: stoppedMaintenancePercentage,
       completedMaintenancePercentage: completedMaintenancePercentage,
-      cancelledMaintenancePercentage: cancelledMaintenancePercentage,
       preventiveMaintenancePercentage: preventiveMaintenancePercentage,
       correctiveMaintenancePercentage: correctiveMaintenancePercentage,
+      inspectionMaintenancePercentage: inspectionMaintenancePercentage,
+      calibrationMaintenancePercentage: calibrationMaintenancePercentage,
       averageScheduleFrequency: averageScheduleFrequency,
       upcomingMaintenanceCount: upcomingMaintenanceCount,
       overdueMaintenanceCount: overdueMaintenanceCount,

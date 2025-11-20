@@ -141,23 +141,34 @@ class MaintenanceScheduleCountStatisticsModel extends Equatable {
 class MaintenanceTypeStatisticsModel extends Equatable {
   final int preventive;
   final int corrective;
+  final int inspection;
+  final int calibration;
 
   const MaintenanceTypeStatisticsModel({
     required this.preventive,
     required this.corrective,
+    required this.inspection,
+    required this.calibration,
   });
 
   @override
-  List<Object> get props => [preventive, corrective];
+  List<Object> get props => [preventive, corrective, inspection, calibration];
 
   Map<String, dynamic> toMap() {
-    return {'preventive': preventive, 'corrective': corrective};
+    return {
+      'preventive': preventive,
+      'corrective': corrective,
+      'inspection': inspection,
+      'calibration': calibration,
+    };
   }
 
   factory MaintenanceTypeStatisticsModel.fromMap(Map<String, dynamic> map) {
     return MaintenanceTypeStatisticsModel(
       preventive: map.getFieldOrNull<int>('preventive') ?? 0,
       corrective: map.getFieldOrNull<int>('corrective') ?? 0,
+      inspection: map.getFieldOrNull<int>('inspection') ?? 0,
+      calibration: map.getFieldOrNull<int>('calibration') ?? 0,
     );
   }
 
@@ -168,24 +179,27 @@ class MaintenanceTypeStatisticsModel extends Equatable {
 }
 
 class MaintenanceScheduleStatusStatisticsModel extends Equatable {
-  final int scheduled;
+  final int active;
+  final int paused;
+  final int stopped;
   final int completed;
-  final int cancelled;
 
   const MaintenanceScheduleStatusStatisticsModel({
-    required this.scheduled,
+    required this.active,
+    required this.paused,
+    required this.stopped,
     required this.completed,
-    required this.cancelled,
   });
 
   @override
-  List<Object> get props => [scheduled, completed, cancelled];
+  List<Object> get props => [active, paused, stopped, completed];
 
   Map<String, dynamic> toMap() {
     return {
-      'scheduled': scheduled,
+      'active': active,
+      'paused': paused,
+      'stopped': stopped,
       'completed': completed,
-      'cancelled': cancelled,
     };
   }
 
@@ -193,9 +207,10 @@ class MaintenanceScheduleStatusStatisticsModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return MaintenanceScheduleStatusStatisticsModel(
-      scheduled: map.getFieldOrNull<int>('scheduled') ?? 0,
+      active: map.getFieldOrNull<int>('active') ?? 0,
+      paused: map.getFieldOrNull<int>('paused') ?? 0,
+      stopped: map.getFieldOrNull<int>('stopped') ?? 0,
       completed: map.getFieldOrNull<int>('completed') ?? 0,
-      cancelled: map.getFieldOrNull<int>('cancelled') ?? 0,
     );
   }
 
@@ -305,7 +320,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
   final String assetName;
   final String assetTag;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
+  final DateTime nextScheduledDate;
   final int daysUntilDue;
   final String title;
   final String? description;
@@ -316,7 +331,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
     required this.assetName,
     required this.assetTag,
     required this.maintenanceType,
-    required this.scheduledDate,
+    required this.nextScheduledDate,
     required this.daysUntilDue,
     required this.title,
     this.description,
@@ -329,7 +344,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
     assetName,
     assetTag,
     maintenanceType,
-    scheduledDate,
+    nextScheduledDate,
     daysUntilDue,
     title,
     description,
@@ -342,7 +357,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
       'assetName': assetName,
       'assetTag': assetTag,
       'maintenanceType': maintenanceType.value,
-      'scheduledDate': scheduledDate.toIso8601String(),
+      'nextScheduledDate': nextScheduledDate.toIso8601String(),
       'daysUntilDue': daysUntilDue,
       'title': title,
       'description': description,
@@ -358,7 +373,7 @@ class UpcomingMaintenanceScheduleModel extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map.getField<String>('maintenanceType'),
       ),
-      scheduledDate: map.getField<DateTime>('scheduledDate'),
+      nextScheduledDate: map.getField<DateTime>('nextScheduledDate'),
       daysUntilDue: map.getFieldOrNull<int>('daysUntilDue') ?? 0,
       title: map.getFieldOrNull<String>('title') ?? '',
       description: map.getFieldOrNull<String>('description'),
@@ -377,7 +392,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
   final String assetName;
   final String assetTag;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
+  final DateTime nextScheduledDate;
   final int daysOverdue;
   final String title;
   final String? description;
@@ -388,7 +403,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
     required this.assetName,
     required this.assetTag,
     required this.maintenanceType,
-    required this.scheduledDate,
+    required this.nextScheduledDate,
     required this.daysOverdue,
     required this.title,
     this.description,
@@ -401,7 +416,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
     assetName,
     assetTag,
     maintenanceType,
-    scheduledDate,
+    nextScheduledDate,
     daysOverdue,
     title,
     description,
@@ -414,7 +429,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
       'assetName': assetName,
       'assetTag': assetTag,
       'maintenanceType': maintenanceType.value,
-      'scheduledDate': scheduledDate.toIso8601String(),
+      'nextScheduledDate': nextScheduledDate.toIso8601String(),
       'daysOverdue': daysOverdue,
       'title': title,
       'description': description,
@@ -430,7 +445,7 @@ class OverdueMaintenanceScheduleModel extends Equatable {
       maintenanceType: MaintenanceScheduleType.values.firstWhere(
         (e) => e.value == map.getField<String>('maintenanceType'),
       ),
-      scheduledDate: map.getField<DateTime>('scheduledDate'),
+      nextScheduledDate: map.getField<DateTime>('nextScheduledDate'),
       daysOverdue: map.getFieldOrNull<int>('daysOverdue') ?? 0,
       title: map.getFieldOrNull<String>('title') ?? '',
       description: map.getFieldOrNull<String>('description'),
@@ -474,11 +489,14 @@ class MaintenanceFrequencyTrendModel extends Equatable {
 
 class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
   final int totalSchedules;
-  final double scheduledMaintenancePercentage;
+  final double activeMaintenancePercentage;
+  final double pausedMaintenancePercentage;
+  final double stoppedMaintenancePercentage;
   final double completedMaintenancePercentage;
-  final double cancelledMaintenancePercentage;
   final double preventiveMaintenancePercentage;
   final double correctiveMaintenancePercentage;
+  final double inspectionMaintenancePercentage;
+  final double calibrationMaintenancePercentage;
   final double averageScheduleFrequency;
   final int upcomingMaintenanceCount;
   final int overdueMaintenanceCount;
@@ -491,11 +509,14 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
 
   const MaintenanceScheduleSummaryStatisticsModel({
     required this.totalSchedules,
-    required this.scheduledMaintenancePercentage,
+    required this.activeMaintenancePercentage,
+    required this.pausedMaintenancePercentage,
+    required this.stoppedMaintenancePercentage,
     required this.completedMaintenancePercentage,
-    required this.cancelledMaintenancePercentage,
     required this.preventiveMaintenancePercentage,
     required this.correctiveMaintenancePercentage,
+    required this.inspectionMaintenancePercentage,
+    required this.calibrationMaintenancePercentage,
     required this.averageScheduleFrequency,
     required this.upcomingMaintenanceCount,
     required this.overdueMaintenanceCount,
@@ -510,11 +531,14 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
   @override
   List<Object> get props => [
     totalSchedules,
-    scheduledMaintenancePercentage,
+    activeMaintenancePercentage,
+    pausedMaintenancePercentage,
+    stoppedMaintenancePercentage,
     completedMaintenancePercentage,
-    cancelledMaintenancePercentage,
     preventiveMaintenancePercentage,
     correctiveMaintenancePercentage,
+    inspectionMaintenancePercentage,
+    calibrationMaintenancePercentage,
     averageScheduleFrequency,
     upcomingMaintenanceCount,
     overdueMaintenanceCount,
@@ -529,11 +553,14 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'totalSchedules': totalSchedules,
-      'scheduledMaintenancePercentage': scheduledMaintenancePercentage,
+      'activeMaintenancePercentage': activeMaintenancePercentage,
+      'pausedMaintenancePercentage': pausedMaintenancePercentage,
+      'stoppedMaintenancePercentage': stoppedMaintenancePercentage,
       'completedMaintenancePercentage': completedMaintenancePercentage,
-      'cancelledMaintenancePercentage': cancelledMaintenancePercentage,
       'preventiveMaintenancePercentage': preventiveMaintenancePercentage,
       'correctiveMaintenancePercentage': correctiveMaintenancePercentage,
+      'inspectionMaintenancePercentage': inspectionMaintenancePercentage,
+      'calibrationMaintenancePercentage': calibrationMaintenancePercentage,
       'averageScheduleFrequency': averageScheduleFrequency,
       'upcomingMaintenanceCount': upcomingMaintenanceCount,
       'overdueMaintenanceCount': overdueMaintenanceCount,
@@ -551,16 +578,22 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
   ) {
     return MaintenanceScheduleSummaryStatisticsModel(
       totalSchedules: map.getFieldOrNull<int>('totalSchedules') ?? 0,
-      scheduledMaintenancePercentage:
-          map.getFieldOrNull<double>('scheduledMaintenancePercentage') ?? 0.0,
+      activeMaintenancePercentage:
+          map.getFieldOrNull<double>('activeMaintenancePercentage') ?? 0.0,
+      pausedMaintenancePercentage:
+          map.getFieldOrNull<double>('pausedMaintenancePercentage') ?? 0.0,
+      stoppedMaintenancePercentage:
+          map.getFieldOrNull<double>('stoppedMaintenancePercentage') ?? 0.0,
       completedMaintenancePercentage:
           map.getFieldOrNull<double>('completedMaintenancePercentage') ?? 0.0,
-      cancelledMaintenancePercentage:
-          map.getFieldOrNull<double>('cancelledMaintenancePercentage') ?? 0.0,
       preventiveMaintenancePercentage:
           map.getFieldOrNull<double>('preventiveMaintenancePercentage') ?? 0.0,
       correctiveMaintenancePercentage:
           map.getFieldOrNull<double>('correctiveMaintenancePercentage') ?? 0.0,
+      inspectionMaintenancePercentage:
+          map.getFieldOrNull<double>('inspectionMaintenancePercentage') ?? 0.0,
+      calibrationMaintenancePercentage:
+          map.getFieldOrNull<double>('calibrationMaintenancePercentage') ?? 0.0,
       averageScheduleFrequency:
           map.getFieldOrNull<double>('averageScheduleFrequency') ?? 0.0,
       upcomingMaintenanceCount:

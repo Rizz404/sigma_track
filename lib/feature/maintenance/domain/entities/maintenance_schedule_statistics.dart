@@ -50,29 +50,35 @@ class MaintenanceScheduleCountStatistics extends Equatable {
 class MaintenanceTypeStatistics extends Equatable {
   final int preventive;
   final int corrective;
+  final int inspection;
+  final int calibration;
 
   const MaintenanceTypeStatistics({
     required this.preventive,
     required this.corrective,
+    required this.inspection,
+    required this.calibration,
   });
 
   @override
-  List<Object> get props => [preventive, corrective];
+  List<Object> get props => [preventive, corrective, inspection, calibration];
 }
 
 class MaintenanceScheduleStatusStatistics extends Equatable {
-  final int scheduled;
+  final int active;
+  final int paused;
+  final int stopped;
   final int completed;
-  final int cancelled;
 
   const MaintenanceScheduleStatusStatistics({
-    required this.scheduled,
+    required this.active,
+    required this.paused,
+    required this.stopped,
     required this.completed,
-    required this.cancelled,
   });
 
   @override
-  List<Object> get props => [scheduled, completed, cancelled];
+  List<Object> get props => [active, paused, stopped, completed];
 }
 
 class AssetMaintenanceScheduleStatistics extends Equatable {
@@ -123,7 +129,7 @@ class UpcomingMaintenanceSchedule extends Equatable {
   final String assetName;
   final String assetTag;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
+  final DateTime nextScheduledDate;
   final int daysUntilDue;
   final String title;
   final String? description;
@@ -134,7 +140,7 @@ class UpcomingMaintenanceSchedule extends Equatable {
     required this.assetName,
     required this.assetTag,
     required this.maintenanceType,
-    required this.scheduledDate,
+    required this.nextScheduledDate,
     required this.daysUntilDue,
     required this.title,
     this.description,
@@ -147,7 +153,7 @@ class UpcomingMaintenanceSchedule extends Equatable {
     assetName,
     assetTag,
     maintenanceType,
-    scheduledDate,
+    nextScheduledDate,
     daysUntilDue,
     title,
     description,
@@ -160,7 +166,7 @@ class OverdueMaintenanceSchedule extends Equatable {
   final String assetName;
   final String assetTag;
   final MaintenanceScheduleType maintenanceType;
-  final DateTime scheduledDate;
+  final DateTime nextScheduledDate;
   final int daysOverdue;
   final String title;
   final String? description;
@@ -171,7 +177,7 @@ class OverdueMaintenanceSchedule extends Equatable {
     required this.assetName,
     required this.assetTag,
     required this.maintenanceType,
-    required this.scheduledDate,
+    required this.nextScheduledDate,
     required this.daysOverdue,
     required this.title,
     this.description,
@@ -184,7 +190,7 @@ class OverdueMaintenanceSchedule extends Equatable {
     assetName,
     assetTag,
     maintenanceType,
-    scheduledDate,
+    nextScheduledDate,
     daysOverdue,
     title,
     description,
@@ -206,11 +212,14 @@ class MaintenanceFrequencyTrend extends Equatable {
 
 class MaintenanceScheduleSummaryStatistics extends Equatable {
   final int totalSchedules;
-  final double scheduledMaintenancePercentage;
+  final double activeMaintenancePercentage;
+  final double pausedMaintenancePercentage;
+  final double stoppedMaintenancePercentage;
   final double completedMaintenancePercentage;
-  final double cancelledMaintenancePercentage;
   final double preventiveMaintenancePercentage;
   final double correctiveMaintenancePercentage;
+  final double inspectionMaintenancePercentage;
+  final double calibrationMaintenancePercentage;
   final double averageScheduleFrequency;
   final int upcomingMaintenanceCount;
   final int overdueMaintenanceCount;
@@ -223,11 +232,14 @@ class MaintenanceScheduleSummaryStatistics extends Equatable {
 
   const MaintenanceScheduleSummaryStatistics({
     required this.totalSchedules,
-    required this.scheduledMaintenancePercentage,
+    required this.activeMaintenancePercentage,
+    required this.pausedMaintenancePercentage,
+    required this.stoppedMaintenancePercentage,
     required this.completedMaintenancePercentage,
-    required this.cancelledMaintenancePercentage,
     required this.preventiveMaintenancePercentage,
     required this.correctiveMaintenancePercentage,
+    required this.inspectionMaintenancePercentage,
+    required this.calibrationMaintenancePercentage,
     required this.averageScheduleFrequency,
     required this.upcomingMaintenanceCount,
     required this.overdueMaintenanceCount,
@@ -242,11 +254,14 @@ class MaintenanceScheduleSummaryStatistics extends Equatable {
   @override
   List<Object> get props => [
     totalSchedules,
-    scheduledMaintenancePercentage,
+    activeMaintenancePercentage,
+    pausedMaintenancePercentage,
+    stoppedMaintenancePercentage,
     completedMaintenancePercentage,
-    cancelledMaintenancePercentage,
     preventiveMaintenancePercentage,
     correctiveMaintenancePercentage,
+    inspectionMaintenancePercentage,
+    calibrationMaintenancePercentage,
     averageScheduleFrequency,
     upcomingMaintenanceCount,
     overdueMaintenanceCount,
