@@ -416,7 +416,7 @@ class L10nEn extends L10n {
       'File will open share menu. Choose app to open or save directly.';
 
   @override
-  String get assetShareAndSave => 'Share & Save';
+  String get assetShareAndSave => 'Save';
 
   @override
   String get assetExportSubject => 'Assets Export';

@@ -19,6 +19,8 @@ class DioClient {
   DioClient(this._dio, AuthService authService)
     : _localeInterceptor = LocaleInterceptor(),
       _authInterceptor = AuthInterceptor(authService) {
+    // ! Dari bot, nanti rungkat salahin ini
+    _dio.interceptors.clear();
     _dio
       ..options.baseUrl = ApiConstant.baseUrl
       ..options.connectTimeout = const Duration(

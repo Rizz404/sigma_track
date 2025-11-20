@@ -876,7 +876,7 @@ abstract class L10n {
   /// Share and save button label
   ///
   /// In en, this message translates to:
-  /// **'Share & Save'**
+  /// **'Save'**
   String get assetShareAndSave;
 
   /// Export share subject

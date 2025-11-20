@@ -122,12 +122,26 @@ class AppLogger {
   /// Get Dio logger interceptor
   TalkerDioLogger get dioLogger => TalkerDioLogger(
     talker: _talker,
-    settings: const TalkerDioLoggerSettings(
+    settings: TalkerDioLoggerSettings(
       printRequestHeaders: true,
       printResponseHeaders: false,
       printRequestData: true,
       printResponseData: true,
       printResponseMessage: true,
+      responseFilter: (response) {
+        final headers = response.headers['content-type'];
+        if (headers != null && headers.isNotEmpty) {
+          final contentType = headers.first.toLowerCase();
+          // Skip logging binary file responses (PDF, Excel)
+          if (contentType == 'application/pdf' ||
+              contentType == 'application/vnd.ms-excel' ||
+              contentType ==
+                  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+            return false;
+          }
+        }
+        return true;
+      },
     ),
   );
 

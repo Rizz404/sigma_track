@@ -558,7 +558,7 @@
   "@assetExportShareInstruction": {
     "description": "Instruction for export share process"
   },
-  "assetShareAndSave": "共有と保存",
+  "assetShareAndSave": "保存",
   "@assetShareAndSave": {
     "description": "Share and save button label"
   },

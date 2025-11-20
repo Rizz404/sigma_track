@@ -382,7 +382,6 @@ class _FilePreviewDialog extends StatelessWidget {
             : const AppText('Unable to preview image');
       }
     } else if (_isVideo()) {
-      // TODO: Implement video preview with video_player package
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

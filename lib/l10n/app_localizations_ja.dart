@@ -412,7 +412,7 @@ class L10nJa extends L10n {
       'ファイルが共有メニューを開きます。開くアプリを選択するか、直接保存してください。';
 
   @override
-  String get assetShareAndSave => '共有と保存';
+  String get assetShareAndSave => '保存';
 
   @override
   String get assetExportSubject => '資産エクスポート';

@@ -1,12 +1,10 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:file_saver/file_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -16,7 +14,6 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class ExportAssetDataMatrixBottomSheet extends ConsumerStatefulWidget {
@@ -121,27 +118,6 @@ class _ExportAssetDataMatrixBottomSheetState
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 24),
-              AppCheckbox(
-                name: 'includeDataMatrixImage',
-                title: Row(
-                  children: [
-                    Icon(
-                      Icons.image,
-                      size: 18,
-                      color: context.colors.textSecondary,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: AppText(
-                        context.l10n.assetIncludeDataMatrixImages,
-                        style: AppTextStyle.bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
-                initialValue: widget.initialParams.includeDataMatrixImage,
               ),
               const SizedBox(height: 24),
               if (previewData != null) ...[
@@ -277,96 +253,24 @@ class _ExportAssetDataMatrixBottomSheetState
     }
   }
 
-  // * Flow: Export -> Save to temp -> Share file -> User can open & save
-  // * Using share_plus to avoid FileUriExposedException on Android
+  // * Flow: Export -> Preview/Print (Printing package) -> Save/Share
   Future<void> _handleOpenAndSave(Uint8List fileData) async {
     try {
-      // * Save to temporary directory first
-      final tempDir = await getTemporaryDirectory();
       final timestamp = DateTime.now().millisecondsSinceEpoch;
-      const extension = 'pdf';
-      final fileName = 'assets_datamatrix_$timestamp.$extension';
-      final tempFilePath = '${tempDir.path}/$fileName';
-
-      final tempFile = File(tempFilePath);
-      await tempFile.writeAsBytes(fileData);
-
-      this.logPresentation('Temp file created: $tempFilePath');
-
-      // * Share file - this will open system share sheet
-      // * User can choose to open with PDF app or save directly
-      final result = await Share.shareXFiles(
-        [XFile(tempFilePath)],
-        text: context.l10n.assetExportSubject,
-        subject: fileName,
-      );
-
-      if (mounted) {
-        if (result.status == ShareResultStatus.success) {
-          // * Ask if user wants to save permanently to Downloads
-          final shouldSave = await showDialog<bool>(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: AppText(
-                context.l10n.assetSaveToDownloads,
-                style: AppTextStyle.titleMedium,
-              ),
-              content: AppText(
-                context.l10n.assetSaveToDownloadsMessage,
-                style: AppTextStyle.bodyMedium,
-              ),
-              actionsAlignment: MainAxisAlignment.end,
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: AppText(context.l10n.assetNo),
-                ),
-                const SizedBox(width: 8),
-                AppButton(
-                  text: context.l10n.assetSave,
-                  isFullWidth: false,
-                  onPressed: () => Navigator.pop(context, true),
-                ),
-              ],
-            ),
-          );
-
-          if (shouldSave == true) {
-            await _saveFilePermanently(fileData);
-          } else {
-            AppToast.success(context.l10n.assetFileSharedSuccessfully);
-            Navigator.pop(context);
-          }
-        } else if (result.status == ShareResultStatus.dismissed) {
-          AppToast.info(context.l10n.assetShareCancelled);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Failed to share/save file', e, s);
-      AppToast.error(context.l10n.assetFailedToShareFile(e.toString()));
-    }
-  }
-
-  Future<void> _saveFilePermanently(Uint8List fileData) async {
-    try {
-      final timestamp = DateTime.now().millisecondsSinceEpoch;
-      const extension = 'pdf';
       final fileName = 'assets_datamatrix_$timestamp';
 
-      await FileSaver.instance.saveFile(
+      await Printing.layoutPdf(
+        onLayout: (_) => fileData,
         name: fileName,
-        bytes: fileData,
-        fileExtension: extension,
-        mimeType: MimeType.pdf,
+        format: PdfPageFormat.a4.landscape,
       );
 
       if (mounted) {
-        AppToast.success(context.l10n.assetFileSavedSuccessfully);
         Navigator.pop(context);
       }
     } catch (e, s) {
-      this.logError('Failed to save file permanently', e, s);
-      AppToast.error(context.l10n.assetFailedToSaveFile(e.toString()));
+      this.logError('Failed to preview/print file', e, s);
+      AppToast.error(context.l10n.assetFailedToShareFile(e.toString()));
     }
   }
 }
