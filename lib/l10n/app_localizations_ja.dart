@@ -531,6 +531,12 @@ class L10nJa extends L10n {
   String get assetRecordMaintenance => 'メンテを\n記録';
 
   @override
+  String get assetExportTitle => 'エクスポート';
+
+  @override
+  String get assetExportSubtitle => 'データをファイルにエクスポート';
+
+  @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';
 
   @override

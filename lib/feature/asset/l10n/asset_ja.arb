@@ -721,5 +721,13 @@
   "assetRecordMaintenance": "メンテを\n記録",
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
+  },
+  "assetExportTitle": "エクスポート",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "データをファイルにエクスポート",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
   }
 }

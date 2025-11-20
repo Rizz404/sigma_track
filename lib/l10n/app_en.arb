@@ -722,6 +722,14 @@
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
   },
+  "assetExportTitle": "Export",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "Export data to file",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
+  },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"

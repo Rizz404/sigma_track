@@ -167,6 +167,8 @@
     "assetMoveToLocation",
     "assetScheduleMaintenance",
     "assetRecordMaintenance",
+    "assetExportTitle",
+    "assetExportSubtitle",
     "assetMovementDeleteAssetMovement",
     "assetMovementDeleteConfirmation",
     "assetMovementCancel",

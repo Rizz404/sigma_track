@@ -722,6 +722,14 @@
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
   },
+  "assetExportTitle": "エクスポート",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "データをファイルにエクスポート",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
+  },
   "assetMovementDeleteAssetMovement": "資産移動を削除",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"

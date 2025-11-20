@@ -106,6 +106,8 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
         selectManySubtitle: context.l10n.assetSelectManySubtitle,
         filterSortTitle: context.l10n.assetFilterAndSortTitle,
         filterSortSubtitle: context.l10n.assetFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
   }

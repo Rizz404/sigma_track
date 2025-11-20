@@ -1101,6 +1101,18 @@ abstract class L10n {
   /// **'Record\nMaint.'**
   String get assetRecordMaintenance;
 
+  /// Export option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get assetExportTitle;
+
+  /// Export option subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export data to file'**
+  String get assetExportSubtitle;
+
   /// Dialog title for deleting an asset movement
   ///
   /// In en, this message translates to:

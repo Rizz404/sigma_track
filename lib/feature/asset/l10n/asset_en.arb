@@ -721,5 +721,13 @@
   "assetRecordMaintenance": "Record\nMaint.",
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
+  },
+  "assetExportTitle": "Export",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "Export data to file",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
   }
 }

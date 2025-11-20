@@ -549,6 +549,12 @@ class L10nId extends L10n {
   String get assetRecordMaintenance => 'Record\nMaint.';
 
   @override
+  String get assetExportTitle => 'Export';
+
+  @override
+  String get assetExportSubtitle => 'Export data to file';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
 
   @override
