@@ -6,11 +6,13 @@ import 'package:sigma_track/feature/scan_log/presentation/providers/get_scan_log
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_statistics_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_logs_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_logs_search_notifier.dart';
+import 'package:sigma_track/feature/scan_log/presentation/providers/notifier/export_scan_logs_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_boolean_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_count_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_detail_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_statistics_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_logs_state.dart';
+import 'package:sigma_track/feature/scan_log/presentation/providers/state/export_scan_logs_state.dart';
 
 final scanLogsProvider =
     AutoDisposeNotifierProvider<ScanLogsNotifier, ScanLogsState>(
@@ -53,3 +55,8 @@ final getScanLogByIdProvider =
       ScanLogDetailState,
       String
     >(GetScanLogByIdNotifier.new);
+
+final exportScanLogsProvider =
+    AutoDisposeNotifierProvider<ExportScanLogsNotifier, ExportScanLogsState>(
+      ExportScanLogsNotifier.new,
+    );

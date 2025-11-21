@@ -12,11 +12,13 @@ import 'package:sigma_track/feature/user/presentation/providers/state/current_us
 import 'package:sigma_track/feature/user/presentation/providers/user_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_search_notifier.dart';
+import 'package:sigma_track/feature/user/presentation/providers/notifier/export_users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_boolean_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_count_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_detail_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_statistics_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/users_state.dart';
+import 'package:sigma_track/feature/user/presentation/providers/state/export_users_state.dart';
 
 final usersProvider = AutoDisposeNotifierProvider<UsersNotifier, UsersState>(
   UsersNotifier.new,
@@ -94,4 +96,9 @@ final getUserByNameProvider =
 final userStatisticsProvider =
     AutoDisposeNotifierProvider<UserStatisticsNotifier, UserStatisticsState>(
       UserStatisticsNotifier.new,
+    );
+
+final exportUsersProvider =
+    AutoDisposeNotifierProvider<ExportUsersNotifier, ExportUsersState>(
+      ExportUsersNotifier.new,
     );

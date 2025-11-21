@@ -11,6 +11,8 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_search_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/notifier/export_maintenance_schedules_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/notifier/export_maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_boolean_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_count_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_detail_state.dart';
@@ -21,6 +23,8 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/state/mai
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_detail_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedule_statistics_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/export_maintenance_schedules_state.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/state/export_maintenance_records_state.dart';
 
 final maintenanceSchedulesProvider =
     AutoDisposeNotifierProvider<
@@ -96,3 +100,15 @@ final maintenanceRecordsStatisticsProvider =
       MaintenanceRecordsStatisticsNotifier,
       MaintenanceRecordStatisticsState
     >(MaintenanceRecordsStatisticsNotifier.new);
+
+final exportMaintenanceSchedulesProvider =
+    AutoDisposeNotifierProvider<
+      ExportMaintenanceSchedulesNotifier,
+      ExportMaintenanceSchedulesState
+    >(ExportMaintenanceSchedulesNotifier.new);
+
+final exportMaintenanceRecordsProvider =
+    AutoDisposeNotifierProvider<
+      ExportMaintenanceRecordsNotifier,
+      ExportMaintenanceRecordsState
+    >(ExportMaintenanceRecordsNotifier.new);

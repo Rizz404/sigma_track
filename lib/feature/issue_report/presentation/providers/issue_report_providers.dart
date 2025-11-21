@@ -8,11 +8,13 @@ import 'package:sigma_track/feature/issue_report/presentation/providers/issue_re
 import 'package:sigma_track/feature/issue_report/presentation/providers/reopen_issue_report_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/resolve_issue_report_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/my_issue_reports_notifier.dart';
+import 'package:sigma_track/feature/issue_report/presentation/providers/notifier/export_issue_reports_notifier.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_boolean_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_count_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_detail_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_report_statistics_state.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_reports_state.dart';
+import 'package:sigma_track/feature/issue_report/presentation/providers/state/export_issue_reports_state.dart';
 
 final issueReportsProvider =
     AutoDisposeNotifierProvider<IssueReportsNotifier, IssueReportsState>(
@@ -66,3 +68,9 @@ final myIssueReportsProvider =
     AutoDisposeNotifierProvider<MyIssueReportsNotifier, IssueReportsState>(
       MyIssueReportsNotifier.new,
     );
+
+final exportIssueReportsProvider =
+    AutoDisposeNotifierProvider<
+      ExportIssueReportsNotifier,
+      ExportIssueReportsState
+    >(ExportIssueReportsNotifier.new);
