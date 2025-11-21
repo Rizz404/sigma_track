@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -13,6 +15,7 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_repor
 import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
 
 abstract class IssueReportRepository {
   Future<Either<Failure, ItemSuccess<IssueReport>>> createIssueReport(
@@ -45,5 +48,8 @@ abstract class IssueReportRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteIssueReport(
     DeleteIssueReportUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportIssueReportList(
+    ExportIssueReportListUsecaseParams params,
   );
 }

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -16,6 +18,8 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
+import 'package:dio/dio.dart' as dio;
 
 abstract class AssetMovementRemoteDatasource {
   Future<ApiOffsetPaginationResponse<AssetMovementModel>> getAssetMovements(
@@ -50,6 +54,9 @@ abstract class AssetMovementRemoteDatasource {
   );
   Future<ApiResponse<AssetMovementModel>> updateAssetMovementForUser(
     UpdateAssetMovementForUserUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportAssetMovementList(
+    ExportAssetMovementListUsecaseParams params,
   );
 }
 
@@ -238,6 +245,23 @@ class AssetMovementRemoteDatasourceImpl
         ApiConstant.updateAssetMovementForUser(params.id),
         data: params.toMap(),
         fromJson: (json) => AssetMovementModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportAssetMovementList(
+    ExportAssetMovementListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportAssetMovementList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

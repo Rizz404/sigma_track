@@ -38,6 +38,7 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_statistics_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
 
 // ===== CATEGORY USECASES =====
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
@@ -62,8 +63,9 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_repor
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_statistics_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_report_usecase.dart';
-import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 
 // ===== LOCATION USECASES =====
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
@@ -83,6 +85,8 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenanc
 import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_record_list_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_record_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_statistics_usecase.dart';
@@ -124,6 +128,7 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_us
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_statistics_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
 
 // ===== USER USECASES =====
 import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
@@ -134,6 +139,7 @@ import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_
 import 'package:sigma_track/feature/user/domain/usecases/count_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_email_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_user_by_id_usecase.dart';
@@ -336,6 +342,12 @@ final updateAssetMovementForUserUsecaseProvider =
       final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
       return UpdateAssetMovementForUserUsecase(assetMovementRepository);
     });
+
+final exportAssetMovementListUsecaseProvider =
+    Provider<ExportAssetMovementListUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return ExportAssetMovementListUsecase(assetMovementRepository);
+    });
 // =============================================
 // CATEGORY USECASE PROVIDERS
 // =============================================
@@ -476,6 +488,12 @@ final updateIssueReportUsecaseProvider = Provider<UpdateIssueReportUsecase>((
   final issueReportRepository = ref.read(issueReportRepositoryProvider);
   return UpdateIssueReportUsecase(issueReportRepository);
 });
+
+final exportIssueReportListUsecaseProvider =
+    Provider<ExportIssueReportListUsecase>((ref) {
+      final issueReportRepository = ref.read(issueReportRepositoryProvider);
+      return ExportIssueReportListUsecase(issueReportRepository);
+    });
 
 // =============================================
 // LOCATION USECASE PROVIDERS
@@ -620,6 +638,14 @@ final updateMaintenanceRecordUsecaseProvider =
       return UpdateMaintenanceRecordUsecase(maintenanceRecordRepository);
     });
 
+final exportMaintenanceRecordListUsecaseProvider =
+    Provider<ExportMaintenanceRecordListUsecase>((ref) {
+      final maintenanceRecordRepository = ref.read(
+        maintenanceRecordRepositoryProvider,
+      );
+      return ExportMaintenanceRecordListUsecase(maintenanceRecordRepository);
+    });
+
 // =============================================
 // MAINTENANCE SCHEDULE USECASE PROVIDERS
 // =============================================
@@ -699,6 +725,16 @@ final updateMaintenanceScheduleUsecaseProvider =
         maintenanceScheduleRepositoryProvider,
       );
       return UpdateMaintenanceScheduleUsecase(maintenanceScheduleRepository);
+    });
+
+final exportMaintenanceScheduleListUsecaseProvider =
+    Provider<ExportMaintenanceScheduleListUsecase>((ref) {
+      final maintenanceScheduleRepository = ref.read(
+        maintenanceScheduleRepositoryProvider,
+      );
+      return ExportMaintenanceScheduleListUsecase(
+        maintenanceScheduleRepository,
+      );
     });
 
 // =============================================
@@ -837,6 +873,13 @@ final getScanLogsUsecaseProvider = Provider<GetScanLogsUsecase>((ref) {
   return GetScanLogsUsecase(scanLogRepository);
 });
 
+final exportScanLogListUsecaseProvider = Provider<ExportScanLogListUsecase>((
+  ref,
+) {
+  final scanLogRepository = ref.read(scanLogRepositoryProvider);
+  return ExportScanLogListUsecase(scanLogRepository);
+});
+
 // ===== USER USECASE PROVIDERS =====
 final checkUserEmailExistsUsecaseProvider =
     Provider<CheckUserEmailExistsUsecase>((ref) {
@@ -932,3 +975,8 @@ final changeCurrentUserPasswordUsecaseProvider =
       final userRepository = ref.read(userRepositoryProvider);
       return ChangeCurrentUserPasswordUsecase(userRepository);
     });
+
+final exportUserListUsecaseProvider = Provider<ExportUserListUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return ExportUserListUsecase(userRepository);
+});

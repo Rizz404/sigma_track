@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -18,6 +20,7 @@ import 'package:sigma_track/feature/user/domain/usecases/change_current_user_pas
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, ItemSuccess<User>>> createUser(
@@ -66,5 +69,8 @@ abstract class UserRepository {
   );
   Future<Either<Failure, ActionSuccess>> changeCurrentUserPassword(
     ChangeCurrentUserPasswordUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportUserList(
+    ExportUserListUsecaseParams params,
   );
 }

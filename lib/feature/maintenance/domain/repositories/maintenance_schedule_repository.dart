@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -11,6 +13,7 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
 
 abstract class MaintenanceScheduleRepository {
   Future<Either<Failure, ItemSuccess<MaintenanceSchedule>>>
@@ -35,5 +38,8 @@ abstract class MaintenanceScheduleRepository {
   updateMaintenanceSchedule(UpdateMaintenanceScheduleUsecaseParams params);
   Future<Either<Failure, ItemSuccess<dynamic>>> deleteMaintenanceSchedule(
     DeleteMaintenanceScheduleUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportMaintenanceScheduleList(
+    ExportMaintenanceScheduleListUsecaseParams params,
   );
 }

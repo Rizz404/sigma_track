@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -14,6 +16,7 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
 
 abstract class AssetMovementRepository {
   Future<Either<Failure, OffsetPaginatedSuccess<AssetMovement>>>
@@ -48,4 +51,7 @@ abstract class AssetMovementRepository {
   );
   Future<Either<Failure, ItemSuccess<AssetMovement>>>
   updateAssetMovementForUser(UpdateAssetMovementForUserUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetMovementList(
+    ExportAssetMovementListUsecaseParams params,
+  );
 }

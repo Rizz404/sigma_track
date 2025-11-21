@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -12,6 +14,7 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_useca
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_user_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_asset_id_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
 
 abstract class ScanLogRepository {
   Future<Either<Failure, ItemSuccess<ScanLog>>> createScanLog(
@@ -42,5 +45,8 @@ abstract class ScanLogRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteScanLog(
     DeleteScanLogUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportScanLogList(
+    ExportScanLogListUsecaseParams params,
   );
 }

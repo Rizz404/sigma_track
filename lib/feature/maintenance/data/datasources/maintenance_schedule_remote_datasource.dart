@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -13,6 +16,7 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
 
 abstract class MaintenanceScheduleRemoteDatasource {
   Future<ApiResponse<MaintenanceScheduleModel>> createMaintenanceSchedule(
@@ -40,6 +44,9 @@ abstract class MaintenanceScheduleRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> deleteMaintenanceSchedule(
     DeleteMaintenanceScheduleUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportMaintenanceScheduleList(
+    ExportMaintenanceScheduleListUsecaseParams params,
   );
 }
 
@@ -180,6 +187,23 @@ class MaintenanceScheduleRemoteDatasourceImpl
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteMaintenanceSchedule(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportMaintenanceScheduleList(
+    ExportMaintenanceScheduleListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportMaintenanceScheduleList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

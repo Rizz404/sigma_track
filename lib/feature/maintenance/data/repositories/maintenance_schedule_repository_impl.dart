@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -17,6 +19,7 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
 
 class MaintenanceScheduleRepositoryImpl
     implements MaintenanceScheduleRepository {
@@ -250,6 +253,21 @@ class MaintenanceScheduleRepositoryImpl
     try {
       final response = await _maintenanceScheduleRemoteDatasource
           .deleteMaintenanceSchedule(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportMaintenanceScheduleList(
+    ExportMaintenanceScheduleListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _maintenanceScheduleRemoteDatasource
+          .exportMaintenanceScheduleList(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

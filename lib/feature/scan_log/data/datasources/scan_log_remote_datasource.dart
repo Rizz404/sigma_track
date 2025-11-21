@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -15,6 +18,7 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_useca
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_user_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_asset_id_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
 
 abstract class ScanLogRemoteDatasource {
   Future<ApiResponse<ScanLogModel>> createScanLog(
@@ -41,6 +45,9 @@ abstract class ScanLogRemoteDatasource {
     GetScanLogByIdUsecaseParams params,
   );
   Future<ApiResponse<dynamic>> deleteScanLog(DeleteScanLogUsecaseParams params);
+  Future<ApiResponse<Uint8List>> exportScanLogList(
+    ExportScanLogListUsecaseParams params,
+  );
 }
 
 class ScanLogRemoteDatasourceImpl implements ScanLogRemoteDatasource {
@@ -196,6 +203,23 @@ class ScanLogRemoteDatasourceImpl implements ScanLogRemoteDatasource {
       final response = await _dioClient.delete(
         ApiConstant.deleteScanLog(params.id),
         fromJson: (json) => json,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportScanLogList(
+    ExportScanLogListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportScanLogList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

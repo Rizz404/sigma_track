@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -26,6 +28,7 @@ import 'package:sigma_track/feature/user/domain/usecases/change_current_user_pas
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDatasource _userRemoteDatasource;
@@ -599,6 +602,20 @@ class UserRepositoryImpl implements UserRepository {
           ),
         );
       }
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportUserList(
+    ExportUserListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _userRemoteDatasource.exportUserList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));

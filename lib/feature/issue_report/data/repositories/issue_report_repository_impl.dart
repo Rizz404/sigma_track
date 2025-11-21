@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -19,6 +21,7 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_repor
 import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
 
 class IssueReportRepositoryImpl implements IssueReportRepository {
   final IssueReportRemoteDatasource _issueReportRemoteDatasource;
@@ -258,5 +261,20 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
-}
 
+  @override
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportIssueReportList(
+    ExportIssueReportListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _issueReportRemoteDatasource.exportIssueReportList(
+        params,
+      );
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+}

@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -15,6 +18,7 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_repor
 import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
 
 abstract class IssueReportRemoteDatasource {
   Future<ApiResponse<IssueReportModel>> createIssueReport(
@@ -47,6 +51,9 @@ abstract class IssueReportRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> deleteIssueReport(
     DeleteIssueReportUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportIssueReportList(
+    ExportIssueReportListUsecaseParams params,
   );
 }
 
@@ -217,6 +224,23 @@ class IssueReportRemoteDatasourceImpl implements IssueReportRemoteDatasource {
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteIssueReport(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportIssueReportList(
+    ExportIssueReportListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportIssueReportList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

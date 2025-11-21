@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
@@ -22,6 +24,7 @@ import 'package:sigma_track/feature/user/domain/usecases/change_current_user_pas
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
 
 abstract class UserRemoteDatasource {
   Future<ApiResponse<UserModel>> createUser(CreateUserUsecaseParams params);
@@ -60,6 +63,9 @@ abstract class UserRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> changeCurrentUserPassword(
     ChangeCurrentUserPasswordUsecaseParams params,
+  );
+  Future<ApiResponse<Uint8List>> exportUserList(
+    ExportUserListUsecaseParams params,
   );
 }
 
@@ -353,6 +359,24 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
         ApiConstant.changeCurrentUserPassword,
         data: params.toMap(),
         fromJson: (json) => json,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<Uint8List>> exportUserList(
+    ExportUserListUsecaseParams params,
+  ) async {
+    this.logData('exportUserList called');
+    try {
+      final response = await _dioClient.postForBinary(
+        ApiConstant.exportUserList,
+        data: params.toMap(),
+        options: dio.Options(responseType: dio.ResponseType.bytes),
+        fromData: (data) => data as Uint8List,
       );
       return response;
     } catch (e) {

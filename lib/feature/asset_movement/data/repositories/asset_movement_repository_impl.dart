@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
@@ -20,6 +22,7 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movement_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
 
 class AssetMovementRepositoryImpl implements AssetMovementRepository {
   final AssetMovementRemoteDatasource _assetMovementRemoteDatasource;
@@ -237,6 +240,21 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
           .updateAssetMovementForUser(params);
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetMovementList(
+    ExportAssetMovementListUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .exportAssetMovementList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {

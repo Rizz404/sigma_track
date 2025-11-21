@@ -96,6 +96,7 @@ class ApiConstant {
   static const String exportAssetDataMatrix = '$assetPrefix/export/datamatrix';
 
   // * Scan Logs
+  static const String exportScanLogList = '$scanLogPrefix/export/list';
   static const String createScanLog = scanLogPrefix;
   static const String getScanLogs = scanLogPrefix;
   static const String getScanLogsStatistics = '$scanLogPrefix/statistics';
@@ -110,6 +111,7 @@ class ApiConstant {
   static String deleteScanLog(String id) => '$scanLogPrefix/$id';
 
   // * Notifications
+  static const String exportUserList = '$userPrefix/export/list';
   static const String createNotification = notificationPrefix;
   static const String getNotifications = notificationPrefix;
   static const String getNotificationsStatistics =
@@ -140,6 +142,7 @@ class ApiConstant {
       '$issueReportPrefix/$id/resolve';
   static String reopenIssueReport(String id) => '$issueReportPrefix/$id/reopen';
   static String deleteIssueReport(String id) => '$issueReportPrefix/$id';
+  static const String exportIssueReportList = '$issueReportPrefix/export/list';
 
   // * Asset Movements
   static const String createAssetMovement = assetMovementPrefix;
@@ -161,6 +164,8 @@ class ApiConstant {
   static String updateAssetMovementForUser(String id) =>
       '$assetMovementPrefix/$id';
   static String deleteAssetMovement(String id) => '$assetMovementPrefix/$id';
+  static const String exportAssetMovementList =
+      '$assetMovementPrefix/export/list';
 
   // * Maintenance Records
   static const String createMaintenanceRecord = maintenanceRecordPrefix;
@@ -179,6 +184,8 @@ class ApiConstant {
       '$maintenanceRecordPrefix/$id';
   static String deleteMaintenanceRecord(String id) =>
       '$maintenanceRecordPrefix/$id';
+  static const String exportMaintenanceRecordList =
+      '$maintenanceRecordPrefix/export/list';
 
   // * Maintenance Schedules
   static const String createMaintenanceSchedule = maintenanceSchedulePrefix;
@@ -197,4 +204,6 @@ class ApiConstant {
       '$maintenanceSchedulePrefix/$id';
   static String deleteMaintenanceSchedule(String id) =>
       '$maintenanceSchedulePrefix/$id';
+  static const String exportMaintenanceScheduleList =
+      '$maintenanceSchedulePrefix/export/list';
 }
