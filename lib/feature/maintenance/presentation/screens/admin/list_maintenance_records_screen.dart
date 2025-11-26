@@ -12,8 +12,10 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_record_list_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_providers.dart';
+import 'package:sigma_track/feature/maintenance/presentation/widgets/export_maintenance_records_bottom_sheet.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_record_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -92,14 +94,38 @@ class _ListMaintenanceRecordsScreenState
           AppToast.info(context.l10n.maintenanceRecordSelectToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.maintenanceRecordCreateTitle,
         createSubtitle: context.l10n.maintenanceRecordCreateSubtitle,
         selectManyTitle: context.l10n.maintenanceRecordSelectManyTitle,
         selectManySubtitle: context.l10n.maintenanceRecordSelectManySubtitle,
         filterSortTitle: context.l10n.maintenanceRecordFilterAndSortTitle,
         filterSortSubtitle: context.l10n.maintenanceRecordFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref
+        .read(maintenanceRecordsProvider)
+        .maintenanceRecordsFilter;
+
+    final params = ExportMaintenanceRecordListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      startDate: currentFilter.fromDate != null
+          ? DateTime.parse(currentFilter.fromDate!)
+          : null,
+      endDate: currentFilter.toDate != null
+          ? DateTime.parse(currentFilter.toDate!)
+          : null,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportMaintenanceRecordsBottomSheet(initialParams: params);
   }
 
   Widget _buildFilterSortBottomSheet() {

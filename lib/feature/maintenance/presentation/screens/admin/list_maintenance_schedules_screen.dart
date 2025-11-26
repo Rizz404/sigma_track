@@ -13,8 +13,10 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_providers.dart';
+import 'package:sigma_track/feature/maintenance/presentation/widgets/export_maintenance_schedules_bottom_sheet.dart';
 import 'package:sigma_track/feature/maintenance/presentation/widgets/maintenance_schedule_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -92,6 +94,7 @@ class _ListMaintenanceSchedulesScreenState
           AppToast.info(context.l10n.maintenanceScheduleSelectToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.maintenanceScheduleCreateTitle,
         createSubtitle: context.l10n.maintenanceScheduleCreateSubtitle,
         selectManyTitle: context.l10n.maintenanceScheduleSelectManyTitle,
@@ -99,8 +102,33 @@ class _ListMaintenanceSchedulesScreenState
         filterSortTitle: context.l10n.maintenanceScheduleFilterAndSortTitle,
         filterSortSubtitle:
             context.l10n.maintenanceScheduleFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref
+        .read(maintenanceSchedulesProvider)
+        .maintenanceSchedulesFilter;
+
+    final params = ExportMaintenanceScheduleListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      maintenanceType: currentFilter.maintenanceType,
+      state: currentFilter.state,
+      startDate: currentFilter.fromDate != null
+          ? DateTime.parse(currentFilter.fromDate!)
+          : null,
+      endDate: currentFilter.toDate != null
+          ? DateTime.parse(currentFilter.toDate!)
+          : null,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportMaintenanceSchedulesBottomSheet(initialParams: params);
   }
 
   Widget _buildFilterSortBottomSheet() {

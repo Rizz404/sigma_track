@@ -15,8 +15,10 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_providers.dart';
+import 'package:sigma_track/feature/scan_log/presentation/widgets/export_scan_logs_bottom_sheet.dart';
 import 'package:sigma_track/feature/scan_log/presentation/widgets/scan_log_tile.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -88,14 +90,40 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
           AppToast.info(context.l10n.scanLogSelectScanLogsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.scanLogCreateScanLog,
         createSubtitle: context.l10n.scanLogCreateScanLogSubtitle,
         selectManyTitle: context.l10n.scanLogSelectMany,
         selectManySubtitle: context.l10n.scanLogSelectManySubtitle,
         filterSortTitle: context.l10n.scanLogFilterAndSort,
         filterSortSubtitle: context.l10n.scanLogFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref.read(scanLogsProvider).scanLogsFilter;
+
+    final params = ExportScanLogListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      assetId: currentFilter.assetId,
+      userId: currentFilter.scannedBy,
+      scanMethod: currentFilter.scanMethod,
+      scanResult: currentFilter.scanResult,
+      startDate: currentFilter.dateFrom != null
+          ? DateTime.parse(currentFilter.dateFrom!)
+          : null,
+      endDate: currentFilter.dateTo != null
+          ? DateTime.parse(currentFilter.dateTo!)
+          : null,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportScanLogsBottomSheet(initialParams: params);
   }
 
   Future<List<Asset>> _searchAssets(String query) async {

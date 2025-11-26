@@ -12,8 +12,10 @@ import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_movements_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/asset_movement_providers.dart';
+import 'package:sigma_track/feature/asset_movement/presentation/widgets/export_asset_movements_bottom_sheet.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/widgets/asset_movement_tile.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
@@ -97,14 +99,37 @@ class _ListAssetMovementsScreenState
           AppToast.info(context.l10n.assetMovementSelectAssetMovementsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.assetMovementCreateAssetMovementTitle,
         createSubtitle: context.l10n.assetMovementCreateAssetMovementSubtitle,
         selectManyTitle: context.l10n.assetMovementSelectMany,
         selectManySubtitle: context.l10n.assetMovementSelectManySubtitle,
         filterSortTitle: context.l10n.assetMovementFilterAndSortTitle,
         filterSortSubtitle: context.l10n.assetMovementFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref.read(assetMovementsProvider).assetMovementsFilter;
+
+    final params = ExportAssetMovementListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      assetId: currentFilter.assetId,
+      startDate: currentFilter.dateFrom != null
+          ? DateTime.parse(currentFilter.dateFrom!)
+          : null,
+      endDate: currentFilter.dateTo != null
+          ? DateTime.parse(currentFilter.dateTo!)
+          : null,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportAssetMovementsBottomSheet(initialParams: params);
   }
 
   void _showCreateAssetMovementDialog() {

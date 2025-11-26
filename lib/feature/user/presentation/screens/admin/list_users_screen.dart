@@ -13,8 +13,10 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+import 'package:sigma_track/feature/user/presentation/widgets/export_users_bottom_sheet.dart';
 import 'package:sigma_track/feature/user/presentation/widgets/user_tile.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -90,14 +92,34 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
           AppToast.info(context.l10n.userSelectUsersToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.userCreateUser,
         createSubtitle: context.l10n.userAddNewUser,
         selectManyTitle: context.l10n.userSelectMany,
         selectManySubtitle: context.l10n.userSelectMultipleToDelete,
         filterSortTitle: context.l10n.userFilterAndSort,
         filterSortSubtitle: context.l10n.userCustomizeDisplay,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref.read(usersProvider).usersFilter;
+
+    final params = ExportUserListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      role: currentFilter.role != null
+          ? UserRole.values.firstWhere((e) => e.value == currentFilter.role)
+          : null,
+      isActive: currentFilter.isActive,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportUsersBottomSheet(initialParams: params);
   }
 
   Widget _buildFilterSortBottomSheet() {

@@ -15,8 +15,10 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/issue_report_providers.dart';
+import 'package:sigma_track/feature/issue_report/presentation/widgets/export_issue_reports_bottom_sheet.dart';
 import 'package:sigma_track/feature/issue_report/presentation/widgets/issue_report_tile.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
@@ -96,14 +98,41 @@ class _ListIssueReportsScreenState
           AppToast.info(context.l10n.issueReportSelectIssueReportsToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
+        exportWidgetBuilder: _buildExportBottomSheet,
         createTitle: context.l10n.issueReportCreateIssueReportTitle,
         createSubtitle: context.l10n.issueReportCreateIssueReportSubtitle,
         selectManyTitle: context.l10n.issueReportSelectManyTitle,
         selectManySubtitle: context.l10n.issueReportSelectManySubtitle,
         filterSortTitle: context.l10n.issueReportFilterAndSortTitle,
         filterSortSubtitle: context.l10n.issueReportFilterAndSortSubtitle,
+        exportTitle: context.l10n.assetExportTitle,
+        exportSubtitle: context.l10n.assetExportSubtitle,
       ),
     );
+  }
+
+  Widget _buildExportBottomSheet() {
+    final currentFilter = ref.read(issueReportsProvider).issueReportsFilter;
+
+    final params = ExportIssueReportListUsecaseParams(
+      format: ExportFormat.pdf,
+      searchQuery: currentFilter.search,
+      assetId: currentFilter.assetId,
+      reportedBy: currentFilter.reportedBy,
+      issueType: currentFilter.issueType,
+      priority: currentFilter.priority,
+      status: currentFilter.status,
+      startDate: currentFilter.dateFrom != null
+          ? DateTime.parse(currentFilter.dateFrom!)
+          : null,
+      endDate: currentFilter.dateTo != null
+          ? DateTime.parse(currentFilter.dateTo!)
+          : null,
+      sortBy: currentFilter.sortBy,
+      sortOrder: currentFilter.sortOrder,
+    );
+
+    return ExportIssueReportsBottomSheet(initialParams: params);
   }
 
   Future<List<Asset>> _searchAssets(String query) async {
