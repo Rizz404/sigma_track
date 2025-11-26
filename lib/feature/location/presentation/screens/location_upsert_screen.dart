@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -25,6 +26,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'map_picker_screen.dart';
 
 class LocationUpsertScreen extends ConsumerStatefulWidget {
   final Location? location;
@@ -153,6 +155,31 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           ),
         ) ??
         false;
+  }
+
+  Future<void> _pickFromMap() async {
+    final latitude = _formKey.currentState?.fields['latitude']?.value;
+    final longitude = _formKey.currentState?.fields['longitude']?.value;
+
+    final double? lat = latitude != null ? double.tryParse(latitude) : null;
+    final double? lng = longitude != null ? double.tryParse(longitude) : null;
+
+    final LatLng? result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>
+            MapPickerScreen(initialLatitude: lat, initialLongitude: lng),
+      ),
+    );
+
+    if (result != null && mounted) {
+      _formKey.currentState?.fields['latitude']?.didChange(
+        result.latitude.toString(),
+      );
+      _formKey.currentState?.fields['longitude']?.didChange(
+        result.longitude.toString(),
+      );
+      AppToast.success(context.l10n.locationSelectedFromMap);
+    }
   }
 
   void _handleSubmit() {
@@ -430,6 +457,13 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.my_location, size: 18),
+            ),
+            const SizedBox(height: 12),
+            AppButton(
+              text: context.l10n.locationPickFromMap,
+              variant: AppButtonVariant.outlined,
+              onPressed: _pickFromMap,
+              leadingIcon: const Icon(Icons.map, size: 18),
             ),
           ],
         ),

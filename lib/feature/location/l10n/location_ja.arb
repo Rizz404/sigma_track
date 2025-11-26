@@ -387,5 +387,29 @@
   "locationValidationLongitudeRange": "経度は-180から180の間である必要があります",
   "@locationValidationLongitudeRange": {
     "description": "Validation error for longitude range"
+  },
+  "locationNotFound": "場所が見つかりません",
+  "@locationNotFound": {
+    "description": "Error message when location search returns no results"
+  },
+  "locationSearchFailed": "検索に失敗しました",
+  "@locationSearchFailed": {
+    "description": "Error message when location search fails"
+  },
+  "locationConfirmLocation": "場所を確認",
+  "@locationConfirmLocation": {
+    "description": "Button text to confirm selected location on map"
+  },
+  "locationSelectedFromMap": "マップから場所を選択しました",
+  "@locationSelectedFromMap": {
+    "description": "Success message when location is selected from map picker"
+  },
+  "locationSearchLocation": "場所を検索...",
+  "@locationSearchLocation": {
+    "description": "Search input placeholder for location"
+  },
+  "locationPickFromMap": "マップから選択",
+  "@locationPickFromMap": {
+    "description": "Button text to pick location from map"
   }
 }

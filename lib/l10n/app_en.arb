@@ -2606,6 +2606,38 @@
   "@locationValidationLongitudeRange": {
     "description": "Validation error for longitude range"
   },
+  "locationNotFound": "Location not found",
+  "@locationNotFound": {
+    "description": "Error message when location search returns no results"
+  },
+  "locationSearchFailed": "Search failed",
+  "@locationSearchFailed": {
+    "description": "Error message when location search fails"
+  },
+  "locationConfirmLocation": "Confirm Location",
+  "@locationConfirmLocation": {
+    "description": "Button text to confirm selected location on map"
+  },
+  "locationSelectedFromMap": "Location selected from map",
+  "@locationSelectedFromMap": {
+    "description": "Success message when location is selected from map picker"
+  },
+  "locationSearchLocation": "Search location...",
+  "@locationSearchLocation": {
+    "description": "Search input placeholder for location"
+  },
+  "locationPickFromMap": "Pick from map",
+  "@locationPickFromMap": {
+    "description": "Button text to pick location from map"
+  },
+  "locationAutocompleteDisabled": "Autocomplete disabled",
+  "@locationAutocompleteDisabled": {
+    "description": "Warning title for disabled autocomplete"
+  },
+  "locationAutocompleteDisabledMessage": "Google Places API key not configured. Please enter location name manually and search.",
+  "@locationAutocompleteDisabledMessage": {
+    "description": "Warning message for disabled autocomplete feature"
+  },
   "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
   "@maintenanceScheduleDeleteSchedule": {
     "description": "Dialog title for deleting a maintenance schedule"

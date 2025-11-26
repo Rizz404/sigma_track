@@ -1996,6 +1996,31 @@ class L10nId extends L10n {
       'Longitude must be between -180 and 180';
 
   @override
+  String get locationNotFound => 'Location not found';
+
+  @override
+  String get locationSearchFailed => 'Search failed';
+
+  @override
+  String get locationConfirmLocation => 'Confirm Location';
+
+  @override
+  String get locationSelectedFromMap => 'Location selected from map';
+
+  @override
+  String get locationSearchLocation => 'Search location...';
+
+  @override
+  String get locationPickFromMap => 'Pick from map';
+
+  @override
+  String get locationAutocompleteDisabled => 'Autocomplete disabled';
+
+  @override
+  String get locationAutocompleteDisabledMessage =>
+      'Google Places API key not configured. Please enter location name manually and search.';
+
+  @override
   String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
 
   @override

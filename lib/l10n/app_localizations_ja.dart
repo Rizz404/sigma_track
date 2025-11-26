@@ -1915,6 +1915,31 @@ class L10nJa extends L10n {
   String get locationValidationLongitudeRange => '経度は-180から180の間である必要があります';
 
   @override
+  String get locationNotFound => '場所が見つかりません';
+
+  @override
+  String get locationSearchFailed => '検索に失敗しました';
+
+  @override
+  String get locationConfirmLocation => '場所を確認';
+
+  @override
+  String get locationSelectedFromMap => 'マップから場所を選択しました';
+
+  @override
+  String get locationSearchLocation => '場所を検索...';
+
+  @override
+  String get locationPickFromMap => 'マップから選択';
+
+  @override
+  String get locationAutocompleteDisabled => 'オートコンプリート無効';
+
+  @override
+  String get locationAutocompleteDisabledMessage =>
+      'Google Places APIキーが設定されていません。手動で場所名を入力して検索してください。';
+
+  @override
   String get maintenanceScheduleDeleteSchedule => 'メンテナンススケジュールの削除';
 
   @override

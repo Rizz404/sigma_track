@@ -3795,6 +3795,54 @@ abstract class L10n {
   /// **'Longitude must be between -180 and 180'**
   String get locationValidationLongitudeRange;
 
+  /// Error message when location search returns no results
+  ///
+  /// In en, this message translates to:
+  /// **'Location not found'**
+  String get locationNotFound;
+
+  /// Error message when location search fails
+  ///
+  /// In en, this message translates to:
+  /// **'Search failed'**
+  String get locationSearchFailed;
+
+  /// Button text to confirm selected location on map
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Location'**
+  String get locationConfirmLocation;
+
+  /// Success message when location is selected from map picker
+  ///
+  /// In en, this message translates to:
+  /// **'Location selected from map'**
+  String get locationSelectedFromMap;
+
+  /// Search input placeholder for location
+  ///
+  /// In en, this message translates to:
+  /// **'Search location...'**
+  String get locationSearchLocation;
+
+  /// Button text to pick location from map
+  ///
+  /// In en, this message translates to:
+  /// **'Pick from map'**
+  String get locationPickFromMap;
+
+  /// Warning title for disabled autocomplete
+  ///
+  /// In en, this message translates to:
+  /// **'Autocomplete disabled'**
+  String get locationAutocompleteDisabled;
+
+  /// Warning message for disabled autocomplete feature
+  ///
+  /// In en, this message translates to:
+  /// **'Google Places API key not configured. Please enter location name manually and search.'**
+  String get locationAutocompleteDisabledMessage;
+
   /// Dialog title for deleting a maintenance schedule
   ///
   /// In en, this message translates to:
