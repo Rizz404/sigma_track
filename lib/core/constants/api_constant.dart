@@ -1,8 +1,10 @@
 class ApiConstant {
   ApiConstant._();
 
-  static const String baseUrl =
-      'https://rizz-inventory-api.up.railway.app/api/v1';
+  // static const String baseUrl =
+  //     'https://rizz-inventory-api.up.railway.app/api/v1';
+  static const String baseUrl = 'https://sigma-track.duckdns.org/api/v1';
+  static const String apiKey = 'e2532d69-280d-5c79-87b2-ece28d026973';
   static const int defaultReceiveTimeout = 30000;
   static const int defaultConnectTimeout = 30000;
 
