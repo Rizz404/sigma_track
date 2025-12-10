@@ -8,6 +8,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+
 android {
     namespace = "rizz.learn.sigma_track"
     compileSdk = flutter.compileSdkVersion
@@ -42,9 +44,11 @@ android {
         }
     }
 
-    applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach {
-            outputFileName = "Sigma_Asset-${variant.name}.apk"
+    applicationVariants.all {
+        val variant = this  // Simpan reference variant dulu biar bisa akses name-nya
+        variant.outputs.all {
+            val output = this as BaseVariantOutputImpl  // Cast biar outputFileName resolved
+            output.outputFileName = "Sigma_Asset-${variant.name}.apk"
         }
     }
 }
