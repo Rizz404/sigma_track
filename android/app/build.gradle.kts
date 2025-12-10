@@ -41,6 +41,12 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
+            outputFileName = "Sigma_Asset-${variant.name}.apk"
+        }
+    }
 }
 
 flutter {
