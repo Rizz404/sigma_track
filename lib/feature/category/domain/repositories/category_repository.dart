@@ -3,6 +3,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/category/domain/entities/category_statistics.dart';
+import 'package:sigma_track/feature/category/domain/usecases/bulk_create_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
@@ -13,6 +14,8 @@ import 'package:sigma_track/feature/category/domain/usecases/get_categories_usec
 import 'package:sigma_track/feature/category/domain/usecases/get_category_by_code_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_category_by_id_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class CategoryRepository {
   Future<Either<Failure, ItemSuccess<Category>>> createCategory(
@@ -46,5 +49,10 @@ abstract class CategoryRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteCategory(
     DeleteCategoryUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkCreateCategoriesResponse>>>
+  createManyCategories(BulkCreateCategoriesParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyCategories(
+    BulkDeleteParams params,
   );
 }

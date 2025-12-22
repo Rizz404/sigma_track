@@ -24,6 +24,9 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dar
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class AssetRemoteDatasource {
   Future<ApiResponse<AssetModel>> createAsset(CreateAssetUsecaseParams params);
@@ -60,6 +63,12 @@ abstract class AssetRemoteDatasource {
   );
   Future<ApiResponse<Uint8List>> exportAssetDataMatrix(
     ExportAssetDataMatrixUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateAssetsResponse>> createManyAssets(
+    BulkCreateAssetsParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyAssets(
+    BulkDeleteParams params,
   );
 }
 
@@ -323,6 +332,38 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateAssetsResponse>> createManyAssets(
+    BulkCreateAssetsParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateAssets,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateAssetsResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyAssets(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteAssets,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

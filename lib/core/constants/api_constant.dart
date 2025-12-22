@@ -49,6 +49,8 @@ class ApiConstant {
   static String changeUserPassword(String id) => '$userPrefix/$id/password';
   static const String changeCurrentUserPassword =
       '$userPrefix/profile/password';
+  static const String bulkCreateUsers = '$userPrefix/bulk';
+  static const String bulkDeleteUsers = '$userPrefix/bulk-delete';
 
   // * Categories
   static const String createCategory = categoryPrefix;
@@ -63,6 +65,8 @@ class ApiConstant {
   static String getCategoryById(String id) => '$categoryPrefix/$id';
   static String updateCategory(String id) => '$categoryPrefix/$id';
   static String deleteCategory(String id) => '$categoryPrefix/$id';
+  static const String bulkCreateCategories = '$categoryPrefix/bulk';
+  static const String bulkDeleteCategories = '$categoryPrefix/bulk-delete';
 
   // * Locations
   static const String createLocation = locationPrefix;
@@ -77,6 +81,8 @@ class ApiConstant {
   static String getLocationById(String id) => '$locationPrefix/$id';
   static String updateLocation(String id) => '$locationPrefix/$id';
   static String deleteLocation(String id) => '$locationPrefix/$id';
+  static const String bulkCreateLocations = '$locationPrefix/bulk';
+  static const String bulkDeleteLocations = '$locationPrefix/bulk-delete';
 
   // * Assets
   static const String createAsset = assetPrefix;
@@ -96,6 +102,8 @@ class ApiConstant {
   static const String generateAssetTagSuggestion = '$assetPrefix/generate-tag';
   static const String exportAssetList = '$assetPrefix/export/list';
   static const String exportAssetDataMatrix = '$assetPrefix/export/datamatrix';
+  static const String bulkCreateAssets = '$assetPrefix/bulk';
+  static const String bulkDeleteAssets = '$assetPrefix/bulk-delete';
 
   // * Scan Logs
   static const String exportScanLogList = '$scanLogPrefix/export/list';
@@ -111,6 +119,8 @@ class ApiConstant {
   static String checkScanLogExists(String id) => '$scanLogPrefix/check/$id';
   static String getScanLogById(String id) => '$scanLogPrefix/$id';
   static String deleteScanLog(String id) => '$scanLogPrefix/$id';
+  static const String bulkCreateScanLogs = '$scanLogPrefix/bulk';
+  static const String bulkDeleteScanLogs = '$scanLogPrefix/bulk-delete';
 
   // * Notifications
   static const String exportUserList = '$userPrefix/export/list';
@@ -128,6 +138,9 @@ class ApiConstant {
       '$notificationPrefix/mark-unread';
   static String updateNotification(String id) => '$notificationPrefix/$id';
   static String deleteNotification(String id) => '$notificationPrefix/$id';
+  static const String bulkCreateNotifications = '$notificationPrefix/bulk';
+  static const String bulkDeleteNotifications =
+      '$notificationPrefix/bulk-delete';
 
   // * Issue Reports
   static const String createIssueReport = issueReportPrefix;
@@ -145,6 +158,8 @@ class ApiConstant {
   static String reopenIssueReport(String id) => '$issueReportPrefix/$id/reopen';
   static String deleteIssueReport(String id) => '$issueReportPrefix/$id';
   static const String exportIssueReportList = '$issueReportPrefix/export/list';
+  static const String bulkCreateIssueReports = '$issueReportPrefix/bulk';
+  static const String bulkDeleteIssueReports = '$issueReportPrefix/bulk-delete';
 
   // * Asset Movements
   static const String createAssetMovement = assetMovementPrefix;
@@ -168,6 +183,9 @@ class ApiConstant {
   static String deleteAssetMovement(String id) => '$assetMovementPrefix/$id';
   static const String exportAssetMovementList =
       '$assetMovementPrefix/export/list';
+  static const String bulkCreateAssetMovements = '$assetMovementPrefix/bulk';
+  static const String bulkDeleteAssetMovements =
+      '$assetMovementPrefix/bulk-delete';
 
   // * Maintenance Records
   static const String createMaintenanceRecord = maintenanceRecordPrefix;
@@ -188,6 +206,10 @@ class ApiConstant {
       '$maintenanceRecordPrefix/$id';
   static const String exportMaintenanceRecordList =
       '$maintenanceRecordPrefix/export/list';
+  static const String bulkCreateMaintenanceRecords =
+      '$maintenanceRecordPrefix/bulk';
+  static const String bulkDeleteMaintenanceRecords =
+      '$maintenanceRecordPrefix/bulk-delete';
 
   // * Maintenance Schedules
   static const String createMaintenanceSchedule = maintenanceSchedulePrefix;
@@ -208,4 +230,8 @@ class ApiConstant {
       '$maintenanceSchedulePrefix/$id';
   static const String exportMaintenanceScheduleList =
       '$maintenanceSchedulePrefix/export/list';
+  static const String bulkCreateMaintenanceSchedules =
+      '$maintenanceSchedulePrefix/bulk';
+  static const String bulkDeleteMaintenanceSchedules =
+      '$maintenanceSchedulePrefix/bulk-delete';
 }

@@ -25,6 +25,9 @@ import 'package:sigma_track/feature/user/domain/usecases/change_user_password_us
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class UserRemoteDatasource {
   Future<ApiResponse<UserModel>> createUser(CreateUserUsecaseParams params);
@@ -66,6 +69,12 @@ abstract class UserRemoteDatasource {
   );
   Future<ApiResponse<Uint8List>> exportUserList(
     ExportUserListUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateUsersResponse>> createManyUsers(
+    BulkCreateUsersParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyUsers(
+    BulkDeleteParams params,
   );
 }
 
@@ -377,6 +386,38 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateUsersResponse>> createManyUsers(
+    BulkCreateUsersParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateUsers,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateUsersResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyUsers(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteUsers,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

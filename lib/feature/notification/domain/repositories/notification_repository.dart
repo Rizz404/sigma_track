@@ -3,6 +3,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification_statistics.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_create_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/check_notification_exists_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/count_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
@@ -13,6 +14,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/get_notificatio
 import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class NotificationRepository {
   Future<Either<Failure, ItemSuccess<Notification>>> createNotification(
@@ -45,4 +48,8 @@ abstract class NotificationRepository {
   Future<Either<Failure, ActionSuccess>> deleteNotification(
     DeleteNotificationUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<BulkCreateNotificationsResponse>>>
+  createManyNotifications(BulkCreateNotificationsParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyNotifications(BulkDeleteParams params);
 }

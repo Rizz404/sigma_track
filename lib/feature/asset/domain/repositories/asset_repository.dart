@@ -6,6 +6,7 @@ import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart';
 import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_response.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -20,6 +21,8 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dar
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class AssetRepository {
   Future<Either<Failure, ItemSuccess<Asset>>> createAsset(
@@ -63,5 +66,10 @@ abstract class AssetRepository {
   );
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetDataMatrix(
     ExportAssetDataMatrixUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkCreateAssetsResponse>>>
+  createManyAssets(BulkCreateAssetsParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyAssets(
+    BulkDeleteParams params,
   );
 }

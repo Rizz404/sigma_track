@@ -22,6 +22,9 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_re
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_create_issue_reports_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class IssueReportRepositoryImpl implements IssueReportRepository {
   final IssueReportRemoteDatasource _issueReportRemoteDatasource;
@@ -270,6 +273,32 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
       final response = await _issueReportRemoteDatasource.exportIssueReportList(
         params,
       );
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateIssueReportsResponse>>>
+  createManyIssueReports(BulkCreateIssueReportsParams params) async {
+    try {
+      final response = await _issueReportRemoteDatasource.createManyIssueReports(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyIssueReports(BulkDeleteParams params) async {
+    try {
+      final response = await _issueReportRemoteDatasource.deleteManyIssueReports(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

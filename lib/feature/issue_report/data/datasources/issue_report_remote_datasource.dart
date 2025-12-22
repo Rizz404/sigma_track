@@ -19,6 +19,9 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_re
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_create_issue_reports_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class IssueReportRemoteDatasource {
   Future<ApiResponse<IssueReportModel>> createIssueReport(
@@ -54,6 +57,12 @@ abstract class IssueReportRemoteDatasource {
   );
   Future<ApiResponse<Uint8List>> exportIssueReportList(
     ExportIssueReportListUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateIssueReportsResponse>> createManyIssueReports(
+    BulkCreateIssueReportsParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyIssueReports(
+    BulkDeleteParams params,
   );
 }
 
@@ -241,6 +250,38 @@ class IssueReportRemoteDatasourceImpl implements IssueReportRemoteDatasource {
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateIssueReportsResponse>> createManyIssueReports(
+    BulkCreateIssueReportsParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateIssueReports,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateIssueReportsResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyIssueReports(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteIssueReports,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

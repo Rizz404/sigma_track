@@ -20,6 +20,9 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_record_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_record_list_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_records_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class MaintenanceRecordRepositoryImpl implements MaintenanceRecordRepository {
   final MaintenanceRecordRemoteDatasource _maintenanceRecordRemoteDatasource;
@@ -260,6 +263,36 @@ class MaintenanceRecordRepositoryImpl implements MaintenanceRecordRepository {
     try {
       final response = await _maintenanceRecordRemoteDatasource
           .exportMaintenanceRecordList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateMaintenanceRecordsResponse>>>
+  createManyMaintenanceRecords(
+    BulkCreateMaintenanceRecordsParams params,
+  ) async {
+    try {
+      final response = await _maintenanceRecordRemoteDatasource
+          .createManyMaintenanceRecords(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyMaintenanceRecords(BulkDeleteParams params) async {
+    try {
+      final response = await _maintenanceRecordRemoteDatasource
+          .deleteManyMaintenanceRecords(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

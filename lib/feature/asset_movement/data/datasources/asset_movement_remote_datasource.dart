@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -19,7 +20,10 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
-import 'package:dio/dio.dart' as dio;
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class AssetMovementRemoteDatasource {
   Future<ApiOffsetPaginationResponse<AssetMovementModel>> getAssetMovements(
@@ -57,6 +61,15 @@ abstract class AssetMovementRemoteDatasource {
   );
   Future<ApiResponse<Uint8List>> exportAssetMovementList(
     ExportAssetMovementListUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateAssetMovementsForUserResponse>>
+  createManyAssetMovements(BulkCreateAssetMovementsForUserParams params);
+  Future<ApiResponse<BulkCreateAssetMovementsForLocationResponse>>
+  createManyAssetMovementsForLocation(
+    BulkCreateAssetMovementsForLocationParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyAssetMovements(
+    BulkDeleteParams params,
   );
 }
 
@@ -262,6 +275,56 @@ class AssetMovementRemoteDatasourceImpl
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateAssetMovementsForUserResponse>>
+  createManyAssetMovements(BulkCreateAssetMovementsForUserParams params) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateAssetMovements,
+        data: params.toMap(),
+        fromJson: (json) =>
+            BulkCreateAssetMovementsForUserResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateAssetMovementsForLocationResponse>>
+  createManyAssetMovementsForLocation(
+    BulkCreateAssetMovementsForLocationParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateAssetMovements,
+        data: params.toMap(),
+        fromJson: (json) =>
+            BulkCreateAssetMovementsForLocationResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyAssetMovements(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteAssetMovements,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

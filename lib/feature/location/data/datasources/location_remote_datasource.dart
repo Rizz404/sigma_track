@@ -15,6 +15,9 @@ import 'package:sigma_track/feature/location/domain/usecases/get_locations_useca
 import 'package:sigma_track/feature/location/domain/usecases/get_location_by_code_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_location_by_id_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/update_location_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/bulk_create_locations_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class LocationRemoteDatasource {
   Future<ApiResponse<LocationModel>> createLocation(
@@ -45,6 +48,12 @@ abstract class LocationRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> deleteLocation(
     DeleteLocationUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateLocationsResponse>> createManyLocations(
+    BulkCreateLocationsParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyLocations(
+    BulkDeleteParams params,
   );
 }
 
@@ -213,6 +222,38 @@ class LocationRemoteDatasourceImpl implements LocationRemoteDatasource {
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteLocation(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateLocationsResponse>> createManyLocations(
+    BulkCreateLocationsParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateLocations,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateLocationsResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyLocations(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteLocations,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

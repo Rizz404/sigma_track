@@ -5,6 +5,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log_statistics.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_create_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/check_scan_log_exists_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/count_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
@@ -15,6 +16,8 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_user_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class ScanLogRepository {
   Future<Either<Failure, ItemSuccess<ScanLog>>> createScanLog(
@@ -48,5 +51,10 @@ abstract class ScanLogRepository {
   );
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportScanLogList(
     ExportScanLogListUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkCreateScanLogsResponse>>>
+  createManyScanLogs(BulkCreateScanLogsParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyScanLogs(
+    BulkDeleteParams params,
   );
 }

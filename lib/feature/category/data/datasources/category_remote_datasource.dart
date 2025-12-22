@@ -16,6 +16,9 @@ import 'package:sigma_track/feature/category/domain/usecases/get_categories_usec
 import 'package:sigma_track/feature/category/domain/usecases/get_category_by_code_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_category_by_id_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/bulk_create_categories_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class CategoryRemoteDatasource {
   Future<ApiResponse<CategoryModel>> createCategory(
@@ -46,6 +49,12 @@ abstract class CategoryRemoteDatasource {
   );
   Future<ApiResponse<dynamic>> deleteCategory(
     DeleteCategoryUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateCategoriesResponse>> createManyCategories(
+    BulkCreateCategoriesParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyCategories(
+    BulkDeleteParams params,
   );
 }
 
@@ -216,6 +225,38 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
     try {
       final response = await _dioClient.delete(
         ApiConstant.deleteCategory(params.id),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateCategoriesResponse>> createManyCategories(
+    BulkCreateCategoriesParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateCategories,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateCategoriesResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyCategories(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteCategories,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

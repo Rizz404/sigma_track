@@ -23,6 +23,10 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class AssetMovementRepositoryImpl implements AssetMovementRepository {
   final AssetMovementRemoteDatasource _assetMovementRemoteDatasource;
@@ -254,6 +258,52 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
     try {
       final response = await _assetMovementRemoteDatasource
           .exportAssetMovementList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateAssetMovementsForUserResponse>>>
+  createManyAssetMovementsForUser(
+    BulkCreateAssetMovementsForUserParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource.createManyAssetMovements(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<
+    Either<Failure, ItemSuccess<BulkCreateAssetMovementsForLocationResponse>>
+  >
+  createManyAssetMovementsForLocation(
+    BulkCreateAssetMovementsForLocationParams params,
+  ) async {
+    try {
+      final response = await _assetMovementRemoteDatasource
+          .createManyAssetMovementsForLocation(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyAssetMovements(BulkDeleteParams params) async {
+    try {
+      final response = await _assetMovementRemoteDatasource.deleteManyAssetMovements(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

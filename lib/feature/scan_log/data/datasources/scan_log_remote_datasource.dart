@@ -19,6 +19,9 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_user_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_create_scan_logs_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class ScanLogRemoteDatasource {
   Future<ApiResponse<ScanLogModel>> createScanLog(
@@ -47,6 +50,12 @@ abstract class ScanLogRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteScanLog(DeleteScanLogUsecaseParams params);
   Future<ApiResponse<Uint8List>> exportScanLogList(
     ExportScanLogListUsecaseParams params,
+  );
+  Future<ApiResponse<BulkCreateScanLogsResponse>> createManyScanLogs(
+    BulkCreateScanLogsParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyScanLogs(
+    BulkDeleteParams params,
   );
 }
 
@@ -220,6 +229,38 @@ class ScanLogRemoteDatasourceImpl implements ScanLogRemoteDatasource {
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateScanLogsResponse>> createManyScanLogs(
+    BulkCreateScanLogsParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateScanLogs,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateScanLogsResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyScanLogs(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteScanLogs,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

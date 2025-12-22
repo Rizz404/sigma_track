@@ -26,6 +26,9 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dar
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class AssetRepositoryImpl implements AssetRepository {
   final AssetRemoteDatasource _assetRemoteDatasource;
@@ -316,6 +319,33 @@ class AssetRepositoryImpl implements AssetRepository {
       final response = await _assetRemoteDatasource.exportAssetDataMatrix(
         params,
       );
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateAssetsResponse>>>
+  createManyAssets(BulkCreateAssetsParams params) async {
+    try {
+      final response = await _assetRemoteDatasource.createManyAssets(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyAssets(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _assetRemoteDatasource.deleteManyAssets(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

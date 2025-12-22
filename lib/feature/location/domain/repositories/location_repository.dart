@@ -3,6 +3,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/domain/entities/location_statistics.dart';
+import 'package:sigma_track/feature/location/domain/usecases/bulk_create_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/count_locations_usecase.dart';
@@ -13,6 +14,8 @@ import 'package:sigma_track/feature/location/domain/usecases/get_locations_useca
 import 'package:sigma_track/feature/location/domain/usecases/get_location_by_code_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_location_by_id_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/update_location_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class LocationRepository {
   Future<Either<Failure, ItemSuccess<Location>>> createLocation(
@@ -46,5 +49,10 @@ abstract class LocationRepository {
   );
   Future<Either<Failure, ActionSuccess>> deleteLocation(
     DeleteLocationUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkCreateLocationsResponse>>>
+  createManyLocations(BulkCreateLocationsParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyLocations(
+    BulkDeleteParams params,
   );
 }

@@ -17,6 +17,9 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_schedules_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class MaintenanceScheduleRemoteDatasource {
   Future<ApiResponse<MaintenanceScheduleModel>> createMaintenanceSchedule(
@@ -48,6 +51,10 @@ abstract class MaintenanceScheduleRemoteDatasource {
   Future<ApiResponse<Uint8List>> exportMaintenanceScheduleList(
     ExportMaintenanceScheduleListUsecaseParams params,
   );
+  Future<ApiResponse<BulkCreateMaintenanceSchedulesResponse>> createManyMaintenanceSchedules(
+    BulkCreateMaintenanceSchedulesParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyMaintenanceSchedules(BulkDeleteParams params);
 }
 
 class MaintenanceScheduleRemoteDatasourceImpl
@@ -204,6 +211,36 @@ class MaintenanceScheduleRemoteDatasourceImpl
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateMaintenanceSchedulesResponse>> createManyMaintenanceSchedules(
+    BulkCreateMaintenanceSchedulesParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateMaintenanceSchedules,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateMaintenanceSchedulesResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyMaintenanceSchedules(BulkDeleteParams params) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteMaintenanceSchedules,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {

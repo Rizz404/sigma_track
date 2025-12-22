@@ -5,6 +5,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report_statistics.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_create_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/check_issue_report_exists_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/count_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/create_issue_report_usecase.dart';
@@ -16,6 +17,8 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/reopen_issue_re
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_report_list_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class IssueReportRepository {
   Future<Either<Failure, ItemSuccess<IssueReport>>> createIssueReport(
@@ -52,4 +55,8 @@ abstract class IssueReportRepository {
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportIssueReportList(
     ExportIssueReportListUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<BulkCreateIssueReportsResponse>>>
+  createManyIssueReports(BulkCreateIssueReportsParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyIssueReports(BulkDeleteParams params);
 }

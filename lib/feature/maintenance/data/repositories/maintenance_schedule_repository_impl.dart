@@ -20,6 +20,9 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_schedules_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class MaintenanceScheduleRepositoryImpl
     implements MaintenanceScheduleRepository {
@@ -268,6 +271,36 @@ class MaintenanceScheduleRepositoryImpl
     try {
       final response = await _maintenanceScheduleRemoteDatasource
           .exportMaintenanceScheduleList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateMaintenanceSchedulesResponse>>>
+  createManyMaintenanceSchedules(
+    BulkCreateMaintenanceSchedulesParams params,
+  ) async {
+    try {
+      final response = await _maintenanceScheduleRemoteDatasource
+          .createManyMaintenanceSchedules(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyMaintenanceSchedules(BulkDeleteParams params) async {
+    try {
+      final response = await _maintenanceScheduleRemoteDatasource
+          .deleteManyMaintenanceSchedules(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

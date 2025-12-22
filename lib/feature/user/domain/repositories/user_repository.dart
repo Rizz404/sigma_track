@@ -5,6 +5,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
+import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_usecase.dart';
@@ -72,5 +73,8 @@ abstract class UserRepository {
   );
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportUserList(
     ExportUserListUsecaseParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkCreateUsersResponse>>> createManyUsers(
+    BulkCreateUsersParams params,
   );
 }

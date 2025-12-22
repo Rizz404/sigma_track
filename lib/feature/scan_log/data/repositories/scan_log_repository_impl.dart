@@ -21,6 +21,9 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_log_by_id_
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_user_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_by_asset_id_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_create_scan_logs_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class ScanLogRepositoryImpl implements ScanLogRepository {
   final ScanLogRemoteDatasource _scanLogRemoteDatasource;
@@ -209,6 +212,33 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
   ) async {
     try {
       final response = await _scanLogRemoteDatasource.exportScanLogList(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateScanLogsResponse>>>
+  createManyScanLogs(BulkCreateScanLogsParams params) async {
+    try {
+      final response = await _scanLogRemoteDatasource.createManyScanLogs(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyScanLogs(
+    BulkDeleteParams params,
+  ) async {
+    try {
+      final response = await _scanLogRemoteDatasource.deleteManyScanLogs(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

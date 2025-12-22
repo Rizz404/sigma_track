@@ -19,6 +19,9 @@ import 'package:sigma_track/feature/notification/domain/usecases/get_notificatio
 import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_read_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/mark_notifications_as_unread_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_create_notifications_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
   final NotificationRemoteDatasource _notificationRemoteDatasource;
@@ -246,6 +249,32 @@ class NotificationRepositoryImpl implements NotificationRepository {
         params,
       );
       return Right(ActionSuccess(message: response.message));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkCreateNotificationsResponse>>>
+  createManyNotifications(BulkCreateNotificationsParams params) async {
+    try {
+      final response = await _notificationRemoteDatasource.createManyNotifications(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyNotifications(BulkDeleteParams params) async {
+    try {
+      final response = await _notificationRemoteDatasource.deleteManyNotifications(params);
+      return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {

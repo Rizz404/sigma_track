@@ -5,6 +5,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule_statistics.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_schedule_exists_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
@@ -14,6 +15,8 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedule_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_schedule_list_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class MaintenanceScheduleRepository {
   Future<Either<Failure, ItemSuccess<MaintenanceSchedule>>>
@@ -42,4 +45,8 @@ abstract class MaintenanceScheduleRepository {
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportMaintenanceScheduleList(
     ExportMaintenanceScheduleListUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<BulkCreateMaintenanceSchedulesResponse>>>
+  createManyMaintenanceSchedules(BulkCreateMaintenanceSchedulesParams params);
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyMaintenanceSchedules(BulkDeleteParams params);
 }

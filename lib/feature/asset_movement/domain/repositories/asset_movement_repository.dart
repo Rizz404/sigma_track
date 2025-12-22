@@ -5,6 +5,8 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement_statistics.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
@@ -17,6 +19,8 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class AssetMovementRepository {
   Future<Either<Failure, OffsetPaginatedSuccess<AssetMovement>>>
@@ -54,4 +58,14 @@ abstract class AssetMovementRepository {
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetMovementList(
     ExportAssetMovementListUsecaseParams params,
   );
+  Future<Either<Failure, ItemSuccess<BulkCreateAssetMovementsForUserResponse>>>
+  createManyAssetMovementsForUser(BulkCreateAssetMovementsForUserParams params);
+  Future<
+    Either<Failure, ItemSuccess<BulkCreateAssetMovementsForLocationResponse>>
+  >
+  createManyAssetMovementsForLocation(
+    BulkCreateAssetMovementsForLocationParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
+  deleteManyAssetMovements(BulkDeleteParams params);
 }

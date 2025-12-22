@@ -17,6 +17,9 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_record_by_id_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/export_maintenance_record_list_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_records_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class MaintenanceRecordRemoteDatasource {
   Future<ApiResponse<MaintenanceRecordModel>> createMaintenanceRecord(
@@ -46,6 +49,10 @@ abstract class MaintenanceRecordRemoteDatasource {
   Future<ApiResponse<Uint8List>> exportMaintenanceRecordList(
     ExportMaintenanceRecordListUsecaseParams params,
   );
+  Future<ApiResponse<BulkCreateMaintenanceRecordsResponse>> createManyMaintenanceRecords(
+    BulkCreateMaintenanceRecordsParams params,
+  );
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyMaintenanceRecords(BulkDeleteParams params);
 }
 
 class MaintenanceRecordRemoteDatasourceImpl
@@ -202,6 +209,36 @@ class MaintenanceRecordRemoteDatasourceImpl
         data: params.toMap(),
         options: dio.Options(responseType: dio.ResponseType.bytes),
         fromData: (data) => data as Uint8List,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkCreateMaintenanceRecordsResponse>> createManyMaintenanceRecords(
+    BulkCreateMaintenanceRecordsParams params,
+  ) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkCreateMaintenanceRecords,
+        data: params.toMap(),
+        fromJson: (json) => BulkCreateMaintenanceRecordsResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<BulkDeleteResponse>> deleteManyMaintenanceRecords(BulkDeleteParams params) async {
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.bulkDeleteMaintenanceRecords,
+        data: params.toMap(),
+        fromJson: (json) => BulkDeleteResponse.fromMap(json),
       );
       return response;
     } catch (e) {
