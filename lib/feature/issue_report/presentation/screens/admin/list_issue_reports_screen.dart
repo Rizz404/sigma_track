@@ -489,10 +489,10 @@ class _ListIssueReportsScreenState
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.issueReportNotImplementedYet);
+      ref
+          .read(issueReportsProvider.notifier)
+          .deleteManyIssueReports(_selectedIssueReportIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

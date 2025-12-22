@@ -6,6 +6,7 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
@@ -24,6 +25,8 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       ref.watch(deleteUserUsecaseProvider);
   ChangeUserPasswordUsecase get _changeUserPasswordUsecase =>
       ref.watch(changeUserPasswordUsecaseProvider);
+  BulkCreateUsersUsecase get _bulkCreateUsersUsecase =>
+      ref.watch(bulkCreateUsersUsecaseProvider);
 
   @override
   UsersState build() {
@@ -314,6 +317,49 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
           cursor: state.cursor,
         );
         // Note: No refresh needed as password change doesn't affect user list
+      },
+    );
+  }
+
+  Future<void> createManyUsers(BulkCreateUsersParams params) async {
+    this.logPresentation('Creating ${params.users.length} users');
+
+    state = UsersState.creating(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateUsersUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create users', failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Users created successfully: ${success.data?.users.length ?? 0}',
+        );
+
+        // * Reload users dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadUsers(usersFilter: state.usersFilter);
+
+        // * Set mutation success setelah reload
+        state = UsersState.mutationSuccess(
+          users: newState.users,
+          usersFilter: newState.usersFilter,
+          mutationType: MutationType.create,
+          message: 'Users created successfully',
+          cursor: newState.cursor,
+        );
       },
     );
   }

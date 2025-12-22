@@ -541,10 +541,10 @@ class _ListAssetMovementsScreenState
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.assetMovementNotImplementedYet);
+      ref
+          .read(assetMovementsProvider.notifier)
+          .deleteManyAssetMovements(_selectedAssetMovementIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_delete_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   GetAssetsCursorUsecase get _getAssetsCursorUsecase =>
@@ -21,6 +24,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       ref.watch(updateAssetUsecaseProvider);
   DeleteAssetUsecase get _deleteAssetUsecase =>
       ref.watch(deleteAssetUsecaseProvider);
+  BulkCreateAssetsUsecase get _bulkCreateAssetsUsecase =>
+      ref.watch(bulkCreateAssetsUsecaseProvider);
+  BulkDeleteAssetsUsecase get _bulkDeleteAssetsUsecase =>
+      ref.watch(bulkDeleteAssetsUsecaseProvider);
 
   @override
   AssetsState build() {
@@ -272,11 +279,89 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
     );
   }
 
+  Future<void> createManyAssets(BulkCreateAssetsParams params) async {
+    this.logPresentation('Creating ${params.assets.length} assets');
+
+    state = AssetsState.creating(
+      currentAssets: state.assets,
+      assetsFilter: state.assetsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateAssetsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create assets', failure);
+        state = AssetsState.mutationError(
+          currentAssets: state.assets,
+          assetsFilter: state.assetsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Assets created successfully: ${success.data?.assets.length ?? 0}',
+        );
+
+        // * Reload assets dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+
+        // * Set mutation success setelah reload
+        state = AssetsState.mutationSuccess(
+          assets: newState.assets,
+          assetsFilter: newState.assetsFilter,
+          mutationType: MutationType.create,
+          message: 'Assets created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyAssets(List<String> assetIds) async {
     this.logPresentation('Deleting ${assetIds.length} assets');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = AssetsState.deleting(
+      currentAssets: state.assets,
+      assetsFilter: state.assetsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: assetIds);
+    final result = await _bulkDeleteAssetsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete assets', failure);
+        state = AssetsState.mutationError(
+          currentAssets: state.assets,
+          assetsFilter: state.assetsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Assets deleted successfully');
+
+        // * Reload assets dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+
+        // * Set mutation success setelah reload
+        state = AssetsState.mutationSuccess(
+          assets: newState.assets,
+          assetsFilter: newState.assetsFilter,
+          mutationType: MutationType.delete,
+          message: 'Assets deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

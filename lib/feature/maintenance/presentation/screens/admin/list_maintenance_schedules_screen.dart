@@ -386,10 +386,12 @@ class _ListMaintenanceSchedulesScreenState
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.maintenanceScheduleNotImplementedYet);
+      ref
+          .read(maintenanceSchedulesProvider.notifier)
+          .deleteManyMaintenanceSchedules(
+            _selectedMaintenanceScheduleIds.toList(),
+          );
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

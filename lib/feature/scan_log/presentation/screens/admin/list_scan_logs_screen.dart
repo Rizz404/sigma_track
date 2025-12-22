@@ -450,10 +450,10 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.scanLogNotImplementedYet);
+      ref
+          .read(scanLogsProvider.notifier)
+          .deleteManyScanLogs(_selectedScanLogIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

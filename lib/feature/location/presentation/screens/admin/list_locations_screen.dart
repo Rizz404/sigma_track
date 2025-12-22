@@ -280,10 +280,10 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.locationNotImplementedYet);
+      ref
+          .read(locationsProvider.notifier)
+          .deleteManyLocations(_selectedLocationIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

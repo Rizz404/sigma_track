@@ -317,10 +317,10 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info('Not implemented yet');
+      ref
+          .read(categoriesProvider.notifier)
+          .deleteManyCategories(_selectedCategoryIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

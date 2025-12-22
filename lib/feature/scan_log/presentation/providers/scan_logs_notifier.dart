@@ -6,10 +6,13 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_create_scan_logs_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_delete_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/delete_scan_log_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_cursor_usecase.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_logs_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
   GetScanLogsCursorUsecase get _getScanLogsCursorUsecase =>
@@ -18,6 +21,10 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       ref.watch(createScanLogUsecaseProvider);
   DeleteScanLogUsecase get _deleteScanLogUsecase =>
       ref.watch(deleteScanLogUsecaseProvider);
+  BulkCreateScanLogsUsecase get _bulkCreateScanLogsUsecase =>
+      ref.watch(bulkCreateScanLogsUsecaseProvider);
+  BulkDeleteScanLogsUsecase get _bulkDeleteScanLogsUsecase =>
+      ref.watch(bulkDeleteScanLogsUsecaseProvider);
 
   @override
   ScanLogsState build() {
@@ -229,11 +236,93 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
     );
   }
 
+  Future<void> createManyScanLogs(BulkCreateScanLogsParams params) async {
+    this.logPresentation('Creating ${params.scanLogs.length} scan logs');
+
+    state = ScanLogsState.creating(
+      currentScanLogs: state.scanLogs,
+      scanLogsFilter: state.scanLogsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateScanLogsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create scan logs', failure);
+        state = ScanLogsState.mutationError(
+          currentScanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Scan logs created successfully: ${success.data?.scanLogs.length ?? 0}',
+        );
+
+        // * Reload scan logs dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadScanLogs(
+          scanLogsFilter: state.scanLogsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = ScanLogsState.mutationSuccess(
+          scanLogs: newState.scanLogs,
+          scanLogsFilter: newState.scanLogsFilter,
+          mutationType: MutationType.create,
+          message: 'Scan logs created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyScanLogs(List<String> scanLogIds) async {
     this.logPresentation('Deleting ${scanLogIds.length} scan logs');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = ScanLogsState.deleting(
+      currentScanLogs: state.scanLogs,
+      scanLogsFilter: state.scanLogsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: scanLogIds);
+    final result = await _bulkDeleteScanLogsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete scan logs', failure);
+        state = ScanLogsState.mutationError(
+          currentScanLogs: state.scanLogs,
+          scanLogsFilter: state.scanLogsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Scan logs deleted successfully');
+
+        // * Reload scan logs dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadScanLogs(
+          scanLogsFilter: state.scanLogsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = ScanLogsState.mutationSuccess(
+          scanLogs: newState.scanLogs,
+          scanLogsFilter: newState.scanLogsFilter,
+          mutationType: MutationType.delete,
+          message: 'Scan logs deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

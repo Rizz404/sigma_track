@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_create_issue_reports_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_delete_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/create_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/delete_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/get_issue_reports_cursor_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/update_issue_report_usecase.dart';
 import 'package:sigma_track/feature/issue_report/presentation/providers/state/issue_reports_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   GetIssueReportsCursorUsecase get _getIssueReportsCursorUsecase =>
@@ -21,6 +24,10 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       ref.watch(updateIssueReportUsecaseProvider);
   DeleteIssueReportUsecase get _deleteIssueReportUsecase =>
       ref.watch(deleteIssueReportUsecaseProvider);
+  BulkCreateIssueReportsUsecase get _bulkCreateIssueReportsUsecase =>
+      ref.watch(bulkCreateIssueReportsUsecaseProvider);
+  BulkDeleteIssueReportsUsecase get _bulkDeleteIssueReportsUsecase =>
+      ref.watch(bulkDeleteIssueReportsUsecaseProvider);
 
   @override
   IssueReportsState build() {
@@ -300,11 +307,97 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
     );
   }
 
+  Future<void> createManyIssueReports(
+    BulkCreateIssueReportsParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.issueReports.length} issue reports',
+    );
+
+    state = IssueReportsState.creating(
+      currentIssueReports: state.issueReports,
+      issueReportsFilter: state.issueReportsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateIssueReportsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create issue reports', failure);
+        state = IssueReportsState.mutationError(
+          currentIssueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Issue reports created successfully: ${success.data?.issueReports.length ?? 0}',
+        );
+
+        // * Reload issue reports dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadIssueReports(
+          issueReportsFilter: state.issueReportsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = IssueReportsState.mutationSuccess(
+          issueReports: newState.issueReports,
+          issueReportsFilter: newState.issueReportsFilter,
+          mutationType: MutationType.create,
+          message: 'Issue reports created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyIssueReports(List<String> issueReportIds) async {
     this.logPresentation('Deleting ${issueReportIds.length} issue reports');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = IssueReportsState.deleting(
+      currentIssueReports: state.issueReports,
+      issueReportsFilter: state.issueReportsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: issueReportIds);
+    final result = await _bulkDeleteIssueReportsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete issue reports', failure);
+        state = IssueReportsState.mutationError(
+          currentIssueReports: state.issueReports,
+          issueReportsFilter: state.issueReportsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Issue reports deleted successfully');
+
+        // * Reload issue reports dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadIssueReports(
+          issueReportsFilter: state.issueReportsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = IssueReportsState.mutationSuccess(
+          issueReports: newState.issueReports,
+          issueReportsFilter: newState.issueReportsFilter,
+          mutationType: MutationType.delete,
+          message: 'Issue reports deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

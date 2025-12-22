@@ -6,6 +6,9 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset_movement/domain/entities/asset_movement.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_delete_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/create_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
@@ -13,6 +16,7 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_location_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/update_asset_movement_for_user_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/presentation/providers/state/asset_movements_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
   GetAssetMovementsCursorUsecase get _getAssetMovementsCursorUsecase =>
@@ -29,6 +33,14 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       ref.watch(updateAssetMovementForUserUsecaseProvider);
   DeleteAssetMovementUsecase get _deleteAssetMovementUsecase =>
       ref.watch(deleteAssetMovementUsecaseProvider);
+  BulkCreateAssetMovementsForLocationUsecase
+  get _bulkCreateAssetMovementsForLocationUsecase =>
+      ref.watch(bulkCreateAssetMovementsForLocationUsecaseProvider);
+  BulkCreateAssetMovementsForUserUsecase
+  get _bulkCreateAssetMovementsForUserUsecase =>
+      ref.watch(bulkCreateAssetMovementsForUserUsecaseProvider);
+  BulkDeleteAssetMovementsUsecase get _bulkDeleteAssetMovementsUsecase =>
+      ref.watch(bulkDeleteAssetMovementsUsecaseProvider);
 
   @override
   AssetMovementsState build() {
@@ -399,11 +411,148 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
     );
   }
 
+  Future<void> createManyAssetMovementsForLocation(
+    BulkCreateAssetMovementsForLocationParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.assetMovements.length} asset movements for location',
+    );
+
+    state = AssetMovementsState.creating(
+      currentAssetMovements: state.assetMovements,
+      assetMovementsFilter: state.assetMovementsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateAssetMovementsForLocationUsecase.call(
+      params,
+    );
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create asset movements for location', failure);
+        state = AssetMovementsState.mutationError(
+          currentAssetMovements: state.assetMovements,
+          assetMovementsFilter: state.assetMovementsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Asset movements for location created successfully: ${success.data?.assetMovements.length ?? 0}',
+        );
+
+        // * Reload asset movements dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = AssetMovementsState.mutationSuccess(
+          assetMovements: newState.assetMovements,
+          assetMovementsFilter: newState.assetMovementsFilter,
+          mutationType: MutationType.create,
+          message: 'Asset movements created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
+  Future<void> createManyAssetMovementsForUser(
+    BulkCreateAssetMovementsForUserParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.assetMovements.length} asset movements for user',
+    );
+
+    state = AssetMovementsState.creating(
+      currentAssetMovements: state.assetMovements,
+      assetMovementsFilter: state.assetMovementsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateAssetMovementsForUserUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create asset movements for user', failure);
+        state = AssetMovementsState.mutationError(
+          currentAssetMovements: state.assetMovements,
+          assetMovementsFilter: state.assetMovementsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Asset movements for user created successfully: ${success.data?.assetMovements.length ?? 0}',
+        );
+
+        // * Reload asset movements dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = AssetMovementsState.mutationSuccess(
+          assetMovements: newState.assetMovements,
+          assetMovementsFilter: newState.assetMovementsFilter,
+          mutationType: MutationType.create,
+          message: 'Asset movements created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyAssetMovements(List<String> assetMovementIds) async {
     this.logPresentation('Deleting ${assetMovementIds.length} asset movements');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = AssetMovementsState.deleting(
+      currentAssetMovements: state.assetMovements,
+      assetMovementsFilter: state.assetMovementsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: assetMovementIds);
+    final result = await _bulkDeleteAssetMovementsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete asset movements', failure);
+        state = AssetMovementsState.mutationError(
+          currentAssetMovements: state.assetMovements,
+          assetMovementsFilter: state.assetMovementsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Asset movements deleted successfully');
+
+        // * Reload asset movements dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadAssetMovements(
+          assetMovementsFilter: state.assetMovementsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = AssetMovementsState.mutationSuccess(
+          assetMovements: newState.assetMovements,
+          assetMovementsFilter: newState.assetMovementsFilter,
+          mutationType: MutationType.delete,
+          message: 'Asset movements deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

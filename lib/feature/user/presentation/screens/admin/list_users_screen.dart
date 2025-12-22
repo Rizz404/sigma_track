@@ -357,10 +357,10 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.userNotImplementedYet);
+      ref
+          .read(usersProvider.notifier)
+          .deleteManyUsers(_selectedUserIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

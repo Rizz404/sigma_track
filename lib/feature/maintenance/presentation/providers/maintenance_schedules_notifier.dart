@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_schedules_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_delete_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_schedules_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class MaintenanceSchedulesNotifier
     extends AutoDisposeNotifier<MaintenanceSchedulesState> {
@@ -23,6 +26,12 @@ class MaintenanceSchedulesNotifier
       ref.watch(updateMaintenanceScheduleUsecaseProvider);
   DeleteMaintenanceScheduleUsecase get _deleteMaintenanceScheduleUsecase =>
       ref.watch(deleteMaintenanceScheduleUsecaseProvider);
+  BulkCreateMaintenanceSchedulesUsecase
+  get _bulkCreateMaintenanceSchedulesUsecase =>
+      ref.watch(bulkCreateMaintenanceSchedulesUsecaseProvider);
+  BulkDeleteMaintenanceSchedulesUsecase
+  get _bulkDeleteMaintenanceSchedulesUsecase =>
+      ref.watch(bulkDeleteMaintenanceSchedulesUsecaseProvider);
 
   @override
   MaintenanceSchedulesState build() {
@@ -314,6 +323,55 @@ class MaintenanceSchedulesNotifier
     );
   }
 
+  Future<void> createManyMaintenanceSchedules(
+    BulkCreateMaintenanceSchedulesParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.maintenanceSchedules.length} maintenance schedules',
+    );
+
+    state = MaintenanceSchedulesState.creating(
+      currentMaintenanceSchedules: state.maintenanceSchedules,
+      maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateMaintenanceSchedulesUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create maintenance schedules', failure);
+        state = MaintenanceSchedulesState.mutationError(
+          currentMaintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Maintenance schedules created successfully: ${success.data?.maintenanceSchedules.length ?? 0}',
+        );
+
+        // * Reload maintenance schedules dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadMaintenanceSchedules(
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = MaintenanceSchedulesState.mutationSuccess(
+          maintenanceSchedules: newState.maintenanceSchedules,
+          maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
+          mutationType: MutationType.create,
+          message: 'Maintenance schedules created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyMaintenanceSchedules(
     List<String> maintenanceScheduleIds,
   ) async {
@@ -321,8 +379,45 @@ class MaintenanceSchedulesNotifier
       'Deleting ${maintenanceScheduleIds.length} maintenance schedules',
     );
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = MaintenanceSchedulesState.deleting(
+      currentMaintenanceSchedules: state.maintenanceSchedules,
+      maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: maintenanceScheduleIds);
+    final result = await _bulkDeleteMaintenanceSchedulesUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete maintenance schedules', failure);
+        state = MaintenanceSchedulesState.mutationError(
+          currentMaintenanceSchedules: state.maintenanceSchedules,
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Maintenance schedules deleted successfully');
+
+        // * Reload maintenance schedules dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadMaintenanceSchedules(
+          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = MaintenanceSchedulesState.mutationSuccess(
+          maintenanceSchedules: newState.maintenanceSchedules,
+          maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
+          mutationType: MutationType.delete,
+          message: 'Maintenance schedules deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

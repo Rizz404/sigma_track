@@ -348,6 +348,10 @@ class _ListMaintenanceRecordsScreenState
     );
 
     if (confirmed == true && mounted) {
+      ref
+          .read(maintenanceRecordsProvider.notifier)
+          .deleteManyMaintenanceRecords(_selectedMaintenanceRecordIds.toList());
+      _cancelSelectMode();
       // Todo: Implementasi di backend
       AppToast.info(context.l10n.maintenanceRecordNotImplementedYet);
       _cancelSelectMode();

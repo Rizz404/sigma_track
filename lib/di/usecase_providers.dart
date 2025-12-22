@@ -14,6 +14,8 @@ import 'package:sigma_track/feature/auth/domain/usecases/logout_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
 
 // ===== ASSET USECASES =====
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_delete_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -30,6 +32,9 @@ import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matr
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 
 // ===== ASSET MOVEMENT USECASES =====
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_user_usecase.dart';
+import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_delete_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/check_asset_movement_exists_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/count_asset_movements_usecase.dart';
 import 'package:sigma_track/feature/asset_movement/domain/usecases/delete_asset_movement_usecase.dart';
@@ -41,6 +46,8 @@ import 'package:sigma_track/feature/asset_movement/domain/usecases/get_asset_mov
 import 'package:sigma_track/feature/asset_movement/domain/usecases/export_asset_movement_list_usecase.dart';
 
 // ===== CATEGORY USECASES =====
+import 'package:sigma_track/feature/category/domain/usecases/bulk_create_categories_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/bulk_delete_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_code_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/check_category_exists_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/count_categories_usecase.dart';
@@ -54,6 +61,8 @@ import 'package:sigma_track/feature/category/domain/usecases/get_category_by_id_
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
 
 // ===== ISSUE REPORT USECASES =====
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_create_issue_reports_usecase.dart';
+import 'package:sigma_track/feature/issue_report/domain/usecases/bulk_delete_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/check_issue_report_exists_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/count_issue_reports_usecase.dart';
 import 'package:sigma_track/feature/issue_report/domain/usecases/create_issue_report_usecase.dart';
@@ -68,6 +77,8 @@ import 'package:sigma_track/feature/issue_report/domain/usecases/export_issue_re
 import 'package:sigma_track/feature/issue_report/domain/usecases/resolve_issue_report_usecase.dart';
 
 // ===== LOCATION USECASES =====
+import 'package:sigma_track/feature/location/domain/usecases/bulk_create_locations_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/bulk_delete_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_code_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/check_location_exists_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/count_locations_usecase.dart';
@@ -81,6 +92,8 @@ import 'package:sigma_track/feature/location/domain/usecases/get_locations_useca
 import 'package:sigma_track/feature/location/domain/usecases/update_location_usecase.dart';
 
 // ===== MAINTENANCE RECORD USECASES =====
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_records_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_delete_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_record_exists_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
@@ -94,6 +107,8 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
 
 // ===== MAINTENANCE SCHEDULE USECASES =====
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_schedules_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_delete_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/check_maintenance_schedule_exists_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/count_maintenance_schedules_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_schedule_usecase.dart';
@@ -105,6 +120,8 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_schedule_usecase.dart';
 
 // ===== NOTIFICATION USECASES =====
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_create_notifications_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_delete_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/check_notification_exists_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/count_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
@@ -118,6 +135,8 @@ import 'package:sigma_track/feature/notification/domain/usecases/mark_notificati
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 
 // ===== SCAN LOG USECASES =====
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_create_scan_logs_usecase.dart';
+import 'package:sigma_track/feature/scan_log/domain/usecases/bulk_delete_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/check_scan_log_exists_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/count_scan_logs_usecase.dart';
 import 'package:sigma_track/feature/scan_log/domain/usecases/create_scan_log_usecase.dart';
@@ -131,6 +150,7 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/get_scan_logs_useca
 import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_list_usecase.dart';
 
 // ===== USER USECASES =====
+import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
@@ -216,6 +236,20 @@ final deleteAssetUsecaseProvider = Provider<DeleteAssetUsecase>((ref) {
   return DeleteAssetUsecase(assetRepository);
 });
 
+final bulkCreateAssetsUsecaseProvider = Provider<BulkCreateAssetsUsecase>((
+  ref,
+) {
+  final assetRepository = ref.read(assetRepositoryProvider);
+  return BulkCreateAssetsUsecase(assetRepository);
+});
+
+final bulkDeleteAssetsUsecaseProvider = Provider<BulkDeleteAssetsUsecase>((
+  ref,
+) {
+  final assetRepository = ref.read(assetRepositoryProvider);
+  return BulkDeleteAssetsUsecase(assetRepository);
+});
+
 final getAssetByIdUsecaseProvider = Provider<GetAssetByIdUsecase>((ref) {
   final assetRepository = ref.read(assetRepositoryProvider);
   return GetAssetByIdUsecase(assetRepository);
@@ -299,6 +333,26 @@ final deleteAssetMovementUsecaseProvider = Provider<DeleteAssetMovementUsecase>(
     return DeleteAssetMovementUsecase(assetMovementRepository);
   },
 );
+
+final bulkCreateAssetMovementsForLocationUsecaseProvider =
+    Provider<BulkCreateAssetMovementsForLocationUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return BulkCreateAssetMovementsForLocationUsecase(
+        assetMovementRepository,
+      );
+    });
+
+final bulkCreateAssetMovementsForUserUsecaseProvider =
+    Provider<BulkCreateAssetMovementsForUserUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return BulkCreateAssetMovementsForUserUsecase(assetMovementRepository);
+    });
+
+final bulkDeleteAssetMovementsUsecaseProvider =
+    Provider<BulkDeleteAssetMovementsUsecase>((ref) {
+      final assetMovementRepository = ref.read(assetMovementRepositoryProvider);
+      return BulkDeleteAssetMovementsUsecase(assetMovementRepository);
+    });
 
 final getAssetMovementByIdUsecaseProvider =
     Provider<GetAssetMovementByIdUsecase>((ref) {
@@ -414,6 +468,18 @@ final updateCategoryUsecaseProvider = Provider<UpdateCategoryUsecase>((ref) {
   return UpdateCategoryUsecase(categoryRepository);
 });
 
+final bulkCreateCategoriesUsecaseProvider =
+    Provider<BulkCreateCategoriesUsecase>((ref) {
+      final categoryRepository = ref.read(categoryRepositoryProvider);
+      return BulkCreateCategoriesUsecase(categoryRepository);
+    });
+
+final bulkDeleteCategoriesUsecaseProvider =
+    Provider<BulkDeleteCategoriesUsecase>((ref) {
+      final categoryRepository = ref.read(categoryRepositoryProvider);
+      return BulkDeleteCategoriesUsecase(categoryRepository);
+    });
+
 // =============================================
 // ISSUE REPORT USECASE PROVIDERS
 // =============================================
@@ -443,6 +509,18 @@ final deleteIssueReportUsecaseProvider = Provider<DeleteIssueReportUsecase>((
   final issueReportRepository = ref.read(issueReportRepositoryProvider);
   return DeleteIssueReportUsecase(issueReportRepository);
 });
+
+final bulkCreateIssueReportsUsecaseProvider =
+    Provider<BulkCreateIssueReportsUsecase>((ref) {
+      final issueReportRepository = ref.read(issueReportRepositoryProvider);
+      return BulkCreateIssueReportsUsecase(issueReportRepository);
+    });
+
+final bulkDeleteIssueReportsUsecaseProvider =
+    Provider<BulkDeleteIssueReportsUsecase>((ref) {
+      final issueReportRepository = ref.read(issueReportRepositoryProvider);
+      return BulkDeleteIssueReportsUsecase(issueReportRepository);
+    });
 
 final getIssueReportByIdUsecaseProvider = Provider<GetIssueReportByIdUsecase>((
   ref,
@@ -526,6 +604,20 @@ final deleteLocationUsecaseProvider = Provider<DeleteLocationUsecase>((ref) {
   return DeleteLocationUsecase(locationRepository);
 });
 
+final bulkCreateLocationsUsecaseProvider = Provider<BulkCreateLocationsUsecase>(
+  (ref) {
+    final locationRepository = ref.read(locationRepositoryProvider);
+    return BulkCreateLocationsUsecase(locationRepository);
+  },
+);
+
+final bulkDeleteLocationsUsecaseProvider = Provider<BulkDeleteLocationsUsecase>(
+  (ref) {
+    final locationRepository = ref.read(locationRepositoryProvider);
+    return BulkDeleteLocationsUsecase(locationRepository);
+  },
+);
+
 final getLocationByCodeUsecaseProvider = Provider<GetLocationByCodeUsecase>((
   ref,
 ) {
@@ -594,6 +686,22 @@ final deleteMaintenanceRecordUsecaseProvider =
         maintenanceRecordRepositoryProvider,
       );
       return DeleteMaintenanceRecordUsecase(maintenanceRecordRepository);
+    });
+
+final bulkCreateMaintenanceRecordsUsecaseProvider =
+    Provider<BulkCreateMaintenanceRecordsUsecase>((ref) {
+      final maintenanceRecordRepository = ref.read(
+        maintenanceRecordRepositoryProvider,
+      );
+      return BulkCreateMaintenanceRecordsUsecase(maintenanceRecordRepository);
+    });
+
+final bulkDeleteMaintenanceRecordsUsecaseProvider =
+    Provider<BulkDeleteMaintenanceRecordsUsecase>((ref) {
+      final maintenanceRecordRepository = ref.read(
+        maintenanceRecordRepositoryProvider,
+      );
+      return BulkDeleteMaintenanceRecordsUsecase(maintenanceRecordRepository);
     });
 
 final getMaintenanceRecordByIdUsecaseProvider =
@@ -683,6 +791,26 @@ final deleteMaintenanceScheduleUsecaseProvider =
       return DeleteMaintenanceScheduleUsecase(maintenanceScheduleRepository);
     });
 
+final bulkCreateMaintenanceSchedulesUsecaseProvider =
+    Provider<BulkCreateMaintenanceSchedulesUsecase>((ref) {
+      final maintenanceScheduleRepository = ref.read(
+        maintenanceScheduleRepositoryProvider,
+      );
+      return BulkCreateMaintenanceSchedulesUsecase(
+        maintenanceScheduleRepository,
+      );
+    });
+
+final bulkDeleteMaintenanceSchedulesUsecaseProvider =
+    Provider<BulkDeleteMaintenanceSchedulesUsecase>((ref) {
+      final maintenanceScheduleRepository = ref.read(
+        maintenanceScheduleRepositoryProvider,
+      );
+      return BulkDeleteMaintenanceSchedulesUsecase(
+        maintenanceScheduleRepository,
+      );
+    });
+
 final getMaintenanceScheduleByIdUsecaseProvider =
     Provider<GetMaintenanceScheduleByIdUsecase>((ref) {
       final maintenanceScheduleRepository = ref.read(
@@ -767,6 +895,18 @@ final deleteNotificationUsecaseProvider = Provider<DeleteNotificationUsecase>((
   return DeleteNotificationUsecase(notificationRepository);
 });
 
+final bulkCreateNotificationsUsecaseProvider =
+    Provider<BulkCreateNotificationsUsecase>((ref) {
+      final notificationRepository = ref.read(notificationRepositoryProvider);
+      return BulkCreateNotificationsUsecase(notificationRepository);
+    });
+
+final bulkDeleteNotificationsUsecaseProvider =
+    Provider<BulkDeleteNotificationsUsecase>((ref) {
+      final notificationRepository = ref.read(notificationRepositoryProvider);
+      return BulkDeleteNotificationsUsecase(notificationRepository);
+    });
+
 final getNotificationByIdUsecaseProvider = Provider<GetNotificationByIdUsecase>(
   (ref) {
     final notificationRepository = ref.read(notificationRepositoryProvider);
@@ -835,6 +975,20 @@ final createScanLogUsecaseProvider = Provider<CreateScanLogUsecase>((ref) {
 final deleteScanLogUsecaseProvider = Provider<DeleteScanLogUsecase>((ref) {
   final scanLogRepository = ref.read(scanLogRepositoryProvider);
   return DeleteScanLogUsecase(scanLogRepository);
+});
+
+final bulkCreateScanLogsUsecaseProvider = Provider<BulkCreateScanLogsUsecase>((
+  ref,
+) {
+  final scanLogRepository = ref.read(scanLogRepositoryProvider);
+  return BulkCreateScanLogsUsecase(scanLogRepository);
+});
+
+final bulkDeleteScanLogsUsecaseProvider = Provider<BulkDeleteScanLogsUsecase>((
+  ref,
+) {
+  final scanLogRepository = ref.read(scanLogRepositoryProvider);
+  return BulkDeleteScanLogsUsecase(scanLogRepository);
 });
 
 final getScanLogByIdUsecaseProvider = Provider<GetScanLogByIdUsecase>((ref) {
@@ -912,6 +1066,11 @@ final createUserUsecaseProvider = Provider<CreateUserUsecase>((ref) {
 final deleteUserUsecaseProvider = Provider<DeleteUserUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return DeleteUserUsecase(userRepository);
+});
+
+final bulkCreateUsersUsecaseProvider = Provider<BulkCreateUsersUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return BulkCreateUsersUsecase(userRepository);
 });
 
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {

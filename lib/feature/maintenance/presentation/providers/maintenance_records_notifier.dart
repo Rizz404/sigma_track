@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_create_maintenance_records_usecase.dart';
+import 'package:sigma_track/feature/maintenance/domain/usecases/bulk_delete_maintenance_records_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/delete_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/get_maintenance_records_cursor_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_records_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class MaintenanceRecordsNotifier
     extends AutoDisposeNotifier<MaintenanceRecordsState> {
@@ -22,6 +25,12 @@ class MaintenanceRecordsNotifier
       ref.watch(updateMaintenanceRecordUsecaseProvider);
   DeleteMaintenanceRecordUsecase get _deleteMaintenanceRecordUsecase =>
       ref.watch(deleteMaintenanceRecordUsecaseProvider);
+  BulkCreateMaintenanceRecordsUsecase
+  get _bulkCreateMaintenanceRecordsUsecase =>
+      ref.watch(bulkCreateMaintenanceRecordsUsecaseProvider);
+  BulkDeleteMaintenanceRecordsUsecase
+  get _bulkDeleteMaintenanceRecordsUsecase =>
+      ref.watch(bulkDeleteMaintenanceRecordsUsecaseProvider);
 
   @override
   MaintenanceRecordsState build() {
@@ -32,7 +41,8 @@ class MaintenanceRecordsNotifier
 
   Future<void> _initializeMaintenanceRecords() async {
     state = await _loadMaintenanceRecords(
-      maintenanceRecordsFilter: const GetMaintenanceRecordsCursorUsecaseParams(),
+      maintenanceRecordsFilter:
+          const GetMaintenanceRecordsCursorUsecaseParams(),
     );
   }
 
@@ -308,6 +318,55 @@ class MaintenanceRecordsNotifier
     );
   }
 
+  Future<void> createManyMaintenanceRecords(
+    BulkCreateMaintenanceRecordsParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.maintenanceRecords.length} maintenance records',
+    );
+
+    state = MaintenanceRecordsState.creating(
+      currentMaintenanceRecords: state.maintenanceRecords,
+      maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateMaintenanceRecordsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create maintenance records', failure);
+        state = MaintenanceRecordsState.mutationError(
+          currentMaintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Maintenance records created successfully: ${success.data?.maintenanceRecords.length ?? 0}',
+        );
+
+        // * Reload maintenance records dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadMaintenanceRecords(
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = MaintenanceRecordsState.mutationSuccess(
+          maintenanceRecords: newState.maintenanceRecords,
+          maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
+          mutationType: MutationType.create,
+          message: 'Maintenance records created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyMaintenanceRecords(
     List<String> maintenanceRecordIds,
   ) async {
@@ -315,8 +374,45 @@ class MaintenanceRecordsNotifier
       'Deleting ${maintenanceRecordIds.length} maintenance records',
     );
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = MaintenanceRecordsState.deleting(
+      currentMaintenanceRecords: state.maintenanceRecords,
+      maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: maintenanceRecordIds);
+    final result = await _bulkDeleteMaintenanceRecordsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete maintenance records', failure);
+        state = MaintenanceRecordsState.mutationError(
+          currentMaintenanceRecords: state.maintenanceRecords,
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Maintenance records deleted successfully');
+
+        // * Reload maintenance records dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadMaintenanceRecords(
+          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = MaintenanceRecordsState.mutationSuccess(
+          maintenanceRecords: newState.maintenanceRecords,
+          maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
+          mutationType: MutationType.delete,
+          message: 'Maintenance records deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

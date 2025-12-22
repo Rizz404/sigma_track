@@ -482,10 +482,10 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
     );
 
     if (confirmed == true && mounted) {
-      // Todo: Implementasi di backend
-      AppToast.info(context.l10n.assetNotImplementedYet);
+      ref
+          .read(assetsProvider.notifier)
+          .deleteManyAssets(_selectedAssetIds.toList());
       _cancelSelectMode();
-      await _onRefresh();
     }
   }
 

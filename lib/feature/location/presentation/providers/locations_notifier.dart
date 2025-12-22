@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
+import 'package:sigma_track/feature/location/domain/usecases/bulk_create_locations_usecase.dart';
+import 'package:sigma_track/feature/location/domain/usecases/bulk_delete_locations_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/create_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/delete_location_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/get_locations_cursor_usecase.dart';
 import 'package:sigma_track/feature/location/domain/usecases/update_location_usecase.dart';
 import 'package:sigma_track/feature/location/presentation/providers/state/locations_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   GetLocationsCursorUsecase get _getLocationsCursorUsecase =>
@@ -21,6 +24,10 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       ref.watch(updateLocationUsecaseProvider);
   DeleteLocationUsecase get _deleteLocationUsecase =>
       ref.watch(deleteLocationUsecaseProvider);
+  BulkCreateLocationsUsecase get _bulkCreateLocationsUsecase =>
+      ref.watch(bulkCreateLocationsUsecaseProvider);
+  BulkDeleteLocationsUsecase get _bulkDeleteLocationsUsecase =>
+      ref.watch(bulkDeleteLocationsUsecaseProvider);
 
   @override
   LocationsState build() {
@@ -277,8 +284,90 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   Future<void> deleteManyLocations(List<String> locationIds) async {
     this.logPresentation('Deleting ${locationIds.length} locations');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = LocationsState.deleting(
+      currentLocations: state.locations,
+      locationsFilter: state.locationsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: locationIds);
+    final result = await _bulkDeleteLocationsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete locations', failure);
+        state = LocationsState.mutationError(
+          currentLocations: state.locations,
+          locationsFilter: state.locationsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Locations deleted successfully');
+
+        // * Reload locations dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadLocations(
+          locationsFilter: state.locationsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = LocationsState.mutationSuccess(
+          locations: newState.locations,
+          locationsFilter: newState.locationsFilter,
+          mutationType: MutationType.delete,
+          message: 'Locations deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
+  Future<void> createManyLocations(BulkCreateLocationsParams params) async {
+    this.logPresentation('Creating ${params.locations.length} locations');
+
+    state = LocationsState.creating(
+      currentLocations: state.locations,
+      locationsFilter: state.locationsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateLocationsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create locations', failure);
+        state = LocationsState.mutationError(
+          currentLocations: state.locations,
+          locationsFilter: state.locationsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Locations created successfully: ${success.data?.locations.length ?? 0}',
+        );
+
+        // * Reload locations dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadLocations(
+          locationsFilter: state.locationsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = LocationsState.mutationSuccess(
+          locations: newState.locations,
+          locationsFilter: newState.locationsFilter,
+          mutationType: MutationType.create,
+          message: 'Locations created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

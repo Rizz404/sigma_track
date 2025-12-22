@@ -6,11 +6,14 @@ import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
+import 'package:sigma_track/feature/category/domain/usecases/bulk_create_categories_usecase.dart';
+import 'package:sigma_track/feature/category/domain/usecases/bulk_delete_categories_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/create_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/delete_category_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/get_categories_cursor_usecase.dart';
 import 'package:sigma_track/feature/category/domain/usecases/update_category_usecase.dart';
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   GetCategoriesCursorUsecase get _getCategoriesCursorUsecase =>
@@ -21,6 +24,10 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       ref.watch(updateCategoryUsecaseProvider);
   DeleteCategoryUsecase get _deleteCategoryUsecase =>
       ref.watch(deleteCategoryUsecaseProvider);
+  BulkCreateCategoriesUsecase get _bulkCreateCategoriesUsecase =>
+      ref.watch(bulkCreateCategoriesUsecaseProvider);
+  BulkDeleteCategoriesUsecase get _bulkDeleteCategoriesUsecase =>
+      ref.watch(bulkDeleteCategoriesUsecaseProvider);
 
   @override
   CategoriesState build() {
@@ -275,11 +282,93 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
     );
   }
 
+  Future<void> createManyCategories(BulkCreateCategoriesParams params) async {
+    this.logPresentation('Creating ${params.categories.length} categories');
+
+    state = CategoriesState.creating(
+      currentCategories: state.categories,
+      categoriesFilter: state.categoriesFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateCategoriesUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create categories', failure);
+        state = CategoriesState.mutationError(
+          currentCategories: state.categories,
+          categoriesFilter: state.categoriesFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Categories created successfully: ${success.data?.categories.length ?? 0}',
+        );
+
+        // * Reload categories dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadCategories(
+          categoriesFilter: state.categoriesFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = CategoriesState.mutationSuccess(
+          categories: newState.categories,
+          categoriesFilter: newState.categoriesFilter,
+          mutationType: MutationType.create,
+          message: 'Categories created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyCategories(List<String> categoryIds) async {
     this.logPresentation('Deleting ${categoryIds.length} categories');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = CategoriesState.deleting(
+      currentCategories: state.categories,
+      categoriesFilter: state.categoriesFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: categoryIds);
+    final result = await _bulkDeleteCategoriesUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete categories', failure);
+        state = CategoriesState.mutationError(
+          currentCategories: state.categories,
+          categoriesFilter: state.categoriesFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Categories deleted successfully');
+
+        // * Reload categories dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadCategories(
+          categoriesFilter: state.categoriesFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = CategoriesState.mutationSuccess(
+          categories: newState.categories,
+          categoriesFilter: newState.categoriesFilter,
+          mutationType: MutationType.delete,
+          message: 'Categories deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

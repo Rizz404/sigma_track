@@ -7,6 +7,8 @@ import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_create_notifications_usecase.dart';
+import 'package:sigma_track/feature/notification/domain/usecases/bulk_delete_notifications_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/create_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/delete_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/domain/usecases/get_notifications_cursor_usecase.dart';
@@ -15,6 +17,7 @@ import 'package:sigma_track/feature/notification/domain/usecases/mark_notificati
 import 'package:sigma_track/feature/notification/domain/usecases/update_notification_usecase.dart';
 import 'package:sigma_track/feature/notification/presentation/providers/state/notifications_state.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
   GetNotificationsCursorUsecase get _getNotificationsCursorUsecase =>
@@ -31,6 +34,10 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       ref.watch(markNotificationsAsUnreadUsecaseProvider);
   GetCurrentUserUsecase get _getCurrentUserUsecase =>
       ref.watch(getCurrentUserUsecaseProvider);
+  BulkCreateNotificationsUsecase get _bulkCreateNotificationsUsecase =>
+      ref.watch(bulkCreateNotificationsUsecaseProvider);
+  BulkDeleteNotificationsUsecase get _bulkDeleteNotificationsUsecase =>
+      ref.watch(bulkDeleteNotificationsUsecaseProvider);
 
   @override
   NotificationsState build() {
@@ -306,11 +313,97 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     );
   }
 
+  Future<void> createManyNotifications(
+    BulkCreateNotificationsParams params,
+  ) async {
+    this.logPresentation(
+      'Creating ${params.notifications.length} notifications',
+    );
+
+    state = NotificationsState.creating(
+      currentNotifications: state.notifications,
+      notificationsFilter: state.notificationsFilter,
+      cursor: state.cursor,
+    );
+
+    final result = await _bulkCreateNotificationsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to create notifications', failure);
+        state = NotificationsState.mutationError(
+          currentNotifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.create,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData(
+          'Notifications created successfully: ${success.data?.notifications.length ?? 0}',
+        );
+
+        // * Reload notifications dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadNotifications(
+          notificationsFilter: state.notificationsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = NotificationsState.mutationSuccess(
+          notifications: newState.notifications,
+          notificationsFilter: newState.notificationsFilter,
+          mutationType: MutationType.create,
+          message: 'Notifications created successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
+  }
+
   Future<void> deleteManyNotifications(List<String> notificationIds) async {
     this.logPresentation('Deleting ${notificationIds.length} notifications');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = NotificationsState.deleting(
+      currentNotifications: state.notifications,
+      notificationsFilter: state.notificationsFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: notificationIds);
+    final result = await _bulkDeleteNotificationsUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete notifications', failure);
+        state = NotificationsState.mutationError(
+          currentNotifications: state.notifications,
+          notificationsFilter: state.notificationsFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Notifications deleted successfully');
+
+        // * Reload notifications dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadNotifications(
+          notificationsFilter: state.notificationsFilter,
+        );
+
+        // * Set mutation success setelah reload
+        state = NotificationsState.mutationSuccess(
+          notifications: newState.notifications,
+          notificationsFilter: newState.notificationsFilter,
+          mutationType: MutationType.delete,
+          message: 'Notifications deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {
