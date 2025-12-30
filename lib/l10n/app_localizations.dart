@@ -3831,18 +3831,6 @@ abstract class L10n {
   /// **'Pick from map'**
   String get locationPickFromMap;
 
-  /// Warning title for disabled autocomplete
-  ///
-  /// In en, this message translates to:
-  /// **'Autocomplete disabled'**
-  String get locationAutocompleteDisabled;
-
-  /// Warning message for disabled autocomplete feature
-  ///
-  /// In en, this message translates to:
-  /// **'Google Places API key not configured. Please enter location name manually and search.'**
-  String get locationAutocompleteDisabledMessage;
-
   /// Dialog title for deleting a maintenance schedule
   ///
   /// In en, this message translates to:

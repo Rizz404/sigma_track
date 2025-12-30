@@ -1,0 +1,293 @@
+{
+  "@@locale": "id",
+  "notificationManagement": "Manajemen Notifikasi",
+  "@notificationManagement": {
+    "description": "Notification management screen title"
+  },
+  "notificationDetail": "Detail Notifikasi",
+  "@notificationDetail": {
+    "description": "Notification detail screen title"
+  },
+  "notificationMyNotifications": "Notifikasi Saya",
+  "@notificationMyNotifications": {
+    "description": "My notifications screen title"
+  },
+  "notificationDeleteNotification": "Hapus Notifikasi",
+  "@notificationDeleteNotification": {
+    "description": "Dialog title for deleting a notification"
+  },
+  "notificationDeleteConfirmation": "Apakah Anda yakin ingin menghapus notifikasi ini?",
+  "@notificationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a notification"
+  },
+  "notificationDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} notifikasi?",
+  "@notificationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple notifications",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationCancel": "Batal",
+  "@notificationCancel": {
+    "description": "Cancel button label"
+  },
+  "notificationDelete": "Hapus",
+  "@notificationDelete": {
+    "description": "Delete button label"
+  },
+  "notificationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus notifikasi",
+  "@notificationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "notificationDeleted": "Notifikasi dihapus",
+  "@notificationDeleted": {
+    "description": "Success message for notification deletion"
+  },
+  "notificationDeleteFailed": "Gagal menghapus",
+  "@notificationDeleteFailed": {
+    "description": "Error message for notification deletion failure"
+  },
+  "notificationFailedToLoad": "Gagal memuat notifikasi",
+  "@notificationFailedToLoad": {
+    "description": "Error message when notification fails to load"
+  },
+  "notificationInformation": "Informasi Notifikasi",
+  "@notificationInformation": {
+    "description": "Notification information section title"
+  },
+  "notificationTitle": "Judul",
+  "@notificationTitle": {
+    "description": "Title label"
+  },
+  "notificationMessage": "Pesan",
+  "@notificationMessage": {
+    "description": "Message label"
+  },
+  "notificationType": "Jenis",
+  "@notificationType": {
+    "description": "Type label"
+  },
+  "notificationPriority": "Prioritas",
+  "@notificationPriority": {
+    "description": "Priority label"
+  },
+  "notificationIsRead": "Sudah Dibaca",
+  "@notificationIsRead": {
+    "description": "Is read label"
+  },
+  "notificationReadStatus": "Status Baca",
+  "@notificationReadStatus": {
+    "description": "Read status label"
+  },
+  "notificationRead": "Dibaca",
+  "@notificationRead": {
+    "description": "Read status value"
+  },
+  "notificationUnread": "Belum Dibaca",
+  "@notificationUnread": {
+    "description": "Unread status value"
+  },
+  "notificationYes": "Ya",
+  "@notificationYes": {
+    "description": "Yes label"
+  },
+  "notificationNo": "Tidak",
+  "@notificationNo": {
+    "description": "No label"
+  },
+  "notificationCreatedAt": "Dibuat Pada",
+  "@notificationCreatedAt": {
+    "description": "Created at label"
+  },
+  "notificationExpiresAt": "Kadaluarsa Pada",
+  "@notificationExpiresAt": {
+    "description": "Expires at label"
+  },
+  "notificationSearchNotifications": "Cari notifikasi...",
+  "@notificationSearchNotifications": {
+    "description": "Notifications search placeholder"
+  },
+  "notificationSearchMyNotifications": "Cari notifikasi saya...",
+  "@notificationSearchMyNotifications": {
+    "description": "My notifications search placeholder"
+  },
+  "notificationNoNotificationsFound": "Tidak ada notifikasi ditemukan",
+  "@notificationNoNotificationsFound": {
+    "description": "No notifications found message"
+  },
+  "notificationNoNotificationsYet": "Anda tidak memiliki notifikasi",
+  "@notificationNoNotificationsYet": {
+    "description": "Empty state message for user notifications"
+  },
+  "notificationCreateFirstNotification": "Buat notifikasi pertama Anda untuk memulai",
+  "@notificationCreateFirstNotification": {
+    "description": "Empty state message for notifications"
+  },
+  "notificationCreateNotification": "Buat Notifikasi",
+  "@notificationCreateNotification": {
+    "description": "Create notification option title"
+  },
+  "notificationCreateNotificationSubtitle": "Tambah notifikasi baru",
+  "@notificationCreateNotificationSubtitle": {
+    "description": "Create notification option subtitle"
+  },
+  "notificationSelectMany": "Pilih Banyak",
+  "@notificationSelectMany": {
+    "description": "Select many option title"
+  },
+  "notificationSelectManySubtitle": "Pilih beberapa notifikasi untuk dihapus",
+  "@notificationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "notificationFilterAndSort": "Filter & Urutkan",
+  "@notificationFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "notificationFilterAndSortSubtitle": "Sesuaikan tampilan notifikasi",
+  "@notificationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "notificationFiltersAndSorting": "Filter & Pengurutan",
+  "@notificationFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "notificationSelectNotificationsToDelete": "Pilih notifikasi untuk dihapus",
+  "@notificationSelectNotificationsToDelete": {
+    "description": "Instruction for selecting notifications to delete"
+  },
+  "notificationLongPressToSelect": "Tekan lama untuk memilih lebih banyak notifikasi",
+  "@notificationLongPressToSelect": {
+    "description": "Instruction for selecting multiple notifications"
+  },
+  "notificationSelectedCount": "{count} dipilih",
+  "@notificationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationNoNotificationsSelected": "Tidak ada notifikasi yang dipilih",
+  "@notificationNoNotificationsSelected": {
+    "description": "Warning message when no notifications are selected"
+  },
+  "notificationFilterByUser": "Filter berdasarkan Pengguna",
+  "@notificationFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "notificationFilterByRelatedAsset": "Filter berdasarkan Aset Terkait",
+  "@notificationFilterByRelatedAsset": {
+    "description": "Filter by related asset label"
+  },
+  "notificationSearchUser": "Cari pengguna...",
+  "@notificationSearchUser": {
+    "description": "User search placeholder"
+  },
+  "notificationSearchAsset": "Cari aset...",
+  "@notificationSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "notificationSortBy": "Urutkan Berdasarkan",
+  "@notificationSortBy": {
+    "description": "Sort by label"
+  },
+  "notificationSortOrder": "Urutan",
+  "@notificationSortOrder": {
+    "description": "Sort order label"
+  },
+  "notificationReset": "Reset",
+  "@notificationReset": {
+    "description": "Reset button label"
+  },
+  "notificationApply": "Terapkan",
+  "@notificationApply": {
+    "description": "Apply button label"
+  },
+  "notificationApplyFilters": "Terapkan Filter",
+  "@notificationApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "notificationFilterReset": "Filter direset",
+  "@notificationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "notificationFilterApplied": "Filter diterapkan",
+  "@notificationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "notificationFiltersApplied": "Filter Diterapkan",
+  "@notificationFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "notificationNotImplementedYet": "Belum diimplementasikan",
+  "@notificationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "notificationJustNow": "Baru saja",
+  "@notificationJustNow": {
+    "description": "Time ago for just now"
+  },
+  "notificationMinutesAgo": "{minutes}m yang lalu",
+  "@notificationMinutesAgo": {
+    "description": "Time ago in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationHoursAgo": "{hours}j yang lalu",
+  "@notificationHoursAgo": {
+    "description": "Time ago in hours",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "notificationDaysAgo": "{days}h yang lalu",
+  "@notificationDaysAgo": {
+    "description": "Time ago in days",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationMarkAsRead": "Tandai Dibaca",
+  "@notificationMarkAsRead": {
+    "description": "Mark as read option"
+  },
+  "notificationMarkAsUnread": "Tandai Belum Dibaca",
+  "@notificationMarkAsUnread": {
+    "description": "Mark as unread option"
+  },
+  "notificationMarkedAsRead": "{count} ditandai dibaca",
+  "@notificationMarkedAsRead": {
+    "description": "Success message for marking notifications as read",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationMarkedAsUnread": "{count} ditandai belum dibaca",
+  "@notificationMarkedAsUnread": {
+    "description": "Success message for marking notifications as unread",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  }
+}

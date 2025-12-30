@@ -2630,14 +2630,6 @@
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
   },
-  "locationAutocompleteDisabled": "Autocomplete disabled",
-  "@locationAutocompleteDisabled": {
-    "description": "Warning title for disabled autocomplete"
-  },
-  "locationAutocompleteDisabledMessage": "Google Places API key not configured. Please enter location name manually and search.",
-  "@locationAutocompleteDisabledMessage": {
-    "description": "Warning message for disabled autocomplete feature"
-  },
   "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
   "@maintenanceScheduleDeleteSchedule": {
     "description": "Dialog title for deleting a maintenance schedule"

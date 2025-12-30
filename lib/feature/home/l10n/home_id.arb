@@ -1,0 +1,7 @@
+{
+  "@@locale": "id",
+  "homeScreen": "Beranda",
+  "@homeScreen": {
+    "description": "Home screen title"
+  }
+}

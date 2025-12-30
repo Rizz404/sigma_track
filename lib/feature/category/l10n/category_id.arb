@@ -1,0 +1,297 @@
+{
+  "@@locale": "id",
+  "categoryDetail": "Detail Kategori",
+  "@categoryDetail": {
+    "description": "Category detail screen title"
+  },
+  "categoryInformation": "Informasi Kategori",
+  "@categoryInformation": {
+    "description": "Category information section title"
+  },
+  "categoryCategoryCode": "Kode Kategori",
+  "@categoryCategoryCode": {
+    "description": "Category code label"
+  },
+  "categoryCategoryName": "Nama Kategori",
+  "@categoryCategoryName": {
+    "description": "Category name label"
+  },
+  "categoryDescription": "Deskripsi",
+  "@categoryDescription": {
+    "description": "Description label"
+  },
+  "categoryParentCategory": "Kategori Induk",
+  "@categoryParentCategory": {
+    "description": "Parent category label"
+  },
+  "categoryMetadata": "Metadata",
+  "@categoryMetadata": {
+    "description": "Metadata section title"
+  },
+  "categoryCreatedAt": "Dibuat Pada",
+  "@categoryCreatedAt": {
+    "description": "Created at label"
+  },
+  "categoryUpdatedAt": "Diperbarui Pada",
+  "@categoryUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "categoryOnlyAdminCanEdit": "Hanya admin yang dapat mengedit kategori",
+  "@categoryOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "categoryOnlyAdminCanDelete": "Hanya admin yang dapat menghapus kategori",
+  "@categoryOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "categoryDeleteCategory": "Hapus Kategori",
+  "@categoryDeleteCategory": {
+    "description": "Delete category dialog title"
+  },
+  "categoryDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{categoryName}\"?",
+  "@categoryDeleteConfirmation": {
+    "description": "Confirmation message for deleting a category",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "Electronics"
+      }
+    }
+  },
+  "categoryCancel": "Batal",
+  "@categoryCancel": {
+    "description": "Cancel button label"
+  },
+  "categoryDelete": "Hapus",
+  "@categoryDelete": {
+    "description": "Delete button label"
+  },
+  "categoryCategoryDeleted": "Kategori dihapus",
+  "@categoryCategoryDeleted": {
+    "description": "Success message for category deletion"
+  },
+  "categoryDeleteFailed": "Gagal menghapus",
+  "@categoryDeleteFailed": {
+    "description": "Error message for category deletion failure"
+  },
+  "categoryEditCategory": "Edit Kategori",
+  "@categoryEditCategory": {
+    "description": "Edit category screen title"
+  },
+  "categoryCreateCategory": "Buat Kategori",
+  "@categoryCreateCategory": {
+    "description": "Create category screen title"
+  },
+  "categorySearchCategory": "Cari kategori...",
+  "@categorySearchCategory": {
+    "description": "Search category placeholder"
+  },
+  "categoryEnterCategoryCode": "Masukkan kode kategori (contoh: CAT-001)",
+  "@categoryEnterCategoryCode": {
+    "description": "Category code input placeholder"
+  },
+  "categoryTranslations": "Terjemahan",
+  "@categoryTranslations": {
+    "description": "Translations section title"
+  },
+  "categoryAddTranslations": "Tambahkan terjemahan untuk bahasa yang berbeda",
+  "@categoryAddTranslations": {
+    "description": "Translations section subtitle"
+  },
+  "categoryEnglish": "Inggris",
+  "@categoryEnglish": {
+    "description": "English language label"
+  },
+  "categoryJapanese": "Jepang",
+  "@categoryJapanese": {
+    "description": "Japanese language label"
+  },
+  "categoryEnterCategoryName": "Masukkan nama kategori",
+  "@categoryEnterCategoryName": {
+    "description": "Category name input placeholder"
+  },
+  "categoryEnterDescription": "Masukkan deskripsi",
+  "@categoryEnterDescription": {
+    "description": "Description input placeholder"
+  },
+  "categoryUpdate": "Perbarui",
+  "@categoryUpdate": {
+    "description": "Update button label"
+  },
+  "categoryCreate": "Buat",
+  "@categoryCreate": {
+    "description": "Create button label"
+  },
+  "categoryFillRequiredFields": "Harap isi semua field yang wajib",
+  "@categoryFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "categorySavedSuccessfully": "Kategori berhasil disimpan",
+  "@categorySavedSuccessfully": {
+    "description": "Success message for category save"
+  },
+  "categoryOperationFailed": "Operasi gagal",
+  "@categoryOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "categoryFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@categoryFailedToLoadTranslations": {
+    "description": "Error message when translations fail to load"
+  },
+  "categoryManagement": "Manajemen Kategori",
+  "@categoryManagement": {
+    "description": "Category management screen title"
+  },
+  "categorySearchCategories": "Cari kategori...",
+  "@categorySearchCategories": {
+    "description": "Categories search placeholder"
+  },
+  "categoryCreateCategoryTitle": "Buat Kategori",
+  "@categoryCreateCategoryTitle": {
+    "description": "Create category option title"
+  },
+  "categoryCreateCategorySubtitle": "Tambah kategori baru",
+  "@categoryCreateCategorySubtitle": {
+    "description": "Create category option subtitle"
+  },
+  "categorySelectManyTitle": "Pilih Banyak",
+  "@categorySelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "categorySelectManySubtitle": "Pilih beberapa kategori untuk dihapus",
+  "@categorySelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "categoryFilterAndSortTitle": "Filter & Urutkan",
+  "@categoryFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "categoryFilterAndSortSubtitle": "Sesuaikan tampilan kategori",
+  "@categoryFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "categorySelectCategoriesToDelete": "Pilih kategori untuk dihapus",
+  "@categorySelectCategoriesToDelete": {
+    "description": "Instruction for selecting categories to delete"
+  },
+  "categorySortBy": "Urutkan Berdasarkan",
+  "@categorySortBy": {
+    "description": "Sort by label"
+  },
+  "categorySortOrder": "Urutan",
+  "@categorySortOrder": {
+    "description": "Sort order label"
+  },
+  "categoryHasParent": "Memiliki Induk",
+  "@categoryHasParent": {
+    "description": "Has parent checkbox label"
+  },
+  "categoryFilterByParent": "Filter berdasarkan Kategori Induk",
+  "@categoryFilterByParent": {
+    "description": "Filter by parent category label"
+  },
+  "categorySearchParentCategory": "Cari kategori induk...",
+  "@categorySearchParentCategory": {
+    "description": "Search parent category placeholder"
+  },
+  "categoryReset": "Reset",
+  "@categoryReset": {
+    "description": "Reset button label"
+  },
+  "categoryApply": "Terapkan",
+  "@categoryApply": {
+    "description": "Apply button label"
+  },
+  "categoryFilterReset": "Filter direset",
+  "@categoryFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "categoryFilterApplied": "Filter diterapkan",
+  "@categoryFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "categoryDeleteCategories": "Hapus Kategori",
+  "@categoryDeleteCategories": {
+    "description": "Delete categories dialog title"
+  },
+  "categoryDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} kategori?",
+  "@categoryDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "categoryNoCategoriesSelected": "Tidak ada kategori yang dipilih",
+  "@categoryNoCategoriesSelected": {
+    "description": "Warning message when no categories are selected"
+  },
+  "categoryNotImplementedYet": "Belum diimplementasikan",
+  "@categoryNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "categorySelectedCount": "{count} dipilih",
+  "@categorySelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "categoryNoCategoriesFound": "Tidak ada kategori ditemukan",
+  "@categoryNoCategoriesFound": {
+    "description": "No categories found message"
+  },
+  "categoryCreateFirstCategory": "Buat kategori pertama Anda untuk memulai",
+  "@categoryCreateFirstCategory": {
+    "description": "Empty state message for categories"
+  },
+  "categoryLongPressToSelect": "Tekan lama untuk memilih lebih banyak kategori",
+  "@categoryLongPressToSelect": {
+    "description": "Instruction for selecting multiple categories"
+  },
+  "categoryValidationCodeRequired": "Kode kategori wajib diisi",
+  "@categoryValidationCodeRequired": {
+    "description": "Validation error for required category code"
+  },
+  "categoryValidationCodeMinLength": "Kode kategori minimal 2 karakter",
+  "@categoryValidationCodeMinLength": {
+    "description": "Validation error for category code minimum length"
+  },
+  "categoryValidationCodeMaxLength": "Kode kategori maksimal 20 karakter",
+  "@categoryValidationCodeMaxLength": {
+    "description": "Validation error for category code maximum length"
+  },
+  "categoryValidationCodeAlphanumeric": "Kode kategori hanya boleh mengandung huruf, angka, dan garis bawah",
+  "@categoryValidationCodeAlphanumeric": {
+    "description": "Validation error for category code format"
+  },
+  "categoryValidationNameRequired": "Nama kategori wajib diisi",
+  "@categoryValidationNameRequired": {
+    "description": "Validation error for required category name"
+  },
+  "categoryValidationNameMinLength": "Nama kategori minimal 3 karakter",
+  "@categoryValidationNameMinLength": {
+    "description": "Validation error for category name minimum length"
+  },
+  "categoryValidationNameMaxLength": "Nama kategori maksimal 100 karakter",
+  "@categoryValidationNameMaxLength": {
+    "description": "Validation error for category name maximum length"
+  },
+  "categoryValidationDescriptionRequired": "Deskripsi wajib diisi",
+  "@categoryValidationDescriptionRequired": {
+    "description": "Validation error for required description"
+  },
+  "categoryValidationDescriptionMinLength": "Deskripsi minimal 10 karakter",
+  "@categoryValidationDescriptionMinLength": {
+    "description": "Validation error for description minimum length"
+  },
+  "categoryValidationDescriptionMaxLength": "Deskripsi maksimal 500 karakter",
+  "@categoryValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  }
+}

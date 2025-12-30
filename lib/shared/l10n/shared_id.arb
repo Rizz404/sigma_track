@@ -1,0 +1,171 @@
+{
+  "@@locale": "id",
+  "adminShellBottomNavDashboard": "Dasbor",
+  "@adminShellBottomNavDashboard": {
+    "description": "Admin shell bottom navigation label for dashboard"
+  },
+  "adminShellBottomNavScanAsset": "Pindai Aset",
+  "@adminShellBottomNavScanAsset": {
+    "description": "Admin shell bottom navigation label for scan asset"
+  },
+  "adminShellBottomNavProfile": "Profil",
+  "@adminShellBottomNavProfile": {
+    "description": "Admin shell bottom navigation label for profile"
+  },
+  "userShellBottomNavHome": "Beranda",
+  "@userShellBottomNavHome": {
+    "description": "User shell bottom navigation label for home"
+  },
+  "userShellBottomNavScanAsset": "Pindai Aset",
+  "@userShellBottomNavScanAsset": {
+    "description": "User shell bottom navigation label for scan asset"
+  },
+  "userShellBottomNavProfile": "Profil",
+  "@userShellBottomNavProfile": {
+    "description": "User shell bottom navigation label for profile"
+  },
+  "appEndDrawerTitle": "Sigma Track",
+  "@appEndDrawerTitle": {
+    "description": "App end drawer title"
+  },
+  "appEndDrawerPleaseLoginFirst": "Silakan login terlebih dahulu",
+  "@appEndDrawerPleaseLoginFirst": {
+    "description": "Message shown when user needs to login"
+  },
+  "appEndDrawerTheme": "Tema",
+  "@appEndDrawerTheme": {
+    "description": "Theme settings label"
+  },
+  "appEndDrawerLanguage": "Bahasa",
+  "@appEndDrawerLanguage": {
+    "description": "Language settings label"
+  },
+  "appEndDrawerLogout": "Keluar",
+  "@appEndDrawerLogout": {
+    "description": "Logout button label"
+  },
+  "appEndDrawerManagementSection": "Manajemen",
+  "@appEndDrawerManagementSection": {
+    "description": "Management section header"
+  },
+  "appEndDrawerMaintenanceSection": "Pemeliharaan",
+  "@appEndDrawerMaintenanceSection": {
+    "description": "Maintenance section header"
+  },
+  "appEndDrawerEnglish": "English",
+  "@appEndDrawerEnglish": {
+    "description": "English language option"
+  },
+  "appEndDrawerIndonesian": "Indonesia",
+  "@appEndDrawerIndonesian": {
+    "description": "Indonesian language option"
+  },
+  "appEndDrawerJapanese": "日本語",
+  "@appEndDrawerJapanese": {
+    "description": "Japanese language option"
+  },
+  "appEndDrawerMyAssets": "Aset Saya",
+  "@appEndDrawerMyAssets": {
+    "description": "My assets menu item"
+  },
+  "appEndDrawerNotifications": "Notifikasi",
+  "@appEndDrawerNotifications": {
+    "description": "Notifications menu item"
+  },
+  "appEndDrawerMyIssueReports": "Laporan Masalah Saya",
+  "@appEndDrawerMyIssueReports": {
+    "description": "My issue reports menu item"
+  },
+  "appEndDrawerAssets": "Aset",
+  "@appEndDrawerAssets": {
+    "description": "Assets menu item"
+  },
+  "appEndDrawerAssetMovements": "Perpindahan Aset",
+  "@appEndDrawerAssetMovements": {
+    "description": "Asset movements menu item"
+  },
+  "appEndDrawerCategories": "Kategori",
+  "@appEndDrawerCategories": {
+    "description": "Categories menu item"
+  },
+  "appEndDrawerLocations": "Lokasi",
+  "@appEndDrawerLocations": {
+    "description": "Locations menu item"
+  },
+  "appEndDrawerUsers": "Pengguna",
+  "@appEndDrawerUsers": {
+    "description": "Users menu item"
+  },
+  "appEndDrawerMaintenanceSchedules": "Jadwal Pemeliharaan",
+  "@appEndDrawerMaintenanceSchedules": {
+    "description": "Maintenance schedules menu item"
+  },
+  "appEndDrawerMaintenanceRecords": "Catatan Pemeliharaan",
+  "@appEndDrawerMaintenanceRecords": {
+    "description": "Maintenance records menu item"
+  },
+  "appEndDrawerReports": "Laporan",
+  "@appEndDrawerReports": {
+    "description": "Reports menu item"
+  },
+  "appEndDrawerIssueReports": "Laporan Masalah",
+  "@appEndDrawerIssueReports": {
+    "description": "Issue reports menu item"
+  },
+  "appEndDrawerScanLogs": "Log Pemindaian",
+  "@appEndDrawerScanLogs": {
+    "description": "Scan logs menu item"
+  },
+  "appEndDrawerScanAsset": "Pindai Aset",
+  "@appEndDrawerScanAsset": {
+    "description": "Scan asset menu item"
+  },
+  "appEndDrawerDashboard": "Dasbor",
+  "@appEndDrawerDashboard": {
+    "description": "Dashboard menu item"
+  },
+  "appEndDrawerHome": "Beranda",
+  "@appEndDrawerHome": {
+    "description": "Home menu item"
+  },
+  "appEndDrawerProfile": "Profil",
+  "@appEndDrawerProfile": {
+    "description": "Profile menu item"
+  },
+  "customAppBarTitle": "Sigma Track",
+  "@customAppBarTitle": {
+    "description": "App bar title"
+  },
+  "customAppBarOpenMenu": "Buka Menu",
+  "@customAppBarOpenMenu": {
+    "description": "Open menu button label"
+  },
+  "appDropdownSelectOption": "Pilih opsi",
+  "@appDropdownSelectOption": {
+    "description": "Dropdown select option placeholder"
+  },
+  "appSearchFieldHint": "Cari...",
+  "@appSearchFieldHint": {
+    "description": "Search field hint text"
+  },
+  "appSearchFieldClear": "Hapus",
+  "@appSearchFieldClear": {
+    "description": "Clear search button label"
+  },
+  "appSearchFieldNoResultsFound": "Tidak ada hasil ditemukan",
+  "@appSearchFieldNoResultsFound": {
+    "description": "No results found message"
+  },
+  "staffShellBottomNavDashboard": "Dasbor",
+  "@staffShellBottomNavDashboard": {
+    "description": "Staff shell bottom navigation label for dashboard"
+  },
+  "staffShellBottomNavScanAsset": "Pindai Aset",
+  "@staffShellBottomNavScanAsset": {
+    "description": "Staff shell bottom navigation label for scan asset"
+  },
+  "staffShellBottomNavProfile": "Profil",
+  "@staffShellBottomNavProfile": {
+    "description": "Staff shell bottom navigation label for profile"
+  }
+}

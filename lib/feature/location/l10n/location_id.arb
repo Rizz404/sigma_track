@@ -1,0 +1,415 @@
+{
+  "@@locale": "id",
+  "locationDeleteLocation": "Hapus Lokasi",
+  "@locationDeleteLocation": {
+    "description": "Dialog title for deleting a location"
+  },
+  "locationDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{locationName}\"?",
+  "@locationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a location",
+    "placeholders": {
+      "locationName": {
+        "type": "String",
+        "example": "Main Office"
+      }
+    }
+  },
+  "locationCancel": "Batal",
+  "@locationCancel": {
+    "description": "Cancel button label"
+  },
+  "locationDelete": "Hapus",
+  "@locationDelete": {
+    "description": "Delete button label"
+  },
+  "locationDetail": "Detail Lokasi",
+  "@locationDetail": {
+    "description": "Location detail screen title"
+  },
+  "locationInformation": "Informasi Lokasi",
+  "@locationInformation": {
+    "description": "Location information section title"
+  },
+  "locationCode": "Kode Lokasi",
+  "@locationCode": {
+    "description": "Location code label"
+  },
+  "locationName": "Nama Lokasi",
+  "@locationName": {
+    "description": "Location name label"
+  },
+  "locationBuilding": "Gedung",
+  "@locationBuilding": {
+    "description": "Building label"
+  },
+  "locationFloor": "Lantai",
+  "@locationFloor": {
+    "description": "Floor label"
+  },
+  "locationLatitude": "Lintang",
+  "@locationLatitude": {
+    "description": "Latitude label"
+  },
+  "locationLongitude": "Bujur",
+  "@locationLongitude": {
+    "description": "Longitude label"
+  },
+  "locationMetadata": "Metadata",
+  "@locationMetadata": {
+    "description": "Metadata section title"
+  },
+  "locationCreatedAt": "Dibuat Pada",
+  "@locationCreatedAt": {
+    "description": "Created at label"
+  },
+  "locationUpdatedAt": "Diperbarui Pada",
+  "@locationUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "locationOnlyAdminCanEdit": "Hanya admin yang dapat mengedit lokasi",
+  "@locationOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "locationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus lokasi",
+  "@locationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "locationFailedToLoad": "Gagal memuat lokasi",
+  "@locationFailedToLoad": {
+    "description": "Error message when location fails to load"
+  },
+  "locationDeleted": "Lokasi dihapus",
+  "@locationDeleted": {
+    "description": "Success message for location deletion"
+  },
+  "locationDeleteFailed": "Gagal menghapus",
+  "@locationDeleteFailed": {
+    "description": "Error message for location deletion failure"
+  },
+  "locationEditLocation": "Edit Lokasi",
+  "@locationEditLocation": {
+    "description": "Edit location screen title"
+  },
+  "locationCreateLocation": "Buat Lokasi",
+  "@locationCreateLocation": {
+    "description": "Create location screen title"
+  },
+  "locationFillRequiredFields": "Harap isi semua field yang wajib",
+  "@locationFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "locationSavedSuccessfully": "Lokasi berhasil disimpan",
+  "@locationSavedSuccessfully": {
+    "description": "Success message for location save"
+  },
+  "locationOperationFailed": "Operasi gagal",
+  "@locationOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "locationFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@locationFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "locationEnterLocationCode": "Masukkan kode lokasi (contoh: LOC-001)",
+  "@locationEnterLocationCode": {
+    "description": "Location code input placeholder"
+  },
+  "locationBuildingOptional": "Gedung (Opsional)",
+  "@locationBuildingOptional": {
+    "description": "Building input label"
+  },
+  "locationEnterBuilding": "Masukkan nama gedung",
+  "@locationEnterBuilding": {
+    "description": "Building input placeholder"
+  },
+  "locationFloorOptional": "Lantai (Opsional)",
+  "@locationFloorOptional": {
+    "description": "Floor input label"
+  },
+  "locationEnterFloor": "Masukkan nomor lantai",
+  "@locationEnterFloor": {
+    "description": "Floor input placeholder"
+  },
+  "locationLatitudeOptional": "Lintang (Opsional)",
+  "@locationLatitudeOptional": {
+    "description": "Latitude input label"
+  },
+  "locationEnterLatitude": "Masukkan lintang",
+  "@locationEnterLatitude": {
+    "description": "Latitude input placeholder"
+  },
+  "locationLongitudeOptional": "Bujur (Opsional)",
+  "@locationLongitudeOptional": {
+    "description": "Longitude input label"
+  },
+  "locationEnterLongitude": "Masukkan bujur",
+  "@locationEnterLongitude": {
+    "description": "Longitude input placeholder"
+  },
+  "locationGettingLocation": "Mendapatkan Lokasi...",
+  "@locationGettingLocation": {
+    "description": "Getting location button text when loading"
+  },
+  "locationUseCurrentLocation": "Gunakan Lokasi Saat Ini",
+  "@locationUseCurrentLocation": {
+    "description": "Use current location button label"
+  },
+  "locationServicesDisabled": "Layanan lokasi dinonaktifkan",
+  "@locationServicesDisabled": {
+    "description": "Warning message for disabled location services"
+  },
+  "locationServicesDialogTitle": "Layanan Lokasi Dinonaktifkan",
+  "@locationServicesDialogTitle": {
+    "description": "Location services dialog title"
+  },
+  "locationServicesDialogMessage": "Layanan lokasi diperlukan untuk mendapatkan lokasi Anda saat ini. Apakah Anda ingin mengaktifkannya?",
+  "@locationServicesDialogMessage": {
+    "description": "Location services dialog message"
+  },
+  "locationOpenSettings": "Buka Pengaturan",
+  "@locationOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "locationPermissionDenied": "Izin lokasi ditolak",
+  "@locationPermissionDenied": {
+    "description": "Error message for denied permission"
+  },
+  "locationPermissionPermanentlyDenied": "Izin lokasi ditolak secara permanen",
+  "@locationPermissionPermanentlyDenied": {
+    "description": "Error message for permanently denied permission"
+  },
+  "locationPermissionRequired": "Izin Diperlukan",
+  "@locationPermissionRequired": {
+    "description": "Permission required dialog title"
+  },
+  "locationPermissionDialogMessage": "Izin lokasi ditolak secara permanen. Silakan aktifkan di pengaturan aplikasi.",
+  "@locationPermissionDialogMessage": {
+    "description": "Permission dialog message"
+  },
+  "locationRetrievedSuccessfully": "Lokasi saat ini berhasil didapatkan",
+  "@locationRetrievedSuccessfully": {
+    "description": "Success message for getting current location"
+  },
+  "locationFailedToGetCurrent": "Gagal mendapatkan lokasi saat ini",
+  "@locationFailedToGetCurrent": {
+    "description": "Error message for failed location retrieval"
+  },
+  "locationTranslations": "Terjemahan",
+  "@locationTranslations": {
+    "description": "Translations section title"
+  },
+  "locationTranslationsSubtitle": "Tambahkan terjemahan untuk bahasa yang berbeda",
+  "@locationTranslationsSubtitle": {
+    "description": "Translations section subtitle"
+  },
+  "locationEnglish": "Inggris",
+  "@locationEnglish": {
+    "description": "English language label"
+  },
+  "locationJapanese": "Jepang",
+  "@locationJapanese": {
+    "description": "Japanese language label"
+  },
+  "locationEnterLocationName": "Masukkan nama lokasi",
+  "@locationEnterLocationName": {
+    "description": "Location name input placeholder"
+  },
+  "locationUpdate": "Perbarui",
+  "@locationUpdate": {
+    "description": "Update button label"
+  },
+  "locationCreate": "Buat",
+  "@locationCreate": {
+    "description": "Create button label"
+  },
+  "locationManagement": "Manajemen Lokasi",
+  "@locationManagement": {
+    "description": "Location management screen title"
+  },
+  "locationCreateLocationTitle": "Buat Lokasi",
+  "@locationCreateLocationTitle": {
+    "description": "Create location option title"
+  },
+  "locationCreateLocationSubtitle": "Tambah lokasi baru",
+  "@locationCreateLocationSubtitle": {
+    "description": "Create location option subtitle"
+  },
+  "locationSelectManyTitle": "Pilih Banyak",
+  "@locationSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "locationSelectManySubtitle": "Pilih beberapa lokasi untuk dihapus",
+  "@locationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "locationFilterAndSortTitle": "Filter & Urutkan",
+  "@locationFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "locationFilterAndSortSubtitle": "Sesuaikan tampilan lokasi",
+  "@locationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "locationSelectLocationsToDelete": "Pilih lokasi untuk dihapus",
+  "@locationSelectLocationsToDelete": {
+    "description": "Instruction for selecting locations to delete"
+  },
+  "locationSortBy": "Urutkan Berdasarkan",
+  "@locationSortBy": {
+    "description": "Sort by label"
+  },
+  "locationSortOrder": "Urutan",
+  "@locationSortOrder": {
+    "description": "Sort order label"
+  },
+  "locationReset": "Reset",
+  "@locationReset": {
+    "description": "Reset button label"
+  },
+  "locationApply": "Terapkan",
+  "@locationApply": {
+    "description": "Apply button label"
+  },
+  "locationFilterReset": "Filter direset",
+  "@locationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "locationFilterApplied": "Filter diterapkan",
+  "@locationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "locationDeleteLocations": "Hapus Lokasi",
+  "@locationDeleteLocations": {
+    "description": "Delete locations dialog title"
+  },
+  "locationDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} lokasi?",
+  "@locationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple locations",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "locationNoLocationsSelected": "Tidak ada lokasi yang dipilih",
+  "@locationNoLocationsSelected": {
+    "description": "Warning message when no locations are selected"
+  },
+  "locationNotImplementedYet": "Belum diimplementasikan",
+  "@locationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "locationSelectedCount": "{count} dipilih",
+  "@locationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "locationSearchLocations": "Cari lokasi...",
+  "@locationSearchLocations": {
+    "description": "Locations search placeholder"
+  },
+  "locationNoLocationsFound": "Tidak ada lokasi ditemukan",
+  "@locationNoLocationsFound": {
+    "description": "No locations found message"
+  },
+  "locationCreateFirstLocation": "Buat lokasi pertama Anda untuk memulai",
+  "@locationCreateFirstLocation": {
+    "description": "Empty state message for locations"
+  },
+  "locationLongPressToSelect": "Tekan lama untuk memilih lebih banyak lokasi",
+  "@locationLongPressToSelect": {
+    "description": "Instruction for selecting multiple locations"
+  },
+  "locationFloorPrefix": "Lantai {floor}",
+  "@locationFloorPrefix": {
+    "description": "Floor prefix display",
+    "placeholders": {
+      "floor": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "locationValidationCodeRequired": "Kode lokasi wajib diisi",
+  "@locationValidationCodeRequired": {
+    "description": "Validation error for required location code"
+  },
+  "locationValidationCodeMinLength": "Kode lokasi minimal 2 karakter",
+  "@locationValidationCodeMinLength": {
+    "description": "Validation error for location code minimum length"
+  },
+  "locationValidationCodeMaxLength": "Kode lokasi maksimal 20 karakter",
+  "@locationValidationCodeMaxLength": {
+    "description": "Validation error for location code maximum length"
+  },
+  "locationValidationCodeAlphanumeric": "Kode lokasi hanya boleh mengandung huruf, angka, dan tanda hubung",
+  "@locationValidationCodeAlphanumeric": {
+    "description": "Validation error for location code format"
+  },
+  "locationValidationNameRequired": "Nama lokasi wajib diisi",
+  "@locationValidationNameRequired": {
+    "description": "Validation error for required location name"
+  },
+  "locationValidationNameMinLength": "Nama lokasi minimal 3 karakter",
+  "@locationValidationNameMinLength": {
+    "description": "Validation error for location name minimum length"
+  },
+  "locationValidationNameMaxLength": "Nama lokasi maksimal 100 karakter",
+  "@locationValidationNameMaxLength": {
+    "description": "Validation error for location name maximum length"
+  },
+  "locationValidationBuildingMaxLength": "Gedung maksimal 50 karakter",
+  "@locationValidationBuildingMaxLength": {
+    "description": "Validation error for building maximum length"
+  },
+  "locationValidationFloorMaxLength": "Lantai maksimal 20 karakter",
+  "@locationValidationFloorMaxLength": {
+    "description": "Validation error for floor maximum length"
+  },
+  "locationValidationLatitudeInvalid": "Lintang harus berupa angka valid",
+  "@locationValidationLatitudeInvalid": {
+    "description": "Validation error for invalid latitude"
+  },
+  "locationValidationLatitudeRange": "Lintang harus antara -90 dan 90",
+  "@locationValidationLatitudeRange": {
+    "description": "Validation error for latitude range"
+  },
+  "locationValidationLongitudeInvalid": "Bujur harus berupa angka valid",
+  "@locationValidationLongitudeInvalid": {
+    "description": "Validation error for invalid longitude"
+  },
+  "locationValidationLongitudeRange": "Bujur harus antara -180 dan 180",
+  "@locationValidationLongitudeRange": {
+    "description": "Validation error for longitude range"
+  },
+  "locationNotFound": "Lokasi tidak ditemukan",
+  "@locationNotFound": {
+    "description": "Error message when location search returns no results"
+  },
+  "locationSearchFailed": "Pencarian gagal",
+  "@locationSearchFailed": {
+    "description": "Error message when location search fails"
+  },
+  "locationConfirmLocation": "Konfirmasi Lokasi",
+  "@locationConfirmLocation": {
+    "description": "Button text to confirm selected location on map"
+  },
+  "locationSelectedFromMap": "Lokasi dipilih dari peta",
+  "@locationSelectedFromMap": {
+    "description": "Success message when location is selected from map picker"
+  },
+  "locationSearchLocation": "Cari lokasi...",
+  "@locationSearchLocation": {
+    "description": "Search input placeholder for location"
+  },
+  "locationPickFromMap": "Pilih dari peta",
+  "@locationPickFromMap": {
+    "description": "Button text to pick location from map"
+  }
+}

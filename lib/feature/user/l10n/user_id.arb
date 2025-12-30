@@ -1,0 +1,349 @@
+{
+  "@@locale": "id",
+  "userManagement": "Manajemen Pengguna",
+  "@userManagement": {
+    "description": "User management screen title"
+  },
+  "userCreateUser": "Buat Pengguna",
+  "@userCreateUser": {
+    "description": "Create user option title"
+  },
+  "userAddNewUser": "Tambah pengguna baru",
+  "@userAddNewUser": {
+    "description": "Create user option subtitle"
+  },
+  "userSelectMany": "Pilih Banyak",
+  "@userSelectMany": {
+    "description": "Select many option title"
+  },
+  "userSelectMultipleToDelete": "Pilih beberapa pengguna untuk dihapus",
+  "@userSelectMultipleToDelete": {
+    "description": "Select many option subtitle"
+  },
+  "userFilterAndSort": "Filter & Urutkan",
+  "@userFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "userCustomizeDisplay": "Sesuaikan tampilan pengguna",
+  "@userCustomizeDisplay": {
+    "description": "Filter and sort option subtitle"
+  },
+  "userFilters": "Filter",
+  "@userFilters": {
+    "description": "Filters section title"
+  },
+  "userRole": "Peran",
+  "@userRole": {
+    "description": "Role label"
+  },
+  "userEmployeeId": "ID Karyawan",
+  "@userEmployeeId": {
+    "description": "Employee ID label"
+  },
+  "userEnterEmployeeId": "Masukkan ID karyawan...",
+  "@userEnterEmployeeId": {
+    "description": "Employee ID input placeholder"
+  },
+  "userActiveStatus": "Status Aktif",
+  "@userActiveStatus": {
+    "description": "Active status label"
+  },
+  "userActive": "Aktif",
+  "@userActive": {
+    "description": "Active status value"
+  },
+  "userInactive": "Tidak Aktif",
+  "@userInactive": {
+    "description": "Inactive status value"
+  },
+  "userSort": "Urutkan",
+  "@userSort": {
+    "description": "Sort section title"
+  },
+  "userSortBy": "Urutkan Berdasarkan",
+  "@userSortBy": {
+    "description": "Sort by label"
+  },
+  "userSortOrder": "Urutan",
+  "@userSortOrder": {
+    "description": "Sort order label"
+  },
+  "userAscending": "Naik",
+  "@userAscending": {
+    "description": "Ascending sort order"
+  },
+  "userDescending": "Turun",
+  "@userDescending": {
+    "description": "Descending sort order"
+  },
+  "userReset": "Reset",
+  "@userReset": {
+    "description": "Reset button label"
+  },
+  "userApply": "Terapkan",
+  "@userApply": {
+    "description": "Apply button label"
+  },
+  "userFilterReset": "Filter direset",
+  "@userFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "userFilterApplied": "Filter diterapkan",
+  "@userFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "userSelectUsersToDelete": "Pilih pengguna untuk dihapus",
+  "@userSelectUsersToDelete": {
+    "description": "Select mode instruction"
+  },
+  "userDeleteUsers": "Hapus Pengguna",
+  "@userDeleteUsers": {
+    "description": "Delete users dialog title"
+  },
+  "userDeleteConfirmation": "Apakah Anda yakin ingin menghapus {count} pengguna?",
+  "@userDeleteConfirmation": {
+    "description": "Delete confirmation message",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userCancel": "Batal",
+  "@userCancel": {
+    "description": "Cancel button label"
+  },
+  "userDelete": "Hapus",
+  "@userDelete": {
+    "description": "Delete button label"
+  },
+  "userNoUsersSelected": "Tidak ada pengguna yang dipilih",
+  "@userNoUsersSelected": {
+    "description": "No users selected warning"
+  },
+  "userNotImplementedYet": "Belum diimplementasikan",
+  "@userNotImplementedYet": {
+    "description": "Not implemented message"
+  },
+  "userSelectedCount": "{count} dipilih",
+  "@userSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "userSearchUsers": "Cari pengguna...",
+  "@userSearchUsers": {
+    "description": "Search users placeholder"
+  },
+  "userNoUsersFound": "Tidak ada pengguna ditemukan",
+  "@userNoUsersFound": {
+    "description": "No users found message"
+  },
+  "userCreateFirstUser": "Buat pengguna pertama Anda untuk memulai",
+  "@userCreateFirstUser": {
+    "description": "Empty state message"
+  },
+  "userLongPressToSelect": "Tekan lama untuk memilih lebih banyak pengguna",
+  "@userLongPressToSelect": {
+    "description": "Long press instruction"
+  },
+  "userEditUser": "Edit Pengguna",
+  "@userEditUser": {
+    "description": "Edit user screen title"
+  },
+  "userPleaseFixErrors": "Harap perbaiki semua kesalahan",
+  "@userPleaseFixErrors": {
+    "description": "Form validation error message"
+  },
+  "userPleaseSelectRole": "Harap pilih peran",
+  "@userPleaseSelectRole": {
+    "description": "Role validation message"
+  },
+  "userPleaseValidateFields": "Harap isi semua field yang wajib",
+  "@userPleaseValidateFields": {
+    "description": "Required fields validation message"
+  },
+  "userSavedSuccessfully": "Pengguna berhasil disimpan",
+  "@userSavedSuccessfully": {
+    "description": "User save success message"
+  },
+  "userOperationFailed": "Operasi gagal",
+  "@userOperationFailed": {
+    "description": "Operation failed message"
+  },
+  "userInformation": "Informasi Pengguna",
+  "@userInformation": {
+    "description": "User information section title"
+  },
+  "userUsername": "Nama Pengguna",
+  "@userUsername": {
+    "description": "Username label"
+  },
+  "userEnterUsername": "Masukkan nama pengguna",
+  "@userEnterUsername": {
+    "description": "Username input placeholder"
+  },
+  "userEmail": "Email",
+  "@userEmail": {
+    "description": "Email label"
+  },
+  "userEnterEmail": "Masukkan email",
+  "@userEnterEmail": {
+    "description": "Email input placeholder"
+  },
+  "userPassword": "Kata Sandi",
+  "@userPassword": {
+    "description": "Password label"
+  },
+  "userEnterPassword": "Masukkan kata sandi",
+  "@userEnterPassword": {
+    "description": "Password input placeholder"
+  },
+  "userFullName": "Nama Lengkap",
+  "@userFullName": {
+    "description": "Full name label"
+  },
+  "userEnterFullName": "Masukkan nama lengkap",
+  "@userEnterFullName": {
+    "description": "Full name input placeholder"
+  },
+  "userSelectRole": "Pilih peran",
+  "@userSelectRole": {
+    "description": "Role dropdown placeholder"
+  },
+  "userEmployeeIdOptional": "ID Karyawan (Opsional)",
+  "@userEmployeeIdOptional": {
+    "description": "Employee ID optional label"
+  },
+  "userEnterEmployeeIdOptional": "Masukkan ID karyawan",
+  "@userEnterEmployeeIdOptional": {
+    "description": "Employee ID input placeholder"
+  },
+  "userPreferredLanguage": "Bahasa Pilihan (Opsional)",
+  "@userPreferredLanguage": {
+    "description": "Preferred language label"
+  },
+  "userSelectLanguage": "Pilih bahasa",
+  "@userSelectLanguage": {
+    "description": "Language dropdown placeholder"
+  },
+  "userUpdate": "Perbarui",
+  "@userUpdate": {
+    "description": "Update button label"
+  },
+  "userCreate": "Buat",
+  "@userCreate": {
+    "description": "Create button label"
+  },
+  "userDetail": "Detail Pengguna",
+  "@userDetail": {
+    "description": "User detail screen title"
+  },
+  "userOnlyAdminCanEdit": "Hanya admin yang dapat mengedit pengguna",
+  "@userOnlyAdminCanEdit": {
+    "description": "Admin only edit warning"
+  },
+  "userDeleteUser": "Hapus Pengguna",
+  "@userDeleteUser": {
+    "description": "Delete user dialog title"
+  },
+  "userDeleteSingleConfirmation": "Apakah Anda yakin ingin menghapus \"{fullName}\"?",
+  "@userDeleteSingleConfirmation": {
+    "description": "Delete single user confirmation",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "userOnlyAdminCanDelete": "Hanya admin yang dapat menghapus pengguna",
+  "@userOnlyAdminCanDelete": {
+    "description": "Admin only delete warning"
+  },
+  "userDeleted": "Pengguna dihapus",
+  "@userDeleted": {
+    "description": "User deleted success message"
+  },
+  "userDeleteFailed": "Gagal menghapus",
+  "@userDeleteFailed": {
+    "description": "Delete failed error message"
+  },
+  "userName": "Nama",
+  "@userName": {
+    "description": "Name label"
+  },
+  "userPreferredLang": "Bahasa Pilihan",
+  "@userPreferredLang": {
+    "description": "Preferred language label"
+  },
+  "userYes": "Ya",
+  "@userYes": {
+    "description": "Yes text"
+  },
+  "userNo": "Tidak",
+  "@userNo": {
+    "description": "No text"
+  },
+  "userMetadata": "Metadata",
+  "@userMetadata": {
+    "description": "Metadata section title"
+  },
+  "userCreatedAt": "Dibuat Pada",
+  "@userCreatedAt": {
+    "description": "Created at label"
+  },
+  "userUpdatedAt": "Diperbarui Pada",
+  "@userUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "userFailedToLoad": "Gagal memuat pengguna",
+  "@userFailedToLoad": {
+    "description": "Failed to load error message"
+  },
+  "userFailedToLoadProfile": "Gagal memuat profil",
+  "@userFailedToLoadProfile": {
+    "description": "Failed to load profile error"
+  },
+  "userPersonalInformation": "Informasi Pribadi",
+  "@userPersonalInformation": {
+    "description": "Personal information section title"
+  },
+  "userAccountDetails": "Detail Akun",
+  "@userAccountDetails": {
+    "description": "Account details section title"
+  },
+  "userStatus": "Status",
+  "@userStatus": {
+    "description": "Status label"
+  },
+  "userUpdateProfile": "Perbarui Profil",
+  "@userUpdateProfile": {
+    "description": "Update profile screen title"
+  },
+  "userNoUserData": "Tidak ada data pengguna tersedia",
+  "@userNoUserData": {
+    "description": "No user data message"
+  },
+  "userProfileInformation": "Informasi Profil",
+  "@userProfileInformation": {
+    "description": "Profile information section title"
+  },
+  "userProfilePicture": "Foto Profil",
+  "@userProfilePicture": {
+    "description": "Profile picture label"
+  },
+  "userChooseImage": "Pilih gambar",
+  "@userChooseImage": {
+    "description": "Choose image button text"
+  },
+  "userProfileUpdatedSuccessfully": "Profil berhasil diperbarui",
+  "@userProfileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  }
+}

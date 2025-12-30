@@ -1,0 +1,115 @@
+{
+  "@@locale": "id",
+  "dashboardTotalUsers": "Total Pengguna",
+  "@dashboardTotalUsers": {
+    "description": "Total users stat card title"
+  },
+  "dashboardTotalAssets": "Total Aset",
+  "@dashboardTotalAssets": {
+    "description": "Total assets stat card title"
+  },
+  "dashboardAssetStatusOverview": "Ikhtisar Status Aset",
+  "@dashboardAssetStatusOverview": {
+    "description": "Asset status overview chart title"
+  },
+  "dashboardActive": "Aktif",
+  "@dashboardActive": {
+    "description": "Active status label"
+  },
+  "dashboardMaintenance": "Pemeliharaan",
+  "@dashboardMaintenance": {
+    "description": "Maintenance status label"
+  },
+  "dashboardDisposed": "Dibuang",
+  "@dashboardDisposed": {
+    "description": "Disposed status label"
+  },
+  "dashboardLost": "Hilang",
+  "@dashboardLost": {
+    "description": "Lost status label"
+  },
+  "dashboardUserRoleDistribution": "Distribusi Peran Pengguna",
+  "@dashboardUserRoleDistribution": {
+    "description": "User role distribution chart title"
+  },
+  "dashboardAdmin": "Admin",
+  "@dashboardAdmin": {
+    "description": "Admin role label"
+  },
+  "dashboardStaff": "Staf",
+  "@dashboardStaff": {
+    "description": "Staff role label"
+  },
+  "dashboardEmployee": "Karyawan",
+  "@dashboardEmployee": {
+    "description": "Employee role label"
+  },
+  "dashboardAssetStatusBreakdown": "Rincian Status Aset",
+  "@dashboardAssetStatusBreakdown": {
+    "description": "Asset status breakdown chart title"
+  },
+  "dashboardAssetConditionOverview": "Ikhtisar Kondisi Aset",
+  "@dashboardAssetConditionOverview": {
+    "description": "Asset condition overview chart title"
+  },
+  "dashboardGood": "Baik",
+  "@dashboardGood": {
+    "description": "Good condition label"
+  },
+  "dashboardFair": "Cukup",
+  "@dashboardFair": {
+    "description": "Fair condition label"
+  },
+  "dashboardPoor": "Buruk",
+  "@dashboardPoor": {
+    "description": "Poor condition label"
+  },
+  "dashboardDamaged": "Rusak",
+  "@dashboardDamaged": {
+    "description": "Damaged condition label"
+  },
+  "dashboardUserRegistrationTrends": "Tren Registrasi Pengguna",
+  "@dashboardUserRegistrationTrends": {
+    "description": "User registration trends chart title"
+  },
+  "dashboardAssetCreationTrends": "Tren Pembuatan Aset",
+  "@dashboardAssetCreationTrends": {
+    "description": "Asset creation trends chart title"
+  },
+  "dashboardCategories": "Kategori",
+  "@dashboardCategories": {
+    "description": "Categories stat card title"
+  },
+  "dashboardLocations": "Lokasi",
+  "@dashboardLocations": {
+    "description": "Locations stat card title"
+  },
+  "dashboardActivityOverview": "Ikhtisar Aktivitas",
+  "@dashboardActivityOverview": {
+    "description": "Activity overview section title"
+  },
+  "dashboardScanLogs": "Log Pemindaian",
+  "@dashboardScanLogs": {
+    "description": "Scan logs stat card title"
+  },
+  "dashboardNotifications": "Notifikasi",
+  "@dashboardNotifications": {
+    "description": "Notifications stat card title"
+  },
+  "dashboardAssetMovements": "Perpindahan Aset",
+  "@dashboardAssetMovements": {
+    "description": "Asset movements stat card title"
+  },
+  "dashboardIssueReports": "Laporan Masalah",
+  "@dashboardIssueReports": {
+    "description": "Issue reports stat card title"
+  },
+  "dashboardMaintenanceSchedules": "Jadwal Pemeliharaan",
+  "@dashboardMaintenanceSchedules": {
+    "description": "Maintenance schedules stat card title"
+  },
+  "dashboardMaintenanceRecords": "Catatan Pemeliharaan",
+  "@dashboardMaintenanceRecords": {
+    "description": "Maintenance records stat card title"
+  }
+}

@@ -2630,14 +2630,6 @@
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
   },
-  "locationAutocompleteDisabled": "オートコンプリート無効",
-  "@locationAutocompleteDisabled": {
-    "description": "Warning title for disabled autocomplete"
-  },
-  "locationAutocompleteDisabledMessage": "Google Places APIキーが設定されていません。手動で場所名を入力して検索してください。",
-  "@locationAutocompleteDisabledMessage": {
-    "description": "Warning message for disabled autocomplete feature"
-  },
   "maintenanceScheduleDeleteSchedule": "メンテナンススケジュールの削除",
   "maintenanceScheduleDeleteConfirmation": "「{title}」を削除してもよろしいですか？",
   "maintenanceScheduleDeleted": "メンテナンススケジュールを削除しました",

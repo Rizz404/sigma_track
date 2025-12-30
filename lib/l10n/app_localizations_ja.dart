@@ -1933,13 +1933,6 @@ class L10nJa extends L10n {
   String get locationPickFromMap => 'マップから選択';
 
   @override
-  String get locationAutocompleteDisabled => 'オートコンプリート無効';
-
-  @override
-  String get locationAutocompleteDisabledMessage =>
-      'Google Places APIキーが設定されていません。手動で場所名を入力して検索してください。';
-
-  @override
   String get maintenanceScheduleDeleteSchedule => 'メンテナンススケジュールの削除';
 
   @override

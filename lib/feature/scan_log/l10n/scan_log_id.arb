@@ -1,0 +1,195 @@
+{
+  "@@locale": "id",
+  "scanLogManagement": "Manajemen Log Pemindaian",
+  "@scanLogManagement": {
+    "description": "Scan log management screen title"
+  },
+  "scanLogDetail": "Detail Log Pemindaian",
+  "@scanLogDetail": {
+    "description": "Scan log detail screen title"
+  },
+  "scanLogDeleteScanLog": "Hapus Log Pemindaian",
+  "@scanLogDeleteScanLog": {
+    "description": "Dialog title for deleting a scan log"
+  },
+  "scanLogDeleteConfirmation": "Apakah Anda yakin ingin menghapus log pemindaian ini?",
+  "@scanLogDeleteConfirmation": {
+    "description": "Confirmation message for deleting a scan log"
+  },
+  "scanLogDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} log pemindaian?",
+  "@scanLogDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple scan logs",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogCancel": "Batal",
+  "@scanLogCancel": {
+    "description": "Cancel button label"
+  },
+  "scanLogDelete": "Hapus",
+  "@scanLogDelete": {
+    "description": "Delete button label"
+  },
+  "scanLogOnlyAdminCanDelete": "Hanya admin yang dapat menghapus log pemindaian",
+  "@scanLogOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "scanLogDeleted": "Log pemindaian dihapus",
+  "@scanLogDeleted": {
+    "description": "Success message for scan log deletion"
+  },
+  "scanLogDeleteFailed": "Gagal menghapus",
+  "@scanLogDeleteFailed": {
+    "description": "Error message for scan log deletion failure"
+  },
+  "scanLogFailedToLoad": "Gagal memuat log pemindaian",
+  "@scanLogFailedToLoad": {
+    "description": "Error message when scan log fails to load"
+  },
+  "scanLogInformation": "Informasi Pemindaian",
+  "@scanLogInformation": {
+    "description": "Scan information section title"
+  },
+  "scanLogScannedValue": "Nilai yang Dipindai",
+  "@scanLogScannedValue": {
+    "description": "Scanned value label"
+  },
+  "scanLogScanMethod": "Metode Pemindaian",
+  "@scanLogScanMethod": {
+    "description": "Scan method label"
+  },
+  "scanLogScanResult": "Hasil Pemindaian",
+  "@scanLogScanResult": {
+    "description": "Scan result label"
+  },
+  "scanLogScanTimestamp": "Waktu Pemindaian",
+  "@scanLogScanTimestamp": {
+    "description": "Scan timestamp label"
+  },
+  "scanLogLocation": "Lokasi",
+  "@scanLogLocation": {
+    "description": "Location label"
+  },
+  "scanLogSearchScanLogs": "Cari log pemindaian...",
+  "@scanLogSearchScanLogs": {
+    "description": "Scan logs search placeholder"
+  },
+  "scanLogNoScanLogsFound": "Tidak ada log pemindaian ditemukan",
+  "@scanLogNoScanLogsFound": {
+    "description": "No scan logs found message"
+  },
+  "scanLogCreateFirstScanLog": "Buat log pemindaian pertama Anda untuk memulai",
+  "@scanLogCreateFirstScanLog": {
+    "description": "Empty state message for scan logs"
+  },
+  "scanLogCreateScanLog": "Buat Log Pemindaian",
+  "@scanLogCreateScanLog": {
+    "description": "Create scan log option title"
+  },
+  "scanLogCreateScanLogSubtitle": "Tambah log pemindaian baru",
+  "@scanLogCreateScanLogSubtitle": {
+    "description": "Create scan log option subtitle"
+  },
+  "scanLogSelectMany": "Pilih Banyak",
+  "@scanLogSelectMany": {
+    "description": "Select many option title"
+  },
+  "scanLogSelectManySubtitle": "Pilih beberapa log pemindaian untuk dihapus",
+  "@scanLogSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "scanLogFilterAndSort": "Filter & Urutkan",
+  "@scanLogFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "scanLogFilterAndSortSubtitle": "Sesuaikan tampilan log pemindaian",
+  "@scanLogFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "scanLogFiltersAndSorting": "Filter & Pengurutan",
+  "@scanLogFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "scanLogSelectScanLogsToDelete": "Pilih log pemindaian untuk dihapus",
+  "@scanLogSelectScanLogsToDelete": {
+    "description": "Instruction for selecting scan logs to delete"
+  },
+  "scanLogLongPressToSelect": "Tekan lama untuk memilih lebih banyak log pemindaian",
+  "@scanLogLongPressToSelect": {
+    "description": "Instruction for selecting multiple scan logs"
+  },
+  "scanLogSelectedCount": "{count} dipilih",
+  "@scanLogSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogNoScanLogsSelected": "Tidak ada log pemindaian yang dipilih",
+  "@scanLogNoScanLogsSelected": {
+    "description": "Warning message when no scan logs are selected"
+  },
+  "scanLogFilterByAsset": "Filter berdasarkan Aset",
+  "@scanLogFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "scanLogFilterByScannedBy": "Filter berdasarkan Dipindai Oleh",
+  "@scanLogFilterByScannedBy": {
+    "description": "Filter by scanned by label"
+  },
+  "scanLogSearchAsset": "Cari aset...",
+  "@scanLogSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "scanLogSearchUser": "Cari pengguna...",
+  "@scanLogSearchUser": {
+    "description": "User search placeholder"
+  },
+  "scanLogSortBy": "Urutkan Berdasarkan",
+  "@scanLogSortBy": {
+    "description": "Sort by label"
+  },
+  "scanLogSortOrder": "Urutan",
+  "@scanLogSortOrder": {
+    "description": "Sort order label"
+  },
+  "scanLogHasCoordinates": "Memiliki Koordinat",
+  "@scanLogHasCoordinates": {
+    "description": "Has coordinates checkbox label"
+  },
+  "scanLogDateFrom": "Tanggal Dari",
+  "@scanLogDateFrom": {
+    "description": "Date from label"
+  },
+  "scanLogDateTo": "Tanggal Sampai",
+  "@scanLogDateTo": {
+    "description": "Date to label"
+  },
+  "scanLogReset": "Reset",
+  "@scanLogReset": {
+    "description": "Reset button label"
+  },
+  "scanLogApply": "Terapkan",
+  "@scanLogApply": {
+    "description": "Apply button label"
+  },
+  "scanLogFilterReset": "Filter direset",
+  "@scanLogFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "scanLogFilterApplied": "Filter diterapkan",
+  "@scanLogFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "scanLogNotImplementedYet": "Belum diimplementasikan",
+  "@scanLogNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  }
+}

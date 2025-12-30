@@ -1,0 +1,431 @@
+{
+  "@@locale": "id",
+  "issueReportDeleteIssueReport": "Hapus Laporan Masalah",
+  "@issueReportDeleteIssueReport": {
+    "description": "Dialog title for deleting an issue report"
+  },
+  "issueReportDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@issueReportDeleteConfirmation": {
+    "description": "Confirmation message for deleting an issue report",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Hardware failure"
+      }
+    }
+  },
+  "issueReportCancel": "Batal",
+  "@issueReportCancel": {
+    "description": "Cancel button label"
+  },
+  "issueReportDelete": "Hapus",
+  "@issueReportDelete": {
+    "description": "Delete button label"
+  },
+  "issueReportDetail": "Detail Laporan Masalah",
+  "@issueReportDetail": {
+    "description": "Issue report detail screen title"
+  },
+  "issueReportInformation": "Informasi Laporan Masalah",
+  "@issueReportInformation": {
+    "description": "Issue report information section title"
+  },
+  "issueReportTitle": "Judul",
+  "@issueReportTitle": {
+    "description": "Title label"
+  },
+  "issueReportDescription": "Deskripsi",
+  "@issueReportDescription": {
+    "description": "Description label"
+  },
+  "issueReportAsset": "Aset",
+  "@issueReportAsset": {
+    "description": "Asset label"
+  },
+  "issueReportIssueType": "Jenis Masalah",
+  "@issueReportIssueType": {
+    "description": "Issue type label"
+  },
+  "issueReportPriority": "Prioritas",
+  "@issueReportPriority": {
+    "description": "Priority label"
+  },
+  "issueReportStatus": "Status",
+  "@issueReportStatus": {
+    "description": "Status label"
+  },
+  "issueReportReportedBy": "Dilaporkan Oleh",
+  "@issueReportReportedBy": {
+    "description": "Reported by label"
+  },
+  "issueReportReportedDate": "Tanggal Dilaporkan",
+  "@issueReportReportedDate": {
+    "description": "Reported date label"
+  },
+  "issueReportResolvedDate": "Tanggal Diselesaikan",
+  "@issueReportResolvedDate": {
+    "description": "Resolved date label"
+  },
+  "issueReportResolvedBy": "Diselesaikan Oleh",
+  "@issueReportResolvedBy": {
+    "description": "Resolved by label"
+  },
+  "issueReportResolutionNotes": "Catatan Resolusi",
+  "@issueReportResolutionNotes": {
+    "description": "Resolution notes label"
+  },
+  "issueReportMetadata": "Metadata",
+  "@issueReportMetadata": {
+    "description": "Metadata section title"
+  },
+  "issueReportCreatedAt": "Dibuat Pada",
+  "@issueReportCreatedAt": {
+    "description": "Created at label"
+  },
+  "issueReportUpdatedAt": "Diperbarui Pada",
+  "@issueReportUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "issueReportOnlyAdminCanEdit": "Hanya admin yang dapat mengedit laporan masalah",
+  "@issueReportOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "issueReportOnlyAdminCanDelete": "Hanya admin yang dapat menghapus laporan masalah",
+  "@issueReportOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "issueReportFailedToLoad": "Gagal memuat laporan masalah",
+  "@issueReportFailedToLoad": {
+    "description": "Error message when issue report fails to load"
+  },
+  "issueReportDeletedSuccess": "Laporan masalah dihapus",
+  "@issueReportDeletedSuccess": {
+    "description": "Success message for issue report deletion"
+  },
+  "issueReportDeletedFailed": "Gagal menghapus",
+  "@issueReportDeletedFailed": {
+    "description": "Error message for issue report deletion failure"
+  },
+  "issueReportUnknownAsset": "Aset Tidak Diketahui",
+  "@issueReportUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "issueReportUnknownUser": "Pengguna Tidak Diketahui",
+  "@issueReportUnknownUser": {
+    "description": "Unknown user placeholder"
+  },
+  "issueReportEditIssueReport": "Edit Laporan Masalah",
+  "@issueReportEditIssueReport": {
+    "description": "Edit issue report screen title"
+  },
+  "issueReportCreateIssueReport": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReport": {
+    "description": "Create issue report screen title"
+  },
+  "issueReportFillRequiredFields": "Harap isi semua field yang wajib",
+  "@issueReportFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "issueReportSavedSuccessfully": "Laporan masalah berhasil disimpan",
+  "@issueReportSavedSuccessfully": {
+    "description": "Success message for issue report save"
+  },
+  "issueReportOperationFailed": "Operasi gagal",
+  "@issueReportOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "issueReportFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@issueReportFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "issueReportSearchAsset": "Cari dan pilih aset",
+  "@issueReportSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "issueReportSearchReportedBy": "Cari dan pilih pengguna yang melaporkan masalah",
+  "@issueReportSearchReportedBy": {
+    "description": "Reported by search placeholder"
+  },
+  "issueReportEnterIssueType": "Masukkan jenis masalah (contoh: Hardware, Software)",
+  "@issueReportEnterIssueType": {
+    "description": "Issue type input placeholder"
+  },
+  "issueReportSelectPriority": "Pilih prioritas",
+  "@issueReportSelectPriority": {
+    "description": "Priority dropdown placeholder"
+  },
+  "issueReportSelectStatus": "Pilih status",
+  "@issueReportSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "issueReportSearchResolvedBy": "Cari dan pilih pengguna yang menyelesaikan masalah",
+  "@issueReportSearchResolvedBy": {
+    "description": "Resolved by search placeholder"
+  },
+  "issueReportTranslations": "Terjemahan",
+  "@issueReportTranslations": {
+    "description": "Translations section title"
+  },
+  "issueReportEnglish": "Inggris",
+  "@issueReportEnglish": {
+    "description": "English language label"
+  },
+  "issueReportJapanese": "Jepang",
+  "@issueReportJapanese": {
+    "description": "Japanese language label"
+  },
+  "issueReportEnterTitleIn": "Masukkan judul dalam {language}",
+  "@issueReportEnterTitleIn": {
+    "description": "Title input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterDescriptionIn": "Masukkan deskripsi dalam {language}",
+  "@issueReportEnterDescriptionIn": {
+    "description": "Description input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterResolutionNotesIn": "Masukkan catatan resolusi dalam {language}",
+  "@issueReportEnterResolutionNotesIn": {
+    "description": "Resolution notes input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportUpdate": "Perbarui",
+  "@issueReportUpdate": {
+    "description": "Update button label"
+  },
+  "issueReportCreate": "Buat",
+  "@issueReportCreate": {
+    "description": "Create button label"
+  },
+  "issueReportManagement": "Manajemen Laporan Masalah",
+  "@issueReportManagement": {
+    "description": "Issue report management screen title"
+  },
+  "issueReportCreateIssueReportTitle": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReportTitle": {
+    "description": "Create issue report option title"
+  },
+  "issueReportCreateIssueReportSubtitle": "Tambah laporan masalah baru",
+  "@issueReportCreateIssueReportSubtitle": {
+    "description": "Create issue report option subtitle"
+  },
+  "issueReportSelectManyTitle": "Pilih Banyak",
+  "@issueReportSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "issueReportSelectManySubtitle": "Pilih beberapa laporan masalah untuk dihapus",
+  "@issueReportSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "issueReportFilterAndSortTitle": "Filter & Urutkan",
+  "@issueReportFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "issueReportFilterAndSortSubtitle": "Sesuaikan tampilan laporan masalah",
+  "@issueReportFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "issueReportSelectIssueReportsToDelete": "Pilih laporan masalah untuk dihapus",
+  "@issueReportSelectIssueReportsToDelete": {
+    "description": "Instruction for selecting issue reports to delete"
+  },
+  "issueReportDeleteIssueReports": "Hapus Laporan Masalah",
+  "@issueReportDeleteIssueReports": {
+    "description": "Delete issue reports dialog title"
+  },
+  "issueReportDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} laporan masalah?",
+  "@issueReportDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple issue reports",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "issueReportNoIssueReportsSelected": "Tidak ada laporan masalah yang dipilih",
+  "@issueReportNoIssueReportsSelected": {
+    "description": "Warning message when no issue reports are selected"
+  },
+  "issueReportNotImplementedYet": "Belum diimplementasikan",
+  "@issueReportNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "issueReportSelectedCount": "{count} dipilih",
+  "@issueReportSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "issueReportSearchIssueReports": "Cari laporan masalah...",
+  "@issueReportSearchIssueReports": {
+    "description": "Issue reports search placeholder"
+  },
+  "issueReportNoIssueReportsFound": "Tidak ada laporan masalah ditemukan",
+  "@issueReportNoIssueReportsFound": {
+    "description": "No issue reports found message"
+  },
+  "issueReportCreateFirstIssueReport": "Buat laporan masalah pertama Anda untuk memulai",
+  "@issueReportCreateFirstIssueReport": {
+    "description": "Empty state message for issue reports"
+  },
+  "issueReportLongPressToSelect": "Tekan lama untuk memilih lebih banyak laporan masalah",
+  "@issueReportLongPressToSelect": {
+    "description": "Instruction for selecting multiple issue reports"
+  },
+  "issueReportFilterByAsset": "Filter berdasarkan Aset",
+  "@issueReportFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "issueReportFilterByReportedBy": "Filter berdasarkan Dilaporkan Oleh",
+  "@issueReportFilterByReportedBy": {
+    "description": "Filter by reported by label"
+  },
+  "issueReportFilterByResolvedBy": "Filter berdasarkan Diselesaikan Oleh",
+  "@issueReportFilterByResolvedBy": {
+    "description": "Filter by resolved by label"
+  },
+  "issueReportSearchAssetFilter": "Cari aset...",
+  "@issueReportSearchAssetFilter": {
+    "description": "Asset filter search placeholder"
+  },
+  "issueReportSearchUserFilter": "Cari pengguna...",
+  "@issueReportSearchUserFilter": {
+    "description": "User filter search placeholder"
+  },
+  "issueReportEnterIssueTypeFilter": "Masukkan jenis masalah...",
+  "@issueReportEnterIssueTypeFilter": {
+    "description": "Issue type filter input placeholder"
+  },
+  "issueReportSortBy": "Urutkan Berdasarkan",
+  "@issueReportSortBy": {
+    "description": "Sort by label"
+  },
+  "issueReportSortOrder": "Urutan",
+  "@issueReportSortOrder": {
+    "description": "Sort order label"
+  },
+  "issueReportIsResolved": "Sudah Diselesaikan",
+  "@issueReportIsResolved": {
+    "description": "Is resolved checkbox label"
+  },
+  "issueReportDateFrom": "Tanggal Dari",
+  "@issueReportDateFrom": {
+    "description": "Date from label"
+  },
+  "issueReportDateTo": "Tanggal Sampai",
+  "@issueReportDateTo": {
+    "description": "Date to label"
+  },
+  "issueReportReset": "Reset",
+  "@issueReportReset": {
+    "description": "Reset button label"
+  },
+  "issueReportApply": "Terapkan",
+  "@issueReportApply": {
+    "description": "Apply button label"
+  },
+  "issueReportFilterReset": "Filter direset",
+  "@issueReportFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "issueReportFilterApplied": "Filter diterapkan",
+  "@issueReportFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "issueReportMyIssueReports": "Laporan Masalah Saya",
+  "@issueReportMyIssueReports": {
+    "description": "My issue reports screen title"
+  },
+  "issueReportSearchMyIssueReports": "Cari laporan masalah saya...",
+  "@issueReportSearchMyIssueReports": {
+    "description": "My issue reports search placeholder"
+  },
+  "issueReportFiltersAndSorting": "Filter & Pengurutan",
+  "@issueReportFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "issueReportApplyFilters": "Terapkan Filter",
+  "@issueReportApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "issueReportFiltersApplied": "Filter Diterapkan",
+  "@issueReportFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "issueReportFilterAndSort": "Filter & Urutkan",
+  "@issueReportFilterAndSort": {
+    "description": "Filter and sort button label"
+  },
+  "issueReportNoIssueReportsFoundEmpty": "Tidak ada laporan masalah ditemukan",
+  "@issueReportNoIssueReportsFoundEmpty": {
+    "description": "Empty state message for my issue reports"
+  },
+  "issueReportYouHaveNoReportedIssues": "Anda tidak memiliki laporan masalah",
+  "@issueReportYouHaveNoReportedIssues": {
+    "description": "Empty state subtitle for my issue reports"
+  },
+  "issueReportCreateIssueReportTooltip": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReportTooltip": {
+    "description": "Create issue report floating action button tooltip"
+  },
+  "issueReportValidationAssetRequired": "Aset wajib diisi",
+  "@issueReportValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "issueReportValidationReportedByRequired": "Dilaporkan oleh wajib diisi",
+  "@issueReportValidationReportedByRequired": {
+    "description": "Validation error for required reported by"
+  },
+  "issueReportValidationIssueTypeRequired": "Jenis masalah wajib diisi",
+  "@issueReportValidationIssueTypeRequired": {
+    "description": "Validation error for required issue type"
+  },
+  "issueReportValidationIssueTypeMaxLength": "Jenis masalah maksimal 100 karakter",
+  "@issueReportValidationIssueTypeMaxLength": {
+    "description": "Validation error for issue type maximum length"
+  },
+  "issueReportValidationPriorityRequired": "Prioritas wajib diisi",
+  "@issueReportValidationPriorityRequired": {
+    "description": "Validation error for required priority"
+  },
+  "issueReportValidationStatusRequired": "Status wajib diisi",
+  "@issueReportValidationStatusRequired": {
+    "description": "Validation error for required status"
+  },
+  "issueReportValidationTitleRequired": "Judul wajib diisi",
+  "@issueReportValidationTitleRequired": {
+    "description": "Validation error for required title"
+  },
+  "issueReportValidationTitleMaxLength": "Judul maksimal 200 karakter",
+  "@issueReportValidationTitleMaxLength": {
+    "description": "Validation error for title maximum length"
+  },
+  "issueReportValidationDescriptionMaxLength": "Deskripsi maksimal 1000 karakter",
+  "@issueReportValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "issueReportValidationResolutionNotesMaxLength": "Catatan resolusi maksimal 1000 karakter",
+  "@issueReportValidationResolutionNotesMaxLength": {
+    "description": "Validation error for resolution notes maximum length"
+  }
+}

@@ -1,5 +1,1245 @@
 {
   "@@locale": "id",
+  "assetDeleteAsset": "Hapus Aset",
+  "@assetDeleteAsset": {
+    "description": "Dialog title for deleting an asset"
+  },
+  "assetDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{assetName}\"?",
+  "@assetDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset",
+    "placeholders": {
+      "assetName": {
+        "type": "String",
+        "example": "Laptop Dell XPS"
+      }
+    }
+  },
+  "assetCancel": "Batal",
+  "@assetCancel": {
+    "description": "Cancel button label"
+  },
+  "assetDelete": "Hapus",
+  "@assetDelete": {
+    "description": "Delete button label"
+  },
+  "assetDetail": "Detail Aset",
+  "@assetDetail": {
+    "description": "Asset detail screen title"
+  },
+  "assetInformation": "Informasi Aset",
+  "@assetInformation": {
+    "description": "Asset information section title"
+  },
+  "assetTag": "Tag Aset",
+  "@assetTag": {
+    "description": "Asset tag label"
+  },
+  "assetName": "Nama Aset",
+  "@assetName": {
+    "description": "Asset name label"
+  },
+  "assetCategory": "Kategori",
+  "@assetCategory": {
+    "description": "Category label"
+  },
+  "assetBrand": "Merek",
+  "@assetBrand": {
+    "description": "Brand label"
+  },
+  "assetBrandLabel": "Merek",
+  "@assetBrandLabel": {
+    "description": "Brand label for filters"
+  },
+  "assetModel": "Model",
+  "@assetModel": {
+    "description": "Model label"
+  },
+  "assetModelLabel": "Model",
+  "@assetModelLabel": {
+    "description": "Model label for filters"
+  },
+  "assetSerialNumber": "Nomor Seri",
+  "@assetSerialNumber": {
+    "description": "Serial number label"
+  },
+  "assetStatus": "Status",
+  "@assetStatus": {
+    "description": "Status label"
+  },
+  "assetCondition": "Kondisi",
+  "@assetCondition": {
+    "description": "Condition label"
+  },
+  "assetLocation": "Lokasi",
+  "@assetLocation": {
+    "description": "Location label"
+  },
+  "assetAssignedTo": "Ditugaskan Kepada",
+  "@assetAssignedTo": {
+    "description": "Assigned to label"
+  },
+  "assetPurchaseInformation": "Informasi Pembelian",
+  "@assetPurchaseInformation": {
+    "description": "Purchase information section title"
+  },
+  "assetPurchaseDate": "Tanggal Pembelian",
+  "@assetPurchaseDate": {
+    "description": "Purchase date label"
+  },
+  "assetPurchasePrice": "Harga Pembelian",
+  "@assetPurchasePrice": {
+    "description": "Purchase price label"
+  },
+  "assetVendorName": "Nama Vendor",
+  "@assetVendorName": {
+    "description": "Vendor name label"
+  },
+  "assetWarrantyEnd": "Berakhir Garansi",
+  "@assetWarrantyEnd": {
+    "description": "Warranty end label"
+  },
+  "assetMetadata": "Metadata",
+  "@assetMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetCreatedAt": "Dibuat Pada",
+  "@assetCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetUpdatedAt": "Diperbarui Pada",
+  "@assetUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetDataMatrixImage": "Gambar Data Matrix",
+  "@assetDataMatrixImage": {
+    "description": "Data matrix image section title"
+  },
+  "assetOnlyAdminCanEdit": "Hanya admin yang dapat mengedit aset",
+  "@assetOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetOnlyAdminCanDelete": "Hanya admin yang dapat menghapus aset",
+  "@assetOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetFailedToLoad": "Gagal memuat aset",
+  "@assetFailedToLoad": {
+    "description": "Error message when asset fails to load"
+  },
+  "assetLocationPermissionRequired": "Izin Lokasi Diperlukan",
+  "@assetLocationPermissionRequired": {
+    "description": "Location permission dialog title"
+  },
+  "assetLocationPermissionMessage": "Akses lokasi diperlukan untuk melacak log pemindaian. Silakan aktifkan di pengaturan.",
+  "@assetLocationPermissionMessage": {
+    "description": "Location permission dialog message"
+  },
+  "assetOpenSettings": "Buka Pengaturan",
+  "@assetOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "assetLocationPermissionNeeded": "Izin lokasi diperlukan untuk log pemindaian",
+  "@assetLocationPermissionNeeded": {
+    "description": "Warning message for location permission"
+  },
+  "assetInvalidBarcode": "Data barcode tidak valid",
+  "@assetInvalidBarcode": {
+    "description": "Error message for invalid barcode"
+  },
+  "assetFound": "Aset ditemukan: {assetName}",
+  "@assetFound": {
+    "description": "Success message when asset is found",
+    "placeholders": {
+      "assetName": {
+        "type": "String",
+        "example": "Laptop Dell XPS"
+      }
+    }
+  },
+  "assetNotFound": "Aset tidak ditemukan",
+  "@assetNotFound": {
+    "description": "Error message when asset is not found"
+  },
+  "assetFailedToProcessBarcode": "Gagal memproses barcode",
+  "@assetFailedToProcessBarcode": {
+    "description": "Error message when barcode processing fails"
+  },
+  "assetCameraError": "Kesalahan Kamera",
+  "@assetCameraError": {
+    "description": "Camera error title"
+  },
+  "assetAlignDataMatrix": "Sejajarkan data matrix dalam bingkai",
+  "@assetAlignDataMatrix": {
+    "description": "Instruction for scanning data matrix"
+  },
+  "assetProcessing": "Memproses...",
+  "@assetProcessing": {
+    "description": "Processing indicator text"
+  },
+  "assetFlash": "Flash",
+  "@assetFlash": {
+    "description": "Flash button label"
+  },
+  "assetFlip": "Balik",
+  "@assetFlip": {
+    "description": "Flip camera button label"
+  },
+  "assetEditAsset": "Edit Aset",
+  "@assetEditAsset": {
+    "description": "Edit asset screen title"
+  },
+  "assetCreateAsset": "Buat Aset",
+  "@assetCreateAsset": {
+    "description": "Create asset screen title"
+  },
+  "assetFillRequiredFields": "Harap isi semua field yang wajib",
+  "@assetFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetSelectCategory": "Harap pilih kategori",
+  "@assetSelectCategory": {
+    "description": "Validation message for category selection"
+  },
+  "assetSavedSuccessfully": "Aset berhasil disimpan",
+  "@assetSavedSuccessfully": {
+    "description": "Success message for asset save"
+  },
+  "assetOperationFailed": "Operasi gagal",
+  "@assetOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetDeletedSuccess": "Aset dihapus",
+  "@assetDeletedSuccess": {
+    "description": "Success message for asset deletion"
+  },
+  "assetDeletedFailed": "Gagal menghapus",
+  "@assetDeletedFailed": {
+    "description": "Error message for asset deletion failure"
+  },
+  "assetFailedToGenerateDataMatrix": "Gagal membuat data matrix",
+  "@assetFailedToGenerateDataMatrix": {
+    "description": "Error message for data matrix generation failure"
+  },
+  "assetSelectCategoryFirst": "Harap pilih kategori terlebih dahulu",
+  "@assetSelectCategoryFirst": {
+    "description": "Warning message for category selection before tag generation"
+  },
+  "assetTagGenerated": "Tag aset dibuat: {tag}",
+  "@assetTagGenerated": {
+    "description": "Success message for asset tag generation",
+    "placeholders": {
+      "tag": {
+        "type": "String",
+        "example": "AST-001"
+      }
+    }
+  },
+  "assetFailedToGenerateTag": "Gagal membuat tag aset",
+  "@assetFailedToGenerateTag": {
+    "description": "Error message for asset tag generation failure"
+  },
+  "assetEnterAssetTagFirst": "Harap masukkan tag aset terlebih dahulu",
+  "@assetEnterAssetTagFirst": {
+    "description": "Warning message for entering asset tag before regeneration"
+  },
+  "assetBasicInformation": "Informasi Dasar",
+  "@assetBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetEnterAssetTag": "Masukkan tag aset (contoh: AST-001)",
+  "@assetEnterAssetTag": {
+    "description": "Asset tag input placeholder"
+  },
+  "assetAutoGenerateTag": "Buat tag aset otomatis",
+  "@assetAutoGenerateTag": {
+    "description": "Auto-generate tag button tooltip"
+  },
+  "assetEnterAssetName": "Masukkan nama aset",
+  "@assetEnterAssetName": {
+    "description": "Asset name input placeholder"
+  },
+  "assetBrandOptional": "Merek (Opsional)",
+  "@assetBrandOptional": {
+    "description": "Brand input label"
+  },
+  "assetEnterBrand": "Masukkan nama merek",
+  "@assetEnterBrand": {
+    "description": "Brand input placeholder"
+  },
+  "assetModelOptional": "Model (Opsional)",
+  "@assetModelOptional": {
+    "description": "Model input label"
+  },
+  "assetEnterModel": "Masukkan model",
+  "@assetEnterModel": {
+    "description": "Model input placeholder"
+  },
+  "assetSerialNumberOptional": "Nomor Seri (Opsional)",
+  "@assetSerialNumberOptional": {
+    "description": "Serial number input label"
+  },
+  "assetEnterSerialNumber": "Masukkan nomor seri",
+  "@assetEnterSerialNumber": {
+    "description": "Serial number input placeholder"
+  },
+  "assetDataMatrixPreview": "Pratinjau Data Matrix",
+  "@assetDataMatrixPreview": {
+    "description": "Data matrix preview section title"
+  },
+  "assetRegenerateDataMatrix": "Buat Ulang Data Matrix",
+  "@assetRegenerateDataMatrix": {
+    "description": "Regenerate data matrix button label"
+  },
+  "assetCategoryAndLocation": "Kategori & Lokasi",
+  "@assetCategoryAndLocation": {
+    "description": "Category and location section title"
+  },
+  "assetSearchCategory": "Cari kategori...",
+  "@assetSearchCategory": {
+    "description": "Category search placeholder"
+  },
+  "assetNotSet": "Tidak diatur",
+  "@assetNotSet": {
+    "description": "Not set value text"
+  },
+  "assetChangeLocationInstruction": "Untuk mengubah lokasi, gunakan layar Perpindahan Aset",
+  "@assetChangeLocationInstruction": {
+    "description": "Instruction for changing location"
+  },
+  "assetLocationOptional": "Lokasi (Opsional)",
+  "@assetLocationOptional": {
+    "description": "Location input label"
+  },
+  "assetSearchLocation": "Cari lokasi...",
+  "@assetSearchLocation": {
+    "description": "Location search placeholder"
+  },
+  "assetNotAssigned": "Tidak ditugaskan",
+  "@assetNotAssigned": {
+    "description": "Not assigned value text"
+  },
+  "assetChangeAssignmentInstruction": "Untuk mengubah penugasan, gunakan layar Perpindahan Aset",
+  "@assetChangeAssignmentInstruction": {
+    "description": "Instruction for changing assignment"
+  },
+  "assetAssignedToOptional": "Ditugaskan Kepada (Opsional)",
+  "@assetAssignedToOptional": {
+    "description": "Assigned to input label"
+  },
+  "assetSearchUser": "Cari pengguna...",
+  "@assetSearchUser": {
+    "description": "User search placeholder"
+  },
+  "assetPurchaseDateOptional": "Tanggal Pembelian (Opsional)",
+  "@assetPurchaseDateOptional": {
+    "description": "Purchase date input label"
+  },
+  "assetEnterPurchasePrice": "Masukkan harga pembelian",
+  "@assetEnterPurchasePrice": {
+    "description": "Purchase price input placeholder"
+  },
+  "assetVendorNameOptional": "Nama Vendor (Opsional)",
+  "@assetVendorNameOptional": {
+    "description": "Vendor name input label"
+  },
+  "assetEnterVendorName": "Masukkan nama vendor",
+  "@assetEnterVendorName": {
+    "description": "Vendor name input placeholder"
+  },
+  "assetWarrantyEndDateOptional": "Tanggal Berakhir Garansi (Opsional)",
+  "@assetWarrantyEndDateOptional": {
+    "description": "Warranty end date input label"
+  },
+  "assetStatusAndCondition": "Status & Kondisi",
+  "@assetStatusAndCondition": {
+    "description": "Status and condition section title"
+  },
+  "assetSelectStatus": "Pilih status",
+  "@assetSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "assetSelectCondition": "Pilih kondisi",
+  "@assetSelectCondition": {
+    "description": "Condition dropdown placeholder"
+  },
+  "assetUpdate": "Perbarui",
+  "@assetUpdate": {
+    "description": "Update button label"
+  },
+  "assetCreate": "Buat",
+  "@assetCreate": {
+    "description": "Create button label"
+  },
+  "assetCreateAssetTitle": "Buat Aset",
+  "@assetCreateAssetTitle": {
+    "description": "Create asset option title"
+  },
+  "assetCreateAssetSubtitle": "Tambah aset baru",
+  "@assetCreateAssetSubtitle": {
+    "description": "Create asset option subtitle"
+  },
+  "assetSelectManyTitle": "Pilih Banyak",
+  "@assetSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "assetSelectManySubtitle": "Pilih beberapa aset untuk dihapus",
+  "@assetSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetFilterAndSortTitle": "Filter & Urutkan",
+  "@assetFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetFilterAndSortSubtitle": "Sesuaikan tampilan aset",
+  "@assetFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetFilterByCategory": "Filter berdasarkan Kategori",
+  "@assetFilterByCategory": {
+    "description": "Filter by category label"
+  },
+  "assetFilterByLocation": "Filter berdasarkan Lokasi",
+  "@assetFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetFilterByAssignedTo": "Filter berdasarkan Ditugaskan Kepada",
+  "@assetFilterByAssignedTo": {
+    "description": "Filter by assigned to label"
+  },
+  "assetEnterBrandFilter": "Masukkan merek...",
+  "@assetEnterBrandFilter": {
+    "description": "Brand filter input placeholder"
+  },
+  "assetEnterModelFilter": "Masukkan model...",
+  "@assetEnterModelFilter": {
+    "description": "Model filter input placeholder"
+  },
+  "assetSortBy": "Urutkan Berdasarkan",
+  "@assetSortBy": {
+    "description": "Sort by label"
+  },
+  "assetSortOrder": "Urutan",
+  "@assetSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetReset": "Reset",
+  "@assetReset": {
+    "description": "Reset button label"
+  },
+  "assetApply": "Terapkan",
+  "@assetApply": {
+    "description": "Apply button label"
+  },
+  "assetFilterReset": "Filter direset",
+  "@assetFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetFilterApplied": "Filter diterapkan",
+  "@assetFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetManagement": "Manajemen Aset",
+  "@assetManagement": {
+    "description": "Asset management screen title"
+  },
+  "assetSelectAssetsToDelete": "Pilih aset untuk dihapus",
+  "@assetSelectAssetsToDelete": {
+    "description": "Instruction for selecting assets to delete"
+  },
+  "assetDeleteAssets": "Hapus Aset",
+  "@assetDeleteAssets": {
+    "description": "Delete assets dialog title"
+  },
+  "assetDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} aset?",
+  "@assetDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple assets",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "assetNoAssetsSelected": "Tidak ada aset yang dipilih",
+  "@assetNoAssetsSelected": {
+    "description": "Warning message when no assets are selected"
+  },
+  "assetNotImplementedYet": "Belum diimplementasikan",
+  "@assetNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "assetSelectedCount": "{count} dipilih",
+  "@assetSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetSearchAssets": "Cari aset...",
+  "@assetSearchAssets": {
+    "description": "Assets search placeholder"
+  },
+  "assetNoAssetsFound": "Tidak ada aset ditemukan",
+  "@assetNoAssetsFound": {
+    "description": "No assets found message"
+  },
+  "assetCreateFirstAsset": "Buat aset pertama Anda untuk memulai",
+  "@assetCreateFirstAsset": {
+    "description": "Empty state message for assets"
+  },
+  "assetLongPressToSelect": "Tekan lama untuk memilih lebih banyak aset",
+  "@assetLongPressToSelect": {
+    "description": "Instruction for selecting multiple assets"
+  },
+  "assetFiltersAndSorting": "Filter & Pengurutan",
+  "@assetFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "assetApplyFilters": "Terapkan Filter",
+  "@assetApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "assetMyAssets": "Aset Saya",
+  "@assetMyAssets": {
+    "description": "My assets screen title"
+  },
+  "assetSearchMyAssets": "Cari aset saya...",
+  "@assetSearchMyAssets": {
+    "description": "My assets search placeholder"
+  },
+  "assetFiltersApplied": "Filter Diterapkan",
+  "@assetFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "assetNoAssignedAssets": "Anda tidak memiliki aset yang ditugaskan",
+  "@assetNoAssignedAssets": {
+    "description": "Empty state message for my assets"
+  },
+  "assetExportAssets": "Ekspor Aset",
+  "@assetExportAssets": {
+    "description": "Export assets bottom sheet title"
+  },
+  "assetExportFormat": "Format Ekspor",
+  "@assetExportFormat": {
+    "description": "Export format dropdown label"
+  },
+  "assetIncludeDataMatrixImages": "Sertakan Gambar Data Matrix",
+  "@assetIncludeDataMatrixImages": {
+    "description": "Include data matrix images checkbox label"
+  },
+  "assetExportReady": "Ekspor Siap",
+  "@assetExportReady": {
+    "description": "Export ready status text"
+  },
+  "assetExportSize": "Ukuran: {size} KB",
+  "@assetExportSize": {
+    "description": "Export file size display",
+    "placeholders": {
+      "size": {
+        "type": "String",
+        "example": "125.50"
+      }
+    }
+  },
+  "assetExportFormatDisplay": "Format: {format}",
+  "@assetExportFormatDisplay": {
+    "description": "Export format display",
+    "placeholders": {
+      "format": {
+        "type": "String",
+        "example": "PDF"
+      }
+    }
+  },
+  "assetExportShareInstruction": "File akan membuka menu berbagi. Pilih aplikasi untuk membuka atau simpan langsung.",
+  "@assetExportShareInstruction": {
+    "description": "Instruction for export share process"
+  },
+  "assetShareAndSave": "Simpan",
+  "@assetShareAndSave": {
+    "description": "Share and save button label"
+  },
+  "assetExportSubject": "Ekspor Aset",
+  "@assetExportSubject": {
+    "description": "Export share subject"
+  },
+  "assetSaveToDownloads": "Simpan ke Downloads?",
+  "@assetSaveToDownloads": {
+    "description": "Save to downloads dialog title"
+  },
+  "assetSaveToDownloadsMessage": "File telah dibagikan. Apakah Anda ingin menyimpan salinan ke folder Downloads?",
+  "@assetSaveToDownloadsMessage": {
+    "description": "Save to downloads dialog message"
+  },
+  "assetNo": "Tidak",
+  "@assetNo": {
+    "description": "No button label"
+  },
+  "assetSave": "Simpan",
+  "@assetSave": {
+    "description": "Save button label"
+  },
+  "assetFileSharedSuccessfully": "File berhasil dibagikan",
+  "@assetFileSharedSuccessfully": {
+    "description": "File shared success message"
+  },
+  "assetShareCancelled": "Berbagi dibatalkan",
+  "@assetShareCancelled": {
+    "description": "Share cancelled message"
+  },
+  "assetFailedToShareFile": "Gagal berbagi file: {error}",
+  "@assetFailedToShareFile": {
+    "description": "Failed to share file error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Permission denied"
+      }
+    }
+  },
+  "assetFileSavedSuccessfully": "File berhasil disimpan ke Downloads",
+  "@assetFileSavedSuccessfully": {
+    "description": "File saved success message"
+  },
+  "assetFailedToSaveFile": "Gagal menyimpan file: {error}",
+  "@assetFailedToSaveFile": {
+    "description": "Failed to save file error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Storage permission denied"
+      }
+    }
+  },
+  "assetValidationTagRequired": "Tag aset wajib diisi",
+  "@assetValidationTagRequired": {
+    "description": "Validation error for required asset tag"
+  },
+  "assetValidationTagMinLength": "Tag aset minimal 3 karakter",
+  "@assetValidationTagMinLength": {
+    "description": "Validation error for asset tag minimum length"
+  },
+  "assetValidationTagMaxLength": "Tag aset maksimal 50 karakter",
+  "@assetValidationTagMaxLength": {
+    "description": "Validation error for asset tag maximum length"
+  },
+  "assetValidationTagAlphanumeric": "Tag aset hanya boleh mengandung huruf, angka, dan tanda hubung",
+  "@assetValidationTagAlphanumeric": {
+    "description": "Validation error for asset tag format"
+  },
+  "assetValidationNameRequired": "Nama aset wajib diisi",
+  "@assetValidationNameRequired": {
+    "description": "Validation error for required asset name"
+  },
+  "assetValidationNameMinLength": "Nama aset minimal 3 karakter",
+  "@assetValidationNameMinLength": {
+    "description": "Validation error for asset name minimum length"
+  },
+  "assetValidationNameMaxLength": "Nama aset maksimal 100 karakter",
+  "@assetValidationNameMaxLength": {
+    "description": "Validation error for asset name maximum length"
+  },
+  "assetValidationCategoryRequired": "Kategori wajib diisi",
+  "@assetValidationCategoryRequired": {
+    "description": "Validation error for required category"
+  },
+  "assetValidationBrandMaxLength": "Merek maksimal 50 karakter",
+  "@assetValidationBrandMaxLength": {
+    "description": "Validation error for brand maximum length"
+  },
+  "assetValidationModelMaxLength": "Model maksimal 50 karakter",
+  "@assetValidationModelMaxLength": {
+    "description": "Validation error for model maximum length"
+  },
+  "assetValidationSerialMaxLength": "Nomor seri maksimal 50 karakter",
+  "@assetValidationSerialMaxLength": {
+    "description": "Validation error for serial number maximum length"
+  },
+  "assetValidationPriceInvalid": "Harga pembelian harus berupa angka valid",
+  "@assetValidationPriceInvalid": {
+    "description": "Validation error for invalid purchase price"
+  },
+  "assetValidationPriceNegative": "Harga pembelian tidak boleh negatif",
+  "@assetValidationPriceNegative": {
+    "description": "Validation error for negative purchase price"
+  },
+  "assetValidationVendorMaxLength": "Nama vendor maksimal 100 karakter",
+  "@assetValidationVendorMaxLength": {
+    "description": "Validation error for vendor name maximum length"
+  },
+  "assetExport": "Ekspor",
+  "@assetExport": {
+    "description": "Export button label"
+  },
+  "assetSelectExportType": "Pilih jenis ekspor",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "Ekspor Daftar",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "Ekspor aset sebagai daftar",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "Ekspor Data Matrix",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "Ekspor kode data matrix untuk aset",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "Ekspor data matrix hanya tersedia dalam format PDF",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
+  },
+  "assetQuickActions": "Aksi Cepat",
+  "@assetQuickActions": {
+    "description": "Quick actions section title"
+  },
+  "assetReportIssue": "Laporkan\nMasalah",
+  "@assetReportIssue": {
+    "description": "Report issue action label"
+  },
+  "assetMoveToUser": "Pindah ke\nPengguna",
+  "@assetMoveToUser": {
+    "description": "Move to user action label"
+  },
+  "assetMoveToLocation": "Pindah ke\nLokasi",
+  "@assetMoveToLocation": {
+    "description": "Move to location action label"
+  },
+  "assetScheduleMaintenance": "Jadwalkan\nPemel.",
+  "@assetScheduleMaintenance": {
+    "description": "Schedule maintenance action label"
+  },
+  "assetRecordMaintenance": "Catat\nPemel.",
+  "@assetRecordMaintenance": {
+    "description": "Record maintenance action label"
+  },
+  "assetExportTitle": "Ekspor",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "Ekspor data ke file",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
+  },
+  "assetMovementDeleteAssetMovement": "Hapus Perpindahan Aset",
+  "@assetMovementDeleteAssetMovement": {
+    "description": "Dialog title for deleting an asset movement"
+  },
+  "assetMovementDeleteConfirmation": "Apakah Anda yakin ingin menghapus catatan perpindahan aset ini?",
+  "@assetMovementDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset movement"
+  },
+  "assetMovementCancel": "Batal",
+  "@assetMovementCancel": {
+    "description": "Cancel button label"
+  },
+  "assetMovementDelete": "Hapus",
+  "@assetMovementDelete": {
+    "description": "Delete button label"
+  },
+  "assetMovementDetail": "Detail Perpindahan Aset",
+  "@assetMovementDetail": {
+    "description": "Asset movement detail screen title"
+  },
+  "assetMovementInformation": "Informasi Perpindahan",
+  "@assetMovementInformation": {
+    "description": "Asset movement information section title"
+  },
+  "assetMovementId": "ID Perpindahan",
+  "@assetMovementId": {
+    "description": "Movement ID label"
+  },
+  "assetMovementAsset": "Aset",
+  "@assetMovementAsset": {
+    "description": "Asset label"
+  },
+  "assetMovementMovementType": "Jenis Perpindahan",
+  "@assetMovementMovementType": {
+    "description": "Movement type label"
+  },
+  "assetMovementFromLocation": "Dari Lokasi",
+  "@assetMovementFromLocation": {
+    "description": "From location label"
+  },
+  "assetMovementToLocation": "Ke Lokasi",
+  "@assetMovementToLocation": {
+    "description": "To location label"
+  },
+  "assetMovementFromUser": "Dari Pengguna",
+  "@assetMovementFromUser": {
+    "description": "From user label"
+  },
+  "assetMovementToUser": "Ke Pengguna",
+  "@assetMovementToUser": {
+    "description": "To user label"
+  },
+  "assetMovementMovedBy": "Dipindahkan Oleh",
+  "@assetMovementMovedBy": {
+    "description": "Moved by label"
+  },
+  "assetMovementMovementDate": "Tanggal Perpindahan",
+  "@assetMovementMovementDate": {
+    "description": "Movement date label"
+  },
+  "assetMovementNotes": "Catatan",
+  "@assetMovementNotes": {
+    "description": "Notes label"
+  },
+  "assetMovementStatus": "Status",
+  "@assetMovementStatus": {
+    "description": "Status label"
+  },
+  "assetMovementMetadata": "Metadata",
+  "@assetMovementMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetMovementCreatedAt": "Dibuat Pada",
+  "@assetMovementCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetMovementUpdatedAt": "Diperbarui Pada",
+  "@assetMovementUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetMovementOnlyAdminCanEdit": "Hanya admin yang dapat mengedit perpindahan aset",
+  "@assetMovementOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetMovementOnlyAdminCanDelete": "Hanya admin yang dapat menghapus perpindahan aset",
+  "@assetMovementOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetMovementFailedToLoad": "Gagal memuat perpindahan aset",
+  "@assetMovementFailedToLoad": {
+    "description": "Error message when asset movement fails to load"
+  },
+  "assetMovementEditAssetMovement": "Edit Perpindahan Aset",
+  "@assetMovementEditAssetMovement": {
+    "description": "Edit asset movement screen title"
+  },
+  "assetMovementCreateAssetMovement": "Buat Perpindahan Aset",
+  "@assetMovementCreateAssetMovement": {
+    "description": "Create asset movement screen title"
+  },
+  "assetMovementFillRequiredFields": "Harap isi semua field yang wajib",
+  "@assetMovementFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetMovementSelectAsset": "Harap pilih aset",
+  "@assetMovementSelectAsset": {
+    "description": "Validation message for asset selection"
+  },
+  "assetMovementSavedSuccessfully": "Perpindahan aset berhasil disimpan",
+  "@assetMovementSavedSuccessfully": {
+    "description": "Success message for asset movement save"
+  },
+  "assetMovementOperationFailed": "Operasi gagal",
+  "@assetMovementOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetMovementBasicInformation": "Informasi Dasar",
+  "@assetMovementBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetMovementSelectAssetPlaceholder": "Pilih aset",
+  "@assetMovementSelectAssetPlaceholder": {
+    "description": "Select asset placeholder"
+  },
+  "assetMovementSearchAsset": "Cari aset...",
+  "@assetMovementSearchAsset": {
+    "description": "Search asset placeholder"
+  },
+  "assetMovementSelectMovementType": "Pilih jenis perpindahan",
+  "@assetMovementSelectMovementType": {
+    "description": "Select movement type placeholder"
+  },
+  "assetMovementLocationDetails": "Detail Lokasi",
+  "@assetMovementLocationDetails": {
+    "description": "Location details section title"
+  },
+  "assetMovementFromLocationLabel": "Dari Lokasi",
+  "@assetMovementFromLocationLabel": {
+    "description": "From location input label"
+  },
+  "assetMovementSearchFromLocation": "Cari dari lokasi...",
+  "@assetMovementSearchFromLocation": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementToLocationLabel": "Ke Lokasi",
+  "@assetMovementToLocationLabel": {
+    "description": "To location input label"
+  },
+  "assetMovementSearchToLocation": "Cari ke lokasi...",
+  "@assetMovementSearchToLocation": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementUserDetails": "Detail Pengguna",
+  "@assetMovementUserDetails": {
+    "description": "User details section title"
+  },
+  "assetMovementFromUserLabel": "Dari Pengguna",
+  "@assetMovementFromUserLabel": {
+    "description": "From user input label"
+  },
+  "assetMovementSearchFromUser": "Cari dari pengguna...",
+  "@assetMovementSearchFromUser": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementToUserLabel": "Ke Pengguna",
+  "@assetMovementToUserLabel": {
+    "description": "To user input label"
+  },
+  "assetMovementSearchToUser": "Cari ke pengguna...",
+  "@assetMovementSearchToUser": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementMovementDateLabel": "Tanggal Perpindahan",
+  "@assetMovementMovementDateLabel": {
+    "description": "Movement date input label"
+  },
+  "assetMovementNotesLabel": "Catatan (Opsional)",
+  "@assetMovementNotesLabel": {
+    "description": "Notes input label"
+  },
+  "assetMovementEnterNotes": "Masukkan catatan...",
+  "@assetMovementEnterNotes": {
+    "description": "Notes input placeholder"
+  },
+  "assetMovementUpdate": "Perbarui",
+  "@assetMovementUpdate": {
+    "description": "Update button label"
+  },
+  "assetMovementCreate": "Buat",
+  "@assetMovementCreate": {
+    "description": "Create button label"
+  },
+  "assetMovementManagement": "Manajemen Perpindahan Aset",
+  "@assetMovementManagement": {
+    "description": "Asset movement management screen title"
+  },
+  "assetMovementSearchAssetMovements": "Cari perpindahan aset...",
+  "@assetMovementSearchAssetMovements": {
+    "description": "Asset movements search placeholder"
+  },
+  "assetMovementNoMovementsFound": "Tidak ada perpindahan aset ditemukan",
+  "@assetMovementNoMovementsFound": {
+    "description": "No asset movements found message"
+  },
+  "assetMovementCreateFirstMovement": "Buat perpindahan aset pertama Anda untuk memulai",
+  "@assetMovementCreateFirstMovement": {
+    "description": "Empty state message for asset movements"
+  },
+  "assetMovementFilterAndSortTitle": "Filter & Urutkan",
+  "@assetMovementFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetMovementFilterAndSortSubtitle": "Sesuaikan tampilan perpindahan aset",
+  "@assetMovementFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetMovementFilterByAsset": "Filter berdasarkan Aset",
+  "@assetMovementFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "assetMovementFilterByMovementType": "Filter berdasarkan Jenis Perpindahan",
+  "@assetMovementFilterByMovementType": {
+    "description": "Filter by movement type label"
+  },
+  "assetMovementFilterByLocation": "Filter berdasarkan Lokasi",
+  "@assetMovementFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetMovementFilterByUser": "Filter berdasarkan Pengguna",
+  "@assetMovementFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "assetMovementSortBy": "Urutkan Berdasarkan",
+  "@assetMovementSortBy": {
+    "description": "Sort by label"
+  },
+  "assetMovementSortOrder": "Urutan",
+  "@assetMovementSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetMovementReset": "Reset",
+  "@assetMovementReset": {
+    "description": "Reset button label"
+  },
+  "assetMovementApply": "Terapkan",
+  "@assetMovementApply": {
+    "description": "Apply button label"
+  },
+  "assetMovementFilterReset": "Filter direset",
+  "@assetMovementFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetMovementFilterApplied": "Filter diterapkan",
+  "@assetMovementFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetMovementStatistics": "Statistik Perpindahan",
+  "@assetMovementStatistics": {
+    "description": "Movement statistics section title"
+  },
+  "assetMovementTotalMovements": "Total Perpindahan",
+  "@assetMovementTotalMovements": {
+    "description": "Total movements label"
+  },
+  "assetMovementByType": "Perpindahan berdasarkan Jenis",
+  "@assetMovementByType": {
+    "description": "Movements by type label"
+  },
+  "assetMovementByStatus": "Perpindahan berdasarkan Status",
+  "@assetMovementByStatus": {
+    "description": "Movements by status label"
+  },
+  "assetMovementRecentActivity": "Aktivitas Terbaru",
+  "@assetMovementRecentActivity": {
+    "description": "Recent activity label"
+  },
+  "assetMovementValidationAssetRequired": "Aset wajib diisi",
+  "@assetMovementValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "assetMovementValidationMovementTypeRequired": "Jenis perpindahan wajib diisi",
+  "@assetMovementValidationMovementTypeRequired": {
+    "description": "Validation error for required movement type"
+  },
+  "assetMovementValidationLocationRequired": "Lokasi wajib diisi untuk jenis perpindahan ini",
+  "@assetMovementValidationLocationRequired": {
+    "description": "Validation error for required location"
+  },
+  "assetMovementValidationUserRequired": "Pengguna wajib diisi untuk jenis perpindahan ini",
+  "@assetMovementValidationUserRequired": {
+    "description": "Validation error for required user"
+  },
+  "assetMovementValidationMovementDateRequired": "Tanggal perpindahan wajib diisi",
+  "@assetMovementValidationMovementDateRequired": {
+    "description": "Validation error for required movement date"
+  },
+  "assetMovementValidationNotesMaxLength": "Catatan maksimal 500 karakter",
+  "@assetMovementValidationNotesMaxLength": {
+    "description": "Validation error for notes maximum length"
+  },
+  "assetMovementValidationToLocationRequired": "Lokasi tujuan wajib diisi",
+  "@assetMovementValidationToLocationRequired": {
+    "description": "Validation error for required to location"
+  },
+  "assetMovementValidationToUserRequired": "Pengguna tujuan wajib diisi",
+  "@assetMovementValidationToUserRequired": {
+    "description": "Validation error for required to user"
+  },
+  "assetMovementValidationMovedByRequired": "Dipindahkan oleh wajib diisi",
+  "@assetMovementValidationMovedByRequired": {
+    "description": "Validation error for required moved by"
+  },
+  "assetMovementValidationMovementDateFuture": "Tanggal perpindahan tidak boleh di masa depan",
+  "@assetMovementValidationMovementDateFuture": {
+    "description": "Validation error for movement date in future"
+  },
+  "assetMovementTranslations": "Terjemahan",
+  "@assetMovementTranslations": {
+    "description": "Translations section title"
+  },
+  "assetMovementUnknownAsset": "Aset Tidak Diketahui",
+  "@assetMovementUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "assetMovementUnknownTag": "Tag Tidak Diketahui",
+  "@assetMovementUnknownTag": {
+    "description": "Unknown tag placeholder"
+  },
+  "assetMovementUnknown": "Tidak Diketahui",
+  "@assetMovementUnknown": {
+    "description": "Unknown placeholder"
+  },
+  "assetMovementUnassigned": "Tidak Ditugaskan",
+  "@assetMovementUnassigned": {
+    "description": "Unassigned placeholder"
+  },
+  "assetMovementNotSet": "Tidak diatur",
+  "@assetMovementNotSet": {
+    "description": "Not set value text"
+  },
+  "assetMovementLocationMovement": "Perpindahan Lokasi",
+  "@assetMovementLocationMovement": {
+    "description": "Location movement type label"
+  },
+  "assetMovementUserMovement": "Perpindahan Pengguna",
+  "@assetMovementUserMovement": {
+    "description": "User movement type label"
+  },
+  "assetMovementCreateAssetMovementTitle": "Buat Perpindahan Aset",
+  "@assetMovementCreateAssetMovementTitle": {
+    "description": "Create asset movement option title"
+  },
+  "assetMovementCreateAssetMovementSubtitle": "Catat perpindahan aset baru",
+  "@assetMovementCreateAssetMovementSubtitle": {
+    "description": "Create asset movement option subtitle"
+  },
+  "assetMovementForLocation": "Perpindahan Aset untuk Lokasi",
+  "@assetMovementForLocation": {
+    "description": "Asset movement for location screen title"
+  },
+  "assetMovementForUser": "Perpindahan Aset untuk Pengguna",
+  "@assetMovementForUser": {
+    "description": "Asset movement for user screen title"
+  },
+  "assetMovementCurrentLocation": "Lokasi Saat Ini",
+  "@assetMovementCurrentLocation": {
+    "description": "Current location label"
+  },
+  "assetMovementNewLocation": "Lokasi Baru",
+  "@assetMovementNewLocation": {
+    "description": "New location label"
+  },
+  "assetMovementCurrentUser": "Pengguna Saat Ini",
+  "@assetMovementCurrentUser": {
+    "description": "Current user label"
+  },
+  "assetMovementNewUser": "Pengguna Baru",
+  "@assetMovementNewUser": {
+    "description": "New user label"
+  },
+  "assetMovementMovementHistory": "Riwayat Perpindahan",
+  "@assetMovementMovementHistory": {
+    "description": "Movement history section title"
+  },
+  "assetMovementNoHistory": "Tidak ada riwayat perpindahan tersedia",
+  "@assetMovementNoHistory": {
+    "description": "No movement history message"
+  },
+  "assetMovementViewAll": "Lihat Semua",
+  "@assetMovementViewAll": {
+    "description": "View all button label"
+  },
+  "assetMovementMovedTo": "Dipindahkan ke",
+  "@assetMovementMovedTo": {
+    "description": "Moved to prefix text"
+  },
+  "assetMovementAssignedTo": "Ditugaskan ke",
+  "@assetMovementAssignedTo": {
+    "description": "Assigned to prefix text"
+  },
+  "assetMovementSelectMany": "Pilih Banyak",
+  "@assetMovementSelectMany": {
+    "description": "Select many option title"
+  },
+  "assetMovementSelectManySubtitle": "Pilih beberapa perpindahan aset untuk dihapus",
+  "@assetMovementSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetMovementSelectAssetMovementsToDelete": "Pilih perpindahan aset untuk dihapus",
+  "@assetMovementSelectAssetMovementsToDelete": {
+    "description": "Toast message for select mode"
+  },
+  "assetMovementChooseMovementType": "Pilih jenis perpindahan:",
+  "@assetMovementChooseMovementType": {
+    "description": "Dialog content for choosing movement type"
+  },
+  "assetMovementFilterByFromLocation": "Filter berdasarkan Dari Lokasi",
+  "@assetMovementFilterByFromLocation": {
+    "description": "Filter by from location label"
+  },
+  "assetMovementFilterByToLocation": "Filter berdasarkan Ke Lokasi",
+  "@assetMovementFilterByToLocation": {
+    "description": "Filter by to location label"
+  },
+  "assetMovementFilterByFromUser": "Filter berdasarkan Dari Pengguna",
+  "@assetMovementFilterByFromUser": {
+    "description": "Filter by from user label"
+  },
+  "assetMovementFilterByToUser": "Filter berdasarkan Ke Pengguna",
+  "@assetMovementFilterByToUser": {
+    "description": "Filter by to user label"
+  },
+  "assetMovementFilterByMovedBy": "Filter berdasarkan Dipindahkan Oleh",
+  "@assetMovementFilterByMovedBy": {
+    "description": "Filter by moved by label"
+  },
+  "assetMovementDateFrom": "Tanggal Dari",
+  "@assetMovementDateFrom": {
+    "description": "Date from label"
+  },
+  "assetMovementDateTo": "Tanggal Sampai",
+  "@assetMovementDateTo": {
+    "description": "Date to label"
+  },
+  "assetMovementSearchAssetPlaceholder": "Cari aset...",
+  "@assetMovementSearchAssetPlaceholder": {
+    "description": "Search asset placeholder in filter"
+  },
+  "assetMovementSearchFromLocationPlaceholder": "Cari dari lokasi...",
+  "@assetMovementSearchFromLocationPlaceholder": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementSearchToLocationPlaceholder": "Cari ke lokasi...",
+  "@assetMovementSearchToLocationPlaceholder": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementSearchFromUserPlaceholder": "Cari dari pengguna...",
+  "@assetMovementSearchFromUserPlaceholder": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementSearchToUserPlaceholder": "Cari ke pengguna...",
+  "@assetMovementSearchToUserPlaceholder": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementSearchMovedByPlaceholder": "Cari pengguna yang memindahkan...",
+  "@assetMovementSearchMovedByPlaceholder": {
+    "description": "Search moved by user placeholder"
+  },
+  "assetMovementDeleteAssetMovements": "Hapus Perpindahan Aset",
+  "@assetMovementDeleteAssetMovements": {
+    "description": "Dialog title for deleting multiple asset movements"
+  },
+  "assetMovementDeleteManyConfirmation": "Apakah Anda yakin ingin menghapus {count} perpindahan aset?",
+  "@assetMovementDeleteManyConfirmation": {
+    "description": "Confirmation message for deleting multiple asset movements",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementNoAssetMovementsSelected": "Tidak ada perpindahan aset yang dipilih",
+  "@assetMovementNoAssetMovementsSelected": {
+    "description": "Warning message when no asset movements selected"
+  },
+  "assetMovementNotImplementedYet": "Belum diimplementasikan",
+  "@assetMovementNotImplementedYet": {
+    "description": "Info message for not implemented feature"
+  },
+  "assetMovementSelectedCount": "{count} dipilih",
+  "@assetMovementSelectedCount": {
+    "description": "Selected count text",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementLongPressToSelectMore": "Tekan lama untuk memilih lebih banyak perpindahan aset",
+  "@assetMovementLongPressToSelectMore": {
+    "description": "Toast message for long press to select"
+  },
+  "assetMovementForLocationShort": "Untuk Lokasi",
+  "@assetMovementForLocationShort": {
+    "description": "Short label for location movement"
+  },
+  "assetMovementForUserShort": "Untuk Pengguna",
+  "@assetMovementForUserShort": {
+    "description": "Short label for user movement"
+  },
   "authWelcomeBack": "Selamat Datang Kembali",
   "@authWelcomeBack": {
     "description": "Login screen header title"
@@ -139,5 +1379,2935 @@
   "authValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
+  },
+  "categoryDetail": "Detail Kategori",
+  "@categoryDetail": {
+    "description": "Category detail screen title"
+  },
+  "categoryInformation": "Informasi Kategori",
+  "@categoryInformation": {
+    "description": "Category information section title"
+  },
+  "categoryCategoryCode": "Kode Kategori",
+  "@categoryCategoryCode": {
+    "description": "Category code label"
+  },
+  "categoryCategoryName": "Nama Kategori",
+  "@categoryCategoryName": {
+    "description": "Category name label"
+  },
+  "categoryDescription": "Deskripsi",
+  "@categoryDescription": {
+    "description": "Description label"
+  },
+  "categoryParentCategory": "Kategori Induk",
+  "@categoryParentCategory": {
+    "description": "Parent category label"
+  },
+  "categoryMetadata": "Metadata",
+  "@categoryMetadata": {
+    "description": "Metadata section title"
+  },
+  "categoryCreatedAt": "Dibuat Pada",
+  "@categoryCreatedAt": {
+    "description": "Created at label"
+  },
+  "categoryUpdatedAt": "Diperbarui Pada",
+  "@categoryUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "categoryOnlyAdminCanEdit": "Hanya admin yang dapat mengedit kategori",
+  "@categoryOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "categoryOnlyAdminCanDelete": "Hanya admin yang dapat menghapus kategori",
+  "@categoryOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "categoryDeleteCategory": "Hapus Kategori",
+  "@categoryDeleteCategory": {
+    "description": "Delete category dialog title"
+  },
+  "categoryDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{categoryName}\"?",
+  "@categoryDeleteConfirmation": {
+    "description": "Confirmation message for deleting a category",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "Electronics"
+      }
+    }
+  },
+  "categoryCancel": "Batal",
+  "@categoryCancel": {
+    "description": "Cancel button label"
+  },
+  "categoryDelete": "Hapus",
+  "@categoryDelete": {
+    "description": "Delete button label"
+  },
+  "categoryCategoryDeleted": "Kategori dihapus",
+  "@categoryCategoryDeleted": {
+    "description": "Success message for category deletion"
+  },
+  "categoryDeleteFailed": "Gagal menghapus",
+  "@categoryDeleteFailed": {
+    "description": "Error message for category deletion failure"
+  },
+  "categoryEditCategory": "Edit Kategori",
+  "@categoryEditCategory": {
+    "description": "Edit category screen title"
+  },
+  "categoryCreateCategory": "Buat Kategori",
+  "@categoryCreateCategory": {
+    "description": "Create category screen title"
+  },
+  "categorySearchCategory": "Cari kategori...",
+  "@categorySearchCategory": {
+    "description": "Search category placeholder"
+  },
+  "categoryEnterCategoryCode": "Masukkan kode kategori (contoh: CAT-001)",
+  "@categoryEnterCategoryCode": {
+    "description": "Category code input placeholder"
+  },
+  "categoryTranslations": "Terjemahan",
+  "@categoryTranslations": {
+    "description": "Translations section title"
+  },
+  "categoryAddTranslations": "Tambahkan terjemahan untuk bahasa yang berbeda",
+  "@categoryAddTranslations": {
+    "description": "Translations section subtitle"
+  },
+  "categoryEnglish": "Inggris",
+  "@categoryEnglish": {
+    "description": "English language label"
+  },
+  "categoryJapanese": "Jepang",
+  "@categoryJapanese": {
+    "description": "Japanese language label"
+  },
+  "categoryEnterCategoryName": "Masukkan nama kategori",
+  "@categoryEnterCategoryName": {
+    "description": "Category name input placeholder"
+  },
+  "categoryEnterDescription": "Masukkan deskripsi",
+  "@categoryEnterDescription": {
+    "description": "Description input placeholder"
+  },
+  "categoryUpdate": "Perbarui",
+  "@categoryUpdate": {
+    "description": "Update button label"
+  },
+  "categoryCreate": "Buat",
+  "@categoryCreate": {
+    "description": "Create button label"
+  },
+  "categoryFillRequiredFields": "Harap isi semua field yang wajib",
+  "@categoryFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "categorySavedSuccessfully": "Kategori berhasil disimpan",
+  "@categorySavedSuccessfully": {
+    "description": "Success message for category save"
+  },
+  "categoryOperationFailed": "Operasi gagal",
+  "@categoryOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "categoryFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@categoryFailedToLoadTranslations": {
+    "description": "Error message when translations fail to load"
+  },
+  "categoryManagement": "Manajemen Kategori",
+  "@categoryManagement": {
+    "description": "Category management screen title"
+  },
+  "categorySearchCategories": "Cari kategori...",
+  "@categorySearchCategories": {
+    "description": "Categories search placeholder"
+  },
+  "categoryCreateCategoryTitle": "Buat Kategori",
+  "@categoryCreateCategoryTitle": {
+    "description": "Create category option title"
+  },
+  "categoryCreateCategorySubtitle": "Tambah kategori baru",
+  "@categoryCreateCategorySubtitle": {
+    "description": "Create category option subtitle"
+  },
+  "categorySelectManyTitle": "Pilih Banyak",
+  "@categorySelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "categorySelectManySubtitle": "Pilih beberapa kategori untuk dihapus",
+  "@categorySelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "categoryFilterAndSortTitle": "Filter & Urutkan",
+  "@categoryFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "categoryFilterAndSortSubtitle": "Sesuaikan tampilan kategori",
+  "@categoryFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "categorySelectCategoriesToDelete": "Pilih kategori untuk dihapus",
+  "@categorySelectCategoriesToDelete": {
+    "description": "Instruction for selecting categories to delete"
+  },
+  "categorySortBy": "Urutkan Berdasarkan",
+  "@categorySortBy": {
+    "description": "Sort by label"
+  },
+  "categorySortOrder": "Urutan",
+  "@categorySortOrder": {
+    "description": "Sort order label"
+  },
+  "categoryHasParent": "Memiliki Induk",
+  "@categoryHasParent": {
+    "description": "Has parent checkbox label"
+  },
+  "categoryFilterByParent": "Filter berdasarkan Kategori Induk",
+  "@categoryFilterByParent": {
+    "description": "Filter by parent category label"
+  },
+  "categorySearchParentCategory": "Cari kategori induk...",
+  "@categorySearchParentCategory": {
+    "description": "Search parent category placeholder"
+  },
+  "categoryReset": "Reset",
+  "@categoryReset": {
+    "description": "Reset button label"
+  },
+  "categoryApply": "Terapkan",
+  "@categoryApply": {
+    "description": "Apply button label"
+  },
+  "categoryFilterReset": "Filter direset",
+  "@categoryFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "categoryFilterApplied": "Filter diterapkan",
+  "@categoryFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "categoryDeleteCategories": "Hapus Kategori",
+  "@categoryDeleteCategories": {
+    "description": "Delete categories dialog title"
+  },
+  "categoryDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} kategori?",
+  "@categoryDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple categories",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "categoryNoCategoriesSelected": "Tidak ada kategori yang dipilih",
+  "@categoryNoCategoriesSelected": {
+    "description": "Warning message when no categories are selected"
+  },
+  "categoryNotImplementedYet": "Belum diimplementasikan",
+  "@categoryNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "categorySelectedCount": "{count} dipilih",
+  "@categorySelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "categoryNoCategoriesFound": "Tidak ada kategori ditemukan",
+  "@categoryNoCategoriesFound": {
+    "description": "No categories found message"
+  },
+  "categoryCreateFirstCategory": "Buat kategori pertama Anda untuk memulai",
+  "@categoryCreateFirstCategory": {
+    "description": "Empty state message for categories"
+  },
+  "categoryLongPressToSelect": "Tekan lama untuk memilih lebih banyak kategori",
+  "@categoryLongPressToSelect": {
+    "description": "Instruction for selecting multiple categories"
+  },
+  "categoryValidationCodeRequired": "Kode kategori wajib diisi",
+  "@categoryValidationCodeRequired": {
+    "description": "Validation error for required category code"
+  },
+  "categoryValidationCodeMinLength": "Kode kategori minimal 2 karakter",
+  "@categoryValidationCodeMinLength": {
+    "description": "Validation error for category code minimum length"
+  },
+  "categoryValidationCodeMaxLength": "Kode kategori maksimal 20 karakter",
+  "@categoryValidationCodeMaxLength": {
+    "description": "Validation error for category code maximum length"
+  },
+  "categoryValidationCodeAlphanumeric": "Kode kategori hanya boleh mengandung huruf, angka, dan garis bawah",
+  "@categoryValidationCodeAlphanumeric": {
+    "description": "Validation error for category code format"
+  },
+  "categoryValidationNameRequired": "Nama kategori wajib diisi",
+  "@categoryValidationNameRequired": {
+    "description": "Validation error for required category name"
+  },
+  "categoryValidationNameMinLength": "Nama kategori minimal 3 karakter",
+  "@categoryValidationNameMinLength": {
+    "description": "Validation error for category name minimum length"
+  },
+  "categoryValidationNameMaxLength": "Nama kategori maksimal 100 karakter",
+  "@categoryValidationNameMaxLength": {
+    "description": "Validation error for category name maximum length"
+  },
+  "categoryValidationDescriptionRequired": "Deskripsi wajib diisi",
+  "@categoryValidationDescriptionRequired": {
+    "description": "Validation error for required description"
+  },
+  "categoryValidationDescriptionMinLength": "Deskripsi minimal 10 karakter",
+  "@categoryValidationDescriptionMinLength": {
+    "description": "Validation error for description minimum length"
+  },
+  "categoryValidationDescriptionMaxLength": "Deskripsi maksimal 500 karakter",
+  "@categoryValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "dashboardTotalUsers": "Total Pengguna",
+  "@dashboardTotalUsers": {
+    "description": "Total users stat card title"
+  },
+  "dashboardTotalAssets": "Total Aset",
+  "@dashboardTotalAssets": {
+    "description": "Total assets stat card title"
+  },
+  "dashboardAssetStatusOverview": "Ikhtisar Status Aset",
+  "@dashboardAssetStatusOverview": {
+    "description": "Asset status overview chart title"
+  },
+  "dashboardActive": "Aktif",
+  "@dashboardActive": {
+    "description": "Active status label"
+  },
+  "dashboardMaintenance": "Pemeliharaan",
+  "@dashboardMaintenance": {
+    "description": "Maintenance status label"
+  },
+  "dashboardDisposed": "Dibuang",
+  "@dashboardDisposed": {
+    "description": "Disposed status label"
+  },
+  "dashboardLost": "Hilang",
+  "@dashboardLost": {
+    "description": "Lost status label"
+  },
+  "dashboardUserRoleDistribution": "Distribusi Peran Pengguna",
+  "@dashboardUserRoleDistribution": {
+    "description": "User role distribution chart title"
+  },
+  "dashboardAdmin": "Admin",
+  "@dashboardAdmin": {
+    "description": "Admin role label"
+  },
+  "dashboardStaff": "Staf",
+  "@dashboardStaff": {
+    "description": "Staff role label"
+  },
+  "dashboardEmployee": "Karyawan",
+  "@dashboardEmployee": {
+    "description": "Employee role label"
+  },
+  "dashboardAssetStatusBreakdown": "Rincian Status Aset",
+  "@dashboardAssetStatusBreakdown": {
+    "description": "Asset status breakdown chart title"
+  },
+  "dashboardAssetConditionOverview": "Ikhtisar Kondisi Aset",
+  "@dashboardAssetConditionOverview": {
+    "description": "Asset condition overview chart title"
+  },
+  "dashboardGood": "Baik",
+  "@dashboardGood": {
+    "description": "Good condition label"
+  },
+  "dashboardFair": "Cukup",
+  "@dashboardFair": {
+    "description": "Fair condition label"
+  },
+  "dashboardPoor": "Buruk",
+  "@dashboardPoor": {
+    "description": "Poor condition label"
+  },
+  "dashboardDamaged": "Rusak",
+  "@dashboardDamaged": {
+    "description": "Damaged condition label"
+  },
+  "dashboardUserRegistrationTrends": "Tren Registrasi Pengguna",
+  "@dashboardUserRegistrationTrends": {
+    "description": "User registration trends chart title"
+  },
+  "dashboardAssetCreationTrends": "Tren Pembuatan Aset",
+  "@dashboardAssetCreationTrends": {
+    "description": "Asset creation trends chart title"
+  },
+  "dashboardCategories": "Kategori",
+  "@dashboardCategories": {
+    "description": "Categories stat card title"
+  },
+  "dashboardLocations": "Lokasi",
+  "@dashboardLocations": {
+    "description": "Locations stat card title"
+  },
+  "dashboardActivityOverview": "Ikhtisar Aktivitas",
+  "@dashboardActivityOverview": {
+    "description": "Activity overview section title"
+  },
+  "dashboardScanLogs": "Log Pemindaian",
+  "@dashboardScanLogs": {
+    "description": "Scan logs stat card title"
+  },
+  "dashboardNotifications": "Notifikasi",
+  "@dashboardNotifications": {
+    "description": "Notifications stat card title"
+  },
+  "dashboardAssetMovements": "Perpindahan Aset",
+  "@dashboardAssetMovements": {
+    "description": "Asset movements stat card title"
+  },
+  "dashboardIssueReports": "Laporan Masalah",
+  "@dashboardIssueReports": {
+    "description": "Issue reports stat card title"
+  },
+  "dashboardMaintenanceSchedules": "Jadwal Pemeliharaan",
+  "@dashboardMaintenanceSchedules": {
+    "description": "Maintenance schedules stat card title"
+  },
+  "dashboardMaintenanceRecords": "Catatan Pemeliharaan",
+  "@dashboardMaintenanceRecords": {
+    "description": "Maintenance records stat card title"
+  },
+  "homeScreen": "Beranda",
+  "@homeScreen": {
+    "description": "Home screen title"
+  },
+  "issueReportDeleteIssueReport": "Hapus Laporan Masalah",
+  "@issueReportDeleteIssueReport": {
+    "description": "Dialog title for deleting an issue report"
+  },
+  "issueReportDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@issueReportDeleteConfirmation": {
+    "description": "Confirmation message for deleting an issue report",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Hardware failure"
+      }
+    }
+  },
+  "issueReportCancel": "Batal",
+  "@issueReportCancel": {
+    "description": "Cancel button label"
+  },
+  "issueReportDelete": "Hapus",
+  "@issueReportDelete": {
+    "description": "Delete button label"
+  },
+  "issueReportDetail": "Detail Laporan Masalah",
+  "@issueReportDetail": {
+    "description": "Issue report detail screen title"
+  },
+  "issueReportInformation": "Informasi Laporan Masalah",
+  "@issueReportInformation": {
+    "description": "Issue report information section title"
+  },
+  "issueReportTitle": "Judul",
+  "@issueReportTitle": {
+    "description": "Title label"
+  },
+  "issueReportDescription": "Deskripsi",
+  "@issueReportDescription": {
+    "description": "Description label"
+  },
+  "issueReportAsset": "Aset",
+  "@issueReportAsset": {
+    "description": "Asset label"
+  },
+  "issueReportIssueType": "Jenis Masalah",
+  "@issueReportIssueType": {
+    "description": "Issue type label"
+  },
+  "issueReportPriority": "Prioritas",
+  "@issueReportPriority": {
+    "description": "Priority label"
+  },
+  "issueReportStatus": "Status",
+  "@issueReportStatus": {
+    "description": "Status label"
+  },
+  "issueReportReportedBy": "Dilaporkan Oleh",
+  "@issueReportReportedBy": {
+    "description": "Reported by label"
+  },
+  "issueReportReportedDate": "Tanggal Dilaporkan",
+  "@issueReportReportedDate": {
+    "description": "Reported date label"
+  },
+  "issueReportResolvedDate": "Tanggal Diselesaikan",
+  "@issueReportResolvedDate": {
+    "description": "Resolved date label"
+  },
+  "issueReportResolvedBy": "Diselesaikan Oleh",
+  "@issueReportResolvedBy": {
+    "description": "Resolved by label"
+  },
+  "issueReportResolutionNotes": "Catatan Resolusi",
+  "@issueReportResolutionNotes": {
+    "description": "Resolution notes label"
+  },
+  "issueReportMetadata": "Metadata",
+  "@issueReportMetadata": {
+    "description": "Metadata section title"
+  },
+  "issueReportCreatedAt": "Dibuat Pada",
+  "@issueReportCreatedAt": {
+    "description": "Created at label"
+  },
+  "issueReportUpdatedAt": "Diperbarui Pada",
+  "@issueReportUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "issueReportOnlyAdminCanEdit": "Hanya admin yang dapat mengedit laporan masalah",
+  "@issueReportOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "issueReportOnlyAdminCanDelete": "Hanya admin yang dapat menghapus laporan masalah",
+  "@issueReportOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "issueReportFailedToLoad": "Gagal memuat laporan masalah",
+  "@issueReportFailedToLoad": {
+    "description": "Error message when issue report fails to load"
+  },
+  "issueReportDeletedSuccess": "Laporan masalah dihapus",
+  "@issueReportDeletedSuccess": {
+    "description": "Success message for issue report deletion"
+  },
+  "issueReportDeletedFailed": "Gagal menghapus",
+  "@issueReportDeletedFailed": {
+    "description": "Error message for issue report deletion failure"
+  },
+  "issueReportUnknownAsset": "Aset Tidak Diketahui",
+  "@issueReportUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "issueReportUnknownUser": "Pengguna Tidak Diketahui",
+  "@issueReportUnknownUser": {
+    "description": "Unknown user placeholder"
+  },
+  "issueReportEditIssueReport": "Edit Laporan Masalah",
+  "@issueReportEditIssueReport": {
+    "description": "Edit issue report screen title"
+  },
+  "issueReportCreateIssueReport": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReport": {
+    "description": "Create issue report screen title"
+  },
+  "issueReportFillRequiredFields": "Harap isi semua field yang wajib",
+  "@issueReportFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "issueReportSavedSuccessfully": "Laporan masalah berhasil disimpan",
+  "@issueReportSavedSuccessfully": {
+    "description": "Success message for issue report save"
+  },
+  "issueReportOperationFailed": "Operasi gagal",
+  "@issueReportOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "issueReportFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@issueReportFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "issueReportSearchAsset": "Cari dan pilih aset",
+  "@issueReportSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "issueReportSearchReportedBy": "Cari dan pilih pengguna yang melaporkan masalah",
+  "@issueReportSearchReportedBy": {
+    "description": "Reported by search placeholder"
+  },
+  "issueReportEnterIssueType": "Masukkan jenis masalah (contoh: Hardware, Software)",
+  "@issueReportEnterIssueType": {
+    "description": "Issue type input placeholder"
+  },
+  "issueReportSelectPriority": "Pilih prioritas",
+  "@issueReportSelectPriority": {
+    "description": "Priority dropdown placeholder"
+  },
+  "issueReportSelectStatus": "Pilih status",
+  "@issueReportSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "issueReportSearchResolvedBy": "Cari dan pilih pengguna yang menyelesaikan masalah",
+  "@issueReportSearchResolvedBy": {
+    "description": "Resolved by search placeholder"
+  },
+  "issueReportTranslations": "Terjemahan",
+  "@issueReportTranslations": {
+    "description": "Translations section title"
+  },
+  "issueReportEnglish": "Inggris",
+  "@issueReportEnglish": {
+    "description": "English language label"
+  },
+  "issueReportJapanese": "Jepang",
+  "@issueReportJapanese": {
+    "description": "Japanese language label"
+  },
+  "issueReportEnterTitleIn": "Masukkan judul dalam {language}",
+  "@issueReportEnterTitleIn": {
+    "description": "Title input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterDescriptionIn": "Masukkan deskripsi dalam {language}",
+  "@issueReportEnterDescriptionIn": {
+    "description": "Description input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportEnterResolutionNotesIn": "Masukkan catatan resolusi dalam {language}",
+  "@issueReportEnterResolutionNotesIn": {
+    "description": "Resolution notes input placeholder with language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "issueReportUpdate": "Perbarui",
+  "@issueReportUpdate": {
+    "description": "Update button label"
+  },
+  "issueReportCreate": "Buat",
+  "@issueReportCreate": {
+    "description": "Create button label"
+  },
+  "issueReportManagement": "Manajemen Laporan Masalah",
+  "@issueReportManagement": {
+    "description": "Issue report management screen title"
+  },
+  "issueReportCreateIssueReportTitle": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReportTitle": {
+    "description": "Create issue report option title"
+  },
+  "issueReportCreateIssueReportSubtitle": "Tambah laporan masalah baru",
+  "@issueReportCreateIssueReportSubtitle": {
+    "description": "Create issue report option subtitle"
+  },
+  "issueReportSelectManyTitle": "Pilih Banyak",
+  "@issueReportSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "issueReportSelectManySubtitle": "Pilih beberapa laporan masalah untuk dihapus",
+  "@issueReportSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "issueReportFilterAndSortTitle": "Filter & Urutkan",
+  "@issueReportFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "issueReportFilterAndSortSubtitle": "Sesuaikan tampilan laporan masalah",
+  "@issueReportFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "issueReportSelectIssueReportsToDelete": "Pilih laporan masalah untuk dihapus",
+  "@issueReportSelectIssueReportsToDelete": {
+    "description": "Instruction for selecting issue reports to delete"
+  },
+  "issueReportDeleteIssueReports": "Hapus Laporan Masalah",
+  "@issueReportDeleteIssueReports": {
+    "description": "Delete issue reports dialog title"
+  },
+  "issueReportDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} laporan masalah?",
+  "@issueReportDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple issue reports",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "issueReportNoIssueReportsSelected": "Tidak ada laporan masalah yang dipilih",
+  "@issueReportNoIssueReportsSelected": {
+    "description": "Warning message when no issue reports are selected"
+  },
+  "issueReportNotImplementedYet": "Belum diimplementasikan",
+  "@issueReportNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "issueReportSelectedCount": "{count} dipilih",
+  "@issueReportSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "issueReportSearchIssueReports": "Cari laporan masalah...",
+  "@issueReportSearchIssueReports": {
+    "description": "Issue reports search placeholder"
+  },
+  "issueReportNoIssueReportsFound": "Tidak ada laporan masalah ditemukan",
+  "@issueReportNoIssueReportsFound": {
+    "description": "No issue reports found message"
+  },
+  "issueReportCreateFirstIssueReport": "Buat laporan masalah pertama Anda untuk memulai",
+  "@issueReportCreateFirstIssueReport": {
+    "description": "Empty state message for issue reports"
+  },
+  "issueReportLongPressToSelect": "Tekan lama untuk memilih lebih banyak laporan masalah",
+  "@issueReportLongPressToSelect": {
+    "description": "Instruction for selecting multiple issue reports"
+  },
+  "issueReportFilterByAsset": "Filter berdasarkan Aset",
+  "@issueReportFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "issueReportFilterByReportedBy": "Filter berdasarkan Dilaporkan Oleh",
+  "@issueReportFilterByReportedBy": {
+    "description": "Filter by reported by label"
+  },
+  "issueReportFilterByResolvedBy": "Filter berdasarkan Diselesaikan Oleh",
+  "@issueReportFilterByResolvedBy": {
+    "description": "Filter by resolved by label"
+  },
+  "issueReportSearchAssetFilter": "Cari aset...",
+  "@issueReportSearchAssetFilter": {
+    "description": "Asset filter search placeholder"
+  },
+  "issueReportSearchUserFilter": "Cari pengguna...",
+  "@issueReportSearchUserFilter": {
+    "description": "User filter search placeholder"
+  },
+  "issueReportEnterIssueTypeFilter": "Masukkan jenis masalah...",
+  "@issueReportEnterIssueTypeFilter": {
+    "description": "Issue type filter input placeholder"
+  },
+  "issueReportSortBy": "Urutkan Berdasarkan",
+  "@issueReportSortBy": {
+    "description": "Sort by label"
+  },
+  "issueReportSortOrder": "Urutan",
+  "@issueReportSortOrder": {
+    "description": "Sort order label"
+  },
+  "issueReportIsResolved": "Sudah Diselesaikan",
+  "@issueReportIsResolved": {
+    "description": "Is resolved checkbox label"
+  },
+  "issueReportDateFrom": "Tanggal Dari",
+  "@issueReportDateFrom": {
+    "description": "Date from label"
+  },
+  "issueReportDateTo": "Tanggal Sampai",
+  "@issueReportDateTo": {
+    "description": "Date to label"
+  },
+  "issueReportReset": "Reset",
+  "@issueReportReset": {
+    "description": "Reset button label"
+  },
+  "issueReportApply": "Terapkan",
+  "@issueReportApply": {
+    "description": "Apply button label"
+  },
+  "issueReportFilterReset": "Filter direset",
+  "@issueReportFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "issueReportFilterApplied": "Filter diterapkan",
+  "@issueReportFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "issueReportMyIssueReports": "Laporan Masalah Saya",
+  "@issueReportMyIssueReports": {
+    "description": "My issue reports screen title"
+  },
+  "issueReportSearchMyIssueReports": "Cari laporan masalah saya...",
+  "@issueReportSearchMyIssueReports": {
+    "description": "My issue reports search placeholder"
+  },
+  "issueReportFiltersAndSorting": "Filter & Pengurutan",
+  "@issueReportFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "issueReportApplyFilters": "Terapkan Filter",
+  "@issueReportApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "issueReportFiltersApplied": "Filter Diterapkan",
+  "@issueReportFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "issueReportFilterAndSort": "Filter & Urutkan",
+  "@issueReportFilterAndSort": {
+    "description": "Filter and sort button label"
+  },
+  "issueReportNoIssueReportsFoundEmpty": "Tidak ada laporan masalah ditemukan",
+  "@issueReportNoIssueReportsFoundEmpty": {
+    "description": "Empty state message for my issue reports"
+  },
+  "issueReportYouHaveNoReportedIssues": "Anda tidak memiliki laporan masalah",
+  "@issueReportYouHaveNoReportedIssues": {
+    "description": "Empty state subtitle for my issue reports"
+  },
+  "issueReportCreateIssueReportTooltip": "Buat Laporan Masalah",
+  "@issueReportCreateIssueReportTooltip": {
+    "description": "Create issue report floating action button tooltip"
+  },
+  "issueReportValidationAssetRequired": "Aset wajib diisi",
+  "@issueReportValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "issueReportValidationReportedByRequired": "Dilaporkan oleh wajib diisi",
+  "@issueReportValidationReportedByRequired": {
+    "description": "Validation error for required reported by"
+  },
+  "issueReportValidationIssueTypeRequired": "Jenis masalah wajib diisi",
+  "@issueReportValidationIssueTypeRequired": {
+    "description": "Validation error for required issue type"
+  },
+  "issueReportValidationIssueTypeMaxLength": "Jenis masalah maksimal 100 karakter",
+  "@issueReportValidationIssueTypeMaxLength": {
+    "description": "Validation error for issue type maximum length"
+  },
+  "issueReportValidationPriorityRequired": "Prioritas wajib diisi",
+  "@issueReportValidationPriorityRequired": {
+    "description": "Validation error for required priority"
+  },
+  "issueReportValidationStatusRequired": "Status wajib diisi",
+  "@issueReportValidationStatusRequired": {
+    "description": "Validation error for required status"
+  },
+  "issueReportValidationTitleRequired": "Judul wajib diisi",
+  "@issueReportValidationTitleRequired": {
+    "description": "Validation error for required title"
+  },
+  "issueReportValidationTitleMaxLength": "Judul maksimal 200 karakter",
+  "@issueReportValidationTitleMaxLength": {
+    "description": "Validation error for title maximum length"
+  },
+  "issueReportValidationDescriptionMaxLength": "Deskripsi maksimal 1000 karakter",
+  "@issueReportValidationDescriptionMaxLength": {
+    "description": "Validation error for description maximum length"
+  },
+  "issueReportValidationResolutionNotesMaxLength": "Catatan resolusi maksimal 1000 karakter",
+  "@issueReportValidationResolutionNotesMaxLength": {
+    "description": "Validation error for resolution notes maximum length"
+  },
+  "locationDeleteLocation": "Hapus Lokasi",
+  "@locationDeleteLocation": {
+    "description": "Dialog title for deleting a location"
+  },
+  "locationDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{locationName}\"?",
+  "@locationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a location",
+    "placeholders": {
+      "locationName": {
+        "type": "String",
+        "example": "Main Office"
+      }
+    }
+  },
+  "locationCancel": "Batal",
+  "@locationCancel": {
+    "description": "Cancel button label"
+  },
+  "locationDelete": "Hapus",
+  "@locationDelete": {
+    "description": "Delete button label"
+  },
+  "locationDetail": "Detail Lokasi",
+  "@locationDetail": {
+    "description": "Location detail screen title"
+  },
+  "locationInformation": "Informasi Lokasi",
+  "@locationInformation": {
+    "description": "Location information section title"
+  },
+  "locationCode": "Kode Lokasi",
+  "@locationCode": {
+    "description": "Location code label"
+  },
+  "locationName": "Nama Lokasi",
+  "@locationName": {
+    "description": "Location name label"
+  },
+  "locationBuilding": "Gedung",
+  "@locationBuilding": {
+    "description": "Building label"
+  },
+  "locationFloor": "Lantai",
+  "@locationFloor": {
+    "description": "Floor label"
+  },
+  "locationLatitude": "Lintang",
+  "@locationLatitude": {
+    "description": "Latitude label"
+  },
+  "locationLongitude": "Bujur",
+  "@locationLongitude": {
+    "description": "Longitude label"
+  },
+  "locationMetadata": "Metadata",
+  "@locationMetadata": {
+    "description": "Metadata section title"
+  },
+  "locationCreatedAt": "Dibuat Pada",
+  "@locationCreatedAt": {
+    "description": "Created at label"
+  },
+  "locationUpdatedAt": "Diperbarui Pada",
+  "@locationUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "locationOnlyAdminCanEdit": "Hanya admin yang dapat mengedit lokasi",
+  "@locationOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "locationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus lokasi",
+  "@locationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "locationFailedToLoad": "Gagal memuat lokasi",
+  "@locationFailedToLoad": {
+    "description": "Error message when location fails to load"
+  },
+  "locationDeleted": "Lokasi dihapus",
+  "@locationDeleted": {
+    "description": "Success message for location deletion"
+  },
+  "locationDeleteFailed": "Gagal menghapus",
+  "@locationDeleteFailed": {
+    "description": "Error message for location deletion failure"
+  },
+  "locationEditLocation": "Edit Lokasi",
+  "@locationEditLocation": {
+    "description": "Edit location screen title"
+  },
+  "locationCreateLocation": "Buat Lokasi",
+  "@locationCreateLocation": {
+    "description": "Create location screen title"
+  },
+  "locationFillRequiredFields": "Harap isi semua field yang wajib",
+  "@locationFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "locationSavedSuccessfully": "Lokasi berhasil disimpan",
+  "@locationSavedSuccessfully": {
+    "description": "Success message for location save"
+  },
+  "locationOperationFailed": "Operasi gagal",
+  "@locationOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "locationFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@locationFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "locationEnterLocationCode": "Masukkan kode lokasi (contoh: LOC-001)",
+  "@locationEnterLocationCode": {
+    "description": "Location code input placeholder"
+  },
+  "locationBuildingOptional": "Gedung (Opsional)",
+  "@locationBuildingOptional": {
+    "description": "Building input label"
+  },
+  "locationEnterBuilding": "Masukkan nama gedung",
+  "@locationEnterBuilding": {
+    "description": "Building input placeholder"
+  },
+  "locationFloorOptional": "Lantai (Opsional)",
+  "@locationFloorOptional": {
+    "description": "Floor input label"
+  },
+  "locationEnterFloor": "Masukkan nomor lantai",
+  "@locationEnterFloor": {
+    "description": "Floor input placeholder"
+  },
+  "locationLatitudeOptional": "Lintang (Opsional)",
+  "@locationLatitudeOptional": {
+    "description": "Latitude input label"
+  },
+  "locationEnterLatitude": "Masukkan lintang",
+  "@locationEnterLatitude": {
+    "description": "Latitude input placeholder"
+  },
+  "locationLongitudeOptional": "Bujur (Opsional)",
+  "@locationLongitudeOptional": {
+    "description": "Longitude input label"
+  },
+  "locationEnterLongitude": "Masukkan bujur",
+  "@locationEnterLongitude": {
+    "description": "Longitude input placeholder"
+  },
+  "locationGettingLocation": "Mendapatkan Lokasi...",
+  "@locationGettingLocation": {
+    "description": "Getting location button text when loading"
+  },
+  "locationUseCurrentLocation": "Gunakan Lokasi Saat Ini",
+  "@locationUseCurrentLocation": {
+    "description": "Use current location button label"
+  },
+  "locationServicesDisabled": "Layanan lokasi dinonaktifkan",
+  "@locationServicesDisabled": {
+    "description": "Warning message for disabled location services"
+  },
+  "locationServicesDialogTitle": "Layanan Lokasi Dinonaktifkan",
+  "@locationServicesDialogTitle": {
+    "description": "Location services dialog title"
+  },
+  "locationServicesDialogMessage": "Layanan lokasi diperlukan untuk mendapatkan lokasi Anda saat ini. Apakah Anda ingin mengaktifkannya?",
+  "@locationServicesDialogMessage": {
+    "description": "Location services dialog message"
+  },
+  "locationOpenSettings": "Buka Pengaturan",
+  "@locationOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "locationPermissionDenied": "Izin lokasi ditolak",
+  "@locationPermissionDenied": {
+    "description": "Error message for denied permission"
+  },
+  "locationPermissionPermanentlyDenied": "Izin lokasi ditolak secara permanen",
+  "@locationPermissionPermanentlyDenied": {
+    "description": "Error message for permanently denied permission"
+  },
+  "locationPermissionRequired": "Izin Diperlukan",
+  "@locationPermissionRequired": {
+    "description": "Permission required dialog title"
+  },
+  "locationPermissionDialogMessage": "Izin lokasi ditolak secara permanen. Silakan aktifkan di pengaturan aplikasi.",
+  "@locationPermissionDialogMessage": {
+    "description": "Permission dialog message"
+  },
+  "locationRetrievedSuccessfully": "Lokasi saat ini berhasil didapatkan",
+  "@locationRetrievedSuccessfully": {
+    "description": "Success message for getting current location"
+  },
+  "locationFailedToGetCurrent": "Gagal mendapatkan lokasi saat ini",
+  "@locationFailedToGetCurrent": {
+    "description": "Error message for failed location retrieval"
+  },
+  "locationTranslations": "Terjemahan",
+  "@locationTranslations": {
+    "description": "Translations section title"
+  },
+  "locationTranslationsSubtitle": "Tambahkan terjemahan untuk bahasa yang berbeda",
+  "@locationTranslationsSubtitle": {
+    "description": "Translations section subtitle"
+  },
+  "locationEnglish": "Inggris",
+  "@locationEnglish": {
+    "description": "English language label"
+  },
+  "locationJapanese": "Jepang",
+  "@locationJapanese": {
+    "description": "Japanese language label"
+  },
+  "locationEnterLocationName": "Masukkan nama lokasi",
+  "@locationEnterLocationName": {
+    "description": "Location name input placeholder"
+  },
+  "locationUpdate": "Perbarui",
+  "@locationUpdate": {
+    "description": "Update button label"
+  },
+  "locationCreate": "Buat",
+  "@locationCreate": {
+    "description": "Create button label"
+  },
+  "locationManagement": "Manajemen Lokasi",
+  "@locationManagement": {
+    "description": "Location management screen title"
+  },
+  "locationCreateLocationTitle": "Buat Lokasi",
+  "@locationCreateLocationTitle": {
+    "description": "Create location option title"
+  },
+  "locationCreateLocationSubtitle": "Tambah lokasi baru",
+  "@locationCreateLocationSubtitle": {
+    "description": "Create location option subtitle"
+  },
+  "locationSelectManyTitle": "Pilih Banyak",
+  "@locationSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "locationSelectManySubtitle": "Pilih beberapa lokasi untuk dihapus",
+  "@locationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "locationFilterAndSortTitle": "Filter & Urutkan",
+  "@locationFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "locationFilterAndSortSubtitle": "Sesuaikan tampilan lokasi",
+  "@locationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "locationSelectLocationsToDelete": "Pilih lokasi untuk dihapus",
+  "@locationSelectLocationsToDelete": {
+    "description": "Instruction for selecting locations to delete"
+  },
+  "locationSortBy": "Urutkan Berdasarkan",
+  "@locationSortBy": {
+    "description": "Sort by label"
+  },
+  "locationSortOrder": "Urutan",
+  "@locationSortOrder": {
+    "description": "Sort order label"
+  },
+  "locationReset": "Reset",
+  "@locationReset": {
+    "description": "Reset button label"
+  },
+  "locationApply": "Terapkan",
+  "@locationApply": {
+    "description": "Apply button label"
+  },
+  "locationFilterReset": "Filter direset",
+  "@locationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "locationFilterApplied": "Filter diterapkan",
+  "@locationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "locationDeleteLocations": "Hapus Lokasi",
+  "@locationDeleteLocations": {
+    "description": "Delete locations dialog title"
+  },
+  "locationDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} lokasi?",
+  "@locationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple locations",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "locationNoLocationsSelected": "Tidak ada lokasi yang dipilih",
+  "@locationNoLocationsSelected": {
+    "description": "Warning message when no locations are selected"
+  },
+  "locationNotImplementedYet": "Belum diimplementasikan",
+  "@locationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "locationSelectedCount": "{count} dipilih",
+  "@locationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "locationSearchLocations": "Cari lokasi...",
+  "@locationSearchLocations": {
+    "description": "Locations search placeholder"
+  },
+  "locationNoLocationsFound": "Tidak ada lokasi ditemukan",
+  "@locationNoLocationsFound": {
+    "description": "No locations found message"
+  },
+  "locationCreateFirstLocation": "Buat lokasi pertama Anda untuk memulai",
+  "@locationCreateFirstLocation": {
+    "description": "Empty state message for locations"
+  },
+  "locationLongPressToSelect": "Tekan lama untuk memilih lebih banyak lokasi",
+  "@locationLongPressToSelect": {
+    "description": "Instruction for selecting multiple locations"
+  },
+  "locationFloorPrefix": "Lantai {floor}",
+  "@locationFloorPrefix": {
+    "description": "Floor prefix display",
+    "placeholders": {
+      "floor": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
+  "locationValidationCodeRequired": "Kode lokasi wajib diisi",
+  "@locationValidationCodeRequired": {
+    "description": "Validation error for required location code"
+  },
+  "locationValidationCodeMinLength": "Kode lokasi minimal 2 karakter",
+  "@locationValidationCodeMinLength": {
+    "description": "Validation error for location code minimum length"
+  },
+  "locationValidationCodeMaxLength": "Kode lokasi maksimal 20 karakter",
+  "@locationValidationCodeMaxLength": {
+    "description": "Validation error for location code maximum length"
+  },
+  "locationValidationCodeAlphanumeric": "Kode lokasi hanya boleh mengandung huruf, angka, dan tanda hubung",
+  "@locationValidationCodeAlphanumeric": {
+    "description": "Validation error for location code format"
+  },
+  "locationValidationNameRequired": "Nama lokasi wajib diisi",
+  "@locationValidationNameRequired": {
+    "description": "Validation error for required location name"
+  },
+  "locationValidationNameMinLength": "Nama lokasi minimal 3 karakter",
+  "@locationValidationNameMinLength": {
+    "description": "Validation error for location name minimum length"
+  },
+  "locationValidationNameMaxLength": "Nama lokasi maksimal 100 karakter",
+  "@locationValidationNameMaxLength": {
+    "description": "Validation error for location name maximum length"
+  },
+  "locationValidationBuildingMaxLength": "Gedung maksimal 50 karakter",
+  "@locationValidationBuildingMaxLength": {
+    "description": "Validation error for building maximum length"
+  },
+  "locationValidationFloorMaxLength": "Lantai maksimal 20 karakter",
+  "@locationValidationFloorMaxLength": {
+    "description": "Validation error for floor maximum length"
+  },
+  "locationValidationLatitudeInvalid": "Lintang harus berupa angka valid",
+  "@locationValidationLatitudeInvalid": {
+    "description": "Validation error for invalid latitude"
+  },
+  "locationValidationLatitudeRange": "Lintang harus antara -90 dan 90",
+  "@locationValidationLatitudeRange": {
+    "description": "Validation error for latitude range"
+  },
+  "locationValidationLongitudeInvalid": "Bujur harus berupa angka valid",
+  "@locationValidationLongitudeInvalid": {
+    "description": "Validation error for invalid longitude"
+  },
+  "locationValidationLongitudeRange": "Bujur harus antara -180 dan 180",
+  "@locationValidationLongitudeRange": {
+    "description": "Validation error for longitude range"
+  },
+  "locationNotFound": "Lokasi tidak ditemukan",
+  "@locationNotFound": {
+    "description": "Error message when location search returns no results"
+  },
+  "locationSearchFailed": "Pencarian gagal",
+  "@locationSearchFailed": {
+    "description": "Error message when location search fails"
+  },
+  "locationConfirmLocation": "Konfirmasi Lokasi",
+  "@locationConfirmLocation": {
+    "description": "Button text to confirm selected location on map"
+  },
+  "locationSelectedFromMap": "Lokasi dipilih dari peta",
+  "@locationSelectedFromMap": {
+    "description": "Success message when location is selected from map picker"
+  },
+  "locationSearchLocation": "Cari lokasi...",
+  "@locationSearchLocation": {
+    "description": "Search input placeholder for location"
+  },
+  "locationPickFromMap": "Pilih dari peta",
+  "@locationPickFromMap": {
+    "description": "Button text to pick location from map"
+  },
+  "maintenanceScheduleDeleteSchedule": "Hapus Jadwal Pemeliharaan",
+  "@maintenanceScheduleDeleteSchedule": {
+    "description": "Dialog title for deleting a maintenance schedule"
+  },
+  "maintenanceScheduleDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@maintenanceScheduleDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance schedule",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Monthly Equipment Check"
+      }
+    }
+  },
+  "maintenanceScheduleDeleted": "Jadwal pemeliharaan dihapus",
+  "@maintenanceScheduleDeleted": {
+    "description": "Success message for schedule deletion"
+  },
+  "maintenanceScheduleDeleteFailed": "Gagal menghapus",
+  "@maintenanceScheduleDeleteFailed": {
+    "description": "Error message for schedule deletion failure"
+  },
+  "maintenanceScheduleDetail": "Detail Jadwal Pemeliharaan",
+  "@maintenanceScheduleDetail": {
+    "description": "Schedule detail screen title"
+  },
+  "maintenanceScheduleInformation": "Informasi Jadwal Pemeliharaan",
+  "@maintenanceScheduleInformation": {
+    "description": "Schedule information section title"
+  },
+  "maintenanceScheduleTitle": "Judul",
+  "@maintenanceScheduleTitle": {
+    "description": "Title label"
+  },
+  "maintenanceScheduleDescription": "Deskripsi",
+  "@maintenanceScheduleDescription": {
+    "description": "Description label"
+  },
+  "maintenanceScheduleAsset": "Aset",
+  "@maintenanceScheduleAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceScheduleMaintenanceType": "Jenis Pemeliharaan",
+  "@maintenanceScheduleMaintenanceType": {
+    "description": "Maintenance type label"
+  },
+  "maintenanceScheduleIsRecurring": "Berulang",
+  "@maintenanceScheduleIsRecurring": {
+    "description": "Is recurring label"
+  },
+  "maintenanceScheduleInterval": "Interval",
+  "@maintenanceScheduleInterval": {
+    "description": "Interval label"
+  },
+  "maintenanceScheduleScheduledTime": "Waktu Terjadwal",
+  "@maintenanceScheduleScheduledTime": {
+    "description": "Scheduled time label"
+  },
+  "maintenanceScheduleNextScheduledDate": "Tanggal Terjadwal Berikutnya",
+  "@maintenanceScheduleNextScheduledDate": {
+    "description": "Next scheduled date label"
+  },
+  "maintenanceScheduleLastExecutedDate": "Tanggal Eksekusi Terakhir",
+  "@maintenanceScheduleLastExecutedDate": {
+    "description": "Last executed date label"
+  },
+  "maintenanceScheduleState": "Status",
+  "@maintenanceScheduleState": {
+    "description": "State label"
+  },
+  "maintenanceScheduleAutoComplete": "Selesai Otomatis",
+  "@maintenanceScheduleAutoComplete": {
+    "description": "Auto complete label"
+  },
+  "maintenanceScheduleEstimatedCost": "Estimasi Biaya",
+  "@maintenanceScheduleEstimatedCost": {
+    "description": "Estimated cost label"
+  },
+  "maintenanceScheduleCreatedBy": "Dibuat Oleh",
+  "@maintenanceScheduleCreatedBy": {
+    "description": "Created by label"
+  },
+  "maintenanceScheduleYes": "Ya",
+  "@maintenanceScheduleYes": {
+    "description": "Yes value"
+  },
+  "maintenanceScheduleNo": "Tidak",
+  "@maintenanceScheduleNo": {
+    "description": "No value"
+  },
+  "maintenanceScheduleUnknownAsset": "Aset Tidak Diketahui",
+  "@maintenanceScheduleUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceScheduleUnknownUser": "Pengguna Tidak Diketahui",
+  "@maintenanceScheduleUnknownUser": {
+    "description": "Unknown user text"
+  },
+  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin yang dapat mengedit jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin yang dapat menghapus jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceScheduleFailedToLoad": "Gagal memuat jadwal pemeliharaan",
+  "@maintenanceScheduleFailedToLoad": {
+    "description": "Error message when schedule fails to load"
+  },
+  "maintenanceScheduleEditSchedule": "Edit Jadwal Pemeliharaan",
+  "@maintenanceScheduleEditSchedule": {
+    "description": "Edit schedule screen title"
+  },
+  "maintenanceScheduleCreateSchedule": "Buat Jadwal Pemeliharaan",
+  "@maintenanceScheduleCreateSchedule": {
+    "description": "Create schedule screen title"
+  },
+  "maintenanceScheduleFillRequiredFields": "Harap isi semua field yang wajib",
+  "@maintenanceScheduleFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceScheduleSavedSuccessfully": "Jadwal pemeliharaan berhasil disimpan",
+  "@maintenanceScheduleSavedSuccessfully": {
+    "description": "Success message for schedule save"
+  },
+  "maintenanceScheduleOperationFailed": "Operasi gagal",
+  "@maintenanceScheduleOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceScheduleFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@maintenanceScheduleFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceScheduleSearchAsset": "Cari dan pilih aset",
+  "@maintenanceScheduleSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceScheduleSelectMaintenanceType": "Pilih jenis pemeliharaan",
+  "@maintenanceScheduleSelectMaintenanceType": {
+    "description": "Maintenance type dropdown placeholder"
+  },
+  "maintenanceScheduleEnterIntervalValue": "Masukkan nilai interval (contoh: 3)",
+  "@maintenanceScheduleEnterIntervalValue": {
+    "description": "Interval value input placeholder"
+  },
+  "maintenanceScheduleSelectIntervalUnit": "Pilih unit interval",
+  "@maintenanceScheduleSelectIntervalUnit": {
+    "description": "Interval unit dropdown placeholder"
+  },
+  "maintenanceScheduleEnterScheduledTime": "contoh: 09:30",
+  "@maintenanceScheduleEnterScheduledTime": {
+    "description": "Scheduled time input placeholder"
+  },
+  "maintenanceScheduleSelectState": "Pilih status",
+  "@maintenanceScheduleSelectState": {
+    "description": "State dropdown placeholder"
+  },
+  "maintenanceScheduleEnterEstimatedCost": "Masukkan estimasi biaya (opsional)",
+  "@maintenanceScheduleEnterEstimatedCost": {
+    "description": "Estimated cost input placeholder"
+  },
+  "maintenanceScheduleSearchUser": "Cari dan pilih pengguna yang membuat jadwal",
+  "@maintenanceScheduleSearchUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceScheduleTranslations": "Terjemahan",
+  "@maintenanceScheduleTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceScheduleEnglish": "Inggris",
+  "@maintenanceScheduleEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceScheduleJapanese": "Jepang",
+  "@maintenanceScheduleJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceScheduleEnterTitle": "Masukkan judul dalam {language}",
+  "@maintenanceScheduleEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleEnterDescription": "Masukkan deskripsi dalam {language}",
+  "@maintenanceScheduleEnterDescription": {
+    "description": "Description input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleCancel": "Batal",
+  "@maintenanceScheduleCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceScheduleUpdate": "Perbarui",
+  "@maintenanceScheduleUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceScheduleCreate": "Buat",
+  "@maintenanceScheduleCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceScheduleManagement": "Manajemen Jadwal Pemeliharaan",
+  "@maintenanceScheduleManagement": {
+    "description": "Schedule management screen title"
+  },
+  "maintenanceScheduleCreateTitle": "Buat Jadwal Pemeliharaan",
+  "@maintenanceScheduleCreateTitle": {
+    "description": "Create schedule option title"
+  },
+  "maintenanceScheduleCreateSubtitle": "Tambah jadwal pemeliharaan baru",
+  "@maintenanceScheduleCreateSubtitle": {
+    "description": "Create schedule option subtitle"
+  },
+  "maintenanceScheduleSelectManyTitle": "Pilih Banyak",
+  "@maintenanceScheduleSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceScheduleSelectManySubtitle": "Pilih beberapa jadwal untuk dihapus",
+  "@maintenanceScheduleSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceScheduleFilterAndSortTitle": "Filter & Urutkan",
+  "@maintenanceScheduleFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceScheduleFilterAndSortSubtitle": "Sesuaikan tampilan jadwal",
+  "@maintenanceScheduleFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceScheduleSelectToDelete": "Pilih jadwal pemeliharaan untuk dihapus",
+  "@maintenanceScheduleSelectToDelete": {
+    "description": "Instruction for selecting schedules to delete"
+  },
+  "maintenanceScheduleSortBy": "Urutkan Berdasarkan",
+  "@maintenanceScheduleSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceScheduleSortOrder": "Urutan",
+  "@maintenanceScheduleSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceScheduleReset": "Reset",
+  "@maintenanceScheduleReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceScheduleApply": "Terapkan",
+  "@maintenanceScheduleApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceScheduleFilterReset": "Filter direset",
+  "@maintenanceScheduleFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceScheduleFilterApplied": "Filter diterapkan",
+  "@maintenanceScheduleFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceScheduleDeleteSchedules": "Hapus Jadwal",
+  "@maintenanceScheduleDeleteSchedules": {
+    "description": "Delete schedules dialog title"
+  },
+  "maintenanceScheduleDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} jadwal?",
+  "@maintenanceScheduleDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple schedules",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceScheduleNoSchedulesSelected": "Tidak ada jadwal yang dipilih",
+  "@maintenanceScheduleNoSchedulesSelected": {
+    "description": "Warning message when no schedules are selected"
+  },
+  "maintenanceScheduleNotImplementedYet": "Belum diimplementasikan",
+  "@maintenanceScheduleNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceScheduleSelectedCount": "{count} dipilih",
+  "@maintenanceScheduleSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceScheduleDelete": "Hapus",
+  "@maintenanceScheduleDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceScheduleSearch": "Cari jadwal...",
+  "@maintenanceScheduleSearch": {
+    "description": "Schedules search placeholder"
+  },
+  "maintenanceScheduleNoSchedulesFound": "Tidak ada jadwal ditemukan",
+  "@maintenanceScheduleNoSchedulesFound": {
+    "description": "No schedules found message"
+  },
+  "maintenanceScheduleCreateFirstSchedule": "Buat jadwal pertama Anda untuk memulai",
+  "@maintenanceScheduleCreateFirstSchedule": {
+    "description": "Empty state message for schedules"
+  },
+  "maintenanceScheduleLongPressToSelect": "Tekan lama untuk memilih lebih banyak jadwal",
+  "@maintenanceScheduleLongPressToSelect": {
+    "description": "Instruction for selecting multiple schedules"
+  },
+  "maintenanceScheduleMetadata": "Metadata",
+  "@maintenanceScheduleMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceScheduleCreatedAt": "Dibuat Pada",
+  "@maintenanceScheduleCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceScheduleUpdatedAt": "Diperbarui Pada",
+  "@maintenanceScheduleUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceScheduleIntervalValueLabel": "Nilai Interval",
+  "@maintenanceScheduleIntervalValueLabel": {
+    "description": "Interval value field label"
+  },
+  "maintenanceScheduleIntervalUnitLabel": "Unit Interval",
+  "@maintenanceScheduleIntervalUnitLabel": {
+    "description": "Interval unit field label"
+  },
+  "maintenanceScheduleScheduledTimeLabel": "Waktu Terjadwal (JJ:mm)",
+  "@maintenanceScheduleScheduledTimeLabel": {
+    "description": "Scheduled time field label"
+  },
+  "maintenanceRecordDeleteRecord": "Hapus Catatan Pemeliharaan",
+  "@maintenanceRecordDeleteRecord": {
+    "description": "Dialog title for deleting a maintenance record"
+  },
+  "maintenanceRecordDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@maintenanceRecordDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance record",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Equipment Repair"
+      }
+    }
+  },
+  "maintenanceRecordDeleted": "Catatan pemeliharaan dihapus",
+  "@maintenanceRecordDeleted": {
+    "description": "Success message for record deletion"
+  },
+  "maintenanceRecordDeleteFailed": "Gagal menghapus",
+  "@maintenanceRecordDeleteFailed": {
+    "description": "Error message for record deletion failure"
+  },
+  "maintenanceRecordDetail": "Detail Catatan Pemeliharaan",
+  "@maintenanceRecordDetail": {
+    "description": "Record detail screen title"
+  },
+  "maintenanceRecordInformation": "Informasi Catatan Pemeliharaan",
+  "@maintenanceRecordInformation": {
+    "description": "Record information section title"
+  },
+  "maintenanceRecordTitle": "Judul",
+  "@maintenanceRecordTitle": {
+    "description": "Title label"
+  },
+  "maintenanceRecordNotes": "Catatan",
+  "@maintenanceRecordNotes": {
+    "description": "Notes label"
+  },
+  "maintenanceRecordAsset": "Aset",
+  "@maintenanceRecordAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceRecordMaintenanceDate": "Tanggal Pemeliharaan",
+  "@maintenanceRecordMaintenanceDate": {
+    "description": "Maintenance date label"
+  },
+  "maintenanceRecordCompletionDate": "Tanggal Selesai",
+  "@maintenanceRecordCompletionDate": {
+    "description": "Completion date label"
+  },
+  "maintenanceRecordDuration": "Durasi",
+  "@maintenanceRecordDuration": {
+    "description": "Duration label"
+  },
+  "maintenanceRecordDurationMinutes": "{minutes} menit",
+  "@maintenanceRecordDurationMinutes": {
+    "description": "Duration in minutes format",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "maintenanceRecordPerformedByUser": "Dilakukan Oleh Pengguna",
+  "@maintenanceRecordPerformedByUser": {
+    "description": "Performed by user label"
+  },
+  "maintenanceRecordPerformedByVendor": "Dilakukan Oleh Vendor",
+  "@maintenanceRecordPerformedByVendor": {
+    "description": "Performed by vendor label"
+  },
+  "maintenanceRecordResult": "Hasil",
+  "@maintenanceRecordResult": {
+    "description": "Result label"
+  },
+  "maintenanceRecordActualCost": "Biaya Aktual",
+  "@maintenanceRecordActualCost": {
+    "description": "Actual cost label"
+  },
+  "maintenanceRecordActualCostValue": "${cost}",
+  "@maintenanceRecordActualCostValue": {
+    "description": "Actual cost value format",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "example": "1500.00"
+      }
+    }
+  },
+  "maintenanceRecordUnknownAsset": "Aset Tidak Diketahui",
+  "@maintenanceRecordUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin yang dapat mengedit catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin yang dapat menghapus catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceRecordFailedToLoad": "Gagal memuat catatan pemeliharaan",
+  "@maintenanceRecordFailedToLoad": {
+    "description": "Error message when record fails to load"
+  },
+  "maintenanceRecordEditRecord": "Edit Catatan Pemeliharaan",
+  "@maintenanceRecordEditRecord": {
+    "description": "Edit record screen title"
+  },
+  "maintenanceRecordCreateRecord": "Buat Catatan Pemeliharaan",
+  "@maintenanceRecordCreateRecord": {
+    "description": "Create record screen title"
+  },
+  "maintenanceRecordFillRequiredFields": "Harap isi semua field yang wajib",
+  "@maintenanceRecordFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceRecordSavedSuccessfully": "Catatan pemeliharaan berhasil disimpan",
+  "@maintenanceRecordSavedSuccessfully": {
+    "description": "Success message for record save"
+  },
+  "maintenanceRecordOperationFailed": "Operasi gagal",
+  "@maintenanceRecordOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceRecordFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@maintenanceRecordFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceRecordSearchSchedule": "Cari dan pilih jadwal pemeliharaan",
+  "@maintenanceRecordSearchSchedule": {
+    "description": "Schedule search placeholder"
+  },
+  "maintenanceRecordSearchAsset": "Cari dan pilih aset",
+  "@maintenanceRecordSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceRecordCompletionDateOptional": "Tanggal Selesai (Opsional)",
+  "@maintenanceRecordCompletionDateOptional": {
+    "description": "Completion date field label"
+  },
+  "maintenanceRecordDurationMinutesLabel": "Durasi (Menit)",
+  "@maintenanceRecordDurationMinutesLabel": {
+    "description": "Duration field label"
+  },
+  "maintenanceRecordEnterDuration": "Masukkan durasi dalam menit (opsional)",
+  "@maintenanceRecordEnterDuration": {
+    "description": "Duration input placeholder"
+  },
+  "maintenanceRecordSearchPerformedByUser": "Cari dan pilih pengguna yang melakukan pemeliharaan",
+  "@maintenanceRecordSearchPerformedByUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceRecordPerformedByVendorLabel": "Dilakukan Oleh Vendor",
+  "@maintenanceRecordPerformedByVendorLabel": {
+    "description": "Vendor field label"
+  },
+  "maintenanceRecordEnterVendor": "Masukkan nama vendor (opsional)",
+  "@maintenanceRecordEnterVendor": {
+    "description": "Vendor input placeholder"
+  },
+  "maintenanceRecordSelectResult": "Pilih hasil pemeliharaan",
+  "@maintenanceRecordSelectResult": {
+    "description": "Result dropdown placeholder"
+  },
+  "maintenanceRecordActualCostLabel": "Biaya Aktual",
+  "@maintenanceRecordActualCostLabel": {
+    "description": "Actual cost field label"
+  },
+  "maintenanceRecordEnterActualCost": "Masukkan biaya aktual (opsional)",
+  "@maintenanceRecordEnterActualCost": {
+    "description": "Actual cost input placeholder"
+  },
+  "maintenanceRecordTranslations": "Terjemahan",
+  "@maintenanceRecordTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceRecordEnglish": "Inggris",
+  "@maintenanceRecordEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceRecordJapanese": "Jepang",
+  "@maintenanceRecordJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceRecordEnterTitle": "Masukkan judul dalam {language}",
+  "@maintenanceRecordEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordEnterNotes": "Masukkan catatan dalam {language}",
+  "@maintenanceRecordEnterNotes": {
+    "description": "Notes input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordCancel": "Batal",
+  "@maintenanceRecordCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceRecordUpdate": "Perbarui",
+  "@maintenanceRecordUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceRecordCreate": "Buat",
+  "@maintenanceRecordCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceRecordManagement": "Manajemen Catatan Pemeliharaan",
+  "@maintenanceRecordManagement": {
+    "description": "Record management screen title"
+  },
+  "maintenanceRecordCreateTitle": "Buat Catatan Pemeliharaan",
+  "@maintenanceRecordCreateTitle": {
+    "description": "Create record option title"
+  },
+  "maintenanceRecordCreateSubtitle": "Tambah catatan pemeliharaan baru",
+  "@maintenanceRecordCreateSubtitle": {
+    "description": "Create record option subtitle"
+  },
+  "maintenanceRecordSelectManyTitle": "Pilih Banyak",
+  "@maintenanceRecordSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceRecordSelectManySubtitle": "Pilih beberapa catatan untuk dihapus",
+  "@maintenanceRecordSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceRecordFilterAndSortTitle": "Filter & Urutkan",
+  "@maintenanceRecordFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceRecordFilterAndSortSubtitle": "Sesuaikan tampilan catatan",
+  "@maintenanceRecordFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceRecordSelectToDelete": "Pilih catatan pemeliharaan untuk dihapus",
+  "@maintenanceRecordSelectToDelete": {
+    "description": "Instruction for selecting records to delete"
+  },
+  "maintenanceRecordSortBy": "Urutkan Berdasarkan",
+  "@maintenanceRecordSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceRecordSortOrder": "Urutan",
+  "@maintenanceRecordSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceRecordReset": "Reset",
+  "@maintenanceRecordReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceRecordApply": "Terapkan",
+  "@maintenanceRecordApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceRecordFilterReset": "Filter direset",
+  "@maintenanceRecordFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceRecordFilterApplied": "Filter diterapkan",
+  "@maintenanceRecordFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceRecordDeleteRecords": "Hapus Catatan",
+  "@maintenanceRecordDeleteRecords": {
+    "description": "Delete records dialog title"
+  },
+  "maintenanceRecordDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} catatan?",
+  "@maintenanceRecordDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple records",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceRecordNoRecordsSelected": "Tidak ada catatan yang dipilih",
+  "@maintenanceRecordNoRecordsSelected": {
+    "description": "Warning message when no records are selected"
+  },
+  "maintenanceRecordNotImplementedYet": "Belum diimplementasikan",
+  "@maintenanceRecordNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceRecordSelectedCount": "{count} dipilih",
+  "@maintenanceRecordSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceRecordDelete": "Hapus",
+  "@maintenanceRecordDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceRecordSearch": "Cari catatan...",
+  "@maintenanceRecordSearch": {
+    "description": "Records search placeholder"
+  },
+  "maintenanceRecordNoRecordsFound": "Tidak ada catatan ditemukan",
+  "@maintenanceRecordNoRecordsFound": {
+    "description": "No records found message"
+  },
+  "maintenanceRecordCreateFirstRecord": "Buat catatan pertama Anda untuk memulai",
+  "@maintenanceRecordCreateFirstRecord": {
+    "description": "Empty state message for records"
+  },
+  "maintenanceRecordLongPressToSelect": "Tekan lama untuk memilih lebih banyak catatan",
+  "@maintenanceRecordLongPressToSelect": {
+    "description": "Instruction for selecting multiple records"
+  },
+  "maintenanceRecordMetadata": "Metadata",
+  "@maintenanceRecordMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceRecordCreatedAt": "Dibuat Pada",
+  "@maintenanceRecordCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceRecordUpdatedAt": "Diperbarui Pada",
+  "@maintenanceRecordUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceRecordSchedule": "Jadwal Pemeliharaan",
+  "@maintenanceRecordSchedule": {
+    "description": "Schedule label"
+  },
+  "notificationManagement": "Manajemen Notifikasi",
+  "@notificationManagement": {
+    "description": "Notification management screen title"
+  },
+  "notificationDetail": "Detail Notifikasi",
+  "@notificationDetail": {
+    "description": "Notification detail screen title"
+  },
+  "notificationMyNotifications": "Notifikasi Saya",
+  "@notificationMyNotifications": {
+    "description": "My notifications screen title"
+  },
+  "notificationDeleteNotification": "Hapus Notifikasi",
+  "@notificationDeleteNotification": {
+    "description": "Dialog title for deleting a notification"
+  },
+  "notificationDeleteConfirmation": "Apakah Anda yakin ingin menghapus notifikasi ini?",
+  "@notificationDeleteConfirmation": {
+    "description": "Confirmation message for deleting a notification"
+  },
+  "notificationDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} notifikasi?",
+  "@notificationDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple notifications",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationCancel": "Batal",
+  "@notificationCancel": {
+    "description": "Cancel button label"
+  },
+  "notificationDelete": "Hapus",
+  "@notificationDelete": {
+    "description": "Delete button label"
+  },
+  "notificationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus notifikasi",
+  "@notificationOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "notificationDeleted": "Notifikasi dihapus",
+  "@notificationDeleted": {
+    "description": "Success message for notification deletion"
+  },
+  "notificationDeleteFailed": "Gagal menghapus",
+  "@notificationDeleteFailed": {
+    "description": "Error message for notification deletion failure"
+  },
+  "notificationFailedToLoad": "Gagal memuat notifikasi",
+  "@notificationFailedToLoad": {
+    "description": "Error message when notification fails to load"
+  },
+  "notificationInformation": "Informasi Notifikasi",
+  "@notificationInformation": {
+    "description": "Notification information section title"
+  },
+  "notificationTitle": "Judul",
+  "@notificationTitle": {
+    "description": "Title label"
+  },
+  "notificationMessage": "Pesan",
+  "@notificationMessage": {
+    "description": "Message label"
+  },
+  "notificationType": "Jenis",
+  "@notificationType": {
+    "description": "Type label"
+  },
+  "notificationPriority": "Prioritas",
+  "@notificationPriority": {
+    "description": "Priority label"
+  },
+  "notificationIsRead": "Sudah Dibaca",
+  "@notificationIsRead": {
+    "description": "Is read label"
+  },
+  "notificationReadStatus": "Status Baca",
+  "@notificationReadStatus": {
+    "description": "Read status label"
+  },
+  "notificationRead": "Dibaca",
+  "@notificationRead": {
+    "description": "Read status value"
+  },
+  "notificationUnread": "Belum Dibaca",
+  "@notificationUnread": {
+    "description": "Unread status value"
+  },
+  "notificationYes": "Ya",
+  "@notificationYes": {
+    "description": "Yes label"
+  },
+  "notificationNo": "Tidak",
+  "@notificationNo": {
+    "description": "No label"
+  },
+  "notificationCreatedAt": "Dibuat Pada",
+  "@notificationCreatedAt": {
+    "description": "Created at label"
+  },
+  "notificationExpiresAt": "Kadaluarsa Pada",
+  "@notificationExpiresAt": {
+    "description": "Expires at label"
+  },
+  "notificationSearchNotifications": "Cari notifikasi...",
+  "@notificationSearchNotifications": {
+    "description": "Notifications search placeholder"
+  },
+  "notificationSearchMyNotifications": "Cari notifikasi saya...",
+  "@notificationSearchMyNotifications": {
+    "description": "My notifications search placeholder"
+  },
+  "notificationNoNotificationsFound": "Tidak ada notifikasi ditemukan",
+  "@notificationNoNotificationsFound": {
+    "description": "No notifications found message"
+  },
+  "notificationNoNotificationsYet": "Anda tidak memiliki notifikasi",
+  "@notificationNoNotificationsYet": {
+    "description": "Empty state message for user notifications"
+  },
+  "notificationCreateFirstNotification": "Buat notifikasi pertama Anda untuk memulai",
+  "@notificationCreateFirstNotification": {
+    "description": "Empty state message for notifications"
+  },
+  "notificationCreateNotification": "Buat Notifikasi",
+  "@notificationCreateNotification": {
+    "description": "Create notification option title"
+  },
+  "notificationCreateNotificationSubtitle": "Tambah notifikasi baru",
+  "@notificationCreateNotificationSubtitle": {
+    "description": "Create notification option subtitle"
+  },
+  "notificationSelectMany": "Pilih Banyak",
+  "@notificationSelectMany": {
+    "description": "Select many option title"
+  },
+  "notificationSelectManySubtitle": "Pilih beberapa notifikasi untuk dihapus",
+  "@notificationSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "notificationFilterAndSort": "Filter & Urutkan",
+  "@notificationFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "notificationFilterAndSortSubtitle": "Sesuaikan tampilan notifikasi",
+  "@notificationFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "notificationFiltersAndSorting": "Filter & Pengurutan",
+  "@notificationFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "notificationSelectNotificationsToDelete": "Pilih notifikasi untuk dihapus",
+  "@notificationSelectNotificationsToDelete": {
+    "description": "Instruction for selecting notifications to delete"
+  },
+  "notificationLongPressToSelect": "Tekan lama untuk memilih lebih banyak notifikasi",
+  "@notificationLongPressToSelect": {
+    "description": "Instruction for selecting multiple notifications"
+  },
+  "notificationSelectedCount": "{count} dipilih",
+  "@notificationSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationNoNotificationsSelected": "Tidak ada notifikasi yang dipilih",
+  "@notificationNoNotificationsSelected": {
+    "description": "Warning message when no notifications are selected"
+  },
+  "notificationFilterByUser": "Filter berdasarkan Pengguna",
+  "@notificationFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "notificationFilterByRelatedAsset": "Filter berdasarkan Aset Terkait",
+  "@notificationFilterByRelatedAsset": {
+    "description": "Filter by related asset label"
+  },
+  "notificationSearchUser": "Cari pengguna...",
+  "@notificationSearchUser": {
+    "description": "User search placeholder"
+  },
+  "notificationSearchAsset": "Cari aset...",
+  "@notificationSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "notificationSortBy": "Urutkan Berdasarkan",
+  "@notificationSortBy": {
+    "description": "Sort by label"
+  },
+  "notificationSortOrder": "Urutan",
+  "@notificationSortOrder": {
+    "description": "Sort order label"
+  },
+  "notificationReset": "Reset",
+  "@notificationReset": {
+    "description": "Reset button label"
+  },
+  "notificationApply": "Terapkan",
+  "@notificationApply": {
+    "description": "Apply button label"
+  },
+  "notificationApplyFilters": "Terapkan Filter",
+  "@notificationApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "notificationFilterReset": "Filter direset",
+  "@notificationFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "notificationFilterApplied": "Filter diterapkan",
+  "@notificationFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "notificationFiltersApplied": "Filter Diterapkan",
+  "@notificationFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "notificationNotImplementedYet": "Belum diimplementasikan",
+  "@notificationNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "notificationJustNow": "Baru saja",
+  "@notificationJustNow": {
+    "description": "Time ago for just now"
+  },
+  "notificationMinutesAgo": "{minutes}m yang lalu",
+  "@notificationMinutesAgo": {
+    "description": "Time ago in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationHoursAgo": "{hours}j yang lalu",
+  "@notificationHoursAgo": {
+    "description": "Time ago in hours",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "notificationDaysAgo": "{days}h yang lalu",
+  "@notificationDaysAgo": {
+    "description": "Time ago in days",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "notificationMarkAsRead": "Tandai Dibaca",
+  "@notificationMarkAsRead": {
+    "description": "Mark as read option"
+  },
+  "notificationMarkAsUnread": "Tandai Belum Dibaca",
+  "@notificationMarkAsUnread": {
+    "description": "Mark as unread option"
+  },
+  "notificationMarkedAsRead": "{count} ditandai dibaca",
+  "@notificationMarkedAsRead": {
+    "description": "Success message for marking notifications as read",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "notificationMarkedAsUnread": "{count} ditandai belum dibaca",
+  "@notificationMarkedAsUnread": {
+    "description": "Success message for marking notifications as unread",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogManagement": "Manajemen Log Pemindaian",
+  "@scanLogManagement": {
+    "description": "Scan log management screen title"
+  },
+  "scanLogDetail": "Detail Log Pemindaian",
+  "@scanLogDetail": {
+    "description": "Scan log detail screen title"
+  },
+  "scanLogDeleteScanLog": "Hapus Log Pemindaian",
+  "@scanLogDeleteScanLog": {
+    "description": "Dialog title for deleting a scan log"
+  },
+  "scanLogDeleteConfirmation": "Apakah Anda yakin ingin menghapus log pemindaian ini?",
+  "@scanLogDeleteConfirmation": {
+    "description": "Confirmation message for deleting a scan log"
+  },
+  "scanLogDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} log pemindaian?",
+  "@scanLogDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple scan logs",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "scanLogCancel": "Batal",
+  "@scanLogCancel": {
+    "description": "Cancel button label"
+  },
+  "scanLogDelete": "Hapus",
+  "@scanLogDelete": {
+    "description": "Delete button label"
+  },
+  "scanLogOnlyAdminCanDelete": "Hanya admin yang dapat menghapus log pemindaian",
+  "@scanLogOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "scanLogDeleted": "Log pemindaian dihapus",
+  "@scanLogDeleted": {
+    "description": "Success message for scan log deletion"
+  },
+  "scanLogDeleteFailed": "Gagal menghapus",
+  "@scanLogDeleteFailed": {
+    "description": "Error message for scan log deletion failure"
+  },
+  "scanLogFailedToLoad": "Gagal memuat log pemindaian",
+  "@scanLogFailedToLoad": {
+    "description": "Error message when scan log fails to load"
+  },
+  "scanLogInformation": "Informasi Pemindaian",
+  "@scanLogInformation": {
+    "description": "Scan information section title"
+  },
+  "scanLogScannedValue": "Nilai yang Dipindai",
+  "@scanLogScannedValue": {
+    "description": "Scanned value label"
+  },
+  "scanLogScanMethod": "Metode Pemindaian",
+  "@scanLogScanMethod": {
+    "description": "Scan method label"
+  },
+  "scanLogScanResult": "Hasil Pemindaian",
+  "@scanLogScanResult": {
+    "description": "Scan result label"
+  },
+  "scanLogScanTimestamp": "Waktu Pemindaian",
+  "@scanLogScanTimestamp": {
+    "description": "Scan timestamp label"
+  },
+  "scanLogLocation": "Lokasi",
+  "@scanLogLocation": {
+    "description": "Location label"
+  },
+  "scanLogSearchScanLogs": "Cari log pemindaian...",
+  "@scanLogSearchScanLogs": {
+    "description": "Scan logs search placeholder"
+  },
+  "scanLogNoScanLogsFound": "Tidak ada log pemindaian ditemukan",
+  "@scanLogNoScanLogsFound": {
+    "description": "No scan logs found message"
+  },
+  "scanLogCreateFirstScanLog": "Buat log pemindaian pertama Anda untuk memulai",
+  "@scanLogCreateFirstScanLog": {
+    "description": "Empty state message for scan logs"
+  },
+  "scanLogCreateScanLog": "Buat Log Pemindaian",
+  "@scanLogCreateScanLog": {
+    "description": "Create scan log option title"
+  },
+  "scanLogCreateScanLogSubtitle": "Tambah log pemindaian baru",
+  "@scanLogCreateScanLogSubtitle": {
+    "description": "Create scan log option subtitle"
+  },
+  "scanLogSelectMany": "Pilih Banyak",
+  "@scanLogSelectMany": {
+    "description": "Select many option title"
+  },
+  "scanLogSelectManySubtitle": "Pilih beberapa log pemindaian untuk dihapus",
+  "@scanLogSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "scanLogFilterAndSort": "Filter & Urutkan",
+  "@scanLogFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "scanLogFilterAndSortSubtitle": "Sesuaikan tampilan log pemindaian",
+  "@scanLogFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "scanLogFiltersAndSorting": "Filter & Pengurutan",
+  "@scanLogFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "scanLogSelectScanLogsToDelete": "Pilih log pemindaian untuk dihapus",
+  "@scanLogSelectScanLogsToDelete": {
+    "description": "Instruction for selecting scan logs to delete"
+  },
+  "scanLogLongPressToSelect": "Tekan lama untuk memilih lebih banyak log pemindaian",
+  "@scanLogLongPressToSelect": {
+    "description": "Instruction for selecting multiple scan logs"
+  },
+  "scanLogSelectedCount": "{count} dipilih",
+  "@scanLogSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "scanLogNoScanLogsSelected": "Tidak ada log pemindaian yang dipilih",
+  "@scanLogNoScanLogsSelected": {
+    "description": "Warning message when no scan logs are selected"
+  },
+  "scanLogFilterByAsset": "Filter berdasarkan Aset",
+  "@scanLogFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "scanLogFilterByScannedBy": "Filter berdasarkan Dipindai Oleh",
+  "@scanLogFilterByScannedBy": {
+    "description": "Filter by scanned by label"
+  },
+  "scanLogSearchAsset": "Cari aset...",
+  "@scanLogSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "scanLogSearchUser": "Cari pengguna...",
+  "@scanLogSearchUser": {
+    "description": "User search placeholder"
+  },
+  "scanLogSortBy": "Urutkan Berdasarkan",
+  "@scanLogSortBy": {
+    "description": "Sort by label"
+  },
+  "scanLogSortOrder": "Urutan",
+  "@scanLogSortOrder": {
+    "description": "Sort order label"
+  },
+  "scanLogHasCoordinates": "Memiliki Koordinat",
+  "@scanLogHasCoordinates": {
+    "description": "Has coordinates checkbox label"
+  },
+  "scanLogDateFrom": "Tanggal Dari",
+  "@scanLogDateFrom": {
+    "description": "Date from label"
+  },
+  "scanLogDateTo": "Tanggal Sampai",
+  "@scanLogDateTo": {
+    "description": "Date to label"
+  },
+  "scanLogReset": "Reset",
+  "@scanLogReset": {
+    "description": "Reset button label"
+  },
+  "scanLogApply": "Terapkan",
+  "@scanLogApply": {
+    "description": "Apply button label"
+  },
+  "scanLogFilterReset": "Filter direset",
+  "@scanLogFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "scanLogFilterApplied": "Filter diterapkan",
+  "@scanLogFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "scanLogNotImplementedYet": "Belum diimplementasikan",
+  "@scanLogNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "userManagement": "Manajemen Pengguna",
+  "@userManagement": {
+    "description": "User management screen title"
+  },
+  "userCreateUser": "Buat Pengguna",
+  "@userCreateUser": {
+    "description": "Create user option title"
+  },
+  "userAddNewUser": "Tambah pengguna baru",
+  "@userAddNewUser": {
+    "description": "Create user option subtitle"
+  },
+  "userSelectMany": "Pilih Banyak",
+  "@userSelectMany": {
+    "description": "Select many option title"
+  },
+  "userSelectMultipleToDelete": "Pilih beberapa pengguna untuk dihapus",
+  "@userSelectMultipleToDelete": {
+    "description": "Select many option subtitle"
+  },
+  "userFilterAndSort": "Filter & Urutkan",
+  "@userFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "userCustomizeDisplay": "Sesuaikan tampilan pengguna",
+  "@userCustomizeDisplay": {
+    "description": "Filter and sort option subtitle"
+  },
+  "userFilters": "Filter",
+  "@userFilters": {
+    "description": "Filters section title"
+  },
+  "userRole": "Peran",
+  "@userRole": {
+    "description": "Role label"
+  },
+  "userEmployeeId": "ID Karyawan",
+  "@userEmployeeId": {
+    "description": "Employee ID label"
+  },
+  "userEnterEmployeeId": "Masukkan ID karyawan...",
+  "@userEnterEmployeeId": {
+    "description": "Employee ID input placeholder"
+  },
+  "userActiveStatus": "Status Aktif",
+  "@userActiveStatus": {
+    "description": "Active status label"
+  },
+  "userActive": "Aktif",
+  "@userActive": {
+    "description": "Active status value"
+  },
+  "userInactive": "Tidak Aktif",
+  "@userInactive": {
+    "description": "Inactive status value"
+  },
+  "userSort": "Urutkan",
+  "@userSort": {
+    "description": "Sort section title"
+  },
+  "userSortBy": "Urutkan Berdasarkan",
+  "@userSortBy": {
+    "description": "Sort by label"
+  },
+  "userSortOrder": "Urutan",
+  "@userSortOrder": {
+    "description": "Sort order label"
+  },
+  "userAscending": "Naik",
+  "@userAscending": {
+    "description": "Ascending sort order"
+  },
+  "userDescending": "Turun",
+  "@userDescending": {
+    "description": "Descending sort order"
+  },
+  "userReset": "Reset",
+  "@userReset": {
+    "description": "Reset button label"
+  },
+  "userApply": "Terapkan",
+  "@userApply": {
+    "description": "Apply button label"
+  },
+  "userFilterReset": "Filter direset",
+  "@userFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "userFilterApplied": "Filter diterapkan",
+  "@userFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "userSelectUsersToDelete": "Pilih pengguna untuk dihapus",
+  "@userSelectUsersToDelete": {
+    "description": "Select mode instruction"
+  },
+  "userDeleteUsers": "Hapus Pengguna",
+  "@userDeleteUsers": {
+    "description": "Delete users dialog title"
+  },
+  "userDeleteConfirmation": "Apakah Anda yakin ingin menghapus {count} pengguna?",
+  "@userDeleteConfirmation": {
+    "description": "Delete confirmation message",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userCancel": "Batal",
+  "@userCancel": {
+    "description": "Cancel button label"
+  },
+  "userDelete": "Hapus",
+  "@userDelete": {
+    "description": "Delete button label"
+  },
+  "userNoUsersSelected": "Tidak ada pengguna yang dipilih",
+  "@userNoUsersSelected": {
+    "description": "No users selected warning"
+  },
+  "userNotImplementedYet": "Belum diimplementasikan",
+  "@userNotImplementedYet": {
+    "description": "Not implemented message"
+  },
+  "userSelectedCount": "{count} dipilih",
+  "@userSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "userSearchUsers": "Cari pengguna...",
+  "@userSearchUsers": {
+    "description": "Search users placeholder"
+  },
+  "userNoUsersFound": "Tidak ada pengguna ditemukan",
+  "@userNoUsersFound": {
+    "description": "No users found message"
+  },
+  "userCreateFirstUser": "Buat pengguna pertama Anda untuk memulai",
+  "@userCreateFirstUser": {
+    "description": "Empty state message"
+  },
+  "userLongPressToSelect": "Tekan lama untuk memilih lebih banyak pengguna",
+  "@userLongPressToSelect": {
+    "description": "Long press instruction"
+  },
+  "userEditUser": "Edit Pengguna",
+  "@userEditUser": {
+    "description": "Edit user screen title"
+  },
+  "userPleaseFixErrors": "Harap perbaiki semua kesalahan",
+  "@userPleaseFixErrors": {
+    "description": "Form validation error message"
+  },
+  "userPleaseSelectRole": "Harap pilih peran",
+  "@userPleaseSelectRole": {
+    "description": "Role validation message"
+  },
+  "userPleaseValidateFields": "Harap isi semua field yang wajib",
+  "@userPleaseValidateFields": {
+    "description": "Required fields validation message"
+  },
+  "userSavedSuccessfully": "Pengguna berhasil disimpan",
+  "@userSavedSuccessfully": {
+    "description": "User save success message"
+  },
+  "userOperationFailed": "Operasi gagal",
+  "@userOperationFailed": {
+    "description": "Operation failed message"
+  },
+  "userInformation": "Informasi Pengguna",
+  "@userInformation": {
+    "description": "User information section title"
+  },
+  "userUsername": "Nama Pengguna",
+  "@userUsername": {
+    "description": "Username label"
+  },
+  "userEnterUsername": "Masukkan nama pengguna",
+  "@userEnterUsername": {
+    "description": "Username input placeholder"
+  },
+  "userEmail": "Email",
+  "@userEmail": {
+    "description": "Email label"
+  },
+  "userEnterEmail": "Masukkan email",
+  "@userEnterEmail": {
+    "description": "Email input placeholder"
+  },
+  "userPassword": "Kata Sandi",
+  "@userPassword": {
+    "description": "Password label"
+  },
+  "userEnterPassword": "Masukkan kata sandi",
+  "@userEnterPassword": {
+    "description": "Password input placeholder"
+  },
+  "userFullName": "Nama Lengkap",
+  "@userFullName": {
+    "description": "Full name label"
+  },
+  "userEnterFullName": "Masukkan nama lengkap",
+  "@userEnterFullName": {
+    "description": "Full name input placeholder"
+  },
+  "userSelectRole": "Pilih peran",
+  "@userSelectRole": {
+    "description": "Role dropdown placeholder"
+  },
+  "userEmployeeIdOptional": "ID Karyawan (Opsional)",
+  "@userEmployeeIdOptional": {
+    "description": "Employee ID optional label"
+  },
+  "userEnterEmployeeIdOptional": "Masukkan ID karyawan",
+  "@userEnterEmployeeIdOptional": {
+    "description": "Employee ID input placeholder"
+  },
+  "userPreferredLanguage": "Bahasa Pilihan (Opsional)",
+  "@userPreferredLanguage": {
+    "description": "Preferred language label"
+  },
+  "userSelectLanguage": "Pilih bahasa",
+  "@userSelectLanguage": {
+    "description": "Language dropdown placeholder"
+  },
+  "userUpdate": "Perbarui",
+  "@userUpdate": {
+    "description": "Update button label"
+  },
+  "userCreate": "Buat",
+  "@userCreate": {
+    "description": "Create button label"
+  },
+  "userDetail": "Detail Pengguna",
+  "@userDetail": {
+    "description": "User detail screen title"
+  },
+  "userOnlyAdminCanEdit": "Hanya admin yang dapat mengedit pengguna",
+  "@userOnlyAdminCanEdit": {
+    "description": "Admin only edit warning"
+  },
+  "userDeleteUser": "Hapus Pengguna",
+  "@userDeleteUser": {
+    "description": "Delete user dialog title"
+  },
+  "userDeleteSingleConfirmation": "Apakah Anda yakin ingin menghapus \"{fullName}\"?",
+  "@userDeleteSingleConfirmation": {
+    "description": "Delete single user confirmation",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
+  },
+  "userOnlyAdminCanDelete": "Hanya admin yang dapat menghapus pengguna",
+  "@userOnlyAdminCanDelete": {
+    "description": "Admin only delete warning"
+  },
+  "userDeleted": "Pengguna dihapus",
+  "@userDeleted": {
+    "description": "User deleted success message"
+  },
+  "userDeleteFailed": "Gagal menghapus",
+  "@userDeleteFailed": {
+    "description": "Delete failed error message"
+  },
+  "userName": "Nama",
+  "@userName": {
+    "description": "Name label"
+  },
+  "userPreferredLang": "Bahasa Pilihan",
+  "@userPreferredLang": {
+    "description": "Preferred language label"
+  },
+  "userYes": "Ya",
+  "@userYes": {
+    "description": "Yes text"
+  },
+  "userNo": "Tidak",
+  "@userNo": {
+    "description": "No text"
+  },
+  "userMetadata": "Metadata",
+  "@userMetadata": {
+    "description": "Metadata section title"
+  },
+  "userCreatedAt": "Dibuat Pada",
+  "@userCreatedAt": {
+    "description": "Created at label"
+  },
+  "userUpdatedAt": "Diperbarui Pada",
+  "@userUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "userFailedToLoad": "Gagal memuat pengguna",
+  "@userFailedToLoad": {
+    "description": "Failed to load error message"
+  },
+  "userFailedToLoadProfile": "Gagal memuat profil",
+  "@userFailedToLoadProfile": {
+    "description": "Failed to load profile error"
+  },
+  "userPersonalInformation": "Informasi Pribadi",
+  "@userPersonalInformation": {
+    "description": "Personal information section title"
+  },
+  "userAccountDetails": "Detail Akun",
+  "@userAccountDetails": {
+    "description": "Account details section title"
+  },
+  "userStatus": "Status",
+  "@userStatus": {
+    "description": "Status label"
+  },
+  "userUpdateProfile": "Perbarui Profil",
+  "@userUpdateProfile": {
+    "description": "Update profile screen title"
+  },
+  "userNoUserData": "Tidak ada data pengguna tersedia",
+  "@userNoUserData": {
+    "description": "No user data message"
+  },
+  "userProfileInformation": "Informasi Profil",
+  "@userProfileInformation": {
+    "description": "Profile information section title"
+  },
+  "userProfilePicture": "Foto Profil",
+  "@userProfilePicture": {
+    "description": "Profile picture label"
+  },
+  "userChooseImage": "Pilih gambar",
+  "@userChooseImage": {
+    "description": "Choose image button text"
+  },
+  "userProfileUpdatedSuccessfully": "Profil berhasil diperbarui",
+  "@userProfileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  },
+  "adminShellBottomNavDashboard": "Dasbor",
+  "@adminShellBottomNavDashboard": {
+    "description": "Admin shell bottom navigation label for dashboard"
+  },
+  "adminShellBottomNavScanAsset": "Pindai Aset",
+  "@adminShellBottomNavScanAsset": {
+    "description": "Admin shell bottom navigation label for scan asset"
+  },
+  "adminShellBottomNavProfile": "Profil",
+  "@adminShellBottomNavProfile": {
+    "description": "Admin shell bottom navigation label for profile"
+  },
+  "userShellBottomNavHome": "Beranda",
+  "@userShellBottomNavHome": {
+    "description": "User shell bottom navigation label for home"
+  },
+  "userShellBottomNavScanAsset": "Pindai Aset",
+  "@userShellBottomNavScanAsset": {
+    "description": "User shell bottom navigation label for scan asset"
+  },
+  "userShellBottomNavProfile": "Profil",
+  "@userShellBottomNavProfile": {
+    "description": "User shell bottom navigation label for profile"
+  },
+  "appEndDrawerTitle": "Sigma Track",
+  "@appEndDrawerTitle": {
+    "description": "App end drawer title"
+  },
+  "appEndDrawerPleaseLoginFirst": "Silakan login terlebih dahulu",
+  "@appEndDrawerPleaseLoginFirst": {
+    "description": "Message shown when user needs to login"
+  },
+  "appEndDrawerTheme": "Tema",
+  "@appEndDrawerTheme": {
+    "description": "Theme settings label"
+  },
+  "appEndDrawerLanguage": "Bahasa",
+  "@appEndDrawerLanguage": {
+    "description": "Language settings label"
+  },
+  "appEndDrawerLogout": "Keluar",
+  "@appEndDrawerLogout": {
+    "description": "Logout button label"
+  },
+  "appEndDrawerManagementSection": "Manajemen",
+  "@appEndDrawerManagementSection": {
+    "description": "Management section header"
+  },
+  "appEndDrawerMaintenanceSection": "Pemeliharaan",
+  "@appEndDrawerMaintenanceSection": {
+    "description": "Maintenance section header"
+  },
+  "appEndDrawerEnglish": "English",
+  "@appEndDrawerEnglish": {
+    "description": "English language option"
+  },
+  "appEndDrawerIndonesian": "Indonesia",
+  "@appEndDrawerIndonesian": {
+    "description": "Indonesian language option"
+  },
+  "appEndDrawerJapanese": "日本語",
+  "@appEndDrawerJapanese": {
+    "description": "Japanese language option"
+  },
+  "appEndDrawerMyAssets": "Aset Saya",
+  "@appEndDrawerMyAssets": {
+    "description": "My assets menu item"
+  },
+  "appEndDrawerNotifications": "Notifikasi",
+  "@appEndDrawerNotifications": {
+    "description": "Notifications menu item"
+  },
+  "appEndDrawerMyIssueReports": "Laporan Masalah Saya",
+  "@appEndDrawerMyIssueReports": {
+    "description": "My issue reports menu item"
+  },
+  "appEndDrawerAssets": "Aset",
+  "@appEndDrawerAssets": {
+    "description": "Assets menu item"
+  },
+  "appEndDrawerAssetMovements": "Perpindahan Aset",
+  "@appEndDrawerAssetMovements": {
+    "description": "Asset movements menu item"
+  },
+  "appEndDrawerCategories": "Kategori",
+  "@appEndDrawerCategories": {
+    "description": "Categories menu item"
+  },
+  "appEndDrawerLocations": "Lokasi",
+  "@appEndDrawerLocations": {
+    "description": "Locations menu item"
+  },
+  "appEndDrawerUsers": "Pengguna",
+  "@appEndDrawerUsers": {
+    "description": "Users menu item"
+  },
+  "appEndDrawerMaintenanceSchedules": "Jadwal Pemeliharaan",
+  "@appEndDrawerMaintenanceSchedules": {
+    "description": "Maintenance schedules menu item"
+  },
+  "appEndDrawerMaintenanceRecords": "Catatan Pemeliharaan",
+  "@appEndDrawerMaintenanceRecords": {
+    "description": "Maintenance records menu item"
+  },
+  "appEndDrawerReports": "Laporan",
+  "@appEndDrawerReports": {
+    "description": "Reports menu item"
+  },
+  "appEndDrawerIssueReports": "Laporan Masalah",
+  "@appEndDrawerIssueReports": {
+    "description": "Issue reports menu item"
+  },
+  "appEndDrawerScanLogs": "Log Pemindaian",
+  "@appEndDrawerScanLogs": {
+    "description": "Scan logs menu item"
+  },
+  "appEndDrawerScanAsset": "Pindai Aset",
+  "@appEndDrawerScanAsset": {
+    "description": "Scan asset menu item"
+  },
+  "appEndDrawerDashboard": "Dasbor",
+  "@appEndDrawerDashboard": {
+    "description": "Dashboard menu item"
+  },
+  "appEndDrawerHome": "Beranda",
+  "@appEndDrawerHome": {
+    "description": "Home menu item"
+  },
+  "appEndDrawerProfile": "Profil",
+  "@appEndDrawerProfile": {
+    "description": "Profile menu item"
+  },
+  "customAppBarTitle": "Sigma Track",
+  "@customAppBarTitle": {
+    "description": "App bar title"
+  },
+  "customAppBarOpenMenu": "Buka Menu",
+  "@customAppBarOpenMenu": {
+    "description": "Open menu button label"
+  },
+  "appDropdownSelectOption": "Pilih opsi",
+  "@appDropdownSelectOption": {
+    "description": "Dropdown select option placeholder"
+  },
+  "appSearchFieldHint": "Cari...",
+  "@appSearchFieldHint": {
+    "description": "Search field hint text"
+  },
+  "appSearchFieldClear": "Hapus",
+  "@appSearchFieldClear": {
+    "description": "Clear search button label"
+  },
+  "appSearchFieldNoResultsFound": "Tidak ada hasil ditemukan",
+  "@appSearchFieldNoResultsFound": {
+    "description": "No results found message"
+  },
+  "staffShellBottomNavDashboard": "Dasbor",
+  "@staffShellBottomNavDashboard": {
+    "description": "Staff shell bottom navigation label for dashboard"
+  },
+  "staffShellBottomNavScanAsset": "Pindai Aset",
+  "@staffShellBottomNavScanAsset": {
+    "description": "Staff shell bottom navigation label for scan asset"
+  },
+  "staffShellBottomNavProfile": "Profil",
+  "@staffShellBottomNavProfile": {
+    "description": "Staff shell bottom navigation label for profile"
   }
 }

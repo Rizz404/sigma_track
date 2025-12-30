@@ -1,0 +1,687 @@
+{
+  "@@locale": "id",
+  "maintenanceScheduleDeleteSchedule": "Hapus Jadwal Pemeliharaan",
+  "@maintenanceScheduleDeleteSchedule": {
+    "description": "Dialog title for deleting a maintenance schedule"
+  },
+  "maintenanceScheduleDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@maintenanceScheduleDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance schedule",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Monthly Equipment Check"
+      }
+    }
+  },
+  "maintenanceScheduleDeleted": "Jadwal pemeliharaan dihapus",
+  "@maintenanceScheduleDeleted": {
+    "description": "Success message for schedule deletion"
+  },
+  "maintenanceScheduleDeleteFailed": "Gagal menghapus",
+  "@maintenanceScheduleDeleteFailed": {
+    "description": "Error message for schedule deletion failure"
+  },
+  "maintenanceScheduleDetail": "Detail Jadwal Pemeliharaan",
+  "@maintenanceScheduleDetail": {
+    "description": "Schedule detail screen title"
+  },
+  "maintenanceScheduleInformation": "Informasi Jadwal Pemeliharaan",
+  "@maintenanceScheduleInformation": {
+    "description": "Schedule information section title"
+  },
+  "maintenanceScheduleTitle": "Judul",
+  "@maintenanceScheduleTitle": {
+    "description": "Title label"
+  },
+  "maintenanceScheduleDescription": "Deskripsi",
+  "@maintenanceScheduleDescription": {
+    "description": "Description label"
+  },
+  "maintenanceScheduleAsset": "Aset",
+  "@maintenanceScheduleAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceScheduleMaintenanceType": "Jenis Pemeliharaan",
+  "@maintenanceScheduleMaintenanceType": {
+    "description": "Maintenance type label"
+  },
+  "maintenanceScheduleIsRecurring": "Berulang",
+  "@maintenanceScheduleIsRecurring": {
+    "description": "Is recurring label"
+  },
+  "maintenanceScheduleInterval": "Interval",
+  "@maintenanceScheduleInterval": {
+    "description": "Interval label"
+  },
+  "maintenanceScheduleScheduledTime": "Waktu Terjadwal",
+  "@maintenanceScheduleScheduledTime": {
+    "description": "Scheduled time label"
+  },
+  "maintenanceScheduleNextScheduledDate": "Tanggal Terjadwal Berikutnya",
+  "@maintenanceScheduleNextScheduledDate": {
+    "description": "Next scheduled date label"
+  },
+  "maintenanceScheduleLastExecutedDate": "Tanggal Eksekusi Terakhir",
+  "@maintenanceScheduleLastExecutedDate": {
+    "description": "Last executed date label"
+  },
+  "maintenanceScheduleState": "Status",
+  "@maintenanceScheduleState": {
+    "description": "State label"
+  },
+  "maintenanceScheduleAutoComplete": "Selesai Otomatis",
+  "@maintenanceScheduleAutoComplete": {
+    "description": "Auto complete label"
+  },
+  "maintenanceScheduleEstimatedCost": "Estimasi Biaya",
+  "@maintenanceScheduleEstimatedCost": {
+    "description": "Estimated cost label"
+  },
+  "maintenanceScheduleCreatedBy": "Dibuat Oleh",
+  "@maintenanceScheduleCreatedBy": {
+    "description": "Created by label"
+  },
+  "maintenanceScheduleYes": "Ya",
+  "@maintenanceScheduleYes": {
+    "description": "Yes value"
+  },
+  "maintenanceScheduleNo": "Tidak",
+  "@maintenanceScheduleNo": {
+    "description": "No value"
+  },
+  "maintenanceScheduleUnknownAsset": "Aset Tidak Diketahui",
+  "@maintenanceScheduleUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceScheduleUnknownUser": "Pengguna Tidak Diketahui",
+  "@maintenanceScheduleUnknownUser": {
+    "description": "Unknown user text"
+  },
+  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin yang dapat mengedit jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin yang dapat menghapus jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceScheduleFailedToLoad": "Gagal memuat jadwal pemeliharaan",
+  "@maintenanceScheduleFailedToLoad": {
+    "description": "Error message when schedule fails to load"
+  },
+  "maintenanceScheduleEditSchedule": "Edit Jadwal Pemeliharaan",
+  "@maintenanceScheduleEditSchedule": {
+    "description": "Edit schedule screen title"
+  },
+  "maintenanceScheduleCreateSchedule": "Buat Jadwal Pemeliharaan",
+  "@maintenanceScheduleCreateSchedule": {
+    "description": "Create schedule screen title"
+  },
+  "maintenanceScheduleFillRequiredFields": "Harap isi semua field yang wajib",
+  "@maintenanceScheduleFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceScheduleSavedSuccessfully": "Jadwal pemeliharaan berhasil disimpan",
+  "@maintenanceScheduleSavedSuccessfully": {
+    "description": "Success message for schedule save"
+  },
+  "maintenanceScheduleOperationFailed": "Operasi gagal",
+  "@maintenanceScheduleOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceScheduleFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@maintenanceScheduleFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceScheduleSearchAsset": "Cari dan pilih aset",
+  "@maintenanceScheduleSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceScheduleSelectMaintenanceType": "Pilih jenis pemeliharaan",
+  "@maintenanceScheduleSelectMaintenanceType": {
+    "description": "Maintenance type dropdown placeholder"
+  },
+  "maintenanceScheduleEnterIntervalValue": "Masukkan nilai interval (contoh: 3)",
+  "@maintenanceScheduleEnterIntervalValue": {
+    "description": "Interval value input placeholder"
+  },
+  "maintenanceScheduleSelectIntervalUnit": "Pilih unit interval",
+  "@maintenanceScheduleSelectIntervalUnit": {
+    "description": "Interval unit dropdown placeholder"
+  },
+  "maintenanceScheduleEnterScheduledTime": "contoh: 09:30",
+  "@maintenanceScheduleEnterScheduledTime": {
+    "description": "Scheduled time input placeholder"
+  },
+  "maintenanceScheduleSelectState": "Pilih status",
+  "@maintenanceScheduleSelectState": {
+    "description": "State dropdown placeholder"
+  },
+  "maintenanceScheduleEnterEstimatedCost": "Masukkan estimasi biaya (opsional)",
+  "@maintenanceScheduleEnterEstimatedCost": {
+    "description": "Estimated cost input placeholder"
+  },
+  "maintenanceScheduleSearchUser": "Cari dan pilih pengguna yang membuat jadwal",
+  "@maintenanceScheduleSearchUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceScheduleTranslations": "Terjemahan",
+  "@maintenanceScheduleTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceScheduleEnglish": "Inggris",
+  "@maintenanceScheduleEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceScheduleJapanese": "Jepang",
+  "@maintenanceScheduleJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceScheduleEnterTitle": "Masukkan judul dalam {language}",
+  "@maintenanceScheduleEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleEnterDescription": "Masukkan deskripsi dalam {language}",
+  "@maintenanceScheduleEnterDescription": {
+    "description": "Description input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceScheduleCancel": "Batal",
+  "@maintenanceScheduleCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceScheduleUpdate": "Perbarui",
+  "@maintenanceScheduleUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceScheduleCreate": "Buat",
+  "@maintenanceScheduleCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceScheduleManagement": "Manajemen Jadwal Pemeliharaan",
+  "@maintenanceScheduleManagement": {
+    "description": "Schedule management screen title"
+  },
+  "maintenanceScheduleCreateTitle": "Buat Jadwal Pemeliharaan",
+  "@maintenanceScheduleCreateTitle": {
+    "description": "Create schedule option title"
+  },
+  "maintenanceScheduleCreateSubtitle": "Tambah jadwal pemeliharaan baru",
+  "@maintenanceScheduleCreateSubtitle": {
+    "description": "Create schedule option subtitle"
+  },
+  "maintenanceScheduleSelectManyTitle": "Pilih Banyak",
+  "@maintenanceScheduleSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceScheduleSelectManySubtitle": "Pilih beberapa jadwal untuk dihapus",
+  "@maintenanceScheduleSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceScheduleFilterAndSortTitle": "Filter & Urutkan",
+  "@maintenanceScheduleFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceScheduleFilterAndSortSubtitle": "Sesuaikan tampilan jadwal",
+  "@maintenanceScheduleFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceScheduleSelectToDelete": "Pilih jadwal pemeliharaan untuk dihapus",
+  "@maintenanceScheduleSelectToDelete": {
+    "description": "Instruction for selecting schedules to delete"
+  },
+  "maintenanceScheduleSortBy": "Urutkan Berdasarkan",
+  "@maintenanceScheduleSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceScheduleSortOrder": "Urutan",
+  "@maintenanceScheduleSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceScheduleReset": "Reset",
+  "@maintenanceScheduleReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceScheduleApply": "Terapkan",
+  "@maintenanceScheduleApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceScheduleFilterReset": "Filter direset",
+  "@maintenanceScheduleFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceScheduleFilterApplied": "Filter diterapkan",
+  "@maintenanceScheduleFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceScheduleDeleteSchedules": "Hapus Jadwal",
+  "@maintenanceScheduleDeleteSchedules": {
+    "description": "Delete schedules dialog title"
+  },
+  "maintenanceScheduleDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} jadwal?",
+  "@maintenanceScheduleDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple schedules",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceScheduleNoSchedulesSelected": "Tidak ada jadwal yang dipilih",
+  "@maintenanceScheduleNoSchedulesSelected": {
+    "description": "Warning message when no schedules are selected"
+  },
+  "maintenanceScheduleNotImplementedYet": "Belum diimplementasikan",
+  "@maintenanceScheduleNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceScheduleSelectedCount": "{count} dipilih",
+  "@maintenanceScheduleSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceScheduleDelete": "Hapus",
+  "@maintenanceScheduleDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceScheduleSearch": "Cari jadwal...",
+  "@maintenanceScheduleSearch": {
+    "description": "Schedules search placeholder"
+  },
+  "maintenanceScheduleNoSchedulesFound": "Tidak ada jadwal ditemukan",
+  "@maintenanceScheduleNoSchedulesFound": {
+    "description": "No schedules found message"
+  },
+  "maintenanceScheduleCreateFirstSchedule": "Buat jadwal pertama Anda untuk memulai",
+  "@maintenanceScheduleCreateFirstSchedule": {
+    "description": "Empty state message for schedules"
+  },
+  "maintenanceScheduleLongPressToSelect": "Tekan lama untuk memilih lebih banyak jadwal",
+  "@maintenanceScheduleLongPressToSelect": {
+    "description": "Instruction for selecting multiple schedules"
+  },
+  "maintenanceScheduleMetadata": "Metadata",
+  "@maintenanceScheduleMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceScheduleCreatedAt": "Dibuat Pada",
+  "@maintenanceScheduleCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceScheduleUpdatedAt": "Diperbarui Pada",
+  "@maintenanceScheduleUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceScheduleIntervalValueLabel": "Nilai Interval",
+  "@maintenanceScheduleIntervalValueLabel": {
+    "description": "Interval value field label"
+  },
+  "maintenanceScheduleIntervalUnitLabel": "Unit Interval",
+  "@maintenanceScheduleIntervalUnitLabel": {
+    "description": "Interval unit field label"
+  },
+  "maintenanceScheduleScheduledTimeLabel": "Waktu Terjadwal (JJ:mm)",
+  "@maintenanceScheduleScheduledTimeLabel": {
+    "description": "Scheduled time field label"
+  },
+  "maintenanceRecordDeleteRecord": "Hapus Catatan Pemeliharaan",
+  "@maintenanceRecordDeleteRecord": {
+    "description": "Dialog title for deleting a maintenance record"
+  },
+  "maintenanceRecordDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{title}\"?",
+  "@maintenanceRecordDeleteConfirmation": {
+    "description": "Confirmation message for deleting a maintenance record",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Equipment Repair"
+      }
+    }
+  },
+  "maintenanceRecordDeleted": "Catatan pemeliharaan dihapus",
+  "@maintenanceRecordDeleted": {
+    "description": "Success message for record deletion"
+  },
+  "maintenanceRecordDeleteFailed": "Gagal menghapus",
+  "@maintenanceRecordDeleteFailed": {
+    "description": "Error message for record deletion failure"
+  },
+  "maintenanceRecordDetail": "Detail Catatan Pemeliharaan",
+  "@maintenanceRecordDetail": {
+    "description": "Record detail screen title"
+  },
+  "maintenanceRecordInformation": "Informasi Catatan Pemeliharaan",
+  "@maintenanceRecordInformation": {
+    "description": "Record information section title"
+  },
+  "maintenanceRecordTitle": "Judul",
+  "@maintenanceRecordTitle": {
+    "description": "Title label"
+  },
+  "maintenanceRecordNotes": "Catatan",
+  "@maintenanceRecordNotes": {
+    "description": "Notes label"
+  },
+  "maintenanceRecordAsset": "Aset",
+  "@maintenanceRecordAsset": {
+    "description": "Asset label"
+  },
+  "maintenanceRecordMaintenanceDate": "Tanggal Pemeliharaan",
+  "@maintenanceRecordMaintenanceDate": {
+    "description": "Maintenance date label"
+  },
+  "maintenanceRecordCompletionDate": "Tanggal Selesai",
+  "@maintenanceRecordCompletionDate": {
+    "description": "Completion date label"
+  },
+  "maintenanceRecordDuration": "Durasi",
+  "@maintenanceRecordDuration": {
+    "description": "Duration label"
+  },
+  "maintenanceRecordDurationMinutes": "{minutes} menit",
+  "@maintenanceRecordDurationMinutes": {
+    "description": "Duration in minutes format",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "maintenanceRecordPerformedByUser": "Dilakukan Oleh Pengguna",
+  "@maintenanceRecordPerformedByUser": {
+    "description": "Performed by user label"
+  },
+  "maintenanceRecordPerformedByVendor": "Dilakukan Oleh Vendor",
+  "@maintenanceRecordPerformedByVendor": {
+    "description": "Performed by vendor label"
+  },
+  "maintenanceRecordResult": "Hasil",
+  "@maintenanceRecordResult": {
+    "description": "Result label"
+  },
+  "maintenanceRecordActualCost": "Biaya Aktual",
+  "@maintenanceRecordActualCost": {
+    "description": "Actual cost label"
+  },
+  "maintenanceRecordActualCostValue": "${cost}",
+  "@maintenanceRecordActualCostValue": {
+    "description": "Actual cost value format",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "example": "1500.00"
+      }
+    }
+  },
+  "maintenanceRecordUnknownAsset": "Aset Tidak Diketahui",
+  "@maintenanceRecordUnknownAsset": {
+    "description": "Unknown asset text"
+  },
+  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin yang dapat mengedit catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin yang dapat menghapus catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "maintenanceRecordFailedToLoad": "Gagal memuat catatan pemeliharaan",
+  "@maintenanceRecordFailedToLoad": {
+    "description": "Error message when record fails to load"
+  },
+  "maintenanceRecordEditRecord": "Edit Catatan Pemeliharaan",
+  "@maintenanceRecordEditRecord": {
+    "description": "Edit record screen title"
+  },
+  "maintenanceRecordCreateRecord": "Buat Catatan Pemeliharaan",
+  "@maintenanceRecordCreateRecord": {
+    "description": "Create record screen title"
+  },
+  "maintenanceRecordFillRequiredFields": "Harap isi semua field yang wajib",
+  "@maintenanceRecordFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "maintenanceRecordSavedSuccessfully": "Catatan pemeliharaan berhasil disimpan",
+  "@maintenanceRecordSavedSuccessfully": {
+    "description": "Success message for record save"
+  },
+  "maintenanceRecordOperationFailed": "Operasi gagal",
+  "@maintenanceRecordOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "maintenanceRecordFailedToLoadTranslations": "Gagal memuat terjemahan",
+  "@maintenanceRecordFailedToLoadTranslations": {
+    "description": "Error message for translation loading failure"
+  },
+  "maintenanceRecordSearchSchedule": "Cari dan pilih jadwal pemeliharaan",
+  "@maintenanceRecordSearchSchedule": {
+    "description": "Schedule search placeholder"
+  },
+  "maintenanceRecordSearchAsset": "Cari dan pilih aset",
+  "@maintenanceRecordSearchAsset": {
+    "description": "Asset search placeholder"
+  },
+  "maintenanceRecordCompletionDateOptional": "Tanggal Selesai (Opsional)",
+  "@maintenanceRecordCompletionDateOptional": {
+    "description": "Completion date field label"
+  },
+  "maintenanceRecordDurationMinutesLabel": "Durasi (Menit)",
+  "@maintenanceRecordDurationMinutesLabel": {
+    "description": "Duration field label"
+  },
+  "maintenanceRecordEnterDuration": "Masukkan durasi dalam menit (opsional)",
+  "@maintenanceRecordEnterDuration": {
+    "description": "Duration input placeholder"
+  },
+  "maintenanceRecordSearchPerformedByUser": "Cari dan pilih pengguna yang melakukan pemeliharaan",
+  "@maintenanceRecordSearchPerformedByUser": {
+    "description": "User search placeholder"
+  },
+  "maintenanceRecordPerformedByVendorLabel": "Dilakukan Oleh Vendor",
+  "@maintenanceRecordPerformedByVendorLabel": {
+    "description": "Vendor field label"
+  },
+  "maintenanceRecordEnterVendor": "Masukkan nama vendor (opsional)",
+  "@maintenanceRecordEnterVendor": {
+    "description": "Vendor input placeholder"
+  },
+  "maintenanceRecordSelectResult": "Pilih hasil pemeliharaan",
+  "@maintenanceRecordSelectResult": {
+    "description": "Result dropdown placeholder"
+  },
+  "maintenanceRecordActualCostLabel": "Biaya Aktual",
+  "@maintenanceRecordActualCostLabel": {
+    "description": "Actual cost field label"
+  },
+  "maintenanceRecordEnterActualCost": "Masukkan biaya aktual (opsional)",
+  "@maintenanceRecordEnterActualCost": {
+    "description": "Actual cost input placeholder"
+  },
+  "maintenanceRecordTranslations": "Terjemahan",
+  "@maintenanceRecordTranslations": {
+    "description": "Translations section title"
+  },
+  "maintenanceRecordEnglish": "Inggris",
+  "@maintenanceRecordEnglish": {
+    "description": "English language label"
+  },
+  "maintenanceRecordJapanese": "Jepang",
+  "@maintenanceRecordJapanese": {
+    "description": "Japanese language label"
+  },
+  "maintenanceRecordEnterTitle": "Masukkan judul dalam {language}",
+  "@maintenanceRecordEnterTitle": {
+    "description": "Title input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordEnterNotes": "Masukkan catatan dalam {language}",
+  "@maintenanceRecordEnterNotes": {
+    "description": "Notes input placeholder",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "maintenanceRecordCancel": "Batal",
+  "@maintenanceRecordCancel": {
+    "description": "Cancel button label"
+  },
+  "maintenanceRecordUpdate": "Perbarui",
+  "@maintenanceRecordUpdate": {
+    "description": "Update button label"
+  },
+  "maintenanceRecordCreate": "Buat",
+  "@maintenanceRecordCreate": {
+    "description": "Create button label"
+  },
+  "maintenanceRecordManagement": "Manajemen Catatan Pemeliharaan",
+  "@maintenanceRecordManagement": {
+    "description": "Record management screen title"
+  },
+  "maintenanceRecordCreateTitle": "Buat Catatan Pemeliharaan",
+  "@maintenanceRecordCreateTitle": {
+    "description": "Create record option title"
+  },
+  "maintenanceRecordCreateSubtitle": "Tambah catatan pemeliharaan baru",
+  "@maintenanceRecordCreateSubtitle": {
+    "description": "Create record option subtitle"
+  },
+  "maintenanceRecordSelectManyTitle": "Pilih Banyak",
+  "@maintenanceRecordSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "maintenanceRecordSelectManySubtitle": "Pilih beberapa catatan untuk dihapus",
+  "@maintenanceRecordSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "maintenanceRecordFilterAndSortTitle": "Filter & Urutkan",
+  "@maintenanceRecordFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "maintenanceRecordFilterAndSortSubtitle": "Sesuaikan tampilan catatan",
+  "@maintenanceRecordFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "maintenanceRecordSelectToDelete": "Pilih catatan pemeliharaan untuk dihapus",
+  "@maintenanceRecordSelectToDelete": {
+    "description": "Instruction for selecting records to delete"
+  },
+  "maintenanceRecordSortBy": "Urutkan Berdasarkan",
+  "@maintenanceRecordSortBy": {
+    "description": "Sort by label"
+  },
+  "maintenanceRecordSortOrder": "Urutan",
+  "@maintenanceRecordSortOrder": {
+    "description": "Sort order label"
+  },
+  "maintenanceRecordReset": "Reset",
+  "@maintenanceRecordReset": {
+    "description": "Reset button label"
+  },
+  "maintenanceRecordApply": "Terapkan",
+  "@maintenanceRecordApply": {
+    "description": "Apply button label"
+  },
+  "maintenanceRecordFilterReset": "Filter direset",
+  "@maintenanceRecordFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "maintenanceRecordFilterApplied": "Filter diterapkan",
+  "@maintenanceRecordFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "maintenanceRecordDeleteRecords": "Hapus Catatan",
+  "@maintenanceRecordDeleteRecords": {
+    "description": "Delete records dialog title"
+  },
+  "maintenanceRecordDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} catatan?",
+  "@maintenanceRecordDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple records",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "maintenanceRecordNoRecordsSelected": "Tidak ada catatan yang dipilih",
+  "@maintenanceRecordNoRecordsSelected": {
+    "description": "Warning message when no records are selected"
+  },
+  "maintenanceRecordNotImplementedYet": "Belum diimplementasikan",
+  "@maintenanceRecordNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "maintenanceRecordSelectedCount": "{count} dipilih",
+  "@maintenanceRecordSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "maintenanceRecordDelete": "Hapus",
+  "@maintenanceRecordDelete": {
+    "description": "Delete button label"
+  },
+  "maintenanceRecordSearch": "Cari catatan...",
+  "@maintenanceRecordSearch": {
+    "description": "Records search placeholder"
+  },
+  "maintenanceRecordNoRecordsFound": "Tidak ada catatan ditemukan",
+  "@maintenanceRecordNoRecordsFound": {
+    "description": "No records found message"
+  },
+  "maintenanceRecordCreateFirstRecord": "Buat catatan pertama Anda untuk memulai",
+  "@maintenanceRecordCreateFirstRecord": {
+    "description": "Empty state message for records"
+  },
+  "maintenanceRecordLongPressToSelect": "Tekan lama untuk memilih lebih banyak catatan",
+  "@maintenanceRecordLongPressToSelect": {
+    "description": "Instruction for selecting multiple records"
+  },
+  "maintenanceRecordMetadata": "Metadata",
+  "@maintenanceRecordMetadata": {
+    "description": "Metadata section title"
+  },
+  "maintenanceRecordCreatedAt": "Dibuat Pada",
+  "@maintenanceRecordCreatedAt": {
+    "description": "Created at label"
+  },
+  "maintenanceRecordUpdatedAt": "Diperbarui Pada",
+  "@maintenanceRecordUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "maintenanceRecordSchedule": "Jadwal Pemeliharaan",
+  "@maintenanceRecordSchedule": {
+    "description": "Schedule label"
+  }
+}

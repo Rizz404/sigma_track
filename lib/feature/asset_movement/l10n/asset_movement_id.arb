@@ -1,0 +1,513 @@
+{
+  "@@locale": "id",
+  "assetMovementDeleteAssetMovement": "Hapus Perpindahan Aset",
+  "@assetMovementDeleteAssetMovement": {
+    "description": "Dialog title for deleting an asset movement"
+  },
+  "assetMovementDeleteConfirmation": "Apakah Anda yakin ingin menghapus catatan perpindahan aset ini?",
+  "@assetMovementDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset movement"
+  },
+  "assetMovementCancel": "Batal",
+  "@assetMovementCancel": {
+    "description": "Cancel button label"
+  },
+  "assetMovementDelete": "Hapus",
+  "@assetMovementDelete": {
+    "description": "Delete button label"
+  },
+  "assetMovementDetail": "Detail Perpindahan Aset",
+  "@assetMovementDetail": {
+    "description": "Asset movement detail screen title"
+  },
+  "assetMovementInformation": "Informasi Perpindahan",
+  "@assetMovementInformation": {
+    "description": "Asset movement information section title"
+  },
+  "assetMovementId": "ID Perpindahan",
+  "@assetMovementId": {
+    "description": "Movement ID label"
+  },
+  "assetMovementAsset": "Aset",
+  "@assetMovementAsset": {
+    "description": "Asset label"
+  },
+  "assetMovementMovementType": "Jenis Perpindahan",
+  "@assetMovementMovementType": {
+    "description": "Movement type label"
+  },
+  "assetMovementFromLocation": "Dari Lokasi",
+  "@assetMovementFromLocation": {
+    "description": "From location label"
+  },
+  "assetMovementToLocation": "Ke Lokasi",
+  "@assetMovementToLocation": {
+    "description": "To location label"
+  },
+  "assetMovementFromUser": "Dari Pengguna",
+  "@assetMovementFromUser": {
+    "description": "From user label"
+  },
+  "assetMovementToUser": "Ke Pengguna",
+  "@assetMovementToUser": {
+    "description": "To user label"
+  },
+  "assetMovementMovedBy": "Dipindahkan Oleh",
+  "@assetMovementMovedBy": {
+    "description": "Moved by label"
+  },
+  "assetMovementMovementDate": "Tanggal Perpindahan",
+  "@assetMovementMovementDate": {
+    "description": "Movement date label"
+  },
+  "assetMovementNotes": "Catatan",
+  "@assetMovementNotes": {
+    "description": "Notes label"
+  },
+  "assetMovementStatus": "Status",
+  "@assetMovementStatus": {
+    "description": "Status label"
+  },
+  "assetMovementMetadata": "Metadata",
+  "@assetMovementMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetMovementCreatedAt": "Dibuat Pada",
+  "@assetMovementCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetMovementUpdatedAt": "Diperbarui Pada",
+  "@assetMovementUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetMovementOnlyAdminCanEdit": "Hanya admin yang dapat mengedit perpindahan aset",
+  "@assetMovementOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetMovementOnlyAdminCanDelete": "Hanya admin yang dapat menghapus perpindahan aset",
+  "@assetMovementOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetMovementFailedToLoad": "Gagal memuat perpindahan aset",
+  "@assetMovementFailedToLoad": {
+    "description": "Error message when asset movement fails to load"
+  },
+  "assetMovementEditAssetMovement": "Edit Perpindahan Aset",
+  "@assetMovementEditAssetMovement": {
+    "description": "Edit asset movement screen title"
+  },
+  "assetMovementCreateAssetMovement": "Buat Perpindahan Aset",
+  "@assetMovementCreateAssetMovement": {
+    "description": "Create asset movement screen title"
+  },
+  "assetMovementFillRequiredFields": "Harap isi semua field yang wajib",
+  "@assetMovementFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetMovementSelectAsset": "Harap pilih aset",
+  "@assetMovementSelectAsset": {
+    "description": "Validation message for asset selection"
+  },
+  "assetMovementSavedSuccessfully": "Perpindahan aset berhasil disimpan",
+  "@assetMovementSavedSuccessfully": {
+    "description": "Success message for asset movement save"
+  },
+  "assetMovementOperationFailed": "Operasi gagal",
+  "@assetMovementOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetMovementBasicInformation": "Informasi Dasar",
+  "@assetMovementBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetMovementSelectAssetPlaceholder": "Pilih aset",
+  "@assetMovementSelectAssetPlaceholder": {
+    "description": "Select asset placeholder"
+  },
+  "assetMovementSearchAsset": "Cari aset...",
+  "@assetMovementSearchAsset": {
+    "description": "Search asset placeholder"
+  },
+  "assetMovementSelectMovementType": "Pilih jenis perpindahan",
+  "@assetMovementSelectMovementType": {
+    "description": "Select movement type placeholder"
+  },
+  "assetMovementLocationDetails": "Detail Lokasi",
+  "@assetMovementLocationDetails": {
+    "description": "Location details section title"
+  },
+  "assetMovementFromLocationLabel": "Dari Lokasi",
+  "@assetMovementFromLocationLabel": {
+    "description": "From location input label"
+  },
+  "assetMovementSearchFromLocation": "Cari dari lokasi...",
+  "@assetMovementSearchFromLocation": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementToLocationLabel": "Ke Lokasi",
+  "@assetMovementToLocationLabel": {
+    "description": "To location input label"
+  },
+  "assetMovementSearchToLocation": "Cari ke lokasi...",
+  "@assetMovementSearchToLocation": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementUserDetails": "Detail Pengguna",
+  "@assetMovementUserDetails": {
+    "description": "User details section title"
+  },
+  "assetMovementFromUserLabel": "Dari Pengguna",
+  "@assetMovementFromUserLabel": {
+    "description": "From user input label"
+  },
+  "assetMovementSearchFromUser": "Cari dari pengguna...",
+  "@assetMovementSearchFromUser": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementToUserLabel": "Ke Pengguna",
+  "@assetMovementToUserLabel": {
+    "description": "To user input label"
+  },
+  "assetMovementSearchToUser": "Cari ke pengguna...",
+  "@assetMovementSearchToUser": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementMovementDateLabel": "Tanggal Perpindahan",
+  "@assetMovementMovementDateLabel": {
+    "description": "Movement date input label"
+  },
+  "assetMovementNotesLabel": "Catatan (Opsional)",
+  "@assetMovementNotesLabel": {
+    "description": "Notes input label"
+  },
+  "assetMovementEnterNotes": "Masukkan catatan...",
+  "@assetMovementEnterNotes": {
+    "description": "Notes input placeholder"
+  },
+  "assetMovementUpdate": "Perbarui",
+  "@assetMovementUpdate": {
+    "description": "Update button label"
+  },
+  "assetMovementCreate": "Buat",
+  "@assetMovementCreate": {
+    "description": "Create button label"
+  },
+  "assetMovementManagement": "Manajemen Perpindahan Aset",
+  "@assetMovementManagement": {
+    "description": "Asset movement management screen title"
+  },
+  "assetMovementSearchAssetMovements": "Cari perpindahan aset...",
+  "@assetMovementSearchAssetMovements": {
+    "description": "Asset movements search placeholder"
+  },
+  "assetMovementNoMovementsFound": "Tidak ada perpindahan aset ditemukan",
+  "@assetMovementNoMovementsFound": {
+    "description": "No asset movements found message"
+  },
+  "assetMovementCreateFirstMovement": "Buat perpindahan aset pertama Anda untuk memulai",
+  "@assetMovementCreateFirstMovement": {
+    "description": "Empty state message for asset movements"
+  },
+  "assetMovementFilterAndSortTitle": "Filter & Urutkan",
+  "@assetMovementFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetMovementFilterAndSortSubtitle": "Sesuaikan tampilan perpindahan aset",
+  "@assetMovementFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetMovementFilterByAsset": "Filter berdasarkan Aset",
+  "@assetMovementFilterByAsset": {
+    "description": "Filter by asset label"
+  },
+  "assetMovementFilterByMovementType": "Filter berdasarkan Jenis Perpindahan",
+  "@assetMovementFilterByMovementType": {
+    "description": "Filter by movement type label"
+  },
+  "assetMovementFilterByLocation": "Filter berdasarkan Lokasi",
+  "@assetMovementFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetMovementFilterByUser": "Filter berdasarkan Pengguna",
+  "@assetMovementFilterByUser": {
+    "description": "Filter by user label"
+  },
+  "assetMovementSortBy": "Urutkan Berdasarkan",
+  "@assetMovementSortBy": {
+    "description": "Sort by label"
+  },
+  "assetMovementSortOrder": "Urutan",
+  "@assetMovementSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetMovementReset": "Reset",
+  "@assetMovementReset": {
+    "description": "Reset button label"
+  },
+  "assetMovementApply": "Terapkan",
+  "@assetMovementApply": {
+    "description": "Apply button label"
+  },
+  "assetMovementFilterReset": "Filter direset",
+  "@assetMovementFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetMovementFilterApplied": "Filter diterapkan",
+  "@assetMovementFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetMovementStatistics": "Statistik Perpindahan",
+  "@assetMovementStatistics": {
+    "description": "Movement statistics section title"
+  },
+  "assetMovementTotalMovements": "Total Perpindahan",
+  "@assetMovementTotalMovements": {
+    "description": "Total movements label"
+  },
+  "assetMovementByType": "Perpindahan berdasarkan Jenis",
+  "@assetMovementByType": {
+    "description": "Movements by type label"
+  },
+  "assetMovementByStatus": "Perpindahan berdasarkan Status",
+  "@assetMovementByStatus": {
+    "description": "Movements by status label"
+  },
+  "assetMovementRecentActivity": "Aktivitas Terbaru",
+  "@assetMovementRecentActivity": {
+    "description": "Recent activity label"
+  },
+  "assetMovementValidationAssetRequired": "Aset wajib diisi",
+  "@assetMovementValidationAssetRequired": {
+    "description": "Validation error for required asset"
+  },
+  "assetMovementValidationMovementTypeRequired": "Jenis perpindahan wajib diisi",
+  "@assetMovementValidationMovementTypeRequired": {
+    "description": "Validation error for required movement type"
+  },
+  "assetMovementValidationLocationRequired": "Lokasi wajib diisi untuk jenis perpindahan ini",
+  "@assetMovementValidationLocationRequired": {
+    "description": "Validation error for required location"
+  },
+  "assetMovementValidationUserRequired": "Pengguna wajib diisi untuk jenis perpindahan ini",
+  "@assetMovementValidationUserRequired": {
+    "description": "Validation error for required user"
+  },
+  "assetMovementValidationMovementDateRequired": "Tanggal perpindahan wajib diisi",
+  "@assetMovementValidationMovementDateRequired": {
+    "description": "Validation error for required movement date"
+  },
+  "assetMovementValidationNotesMaxLength": "Catatan maksimal 500 karakter",
+  "@assetMovementValidationNotesMaxLength": {
+    "description": "Validation error for notes maximum length"
+  },
+  "assetMovementValidationToLocationRequired": "Lokasi tujuan wajib diisi",
+  "@assetMovementValidationToLocationRequired": {
+    "description": "Validation error for required to location"
+  },
+  "assetMovementValidationToUserRequired": "Pengguna tujuan wajib diisi",
+  "@assetMovementValidationToUserRequired": {
+    "description": "Validation error for required to user"
+  },
+  "assetMovementValidationMovedByRequired": "Dipindahkan oleh wajib diisi",
+  "@assetMovementValidationMovedByRequired": {
+    "description": "Validation error for required moved by"
+  },
+  "assetMovementValidationMovementDateFuture": "Tanggal perpindahan tidak boleh di masa depan",
+  "@assetMovementValidationMovementDateFuture": {
+    "description": "Validation error for movement date in future"
+  },
+  "assetMovementTranslations": "Terjemahan",
+  "@assetMovementTranslations": {
+    "description": "Translations section title"
+  },
+  "assetMovementUnknownAsset": "Aset Tidak Diketahui",
+  "@assetMovementUnknownAsset": {
+    "description": "Unknown asset placeholder"
+  },
+  "assetMovementUnknownTag": "Tag Tidak Diketahui",
+  "@assetMovementUnknownTag": {
+    "description": "Unknown tag placeholder"
+  },
+  "assetMovementUnknown": "Tidak Diketahui",
+  "@assetMovementUnknown": {
+    "description": "Unknown placeholder"
+  },
+  "assetMovementUnassigned": "Tidak Ditugaskan",
+  "@assetMovementUnassigned": {
+    "description": "Unassigned placeholder"
+  },
+  "assetMovementNotSet": "Tidak diatur",
+  "@assetMovementNotSet": {
+    "description": "Not set value text"
+  },
+  "assetMovementLocationMovement": "Perpindahan Lokasi",
+  "@assetMovementLocationMovement": {
+    "description": "Location movement type label"
+  },
+  "assetMovementUserMovement": "Perpindahan Pengguna",
+  "@assetMovementUserMovement": {
+    "description": "User movement type label"
+  },
+  "assetMovementCreateAssetMovementTitle": "Buat Perpindahan Aset",
+  "@assetMovementCreateAssetMovementTitle": {
+    "description": "Create asset movement option title"
+  },
+  "assetMovementCreateAssetMovementSubtitle": "Catat perpindahan aset baru",
+  "@assetMovementCreateAssetMovementSubtitle": {
+    "description": "Create asset movement option subtitle"
+  },
+  "assetMovementForLocation": "Perpindahan Aset untuk Lokasi",
+  "@assetMovementForLocation": {
+    "description": "Asset movement for location screen title"
+  },
+  "assetMovementForUser": "Perpindahan Aset untuk Pengguna",
+  "@assetMovementForUser": {
+    "description": "Asset movement for user screen title"
+  },
+  "assetMovementCurrentLocation": "Lokasi Saat Ini",
+  "@assetMovementCurrentLocation": {
+    "description": "Current location label"
+  },
+  "assetMovementNewLocation": "Lokasi Baru",
+  "@assetMovementNewLocation": {
+    "description": "New location label"
+  },
+  "assetMovementCurrentUser": "Pengguna Saat Ini",
+  "@assetMovementCurrentUser": {
+    "description": "Current user label"
+  },
+  "assetMovementNewUser": "Pengguna Baru",
+  "@assetMovementNewUser": {
+    "description": "New user label"
+  },
+  "assetMovementMovementHistory": "Riwayat Perpindahan",
+  "@assetMovementMovementHistory": {
+    "description": "Movement history section title"
+  },
+  "assetMovementNoHistory": "Tidak ada riwayat perpindahan tersedia",
+  "@assetMovementNoHistory": {
+    "description": "No movement history message"
+  },
+  "assetMovementViewAll": "Lihat Semua",
+  "@assetMovementViewAll": {
+    "description": "View all button label"
+  },
+  "assetMovementMovedTo": "Dipindahkan ke",
+  "@assetMovementMovedTo": {
+    "description": "Moved to prefix text"
+  },
+  "assetMovementAssignedTo": "Ditugaskan ke",
+  "@assetMovementAssignedTo": {
+    "description": "Assigned to prefix text"
+  },
+  "assetMovementSelectMany": "Pilih Banyak",
+  "@assetMovementSelectMany": {
+    "description": "Select many option title"
+  },
+  "assetMovementSelectManySubtitle": "Pilih beberapa perpindahan aset untuk dihapus",
+  "@assetMovementSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetMovementSelectAssetMovementsToDelete": "Pilih perpindahan aset untuk dihapus",
+  "@assetMovementSelectAssetMovementsToDelete": {
+    "description": "Toast message for select mode"
+  },
+  "assetMovementChooseMovementType": "Pilih jenis perpindahan:",
+  "@assetMovementChooseMovementType": {
+    "description": "Dialog content for choosing movement type"
+  },
+  "assetMovementFilterByFromLocation": "Filter berdasarkan Dari Lokasi",
+  "@assetMovementFilterByFromLocation": {
+    "description": "Filter by from location label"
+  },
+  "assetMovementFilterByToLocation": "Filter berdasarkan Ke Lokasi",
+  "@assetMovementFilterByToLocation": {
+    "description": "Filter by to location label"
+  },
+  "assetMovementFilterByFromUser": "Filter berdasarkan Dari Pengguna",
+  "@assetMovementFilterByFromUser": {
+    "description": "Filter by from user label"
+  },
+  "assetMovementFilterByToUser": "Filter berdasarkan Ke Pengguna",
+  "@assetMovementFilterByToUser": {
+    "description": "Filter by to user label"
+  },
+  "assetMovementFilterByMovedBy": "Filter berdasarkan Dipindahkan Oleh",
+  "@assetMovementFilterByMovedBy": {
+    "description": "Filter by moved by label"
+  },
+  "assetMovementDateFrom": "Tanggal Dari",
+  "@assetMovementDateFrom": {
+    "description": "Date from label"
+  },
+  "assetMovementDateTo": "Tanggal Sampai",
+  "@assetMovementDateTo": {
+    "description": "Date to label"
+  },
+  "assetMovementSearchAssetPlaceholder": "Cari aset...",
+  "@assetMovementSearchAssetPlaceholder": {
+    "description": "Search asset placeholder in filter"
+  },
+  "assetMovementSearchFromLocationPlaceholder": "Cari dari lokasi...",
+  "@assetMovementSearchFromLocationPlaceholder": {
+    "description": "Search from location placeholder"
+  },
+  "assetMovementSearchToLocationPlaceholder": "Cari ke lokasi...",
+  "@assetMovementSearchToLocationPlaceholder": {
+    "description": "Search to location placeholder"
+  },
+  "assetMovementSearchFromUserPlaceholder": "Cari dari pengguna...",
+  "@assetMovementSearchFromUserPlaceholder": {
+    "description": "Search from user placeholder"
+  },
+  "assetMovementSearchToUserPlaceholder": "Cari ke pengguna...",
+  "@assetMovementSearchToUserPlaceholder": {
+    "description": "Search to user placeholder"
+  },
+  "assetMovementSearchMovedByPlaceholder": "Cari pengguna yang memindahkan...",
+  "@assetMovementSearchMovedByPlaceholder": {
+    "description": "Search moved by user placeholder"
+  },
+  "assetMovementDeleteAssetMovements": "Hapus Perpindahan Aset",
+  "@assetMovementDeleteAssetMovements": {
+    "description": "Dialog title for deleting multiple asset movements"
+  },
+  "assetMovementDeleteManyConfirmation": "Apakah Anda yakin ingin menghapus {count} perpindahan aset?",
+  "@assetMovementDeleteManyConfirmation": {
+    "description": "Confirmation message for deleting multiple asset movements",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementNoAssetMovementsSelected": "Tidak ada perpindahan aset yang dipilih",
+  "@assetMovementNoAssetMovementsSelected": {
+    "description": "Warning message when no asset movements selected"
+  },
+  "assetMovementNotImplementedYet": "Belum diimplementasikan",
+  "@assetMovementNotImplementedYet": {
+    "description": "Info message for not implemented feature"
+  },
+  "assetMovementSelectedCount": "{count} dipilih",
+  "@assetMovementSelectedCount": {
+    "description": "Selected count text",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assetMovementLongPressToSelectMore": "Tekan lama untuk memilih lebih banyak perpindahan aset",
+  "@assetMovementLongPressToSelectMore": {
+    "description": "Toast message for long press to select"
+  },
+  "assetMovementForLocationShort": "Untuk Lokasi",
+  "@assetMovementForLocationShort": {
+    "description": "Short label for location movement"
+  },
+  "assetMovementForUserShort": "Untuk Pengguna",
+  "@assetMovementForUserShort": {
+    "description": "Short label for user movement"
+  }
+}

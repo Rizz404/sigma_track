@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 enum Language {
   english('en'),
-  japanese('ja');
+  japanese('ja'),
+  indonesian('id');
 
   const Language(this.value);
   final String value;
@@ -15,6 +16,8 @@ enum Language {
         return 'en-US';
       case Language.japanese:
         return 'ja-JP';
+      case Language.indonesian:
+        return 'id-ID';
     }
   }
 
@@ -24,8 +27,8 @@ enum Language {
   IconData get icon {
     switch (this) {
       case Language.english:
-        return Icons.language;
       case Language.japanese:
+      case Language.indonesian:
         return Icons.language;
     }
   }

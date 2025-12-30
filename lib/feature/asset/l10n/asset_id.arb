@@ -1,0 +1,733 @@
+{
+  "@@locale": "id",
+  "assetDeleteAsset": "Hapus Aset",
+  "@assetDeleteAsset": {
+    "description": "Dialog title for deleting an asset"
+  },
+  "assetDeleteConfirmation": "Apakah Anda yakin ingin menghapus \"{assetName}\"?",
+  "@assetDeleteConfirmation": {
+    "description": "Confirmation message for deleting an asset",
+    "placeholders": {
+      "assetName": {
+        "type": "String",
+        "example": "Laptop Dell XPS"
+      }
+    }
+  },
+  "assetCancel": "Batal",
+  "@assetCancel": {
+    "description": "Cancel button label"
+  },
+  "assetDelete": "Hapus",
+  "@assetDelete": {
+    "description": "Delete button label"
+  },
+  "assetDetail": "Detail Aset",
+  "@assetDetail": {
+    "description": "Asset detail screen title"
+  },
+  "assetInformation": "Informasi Aset",
+  "@assetInformation": {
+    "description": "Asset information section title"
+  },
+  "assetTag": "Tag Aset",
+  "@assetTag": {
+    "description": "Asset tag label"
+  },
+  "assetName": "Nama Aset",
+  "@assetName": {
+    "description": "Asset name label"
+  },
+  "assetCategory": "Kategori",
+  "@assetCategory": {
+    "description": "Category label"
+  },
+  "assetBrand": "Merek",
+  "@assetBrand": {
+    "description": "Brand label"
+  },
+  "assetBrandLabel": "Merek",
+  "@assetBrandLabel": {
+    "description": "Brand label for filters"
+  },
+  "assetModel": "Model",
+  "@assetModel": {
+    "description": "Model label"
+  },
+  "assetModelLabel": "Model",
+  "@assetModelLabel": {
+    "description": "Model label for filters"
+  },
+  "assetSerialNumber": "Nomor Seri",
+  "@assetSerialNumber": {
+    "description": "Serial number label"
+  },
+  "assetStatus": "Status",
+  "@assetStatus": {
+    "description": "Status label"
+  },
+  "assetCondition": "Kondisi",
+  "@assetCondition": {
+    "description": "Condition label"
+  },
+  "assetLocation": "Lokasi",
+  "@assetLocation": {
+    "description": "Location label"
+  },
+  "assetAssignedTo": "Ditugaskan Kepada",
+  "@assetAssignedTo": {
+    "description": "Assigned to label"
+  },
+  "assetPurchaseInformation": "Informasi Pembelian",
+  "@assetPurchaseInformation": {
+    "description": "Purchase information section title"
+  },
+  "assetPurchaseDate": "Tanggal Pembelian",
+  "@assetPurchaseDate": {
+    "description": "Purchase date label"
+  },
+  "assetPurchasePrice": "Harga Pembelian",
+  "@assetPurchasePrice": {
+    "description": "Purchase price label"
+  },
+  "assetVendorName": "Nama Vendor",
+  "@assetVendorName": {
+    "description": "Vendor name label"
+  },
+  "assetWarrantyEnd": "Berakhir Garansi",
+  "@assetWarrantyEnd": {
+    "description": "Warranty end label"
+  },
+  "assetMetadata": "Metadata",
+  "@assetMetadata": {
+    "description": "Metadata section title"
+  },
+  "assetCreatedAt": "Dibuat Pada",
+  "@assetCreatedAt": {
+    "description": "Created at label"
+  },
+  "assetUpdatedAt": "Diperbarui Pada",
+  "@assetUpdatedAt": {
+    "description": "Updated at label"
+  },
+  "assetDataMatrixImage": "Gambar Data Matrix",
+  "@assetDataMatrixImage": {
+    "description": "Data matrix image section title"
+  },
+  "assetOnlyAdminCanEdit": "Hanya admin yang dapat mengedit aset",
+  "@assetOnlyAdminCanEdit": {
+    "description": "Error message for non-admin trying to edit"
+  },
+  "assetOnlyAdminCanDelete": "Hanya admin yang dapat menghapus aset",
+  "@assetOnlyAdminCanDelete": {
+    "description": "Error message for non-admin trying to delete"
+  },
+  "assetFailedToLoad": "Gagal memuat aset",
+  "@assetFailedToLoad": {
+    "description": "Error message when asset fails to load"
+  },
+  "assetLocationPermissionRequired": "Izin Lokasi Diperlukan",
+  "@assetLocationPermissionRequired": {
+    "description": "Location permission dialog title"
+  },
+  "assetLocationPermissionMessage": "Akses lokasi diperlukan untuk melacak log pemindaian. Silakan aktifkan di pengaturan.",
+  "@assetLocationPermissionMessage": {
+    "description": "Location permission dialog message"
+  },
+  "assetOpenSettings": "Buka Pengaturan",
+  "@assetOpenSettings": {
+    "description": "Open settings button label"
+  },
+  "assetLocationPermissionNeeded": "Izin lokasi diperlukan untuk log pemindaian",
+  "@assetLocationPermissionNeeded": {
+    "description": "Warning message for location permission"
+  },
+  "assetInvalidBarcode": "Data barcode tidak valid",
+  "@assetInvalidBarcode": {
+    "description": "Error message for invalid barcode"
+  },
+  "assetFound": "Aset ditemukan: {assetName}",
+  "@assetFound": {
+    "description": "Success message when asset is found",
+    "placeholders": {
+      "assetName": {
+        "type": "String",
+        "example": "Laptop Dell XPS"
+      }
+    }
+  },
+  "assetNotFound": "Aset tidak ditemukan",
+  "@assetNotFound": {
+    "description": "Error message when asset is not found"
+  },
+  "assetFailedToProcessBarcode": "Gagal memproses barcode",
+  "@assetFailedToProcessBarcode": {
+    "description": "Error message when barcode processing fails"
+  },
+  "assetCameraError": "Kesalahan Kamera",
+  "@assetCameraError": {
+    "description": "Camera error title"
+  },
+  "assetAlignDataMatrix": "Sejajarkan data matrix dalam bingkai",
+  "@assetAlignDataMatrix": {
+    "description": "Instruction for scanning data matrix"
+  },
+  "assetProcessing": "Memproses...",
+  "@assetProcessing": {
+    "description": "Processing indicator text"
+  },
+  "assetFlash": "Flash",
+  "@assetFlash": {
+    "description": "Flash button label"
+  },
+  "assetFlip": "Balik",
+  "@assetFlip": {
+    "description": "Flip camera button label"
+  },
+  "assetEditAsset": "Edit Aset",
+  "@assetEditAsset": {
+    "description": "Edit asset screen title"
+  },
+  "assetCreateAsset": "Buat Aset",
+  "@assetCreateAsset": {
+    "description": "Create asset screen title"
+  },
+  "assetFillRequiredFields": "Harap isi semua field yang wajib",
+  "@assetFillRequiredFields": {
+    "description": "Validation message for required fields"
+  },
+  "assetSelectCategory": "Harap pilih kategori",
+  "@assetSelectCategory": {
+    "description": "Validation message for category selection"
+  },
+  "assetSavedSuccessfully": "Aset berhasil disimpan",
+  "@assetSavedSuccessfully": {
+    "description": "Success message for asset save"
+  },
+  "assetOperationFailed": "Operasi gagal",
+  "@assetOperationFailed": {
+    "description": "Generic operation failure message"
+  },
+  "assetDeletedSuccess": "Aset dihapus",
+  "@assetDeletedSuccess": {
+    "description": "Success message for asset deletion"
+  },
+  "assetDeletedFailed": "Gagal menghapus",
+  "@assetDeletedFailed": {
+    "description": "Error message for asset deletion failure"
+  },
+  "assetFailedToGenerateDataMatrix": "Gagal membuat data matrix",
+  "@assetFailedToGenerateDataMatrix": {
+    "description": "Error message for data matrix generation failure"
+  },
+  "assetSelectCategoryFirst": "Harap pilih kategori terlebih dahulu",
+  "@assetSelectCategoryFirst": {
+    "description": "Warning message for category selection before tag generation"
+  },
+  "assetTagGenerated": "Tag aset dibuat: {tag}",
+  "@assetTagGenerated": {
+    "description": "Success message for asset tag generation",
+    "placeholders": {
+      "tag": {
+        "type": "String",
+        "example": "AST-001"
+      }
+    }
+  },
+  "assetFailedToGenerateTag": "Gagal membuat tag aset",
+  "@assetFailedToGenerateTag": {
+    "description": "Error message for asset tag generation failure"
+  },
+  "assetEnterAssetTagFirst": "Harap masukkan tag aset terlebih dahulu",
+  "@assetEnterAssetTagFirst": {
+    "description": "Warning message for entering asset tag before regeneration"
+  },
+  "assetBasicInformation": "Informasi Dasar",
+  "@assetBasicInformation": {
+    "description": "Basic information section title"
+  },
+  "assetEnterAssetTag": "Masukkan tag aset (contoh: AST-001)",
+  "@assetEnterAssetTag": {
+    "description": "Asset tag input placeholder"
+  },
+  "assetAutoGenerateTag": "Buat tag aset otomatis",
+  "@assetAutoGenerateTag": {
+    "description": "Auto-generate tag button tooltip"
+  },
+  "assetEnterAssetName": "Masukkan nama aset",
+  "@assetEnterAssetName": {
+    "description": "Asset name input placeholder"
+  },
+  "assetBrandOptional": "Merek (Opsional)",
+  "@assetBrandOptional": {
+    "description": "Brand input label"
+  },
+  "assetEnterBrand": "Masukkan nama merek",
+  "@assetEnterBrand": {
+    "description": "Brand input placeholder"
+  },
+  "assetModelOptional": "Model (Opsional)",
+  "@assetModelOptional": {
+    "description": "Model input label"
+  },
+  "assetEnterModel": "Masukkan model",
+  "@assetEnterModel": {
+    "description": "Model input placeholder"
+  },
+  "assetSerialNumberOptional": "Nomor Seri (Opsional)",
+  "@assetSerialNumberOptional": {
+    "description": "Serial number input label"
+  },
+  "assetEnterSerialNumber": "Masukkan nomor seri",
+  "@assetEnterSerialNumber": {
+    "description": "Serial number input placeholder"
+  },
+  "assetDataMatrixPreview": "Pratinjau Data Matrix",
+  "@assetDataMatrixPreview": {
+    "description": "Data matrix preview section title"
+  },
+  "assetRegenerateDataMatrix": "Buat Ulang Data Matrix",
+  "@assetRegenerateDataMatrix": {
+    "description": "Regenerate data matrix button label"
+  },
+  "assetCategoryAndLocation": "Kategori & Lokasi",
+  "@assetCategoryAndLocation": {
+    "description": "Category and location section title"
+  },
+  "assetSearchCategory": "Cari kategori...",
+  "@assetSearchCategory": {
+    "description": "Category search placeholder"
+  },
+  "assetNotSet": "Tidak diatur",
+  "@assetNotSet": {
+    "description": "Not set value text"
+  },
+  "assetChangeLocationInstruction": "Untuk mengubah lokasi, gunakan layar Perpindahan Aset",
+  "@assetChangeLocationInstruction": {
+    "description": "Instruction for changing location"
+  },
+  "assetLocationOptional": "Lokasi (Opsional)",
+  "@assetLocationOptional": {
+    "description": "Location input label"
+  },
+  "assetSearchLocation": "Cari lokasi...",
+  "@assetSearchLocation": {
+    "description": "Location search placeholder"
+  },
+  "assetNotAssigned": "Tidak ditugaskan",
+  "@assetNotAssigned": {
+    "description": "Not assigned value text"
+  },
+  "assetChangeAssignmentInstruction": "Untuk mengubah penugasan, gunakan layar Perpindahan Aset",
+  "@assetChangeAssignmentInstruction": {
+    "description": "Instruction for changing assignment"
+  },
+  "assetAssignedToOptional": "Ditugaskan Kepada (Opsional)",
+  "@assetAssignedToOptional": {
+    "description": "Assigned to input label"
+  },
+  "assetSearchUser": "Cari pengguna...",
+  "@assetSearchUser": {
+    "description": "User search placeholder"
+  },
+  "assetPurchaseDateOptional": "Tanggal Pembelian (Opsional)",
+  "@assetPurchaseDateOptional": {
+    "description": "Purchase date input label"
+  },
+  "assetEnterPurchasePrice": "Masukkan harga pembelian",
+  "@assetEnterPurchasePrice": {
+    "description": "Purchase price input placeholder"
+  },
+  "assetVendorNameOptional": "Nama Vendor (Opsional)",
+  "@assetVendorNameOptional": {
+    "description": "Vendor name input label"
+  },
+  "assetEnterVendorName": "Masukkan nama vendor",
+  "@assetEnterVendorName": {
+    "description": "Vendor name input placeholder"
+  },
+  "assetWarrantyEndDateOptional": "Tanggal Berakhir Garansi (Opsional)",
+  "@assetWarrantyEndDateOptional": {
+    "description": "Warranty end date input label"
+  },
+  "assetStatusAndCondition": "Status & Kondisi",
+  "@assetStatusAndCondition": {
+    "description": "Status and condition section title"
+  },
+  "assetSelectStatus": "Pilih status",
+  "@assetSelectStatus": {
+    "description": "Status dropdown placeholder"
+  },
+  "assetSelectCondition": "Pilih kondisi",
+  "@assetSelectCondition": {
+    "description": "Condition dropdown placeholder"
+  },
+  "assetUpdate": "Perbarui",
+  "@assetUpdate": {
+    "description": "Update button label"
+  },
+  "assetCreate": "Buat",
+  "@assetCreate": {
+    "description": "Create button label"
+  },
+  "assetCreateAssetTitle": "Buat Aset",
+  "@assetCreateAssetTitle": {
+    "description": "Create asset option title"
+  },
+  "assetCreateAssetSubtitle": "Tambah aset baru",
+  "@assetCreateAssetSubtitle": {
+    "description": "Create asset option subtitle"
+  },
+  "assetSelectManyTitle": "Pilih Banyak",
+  "@assetSelectManyTitle": {
+    "description": "Select many option title"
+  },
+  "assetSelectManySubtitle": "Pilih beberapa aset untuk dihapus",
+  "@assetSelectManySubtitle": {
+    "description": "Select many option subtitle"
+  },
+  "assetFilterAndSortTitle": "Filter & Urutkan",
+  "@assetFilterAndSortTitle": {
+    "description": "Filter and sort option title"
+  },
+  "assetFilterAndSortSubtitle": "Sesuaikan tampilan aset",
+  "@assetFilterAndSortSubtitle": {
+    "description": "Filter and sort option subtitle"
+  },
+  "assetFilterByCategory": "Filter berdasarkan Kategori",
+  "@assetFilterByCategory": {
+    "description": "Filter by category label"
+  },
+  "assetFilterByLocation": "Filter berdasarkan Lokasi",
+  "@assetFilterByLocation": {
+    "description": "Filter by location label"
+  },
+  "assetFilterByAssignedTo": "Filter berdasarkan Ditugaskan Kepada",
+  "@assetFilterByAssignedTo": {
+    "description": "Filter by assigned to label"
+  },
+  "assetEnterBrandFilter": "Masukkan merek...",
+  "@assetEnterBrandFilter": {
+    "description": "Brand filter input placeholder"
+  },
+  "assetEnterModelFilter": "Masukkan model...",
+  "@assetEnterModelFilter": {
+    "description": "Model filter input placeholder"
+  },
+  "assetSortBy": "Urutkan Berdasarkan",
+  "@assetSortBy": {
+    "description": "Sort by label"
+  },
+  "assetSortOrder": "Urutan",
+  "@assetSortOrder": {
+    "description": "Sort order label"
+  },
+  "assetReset": "Reset",
+  "@assetReset": {
+    "description": "Reset button label"
+  },
+  "assetApply": "Terapkan",
+  "@assetApply": {
+    "description": "Apply button label"
+  },
+  "assetFilterReset": "Filter direset",
+  "@assetFilterReset": {
+    "description": "Filter reset success message"
+  },
+  "assetFilterApplied": "Filter diterapkan",
+  "@assetFilterApplied": {
+    "description": "Filter applied success message"
+  },
+  "assetManagement": "Manajemen Aset",
+  "@assetManagement": {
+    "description": "Asset management screen title"
+  },
+  "assetSelectAssetsToDelete": "Pilih aset untuk dihapus",
+  "@assetSelectAssetsToDelete": {
+    "description": "Instruction for selecting assets to delete"
+  },
+  "assetDeleteAssets": "Hapus Aset",
+  "@assetDeleteAssets": {
+    "description": "Delete assets dialog title"
+  },
+  "assetDeleteMultipleConfirmation": "Apakah Anda yakin ingin menghapus {count} aset?",
+  "@assetDeleteMultipleConfirmation": {
+    "description": "Confirmation message for deleting multiple assets",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "assetNoAssetsSelected": "Tidak ada aset yang dipilih",
+  "@assetNoAssetsSelected": {
+    "description": "Warning message when no assets are selected"
+  },
+  "assetNotImplementedYet": "Belum diimplementasikan",
+  "@assetNotImplementedYet": {
+    "description": "Placeholder message for unimplemented features"
+  },
+  "assetSelectedCount": "{count} dipilih",
+  "@assetSelectedCount": {
+    "description": "Selected count display",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetSearchAssets": "Cari aset...",
+  "@assetSearchAssets": {
+    "description": "Assets search placeholder"
+  },
+  "assetNoAssetsFound": "Tidak ada aset ditemukan",
+  "@assetNoAssetsFound": {
+    "description": "No assets found message"
+  },
+  "assetCreateFirstAsset": "Buat aset pertama Anda untuk memulai",
+  "@assetCreateFirstAsset": {
+    "description": "Empty state message for assets"
+  },
+  "assetLongPressToSelect": "Tekan lama untuk memilih lebih banyak aset",
+  "@assetLongPressToSelect": {
+    "description": "Instruction for selecting multiple assets"
+  },
+  "assetFiltersAndSorting": "Filter & Pengurutan",
+  "@assetFiltersAndSorting": {
+    "description": "Filters and sorting bottom sheet title"
+  },
+  "assetApplyFilters": "Terapkan Filter",
+  "@assetApplyFilters": {
+    "description": "Apply filters button label"
+  },
+  "assetMyAssets": "Aset Saya",
+  "@assetMyAssets": {
+    "description": "My assets screen title"
+  },
+  "assetSearchMyAssets": "Cari aset saya...",
+  "@assetSearchMyAssets": {
+    "description": "My assets search placeholder"
+  },
+  "assetFiltersApplied": "Filter Diterapkan",
+  "@assetFiltersApplied": {
+    "description": "Filters applied state text"
+  },
+  "assetNoAssignedAssets": "Anda tidak memiliki aset yang ditugaskan",
+  "@assetNoAssignedAssets": {
+    "description": "Empty state message for my assets"
+  },
+  "assetExportAssets": "Ekspor Aset",
+  "@assetExportAssets": {
+    "description": "Export assets bottom sheet title"
+  },
+  "assetExportFormat": "Format Ekspor",
+  "@assetExportFormat": {
+    "description": "Export format dropdown label"
+  },
+  "assetIncludeDataMatrixImages": "Sertakan Gambar Data Matrix",
+  "@assetIncludeDataMatrixImages": {
+    "description": "Include data matrix images checkbox label"
+  },
+  "assetExportReady": "Ekspor Siap",
+  "@assetExportReady": {
+    "description": "Export ready status text"
+  },
+  "assetExportSize": "Ukuran: {size} KB",
+  "@assetExportSize": {
+    "description": "Export file size display",
+    "placeholders": {
+      "size": {
+        "type": "String",
+        "example": "125.50"
+      }
+    }
+  },
+  "assetExportFormatDisplay": "Format: {format}",
+  "@assetExportFormatDisplay": {
+    "description": "Export format display",
+    "placeholders": {
+      "format": {
+        "type": "String",
+        "example": "PDF"
+      }
+    }
+  },
+  "assetExportShareInstruction": "File akan membuka menu berbagi. Pilih aplikasi untuk membuka atau simpan langsung.",
+  "@assetExportShareInstruction": {
+    "description": "Instruction for export share process"
+  },
+  "assetShareAndSave": "Simpan",
+  "@assetShareAndSave": {
+    "description": "Share and save button label"
+  },
+  "assetExportSubject": "Ekspor Aset",
+  "@assetExportSubject": {
+    "description": "Export share subject"
+  },
+  "assetSaveToDownloads": "Simpan ke Downloads?",
+  "@assetSaveToDownloads": {
+    "description": "Save to downloads dialog title"
+  },
+  "assetSaveToDownloadsMessage": "File telah dibagikan. Apakah Anda ingin menyimpan salinan ke folder Downloads?",
+  "@assetSaveToDownloadsMessage": {
+    "description": "Save to downloads dialog message"
+  },
+  "assetNo": "Tidak",
+  "@assetNo": {
+    "description": "No button label"
+  },
+  "assetSave": "Simpan",
+  "@assetSave": {
+    "description": "Save button label"
+  },
+  "assetFileSharedSuccessfully": "File berhasil dibagikan",
+  "@assetFileSharedSuccessfully": {
+    "description": "File shared success message"
+  },
+  "assetShareCancelled": "Berbagi dibatalkan",
+  "@assetShareCancelled": {
+    "description": "Share cancelled message"
+  },
+  "assetFailedToShareFile": "Gagal berbagi file: {error}",
+  "@assetFailedToShareFile": {
+    "description": "Failed to share file error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Permission denied"
+      }
+    }
+  },
+  "assetFileSavedSuccessfully": "File berhasil disimpan ke Downloads",
+  "@assetFileSavedSuccessfully": {
+    "description": "File saved success message"
+  },
+  "assetFailedToSaveFile": "Gagal menyimpan file: {error}",
+  "@assetFailedToSaveFile": {
+    "description": "Failed to save file error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Storage permission denied"
+      }
+    }
+  },
+  "assetValidationTagRequired": "Tag aset wajib diisi",
+  "@assetValidationTagRequired": {
+    "description": "Validation error for required asset tag"
+  },
+  "assetValidationTagMinLength": "Tag aset minimal 3 karakter",
+  "@assetValidationTagMinLength": {
+    "description": "Validation error for asset tag minimum length"
+  },
+  "assetValidationTagMaxLength": "Tag aset maksimal 50 karakter",
+  "@assetValidationTagMaxLength": {
+    "description": "Validation error for asset tag maximum length"
+  },
+  "assetValidationTagAlphanumeric": "Tag aset hanya boleh mengandung huruf, angka, dan tanda hubung",
+  "@assetValidationTagAlphanumeric": {
+    "description": "Validation error for asset tag format"
+  },
+  "assetValidationNameRequired": "Nama aset wajib diisi",
+  "@assetValidationNameRequired": {
+    "description": "Validation error for required asset name"
+  },
+  "assetValidationNameMinLength": "Nama aset minimal 3 karakter",
+  "@assetValidationNameMinLength": {
+    "description": "Validation error for asset name minimum length"
+  },
+  "assetValidationNameMaxLength": "Nama aset maksimal 100 karakter",
+  "@assetValidationNameMaxLength": {
+    "description": "Validation error for asset name maximum length"
+  },
+  "assetValidationCategoryRequired": "Kategori wajib diisi",
+  "@assetValidationCategoryRequired": {
+    "description": "Validation error for required category"
+  },
+  "assetValidationBrandMaxLength": "Merek maksimal 50 karakter",
+  "@assetValidationBrandMaxLength": {
+    "description": "Validation error for brand maximum length"
+  },
+  "assetValidationModelMaxLength": "Model maksimal 50 karakter",
+  "@assetValidationModelMaxLength": {
+    "description": "Validation error for model maximum length"
+  },
+  "assetValidationSerialMaxLength": "Nomor seri maksimal 50 karakter",
+  "@assetValidationSerialMaxLength": {
+    "description": "Validation error for serial number maximum length"
+  },
+  "assetValidationPriceInvalid": "Harga pembelian harus berupa angka valid",
+  "@assetValidationPriceInvalid": {
+    "description": "Validation error for invalid purchase price"
+  },
+  "assetValidationPriceNegative": "Harga pembelian tidak boleh negatif",
+  "@assetValidationPriceNegative": {
+    "description": "Validation error for negative purchase price"
+  },
+  "assetValidationVendorMaxLength": "Nama vendor maksimal 100 karakter",
+  "@assetValidationVendorMaxLength": {
+    "description": "Validation error for vendor name maximum length"
+  },
+  "assetExport": "Ekspor",
+  "@assetExport": {
+    "description": "Export button label"
+  },
+  "assetSelectExportType": "Pilih jenis ekspor",
+  "@assetSelectExportType": {
+    "description": "Instruction to select export type"
+  },
+  "assetExportList": "Ekspor Daftar",
+  "@assetExportList": {
+    "description": "Export list option title"
+  },
+  "assetExportListSubtitle": "Ekspor aset sebagai daftar",
+  "@assetExportListSubtitle": {
+    "description": "Export list option subtitle"
+  },
+  "assetExportDataMatrix": "Ekspor Data Matrix",
+  "@assetExportDataMatrix": {
+    "description": "Export data matrix option title"
+  },
+  "assetExportDataMatrixSubtitle": "Ekspor kode data matrix untuk aset",
+  "@assetExportDataMatrixSubtitle": {
+    "description": "Export data matrix option subtitle"
+  },
+  "assetDataMatrixPdfOnly": "Ekspor data matrix hanya tersedia dalam format PDF",
+  "@assetDataMatrixPdfOnly": {
+    "description": "Information about data matrix export format limitation"
+  },
+  "assetQuickActions": "Aksi Cepat",
+  "@assetQuickActions": {
+    "description": "Quick actions section title"
+  },
+  "assetReportIssue": "Laporkan\nMasalah",
+  "@assetReportIssue": {
+    "description": "Report issue action label"
+  },
+  "assetMoveToUser": "Pindah ke\nPengguna",
+  "@assetMoveToUser": {
+    "description": "Move to user action label"
+  },
+  "assetMoveToLocation": "Pindah ke\nLokasi",
+  "@assetMoveToLocation": {
+    "description": "Move to location action label"
+  },
+  "assetScheduleMaintenance": "Jadwalkan\nPemel.",
+  "@assetScheduleMaintenance": {
+    "description": "Schedule maintenance action label"
+  },
+  "assetRecordMaintenance": "Catat\nPemel.",
+  "@assetRecordMaintenance": {
+    "description": "Record maintenance action label"
+  },
+  "assetExportTitle": "Ekspor",
+  "@assetExportTitle": {
+    "description": "Export option title"
+  },
+  "assetExportSubtitle": "Ekspor data ke file",
+  "@assetExportSubtitle": {
+    "description": "Export option subtitle"
+  }
+}

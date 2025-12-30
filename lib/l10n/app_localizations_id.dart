@@ -9,39 +9,39 @@ class L10nId extends L10n {
   L10nId([String locale = 'id']) : super(locale);
 
   @override
-  String get assetDeleteAsset => 'Delete Asset';
+  String get assetDeleteAsset => 'Hapus Aset';
 
   @override
   String assetDeleteConfirmation(String assetName) {
-    return 'Are you sure you want to delete \"$assetName\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$assetName\"?';
   }
 
   @override
-  String get assetCancel => 'Cancel';
+  String get assetCancel => 'Batal';
 
   @override
-  String get assetDelete => 'Delete';
+  String get assetDelete => 'Hapus';
 
   @override
-  String get assetDetail => 'Asset Detail';
+  String get assetDetail => 'Detail Aset';
 
   @override
-  String get assetInformation => 'Asset Information';
+  String get assetInformation => 'Informasi Aset';
 
   @override
-  String get assetTag => 'Asset Tag';
+  String get assetTag => 'Tag Aset';
 
   @override
-  String get assetName => 'Asset Name';
+  String get assetName => 'Nama Aset';
 
   @override
-  String get assetCategory => 'Category';
+  String get assetCategory => 'Kategori';
 
   @override
-  String get assetBrand => 'Brand';
+  String get assetBrand => 'Merek';
 
   @override
-  String get assetBrandLabel => 'Brand';
+  String get assetBrandLabel => 'Merek';
 
   @override
   String get assetModel => 'Model';
@@ -50,360 +50,363 @@ class L10nId extends L10n {
   String get assetModelLabel => 'Model';
 
   @override
-  String get assetSerialNumber => 'Serial Number';
+  String get assetSerialNumber => 'Nomor Seri';
 
   @override
   String get assetStatus => 'Status';
 
   @override
-  String get assetCondition => 'Condition';
+  String get assetCondition => 'Kondisi';
 
   @override
-  String get assetLocation => 'Location';
+  String get assetLocation => 'Lokasi';
 
   @override
-  String get assetAssignedTo => 'Assigned To';
+  String get assetAssignedTo => 'Ditugaskan Kepada';
 
   @override
-  String get assetPurchaseInformation => 'Purchase Information';
+  String get assetPurchaseInformation => 'Informasi Pembelian';
 
   @override
-  String get assetPurchaseDate => 'Purchase Date';
+  String get assetPurchaseDate => 'Tanggal Pembelian';
 
   @override
-  String get assetPurchasePrice => 'Purchase Price';
+  String get assetPurchasePrice => 'Harga Pembelian';
 
   @override
-  String get assetVendorName => 'Vendor Name';
+  String get assetVendorName => 'Nama Vendor';
 
   @override
-  String get assetWarrantyEnd => 'Warranty End';
+  String get assetWarrantyEnd => 'Berakhir Garansi';
 
   @override
   String get assetMetadata => 'Metadata';
 
   @override
-  String get assetCreatedAt => 'Created At';
+  String get assetCreatedAt => 'Dibuat Pada';
 
   @override
-  String get assetUpdatedAt => 'Updated At';
+  String get assetUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get assetDataMatrixImage => 'Data Matrix Image';
+  String get assetDataMatrixImage => 'Gambar Data Matrix';
 
   @override
-  String get assetOnlyAdminCanEdit => 'Only admin can edit assets';
+  String get assetOnlyAdminCanEdit => 'Hanya admin yang dapat mengedit aset';
 
   @override
-  String get assetOnlyAdminCanDelete => 'Only admin can delete assets';
+  String get assetOnlyAdminCanDelete => 'Hanya admin yang dapat menghapus aset';
 
   @override
-  String get assetFailedToLoad => 'Failed to load asset';
+  String get assetFailedToLoad => 'Gagal memuat aset';
 
   @override
-  String get assetLocationPermissionRequired => 'Location Permission Required';
+  String get assetLocationPermissionRequired => 'Izin Lokasi Diperlukan';
 
   @override
   String get assetLocationPermissionMessage =>
-      'Location access is needed to track scan logs. Please enable it in settings.';
+      'Akses lokasi diperlukan untuk melacak log pemindaian. Silakan aktifkan di pengaturan.';
 
   @override
-  String get assetOpenSettings => 'Open Settings';
+  String get assetOpenSettings => 'Buka Pengaturan';
 
   @override
   String get assetLocationPermissionNeeded =>
-      'Location permission needed for scan logs';
+      'Izin lokasi diperlukan untuk log pemindaian';
 
   @override
-  String get assetInvalidBarcode => 'Invalid barcode data';
+  String get assetInvalidBarcode => 'Data barcode tidak valid';
 
   @override
   String assetFound(String assetName) {
-    return 'Asset found: $assetName';
+    return 'Aset ditemukan: $assetName';
   }
 
   @override
-  String get assetNotFound => 'Asset not found';
+  String get assetNotFound => 'Aset tidak ditemukan';
 
   @override
-  String get assetFailedToProcessBarcode => 'Failed to process barcode';
+  String get assetFailedToProcessBarcode => 'Gagal memproses barcode';
 
   @override
-  String get assetCameraError => 'Camera Error';
+  String get assetCameraError => 'Kesalahan Kamera';
 
   @override
-  String get assetAlignDataMatrix => 'Align data matrix within frame';
+  String get assetAlignDataMatrix => 'Sejajarkan data matrix dalam bingkai';
 
   @override
-  String get assetProcessing => 'Processing...';
+  String get assetProcessing => 'Memproses...';
 
   @override
   String get assetFlash => 'Flash';
 
   @override
-  String get assetFlip => 'Flip';
+  String get assetFlip => 'Balik';
 
   @override
-  String get assetEditAsset => 'Edit Asset';
+  String get assetEditAsset => 'Edit Aset';
 
   @override
-  String get assetCreateAsset => 'Create Asset';
+  String get assetCreateAsset => 'Buat Aset';
 
   @override
-  String get assetFillRequiredFields => 'Please fill all required fields';
+  String get assetFillRequiredFields => 'Harap isi semua field yang wajib';
 
   @override
-  String get assetSelectCategory => 'Please select a category';
+  String get assetSelectCategory => 'Harap pilih kategori';
 
   @override
-  String get assetSavedSuccessfully => 'Asset saved successfully';
+  String get assetSavedSuccessfully => 'Aset berhasil disimpan';
 
   @override
-  String get assetOperationFailed => 'Operation failed';
+  String get assetOperationFailed => 'Operasi gagal';
 
   @override
-  String get assetDeletedSuccess => 'Asset deleted';
+  String get assetDeletedSuccess => 'Aset dihapus';
 
   @override
-  String get assetDeletedFailed => 'Delete failed';
+  String get assetDeletedFailed => 'Gagal menghapus';
 
   @override
-  String get assetFailedToGenerateDataMatrix =>
-      'Failed to generate data matrix';
+  String get assetFailedToGenerateDataMatrix => 'Gagal membuat data matrix';
 
   @override
-  String get assetSelectCategoryFirst => 'Please select a category first';
+  String get assetSelectCategoryFirst => 'Harap pilih kategori terlebih dahulu';
 
   @override
   String assetTagGenerated(String tag) {
-    return 'Asset tag generated: $tag';
+    return 'Tag aset dibuat: $tag';
   }
 
   @override
-  String get assetFailedToGenerateTag => 'Failed to generate asset tag';
+  String get assetFailedToGenerateTag => 'Gagal membuat tag aset';
 
   @override
-  String get assetEnterAssetTagFirst => 'Please enter asset tag first';
+  String get assetEnterAssetTagFirst =>
+      'Harap masukkan tag aset terlebih dahulu';
 
   @override
-  String get assetBasicInformation => 'Basic Information';
+  String get assetBasicInformation => 'Informasi Dasar';
 
   @override
-  String get assetEnterAssetTag => 'Enter asset tag (e.g., AST-001)';
+  String get assetEnterAssetTag => 'Masukkan tag aset (contoh: AST-001)';
 
   @override
-  String get assetAutoGenerateTag => 'Auto-generate asset tag';
+  String get assetAutoGenerateTag => 'Buat tag aset otomatis';
 
   @override
-  String get assetEnterAssetName => 'Enter asset name';
+  String get assetEnterAssetName => 'Masukkan nama aset';
 
   @override
-  String get assetBrandOptional => 'Brand (Optional)';
+  String get assetBrandOptional => 'Merek (Opsional)';
 
   @override
-  String get assetEnterBrand => 'Enter brand name';
+  String get assetEnterBrand => 'Masukkan nama merek';
 
   @override
-  String get assetModelOptional => 'Model (Optional)';
+  String get assetModelOptional => 'Model (Opsional)';
 
   @override
-  String get assetEnterModel => 'Enter model';
+  String get assetEnterModel => 'Masukkan model';
 
   @override
-  String get assetSerialNumberOptional => 'Serial Number (Optional)';
+  String get assetSerialNumberOptional => 'Nomor Seri (Opsional)';
 
   @override
-  String get assetEnterSerialNumber => 'Enter serial number';
+  String get assetEnterSerialNumber => 'Masukkan nomor seri';
 
   @override
-  String get assetDataMatrixPreview => 'Data Matrix Preview';
+  String get assetDataMatrixPreview => 'Pratinjau Data Matrix';
 
   @override
-  String get assetRegenerateDataMatrix => 'Regenerate Data Matrix';
+  String get assetRegenerateDataMatrix => 'Buat Ulang Data Matrix';
 
   @override
-  String get assetCategoryAndLocation => 'Category & Location';
+  String get assetCategoryAndLocation => 'Kategori & Lokasi';
 
   @override
-  String get assetSearchCategory => 'Search category...';
+  String get assetSearchCategory => 'Cari kategori...';
 
   @override
-  String get assetNotSet => 'Not set';
+  String get assetNotSet => 'Tidak diatur';
 
   @override
   String get assetChangeLocationInstruction =>
-      'To change location, use Asset Movement screen';
+      'Untuk mengubah lokasi, gunakan layar Perpindahan Aset';
 
   @override
-  String get assetLocationOptional => 'Location (Optional)';
+  String get assetLocationOptional => 'Lokasi (Opsional)';
 
   @override
-  String get assetSearchLocation => 'Search location...';
+  String get assetSearchLocation => 'Cari lokasi...';
 
   @override
-  String get assetNotAssigned => 'Not assigned';
+  String get assetNotAssigned => 'Tidak ditugaskan';
 
   @override
   String get assetChangeAssignmentInstruction =>
-      'To change assignment, use Asset Movement screen';
+      'Untuk mengubah penugasan, gunakan layar Perpindahan Aset';
 
   @override
-  String get assetAssignedToOptional => 'Assigned To (Optional)';
+  String get assetAssignedToOptional => 'Ditugaskan Kepada (Opsional)';
 
   @override
-  String get assetSearchUser => 'Search user...';
+  String get assetSearchUser => 'Cari pengguna...';
 
   @override
-  String get assetPurchaseDateOptional => 'Purchase Date (Optional)';
+  String get assetPurchaseDateOptional => 'Tanggal Pembelian (Opsional)';
 
   @override
-  String get assetEnterPurchasePrice => 'Enter purchase price';
+  String get assetEnterPurchasePrice => 'Masukkan harga pembelian';
 
   @override
-  String get assetVendorNameOptional => 'Vendor Name (Optional)';
+  String get assetVendorNameOptional => 'Nama Vendor (Opsional)';
 
   @override
-  String get assetEnterVendorName => 'Enter vendor name';
+  String get assetEnterVendorName => 'Masukkan nama vendor';
 
   @override
-  String get assetWarrantyEndDateOptional => 'Warranty End Date (Optional)';
+  String get assetWarrantyEndDateOptional =>
+      'Tanggal Berakhir Garansi (Opsional)';
 
   @override
-  String get assetStatusAndCondition => 'Status & Condition';
+  String get assetStatusAndCondition => 'Status & Kondisi';
 
   @override
-  String get assetSelectStatus => 'Select status';
+  String get assetSelectStatus => 'Pilih status';
 
   @override
-  String get assetSelectCondition => 'Select condition';
+  String get assetSelectCondition => 'Pilih kondisi';
 
   @override
-  String get assetUpdate => 'Update';
+  String get assetUpdate => 'Perbarui';
 
   @override
-  String get assetCreate => 'Create';
+  String get assetCreate => 'Buat';
 
   @override
-  String get assetCreateAssetTitle => 'Create Asset';
+  String get assetCreateAssetTitle => 'Buat Aset';
 
   @override
-  String get assetCreateAssetSubtitle => 'Add a new asset';
+  String get assetCreateAssetSubtitle => 'Tambah aset baru';
 
   @override
-  String get assetSelectManyTitle => 'Select Many';
+  String get assetSelectManyTitle => 'Pilih Banyak';
 
   @override
-  String get assetSelectManySubtitle => 'Select multiple assets to delete';
+  String get assetSelectManySubtitle => 'Pilih beberapa aset untuk dihapus';
 
   @override
-  String get assetFilterAndSortTitle => 'Filter & Sort';
+  String get assetFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
-  String get assetFilterAndSortSubtitle => 'Customize asset display';
+  String get assetFilterAndSortSubtitle => 'Sesuaikan tampilan aset';
 
   @override
-  String get assetFilterByCategory => 'Filter by Category';
+  String get assetFilterByCategory => 'Filter berdasarkan Kategori';
 
   @override
-  String get assetFilterByLocation => 'Filter by Location';
+  String get assetFilterByLocation => 'Filter berdasarkan Lokasi';
 
   @override
-  String get assetFilterByAssignedTo => 'Filter by Assigned To';
+  String get assetFilterByAssignedTo => 'Filter berdasarkan Ditugaskan Kepada';
 
   @override
-  String get assetEnterBrandFilter => 'Enter brand...';
+  String get assetEnterBrandFilter => 'Masukkan merek...';
 
   @override
-  String get assetEnterModelFilter => 'Enter model...';
+  String get assetEnterModelFilter => 'Masukkan model...';
 
   @override
-  String get assetSortBy => 'Sort By';
+  String get assetSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get assetSortOrder => 'Sort Order';
+  String get assetSortOrder => 'Urutan';
 
   @override
   String get assetReset => 'Reset';
 
   @override
-  String get assetApply => 'Apply';
+  String get assetApply => 'Terapkan';
 
   @override
-  String get assetFilterReset => 'Filter reset';
+  String get assetFilterReset => 'Filter direset';
 
   @override
-  String get assetFilterApplied => 'Filter applied';
+  String get assetFilterApplied => 'Filter diterapkan';
 
   @override
-  String get assetManagement => 'Asset Management';
+  String get assetManagement => 'Manajemen Aset';
 
   @override
-  String get assetSelectAssetsToDelete => 'Select assets to delete';
+  String get assetSelectAssetsToDelete => 'Pilih aset untuk dihapus';
 
   @override
-  String get assetDeleteAssets => 'Delete Assets';
+  String get assetDeleteAssets => 'Hapus Aset';
 
   @override
   String assetDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count assets?';
+    return 'Apakah Anda yakin ingin menghapus $count aset?';
   }
 
   @override
-  String get assetNoAssetsSelected => 'No assets selected';
+  String get assetNoAssetsSelected => 'Tidak ada aset yang dipilih';
 
   @override
-  String get assetNotImplementedYet => 'Not implemented yet';
+  String get assetNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String assetSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get assetSearchAssets => 'Search assets...';
+  String get assetSearchAssets => 'Cari aset...';
 
   @override
-  String get assetNoAssetsFound => 'No assets found';
+  String get assetNoAssetsFound => 'Tidak ada aset ditemukan';
 
   @override
-  String get assetCreateFirstAsset => 'Create your first asset to get started';
+  String get assetCreateFirstAsset => 'Buat aset pertama Anda untuk memulai';
 
   @override
-  String get assetLongPressToSelect => 'Long press to select more assets';
+  String get assetLongPressToSelect =>
+      'Tekan lama untuk memilih lebih banyak aset';
 
   @override
-  String get assetFiltersAndSorting => 'Filters & Sorting';
+  String get assetFiltersAndSorting => 'Filter & Pengurutan';
 
   @override
-  String get assetApplyFilters => 'Apply Filters';
+  String get assetApplyFilters => 'Terapkan Filter';
 
   @override
-  String get assetMyAssets => 'My Assets';
+  String get assetMyAssets => 'Aset Saya';
 
   @override
-  String get assetSearchMyAssets => 'Search my assets...';
+  String get assetSearchMyAssets => 'Cari aset saya...';
 
   @override
-  String get assetFiltersApplied => 'Filters Applied';
+  String get assetFiltersApplied => 'Filter Diterapkan';
 
   @override
-  String get assetNoAssignedAssets => 'You have no assigned assets';
+  String get assetNoAssignedAssets =>
+      'Anda tidak memiliki aset yang ditugaskan';
 
   @override
-  String get assetExportAssets => 'Export Assets';
+  String get assetExportAssets => 'Ekspor Aset';
 
   @override
-  String get assetExportFormat => 'Export Format';
+  String get assetExportFormat => 'Format Ekspor';
 
   @override
-  String get assetIncludeDataMatrixImages => 'Include Data Matrix Images';
+  String get assetIncludeDataMatrixImages => 'Sertakan Gambar Data Matrix';
 
   @override
-  String get assetExportReady => 'Export Ready';
+  String get assetExportReady => 'Ekspor Siap';
 
   @override
   String assetExportSize(String size) {
-    return 'Size: $size KB';
+    return 'Ukuran: $size KB';
   }
 
   @override
@@ -413,195 +416,189 @@ class L10nId extends L10n {
 
   @override
   String get assetExportShareInstruction =>
-      'File will open share menu. Choose app to open or save directly.';
+      'File akan membuka menu berbagi. Pilih aplikasi untuk membuka atau simpan langsung.';
 
   @override
-  String get assetShareAndSave => 'Save';
+  String get assetShareAndSave => 'Simpan';
 
   @override
-  String get assetExportSubject => 'Assets Export';
+  String get assetExportSubject => 'Ekspor Aset';
 
   @override
-  String get assetSaveToDownloads => 'Save to Downloads?';
+  String get assetSaveToDownloads => 'Simpan ke Downloads?';
 
   @override
   String get assetSaveToDownloadsMessage =>
-      'File has been shared. Would you like to save a copy to Downloads folder?';
+      'File telah dibagikan. Apakah Anda ingin menyimpan salinan ke folder Downloads?';
 
   @override
-  String get assetNo => 'No';
+  String get assetNo => 'Tidak';
 
   @override
-  String get assetSave => 'Save';
+  String get assetSave => 'Simpan';
 
   @override
-  String get assetFileSharedSuccessfully => 'File shared successfully';
+  String get assetFileSharedSuccessfully => 'File berhasil dibagikan';
 
   @override
-  String get assetShareCancelled => 'Share cancelled';
+  String get assetShareCancelled => 'Berbagi dibatalkan';
 
   @override
   String assetFailedToShareFile(String error) {
-    return 'Failed to share file: $error';
+    return 'Gagal berbagi file: $error';
   }
 
   @override
   String get assetFileSavedSuccessfully =>
-      'File saved successfully to Downloads';
+      'File berhasil disimpan ke Downloads';
 
   @override
   String assetFailedToSaveFile(String error) {
-    return 'Failed to save file: $error';
+    return 'Gagal menyimpan file: $error';
   }
 
   @override
-  String get assetValidationTagRequired => 'Asset tag is required';
+  String get assetValidationTagRequired => 'Tag aset wajib diisi';
 
   @override
-  String get assetValidationTagMinLength =>
-      'Asset tag must be at least 3 characters';
+  String get assetValidationTagMinLength => 'Tag aset minimal 3 karakter';
 
   @override
-  String get assetValidationTagMaxLength =>
-      'Asset tag must not exceed 50 characters';
+  String get assetValidationTagMaxLength => 'Tag aset maksimal 50 karakter';
 
   @override
   String get assetValidationTagAlphanumeric =>
-      'Asset tag can only contain letters, numbers, and dashes';
+      'Tag aset hanya boleh mengandung huruf, angka, dan tanda hubung';
 
   @override
-  String get assetValidationNameRequired => 'Asset name is required';
+  String get assetValidationNameRequired => 'Nama aset wajib diisi';
 
   @override
-  String get assetValidationNameMinLength =>
-      'Asset name must be at least 3 characters';
+  String get assetValidationNameMinLength => 'Nama aset minimal 3 karakter';
 
   @override
-  String get assetValidationNameMaxLength =>
-      'Asset name must not exceed 100 characters';
+  String get assetValidationNameMaxLength => 'Nama aset maksimal 100 karakter';
 
   @override
-  String get assetValidationCategoryRequired => 'Category is required';
+  String get assetValidationCategoryRequired => 'Kategori wajib diisi';
 
   @override
-  String get assetValidationBrandMaxLength =>
-      'Brand must not exceed 50 characters';
+  String get assetValidationBrandMaxLength => 'Merek maksimal 50 karakter';
 
   @override
-  String get assetValidationModelMaxLength =>
-      'Model must not exceed 50 characters';
+  String get assetValidationModelMaxLength => 'Model maksimal 50 karakter';
 
   @override
   String get assetValidationSerialMaxLength =>
-      'Serial number must not exceed 50 characters';
+      'Nomor seri maksimal 50 karakter';
 
   @override
   String get assetValidationPriceInvalid =>
-      'Purchase price must be a valid number';
+      'Harga pembelian harus berupa angka valid';
 
   @override
   String get assetValidationPriceNegative =>
-      'Purchase price cannot be negative';
+      'Harga pembelian tidak boleh negatif';
 
   @override
   String get assetValidationVendorMaxLength =>
-      'Vendor name must not exceed 100 characters';
+      'Nama vendor maksimal 100 karakter';
 
   @override
-  String get assetExport => 'Export';
+  String get assetExport => 'Ekspor';
 
   @override
-  String get assetSelectExportType => 'Select export type';
+  String get assetSelectExportType => 'Pilih jenis ekspor';
 
   @override
-  String get assetExportList => 'Export List';
+  String get assetExportList => 'Ekspor Daftar';
 
   @override
-  String get assetExportListSubtitle => 'Export assets as a list';
+  String get assetExportListSubtitle => 'Ekspor aset sebagai daftar';
 
   @override
-  String get assetExportDataMatrix => 'Export Data Matrix';
+  String get assetExportDataMatrix => 'Ekspor Data Matrix';
 
   @override
   String get assetExportDataMatrixSubtitle =>
-      'Export data matrix codes for assets';
+      'Ekspor kode data matrix untuk aset';
 
   @override
   String get assetDataMatrixPdfOnly =>
-      'Data matrix export is only available in PDF format';
+      'Ekspor data matrix hanya tersedia dalam format PDF';
 
   @override
-  String get assetQuickActions => 'Quick Actions';
+  String get assetQuickActions => 'Aksi Cepat';
 
   @override
-  String get assetReportIssue => 'Report\nIssue';
+  String get assetReportIssue => 'Laporkan\nMasalah';
 
   @override
-  String get assetMoveToUser => 'Move to\nUser';
+  String get assetMoveToUser => 'Pindah ke\nPengguna';
 
   @override
-  String get assetMoveToLocation => 'Move to\nLocation';
+  String get assetMoveToLocation => 'Pindah ke\nLokasi';
 
   @override
-  String get assetScheduleMaintenance => 'Schedule\nMaint.';
+  String get assetScheduleMaintenance => 'Jadwalkan\nPemel.';
 
   @override
-  String get assetRecordMaintenance => 'Record\nMaint.';
+  String get assetRecordMaintenance => 'Catat\nPemel.';
 
   @override
-  String get assetExportTitle => 'Export';
+  String get assetExportTitle => 'Ekspor';
 
   @override
-  String get assetExportSubtitle => 'Export data to file';
+  String get assetExportSubtitle => 'Ekspor data ke file';
 
   @override
-  String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
+  String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';
 
   @override
   String get assetMovementDeleteConfirmation =>
-      'Are you sure you want to delete this asset movement record?';
+      'Apakah Anda yakin ingin menghapus catatan perpindahan aset ini?';
 
   @override
-  String get assetMovementCancel => 'Cancel';
+  String get assetMovementCancel => 'Batal';
 
   @override
-  String get assetMovementDelete => 'Delete';
+  String get assetMovementDelete => 'Hapus';
 
   @override
-  String get assetMovementDetail => 'Asset Movement Detail';
+  String get assetMovementDetail => 'Detail Perpindahan Aset';
 
   @override
-  String get assetMovementInformation => 'Movement Information';
+  String get assetMovementInformation => 'Informasi Perpindahan';
 
   @override
-  String get assetMovementId => 'Movement ID';
+  String get assetMovementId => 'ID Perpindahan';
 
   @override
-  String get assetMovementAsset => 'Asset';
+  String get assetMovementAsset => 'Aset';
 
   @override
-  String get assetMovementMovementType => 'Movement Type';
+  String get assetMovementMovementType => 'Jenis Perpindahan';
 
   @override
-  String get assetMovementFromLocation => 'From Location';
+  String get assetMovementFromLocation => 'Dari Lokasi';
 
   @override
-  String get assetMovementToLocation => 'To Location';
+  String get assetMovementToLocation => 'Ke Lokasi';
 
   @override
-  String get assetMovementFromUser => 'From User';
+  String get assetMovementFromUser => 'Dari Pengguna';
 
   @override
-  String get assetMovementToUser => 'To User';
+  String get assetMovementToUser => 'Ke Pengguna';
 
   @override
-  String get assetMovementMovedBy => 'Moved By';
+  String get assetMovementMovedBy => 'Dipindahkan Oleh';
 
   @override
-  String get assetMovementMovementDate => 'Movement Date';
+  String get assetMovementMovementDate => 'Tanggal Perpindahan';
 
   @override
-  String get assetMovementNotes => 'Notes';
+  String get assetMovementNotes => 'Catatan';
 
   @override
   String get assetMovementStatus => 'Status';
@@ -610,349 +607,356 @@ class L10nId extends L10n {
   String get assetMovementMetadata => 'Metadata';
 
   @override
-  String get assetMovementCreatedAt => 'Created At';
+  String get assetMovementCreatedAt => 'Dibuat Pada';
 
   @override
-  String get assetMovementUpdatedAt => 'Updated At';
+  String get assetMovementUpdatedAt => 'Diperbarui Pada';
 
   @override
   String get assetMovementOnlyAdminCanEdit =>
-      'Only admin can edit asset movements';
+      'Hanya admin yang dapat mengedit perpindahan aset';
 
   @override
   String get assetMovementOnlyAdminCanDelete =>
-      'Only admin can delete asset movements';
+      'Hanya admin yang dapat menghapus perpindahan aset';
 
   @override
-  String get assetMovementFailedToLoad => 'Failed to load asset movement';
+  String get assetMovementFailedToLoad => 'Gagal memuat perpindahan aset';
 
   @override
-  String get assetMovementEditAssetMovement => 'Edit Asset Movement';
+  String get assetMovementEditAssetMovement => 'Edit Perpindahan Aset';
 
   @override
-  String get assetMovementCreateAssetMovement => 'Create Asset Movement';
+  String get assetMovementCreateAssetMovement => 'Buat Perpindahan Aset';
 
   @override
   String get assetMovementFillRequiredFields =>
-      'Please fill all required fields';
+      'Harap isi semua field yang wajib';
 
   @override
-  String get assetMovementSelectAsset => 'Please select an asset';
+  String get assetMovementSelectAsset => 'Harap pilih aset';
 
   @override
   String get assetMovementSavedSuccessfully =>
-      'Asset movement saved successfully';
+      'Perpindahan aset berhasil disimpan';
 
   @override
-  String get assetMovementOperationFailed => 'Operation failed';
+  String get assetMovementOperationFailed => 'Operasi gagal';
 
   @override
-  String get assetMovementBasicInformation => 'Basic Information';
+  String get assetMovementBasicInformation => 'Informasi Dasar';
 
   @override
-  String get assetMovementSelectAssetPlaceholder => 'Select asset';
+  String get assetMovementSelectAssetPlaceholder => 'Pilih aset';
 
   @override
-  String get assetMovementSearchAsset => 'Search asset...';
+  String get assetMovementSearchAsset => 'Cari aset...';
 
   @override
-  String get assetMovementSelectMovementType => 'Select movement type';
+  String get assetMovementSelectMovementType => 'Pilih jenis perpindahan';
 
   @override
-  String get assetMovementLocationDetails => 'Location Details';
+  String get assetMovementLocationDetails => 'Detail Lokasi';
 
   @override
-  String get assetMovementFromLocationLabel => 'From Location';
+  String get assetMovementFromLocationLabel => 'Dari Lokasi';
 
   @override
-  String get assetMovementSearchFromLocation => 'Search from location...';
+  String get assetMovementSearchFromLocation => 'Cari dari lokasi...';
 
   @override
-  String get assetMovementToLocationLabel => 'To Location';
+  String get assetMovementToLocationLabel => 'Ke Lokasi';
 
   @override
-  String get assetMovementSearchToLocation => 'Search to location...';
+  String get assetMovementSearchToLocation => 'Cari ke lokasi...';
 
   @override
-  String get assetMovementUserDetails => 'User Details';
+  String get assetMovementUserDetails => 'Detail Pengguna';
 
   @override
-  String get assetMovementFromUserLabel => 'From User';
+  String get assetMovementFromUserLabel => 'Dari Pengguna';
 
   @override
-  String get assetMovementSearchFromUser => 'Search from user...';
+  String get assetMovementSearchFromUser => 'Cari dari pengguna...';
 
   @override
-  String get assetMovementToUserLabel => 'To User';
+  String get assetMovementToUserLabel => 'Ke Pengguna';
 
   @override
-  String get assetMovementSearchToUser => 'Search to user...';
+  String get assetMovementSearchToUser => 'Cari ke pengguna...';
 
   @override
-  String get assetMovementMovementDateLabel => 'Movement Date';
+  String get assetMovementMovementDateLabel => 'Tanggal Perpindahan';
 
   @override
-  String get assetMovementNotesLabel => 'Notes (Optional)';
+  String get assetMovementNotesLabel => 'Catatan (Opsional)';
 
   @override
-  String get assetMovementEnterNotes => 'Enter notes...';
+  String get assetMovementEnterNotes => 'Masukkan catatan...';
 
   @override
-  String get assetMovementUpdate => 'Update';
+  String get assetMovementUpdate => 'Perbarui';
 
   @override
-  String get assetMovementCreate => 'Create';
+  String get assetMovementCreate => 'Buat';
 
   @override
-  String get assetMovementManagement => 'Asset Movement Management';
+  String get assetMovementManagement => 'Manajemen Perpindahan Aset';
 
   @override
-  String get assetMovementSearchAssetMovements => 'Search asset movements...';
+  String get assetMovementSearchAssetMovements => 'Cari perpindahan aset...';
 
   @override
-  String get assetMovementNoMovementsFound => 'No asset movements found';
+  String get assetMovementNoMovementsFound =>
+      'Tidak ada perpindahan aset ditemukan';
 
   @override
   String get assetMovementCreateFirstMovement =>
-      'Create your first asset movement to get started';
+      'Buat perpindahan aset pertama Anda untuk memulai';
 
   @override
-  String get assetMovementFilterAndSortTitle => 'Filter & Sort';
+  String get assetMovementFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
   String get assetMovementFilterAndSortSubtitle =>
-      'Customize asset movement display';
+      'Sesuaikan tampilan perpindahan aset';
 
   @override
-  String get assetMovementFilterByAsset => 'Filter by Asset';
+  String get assetMovementFilterByAsset => 'Filter berdasarkan Aset';
 
   @override
-  String get assetMovementFilterByMovementType => 'Filter by Movement Type';
+  String get assetMovementFilterByMovementType =>
+      'Filter berdasarkan Jenis Perpindahan';
 
   @override
-  String get assetMovementFilterByLocation => 'Filter by Location';
+  String get assetMovementFilterByLocation => 'Filter berdasarkan Lokasi';
 
   @override
-  String get assetMovementFilterByUser => 'Filter by User';
+  String get assetMovementFilterByUser => 'Filter berdasarkan Pengguna';
 
   @override
-  String get assetMovementSortBy => 'Sort By';
+  String get assetMovementSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get assetMovementSortOrder => 'Sort Order';
+  String get assetMovementSortOrder => 'Urutan';
 
   @override
   String get assetMovementReset => 'Reset';
 
   @override
-  String get assetMovementApply => 'Apply';
+  String get assetMovementApply => 'Terapkan';
 
   @override
-  String get assetMovementFilterReset => 'Filter reset';
+  String get assetMovementFilterReset => 'Filter direset';
 
   @override
-  String get assetMovementFilterApplied => 'Filter applied';
+  String get assetMovementFilterApplied => 'Filter diterapkan';
 
   @override
-  String get assetMovementStatistics => 'Movement Statistics';
+  String get assetMovementStatistics => 'Statistik Perpindahan';
 
   @override
-  String get assetMovementTotalMovements => 'Total Movements';
+  String get assetMovementTotalMovements => 'Total Perpindahan';
 
   @override
-  String get assetMovementByType => 'Movements by Type';
+  String get assetMovementByType => 'Perpindahan berdasarkan Jenis';
 
   @override
-  String get assetMovementByStatus => 'Movements by Status';
+  String get assetMovementByStatus => 'Perpindahan berdasarkan Status';
 
   @override
-  String get assetMovementRecentActivity => 'Recent Activity';
+  String get assetMovementRecentActivity => 'Aktivitas Terbaru';
 
   @override
-  String get assetMovementValidationAssetRequired => 'Asset is required';
+  String get assetMovementValidationAssetRequired => 'Aset wajib diisi';
 
   @override
   String get assetMovementValidationMovementTypeRequired =>
-      'Movement type is required';
+      'Jenis perpindahan wajib diisi';
 
   @override
   String get assetMovementValidationLocationRequired =>
-      'Location is required for this movement type';
+      'Lokasi wajib diisi untuk jenis perpindahan ini';
 
   @override
   String get assetMovementValidationUserRequired =>
-      'User is required for this movement type';
+      'Pengguna wajib diisi untuk jenis perpindahan ini';
 
   @override
   String get assetMovementValidationMovementDateRequired =>
-      'Movement date is required';
+      'Tanggal perpindahan wajib diisi';
 
   @override
   String get assetMovementValidationNotesMaxLength =>
-      'Notes must not exceed 500 characters';
+      'Catatan maksimal 500 karakter';
 
   @override
   String get assetMovementValidationToLocationRequired =>
-      'To location is required';
+      'Lokasi tujuan wajib diisi';
 
   @override
-  String get assetMovementValidationToUserRequired => 'To user is required';
+  String get assetMovementValidationToUserRequired =>
+      'Pengguna tujuan wajib diisi';
 
   @override
-  String get assetMovementValidationMovedByRequired => 'Moved by is required';
+  String get assetMovementValidationMovedByRequired =>
+      'Dipindahkan oleh wajib diisi';
 
   @override
   String get assetMovementValidationMovementDateFuture =>
-      'Movement date cannot be in the future';
+      'Tanggal perpindahan tidak boleh di masa depan';
 
   @override
-  String get assetMovementTranslations => 'Translations';
+  String get assetMovementTranslations => 'Terjemahan';
 
   @override
-  String get assetMovementUnknownAsset => 'Unknown Asset';
+  String get assetMovementUnknownAsset => 'Aset Tidak Diketahui';
 
   @override
-  String get assetMovementUnknownTag => 'Unknown Tag';
+  String get assetMovementUnknownTag => 'Tag Tidak Diketahui';
 
   @override
-  String get assetMovementUnknown => 'Unknown';
+  String get assetMovementUnknown => 'Tidak Diketahui';
 
   @override
-  String get assetMovementUnassigned => 'Unassigned';
+  String get assetMovementUnassigned => 'Tidak Ditugaskan';
 
   @override
-  String get assetMovementNotSet => 'Not set';
+  String get assetMovementNotSet => 'Tidak diatur';
 
   @override
-  String get assetMovementLocationMovement => 'Location Movement';
+  String get assetMovementLocationMovement => 'Perpindahan Lokasi';
 
   @override
-  String get assetMovementUserMovement => 'User Movement';
+  String get assetMovementUserMovement => 'Perpindahan Pengguna';
 
   @override
-  String get assetMovementCreateAssetMovementTitle => 'Create Asset Movement';
+  String get assetMovementCreateAssetMovementTitle => 'Buat Perpindahan Aset';
 
   @override
   String get assetMovementCreateAssetMovementSubtitle =>
-      'Record a new asset movement';
+      'Catat perpindahan aset baru';
 
   @override
-  String get assetMovementForLocation => 'Asset Movement for Location';
+  String get assetMovementForLocation => 'Perpindahan Aset untuk Lokasi';
 
   @override
-  String get assetMovementForUser => 'Asset Movement for User';
+  String get assetMovementForUser => 'Perpindahan Aset untuk Pengguna';
 
   @override
-  String get assetMovementCurrentLocation => 'Current Location';
+  String get assetMovementCurrentLocation => 'Lokasi Saat Ini';
 
   @override
-  String get assetMovementNewLocation => 'New Location';
+  String get assetMovementNewLocation => 'Lokasi Baru';
 
   @override
-  String get assetMovementCurrentUser => 'Current User';
+  String get assetMovementCurrentUser => 'Pengguna Saat Ini';
 
   @override
-  String get assetMovementNewUser => 'New User';
+  String get assetMovementNewUser => 'Pengguna Baru';
 
   @override
-  String get assetMovementMovementHistory => 'Movement History';
+  String get assetMovementMovementHistory => 'Riwayat Perpindahan';
 
   @override
-  String get assetMovementNoHistory => 'No movement history available';
+  String get assetMovementNoHistory => 'Tidak ada riwayat perpindahan tersedia';
 
   @override
-  String get assetMovementViewAll => 'View All';
+  String get assetMovementViewAll => 'Lihat Semua';
 
   @override
-  String get assetMovementMovedTo => 'Moved to';
+  String get assetMovementMovedTo => 'Dipindahkan ke';
 
   @override
-  String get assetMovementAssignedTo => 'Assigned to';
+  String get assetMovementAssignedTo => 'Ditugaskan ke';
 
   @override
-  String get assetMovementSelectMany => 'Select Many';
+  String get assetMovementSelectMany => 'Pilih Banyak';
 
   @override
   String get assetMovementSelectManySubtitle =>
-      'Select multiple asset movements to delete';
+      'Pilih beberapa perpindahan aset untuk dihapus';
 
   @override
   String get assetMovementSelectAssetMovementsToDelete =>
-      'Select asset movements to delete';
+      'Pilih perpindahan aset untuk dihapus';
 
   @override
-  String get assetMovementChooseMovementType => 'Choose movement type:';
+  String get assetMovementChooseMovementType => 'Pilih jenis perpindahan:';
 
   @override
-  String get assetMovementFilterByFromLocation => 'Filter by From Location';
+  String get assetMovementFilterByFromLocation =>
+      'Filter berdasarkan Dari Lokasi';
 
   @override
-  String get assetMovementFilterByToLocation => 'Filter by To Location';
+  String get assetMovementFilterByToLocation => 'Filter berdasarkan Ke Lokasi';
 
   @override
-  String get assetMovementFilterByFromUser => 'Filter by From User';
+  String get assetMovementFilterByFromUser =>
+      'Filter berdasarkan Dari Pengguna';
 
   @override
-  String get assetMovementFilterByToUser => 'Filter by To User';
+  String get assetMovementFilterByToUser => 'Filter berdasarkan Ke Pengguna';
 
   @override
-  String get assetMovementFilterByMovedBy => 'Filter by Moved By';
+  String get assetMovementFilterByMovedBy =>
+      'Filter berdasarkan Dipindahkan Oleh';
 
   @override
-  String get assetMovementDateFrom => 'Date From';
+  String get assetMovementDateFrom => 'Tanggal Dari';
 
   @override
-  String get assetMovementDateTo => 'Date To';
+  String get assetMovementDateTo => 'Tanggal Sampai';
 
   @override
-  String get assetMovementSearchAssetPlaceholder => 'Search asset...';
+  String get assetMovementSearchAssetPlaceholder => 'Cari aset...';
 
   @override
   String get assetMovementSearchFromLocationPlaceholder =>
-      'Search from location...';
+      'Cari dari lokasi...';
 
   @override
-  String get assetMovementSearchToLocationPlaceholder =>
-      'Search to location...';
+  String get assetMovementSearchToLocationPlaceholder => 'Cari ke lokasi...';
 
   @override
-  String get assetMovementSearchFromUserPlaceholder => 'Search from user...';
+  String get assetMovementSearchFromUserPlaceholder => 'Cari dari pengguna...';
 
   @override
-  String get assetMovementSearchToUserPlaceholder => 'Search to user...';
+  String get assetMovementSearchToUserPlaceholder => 'Cari ke pengguna...';
 
   @override
-  String get assetMovementSearchMovedByPlaceholder => 'Search moved by user...';
+  String get assetMovementSearchMovedByPlaceholder =>
+      'Cari pengguna yang memindahkan...';
 
   @override
-  String get assetMovementDeleteAssetMovements => 'Delete Asset Movements';
+  String get assetMovementDeleteAssetMovements => 'Hapus Perpindahan Aset';
 
   @override
   String assetMovementDeleteManyConfirmation(int count) {
-    return 'Are you sure you want to delete $count asset movements?';
+    return 'Apakah Anda yakin ingin menghapus $count perpindahan aset?';
   }
 
   @override
   String get assetMovementNoAssetMovementsSelected =>
-      'No asset movements selected';
+      'Tidak ada perpindahan aset yang dipilih';
 
   @override
-  String get assetMovementNotImplementedYet => 'Not implemented yet';
+  String get assetMovementNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String assetMovementSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
   String get assetMovementLongPressToSelectMore =>
-      'Long press to select more asset movements';
+      'Tekan lama untuk memilih lebih banyak perpindahan aset';
 
   @override
-  String get assetMovementForLocationShort => 'For Location';
+  String get assetMovementForLocationShort => 'Untuk Lokasi';
 
   @override
-  String get assetMovementForUserShort => 'For User';
+  String get assetMovementForUserShort => 'Untuk Pengguna';
 
   @override
   String get authWelcomeBack => 'Selamat Datang Kembali';
@@ -1064,1277 +1068,1287 @@ class L10nId extends L10n {
   String get authValidationPasswordsDoNotMatch => 'Kata sandi tidak cocok';
 
   @override
-  String get categoryDetail => 'Category Detail';
+  String get categoryDetail => 'Detail Kategori';
 
   @override
-  String get categoryInformation => 'Category Information';
+  String get categoryInformation => 'Informasi Kategori';
 
   @override
-  String get categoryCategoryCode => 'Category Code';
+  String get categoryCategoryCode => 'Kode Kategori';
 
   @override
-  String get categoryCategoryName => 'Category Name';
+  String get categoryCategoryName => 'Nama Kategori';
 
   @override
-  String get categoryDescription => 'Description';
+  String get categoryDescription => 'Deskripsi';
 
   @override
-  String get categoryParentCategory => 'Parent Category';
+  String get categoryParentCategory => 'Kategori Induk';
 
   @override
   String get categoryMetadata => 'Metadata';
 
   @override
-  String get categoryCreatedAt => 'Created At';
+  String get categoryCreatedAt => 'Dibuat Pada';
 
   @override
-  String get categoryUpdatedAt => 'Updated At';
+  String get categoryUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get categoryOnlyAdminCanEdit => 'Only admin can edit categories';
+  String get categoryOnlyAdminCanEdit =>
+      'Hanya admin yang dapat mengedit kategori';
 
   @override
-  String get categoryOnlyAdminCanDelete => 'Only admin can delete categories';
+  String get categoryOnlyAdminCanDelete =>
+      'Hanya admin yang dapat menghapus kategori';
 
   @override
-  String get categoryDeleteCategory => 'Delete Category';
+  String get categoryDeleteCategory => 'Hapus Kategori';
 
   @override
   String categoryDeleteConfirmation(String categoryName) {
-    return 'Are you sure you want to delete \"$categoryName\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$categoryName\"?';
   }
 
   @override
-  String get categoryCancel => 'Cancel';
+  String get categoryCancel => 'Batal';
 
   @override
-  String get categoryDelete => 'Delete';
+  String get categoryDelete => 'Hapus';
 
   @override
-  String get categoryCategoryDeleted => 'Category deleted';
+  String get categoryCategoryDeleted => 'Kategori dihapus';
 
   @override
-  String get categoryDeleteFailed => 'Delete failed';
+  String get categoryDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get categoryEditCategory => 'Edit Category';
+  String get categoryEditCategory => 'Edit Kategori';
 
   @override
-  String get categoryCreateCategory => 'Create Category';
+  String get categoryCreateCategory => 'Buat Kategori';
 
   @override
-  String get categorySearchCategory => 'Search category...';
+  String get categorySearchCategory => 'Cari kategori...';
 
   @override
-  String get categoryEnterCategoryCode => 'Enter category code (e.g., CAT-001)';
+  String get categoryEnterCategoryCode =>
+      'Masukkan kode kategori (contoh: CAT-001)';
 
   @override
-  String get categoryTranslations => 'Translations';
+  String get categoryTranslations => 'Terjemahan';
 
   @override
   String get categoryAddTranslations =>
-      'Add translations for different languages';
+      'Tambahkan terjemahan untuk bahasa yang berbeda';
 
   @override
-  String get categoryEnglish => 'English';
+  String get categoryEnglish => 'Inggris';
 
   @override
-  String get categoryJapanese => 'Japanese';
+  String get categoryJapanese => 'Jepang';
 
   @override
-  String get categoryEnterCategoryName => 'Enter category name';
+  String get categoryEnterCategoryName => 'Masukkan nama kategori';
 
   @override
-  String get categoryEnterDescription => 'Enter description';
+  String get categoryEnterDescription => 'Masukkan deskripsi';
 
   @override
-  String get categoryUpdate => 'Update';
+  String get categoryUpdate => 'Perbarui';
 
   @override
-  String get categoryCreate => 'Create';
+  String get categoryCreate => 'Buat';
 
   @override
-  String get categoryFillRequiredFields => 'Please fill all required fields';
+  String get categoryFillRequiredFields => 'Harap isi semua field yang wajib';
 
   @override
-  String get categorySavedSuccessfully => 'Category saved successfully';
+  String get categorySavedSuccessfully => 'Kategori berhasil disimpan';
 
   @override
-  String get categoryOperationFailed => 'Operation failed';
+  String get categoryOperationFailed => 'Operasi gagal';
 
   @override
-  String get categoryFailedToLoadTranslations => 'Failed to load translations';
+  String get categoryFailedToLoadTranslations => 'Gagal memuat terjemahan';
 
   @override
-  String get categoryManagement => 'Category Management';
+  String get categoryManagement => 'Manajemen Kategori';
 
   @override
-  String get categorySearchCategories => 'Search categories...';
+  String get categorySearchCategories => 'Cari kategori...';
 
   @override
-  String get categoryCreateCategoryTitle => 'Create Category';
+  String get categoryCreateCategoryTitle => 'Buat Kategori';
 
   @override
-  String get categoryCreateCategorySubtitle => 'Add a new category';
+  String get categoryCreateCategorySubtitle => 'Tambah kategori baru';
 
   @override
-  String get categorySelectManyTitle => 'Select Many';
+  String get categorySelectManyTitle => 'Pilih Banyak';
 
   @override
   String get categorySelectManySubtitle =>
-      'Select multiple categories to delete';
+      'Pilih beberapa kategori untuk dihapus';
 
   @override
-  String get categoryFilterAndSortTitle => 'Filter & Sort';
+  String get categoryFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
-  String get categoryFilterAndSortSubtitle => 'Customize category display';
+  String get categoryFilterAndSortSubtitle => 'Sesuaikan tampilan kategori';
 
   @override
-  String get categorySelectCategoriesToDelete => 'Select categories to delete';
+  String get categorySelectCategoriesToDelete => 'Pilih kategori untuk dihapus';
 
   @override
-  String get categorySortBy => 'Sort By';
+  String get categorySortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get categorySortOrder => 'Sort Order';
+  String get categorySortOrder => 'Urutan';
 
   @override
-  String get categoryHasParent => 'Has Parent';
+  String get categoryHasParent => 'Memiliki Induk';
 
   @override
-  String get categoryFilterByParent => 'Filter by Parent Category';
+  String get categoryFilterByParent => 'Filter berdasarkan Kategori Induk';
 
   @override
-  String get categorySearchParentCategory => 'Search parent category...';
+  String get categorySearchParentCategory => 'Cari kategori induk...';
 
   @override
   String get categoryReset => 'Reset';
 
   @override
-  String get categoryApply => 'Apply';
+  String get categoryApply => 'Terapkan';
 
   @override
-  String get categoryFilterReset => 'Filter reset';
+  String get categoryFilterReset => 'Filter direset';
 
   @override
-  String get categoryFilterApplied => 'Filter applied';
+  String get categoryFilterApplied => 'Filter diterapkan';
 
   @override
-  String get categoryDeleteCategories => 'Delete Categories';
+  String get categoryDeleteCategories => 'Hapus Kategori';
 
   @override
   String categoryDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count categories?';
+    return 'Apakah Anda yakin ingin menghapus $count kategori?';
   }
 
   @override
-  String get categoryNoCategoriesSelected => 'No categories selected';
+  String get categoryNoCategoriesSelected => 'Tidak ada kategori yang dipilih';
 
   @override
-  String get categoryNotImplementedYet => 'Not implemented yet';
+  String get categoryNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String categorySelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get categoryNoCategoriesFound => 'No categories found';
+  String get categoryNoCategoriesFound => 'Tidak ada kategori ditemukan';
 
   @override
   String get categoryCreateFirstCategory =>
-      'Create your first category to get started';
+      'Buat kategori pertama Anda untuk memulai';
 
   @override
   String get categoryLongPressToSelect =>
-      'Long press to select more categories';
+      'Tekan lama untuk memilih lebih banyak kategori';
 
   @override
-  String get categoryValidationCodeRequired => 'Category code is required';
+  String get categoryValidationCodeRequired => 'Kode kategori wajib diisi';
 
   @override
   String get categoryValidationCodeMinLength =>
-      'Category code must be at least 2 characters';
+      'Kode kategori minimal 2 karakter';
 
   @override
   String get categoryValidationCodeMaxLength =>
-      'Category code must not exceed 20 characters';
+      'Kode kategori maksimal 20 karakter';
 
   @override
   String get categoryValidationCodeAlphanumeric =>
-      'Category code can only contain letters, numbers, and underscores';
+      'Kode kategori hanya boleh mengandung huruf, angka, dan garis bawah';
 
   @override
-  String get categoryValidationNameRequired => 'Category name is required';
+  String get categoryValidationNameRequired => 'Nama kategori wajib diisi';
 
   @override
   String get categoryValidationNameMinLength =>
-      'Category name must be at least 3 characters';
+      'Nama kategori minimal 3 karakter';
 
   @override
   String get categoryValidationNameMaxLength =>
-      'Category name must not exceed 100 characters';
+      'Nama kategori maksimal 100 karakter';
 
   @override
-  String get categoryValidationDescriptionRequired => 'Description is required';
+  String get categoryValidationDescriptionRequired => 'Deskripsi wajib diisi';
 
   @override
   String get categoryValidationDescriptionMinLength =>
-      'Description must be at least 10 characters';
+      'Deskripsi minimal 10 karakter';
 
   @override
   String get categoryValidationDescriptionMaxLength =>
-      'Description must not exceed 500 characters';
+      'Deskripsi maksimal 500 karakter';
 
   @override
-  String get dashboardTotalUsers => 'Total Users';
+  String get dashboardTotalUsers => 'Total Pengguna';
 
   @override
-  String get dashboardTotalAssets => 'Total Assets';
+  String get dashboardTotalAssets => 'Total Aset';
 
   @override
-  String get dashboardAssetStatusOverview => 'Asset Status Overview';
+  String get dashboardAssetStatusOverview => 'Ikhtisar Status Aset';
 
   @override
-  String get dashboardActive => 'Active';
+  String get dashboardActive => 'Aktif';
 
   @override
-  String get dashboardMaintenance => 'Maintenance';
+  String get dashboardMaintenance => 'Pemeliharaan';
 
   @override
-  String get dashboardDisposed => 'Disposed';
+  String get dashboardDisposed => 'Dibuang';
 
   @override
-  String get dashboardLost => 'Lost';
+  String get dashboardLost => 'Hilang';
 
   @override
-  String get dashboardUserRoleDistribution => 'User Role Distribution';
+  String get dashboardUserRoleDistribution => 'Distribusi Peran Pengguna';
 
   @override
   String get dashboardAdmin => 'Admin';
 
   @override
-  String get dashboardStaff => 'Staff';
+  String get dashboardStaff => 'Staf';
 
   @override
-  String get dashboardEmployee => 'Employee';
+  String get dashboardEmployee => 'Karyawan';
 
   @override
-  String get dashboardAssetStatusBreakdown => 'Asset Status Breakdown';
+  String get dashboardAssetStatusBreakdown => 'Rincian Status Aset';
 
   @override
-  String get dashboardAssetConditionOverview => 'Asset Condition Overview';
+  String get dashboardAssetConditionOverview => 'Ikhtisar Kondisi Aset';
 
   @override
-  String get dashboardGood => 'Good';
+  String get dashboardGood => 'Baik';
 
   @override
-  String get dashboardFair => 'Fair';
+  String get dashboardFair => 'Cukup';
 
   @override
-  String get dashboardPoor => 'Poor';
+  String get dashboardPoor => 'Buruk';
 
   @override
-  String get dashboardDamaged => 'Damaged';
+  String get dashboardDamaged => 'Rusak';
 
   @override
-  String get dashboardUserRegistrationTrends => 'User Registration Trends';
+  String get dashboardUserRegistrationTrends => 'Tren Registrasi Pengguna';
 
   @override
-  String get dashboardAssetCreationTrends => 'Asset Creation Trends';
+  String get dashboardAssetCreationTrends => 'Tren Pembuatan Aset';
 
   @override
-  String get dashboardCategories => 'Categories';
+  String get dashboardCategories => 'Kategori';
 
   @override
-  String get dashboardLocations => 'Locations';
+  String get dashboardLocations => 'Lokasi';
 
   @override
-  String get dashboardActivityOverview => 'Activity Overview';
+  String get dashboardActivityOverview => 'Ikhtisar Aktivitas';
 
   @override
-  String get dashboardScanLogs => 'Scan Logs';
+  String get dashboardScanLogs => 'Log Pemindaian';
 
   @override
-  String get dashboardNotifications => 'Notifications';
+  String get dashboardNotifications => 'Notifikasi';
 
   @override
-  String get dashboardAssetMovements => 'Asset Movements';
+  String get dashboardAssetMovements => 'Perpindahan Aset';
 
   @override
-  String get dashboardIssueReports => 'Issue Reports';
+  String get dashboardIssueReports => 'Laporan Masalah';
 
   @override
-  String get dashboardMaintenanceSchedules => 'Maintenance Schedules';
+  String get dashboardMaintenanceSchedules => 'Jadwal Pemeliharaan';
 
   @override
-  String get dashboardMaintenanceRecords => 'Maintenance Records';
+  String get dashboardMaintenanceRecords => 'Catatan Pemeliharaan';
 
   @override
-  String get homeScreen => 'Home';
+  String get homeScreen => 'Beranda';
 
   @override
-  String get issueReportDeleteIssueReport => 'Delete Issue Report';
+  String get issueReportDeleteIssueReport => 'Hapus Laporan Masalah';
 
   @override
   String issueReportDeleteConfirmation(String title) {
-    return 'Are you sure you want to delete \"$title\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$title\"?';
   }
 
   @override
-  String get issueReportCancel => 'Cancel';
+  String get issueReportCancel => 'Batal';
 
   @override
-  String get issueReportDelete => 'Delete';
+  String get issueReportDelete => 'Hapus';
 
   @override
-  String get issueReportDetail => 'Issue Report Detail';
+  String get issueReportDetail => 'Detail Laporan Masalah';
 
   @override
-  String get issueReportInformation => 'Issue Report Information';
+  String get issueReportInformation => 'Informasi Laporan Masalah';
 
   @override
-  String get issueReportTitle => 'Title';
+  String get issueReportTitle => 'Judul';
 
   @override
-  String get issueReportDescription => 'Description';
+  String get issueReportDescription => 'Deskripsi';
 
   @override
-  String get issueReportAsset => 'Asset';
+  String get issueReportAsset => 'Aset';
 
   @override
-  String get issueReportIssueType => 'Issue Type';
+  String get issueReportIssueType => 'Jenis Masalah';
 
   @override
-  String get issueReportPriority => 'Priority';
+  String get issueReportPriority => 'Prioritas';
 
   @override
   String get issueReportStatus => 'Status';
 
   @override
-  String get issueReportReportedBy => 'Reported By';
+  String get issueReportReportedBy => 'Dilaporkan Oleh';
 
   @override
-  String get issueReportReportedDate => 'Reported Date';
+  String get issueReportReportedDate => 'Tanggal Dilaporkan';
 
   @override
-  String get issueReportResolvedDate => 'Resolved Date';
+  String get issueReportResolvedDate => 'Tanggal Diselesaikan';
 
   @override
-  String get issueReportResolvedBy => 'Resolved By';
+  String get issueReportResolvedBy => 'Diselesaikan Oleh';
 
   @override
-  String get issueReportResolutionNotes => 'Resolution Notes';
+  String get issueReportResolutionNotes => 'Catatan Resolusi';
 
   @override
   String get issueReportMetadata => 'Metadata';
 
   @override
-  String get issueReportCreatedAt => 'Created At';
+  String get issueReportCreatedAt => 'Dibuat Pada';
 
   @override
-  String get issueReportUpdatedAt => 'Updated At';
+  String get issueReportUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get issueReportOnlyAdminCanEdit => 'Only admin can edit issue reports';
+  String get issueReportOnlyAdminCanEdit =>
+      'Hanya admin yang dapat mengedit laporan masalah';
 
   @override
   String get issueReportOnlyAdminCanDelete =>
-      'Only admin can delete issue reports';
+      'Hanya admin yang dapat menghapus laporan masalah';
 
   @override
-  String get issueReportFailedToLoad => 'Failed to load issue report';
+  String get issueReportFailedToLoad => 'Gagal memuat laporan masalah';
 
   @override
-  String get issueReportDeletedSuccess => 'Issue report deleted';
+  String get issueReportDeletedSuccess => 'Laporan masalah dihapus';
 
   @override
-  String get issueReportDeletedFailed => 'Delete failed';
+  String get issueReportDeletedFailed => 'Gagal menghapus';
 
   @override
-  String get issueReportUnknownAsset => 'Unknown Asset';
+  String get issueReportUnknownAsset => 'Aset Tidak Diketahui';
 
   @override
-  String get issueReportUnknownUser => 'Unknown User';
+  String get issueReportUnknownUser => 'Pengguna Tidak Diketahui';
 
   @override
-  String get issueReportEditIssueReport => 'Edit Issue Report';
+  String get issueReportEditIssueReport => 'Edit Laporan Masalah';
 
   @override
-  String get issueReportCreateIssueReport => 'Create Issue Report';
+  String get issueReportCreateIssueReport => 'Buat Laporan Masalah';
 
   @override
-  String get issueReportFillRequiredFields => 'Please fill all required fields';
+  String get issueReportFillRequiredFields =>
+      'Harap isi semua field yang wajib';
 
   @override
-  String get issueReportSavedSuccessfully => 'Issue report saved successfully';
+  String get issueReportSavedSuccessfully =>
+      'Laporan masalah berhasil disimpan';
 
   @override
-  String get issueReportOperationFailed => 'Operation failed';
+  String get issueReportOperationFailed => 'Operasi gagal';
 
   @override
-  String get issueReportFailedToLoadTranslations =>
-      'Failed to load translations';
+  String get issueReportFailedToLoadTranslations => 'Gagal memuat terjemahan';
 
   @override
-  String get issueReportSearchAsset => 'Search and select asset';
+  String get issueReportSearchAsset => 'Cari dan pilih aset';
 
   @override
   String get issueReportSearchReportedBy =>
-      'Search and select user who reported the issue';
+      'Cari dan pilih pengguna yang melaporkan masalah';
 
   @override
   String get issueReportEnterIssueType =>
-      'Enter issue type (e.g., Hardware, Software)';
+      'Masukkan jenis masalah (contoh: Hardware, Software)';
 
   @override
-  String get issueReportSelectPriority => 'Select priority';
+  String get issueReportSelectPriority => 'Pilih prioritas';
 
   @override
-  String get issueReportSelectStatus => 'Select status';
+  String get issueReportSelectStatus => 'Pilih status';
 
   @override
   String get issueReportSearchResolvedBy =>
-      'Search and select user who resolved the issue';
+      'Cari dan pilih pengguna yang menyelesaikan masalah';
 
   @override
-  String get issueReportTranslations => 'Translations';
+  String get issueReportTranslations => 'Terjemahan';
 
   @override
-  String get issueReportEnglish => 'English';
+  String get issueReportEnglish => 'Inggris';
 
   @override
-  String get issueReportJapanese => 'Japanese';
+  String get issueReportJapanese => 'Jepang';
 
   @override
   String issueReportEnterTitleIn(String language) {
-    return 'Enter title in $language';
+    return 'Masukkan judul dalam $language';
   }
 
   @override
   String issueReportEnterDescriptionIn(String language) {
-    return 'Enter description in $language';
+    return 'Masukkan deskripsi dalam $language';
   }
 
   @override
   String issueReportEnterResolutionNotesIn(String language) {
-    return 'Enter resolution notes in $language';
+    return 'Masukkan catatan resolusi dalam $language';
   }
 
   @override
-  String get issueReportUpdate => 'Update';
+  String get issueReportUpdate => 'Perbarui';
 
   @override
-  String get issueReportCreate => 'Create';
+  String get issueReportCreate => 'Buat';
 
   @override
-  String get issueReportManagement => 'IssueReport Management';
+  String get issueReportManagement => 'Manajemen Laporan Masalah';
 
   @override
-  String get issueReportCreateIssueReportTitle => 'Create IssueReport';
+  String get issueReportCreateIssueReportTitle => 'Buat Laporan Masalah';
 
   @override
-  String get issueReportCreateIssueReportSubtitle => 'Add a new issueReport';
+  String get issueReportCreateIssueReportSubtitle =>
+      'Tambah laporan masalah baru';
 
   @override
-  String get issueReportSelectManyTitle => 'Select Many';
+  String get issueReportSelectManyTitle => 'Pilih Banyak';
 
   @override
   String get issueReportSelectManySubtitle =>
-      'Select multiple issueReports to delete';
+      'Pilih beberapa laporan masalah untuk dihapus';
 
   @override
-  String get issueReportFilterAndSortTitle => 'Filter & Sort';
+  String get issueReportFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
   String get issueReportFilterAndSortSubtitle =>
-      'Customize issueReport display';
+      'Sesuaikan tampilan laporan masalah';
 
   @override
   String get issueReportSelectIssueReportsToDelete =>
-      'Select issueReports to delete';
+      'Pilih laporan masalah untuk dihapus';
 
   @override
-  String get issueReportDeleteIssueReports => 'Delete IssueReports';
+  String get issueReportDeleteIssueReports => 'Hapus Laporan Masalah';
 
   @override
   String issueReportDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count issueReports?';
+    return 'Apakah Anda yakin ingin menghapus $count laporan masalah?';
   }
 
   @override
-  String get issueReportNoIssueReportsSelected => 'No issueReports selected';
+  String get issueReportNoIssueReportsSelected =>
+      'Tidak ada laporan masalah yang dipilih';
 
   @override
-  String get issueReportNotImplementedYet => 'Not implemented yet';
+  String get issueReportNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String issueReportSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get issueReportSearchIssueReports => 'Search issueReports...';
+  String get issueReportSearchIssueReports => 'Cari laporan masalah...';
 
   @override
-  String get issueReportNoIssueReportsFound => 'No issueReports found';
+  String get issueReportNoIssueReportsFound =>
+      'Tidak ada laporan masalah ditemukan';
 
   @override
   String get issueReportCreateFirstIssueReport =>
-      'Create your first issueReport to get started';
+      'Buat laporan masalah pertama Anda untuk memulai';
 
   @override
   String get issueReportLongPressToSelect =>
-      'Long press to select more issueReports';
+      'Tekan lama untuk memilih lebih banyak laporan masalah';
 
   @override
-  String get issueReportFilterByAsset => 'Filter by Asset';
+  String get issueReportFilterByAsset => 'Filter berdasarkan Aset';
 
   @override
-  String get issueReportFilterByReportedBy => 'Filter by Reported By';
+  String get issueReportFilterByReportedBy =>
+      'Filter berdasarkan Dilaporkan Oleh';
 
   @override
-  String get issueReportFilterByResolvedBy => 'Filter by Resolved By';
+  String get issueReportFilterByResolvedBy =>
+      'Filter berdasarkan Diselesaikan Oleh';
 
   @override
-  String get issueReportSearchAssetFilter => 'Search asset...';
+  String get issueReportSearchAssetFilter => 'Cari aset...';
 
   @override
-  String get issueReportSearchUserFilter => 'Search user...';
+  String get issueReportSearchUserFilter => 'Cari pengguna...';
 
   @override
-  String get issueReportEnterIssueTypeFilter => 'Enter issue type...';
+  String get issueReportEnterIssueTypeFilter => 'Masukkan jenis masalah...';
 
   @override
-  String get issueReportSortBy => 'Sort By';
+  String get issueReportSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get issueReportSortOrder => 'Sort Order';
+  String get issueReportSortOrder => 'Urutan';
 
   @override
-  String get issueReportIsResolved => 'Is Resolved';
+  String get issueReportIsResolved => 'Sudah Diselesaikan';
 
   @override
-  String get issueReportDateFrom => 'Date From';
+  String get issueReportDateFrom => 'Tanggal Dari';
 
   @override
-  String get issueReportDateTo => 'Date To';
+  String get issueReportDateTo => 'Tanggal Sampai';
 
   @override
   String get issueReportReset => 'Reset';
 
   @override
-  String get issueReportApply => 'Apply';
+  String get issueReportApply => 'Terapkan';
 
   @override
-  String get issueReportFilterReset => 'Filter reset';
+  String get issueReportFilterReset => 'Filter direset';
 
   @override
-  String get issueReportFilterApplied => 'Filter applied';
+  String get issueReportFilterApplied => 'Filter diterapkan';
 
   @override
-  String get issueReportMyIssueReports => 'My Issue Reports';
+  String get issueReportMyIssueReports => 'Laporan Masalah Saya';
 
   @override
-  String get issueReportSearchMyIssueReports => 'Search my issue reports...';
+  String get issueReportSearchMyIssueReports => 'Cari laporan masalah saya...';
 
   @override
-  String get issueReportFiltersAndSorting => 'Filters & Sorting';
+  String get issueReportFiltersAndSorting => 'Filter & Pengurutan';
 
   @override
-  String get issueReportApplyFilters => 'Apply Filters';
+  String get issueReportApplyFilters => 'Terapkan Filter';
 
   @override
-  String get issueReportFiltersApplied => 'Filters Applied';
+  String get issueReportFiltersApplied => 'Filter Diterapkan';
 
   @override
-  String get issueReportFilterAndSort => 'Filter & Sort';
+  String get issueReportFilterAndSort => 'Filter & Urutkan';
 
   @override
-  String get issueReportNoIssueReportsFoundEmpty => 'No issue reports found';
+  String get issueReportNoIssueReportsFoundEmpty =>
+      'Tidak ada laporan masalah ditemukan';
 
   @override
   String get issueReportYouHaveNoReportedIssues =>
-      'You have no reported issues';
+      'Anda tidak memiliki laporan masalah';
 
   @override
-  String get issueReportCreateIssueReportTooltip => 'Create Issue Report';
+  String get issueReportCreateIssueReportTooltip => 'Buat Laporan Masalah';
 
   @override
-  String get issueReportValidationAssetRequired => 'Asset is required';
+  String get issueReportValidationAssetRequired => 'Aset wajib diisi';
 
   @override
   String get issueReportValidationReportedByRequired =>
-      'Reported by is required';
+      'Dilaporkan oleh wajib diisi';
 
   @override
-  String get issueReportValidationIssueTypeRequired => 'Issue type is required';
+  String get issueReportValidationIssueTypeRequired =>
+      'Jenis masalah wajib diisi';
 
   @override
   String get issueReportValidationIssueTypeMaxLength =>
-      'Issue type must not exceed 100 characters';
+      'Jenis masalah maksimal 100 karakter';
 
   @override
-  String get issueReportValidationPriorityRequired => 'Priority is required';
+  String get issueReportValidationPriorityRequired => 'Prioritas wajib diisi';
 
   @override
-  String get issueReportValidationStatusRequired => 'Status is required';
+  String get issueReportValidationStatusRequired => 'Status wajib diisi';
 
   @override
-  String get issueReportValidationTitleRequired => 'Title is required';
+  String get issueReportValidationTitleRequired => 'Judul wajib diisi';
 
   @override
   String get issueReportValidationTitleMaxLength =>
-      'Title must not exceed 200 characters';
+      'Judul maksimal 200 karakter';
 
   @override
   String get issueReportValidationDescriptionMaxLength =>
-      'Description must not exceed 1000 characters';
+      'Deskripsi maksimal 1000 karakter';
 
   @override
   String get issueReportValidationResolutionNotesMaxLength =>
-      'Resolution notes must not exceed 1000 characters';
+      'Catatan resolusi maksimal 1000 karakter';
 
   @override
-  String get locationDeleteLocation => 'Delete Location';
+  String get locationDeleteLocation => 'Hapus Lokasi';
 
   @override
   String locationDeleteConfirmation(String locationName) {
-    return 'Are you sure you want to delete \"$locationName\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$locationName\"?';
   }
 
   @override
-  String get locationCancel => 'Cancel';
+  String get locationCancel => 'Batal';
 
   @override
-  String get locationDelete => 'Delete';
+  String get locationDelete => 'Hapus';
 
   @override
-  String get locationDetail => 'Location Detail';
+  String get locationDetail => 'Detail Lokasi';
 
   @override
-  String get locationInformation => 'Location Information';
+  String get locationInformation => 'Informasi Lokasi';
 
   @override
-  String get locationCode => 'Location Code';
+  String get locationCode => 'Kode Lokasi';
 
   @override
-  String get locationName => 'Location Name';
+  String get locationName => 'Nama Lokasi';
 
   @override
-  String get locationBuilding => 'Building';
+  String get locationBuilding => 'Gedung';
 
   @override
-  String get locationFloor => 'Floor';
+  String get locationFloor => 'Lantai';
 
   @override
-  String get locationLatitude => 'Latitude';
+  String get locationLatitude => 'Lintang';
 
   @override
-  String get locationLongitude => 'Longitude';
+  String get locationLongitude => 'Bujur';
 
   @override
   String get locationMetadata => 'Metadata';
 
   @override
-  String get locationCreatedAt => 'Created At';
+  String get locationCreatedAt => 'Dibuat Pada';
 
   @override
-  String get locationUpdatedAt => 'Updated At';
+  String get locationUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get locationOnlyAdminCanEdit => 'Only admin can edit locations';
+  String get locationOnlyAdminCanEdit =>
+      'Hanya admin yang dapat mengedit lokasi';
 
   @override
-  String get locationOnlyAdminCanDelete => 'Only admin can delete locations';
+  String get locationOnlyAdminCanDelete =>
+      'Hanya admin yang dapat menghapus lokasi';
 
   @override
-  String get locationFailedToLoad => 'Failed to load location';
+  String get locationFailedToLoad => 'Gagal memuat lokasi';
 
   @override
-  String get locationDeleted => 'Location deleted';
+  String get locationDeleted => 'Lokasi dihapus';
 
   @override
-  String get locationDeleteFailed => 'Delete failed';
+  String get locationDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get locationEditLocation => 'Edit Location';
+  String get locationEditLocation => 'Edit Lokasi';
 
   @override
-  String get locationCreateLocation => 'Create Location';
+  String get locationCreateLocation => 'Buat Lokasi';
 
   @override
-  String get locationFillRequiredFields => 'Please fill all required fields';
+  String get locationFillRequiredFields => 'Harap isi semua field yang wajib';
 
   @override
-  String get locationSavedSuccessfully => 'Location saved successfully';
+  String get locationSavedSuccessfully => 'Lokasi berhasil disimpan';
 
   @override
-  String get locationOperationFailed => 'Operation failed';
+  String get locationOperationFailed => 'Operasi gagal';
 
   @override
-  String get locationFailedToLoadTranslations => 'Failed to load translations';
+  String get locationFailedToLoadTranslations => 'Gagal memuat terjemahan';
 
   @override
-  String get locationEnterLocationCode => 'Enter location code (e.g., LOC-001)';
+  String get locationEnterLocationCode =>
+      'Masukkan kode lokasi (contoh: LOC-001)';
 
   @override
-  String get locationBuildingOptional => 'Building (Optional)';
+  String get locationBuildingOptional => 'Gedung (Opsional)';
 
   @override
-  String get locationEnterBuilding => 'Enter building name';
+  String get locationEnterBuilding => 'Masukkan nama gedung';
 
   @override
-  String get locationFloorOptional => 'Floor (Optional)';
+  String get locationFloorOptional => 'Lantai (Opsional)';
 
   @override
-  String get locationEnterFloor => 'Enter floor number';
+  String get locationEnterFloor => 'Masukkan nomor lantai';
 
   @override
-  String get locationLatitudeOptional => 'Latitude (Optional)';
+  String get locationLatitudeOptional => 'Lintang (Opsional)';
 
   @override
-  String get locationEnterLatitude => 'Enter latitude';
+  String get locationEnterLatitude => 'Masukkan lintang';
 
   @override
-  String get locationLongitudeOptional => 'Longitude (Optional)';
+  String get locationLongitudeOptional => 'Bujur (Opsional)';
 
   @override
-  String get locationEnterLongitude => 'Enter longitude';
+  String get locationEnterLongitude => 'Masukkan bujur';
 
   @override
-  String get locationGettingLocation => 'Getting Location...';
+  String get locationGettingLocation => 'Mendapatkan Lokasi...';
 
   @override
-  String get locationUseCurrentLocation => 'Use Current Location';
+  String get locationUseCurrentLocation => 'Gunakan Lokasi Saat Ini';
 
   @override
-  String get locationServicesDisabled => 'Location services are disabled';
+  String get locationServicesDisabled => 'Layanan lokasi dinonaktifkan';
 
   @override
-  String get locationServicesDialogTitle => 'Location Services Disabled';
+  String get locationServicesDialogTitle => 'Layanan Lokasi Dinonaktifkan';
 
   @override
   String get locationServicesDialogMessage =>
-      'Location services are required to get your current location. Would you like to enable them?';
+      'Layanan lokasi diperlukan untuk mendapatkan lokasi Anda saat ini. Apakah Anda ingin mengaktifkannya?';
 
   @override
-  String get locationOpenSettings => 'Open Settings';
+  String get locationOpenSettings => 'Buka Pengaturan';
 
   @override
-  String get locationPermissionDenied => 'Location permission denied';
+  String get locationPermissionDenied => 'Izin lokasi ditolak';
 
   @override
   String get locationPermissionPermanentlyDenied =>
-      'Location permission permanently denied';
+      'Izin lokasi ditolak secara permanen';
 
   @override
-  String get locationPermissionRequired => 'Permission Required';
+  String get locationPermissionRequired => 'Izin Diperlukan';
 
   @override
   String get locationPermissionDialogMessage =>
-      'Location permission is permanently denied. Please enable it in app settings.';
+      'Izin lokasi ditolak secara permanen. Silakan aktifkan di pengaturan aplikasi.';
 
   @override
   String get locationRetrievedSuccessfully =>
-      'Current location retrieved successfully';
+      'Lokasi saat ini berhasil didapatkan';
 
   @override
-  String get locationFailedToGetCurrent => 'Failed to get current location';
+  String get locationFailedToGetCurrent => 'Gagal mendapatkan lokasi saat ini';
 
   @override
-  String get locationTranslations => 'Translations';
+  String get locationTranslations => 'Terjemahan';
 
   @override
   String get locationTranslationsSubtitle =>
-      'Add translations for different languages';
+      'Tambahkan terjemahan untuk bahasa yang berbeda';
 
   @override
-  String get locationEnglish => 'English';
+  String get locationEnglish => 'Inggris';
 
   @override
-  String get locationJapanese => 'Japanese';
+  String get locationJapanese => 'Jepang';
 
   @override
-  String get locationEnterLocationName => 'Enter location name';
+  String get locationEnterLocationName => 'Masukkan nama lokasi';
 
   @override
-  String get locationUpdate => 'Update';
+  String get locationUpdate => 'Perbarui';
 
   @override
-  String get locationCreate => 'Create';
+  String get locationCreate => 'Buat';
 
   @override
-  String get locationManagement => 'Location Management';
+  String get locationManagement => 'Manajemen Lokasi';
 
   @override
-  String get locationCreateLocationTitle => 'Create Location';
+  String get locationCreateLocationTitle => 'Buat Lokasi';
 
   @override
-  String get locationCreateLocationSubtitle => 'Add a new location';
+  String get locationCreateLocationSubtitle => 'Tambah lokasi baru';
 
   @override
-  String get locationSelectManyTitle => 'Select Many';
+  String get locationSelectManyTitle => 'Pilih Banyak';
 
   @override
   String get locationSelectManySubtitle =>
-      'Select multiple locations to delete';
+      'Pilih beberapa lokasi untuk dihapus';
 
   @override
-  String get locationFilterAndSortTitle => 'Filter & Sort';
+  String get locationFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
-  String get locationFilterAndSortSubtitle => 'Customize location display';
+  String get locationFilterAndSortSubtitle => 'Sesuaikan tampilan lokasi';
 
   @override
-  String get locationSelectLocationsToDelete => 'Select locations to delete';
+  String get locationSelectLocationsToDelete => 'Pilih lokasi untuk dihapus';
 
   @override
-  String get locationSortBy => 'Sort By';
+  String get locationSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get locationSortOrder => 'Sort Order';
+  String get locationSortOrder => 'Urutan';
 
   @override
   String get locationReset => 'Reset';
 
   @override
-  String get locationApply => 'Apply';
+  String get locationApply => 'Terapkan';
 
   @override
-  String get locationFilterReset => 'Filter reset';
+  String get locationFilterReset => 'Filter direset';
 
   @override
-  String get locationFilterApplied => 'Filter applied';
+  String get locationFilterApplied => 'Filter diterapkan';
 
   @override
-  String get locationDeleteLocations => 'Delete Locations';
+  String get locationDeleteLocations => 'Hapus Lokasi';
 
   @override
   String locationDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count locations?';
+    return 'Apakah Anda yakin ingin menghapus $count lokasi?';
   }
 
   @override
-  String get locationNoLocationsSelected => 'No locations selected';
+  String get locationNoLocationsSelected => 'Tidak ada lokasi yang dipilih';
 
   @override
-  String get locationNotImplementedYet => 'Not implemented yet';
+  String get locationNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String locationSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get locationSearchLocations => 'Search locations...';
+  String get locationSearchLocations => 'Cari lokasi...';
 
   @override
-  String get locationNoLocationsFound => 'No locations found';
+  String get locationNoLocationsFound => 'Tidak ada lokasi ditemukan';
 
   @override
   String get locationCreateFirstLocation =>
-      'Create your first location to get started';
+      'Buat lokasi pertama Anda untuk memulai';
 
   @override
-  String get locationLongPressToSelect => 'Long press to select more locations';
+  String get locationLongPressToSelect =>
+      'Tekan lama untuk memilih lebih banyak lokasi';
 
   @override
   String locationFloorPrefix(String floor) {
-    return 'Floor $floor';
+    return 'Lantai $floor';
   }
 
   @override
-  String get locationValidationCodeRequired => 'Location code is required';
+  String get locationValidationCodeRequired => 'Kode lokasi wajib diisi';
 
   @override
   String get locationValidationCodeMinLength =>
-      'Location code must be at least 2 characters';
+      'Kode lokasi minimal 2 karakter';
 
   @override
   String get locationValidationCodeMaxLength =>
-      'Location code must not exceed 20 characters';
+      'Kode lokasi maksimal 20 karakter';
 
   @override
   String get locationValidationCodeAlphanumeric =>
-      'Location code can only contain letters, numbers, and dashes';
+      'Kode lokasi hanya boleh mengandung huruf, angka, dan tanda hubung';
 
   @override
-  String get locationValidationNameRequired => 'Location name is required';
+  String get locationValidationNameRequired => 'Nama lokasi wajib diisi';
 
   @override
   String get locationValidationNameMinLength =>
-      'Location name must be at least 3 characters';
+      'Nama lokasi minimal 3 karakter';
 
   @override
   String get locationValidationNameMaxLength =>
-      'Location name must not exceed 100 characters';
+      'Nama lokasi maksimal 100 karakter';
 
   @override
   String get locationValidationBuildingMaxLength =>
-      'Building must not exceed 50 characters';
+      'Gedung maksimal 50 karakter';
 
   @override
-  String get locationValidationFloorMaxLength =>
-      'Floor must not exceed 20 characters';
+  String get locationValidationFloorMaxLength => 'Lantai maksimal 20 karakter';
 
   @override
   String get locationValidationLatitudeInvalid =>
-      'Latitude must be a valid number';
+      'Lintang harus berupa angka valid';
 
   @override
   String get locationValidationLatitudeRange =>
-      'Latitude must be between -90 and 90';
+      'Lintang harus antara -90 dan 90';
 
   @override
   String get locationValidationLongitudeInvalid =>
-      'Longitude must be a valid number';
+      'Bujur harus berupa angka valid';
 
   @override
   String get locationValidationLongitudeRange =>
-      'Longitude must be between -180 and 180';
+      'Bujur harus antara -180 dan 180';
 
   @override
-  String get locationNotFound => 'Location not found';
+  String get locationNotFound => 'Lokasi tidak ditemukan';
 
   @override
-  String get locationSearchFailed => 'Search failed';
+  String get locationSearchFailed => 'Pencarian gagal';
 
   @override
-  String get locationConfirmLocation => 'Confirm Location';
+  String get locationConfirmLocation => 'Konfirmasi Lokasi';
 
   @override
-  String get locationSelectedFromMap => 'Location selected from map';
+  String get locationSelectedFromMap => 'Lokasi dipilih dari peta';
 
   @override
-  String get locationSearchLocation => 'Search location...';
+  String get locationSearchLocation => 'Cari lokasi...';
 
   @override
-  String get locationPickFromMap => 'Pick from map';
+  String get locationPickFromMap => 'Pilih dari peta';
 
   @override
-  String get locationAutocompleteDisabled => 'Autocomplete disabled';
-
-  @override
-  String get locationAutocompleteDisabledMessage =>
-      'Google Places API key not configured. Please enter location name manually and search.';
-
-  @override
-  String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
+  String get maintenanceScheduleDeleteSchedule => 'Hapus Jadwal Pemeliharaan';
 
   @override
   String maintenanceScheduleDeleteConfirmation(String title) {
-    return 'Are you sure you want to delete \"$title\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$title\"?';
   }
 
   @override
-  String get maintenanceScheduleDeleted => 'Maintenance schedule deleted';
+  String get maintenanceScheduleDeleted => 'Jadwal pemeliharaan dihapus';
 
   @override
-  String get maintenanceScheduleDeleteFailed => 'Delete failed';
+  String get maintenanceScheduleDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get maintenanceScheduleDetail => 'Maintenance Schedule Detail';
+  String get maintenanceScheduleDetail => 'Detail Jadwal Pemeliharaan';
 
   @override
-  String get maintenanceScheduleInformation =>
-      'Maintenance Schedule Information';
+  String get maintenanceScheduleInformation => 'Informasi Jadwal Pemeliharaan';
 
   @override
-  String get maintenanceScheduleTitle => 'Title';
+  String get maintenanceScheduleTitle => 'Judul';
 
   @override
-  String get maintenanceScheduleDescription => 'Description';
+  String get maintenanceScheduleDescription => 'Deskripsi';
 
   @override
-  String get maintenanceScheduleAsset => 'Asset';
+  String get maintenanceScheduleAsset => 'Aset';
 
   @override
-  String get maintenanceScheduleMaintenanceType => 'Maintenance Type';
+  String get maintenanceScheduleMaintenanceType => 'Jenis Pemeliharaan';
 
   @override
-  String get maintenanceScheduleIsRecurring => 'Is Recurring';
+  String get maintenanceScheduleIsRecurring => 'Berulang';
 
   @override
   String get maintenanceScheduleInterval => 'Interval';
 
   @override
-  String get maintenanceScheduleScheduledTime => 'Scheduled Time';
+  String get maintenanceScheduleScheduledTime => 'Waktu Terjadwal';
 
   @override
-  String get maintenanceScheduleNextScheduledDate => 'Next Scheduled Date';
+  String get maintenanceScheduleNextScheduledDate =>
+      'Tanggal Terjadwal Berikutnya';
 
   @override
-  String get maintenanceScheduleLastExecutedDate => 'Last Executed Date';
+  String get maintenanceScheduleLastExecutedDate => 'Tanggal Eksekusi Terakhir';
 
   @override
-  String get maintenanceScheduleState => 'State';
+  String get maintenanceScheduleState => 'Status';
 
   @override
-  String get maintenanceScheduleAutoComplete => 'Auto Complete';
+  String get maintenanceScheduleAutoComplete => 'Selesai Otomatis';
 
   @override
-  String get maintenanceScheduleEstimatedCost => 'Estimated Cost';
+  String get maintenanceScheduleEstimatedCost => 'Estimasi Biaya';
 
   @override
-  String get maintenanceScheduleCreatedBy => 'Created By';
+  String get maintenanceScheduleCreatedBy => 'Dibuat Oleh';
 
   @override
-  String get maintenanceScheduleYes => 'Yes';
+  String get maintenanceScheduleYes => 'Ya';
 
   @override
-  String get maintenanceScheduleNo => 'No';
+  String get maintenanceScheduleNo => 'Tidak';
 
   @override
-  String get maintenanceScheduleUnknownAsset => 'Unknown Asset';
+  String get maintenanceScheduleUnknownAsset => 'Aset Tidak Diketahui';
 
   @override
-  String get maintenanceScheduleUnknownUser => 'Unknown User';
+  String get maintenanceScheduleUnknownUser => 'Pengguna Tidak Diketahui';
 
   @override
   String get maintenanceScheduleOnlyAdminCanEdit =>
-      'Only admin can edit maintenance schedules';
+      'Hanya admin yang dapat mengedit jadwal pemeliharaan';
 
   @override
   String get maintenanceScheduleOnlyAdminCanDelete =>
-      'Only admin can delete maintenance schedules';
+      'Hanya admin yang dapat menghapus jadwal pemeliharaan';
 
   @override
   String get maintenanceScheduleFailedToLoad =>
-      'Failed to load maintenance schedule';
+      'Gagal memuat jadwal pemeliharaan';
 
   @override
-  String get maintenanceScheduleEditSchedule => 'Edit Maintenance Schedule';
+  String get maintenanceScheduleEditSchedule => 'Edit Jadwal Pemeliharaan';
 
   @override
-  String get maintenanceScheduleCreateSchedule => 'Create Maintenance Schedule';
+  String get maintenanceScheduleCreateSchedule => 'Buat Jadwal Pemeliharaan';
 
   @override
   String get maintenanceScheduleFillRequiredFields =>
-      'Please fill all required fields';
+      'Harap isi semua field yang wajib';
 
   @override
   String get maintenanceScheduleSavedSuccessfully =>
-      'Maintenance schedule saved successfully';
+      'Jadwal pemeliharaan berhasil disimpan';
 
   @override
-  String get maintenanceScheduleOperationFailed => 'Operation failed';
+  String get maintenanceScheduleOperationFailed => 'Operasi gagal';
 
   @override
   String get maintenanceScheduleFailedToLoadTranslations =>
-      'Failed to load translations';
+      'Gagal memuat terjemahan';
 
   @override
-  String get maintenanceScheduleSearchAsset => 'Search and select asset';
+  String get maintenanceScheduleSearchAsset => 'Cari dan pilih aset';
 
   @override
   String get maintenanceScheduleSelectMaintenanceType =>
-      'Select maintenance type';
+      'Pilih jenis pemeliharaan';
 
   @override
   String get maintenanceScheduleEnterIntervalValue =>
-      'Enter interval value (e.g., 3)';
+      'Masukkan nilai interval (contoh: 3)';
 
   @override
-  String get maintenanceScheduleSelectIntervalUnit => 'Select interval unit';
+  String get maintenanceScheduleSelectIntervalUnit => 'Pilih unit interval';
 
   @override
-  String get maintenanceScheduleEnterScheduledTime => 'e.g., 09:30';
+  String get maintenanceScheduleEnterScheduledTime => 'contoh: 09:30';
 
   @override
-  String get maintenanceScheduleSelectState => 'Select state';
+  String get maintenanceScheduleSelectState => 'Pilih status';
 
   @override
   String get maintenanceScheduleEnterEstimatedCost =>
-      'Enter estimated cost (optional)';
+      'Masukkan estimasi biaya (opsional)';
 
   @override
   String get maintenanceScheduleSearchUser =>
-      'Search and select user who created the schedule';
+      'Cari dan pilih pengguna yang membuat jadwal';
 
   @override
-  String get maintenanceScheduleTranslations => 'Translations';
+  String get maintenanceScheduleTranslations => 'Terjemahan';
 
   @override
-  String get maintenanceScheduleEnglish => 'English';
+  String get maintenanceScheduleEnglish => 'Inggris';
 
   @override
-  String get maintenanceScheduleJapanese => 'Japanese';
+  String get maintenanceScheduleJapanese => 'Jepang';
 
   @override
   String maintenanceScheduleEnterTitle(String language) {
-    return 'Enter title in $language';
+    return 'Masukkan judul dalam $language';
   }
 
   @override
   String maintenanceScheduleEnterDescription(String language) {
-    return 'Enter description in $language';
+    return 'Masukkan deskripsi dalam $language';
   }
 
   @override
-  String get maintenanceScheduleCancel => 'Cancel';
+  String get maintenanceScheduleCancel => 'Batal';
 
   @override
-  String get maintenanceScheduleUpdate => 'Update';
+  String get maintenanceScheduleUpdate => 'Perbarui';
 
   @override
-  String get maintenanceScheduleCreate => 'Create';
+  String get maintenanceScheduleCreate => 'Buat';
 
   @override
-  String get maintenanceScheduleManagement => 'Maintenance Schedule Management';
+  String get maintenanceScheduleManagement => 'Manajemen Jadwal Pemeliharaan';
 
   @override
-  String get maintenanceScheduleCreateTitle => 'Create Maintenance Schedule';
+  String get maintenanceScheduleCreateTitle => 'Buat Jadwal Pemeliharaan';
 
   @override
   String get maintenanceScheduleCreateSubtitle =>
-      'Add a new maintenance schedule';
+      'Tambah jadwal pemeliharaan baru';
 
   @override
-  String get maintenanceScheduleSelectManyTitle => 'Select Many';
+  String get maintenanceScheduleSelectManyTitle => 'Pilih Banyak';
 
   @override
   String get maintenanceScheduleSelectManySubtitle =>
-      'Select multiple schedules to delete';
+      'Pilih beberapa jadwal untuk dihapus';
 
   @override
-  String get maintenanceScheduleFilterAndSortTitle => 'Filter & Sort';
+  String get maintenanceScheduleFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
   String get maintenanceScheduleFilterAndSortSubtitle =>
-      'Customize schedule display';
+      'Sesuaikan tampilan jadwal';
 
   @override
   String get maintenanceScheduleSelectToDelete =>
-      'Select maintenance schedules to delete';
+      'Pilih jadwal pemeliharaan untuk dihapus';
 
   @override
-  String get maintenanceScheduleSortBy => 'Sort By';
+  String get maintenanceScheduleSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get maintenanceScheduleSortOrder => 'Sort Order';
+  String get maintenanceScheduleSortOrder => 'Urutan';
 
   @override
   String get maintenanceScheduleReset => 'Reset';
 
   @override
-  String get maintenanceScheduleApply => 'Apply';
+  String get maintenanceScheduleApply => 'Terapkan';
 
   @override
-  String get maintenanceScheduleFilterReset => 'Filter reset';
+  String get maintenanceScheduleFilterReset => 'Filter direset';
 
   @override
-  String get maintenanceScheduleFilterApplied => 'Filter applied';
+  String get maintenanceScheduleFilterApplied => 'Filter diterapkan';
 
   @override
-  String get maintenanceScheduleDeleteSchedules => 'Delete Schedules';
+  String get maintenanceScheduleDeleteSchedules => 'Hapus Jadwal';
 
   @override
   String maintenanceScheduleDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count schedules?';
+    return 'Apakah Anda yakin ingin menghapus $count jadwal?';
   }
 
   @override
-  String get maintenanceScheduleNoSchedulesSelected => 'No schedules selected';
+  String get maintenanceScheduleNoSchedulesSelected =>
+      'Tidak ada jadwal yang dipilih';
 
   @override
-  String get maintenanceScheduleNotImplementedYet => 'Not implemented yet';
+  String get maintenanceScheduleNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String maintenanceScheduleSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get maintenanceScheduleDelete => 'Delete';
+  String get maintenanceScheduleDelete => 'Hapus';
 
   @override
-  String get maintenanceScheduleSearch => 'Search schedules...';
+  String get maintenanceScheduleSearch => 'Cari jadwal...';
 
   @override
-  String get maintenanceScheduleNoSchedulesFound => 'No schedules found';
+  String get maintenanceScheduleNoSchedulesFound =>
+      'Tidak ada jadwal ditemukan';
 
   @override
   String get maintenanceScheduleCreateFirstSchedule =>
-      'Create your first schedule to get started';
+      'Buat jadwal pertama Anda untuk memulai';
 
   @override
   String get maintenanceScheduleLongPressToSelect =>
-      'Long press to select more schedules';
+      'Tekan lama untuk memilih lebih banyak jadwal';
 
   @override
   String get maintenanceScheduleMetadata => 'Metadata';
 
   @override
-  String get maintenanceScheduleCreatedAt => 'Created At';
+  String get maintenanceScheduleCreatedAt => 'Dibuat Pada';
 
   @override
-  String get maintenanceScheduleUpdatedAt => 'Updated At';
+  String get maintenanceScheduleUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get maintenanceScheduleIntervalValueLabel => 'Interval Value';
+  String get maintenanceScheduleIntervalValueLabel => 'Nilai Interval';
 
   @override
-  String get maintenanceScheduleIntervalUnitLabel => 'Interval Unit';
+  String get maintenanceScheduleIntervalUnitLabel => 'Unit Interval';
 
   @override
-  String get maintenanceScheduleScheduledTimeLabel => 'Scheduled Time (HH:mm)';
+  String get maintenanceScheduleScheduledTimeLabel => 'Waktu Terjadwal (JJ:mm)';
 
   @override
-  String get maintenanceRecordDeleteRecord => 'Delete Maintenance Record';
+  String get maintenanceRecordDeleteRecord => 'Hapus Catatan Pemeliharaan';
 
   @override
   String maintenanceRecordDeleteConfirmation(String title) {
-    return 'Are you sure you want to delete \"$title\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$title\"?';
   }
 
   @override
-  String get maintenanceRecordDeleted => 'Maintenance record deleted';
+  String get maintenanceRecordDeleted => 'Catatan pemeliharaan dihapus';
 
   @override
-  String get maintenanceRecordDeleteFailed => 'Delete failed';
+  String get maintenanceRecordDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get maintenanceRecordDetail => 'Maintenance Record Detail';
+  String get maintenanceRecordDetail => 'Detail Catatan Pemeliharaan';
 
   @override
-  String get maintenanceRecordInformation => 'Maintenance Record Information';
+  String get maintenanceRecordInformation => 'Informasi Catatan Pemeliharaan';
 
   @override
-  String get maintenanceRecordTitle => 'Title';
+  String get maintenanceRecordTitle => 'Judul';
 
   @override
-  String get maintenanceRecordNotes => 'Notes';
+  String get maintenanceRecordNotes => 'Catatan';
 
   @override
-  String get maintenanceRecordAsset => 'Asset';
+  String get maintenanceRecordAsset => 'Aset';
 
   @override
-  String get maintenanceRecordMaintenanceDate => 'Maintenance Date';
+  String get maintenanceRecordMaintenanceDate => 'Tanggal Pemeliharaan';
 
   @override
-  String get maintenanceRecordCompletionDate => 'Completion Date';
+  String get maintenanceRecordCompletionDate => 'Tanggal Selesai';
 
   @override
-  String get maintenanceRecordDuration => 'Duration';
+  String get maintenanceRecordDuration => 'Durasi';
 
   @override
   String maintenanceRecordDurationMinutes(int minutes) {
-    return '$minutes minutes';
+    return '$minutes menit';
   }
 
   @override
-  String get maintenanceRecordPerformedByUser => 'Performed By User';
+  String get maintenanceRecordPerformedByUser => 'Dilakukan Oleh Pengguna';
 
   @override
-  String get maintenanceRecordPerformedByVendor => 'Performed By Vendor';
+  String get maintenanceRecordPerformedByVendor => 'Dilakukan Oleh Vendor';
 
   @override
-  String get maintenanceRecordResult => 'Result';
+  String get maintenanceRecordResult => 'Hasil';
 
   @override
-  String get maintenanceRecordActualCost => 'Actual Cost';
+  String get maintenanceRecordActualCost => 'Biaya Aktual';
 
   @override
   String maintenanceRecordActualCostValue(String cost) {
@@ -2342,837 +2356,852 @@ class L10nId extends L10n {
   }
 
   @override
-  String get maintenanceRecordUnknownAsset => 'Unknown Asset';
+  String get maintenanceRecordUnknownAsset => 'Aset Tidak Diketahui';
 
   @override
   String get maintenanceRecordOnlyAdminCanEdit =>
-      'Only admin can edit maintenance records';
+      'Hanya admin yang dapat mengedit catatan pemeliharaan';
 
   @override
   String get maintenanceRecordOnlyAdminCanDelete =>
-      'Only admin can delete maintenance records';
+      'Hanya admin yang dapat menghapus catatan pemeliharaan';
 
   @override
   String get maintenanceRecordFailedToLoad =>
-      'Failed to load maintenance record';
+      'Gagal memuat catatan pemeliharaan';
 
   @override
-  String get maintenanceRecordEditRecord => 'Edit Maintenance Record';
+  String get maintenanceRecordEditRecord => 'Edit Catatan Pemeliharaan';
 
   @override
-  String get maintenanceRecordCreateRecord => 'Create Maintenance Record';
+  String get maintenanceRecordCreateRecord => 'Buat Catatan Pemeliharaan';
 
   @override
   String get maintenanceRecordFillRequiredFields =>
-      'Please fill all required fields';
+      'Harap isi semua field yang wajib';
 
   @override
   String get maintenanceRecordSavedSuccessfully =>
-      'Maintenance record saved successfully';
+      'Catatan pemeliharaan berhasil disimpan';
 
   @override
-  String get maintenanceRecordOperationFailed => 'Operation failed';
+  String get maintenanceRecordOperationFailed => 'Operasi gagal';
 
   @override
   String get maintenanceRecordFailedToLoadTranslations =>
-      'Failed to load translations';
+      'Gagal memuat terjemahan';
 
   @override
   String get maintenanceRecordSearchSchedule =>
-      'Search and select maintenance schedule';
+      'Cari dan pilih jadwal pemeliharaan';
 
   @override
-  String get maintenanceRecordSearchAsset => 'Search and select asset';
+  String get maintenanceRecordSearchAsset => 'Cari dan pilih aset';
 
   @override
   String get maintenanceRecordCompletionDateOptional =>
-      'Completion Date (Optional)';
+      'Tanggal Selesai (Opsional)';
 
   @override
-  String get maintenanceRecordDurationMinutesLabel => 'Duration (Minutes)';
+  String get maintenanceRecordDurationMinutesLabel => 'Durasi (Menit)';
 
   @override
   String get maintenanceRecordEnterDuration =>
-      'Enter duration in minutes (optional)';
+      'Masukkan durasi dalam menit (opsional)';
 
   @override
   String get maintenanceRecordSearchPerformedByUser =>
-      'Search and select user who performed the maintenance';
+      'Cari dan pilih pengguna yang melakukan pemeliharaan';
 
   @override
-  String get maintenanceRecordPerformedByVendorLabel => 'Performed By Vendor';
+  String get maintenanceRecordPerformedByVendorLabel => 'Dilakukan Oleh Vendor';
 
   @override
-  String get maintenanceRecordEnterVendor => 'Enter vendor name (optional)';
+  String get maintenanceRecordEnterVendor => 'Masukkan nama vendor (opsional)';
 
   @override
-  String get maintenanceRecordSelectResult => 'Select maintenance result';
+  String get maintenanceRecordSelectResult => 'Pilih hasil pemeliharaan';
 
   @override
-  String get maintenanceRecordActualCostLabel => 'Actual Cost';
+  String get maintenanceRecordActualCostLabel => 'Biaya Aktual';
 
   @override
-  String get maintenanceRecordEnterActualCost => 'Enter actual cost (optional)';
+  String get maintenanceRecordEnterActualCost =>
+      'Masukkan biaya aktual (opsional)';
 
   @override
-  String get maintenanceRecordTranslations => 'Translations';
+  String get maintenanceRecordTranslations => 'Terjemahan';
 
   @override
-  String get maintenanceRecordEnglish => 'English';
+  String get maintenanceRecordEnglish => 'Inggris';
 
   @override
-  String get maintenanceRecordJapanese => 'Japanese';
+  String get maintenanceRecordJapanese => 'Jepang';
 
   @override
   String maintenanceRecordEnterTitle(String language) {
-    return 'Enter title in $language';
+    return 'Masukkan judul dalam $language';
   }
 
   @override
   String maintenanceRecordEnterNotes(String language) {
-    return 'Enter notes in $language';
+    return 'Masukkan catatan dalam $language';
   }
 
   @override
-  String get maintenanceRecordCancel => 'Cancel';
+  String get maintenanceRecordCancel => 'Batal';
 
   @override
-  String get maintenanceRecordUpdate => 'Update';
+  String get maintenanceRecordUpdate => 'Perbarui';
 
   @override
-  String get maintenanceRecordCreate => 'Create';
+  String get maintenanceRecordCreate => 'Buat';
 
   @override
-  String get maintenanceRecordManagement => 'Maintenance Record Management';
+  String get maintenanceRecordManagement => 'Manajemen Catatan Pemeliharaan';
 
   @override
-  String get maintenanceRecordCreateTitle => 'Create Maintenance Record';
+  String get maintenanceRecordCreateTitle => 'Buat Catatan Pemeliharaan';
 
   @override
-  String get maintenanceRecordCreateSubtitle => 'Add a new maintenance record';
+  String get maintenanceRecordCreateSubtitle =>
+      'Tambah catatan pemeliharaan baru';
 
   @override
-  String get maintenanceRecordSelectManyTitle => 'Select Many';
+  String get maintenanceRecordSelectManyTitle => 'Pilih Banyak';
 
   @override
   String get maintenanceRecordSelectManySubtitle =>
-      'Select multiple records to delete';
+      'Pilih beberapa catatan untuk dihapus';
 
   @override
-  String get maintenanceRecordFilterAndSortTitle => 'Filter & Sort';
+  String get maintenanceRecordFilterAndSortTitle => 'Filter & Urutkan';
 
   @override
   String get maintenanceRecordFilterAndSortSubtitle =>
-      'Customize record display';
+      'Sesuaikan tampilan catatan';
 
   @override
   String get maintenanceRecordSelectToDelete =>
-      'Select maintenance records to delete';
+      'Pilih catatan pemeliharaan untuk dihapus';
 
   @override
-  String get maintenanceRecordSortBy => 'Sort By';
+  String get maintenanceRecordSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get maintenanceRecordSortOrder => 'Sort Order';
+  String get maintenanceRecordSortOrder => 'Urutan';
 
   @override
   String get maintenanceRecordReset => 'Reset';
 
   @override
-  String get maintenanceRecordApply => 'Apply';
+  String get maintenanceRecordApply => 'Terapkan';
 
   @override
-  String get maintenanceRecordFilterReset => 'Filter reset';
+  String get maintenanceRecordFilterReset => 'Filter direset';
 
   @override
-  String get maintenanceRecordFilterApplied => 'Filter applied';
+  String get maintenanceRecordFilterApplied => 'Filter diterapkan';
 
   @override
-  String get maintenanceRecordDeleteRecords => 'Delete Records';
+  String get maintenanceRecordDeleteRecords => 'Hapus Catatan';
 
   @override
   String maintenanceRecordDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count records?';
+    return 'Apakah Anda yakin ingin menghapus $count catatan?';
   }
 
   @override
-  String get maintenanceRecordNoRecordsSelected => 'No records selected';
+  String get maintenanceRecordNoRecordsSelected =>
+      'Tidak ada catatan yang dipilih';
 
   @override
-  String get maintenanceRecordNotImplementedYet => 'Not implemented yet';
+  String get maintenanceRecordNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String maintenanceRecordSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get maintenanceRecordDelete => 'Delete';
+  String get maintenanceRecordDelete => 'Hapus';
 
   @override
-  String get maintenanceRecordSearch => 'Search records...';
+  String get maintenanceRecordSearch => 'Cari catatan...';
 
   @override
-  String get maintenanceRecordNoRecordsFound => 'No records found';
+  String get maintenanceRecordNoRecordsFound => 'Tidak ada catatan ditemukan';
 
   @override
   String get maintenanceRecordCreateFirstRecord =>
-      'Create your first record to get started';
+      'Buat catatan pertama Anda untuk memulai';
 
   @override
   String get maintenanceRecordLongPressToSelect =>
-      'Long press to select more records';
+      'Tekan lama untuk memilih lebih banyak catatan';
 
   @override
   String get maintenanceRecordMetadata => 'Metadata';
 
   @override
-  String get maintenanceRecordCreatedAt => 'Created At';
+  String get maintenanceRecordCreatedAt => 'Dibuat Pada';
 
   @override
-  String get maintenanceRecordUpdatedAt => 'Updated At';
+  String get maintenanceRecordUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get maintenanceRecordSchedule => 'Maintenance Schedule';
+  String get maintenanceRecordSchedule => 'Jadwal Pemeliharaan';
 
   @override
-  String get notificationManagement => 'Notification Management';
+  String get notificationManagement => 'Manajemen Notifikasi';
 
   @override
-  String get notificationDetail => 'Notification Detail';
+  String get notificationDetail => 'Detail Notifikasi';
 
   @override
-  String get notificationMyNotifications => 'My Notifications';
+  String get notificationMyNotifications => 'Notifikasi Saya';
 
   @override
-  String get notificationDeleteNotification => 'Delete Notification';
+  String get notificationDeleteNotification => 'Hapus Notifikasi';
 
   @override
   String get notificationDeleteConfirmation =>
-      'Are you sure you want to delete this notification?';
+      'Apakah Anda yakin ingin menghapus notifikasi ini?';
 
   @override
   String notificationDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count notifications?';
+    return 'Apakah Anda yakin ingin menghapus $count notifikasi?';
   }
 
   @override
-  String get notificationCancel => 'Cancel';
+  String get notificationCancel => 'Batal';
 
   @override
-  String get notificationDelete => 'Delete';
+  String get notificationDelete => 'Hapus';
 
   @override
   String get notificationOnlyAdminCanDelete =>
-      'Only admin can delete notifications';
+      'Hanya admin yang dapat menghapus notifikasi';
 
   @override
-  String get notificationDeleted => 'Notification deleted';
+  String get notificationDeleted => 'Notifikasi dihapus';
 
   @override
-  String get notificationDeleteFailed => 'Delete failed';
+  String get notificationDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get notificationFailedToLoad => 'Failed to load notification';
+  String get notificationFailedToLoad => 'Gagal memuat notifikasi';
 
   @override
-  String get notificationInformation => 'Notification Information';
+  String get notificationInformation => 'Informasi Notifikasi';
 
   @override
-  String get notificationTitle => 'Title';
+  String get notificationTitle => 'Judul';
 
   @override
-  String get notificationMessage => 'Message';
+  String get notificationMessage => 'Pesan';
 
   @override
-  String get notificationType => 'Type';
+  String get notificationType => 'Jenis';
 
   @override
-  String get notificationPriority => 'Priority';
+  String get notificationPriority => 'Prioritas';
 
   @override
-  String get notificationIsRead => 'Is Read';
+  String get notificationIsRead => 'Sudah Dibaca';
 
   @override
-  String get notificationReadStatus => 'Read Status';
+  String get notificationReadStatus => 'Status Baca';
 
   @override
-  String get notificationRead => 'Read';
+  String get notificationRead => 'Dibaca';
 
   @override
-  String get notificationUnread => 'Unread';
+  String get notificationUnread => 'Belum Dibaca';
 
   @override
-  String get notificationYes => 'Yes';
+  String get notificationYes => 'Ya';
 
   @override
-  String get notificationNo => 'No';
+  String get notificationNo => 'Tidak';
 
   @override
-  String get notificationCreatedAt => 'Created At';
+  String get notificationCreatedAt => 'Dibuat Pada';
 
   @override
-  String get notificationExpiresAt => 'Expires At';
+  String get notificationExpiresAt => 'Kadaluarsa Pada';
 
   @override
-  String get notificationSearchNotifications => 'Search notifications...';
+  String get notificationSearchNotifications => 'Cari notifikasi...';
 
   @override
-  String get notificationSearchMyNotifications => 'Search my notifications...';
+  String get notificationSearchMyNotifications => 'Cari notifikasi saya...';
 
   @override
-  String get notificationNoNotificationsFound => 'No notifications found';
+  String get notificationNoNotificationsFound =>
+      'Tidak ada notifikasi ditemukan';
 
   @override
-  String get notificationNoNotificationsYet => 'You have no notifications';
+  String get notificationNoNotificationsYet => 'Anda tidak memiliki notifikasi';
 
   @override
   String get notificationCreateFirstNotification =>
-      'Create your first notification to get started';
+      'Buat notifikasi pertama Anda untuk memulai';
 
   @override
-  String get notificationCreateNotification => 'Create Notification';
+  String get notificationCreateNotification => 'Buat Notifikasi';
 
   @override
-  String get notificationCreateNotificationSubtitle => 'Add a new notification';
+  String get notificationCreateNotificationSubtitle => 'Tambah notifikasi baru';
 
   @override
-  String get notificationSelectMany => 'Select Many';
+  String get notificationSelectMany => 'Pilih Banyak';
 
   @override
   String get notificationSelectManySubtitle =>
-      'Select multiple notifications to delete';
+      'Pilih beberapa notifikasi untuk dihapus';
 
   @override
-  String get notificationFilterAndSort => 'Filter & Sort';
+  String get notificationFilterAndSort => 'Filter & Urutkan';
 
   @override
   String get notificationFilterAndSortSubtitle =>
-      'Customize notification display';
+      'Sesuaikan tampilan notifikasi';
 
   @override
-  String get notificationFiltersAndSorting => 'Filters & Sorting';
+  String get notificationFiltersAndSorting => 'Filter & Pengurutan';
 
   @override
   String get notificationSelectNotificationsToDelete =>
-      'Select notifications to delete';
+      'Pilih notifikasi untuk dihapus';
 
   @override
   String get notificationLongPressToSelect =>
-      'Long press to select more notifications';
+      'Tekan lama untuk memilih lebih banyak notifikasi';
 
   @override
   String notificationSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get notificationNoNotificationsSelected => 'No notifications selected';
+  String get notificationNoNotificationsSelected =>
+      'Tidak ada notifikasi yang dipilih';
 
   @override
-  String get notificationFilterByUser => 'Filter by User';
+  String get notificationFilterByUser => 'Filter berdasarkan Pengguna';
 
   @override
-  String get notificationFilterByRelatedAsset => 'Filter by Related Asset';
+  String get notificationFilterByRelatedAsset =>
+      'Filter berdasarkan Aset Terkait';
 
   @override
-  String get notificationSearchUser => 'Search user...';
+  String get notificationSearchUser => 'Cari pengguna...';
 
   @override
-  String get notificationSearchAsset => 'Search asset...';
+  String get notificationSearchAsset => 'Cari aset...';
 
   @override
-  String get notificationSortBy => 'Sort By';
+  String get notificationSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get notificationSortOrder => 'Sort Order';
+  String get notificationSortOrder => 'Urutan';
 
   @override
   String get notificationReset => 'Reset';
 
   @override
-  String get notificationApply => 'Apply';
+  String get notificationApply => 'Terapkan';
 
   @override
-  String get notificationApplyFilters => 'Apply Filters';
+  String get notificationApplyFilters => 'Terapkan Filter';
 
   @override
-  String get notificationFilterReset => 'Filter reset';
+  String get notificationFilterReset => 'Filter direset';
 
   @override
-  String get notificationFilterApplied => 'Filter applied';
+  String get notificationFilterApplied => 'Filter diterapkan';
 
   @override
-  String get notificationFiltersApplied => 'Filters Applied';
+  String get notificationFiltersApplied => 'Filter Diterapkan';
 
   @override
-  String get notificationNotImplementedYet => 'Not implemented yet';
+  String get notificationNotImplementedYet => 'Belum diimplementasikan';
 
   @override
-  String get notificationJustNow => 'Just now';
+  String get notificationJustNow => 'Baru saja';
 
   @override
   String notificationMinutesAgo(int minutes) {
-    return '${minutes}m ago';
+    return '${minutes}m yang lalu';
   }
 
   @override
   String notificationHoursAgo(int hours) {
-    return '${hours}h ago';
+    return '${hours}j yang lalu';
   }
 
   @override
   String notificationDaysAgo(int days) {
-    return '${days}d ago';
+    return '${days}h yang lalu';
   }
 
   @override
-  String get notificationMarkAsRead => 'Mark as Read';
+  String get notificationMarkAsRead => 'Tandai Dibaca';
 
   @override
-  String get notificationMarkAsUnread => 'Mark as Unread';
+  String get notificationMarkAsUnread => 'Tandai Belum Dibaca';
 
   @override
   String notificationMarkedAsRead(int count) {
-    return '$count marked as read';
+    return '$count ditandai dibaca';
   }
 
   @override
   String notificationMarkedAsUnread(int count) {
-    return '$count marked as unread';
+    return '$count ditandai belum dibaca';
   }
 
   @override
-  String get scanLogManagement => 'Scan Log Management';
+  String get scanLogManagement => 'Manajemen Log Pemindaian';
 
   @override
-  String get scanLogDetail => 'Scan Log Detail';
+  String get scanLogDetail => 'Detail Log Pemindaian';
 
   @override
-  String get scanLogDeleteScanLog => 'Delete Scan Log';
+  String get scanLogDeleteScanLog => 'Hapus Log Pemindaian';
 
   @override
   String get scanLogDeleteConfirmation =>
-      'Are you sure you want to delete this scan log?';
+      'Apakah Anda yakin ingin menghapus log pemindaian ini?';
 
   @override
   String scanLogDeleteMultipleConfirmation(int count) {
-    return 'Are you sure you want to delete $count scan logs?';
+    return 'Apakah Anda yakin ingin menghapus $count log pemindaian?';
   }
 
   @override
-  String get scanLogCancel => 'Cancel';
+  String get scanLogCancel => 'Batal';
 
   @override
-  String get scanLogDelete => 'Delete';
+  String get scanLogDelete => 'Hapus';
 
   @override
-  String get scanLogOnlyAdminCanDelete => 'Only admin can delete scan logs';
+  String get scanLogOnlyAdminCanDelete =>
+      'Hanya admin yang dapat menghapus log pemindaian';
 
   @override
-  String get scanLogDeleted => 'Scan log deleted';
+  String get scanLogDeleted => 'Log pemindaian dihapus';
 
   @override
-  String get scanLogDeleteFailed => 'Delete failed';
+  String get scanLogDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get scanLogFailedToLoad => 'Failed to load scan log';
+  String get scanLogFailedToLoad => 'Gagal memuat log pemindaian';
 
   @override
-  String get scanLogInformation => 'Scan Information';
+  String get scanLogInformation => 'Informasi Pemindaian';
 
   @override
-  String get scanLogScannedValue => 'Scanned Value';
+  String get scanLogScannedValue => 'Nilai yang Dipindai';
 
   @override
-  String get scanLogScanMethod => 'Scan Method';
+  String get scanLogScanMethod => 'Metode Pemindaian';
 
   @override
-  String get scanLogScanResult => 'Scan Result';
+  String get scanLogScanResult => 'Hasil Pemindaian';
 
   @override
-  String get scanLogScanTimestamp => 'Scan Timestamp';
+  String get scanLogScanTimestamp => 'Waktu Pemindaian';
 
   @override
-  String get scanLogLocation => 'Location';
+  String get scanLogLocation => 'Lokasi';
 
   @override
-  String get scanLogSearchScanLogs => 'Search scan logs...';
+  String get scanLogSearchScanLogs => 'Cari log pemindaian...';
 
   @override
-  String get scanLogNoScanLogsFound => 'No scan logs found';
+  String get scanLogNoScanLogsFound => 'Tidak ada log pemindaian ditemukan';
 
   @override
   String get scanLogCreateFirstScanLog =>
-      'Create your first scan log to get started';
+      'Buat log pemindaian pertama Anda untuk memulai';
 
   @override
-  String get scanLogCreateScanLog => 'Create Scan Log';
+  String get scanLogCreateScanLog => 'Buat Log Pemindaian';
 
   @override
-  String get scanLogCreateScanLogSubtitle => 'Add a new scan log';
+  String get scanLogCreateScanLogSubtitle => 'Tambah log pemindaian baru';
 
   @override
-  String get scanLogSelectMany => 'Select Many';
+  String get scanLogSelectMany => 'Pilih Banyak';
 
   @override
-  String get scanLogSelectManySubtitle => 'Select multiple scan logs to delete';
+  String get scanLogSelectManySubtitle =>
+      'Pilih beberapa log pemindaian untuk dihapus';
 
   @override
-  String get scanLogFilterAndSort => 'Filter & Sort';
+  String get scanLogFilterAndSort => 'Filter & Urutkan';
 
   @override
-  String get scanLogFilterAndSortSubtitle => 'Customize scan log display';
+  String get scanLogFilterAndSortSubtitle =>
+      'Sesuaikan tampilan log pemindaian';
 
   @override
-  String get scanLogFiltersAndSorting => 'Filters & Sorting';
+  String get scanLogFiltersAndSorting => 'Filter & Pengurutan';
 
   @override
-  String get scanLogSelectScanLogsToDelete => 'Select scan logs to delete';
+  String get scanLogSelectScanLogsToDelete =>
+      'Pilih log pemindaian untuk dihapus';
 
   @override
-  String get scanLogLongPressToSelect => 'Long press to select more scan logs';
+  String get scanLogLongPressToSelect =>
+      'Tekan lama untuk memilih lebih banyak log pemindaian';
 
   @override
   String scanLogSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get scanLogNoScanLogsSelected => 'No scan logs selected';
+  String get scanLogNoScanLogsSelected =>
+      'Tidak ada log pemindaian yang dipilih';
 
   @override
-  String get scanLogFilterByAsset => 'Filter by Asset';
+  String get scanLogFilterByAsset => 'Filter berdasarkan Aset';
 
   @override
-  String get scanLogFilterByScannedBy => 'Filter by Scanned By';
+  String get scanLogFilterByScannedBy => 'Filter berdasarkan Dipindai Oleh';
 
   @override
-  String get scanLogSearchAsset => 'Search asset...';
+  String get scanLogSearchAsset => 'Cari aset...';
 
   @override
-  String get scanLogSearchUser => 'Search user...';
+  String get scanLogSearchUser => 'Cari pengguna...';
 
   @override
-  String get scanLogSortBy => 'Sort By';
+  String get scanLogSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get scanLogSortOrder => 'Sort Order';
+  String get scanLogSortOrder => 'Urutan';
 
   @override
-  String get scanLogHasCoordinates => 'Has Coordinates';
+  String get scanLogHasCoordinates => 'Memiliki Koordinat';
 
   @override
-  String get scanLogDateFrom => 'Date From';
+  String get scanLogDateFrom => 'Tanggal Dari';
 
   @override
-  String get scanLogDateTo => 'Date To';
+  String get scanLogDateTo => 'Tanggal Sampai';
 
   @override
   String get scanLogReset => 'Reset';
 
   @override
-  String get scanLogApply => 'Apply';
+  String get scanLogApply => 'Terapkan';
 
   @override
-  String get scanLogFilterReset => 'Filter reset';
+  String get scanLogFilterReset => 'Filter direset';
 
   @override
-  String get scanLogFilterApplied => 'Filter applied';
+  String get scanLogFilterApplied => 'Filter diterapkan';
 
   @override
-  String get scanLogNotImplementedYet => 'Not implemented yet';
+  String get scanLogNotImplementedYet => 'Belum diimplementasikan';
 
   @override
-  String get userManagement => 'User Management';
+  String get userManagement => 'Manajemen Pengguna';
 
   @override
-  String get userCreateUser => 'Create User';
+  String get userCreateUser => 'Buat Pengguna';
 
   @override
-  String get userAddNewUser => 'Add a new user';
+  String get userAddNewUser => 'Tambah pengguna baru';
 
   @override
-  String get userSelectMany => 'Select Many';
+  String get userSelectMany => 'Pilih Banyak';
 
   @override
-  String get userSelectMultipleToDelete => 'Select multiple users to delete';
+  String get userSelectMultipleToDelete =>
+      'Pilih beberapa pengguna untuk dihapus';
 
   @override
-  String get userFilterAndSort => 'Filter & Sort';
+  String get userFilterAndSort => 'Filter & Urutkan';
 
   @override
-  String get userCustomizeDisplay => 'Customize user display';
+  String get userCustomizeDisplay => 'Sesuaikan tampilan pengguna';
 
   @override
-  String get userFilters => 'Filters';
+  String get userFilters => 'Filter';
 
   @override
-  String get userRole => 'Role';
+  String get userRole => 'Peran';
 
   @override
-  String get userEmployeeId => 'Employee ID';
+  String get userEmployeeId => 'ID Karyawan';
 
   @override
-  String get userEnterEmployeeId => 'Enter employee ID...';
+  String get userEnterEmployeeId => 'Masukkan ID karyawan...';
 
   @override
-  String get userActiveStatus => 'Active Status';
+  String get userActiveStatus => 'Status Aktif';
 
   @override
-  String get userActive => 'Active';
+  String get userActive => 'Aktif';
 
   @override
-  String get userInactive => 'Inactive';
+  String get userInactive => 'Tidak Aktif';
 
   @override
-  String get userSort => 'Sort';
+  String get userSort => 'Urutkan';
 
   @override
-  String get userSortBy => 'Sort By';
+  String get userSortBy => 'Urutkan Berdasarkan';
 
   @override
-  String get userSortOrder => 'Sort Order';
+  String get userSortOrder => 'Urutan';
 
   @override
-  String get userAscending => 'Ascending';
+  String get userAscending => 'Naik';
 
   @override
-  String get userDescending => 'Descending';
+  String get userDescending => 'Turun';
 
   @override
   String get userReset => 'Reset';
 
   @override
-  String get userApply => 'Apply';
+  String get userApply => 'Terapkan';
 
   @override
-  String get userFilterReset => 'Filter reset';
+  String get userFilterReset => 'Filter direset';
 
   @override
-  String get userFilterApplied => 'Filter applied';
+  String get userFilterApplied => 'Filter diterapkan';
 
   @override
-  String get userSelectUsersToDelete => 'Select users to delete';
+  String get userSelectUsersToDelete => 'Pilih pengguna untuk dihapus';
 
   @override
-  String get userDeleteUsers => 'Delete Users';
+  String get userDeleteUsers => 'Hapus Pengguna';
 
   @override
   String userDeleteConfirmation(int count) {
-    return 'Are you sure you want to delete $count users?';
+    return 'Apakah Anda yakin ingin menghapus $count pengguna?';
   }
 
   @override
-  String get userCancel => 'Cancel';
+  String get userCancel => 'Batal';
 
   @override
-  String get userDelete => 'Delete';
+  String get userDelete => 'Hapus';
 
   @override
-  String get userNoUsersSelected => 'No users selected';
+  String get userNoUsersSelected => 'Tidak ada pengguna yang dipilih';
 
   @override
-  String get userNotImplementedYet => 'Not implemented yet';
+  String get userNotImplementedYet => 'Belum diimplementasikan';
 
   @override
   String userSelectedCount(int count) {
-    return '$count selected';
+    return '$count dipilih';
   }
 
   @override
-  String get userSearchUsers => 'Search users...';
+  String get userSearchUsers => 'Cari pengguna...';
 
   @override
-  String get userNoUsersFound => 'No users found';
+  String get userNoUsersFound => 'Tidak ada pengguna ditemukan';
 
   @override
-  String get userCreateFirstUser => 'Create your first user to get started';
+  String get userCreateFirstUser => 'Buat pengguna pertama Anda untuk memulai';
 
   @override
-  String get userLongPressToSelect => 'Long press to select more users';
+  String get userLongPressToSelect =>
+      'Tekan lama untuk memilih lebih banyak pengguna';
 
   @override
-  String get userEditUser => 'Edit User';
+  String get userEditUser => 'Edit Pengguna';
 
   @override
-  String get userPleaseFixErrors => 'Please fix all errors';
+  String get userPleaseFixErrors => 'Harap perbaiki semua kesalahan';
 
   @override
-  String get userPleaseSelectRole => 'Please select a role';
+  String get userPleaseSelectRole => 'Harap pilih peran';
 
   @override
-  String get userPleaseValidateFields => 'Please fill all required fields';
+  String get userPleaseValidateFields => 'Harap isi semua field yang wajib';
 
   @override
-  String get userSavedSuccessfully => 'User saved successfully';
+  String get userSavedSuccessfully => 'Pengguna berhasil disimpan';
 
   @override
-  String get userOperationFailed => 'Operation failed';
+  String get userOperationFailed => 'Operasi gagal';
 
   @override
-  String get userInformation => 'User Information';
+  String get userInformation => 'Informasi Pengguna';
 
   @override
-  String get userUsername => 'Username';
+  String get userUsername => 'Nama Pengguna';
 
   @override
-  String get userEnterUsername => 'Enter username';
+  String get userEnterUsername => 'Masukkan nama pengguna';
 
   @override
   String get userEmail => 'Email';
 
   @override
-  String get userEnterEmail => 'Enter email';
+  String get userEnterEmail => 'Masukkan email';
 
   @override
-  String get userPassword => 'Password';
+  String get userPassword => 'Kata Sandi';
 
   @override
-  String get userEnterPassword => 'Enter password';
+  String get userEnterPassword => 'Masukkan kata sandi';
 
   @override
-  String get userFullName => 'Full Name';
+  String get userFullName => 'Nama Lengkap';
 
   @override
-  String get userEnterFullName => 'Enter full name';
+  String get userEnterFullName => 'Masukkan nama lengkap';
 
   @override
-  String get userSelectRole => 'Select role';
+  String get userSelectRole => 'Pilih peran';
 
   @override
-  String get userEmployeeIdOptional => 'Employee ID (Optional)';
+  String get userEmployeeIdOptional => 'ID Karyawan (Opsional)';
 
   @override
-  String get userEnterEmployeeIdOptional => 'Enter employee ID';
+  String get userEnterEmployeeIdOptional => 'Masukkan ID karyawan';
 
   @override
-  String get userPreferredLanguage => 'Preferred Language (Optional)';
+  String get userPreferredLanguage => 'Bahasa Pilihan (Opsional)';
 
   @override
-  String get userSelectLanguage => 'Select language';
+  String get userSelectLanguage => 'Pilih bahasa';
 
   @override
-  String get userUpdate => 'Update';
+  String get userUpdate => 'Perbarui';
 
   @override
-  String get userCreate => 'Create';
+  String get userCreate => 'Buat';
 
   @override
-  String get userDetail => 'User Detail';
+  String get userDetail => 'Detail Pengguna';
 
   @override
-  String get userOnlyAdminCanEdit => 'Only admin can edit users';
+  String get userOnlyAdminCanEdit => 'Hanya admin yang dapat mengedit pengguna';
 
   @override
-  String get userDeleteUser => 'Delete User';
+  String get userDeleteUser => 'Hapus Pengguna';
 
   @override
   String userDeleteSingleConfirmation(String fullName) {
-    return 'Are you sure you want to delete \"$fullName\"?';
+    return 'Apakah Anda yakin ingin menghapus \"$fullName\"?';
   }
 
   @override
-  String get userOnlyAdminCanDelete => 'Only admin can delete users';
+  String get userOnlyAdminCanDelete =>
+      'Hanya admin yang dapat menghapus pengguna';
 
   @override
-  String get userDeleted => 'User deleted';
+  String get userDeleted => 'Pengguna dihapus';
 
   @override
-  String get userDeleteFailed => 'Delete failed';
+  String get userDeleteFailed => 'Gagal menghapus';
 
   @override
-  String get userName => 'Name';
+  String get userName => 'Nama';
 
   @override
-  String get userPreferredLang => 'Preferred Language';
+  String get userPreferredLang => 'Bahasa Pilihan';
 
   @override
-  String get userYes => 'Yes';
+  String get userYes => 'Ya';
 
   @override
-  String get userNo => 'No';
+  String get userNo => 'Tidak';
 
   @override
   String get userMetadata => 'Metadata';
 
   @override
-  String get userCreatedAt => 'Created At';
+  String get userCreatedAt => 'Dibuat Pada';
 
   @override
-  String get userUpdatedAt => 'Updated At';
+  String get userUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get userFailedToLoad => 'Failed to load user';
+  String get userFailedToLoad => 'Gagal memuat pengguna';
 
   @override
-  String get userFailedToLoadProfile => 'Failed to load profile';
+  String get userFailedToLoadProfile => 'Gagal memuat profil';
 
   @override
-  String get userPersonalInformation => 'Personal Information';
+  String get userPersonalInformation => 'Informasi Pribadi';
 
   @override
-  String get userAccountDetails => 'Account Details';
+  String get userAccountDetails => 'Detail Akun';
 
   @override
   String get userStatus => 'Status';
 
   @override
-  String get userUpdateProfile => 'Update Profile';
+  String get userUpdateProfile => 'Perbarui Profil';
 
   @override
-  String get userNoUserData => 'No user data available';
+  String get userNoUserData => 'Tidak ada data pengguna tersedia';
 
   @override
-  String get userProfileInformation => 'Profile Information';
+  String get userProfileInformation => 'Informasi Profil';
 
   @override
-  String get userProfilePicture => 'Profile Picture';
+  String get userProfilePicture => 'Foto Profil';
 
   @override
-  String get userChooseImage => 'Choose image';
+  String get userChooseImage => 'Pilih gambar';
 
   @override
-  String get userProfileUpdatedSuccessfully => 'Profile updated successfully';
+  String get userProfileUpdatedSuccessfully => 'Profil berhasil diperbarui';
 
   @override
-  String get adminShellBottomNavDashboard => 'Dashboard';
+  String get adminShellBottomNavDashboard => 'Dasbor';
 
   @override
-  String get adminShellBottomNavScanAsset => 'Scan Asset';
+  String get adminShellBottomNavScanAsset => 'Pindai Aset';
 
   @override
-  String get adminShellBottomNavProfile => 'Profile';
+  String get adminShellBottomNavProfile => 'Profil';
 
   @override
-  String get userShellBottomNavHome => 'Home';
+  String get userShellBottomNavHome => 'Beranda';
 
   @override
-  String get userShellBottomNavScanAsset => 'Scan Asset';
+  String get userShellBottomNavScanAsset => 'Pindai Aset';
 
   @override
-  String get userShellBottomNavProfile => 'Profile';
+  String get userShellBottomNavProfile => 'Profil';
 
   @override
   String get appEndDrawerTitle => 'Sigma Track';
 
   @override
-  String get appEndDrawerPleaseLoginFirst => 'Please login first';
+  String get appEndDrawerPleaseLoginFirst => 'Silakan login terlebih dahulu';
 
   @override
-  String get appEndDrawerTheme => 'Theme';
+  String get appEndDrawerTheme => 'Tema';
 
   @override
-  String get appEndDrawerLanguage => 'Language';
+  String get appEndDrawerLanguage => 'Bahasa';
 
   @override
-  String get appEndDrawerLogout => 'Logout';
+  String get appEndDrawerLogout => 'Keluar';
 
   @override
-  String get appEndDrawerManagementSection => 'Management';
+  String get appEndDrawerManagementSection => 'Manajemen';
 
   @override
-  String get appEndDrawerMaintenanceSection => 'Maintenance';
+  String get appEndDrawerMaintenanceSection => 'Pemeliharaan';
 
   @override
   String get appEndDrawerEnglish => 'English';
@@ -3184,80 +3213,80 @@ class L10nId extends L10n {
   String get appEndDrawerJapanese => '日本語';
 
   @override
-  String get appEndDrawerMyAssets => 'My Assets';
+  String get appEndDrawerMyAssets => 'Aset Saya';
 
   @override
-  String get appEndDrawerNotifications => 'Notifications';
+  String get appEndDrawerNotifications => 'Notifikasi';
 
   @override
-  String get appEndDrawerMyIssueReports => 'My Issue Reports';
+  String get appEndDrawerMyIssueReports => 'Laporan Masalah Saya';
 
   @override
-  String get appEndDrawerAssets => 'Assets';
+  String get appEndDrawerAssets => 'Aset';
 
   @override
-  String get appEndDrawerAssetMovements => 'Asset Movements';
+  String get appEndDrawerAssetMovements => 'Perpindahan Aset';
 
   @override
-  String get appEndDrawerCategories => 'Categories';
+  String get appEndDrawerCategories => 'Kategori';
 
   @override
-  String get appEndDrawerLocations => 'Locations';
+  String get appEndDrawerLocations => 'Lokasi';
 
   @override
-  String get appEndDrawerUsers => 'Users';
+  String get appEndDrawerUsers => 'Pengguna';
 
   @override
-  String get appEndDrawerMaintenanceSchedules => 'Maintenance Schedules';
+  String get appEndDrawerMaintenanceSchedules => 'Jadwal Pemeliharaan';
 
   @override
-  String get appEndDrawerMaintenanceRecords => 'Maintenance Records';
+  String get appEndDrawerMaintenanceRecords => 'Catatan Pemeliharaan';
 
   @override
-  String get appEndDrawerReports => 'Reports';
+  String get appEndDrawerReports => 'Laporan';
 
   @override
-  String get appEndDrawerIssueReports => 'Issue Reports';
+  String get appEndDrawerIssueReports => 'Laporan Masalah';
 
   @override
-  String get appEndDrawerScanLogs => 'Scan Logs';
+  String get appEndDrawerScanLogs => 'Log Pemindaian';
 
   @override
-  String get appEndDrawerScanAsset => 'Scan Asset';
+  String get appEndDrawerScanAsset => 'Pindai Aset';
 
   @override
-  String get appEndDrawerDashboard => 'Dashboard';
+  String get appEndDrawerDashboard => 'Dasbor';
 
   @override
-  String get appEndDrawerHome => 'Home';
+  String get appEndDrawerHome => 'Beranda';
 
   @override
-  String get appEndDrawerProfile => 'Profile';
+  String get appEndDrawerProfile => 'Profil';
 
   @override
   String get customAppBarTitle => 'Sigma Track';
 
   @override
-  String get customAppBarOpenMenu => 'Open Menu';
+  String get customAppBarOpenMenu => 'Buka Menu';
 
   @override
-  String get appDropdownSelectOption => 'Select option';
+  String get appDropdownSelectOption => 'Pilih opsi';
 
   @override
-  String get appSearchFieldHint => 'Search...';
+  String get appSearchFieldHint => 'Cari...';
 
   @override
-  String get appSearchFieldClear => 'Clear';
+  String get appSearchFieldClear => 'Hapus';
 
   @override
-  String get appSearchFieldNoResultsFound => 'No results found';
+  String get appSearchFieldNoResultsFound => 'Tidak ada hasil ditemukan';
 
   @override
-  String get staffShellBottomNavDashboard => 'Dashboard';
+  String get staffShellBottomNavDashboard => 'Dasbor';
 
   @override
-  String get staffShellBottomNavScanAsset => 'Scan Asset';
+  String get staffShellBottomNavScanAsset => 'Pindai Aset';
 
   @override
-  String get staffShellBottomNavProfile => 'Profile';
+  String get staffShellBottomNavProfile => 'Profil';
 }

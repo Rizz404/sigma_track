@@ -2016,13 +2016,6 @@ class L10nEn extends L10n {
   String get locationPickFromMap => 'Pick from map';
 
   @override
-  String get locationAutocompleteDisabled => 'Autocomplete disabled';
-
-  @override
-  String get locationAutocompleteDisabledMessage =>
-      'Google Places API key not configured. Please enter location name manually and search.';
-
-  @override
   String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
 
   @override
