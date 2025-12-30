@@ -46,7 +46,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   Future<List<Category>> _searchParentCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
-    await notifier.search(query);
+    // * Only search root categories (no parent) for parent selection
+    await notifier.searchRootCategories(query);
 
     final state = ref.read(categoriesSearchProvider);
     return state.categories;
