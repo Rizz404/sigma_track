@@ -4154,6 +4154,58 @@
   "@userProfileUpdatedSuccessfully": {
     "description": "Profile update success message"
   },
+  "userChangePassword": "Ubah Kata Sandi",
+  "@userChangePassword": {
+    "description": "Change password screen title"
+  },
+  "userChangePasswordTitle": "Perbarui Kata Sandi Anda",
+  "@userChangePasswordTitle": {
+    "description": "Change password section title"
+  },
+  "userChangePasswordDescription": "Masukkan kata sandi saat ini dan pilih kata sandi baru yang aman.",
+  "@userChangePasswordDescription": {
+    "description": "Change password section description"
+  },
+  "userCurrentPassword": "Kata Sandi Saat Ini",
+  "@userCurrentPassword": {
+    "description": "Current password label"
+  },
+  "userEnterCurrentPassword": "Masukkan kata sandi saat ini",
+  "@userEnterCurrentPassword": {
+    "description": "Current password placeholder"
+  },
+  "userNewPassword": "Kata Sandi Baru",
+  "@userNewPassword": {
+    "description": "New password label"
+  },
+  "userEnterNewPassword": "Masukkan kata sandi baru",
+  "@userEnterNewPassword": {
+    "description": "New password placeholder"
+  },
+  "userConfirmNewPassword": "Konfirmasi Kata Sandi Baru",
+  "@userConfirmNewPassword": {
+    "description": "Confirm new password label"
+  },
+  "userEnterConfirmNewPassword": "Masukkan ulang kata sandi baru",
+  "@userEnterConfirmNewPassword": {
+    "description": "Confirm new password placeholder"
+  },
+  "userPasswordRequirements": "Persyaratan Kata Sandi",
+  "@userPasswordRequirements": {
+    "description": "Password requirements title"
+  },
+  "userPasswordRequirementsList": "• Minimal 8 karakter\n• Minimal satu huruf besar\n• Minimal satu huruf kecil\n• Minimal satu angka",
+  "@userPasswordRequirementsList": {
+    "description": "Password requirements list"
+  },
+  "userChangePasswordButton": "Ubah Kata Sandi",
+  "@userChangePasswordButton": {
+    "description": "Change password button text"
+  },
+  "userPasswordChangedSuccessfully": "Kata sandi berhasil diubah",
+  "@userPasswordChangedSuccessfully": {
+    "description": "Password change success message"
+  },
   "adminShellBottomNavDashboard": "Dasbor",
   "@adminShellBottomNavDashboard": {
     "description": "Admin shell bottom navigation label for dashboard"

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
@@ -116,10 +117,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
             ),
           ]),
           const SizedBox(height: 16),
-          AppDetailActionButtons(
-            onEdit: () =>
-                context.push(RouteConstant.userUpdateProfile, extra: user),
-          ),
+          _buildProfileActions(context, user),
         ],
       ),
     );
@@ -306,5 +304,43 @@ class UserDetailProfileScreen extends ConsumerWidget {
 
   String _formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+  }
+
+  Widget _buildProfileActions(BuildContext context, User user) {
+    // * Determine routes based on user role
+    final isAdmin = user.role == UserRole.admin;
+    final isStaff = user.role == UserRole.staff;
+    final updateProfileRoute = isAdmin
+        ? RouteConstant.adminUserUpdateProfile
+        : isStaff
+        ? RouteConstant.staffUserUpdateProfile
+        : RouteConstant.userUpdateProfile;
+    final changePasswordRoute = isAdmin
+        ? RouteConstant.adminUserChangePassword
+        : isStaff
+        ? RouteConstant.staffUserChangePassword
+        : RouteConstant.userChangePassword;
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppButton(
+              text: context.l10n.userUpdateProfile,
+              onPressed: () => context.push(updateProfileRoute, extra: user),
+            ),
+            const SizedBox(height: 12),
+            AppButton(
+              text: context.l10n.userChangePassword,
+              variant: AppButtonVariant.outlined,
+              leadingIcon: const Icon(Icons.lock_outline, size: 18),
+              onPressed: () => context.push(changePasswordRoute),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

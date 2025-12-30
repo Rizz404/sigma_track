@@ -17,6 +17,7 @@ class RouteConstant {
   static const String scanAsset = '/scan-asset';
   static const String userDetailProfile = '/user/profile/detail';
   static const String userUpdateProfile = '/user/profile/update';
+  static const String userChangePassword = '/user/profile/change-password';
 
   // ==================== ADMIN ROUTES ====================
   static const String admin = '/admin';
@@ -53,6 +54,8 @@ class RouteConstant {
   static const String adminScanAsset = '/admin/scan-asset';
   static const String adminUserDetailProfile = '/admin/user/profile/detail';
   static const String adminUserUpdateProfile = '/admin/user/profile/update';
+  static const String adminUserChangePassword =
+      '/admin/user/profile/change-password';
 
   // ==================== STAFF ROUTES ====================
   static const String staff = '/staff';
@@ -83,6 +86,8 @@ class RouteConstant {
   static const String staffScanAsset = '/staff/scan-asset';
   static const String staffUserDetailProfile = '/staff/user/profile/detail';
   static const String staffUserUpdateProfile = '/staff/user/profile/update';
+  static const String staffUserChangePassword =
+      '/staff/user/profile/change-password';
 
   // ==================== SHARED DETAIL ROUTES (Accessible by both User & Admin) ====================
   static const String assetDetail = '/asset/:assetId';

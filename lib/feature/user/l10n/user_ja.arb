@@ -345,5 +345,57 @@
   "userProfileUpdatedSuccessfully": "プロフィールが正常に更新されました",
   "@userProfileUpdatedSuccessfully": {
     "description": "Profile update success message"
+  },
+  "userChangePassword": "パスワードを変更",
+  "@userChangePassword": {
+    "description": "Change password screen title"
+  },
+  "userChangePasswordTitle": "パスワードを更新",
+  "@userChangePasswordTitle": {
+    "description": "Change password section title"
+  },
+  "userChangePasswordDescription": "現在のパスワードを入力し、新しい安全なパスワードを設定してください。",
+  "@userChangePasswordDescription": {
+    "description": "Change password section description"
+  },
+  "userCurrentPassword": "現在のパスワード",
+  "@userCurrentPassword": {
+    "description": "Current password label"
+  },
+  "userEnterCurrentPassword": "現在のパスワードを入力",
+  "@userEnterCurrentPassword": {
+    "description": "Current password placeholder"
+  },
+  "userNewPassword": "新しいパスワード",
+  "@userNewPassword": {
+    "description": "New password label"
+  },
+  "userEnterNewPassword": "新しいパスワードを入力",
+  "@userEnterNewPassword": {
+    "description": "New password placeholder"
+  },
+  "userConfirmNewPassword": "新しいパスワードを確認",
+  "@userConfirmNewPassword": {
+    "description": "Confirm new password label"
+  },
+  "userEnterConfirmNewPassword": "新しいパスワードを再入力",
+  "@userEnterConfirmNewPassword": {
+    "description": "Confirm new password placeholder"
+  },
+  "userPasswordRequirements": "パスワード要件",
+  "@userPasswordRequirements": {
+    "description": "Password requirements title"
+  },
+  "userPasswordRequirementsList": "• 8文字以上\n• 大文字を1つ以上\n• 小文字を1つ以上\n• 数字を1つ以上",
+  "@userPasswordRequirementsList": {
+    "description": "Password requirements list"
+  },
+  "userChangePasswordButton": "パスワードを変更",
+  "@userChangePasswordButton": {
+    "description": "Change password button text"
+  },
+  "userPasswordChangedSuccessfully": "パスワードが正常に変更されました",
+  "@userPasswordChangedSuccessfully": {
+    "description": "Password change success message"
   }
 }

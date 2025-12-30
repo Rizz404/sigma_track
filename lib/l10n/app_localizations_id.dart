@@ -3174,6 +3174,47 @@ class L10nId extends L10n {
   String get userProfileUpdatedSuccessfully => 'Profil berhasil diperbarui';
 
   @override
+  String get userChangePassword => 'Ubah Kata Sandi';
+
+  @override
+  String get userChangePasswordTitle => 'Perbarui Kata Sandi Anda';
+
+  @override
+  String get userChangePasswordDescription =>
+      'Masukkan kata sandi saat ini dan pilih kata sandi baru yang aman.';
+
+  @override
+  String get userCurrentPassword => 'Kata Sandi Saat Ini';
+
+  @override
+  String get userEnterCurrentPassword => 'Masukkan kata sandi saat ini';
+
+  @override
+  String get userNewPassword => 'Kata Sandi Baru';
+
+  @override
+  String get userEnterNewPassword => 'Masukkan kata sandi baru';
+
+  @override
+  String get userConfirmNewPassword => 'Konfirmasi Kata Sandi Baru';
+
+  @override
+  String get userEnterConfirmNewPassword => 'Masukkan ulang kata sandi baru';
+
+  @override
+  String get userPasswordRequirements => 'Persyaratan Kata Sandi';
+
+  @override
+  String get userPasswordRequirementsList =>
+      '• Minimal 8 karakter\n• Minimal satu huruf besar\n• Minimal satu huruf kecil\n• Minimal satu angka';
+
+  @override
+  String get userChangePasswordButton => 'Ubah Kata Sandi';
+
+  @override
+  String get userPasswordChangedSuccessfully => 'Kata sandi berhasil diubah';
+
+  @override
   String get adminShellBottomNavDashboard => 'Dasbor';
 
   @override

@@ -3017,6 +3017,47 @@ class L10nJa extends L10n {
   String get userProfileUpdatedSuccessfully => 'プロフィールが正常に更新されました';
 
   @override
+  String get userChangePassword => 'パスワードを変更';
+
+  @override
+  String get userChangePasswordTitle => 'パスワードを更新';
+
+  @override
+  String get userChangePasswordDescription =>
+      '現在のパスワードを入力し、新しい安全なパスワードを設定してください。';
+
+  @override
+  String get userCurrentPassword => '現在のパスワード';
+
+  @override
+  String get userEnterCurrentPassword => '現在のパスワードを入力';
+
+  @override
+  String get userNewPassword => '新しいパスワード';
+
+  @override
+  String get userEnterNewPassword => '新しいパスワードを入力';
+
+  @override
+  String get userConfirmNewPassword => '新しいパスワードを確認';
+
+  @override
+  String get userEnterConfirmNewPassword => '新しいパスワードを再入力';
+
+  @override
+  String get userPasswordRequirements => 'パスワード要件';
+
+  @override
+  String get userPasswordRequirementsList =>
+      '• 8文字以上\n• 大文字を1つ以上\n• 小文字を1つ以上\n• 数字を1つ以上';
+
+  @override
+  String get userChangePasswordButton => 'パスワードを変更';
+
+  @override
+  String get userPasswordChangedSuccessfully => 'パスワードが正常に変更されました';
+
+  @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';
 
   @override

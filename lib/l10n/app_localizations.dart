@@ -5901,6 +5901,84 @@ abstract class L10n {
   /// **'Profile updated successfully'**
   String get userProfileUpdatedSuccessfully;
 
+  /// Change password screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get userChangePassword;
+
+  /// Change password section title
+  ///
+  /// In en, this message translates to:
+  /// **'Update Your Password'**
+  String get userChangePasswordTitle;
+
+  /// Change password section description
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current password and choose a new secure password.'**
+  String get userChangePasswordDescription;
+
+  /// Current password label
+  ///
+  /// In en, this message translates to:
+  /// **'Current Password'**
+  String get userCurrentPassword;
+
+  /// Current password placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter current password'**
+  String get userEnterCurrentPassword;
+
+  /// New password label
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get userNewPassword;
+
+  /// New password placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new password'**
+  String get userEnterNewPassword;
+
+  /// Confirm new password label
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get userConfirmNewPassword;
+
+  /// Confirm new password placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter new password'**
+  String get userEnterConfirmNewPassword;
+
+  /// Password requirements title
+  ///
+  /// In en, this message translates to:
+  /// **'Password Requirements'**
+  String get userPasswordRequirements;
+
+  /// Password requirements list
+  ///
+  /// In en, this message translates to:
+  /// **'• At least 8 characters\n• At least one uppercase letter\n• At least one lowercase letter\n• At least one number'**
+  String get userPasswordRequirementsList;
+
+  /// Change password button text
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get userChangePasswordButton;
+
+  /// Password change success message
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get userPasswordChangedSuccessfully;
+
   /// Admin shell bottom navigation label for dashboard
   ///
   /// In en, this message translates to:

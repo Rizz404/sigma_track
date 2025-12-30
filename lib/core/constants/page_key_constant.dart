@@ -16,6 +16,7 @@ class PageKeyConstant {
   static const String scanAsset = 'scan-asset';
   static const String userDetailProfile = 'user-detail-profile';
   static const String userUpdateProfile = 'user-update-profile';
+  static const String userChangePassword = 'user-change-password';
 
   // ==================== ADMIN MAIN PAGES ====================
   static const String admin = 'admin';
@@ -23,6 +24,7 @@ class PageKeyConstant {
   static const String adminScanAsset = 'admin-scan-asset';
   static const String adminUserDetailProfile = 'admin-user-detail-profile';
   static const String adminUserUpdateProfile = 'admin-user-update-profile';
+  static const String adminUserChangePassword = 'admin-user-change-password';
 
   // ==================== STAFF MAIN PAGES ====================
   static const String staff = 'staff';
@@ -30,6 +32,7 @@ class PageKeyConstant {
   static const String staffScanAsset = 'staff-scan-asset';
   static const String staffUserDetailProfile = 'staff-user-detail-profile';
   static const String staffUserUpdateProfile = 'staff-user-update-profile';
+  static const String staffUserChangePassword = 'staff-user-change-password';
 
   // ==================== ADMIN LIST PAGES ====================
   static const String adminAssets = 'admin-assets';

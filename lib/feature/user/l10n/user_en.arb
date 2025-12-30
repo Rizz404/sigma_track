@@ -345,5 +345,57 @@
   "userProfileUpdatedSuccessfully": "Profile updated successfully",
   "@userProfileUpdatedSuccessfully": {
     "description": "Profile update success message"
+  },
+  "userChangePassword": "Change Password",
+  "@userChangePassword": {
+    "description": "Change password screen title"
+  },
+  "userChangePasswordTitle": "Update Your Password",
+  "@userChangePasswordTitle": {
+    "description": "Change password section title"
+  },
+  "userChangePasswordDescription": "Enter your current password and choose a new secure password.",
+  "@userChangePasswordDescription": {
+    "description": "Change password section description"
+  },
+  "userCurrentPassword": "Current Password",
+  "@userCurrentPassword": {
+    "description": "Current password label"
+  },
+  "userEnterCurrentPassword": "Enter current password",
+  "@userEnterCurrentPassword": {
+    "description": "Current password placeholder"
+  },
+  "userNewPassword": "New Password",
+  "@userNewPassword": {
+    "description": "New password label"
+  },
+  "userEnterNewPassword": "Enter new password",
+  "@userEnterNewPassword": {
+    "description": "New password placeholder"
+  },
+  "userConfirmNewPassword": "Confirm New Password",
+  "@userConfirmNewPassword": {
+    "description": "Confirm new password label"
+  },
+  "userEnterConfirmNewPassword": "Re-enter new password",
+  "@userEnterConfirmNewPassword": {
+    "description": "Confirm new password placeholder"
+  },
+  "userPasswordRequirements": "Password Requirements",
+  "@userPasswordRequirements": {
+    "description": "Password requirements title"
+  },
+  "userPasswordRequirementsList": "• At least 8 characters\n• At least one uppercase letter\n• At least one lowercase letter\n• At least one number",
+  "@userPasswordRequirementsList": {
+    "description": "Password requirements list"
+  },
+  "userChangePasswordButton": "Change Password",
+  "@userChangePasswordButton": {
+    "description": "Change password button text"
+  },
+  "userPasswordChangedSuccessfully": "Password changed successfully",
+  "@userPasswordChangedSuccessfully": {
+    "description": "Password change success message"
   }
 }

@@ -58,6 +58,7 @@ import 'package:sigma_track/feature/user/presentation/screens/admin/user_upsert_
 import 'package:sigma_track/feature/user/presentation/screens/user_detail_profile_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/user_detail_screen.dart';
 import 'package:sigma_track/feature/user/presentation/screens/user_update_profile_screen.dart';
+import 'package:sigma_track/feature/user/presentation/screens/user_change_password_screen.dart';
 import 'package:sigma_track/shared/presentation/widgets/user_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/admin_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/staff_shell.dart';
@@ -356,6 +357,17 @@ class AppRouter {
         return _fadeScale(
           key: state.pageKey,
           child: const UserUpdateProfileScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.userChangePassword,
+      name: PageKeyConstant.userChangePassword,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return _fadeScale(
+          key: state.pageKey,
+          child: const UserChangePasswordScreen(),
         );
       },
     ),
@@ -895,6 +907,17 @@ class AppRouter {
         );
       },
     ),
+    GoRoute(
+      path: RouteConstant.adminUserChangePassword,
+      name: PageKeyConstant.adminUserChangePassword,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return _fadeScale(
+          key: state.pageKey,
+          child: const UserChangePasswordScreen(),
+        );
+      },
+    ),
 
     // ==================== STAFF LIST ROUTES (Outside shell) ====================
     GoRoute(
@@ -1091,6 +1114,17 @@ class AppRouter {
         return _fadeScale(
           key: state.pageKey,
           child: const UserUpdateProfileScreen(),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.staffUserChangePassword,
+      name: PageKeyConstant.staffUserChangePassword,
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) {
+        return _fadeScale(
+          key: state.pageKey,
+          child: const UserChangePasswordScreen(),
         );
       },
     ),

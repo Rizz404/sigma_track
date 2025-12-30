@@ -3140,6 +3140,47 @@ class L10nEn extends L10n {
   String get userProfileUpdatedSuccessfully => 'Profile updated successfully';
 
   @override
+  String get userChangePassword => 'Change Password';
+
+  @override
+  String get userChangePasswordTitle => 'Update Your Password';
+
+  @override
+  String get userChangePasswordDescription =>
+      'Enter your current password and choose a new secure password.';
+
+  @override
+  String get userCurrentPassword => 'Current Password';
+
+  @override
+  String get userEnterCurrentPassword => 'Enter current password';
+
+  @override
+  String get userNewPassword => 'New Password';
+
+  @override
+  String get userEnterNewPassword => 'Enter new password';
+
+  @override
+  String get userConfirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get userEnterConfirmNewPassword => 'Re-enter new password';
+
+  @override
+  String get userPasswordRequirements => 'Password Requirements';
+
+  @override
+  String get userPasswordRequirementsList =>
+      '• At least 8 characters\n• At least one uppercase letter\n• At least one lowercase letter\n• At least one number';
+
+  @override
+  String get userChangePasswordButton => 'Change Password';
+
+  @override
+  String get userPasswordChangedSuccessfully => 'Password changed successfully';
+
+  @override
   String get adminShellBottomNavDashboard => 'Dashboard';
 
   @override
