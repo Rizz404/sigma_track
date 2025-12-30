@@ -210,6 +210,10 @@
   "@locationJapanese": {
     "description": "Japanese language label"
   },
+  "locationIndonesian": "インドネシア語",
+  "@locationIndonesian": {
+    "description": "Indonesian language label"
+  },
   "locationEnterLocationName": "場所名を入力",
   "@locationEnterLocationName": {
     "description": "Location name input placeholder"

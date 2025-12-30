@@ -2223,6 +2223,12 @@ abstract class L10n {
   /// **'Japanese'**
   String get categoryJapanese;
 
+  /// Indonesian language label
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get categoryIndonesian;
+
   /// Category name input placeholder
   ///
   /// In en, this message translates to:
@@ -2913,6 +2919,12 @@ abstract class L10n {
   /// **'Japanese'**
   String get issueReportJapanese;
 
+  /// Indonesian language label
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get issueReportIndonesian;
+
   /// Title input placeholder with language
   ///
   /// In en, this message translates to:
@@ -3554,6 +3566,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Japanese'**
   String get locationJapanese;
+
+  /// Indonesian language label
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get locationIndonesian;
 
   /// Location name input placeholder
   ///

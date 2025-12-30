@@ -444,6 +444,11 @@ class _IssueReportUpsertScreenState
                 'ja-JP',
                 context.l10n.issueReportJapanese,
               ),
+              const SizedBox(height: 12),
+              _buildTranslationFields(
+                'id-ID',
+                context.l10n.issueReportIndonesian,
+              ),
             ],
           ),
         ),

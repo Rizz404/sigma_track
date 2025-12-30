@@ -106,6 +106,10 @@
   "@categoryJapanese": {
     "description": "Japanese language label"
   },
+  "categoryIndonesian": "Indonesian",
+  "@categoryIndonesian": {
+    "description": "Indonesian language label"
+  },
   "categoryEnterCategoryName": "Enter category name",
   "@categoryEnterCategoryName": {
     "description": "Category name input placeholder"

@@ -1149,6 +1149,9 @@ class L10nId extends L10n {
   String get categoryJapanese => 'Jepang';
 
   @override
+  String get categoryIndonesian => 'Indonesia';
+
+  @override
   String get categoryEnterCategoryName => 'Masukkan nama kategori';
 
   @override
@@ -1517,6 +1520,9 @@ class L10nId extends L10n {
   String get issueReportJapanese => 'Jepang';
 
   @override
+  String get issueReportIndonesian => 'Indonesia';
+
+  @override
   String issueReportEnterTitleIn(String language) {
     return 'Masukkan judul dalam $language';
   }
@@ -1874,6 +1880,9 @@ class L10nId extends L10n {
 
   @override
   String get locationJapanese => 'Jepang';
+
+  @override
+  String get locationIndonesian => 'Indonesia';
 
   @override
   String get locationEnterLocationName => 'Masukkan nama lokasi';

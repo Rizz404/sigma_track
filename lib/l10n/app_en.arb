@@ -1486,6 +1486,10 @@
   "@categoryJapanese": {
     "description": "Japanese language label"
   },
+  "categoryIndonesian": "Indonesian",
+  "@categoryIndonesian": {
+    "description": "Indonesian language label"
+  },
   "categoryEnterCategoryName": "Enter category name",
   "@categoryEnterCategoryName": {
     "description": "Category name input placeholder"
@@ -1964,6 +1968,10 @@
   "@issueReportJapanese": {
     "description": "Japanese language label"
   },
+  "issueReportIndonesian": "Indonesian",
+  "@issueReportIndonesian": {
+    "description": "Indonesian language label"
+  },
   "issueReportEnterTitleIn": "Enter title in {language}",
   "@issueReportEnterTitleIn": {
     "description": "Title input placeholder with language",
@@ -2427,6 +2435,10 @@
   "locationJapanese": "Japanese",
   "@locationJapanese": {
     "description": "Japanese language label"
+  },
+  "locationIndonesian": "Indonesian",
+  "@locationIndonesian": {
+    "description": "Indonesian language label"
   },
   "locationEnterLocationName": "Enter location name",
   "@locationEnterLocationName": {

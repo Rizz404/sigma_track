@@ -1099,6 +1099,9 @@ class L10nJa extends L10n {
   String get categoryJapanese => '日本語';
 
   @override
+  String get categoryIndonesian => 'インドネシア語';
+
+  @override
   String get categoryEnterCategoryName => 'カテゴリ名を入力';
 
   @override
@@ -1451,6 +1454,9 @@ class L10nJa extends L10n {
   String get issueReportJapanese => '日本語';
 
   @override
+  String get issueReportIndonesian => 'インドネシア語';
+
+  @override
   String issueReportEnterTitleIn(String language) {
     return '$languageでタイトルを入力';
   }
@@ -1787,6 +1793,9 @@ class L10nJa extends L10n {
 
   @override
   String get locationJapanese => '日本語';
+
+  @override
+  String get locationIndonesian => 'インドネシア語';
 
   @override
   String get locationEnterLocationName => '場所名を入力';

@@ -319,6 +319,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               _buildTranslationFields('en-US', context.l10n.categoryEnglish),
               const SizedBox(height: 16),
               _buildTranslationFields('ja-JP', context.l10n.categoryJapanese),
+              const SizedBox(height: 16),
+              _buildTranslationFields('id-ID', context.l10n.categoryIndonesian),
             ],
           ),
         ),
