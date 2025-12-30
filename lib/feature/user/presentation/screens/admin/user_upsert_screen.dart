@@ -203,6 +203,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                 label: context.l10n.userPassword,
                 placeHolder: context.l10n.userEnterPassword,
                 type: AppTextFieldType.password,
+                initialValue: 'password123',
                 validator: (value) => UserUpsertValidator.validatePassword(
                   value,
                   isUpdate: _isEdit,

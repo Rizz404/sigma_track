@@ -10,16 +10,16 @@ class UserChangePasswordValidator {
     if (value == null || value.isEmpty) {
       return 'New password is required';
     }
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters';
-    }
-    if (value.length > 100) {
-      return 'Password must not exceed 100 characters';
-    }
-    // * Password harus punya minimal 1 huruf besar, 1 huruf kecil, 1 angka
-    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$').hasMatch(value)) {
-      return 'Password must contain uppercase, lowercase, and number';
-    }
+    // if (value.length < 8) {
+    //   return 'Password must be at least 8 characters';
+    // }
+    // if (value.length > 100) {
+    //   return 'Password must not exceed 100 characters';
+    // }
+    // // * Password harus punya minimal 1 huruf besar, 1 huruf kecil, 1 angka
+    // if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$').hasMatch(value)) {
+    //   return 'Password must contain uppercase, lowercase, and number';
+    // }
     return null;
   }
 
