@@ -39,81 +39,18 @@ class LocationDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
-  Location? _location;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _location = widget.location;
-    if (_location == null &&
-        (widget.id != null || widget.locationCode != null)) {
-      _fetchLocation();
-    }
-  }
-
-  Future<void> _fetchLocation() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getLocationByIdProvider(widget.id!));
-
-        if (state.location != null) {
-          setState(() {
-            _location = state.location;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch location by id', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load location');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      } else if (widget.locationCode != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getLocationByCodeProvider(widget.locationCode!));
-
-        if (state.location != null) {
-          setState(() {
-            _location = state.location;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch location by code', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load location');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching location', e, s);
-      AppToast.error('Failed to load location');
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_location == null) return;
-
+  void _handleEdit(Location location) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminLocationUpsert, extra: _location);
+      context.push(RouteConstant.adminLocationUpsert, extra: location);
     } else {
       AppToast.warning(context.l10n.locationOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_location == null) return;
-
+  void _handleDelete(Location location) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -130,7 +67,7 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.locationDeleteConfirmation(_location!.locationName),
+          context.l10n.locationDeleteConfirmation(location.locationName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -153,16 +90,32 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
     if (confirmed == true && mounted) {
       await ref
           .read(locationsProvider.notifier)
-          .deleteLocation(DeleteLocationUsecaseParams(id: _location!.id));
+          .deleteLocation(DeleteLocationUsecaseParams(id: location.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by LocationUpsertScreen, delete needs navigation from here
+    // * Determine location source: extra > fetch by id > fetch by code
+    Location? location = widget.location;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no location from extra, fetch by id or code
+    if (location == null && widget.id != null) {
+      final state = ref.watch(getLocationByIdProvider(widget.id!));
+      location = state.location;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    } else if (location == null && widget.locationCode != null) {
+      final state = ref.watch(getLocationByCodeProvider(widget.locationCode!));
+      location = state.location;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<LocationsState>(locationsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -178,34 +131,62 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       }
     });
 
-    final isLoading = _isLoading || _location == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading
-            ? context.l10n.locationDetail
-            : _location!.locationName,
+        title: location?.locationName ?? context.l10n.locationDetail,
       ),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        location: location,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required Location? location,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.locationCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || location == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || location == null
+                  ? _buildLoadingContent()
+                  : _buildContent(location),
+            ),
+          ),
+          if (!isLoading && location != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(location),
+              onDelete: () => _handleDelete(location),
+            ),
+        ],
       ),
     );
   }
@@ -248,41 +229,38 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(Location location) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context.l10n.locationInformation, [
-            _buildInfoRow(context.l10n.locationCode, _location!.locationCode),
-            _buildInfoRow(context.l10n.locationName, _location!.locationName),
-            if (_location!.building != null)
-              _buildInfoRow(
-                context.l10n.locationBuilding,
-                _location!.building!,
-              ),
-            if (_location!.floor != null)
-              _buildInfoRow(context.l10n.locationFloor, _location!.floor!),
-            if (_location!.latitude != null)
+            _buildInfoRow(context.l10n.locationCode, location.locationCode),
+            _buildInfoRow(context.l10n.locationName, location.locationName),
+            if (location.building != null)
+              _buildInfoRow(context.l10n.locationBuilding, location.building!),
+            if (location.floor != null)
+              _buildInfoRow(context.l10n.locationFloor, location.floor!),
+            if (location.latitude != null)
               _buildInfoRow(
                 context.l10n.locationLatitude,
-                _location!.latitude!.toString(),
+                location.latitude!.toString(),
               ),
-            if (_location!.longitude != null)
+            if (location.longitude != null)
               _buildInfoRow(
                 context.l10n.locationLongitude,
-                _location!.longitude!.toString(),
+                location.longitude!.toString(),
               ),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard(context.l10n.locationMetadata, [
             _buildInfoRow(
               context.l10n.locationCreatedAt,
-              _formatDateTime(_location!.createdAt),
+              _formatDateTime(location.createdAt),
             ),
             _buildInfoRow(
               context.l10n.locationUpdatedAt,
-              _formatDateTime(_location!.updatedAt),
+              _formatDateTime(location.updatedAt),
             ),
           ]),
         ],

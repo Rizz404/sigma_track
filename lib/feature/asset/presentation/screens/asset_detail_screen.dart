@@ -38,81 +38,8 @@ class AssetDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
-  Asset? _asset;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _asset = widget.asset;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_asset == null && (widget.id != null || widget.assetTag != null)) {
-        _fetchAsset();
-      }
-      // ! DO NOT create scan log here for direct asset pass
-      // ? Scan log already created in scan_asset_screen.dart before navigation
-    });
-  }
-
-  Future<void> _fetchAsset() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getAssetByIdProvider(widget.id!));
-
-        if (state.asset != null) {
-          setState(() {
-            _asset = state.asset;
-            _isLoading = false;
-          });
-
-          // * Create scan log for manual view
-          await _createScanLog(
-            assetId: state.asset!.id,
-            scannedValue: state.asset!.assetTag,
-          );
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch asset by id', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load asset');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      } else if (widget.assetTag != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getAssetByTagProvider(widget.assetTag!));
-
-        if (state.asset != null) {
-          setState(() {
-            _asset = state.asset;
-            _isLoading = false;
-          });
-
-          // * Create scan log for manual view
-          await _createScanLog(
-            assetId: state.asset!.id,
-            scannedValue: state.asset!.assetTag,
-          );
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch asset by tag', state.failure);
-          AppToast.error(
-            state.failure?.message ?? context.l10n.assetFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching asset', e, s);
-      AppToast.error(context.l10n.assetFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
+  // * Flag to track if scan log was already created (prevent duplicate on re-render)
+  bool _scanLogCreated = false;
 
   Future<void> _createScanLog({
     required String assetId,
@@ -188,22 +115,18 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     );
   }
 
-  void _handleEdit() {
-    if (_asset == null) return;
-
+  void _handleEdit(Asset asset) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminAssetUpsert, extra: _asset);
+      context.push(RouteConstant.adminAssetUpsert, extra: asset);
     } else {
       AppToast.warning(context.l10n.assetOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_asset == null) return;
-
+  void _handleDelete(Asset asset) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -220,7 +143,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.assetDeleteConfirmation(_asset!.assetName),
+          context.l10n.assetDeleteConfirmation(asset.assetName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -243,16 +166,48 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     if (confirmed == true && mounted) {
       await ref
           .read(assetsProvider.notifier)
-          .deleteAsset(DeleteAssetUsecaseParams(id: _asset!.id));
+          .deleteAsset(DeleteAssetUsecaseParams(id: asset.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by AssetUpsertScreen, delete needs navigation from here
+    // * Determine asset source: extra > fetch by id > fetch by tag
+    Asset? asset = widget.asset;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no asset from extra, fetch by id or tag
+    if (asset == null && widget.id != null) {
+      final state = ref.watch(getAssetByIdProvider(widget.id!));
+      asset = state.asset;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+
+      // * Create scan log once when asset is fetched (not from extra)
+      if (asset != null && !_scanLogCreated) {
+        _scanLogCreated = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _createScanLog(assetId: asset!.id, scannedValue: asset.assetTag);
+        });
+      }
+    } else if (asset == null && widget.assetTag != null) {
+      final state = ref.watch(getAssetByTagProvider(widget.assetTag!));
+      asset = state.asset;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+
+      // * Create scan log once when asset is fetched (not from extra)
+      if (asset != null && !_scanLogCreated) {
+        _scanLogCreated = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _createScanLog(assetId: asset!.id, scannedValue: asset.assetTag);
+        });
+      }
+    }
+
+    // * Listen only for delete operation
     ref.listen<AssetsState>(assetsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -268,32 +223,60 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       }
     });
 
-    final isLoading = _isLoading || _asset == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: isLoading ? context.l10n.assetDetail : _asset!.assetName,
-      ),
+      appBar: CustomAppBar(title: asset?.assetName ?? context.l10n.assetDetail),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        asset: asset,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required Asset? asset,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.assetCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || asset == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || asset == null
+                  ? _buildLoadingContent()
+                  : _buildContent(asset),
+            ),
+          ),
+          if (!isLoading && asset != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(asset),
+              onDelete: () => _handleDelete(asset),
+            ),
+        ],
       ),
     );
   }
@@ -360,7 +343,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(Asset asset) {
     return SingleChildScrollView(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
@@ -368,27 +351,27 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
         children: [
           // 1. Info Utama Dulu
           _buildInfoCard(context.l10n.assetInformation, [
-            _buildInfoRow(context.l10n.assetTag, _asset!.assetTag),
-            _buildInfoRow(context.l10n.assetName, _asset!.assetName),
+            _buildInfoRow(context.l10n.assetTag, asset.assetTag),
+            _buildInfoRow(context.l10n.assetName, asset.assetName),
             _buildInfoRow(
               context.l10n.assetCategory,
-              _asset!.category?.categoryName ?? '-',
+              asset.category?.categoryName ?? '-',
             ),
-            _buildInfoRow(context.l10n.assetBrand, _asset!.brand ?? '-'),
-            _buildInfoRow(context.l10n.assetModel, _asset!.model ?? '-'),
+            _buildInfoRow(context.l10n.assetBrand, asset.brand ?? '-'),
+            _buildInfoRow(context.l10n.assetModel, asset.model ?? '-'),
             _buildInfoRow(
               context.l10n.assetSerialNumber,
-              _asset!.serialNumber ?? '-',
+              asset.serialNumber ?? '-',
             ),
-            _buildInfoRow(context.l10n.assetStatus, _asset!.status.name),
-            _buildInfoRow(context.l10n.assetCondition, _asset!.condition.name),
+            _buildInfoRow(context.l10n.assetStatus, asset.status.name),
+            _buildInfoRow(context.l10n.assetCondition, asset.condition.name),
             _buildInfoRow(
               context.l10n.assetLocation,
-              _asset!.location?.locationName ?? '-',
+              asset.location?.locationName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetAssignedTo,
-              _asset!.assignedTo?.fullName ?? '-',
+              asset.assignedTo?.fullName ?? '-',
             ),
           ]),
 
@@ -403,7 +386,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          _buildQuickActionsMenu(),
+          _buildQuickActionsMenu(asset),
 
           const SizedBox(height: 24),
 
@@ -411,24 +394,22 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           _buildInfoCard(context.l10n.assetPurchaseInformation, [
             _buildInfoRow(
               context.l10n.assetPurchaseDate,
-              _asset!.purchaseDate != null
-                  ? _formatDateTime(_asset!.purchaseDate!)
+              asset.purchaseDate != null
+                  ? _formatDateTime(asset.purchaseDate!)
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.assetPurchasePrice,
-              _asset!.purchasePrice != null
-                  ? '\$${_asset!.purchasePrice}'
-                  : '-',
+              asset.purchasePrice != null ? '\$${asset.purchasePrice}' : '-',
             ),
             _buildInfoRow(
               context.l10n.assetVendorName,
-              _asset!.vendorName ?? '-',
+              asset.vendorName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetWarrantyEnd,
-              _asset!.warrantyEnd != null
-                  ? _formatDateTime(_asset!.warrantyEnd!)
+              asset.warrantyEnd != null
+                  ? _formatDateTime(asset.warrantyEnd!)
                   : '-',
             ),
           ]),
@@ -438,19 +419,19 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           _buildInfoCard(context.l10n.assetMetadata, [
             _buildInfoRow(
               context.l10n.assetCreatedAt,
-              _formatDateTime(_asset!.createdAt),
+              _formatDateTime(asset.createdAt),
             ),
             _buildInfoRow(
               context.l10n.assetUpdatedAt,
-              _formatDateTime(_asset!.updatedAt),
+              _formatDateTime(asset.updatedAt),
             ),
           ]),
 
-          if (_asset!.dataMatrixImageUrl.isNotEmpty) ...[
+          if (asset.dataMatrixImageUrl.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildInfoCard(context.l10n.assetDataMatrixImage, [
               AppImage(
-                imageUrl: _asset!.dataMatrixImageUrl,
+                imageUrl: asset.dataMatrixImageUrl,
                 size: ImageSize.fullWidth,
                 shape: ImageShape.rectangle,
                 fit: BoxFit.contain,
@@ -519,7 +500,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
 
-  Widget _buildQuickActionsMenu() {
+  Widget _buildQuickActionsMenu(Asset asset) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -530,7 +511,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
         color: Colors.orange, // Opsional: Highlight color
         onTap: () => context.push(
           RouteConstant.issueReportUpsert,
-          extra: {'prePopulatedAsset': _asset},
+          extra: {'prePopulatedAsset': asset},
         ),
       ),
       _ActionItem(
@@ -540,7 +521,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           final route = isAdmin
               ? RouteConstant.adminAssetMovementUpsertForUser
               : RouteConstant.staffAssetMovementUpsertForUser;
-          context.push(route, extra: {'prePopulatedAsset': _asset});
+          context.push(route, extra: {'prePopulatedAsset': asset});
         },
       ),
       _ActionItem(
@@ -550,7 +531,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           final route = isAdmin
               ? RouteConstant.adminAssetMovementUpsertForLocation
               : RouteConstant.staffAssetMovementUpsertForLocation;
-          context.push(route, extra: {'prePopulatedAsset': _asset});
+          context.push(route, extra: {'prePopulatedAsset': asset});
         },
       ),
       if (isAdmin) ...[
@@ -559,7 +540,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           label: context.l10n.assetScheduleMaintenance,
           onTap: () => context.push(
             RouteConstant.adminMaintenanceScheduleUpsert,
-            extra: {'prePopulatedAsset': _asset},
+            extra: {'prePopulatedAsset': asset},
           ),
         ),
         _ActionItem(
@@ -567,7 +548,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           label: context.l10n.assetRecordMaintenance,
           onTap: () => context.push(
             RouteConstant.adminMaintenanceRecordUpsert,
-            extra: {'prePopulatedAsset': _asset},
+            extra: {'prePopulatedAsset': asset},
           ),
         ),
       ],

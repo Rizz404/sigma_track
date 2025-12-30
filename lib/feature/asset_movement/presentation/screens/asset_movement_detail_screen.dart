@@ -34,52 +34,7 @@ class AssetMovementDetailScreen extends ConsumerStatefulWidget {
 
 class _AssetMovementDetailScreenState
     extends ConsumerState<AssetMovementDetailScreen> {
-  AssetMovement? _assetMovement;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _assetMovement = widget.assetMovement;
-    if (_assetMovement == null && widget.id != null) {
-      _fetchAssetMovement();
-    }
-  }
-
-  Future<void> _fetchAssetMovement() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getAssetMovementByIdProvider(widget.id!));
-
-        if (state.assetMovement != null) {
-          setState(() {
-            _assetMovement = state.assetMovement;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch asset movement by id', state.failure);
-          AppToast.error(
-            state.failure?.message ?? context.l10n.assetMovementFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching asset movement', e, s);
-      AppToast.error(context.l10n.assetMovementFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_assetMovement == null) return;
-
+  void _handleEdit(AssetMovement assetMovement) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -88,10 +43,10 @@ class _AssetMovementDetailScreenState
       return;
     }
 
-    _showEditAssetMovementDialog();
+    _showEditAssetMovementDialog(assetMovement);
   }
 
-  void _showEditAssetMovementDialog() {
+  void _showEditAssetMovementDialog(AssetMovement assetMovement) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -110,7 +65,7 @@ class _AssetMovementDetailScreenState
               Navigator.pop(context);
               context.push(
                 RouteConstant.adminAssetMovementUpsertForLocation,
-                extra: _assetMovement,
+                extra: assetMovement,
               );
             },
             child: AppText(context.l10n.assetMovementForLocation),
@@ -123,7 +78,7 @@ class _AssetMovementDetailScreenState
               Navigator.pop(context);
               context.push(
                 RouteConstant.adminAssetMovementUpsertForUser,
-                extra: _assetMovement,
+                extra: assetMovement,
               );
             },
           ),
@@ -132,9 +87,7 @@ class _AssetMovementDetailScreenState
     );
   }
 
-  void _handleDelete() async {
-    if (_assetMovement == null) return;
-
+  void _handleDelete(AssetMovement assetMovement) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -175,17 +128,28 @@ class _AssetMovementDetailScreenState
       await ref
           .read(assetMovementsProvider.notifier)
           .deleteAssetMovement(
-            DeleteAssetMovementUsecaseParams(id: _assetMovement!.id),
+            DeleteAssetMovementUsecaseParams(id: assetMovement.id),
           );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by AssetMovementUpsertScreen, delete needs navigation from here
+    // * Determine assetMovement source: extra > fetch by id
+    AssetMovement? assetMovement = widget.assetMovement;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no assetMovement from extra, fetch by id
+    if (assetMovement == null && widget.id != null) {
+      final state = ref.watch(getAssetMovementByIdProvider(widget.id!));
+      assetMovement = state.assetMovement;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -202,30 +166,60 @@ class _AssetMovementDetailScreenState
       }
     });
 
-    final isLoading = _isLoading || _assetMovement == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMovementDetail),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        assetMovement: assetMovement,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required AssetMovement? assetMovement,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.assetMovementCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || assetMovement == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || assetMovement == null
+                  ? _buildLoadingContent()
+                  : _buildContent(assetMovement),
+            ),
+          ),
+          if (!isLoading && assetMovement != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(assetMovement),
+              onDelete: () => _handleDelete(assetMovement),
+            ),
+        ],
       ),
     );
   }
@@ -275,7 +269,7 @@ class _AssetMovementDetailScreenState
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(AssetMovement assetMovement) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,47 +277,46 @@ class _AssetMovementDetailScreenState
           _buildInfoCard(context.l10n.assetMovementInformation, [
             _buildInfoRow(
               context.l10n.assetMovementAsset,
-              _assetMovement!.asset?.assetName ??
-                  context.l10n.assetMovementAsset,
+              assetMovement.asset?.assetName ?? context.l10n.assetMovementAsset,
             ),
             _buildInfoRow(
               context.l10n.assetMovementFromLocation,
-              _assetMovement!.fromLocation?.locationName ?? '-',
+              assetMovement.fromLocation?.locationName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetMovementToLocation,
-              _assetMovement!.toLocation?.locationName ?? '-',
+              assetMovement.toLocation?.locationName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetMovementFromUser,
-              _assetMovement!.fromUser?.fullName ?? '-',
+              assetMovement.fromUser?.fullName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetMovementToUser,
-              _assetMovement!.toUser?.fullName ?? '-',
+              assetMovement.toUser?.fullName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetMovementMovedBy,
-              _assetMovement!.movedBy?.fullName ?? '-',
+              assetMovement.movedBy?.fullName ?? '-',
             ),
             _buildInfoRow(
               context.l10n.assetMovementMovementDate,
-              _formatDateTime(_assetMovement!.movementDate),
+              _formatDateTime(assetMovement.movementDate),
             ),
             _buildTextBlock(
               context.l10n.assetMovementNotes,
-              _assetMovement!.notes,
+              assetMovement.notes,
             ),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard(context.l10n.assetMovementMetadata, [
             _buildInfoRow(
               context.l10n.assetMovementCreatedAt,
-              _formatDateTime(_assetMovement!.createdAt),
+              _formatDateTime(assetMovement.createdAt),
             ),
             _buildInfoRow(
               context.l10n.assetMovementUpdatedAt,
-              _formatDateTime(_assetMovement!.updatedAt),
+              _formatDateTime(assetMovement.updatedAt),
             ),
           ]),
         ],

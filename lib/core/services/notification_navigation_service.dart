@@ -6,15 +6,16 @@ class NotificationNavigationService {
   const NotificationNavigationService();
 
   /// Handle navigation berdasarkan notification data
-  /// * entityType: asset, category, location, user, asset_movement, maintenance_schedule, maintenance_record, issue_report, scan_log
-  /// * entityId: ID dari entity yang bersangkutan
+  /// * entityType/related_entity_type: asset, category, location, user, asset_movement, maintenance_schedule, maintenance_record, issue_report, scan_log
+  /// * entityId/related_entity_id: ID dari entity yang bersangkutan
   void handleNotificationNavigation(GoRouter router, Map<String, String> data) {
     try {
-      final entityType = data['entityType'];
-      final entityId = data['entityId'];
+      // * Support both formats: camelCase (legacy) and snake_case (FCM)
+      final entityType = data['entityType'] ?? data['related_entity_type'];
+      final entityId = data['entityId'] ?? data['related_entity_id'];
 
       if (entityType == null || entityId == null) {
-        logger.info('No navigation data in notification');
+        logger.info('No navigation data in notification: $data');
         return;
       }
 

@@ -38,72 +38,18 @@ class MaintenanceRecordDetailScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceRecordDetailScreenState
     extends ConsumerState<MaintenanceRecordDetailScreen> {
-  MaintenanceRecord? _maintenanceRecord;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _maintenanceRecord = widget.maintenanceRecord;
-    if (_maintenanceRecord == null && widget.id != null) {
-      _fetchMaintenanceRecord();
-    }
-  }
-
-  Future<void> _fetchMaintenanceRecord() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getMaintenanceRecordByIdProvider(widget.id!));
-
-        if (state.maintenanceRecord != null) {
-          setState(() {
-            _maintenanceRecord = state.maintenanceRecord;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError(
-            'Failed to fetch maintenance record by id',
-            state.failure,
-          );
-          AppToast.error(
-            state.failure?.message ??
-                context.l10n.maintenanceRecordFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching maintenance record', e, s);
-      AppToast.error(context.l10n.maintenanceRecordFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_maintenanceRecord == null) return;
-
+  void _handleEdit(MaintenanceRecord record) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(
-        RouteConstant.adminMaintenanceRecordUpsert,
-        extra: _maintenanceRecord,
-      );
+      context.push(RouteConstant.adminMaintenanceRecordUpsert, extra: record);
     } else {
       AppToast.warning(context.l10n.maintenanceRecordOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_maintenanceRecord == null) return;
-
+  void _handleDelete(MaintenanceRecord record) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -120,9 +66,7 @@ class _MaintenanceRecordDetailScreenState
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.maintenanceRecordDeleteConfirmation(
-            _maintenanceRecord!.title,
-          ),
+          context.l10n.maintenanceRecordDeleteConfirmation(record.title),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -146,20 +90,31 @@ class _MaintenanceRecordDetailScreenState
       await ref
           .read(maintenanceRecordsProvider.notifier)
           .deleteMaintenanceRecord(
-            DeleteMaintenanceRecordUsecaseParams(id: _maintenanceRecord!.id),
+            DeleteMaintenanceRecordUsecaseParams(id: record.id),
           );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by MaintenanceRecordUpsertScreen, delete needs navigation from here
+    // * Determine record source: extra > fetch by id
+    MaintenanceRecord? record = widget.maintenanceRecord;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no record from extra, fetch by id
+    if (record == null && widget.id != null) {
+      final state = ref.watch(getMaintenanceRecordByIdProvider(widget.id!));
+      record = state.maintenanceRecord;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<MaintenanceRecordsState>(maintenanceRecordsProvider, (
       previous,
       next,
     ) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -176,34 +131,62 @@ class _MaintenanceRecordDetailScreenState
       }
     });
 
-    final isLoading = _isLoading || _maintenanceRecord == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading
-            ? context.l10n.maintenanceRecordDetail
-            : _maintenanceRecord!.title,
+        title: record?.title ?? context.l10n.maintenanceRecordDetail,
       ),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        record: record,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required MaintenanceRecord? record,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.maintenanceRecordCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || record == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || record == null
+                  ? _buildLoadingContent()
+                  : _buildContent(record),
+            ),
+          ),
+          if (!isLoading && record != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(record),
+              onDelete: () => _handleDelete(record),
+            ),
+        ],
       ),
     );
   }
@@ -272,60 +255,54 @@ class _MaintenanceRecordDetailScreenState
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(MaintenanceRecord record) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context.l10n.maintenanceRecordInformation, [
-            _buildInfoRow(
-              context.l10n.maintenanceRecordTitle,
-              _maintenanceRecord!.title,
-            ),
-            _buildTextBlock(
-              context.l10n.maintenanceRecordNotes,
-              _maintenanceRecord!.notes,
-            ),
+            _buildInfoRow(context.l10n.maintenanceRecordTitle, record.title),
+            _buildTextBlock(context.l10n.maintenanceRecordNotes, record.notes),
             _buildInfoRow(
               context.l10n.maintenanceRecordAsset,
-              _maintenanceRecord!.asset?.assetName ??
+              record.asset?.assetName ??
                   context.l10n.maintenanceRecordUnknownAsset,
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordMaintenanceDate,
-              _formatDateTime(_maintenanceRecord!.maintenanceDate),
+              _formatDateTime(record.maintenanceDate),
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordCompletionDate,
-              _maintenanceRecord!.completionDate != null
-                  ? _formatDateTime(_maintenanceRecord!.completionDate!)
+              record.completionDate != null
+                  ? _formatDateTime(record.completionDate!)
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordDuration,
-              _maintenanceRecord!.durationMinutes != null
+              record.durationMinutes != null
                   ? context.l10n.maintenanceRecordDurationMinutes(
-                      _maintenanceRecord!.durationMinutes!,
+                      record.durationMinutes!,
                     )
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordPerformedByUser,
-              _maintenanceRecord!.performedByUser?.name ?? '-',
+              record.performedByUser?.name ?? '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordPerformedByVendor,
-              _maintenanceRecord!.performedByVendor ?? '-',
+              record.performedByVendor ?? '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordResult,
-              _maintenanceRecord!.result.label,
+              record.result.label,
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordActualCost,
-              _maintenanceRecord!.actualCost != null
+              record.actualCost != null
                   ? context.l10n.maintenanceRecordActualCostValue(
-                      _maintenanceRecord!.actualCost.toString(),
+                      record.actualCost.toString(),
                     )
                   : '-',
             ),
@@ -334,11 +311,11 @@ class _MaintenanceRecordDetailScreenState
           _buildInfoCard(context.l10n.maintenanceRecordMetadata, [
             _buildInfoRow(
               context.l10n.maintenanceRecordCreatedAt,
-              _formatDateTime(_maintenanceRecord!.createdAt),
+              _formatDateTime(record.createdAt),
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordUpdatedAt,
-              _formatDateTime(_maintenanceRecord!.updatedAt),
+              _formatDateTime(record.updatedAt),
             ),
           ]),
         ],

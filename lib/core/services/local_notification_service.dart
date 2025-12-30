@@ -2,6 +2,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+// * Background notification tap handler - must be top-level function
+@pragma('vm:entry-point')
+void onBackgroundNotificationTap(NotificationResponse response) {
+  // ! Background handler tidak punya akses ke context/providers
+  // * Data akan disimpan dan diproses saat app dibuka
+  logger.info('Background notification tapped: ${response.payload}');
+}
+
 /// Service untuk handle native local notifications
 class LocalNotificationService {
   LocalNotificationService(this._plugin);
@@ -64,6 +72,8 @@ class LocalNotificationService {
       await _plugin.initialize(
         initSettings,
         onDidReceiveNotificationResponse: onNotificationTap,
+        // * Handler untuk notification tap saat app di background/terminated
+        onDidReceiveBackgroundNotificationResponse: onBackgroundNotificationTap,
       );
 
       // Create Android notification channels
@@ -75,6 +85,16 @@ class LocalNotificationService {
       this.logService('Local notification service initialized');
     } catch (e, s) {
       this.logError('Failed to initialize local notification service', e, s);
+    }
+  }
+
+  // * Check if app was launched from notification tap
+  Future<NotificationAppLaunchDetails?> getAppLaunchDetails() async {
+    try {
+      return await _plugin.getNotificationAppLaunchDetails();
+    } catch (e, s) {
+      this.logError('Failed to get notification app launch details', e, s);
+      return null;
     }
   }
 

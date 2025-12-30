@@ -32,65 +32,18 @@ class UserDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
-  User? _user;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _user = widget.user;
-    if (_user == null && widget.id != null) {
-      _fetchUser();
-    }
-  }
-
-  Future<void> _fetchUser() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getUserByIdProvider(widget.id!));
-
-        if (state.user != null) {
-          setState(() {
-            _user = state.user;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch user by id', state.failure);
-          AppToast.error(
-            state.failure?.message ?? context.l10n.userFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching user', e, s);
-      AppToast.error(context.l10n.userFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_user == null) return;
-
+  void _handleEdit(User user) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminUserUpsert, extra: _user);
+      context.push(RouteConstant.adminUserUpsert, extra: user);
     } else {
       AppToast.warning(context.l10n.userOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_user == null) return;
-
+  void _handleDelete(User user) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -107,7 +60,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.userDeleteSingleConfirmation(_user!.fullName),
+          context.l10n.userDeleteSingleConfirmation(user.fullName),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -130,16 +83,27 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     if (confirmed == true && mounted) {
       await ref
           .read(usersProvider.notifier)
-          .deleteUser(DeleteUserUsecaseParams(id: _user!.id));
+          .deleteUser(DeleteUserUsecaseParams(id: user.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by UserUpsertScreen, delete needs navigation from here
+    // * Determine user source: extra > fetch by id
+    User? user = widget.user;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no user from extra, fetch by id
+    if (user == null && widget.id != null) {
+      final state = ref.watch(getUserByIdProvider(widget.id!));
+      user = state.user;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<UsersState>(usersProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(next.mutationMessage ?? context.l10n.userDeleted);
@@ -153,32 +117,60 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       }
     });
 
-    final isLoading = _isLoading || _user == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: isLoading ? context.l10n.userDetail : _user!.fullName,
-      ),
+      appBar: CustomAppBar(title: user?.fullName ?? context.l10n.userDetail),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        user: user,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required User? user,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.userCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || user == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || user == null
+                  ? _buildLoadingContent()
+                  : _buildContent(user),
+            ),
+          ),
+          if (!isLoading && user != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(user),
+              onDelete: () => _handleDelete(user),
+            ),
+        ],
       ),
     );
   }
@@ -212,35 +204,32 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(User user) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context.l10n.userInformation, [
-            _buildInfoRow(context.l10n.userName, _user!.name),
-            _buildInfoRow(context.l10n.userEmail, _user!.email),
-            _buildInfoRow(context.l10n.userFullName, _user!.fullName),
-            _buildInfoRow(context.l10n.userRole, _user!.role.value),
-            _buildInfoRow(
-              context.l10n.userEmployeeId,
-              _user!.employeeId ?? '-',
-            ),
-            _buildInfoRow(context.l10n.userPreferredLang, _user!.preferredLang),
+            _buildInfoRow(context.l10n.userName, user.name),
+            _buildInfoRow(context.l10n.userEmail, user.email),
+            _buildInfoRow(context.l10n.userFullName, user.fullName),
+            _buildInfoRow(context.l10n.userRole, user.role.value),
+            _buildInfoRow(context.l10n.userEmployeeId, user.employeeId ?? '-'),
+            _buildInfoRow(context.l10n.userPreferredLang, user.preferredLang),
             _buildInfoRow(
               context.l10n.userActive,
-              _user!.isActive ? context.l10n.userYes : context.l10n.userNo,
+              user.isActive ? context.l10n.userYes : context.l10n.userNo,
             ),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard(context.l10n.userMetadata, [
             _buildInfoRow(
               context.l10n.userCreatedAt,
-              _formatDateTime(_user!.createdAt),
+              _formatDateTime(user.createdAt),
             ),
             _buildInfoRow(
               context.l10n.userUpdatedAt,
-              _formatDateTime(_user!.updatedAt),
+              _formatDateTime(user.updatedAt),
             ),
           ]),
         ],

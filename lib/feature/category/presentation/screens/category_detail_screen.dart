@@ -38,81 +38,23 @@ class CategoryDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
-  Category? _category;
-  bool _isLoading = false;
-
   @override
   void initState() {
     super.initState();
-    _category = widget.category;
-    if (_category == null &&
-        (widget.id != null || widget.categoryCode != null)) {
-      _fetchCategory();
-    }
   }
 
-  Future<void> _fetchCategory() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getCategoryByIdProvider(widget.id!));
-
-        if (state.category != null) {
-          setState(() {
-            _category = state.category;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch category by id', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load category');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      } else if (widget.categoryCode != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getCategoryByCodeProvider(widget.categoryCode!));
-
-        if (state.category != null) {
-          setState(() {
-            _category = state.category;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch category by code', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load category');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching category', e, s);
-      AppToast.error('Failed to load category');
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_category == null) return;
-
+  void _handleEdit(Category category) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminCategoryUpsert, extra: _category);
+      context.push(RouteConstant.adminCategoryUpsert, extra: category);
     } else {
       AppToast.warning('Only admin can edit categories');
     }
   }
 
-  void _handleDelete() async {
-    if (_category == null) return;
-
+  void _handleDelete(Category category) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -129,7 +71,7 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete "${_category!.categoryName}"?',
+          'Are you sure you want to delete "${category.categoryName}"?',
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -152,16 +94,32 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
     if (confirmed == true && mounted) {
       await ref
           .read(categoriesProvider.notifier)
-          .deleteCategory(DeleteCategoryUsecaseParams(id: _category!.id));
+          .deleteCategory(DeleteCategoryUsecaseParams(id: category.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by CategoryUpsertScreen, delete needs navigation from here
+    // * Determine category source: extra > fetch by id > fetch by code
+    Category? category = widget.category;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no category from extra, fetch by id or code
+    if (category == null && widget.id != null) {
+      final state = ref.watch(getCategoryByIdProvider(widget.id!));
+      category = state.category;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    } else if (category == null && widget.categoryCode != null) {
+      final state = ref.watch(getCategoryByCodeProvider(widget.categoryCode!));
+      category = state.category;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(next.mutationMessage ?? 'Category deleted');
@@ -173,32 +131,57 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
       }
     });
 
-    final isLoading = _isLoading || _category == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: isLoading ? 'Category Detail' : _category!.categoryName,
-      ),
+      appBar: CustomAppBar(title: category?.categoryName ?? 'Category Detail'),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        category: category,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required Category? category,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
-            ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(text: 'Go Back', onPressed: () => context.pop()),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || category == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || category == null
+                  ? _buildLoadingContent()
+                  : _buildContent(category),
+            ),
+          ),
+          if (!isLoading && category != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(category),
+              onDelete: () => _handleDelete(category),
+            ),
+        ],
       ),
     );
   }
@@ -219,22 +202,22 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(Category category) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard('Category Information', [
-            _buildInfoRow('Category Code', _category!.categoryCode),
-            _buildInfoRow('Category Name', _category!.categoryName),
-            _buildTextBlock('Description', _category!.description),
-            if (_category!.parent != null)
-              _buildInfoRow('Parent Category', _category!.parent!.categoryName),
+            _buildInfoRow('Category Code', category.categoryCode),
+            _buildInfoRow('Category Name', category.categoryName),
+            _buildTextBlock('Description', category.description),
+            if (category.parent != null)
+              _buildInfoRow('Parent Category', category.parent!.categoryName),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard('Metadata', [
-            _buildInfoRow('Created At', _formatDateTime(_category!.createdAt)),
-            _buildInfoRow('Updated At', _formatDateTime(_category!.updatedAt)),
+            _buildInfoRow('Created At', _formatDateTime(category.createdAt)),
+            _buildInfoRow('Updated At', _formatDateTime(category.updatedAt)),
           ]),
         ],
       ),

@@ -32,50 +32,7 @@ class ScanLogDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
-  ScanLog? _scanLog;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scanLog = widget.scanLog;
-    if (_scanLog == null && widget.id != null) {
-      _fetchScanLog();
-    }
-  }
-
-  Future<void> _fetchScanLog() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getScanLogByIdProvider(widget.id!));
-
-        if (state.scanLog != null) {
-          setState(() {
-            _scanLog = state.scanLog;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch scan log by id', state.failure);
-          AppToast.error(state.failure?.message ?? 'Failed to load scan log');
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching scan log', e, s);
-      AppToast.error('Failed to load scan log');
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleDelete() async {
-    if (_scanLog == null) return;
-
+  void _handleDelete(ScanLog scanLog) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -115,15 +72,27 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     if (confirmed == true && mounted) {
       await ref
           .read(scanLogsProvider.notifier)
-          .deleteScanLog(DeleteScanLogUsecaseParams(id: _scanLog!.id));
+          .deleteScanLog(DeleteScanLogUsecaseParams(id: scanLog.id));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (scan log detail doesn't have update)
+    // * Determine scanLog source: extra > fetch by id
+    ScanLog? scanLog = widget.scanLog;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no scanLog from extra, fetch by id
+    if (scanLog == null && widget.id != null) {
+      final state = ref.watch(getScanLogByIdProvider(widget.id!));
+      scanLog = state.scanLog;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<ScanLogsState>(scanLogsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(next.mutationMessage ?? context.l10n.scanLogDeleted);
@@ -137,27 +106,57 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
       }
     });
 
-    final isLoading = _isLoading || _scanLog == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.scanLogDetail),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        scanLog: scanLog,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required ScanLog? scanLog,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.scanLogCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(onDelete: _handleDelete),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || scanLog == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || scanLog == null
+                  ? _buildLoadingContent()
+                  : _buildContent(scanLog),
+            ),
+          ),
+          if (!isLoading && scanLog != null && isAdmin)
+            AppDetailActionButtons(onDelete: () => _handleDelete(scanLog)),
+        ],
       ),
     );
   }
@@ -198,7 +197,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(ScanLog scanLog) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,25 +205,24 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
           _buildInfoCard(context.l10n.scanLogInformation, [
             _buildInfoRow(
               context.l10n.scanLogScannedValue,
-              _scanLog!.scannedValue,
+              scanLog.scannedValue,
             ),
             _buildInfoRow(
               context.l10n.scanLogScanMethod,
-              _scanLog!.scanMethod.name,
+              scanLog.scanMethod.name,
             ),
             _buildInfoRow(
               context.l10n.scanLogScanResult,
-              _scanLog!.scanResult.name,
+              scanLog.scanResult.name,
             ),
             _buildInfoRow(
               context.l10n.scanLogScanTimestamp,
-              _formatDateTime(_scanLog!.scanTimestamp),
+              _formatDateTime(scanLog.scanTimestamp),
             ),
             _buildInfoRow(
               context.l10n.scanLogLocation,
-              _scanLog!.scanLocationLat != null &&
-                      _scanLog!.scanLocationLng != null
-                  ? '${_scanLog!.scanLocationLat}, ${_scanLog!.scanLocationLng}'
+              scanLog.scanLocationLat != null && scanLog.scanLocationLng != null
+                  ? '${scanLog.scanLocationLat}, ${scanLog.scanLocationLng}'
                   : '-',
             ),
           ]),

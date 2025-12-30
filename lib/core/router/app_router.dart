@@ -379,7 +379,9 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final asset = state.extra as Asset?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/asset/:assetId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['assetId'] ?? state.uri.queryParameters['id'];
         final assetTag = state.uri.queryParameters['assetTag'];
         return _slideFromRight(
           key: state.pageKey,
@@ -393,7 +395,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetMovement = state.extra as AssetMovement?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/asset-movement/:movementId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['movementId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: AssetMovementDetailScreen(
@@ -409,7 +414,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final category = state.extra as Category?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/category/:categoryId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['categoryId'] ??
+            state.uri.queryParameters['id'];
         final categoryCode = state.uri.queryParameters['categoryCode'];
         return _slideFromRight(
           key: state.pageKey,
@@ -427,7 +435,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final location = state.extra as Location?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/location/:locationId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['locationId'] ??
+            state.uri.queryParameters['id'];
         final locationCode = state.uri.queryParameters['locationCode'];
         return _slideFromRight(
           key: state.pageKey,
@@ -445,7 +456,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceSchedule = state.extra as MaintenanceSchedule?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/maintenance-schedule/:maintenanceId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['maintenanceId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: MaintenanceScheduleDetailScreen(
@@ -461,7 +475,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final maintenanceRecord = state.extra as MaintenanceRecord?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/maintenance-record/:maintenanceId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['maintenanceId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: MaintenanceRecordDetailScreen(
@@ -504,7 +521,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final issueReport = state.extra as IssueReport?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/issue-report/:issueReportId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['issueReportId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: IssueReportDetailScreen(issueReport: issueReport, id: id),
@@ -518,7 +538,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final notification = state.extra as notification_entity.Notification?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/notification/:notificationId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['notificationId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: NotificationDetailScreen(notification: notification, id: id),
@@ -531,7 +554,10 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final scanLog = state.extra as ScanLog?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/scan-log/:scanLogId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['scanLogId'] ??
+            state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: ScanLogDetailScreen(scanLog: scanLog, id: id),
@@ -544,7 +570,9 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final user = state.extra as User?;
-        final id = state.uri.queryParameters['id'];
+        // * Support both path param (/user/:userId) and query param (?id=xxx)
+        final id =
+            state.pathParameters['userId'] ?? state.uri.queryParameters['id'];
         return _slideFromRight(
           key: state.pageKey,
           child: UserDetailScreen(user: user, id: id),

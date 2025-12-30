@@ -34,74 +34,23 @@ class NotificationDetailScreen extends ConsumerStatefulWidget {
 
 class _NotificationDetailScreenState
     extends ConsumerState<NotificationDetailScreen> {
-  notification_entity.Notification? _notification;
-  bool _isLoading = false;
+  bool _hasMarkedAsRead = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _notification = widget.notification;
-    if (_notification == null && widget.id != null) {
-      _fetchNotification();
-    } else if (_notification != null && !_notification!.isRead) {
-      // * Auto mark as read ketika notification detail screen dibuka
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _markNotificationAsRead();
-      });
-    }
-  }
-
-  Future<void> _markNotificationAsRead() async {
-    if (_notification == null) return;
+  void _markNotificationAsRead(notification_entity.Notification notification) {
+    if (_hasMarkedAsRead) return;
+    _hasMarkedAsRead = true;
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      await ref
-          .read(notificationsProvider.notifier)
-          .markAsRead(_notification!.id);
+      ref.read(notificationsProvider.notifier).markAsRead(notification.id);
     } else {
-      await ref
-          .read(myNotificationsProvider.notifier)
-          .markAsRead(_notification!.id);
+      ref.read(myNotificationsProvider.notifier).markAsRead(notification.id);
     }
   }
 
-  Future<void> _fetchNotification() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getNotificationByIdProvider(widget.id!));
-
-        if (state.notification != null) {
-          setState(() {
-            _notification = state.notification;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch notification by id', state.failure);
-          AppToast.error(
-            state.failure?.message ?? 'Failed to load notification',
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching notification', e, s);
-      AppToast.error('Failed to load notification');
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleDelete() async {
-    if (_notification == null) return;
-
+  void _handleDelete(notification_entity.Notification notification) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -142,16 +91,35 @@ class _NotificationDetailScreenState
       await ref
           .read(notificationsProvider.notifier)
           .deleteNotification(
-            DeleteNotificationUsecaseParams(id: _notification!.id),
+            DeleteNotificationUsecaseParams(id: notification.id),
           );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (notification detail doesn't have update)
+    // * Determine notification source: extra > fetch by id
+    notification_entity.Notification? notification = widget.notification;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no notification from extra, fetch by id
+    if (notification == null && widget.id != null) {
+      final state = ref.watch(getNotificationByIdProvider(widget.id!));
+      notification = state.notification;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Auto mark as read when notification is loaded
+    if (notification != null && !notification.isRead) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _markNotificationAsRead(notification!);
+      });
+    }
+
+    // * Listen only for delete operation
     ref.listen<NotificationsState>(notificationsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -168,27 +136,57 @@ class _NotificationDetailScreenState
       }
     });
 
-    final isLoading = _isLoading || _notification == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationDetail),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        notification: notification,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required notification_entity.Notification? notification,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.notificationCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(onDelete: _handleDelete),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || notification == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || notification == null
+                  ? _buildLoadingContent()
+                  : _buildContent(notification),
+            ),
+          ),
+          if (!isLoading && notification != null && isAdmin)
+            AppDetailActionButtons(onDelete: () => _handleDelete(notification)),
+        ],
       ),
     );
   }
@@ -237,39 +235,39 @@ class _NotificationDetailScreenState
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(notification_entity.Notification notification) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context.l10n.notificationInformation, [
-            _buildInfoRow(context.l10n.notificationTitle, _notification!.title),
+            _buildInfoRow(context.l10n.notificationTitle, notification.title),
             _buildTextBlock(
               context.l10n.notificationMessage,
-              _notification!.message,
+              notification.message,
             ),
             _buildInfoRow(
               context.l10n.notificationType,
-              _notification!.type.name,
+              notification.type.name,
             ),
             _buildInfoRow(
               context.l10n.notificationPriority,
-              _notification!.priority.name,
+              notification.priority.name,
             ),
             _buildInfoRow(
               context.l10n.notificationIsRead,
-              _notification!.isRead
+              notification.isRead
                   ? context.l10n.notificationYes
                   : context.l10n.notificationNo,
             ),
             _buildInfoRow(
               context.l10n.notificationCreatedAt,
-              _formatDateTime(_notification!.createdAt),
+              _formatDateTime(notification.createdAt),
             ),
-            if (_notification!.expiresAt != null)
+            if (notification.expiresAt != null)
               _buildInfoRow(
                 context.l10n.notificationExpiresAt,
-                _formatDateTime(_notification!.expiresAt!),
+                _formatDateTime(notification.expiresAt!),
               ),
           ]),
         ],

@@ -34,65 +34,18 @@ class IssueReportDetailScreen extends ConsumerStatefulWidget {
 
 class _IssueReportDetailScreenState
     extends ConsumerState<IssueReportDetailScreen> {
-  IssueReport? _issueReport;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _issueReport = widget.issueReport;
-    if (_issueReport == null && widget.id != null) {
-      _fetchIssueReport();
-    }
-  }
-
-  Future<void> _fetchIssueReport() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getIssueReportByIdProvider(widget.id!));
-
-        if (state.issueReport != null) {
-          setState(() {
-            _issueReport = state.issueReport;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError('Failed to fetch issue report by id', state.failure);
-          AppToast.error(
-            state.failure?.message ?? context.l10n.issueReportFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching issue report', e, s);
-      AppToast.error(context.l10n.issueReportFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_issueReport == null) return;
-
+  void _handleEdit(IssueReport issueReport) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.issueReportUpsert, extra: _issueReport);
+      context.push(RouteConstant.issueReportUpsert, extra: issueReport);
     } else {
       AppToast.warning(context.l10n.issueReportOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_issueReport == null) return;
-
+  void _handleDelete(IssueReport issueReport) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -109,7 +62,7 @@ class _IssueReportDetailScreenState
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.issueReportDeleteConfirmation(_issueReport!.title),
+          context.l10n.issueReportDeleteConfirmation(issueReport.title),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -133,17 +86,28 @@ class _IssueReportDetailScreenState
       await ref
           .read(issueReportsProvider.notifier)
           .deleteIssueReport(
-            DeleteIssueReportUsecaseParams(id: _issueReport!.id),
+            DeleteIssueReportUsecaseParams(id: issueReport.id),
           );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by IssueReportUpsertScreen, delete needs navigation from here
+    // * Determine issueReport source: extra > fetch by id
+    IssueReport? issueReport = widget.issueReport;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no issueReport from extra, fetch by id
+    if (issueReport == null && widget.id != null) {
+      final state = ref.watch(getIssueReportByIdProvider(widget.id!));
+      issueReport = state.issueReport;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<IssueReportsState>(issueReportsProvider, (previous, next) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -160,32 +124,62 @@ class _IssueReportDetailScreenState
       }
     });
 
-    final isLoading = _isLoading || _issueReport == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading ? context.l10n.issueReportDetail : _issueReport!.title,
+        title: issueReport?.title ?? context.l10n.issueReportDetail,
       ),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        issueReport: issueReport,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required IssueReport? issueReport,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.issueReportCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || issueReport == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || issueReport == null
+                  ? _buildLoadingContent()
+                  : _buildContent(issueReport),
+            ),
+          ),
+          if (!isLoading && issueReport != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(issueReport),
+              onDelete: () => _handleDelete(issueReport),
+            ),
+        ],
       ),
     );
   }
@@ -248,67 +242,67 @@ class _IssueReportDetailScreenState
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(IssueReport issueReport) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInfoCard(context.l10n.issueReportInformation, [
-            _buildInfoRow(context.l10n.issueReportTitle, _issueReport!.title),
+            _buildInfoRow(context.l10n.issueReportTitle, issueReport.title),
             _buildTextBlock(
               context.l10n.issueReportDescription,
-              _issueReport!.description,
+              issueReport.description,
             ),
             _buildInfoRow(
               context.l10n.issueReportAsset,
-              _issueReport!.asset?.assetName ??
+              issueReport.asset?.assetName ??
                   context.l10n.issueReportUnknownAsset,
             ),
             _buildInfoRow(
               context.l10n.issueReportIssueType,
-              _issueReport!.issueType,
+              issueReport.issueType,
             ),
             _buildInfoRow(
               context.l10n.issueReportPriority,
-              _issueReport!.priority.name,
+              issueReport.priority.name,
             ),
             _buildInfoRow(
               context.l10n.issueReportStatus,
-              _issueReport!.status.name,
+              issueReport.status.name,
             ),
             _buildInfoRow(
               context.l10n.issueReportReportedBy,
-              _issueReport!.reportedBy?.fullName ??
+              issueReport.reportedBy?.fullName ??
                   context.l10n.issueReportUnknownUser,
             ),
             _buildInfoRow(
               context.l10n.issueReportReportedDate,
-              _formatDateTime(_issueReport!.reportedDate),
+              _formatDateTime(issueReport.reportedDate),
             ),
             _buildInfoRow(
               context.l10n.issueReportResolvedDate,
-              _issueReport!.resolvedDate != null
-                  ? _formatDateTime(_issueReport!.resolvedDate!)
+              issueReport.resolvedDate != null
+                  ? _formatDateTime(issueReport.resolvedDate!)
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.issueReportResolvedBy,
-              _issueReport!.resolvedBy?.fullName ?? '-',
+              issueReport.resolvedBy?.fullName ?? '-',
             ),
             _buildTextBlock(
               context.l10n.issueReportResolutionNotes,
-              _issueReport!.resolutionNotes,
+              issueReport.resolutionNotes,
             ),
           ]),
           const SizedBox(height: 16),
           _buildInfoCard(context.l10n.issueReportMetadata, [
             _buildInfoRow(
               context.l10n.issueReportCreatedAt,
-              _formatDateTime(_issueReport!.createdAt),
+              _formatDateTime(issueReport.createdAt),
             ),
             _buildInfoRow(
               context.l10n.issueReportUpdatedAt,
-              _formatDateTime(_issueReport!.updatedAt),
+              _formatDateTime(issueReport.updatedAt),
             ),
           ]),
         ],

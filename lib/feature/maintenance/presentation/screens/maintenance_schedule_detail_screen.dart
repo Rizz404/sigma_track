@@ -38,72 +38,21 @@ class MaintenanceScheduleDetailScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceScheduleDetailScreenState
     extends ConsumerState<MaintenanceScheduleDetailScreen> {
-  MaintenanceSchedule? _maintenanceSchedule;
-  bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _maintenanceSchedule = widget.maintenanceSchedule;
-    if (_maintenanceSchedule == null && widget.id != null) {
-      _fetchMaintenanceSchedule();
-    }
-  }
-
-  Future<void> _fetchMaintenanceSchedule() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.id != null) {
-        // * Watch provider (build method akan fetch otomatis)
-        final state = ref.read(getMaintenanceScheduleByIdProvider(widget.id!));
-
-        if (state.maintenanceSchedule != null) {
-          setState(() {
-            _maintenanceSchedule = state.maintenanceSchedule;
-            _isLoading = false;
-          });
-        } else if (state.failure != null) {
-          this.logError(
-            'Failed to fetch maintenance schedule by id',
-            state.failure,
-          );
-          AppToast.error(
-            state.failure?.message ??
-                context.l10n.maintenanceScheduleFailedToLoad,
-          );
-          setState(() => _isLoading = false);
-        } else {
-          // * State masih loading, tunggu dengan listen
-          setState(() => _isLoading = false);
-        }
-      }
-    } catch (e, s) {
-      this.logError('Error fetching maintenance schedule', e, s);
-      AppToast.error(context.l10n.maintenanceScheduleFailedToLoad);
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleEdit() {
-    if (_maintenanceSchedule == null) return;
-
+  void _handleEdit(MaintenanceSchedule schedule) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
       context.push(
         RouteConstant.adminMaintenanceScheduleUpsert,
-        extra: _maintenanceSchedule,
+        extra: schedule,
       );
     } else {
       AppToast.warning(context.l10n.maintenanceScheduleOnlyAdminCanEdit);
     }
   }
 
-  void _handleDelete() async {
-    if (_maintenanceSchedule == null) return;
-
+  void _handleDelete(MaintenanceSchedule schedule) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -120,9 +69,7 @@ class _MaintenanceScheduleDetailScreenState
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          context.l10n.maintenanceScheduleDeleteConfirmation(
-            _maintenanceSchedule!.title,
-          ),
+          context.l10n.maintenanceScheduleDeleteConfirmation(schedule.title),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -146,22 +93,31 @@ class _MaintenanceScheduleDetailScreenState
       await ref
           .read(maintenanceSchedulesProvider.notifier)
           .deleteMaintenanceSchedule(
-            DeleteMaintenanceScheduleUsecaseParams(
-              id: _maintenanceSchedule!.id,
-            ),
+            DeleteMaintenanceScheduleUsecaseParams(id: schedule.id),
           );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // * Listen only for delete operation (not update)
-    // ? Update handled by MaintenanceScheduleUpsertScreen, delete needs navigation from here
+    // * Determine schedule source: extra > fetch by id
+    MaintenanceSchedule? schedule = widget.maintenanceSchedule;
+    bool isLoading = false;
+    String? errorMessage;
+
+    // * If no schedule from extra, fetch by id
+    if (schedule == null && widget.id != null) {
+      final state = ref.watch(getMaintenanceScheduleByIdProvider(widget.id!));
+      schedule = state.maintenanceSchedule;
+      isLoading = state.isLoading;
+      errorMessage = state.failure?.message;
+    }
+
+    // * Listen only for delete operation
     ref.listen<MaintenanceSchedulesState>(maintenanceSchedulesProvider, (
       previous,
       next,
     ) {
-      // * Only handle delete mutation
       if (next.mutation?.type == MutationType.delete) {
         if (next.hasMutationSuccess) {
           AppToast.success(
@@ -178,34 +134,62 @@ class _MaintenanceScheduleDetailScreenState
       }
     });
 
-    final isLoading = _isLoading || _maintenanceSchedule == null;
-
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: isLoading
-            ? context.l10n.maintenanceScheduleDetail
-            : _maintenanceSchedule!.title,
+        title: schedule?.title ?? context.l10n.maintenanceScheduleDetail,
       ),
       endDrawer: const AppEndDrawer(),
-      body: Skeletonizer(
-        enabled: isLoading,
+      body: _buildBody(
+        schedule: schedule,
+        isLoading: isLoading,
+        isAdmin: isAdmin,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required MaintenanceSchedule? schedule,
+    required bool isLoading,
+    required bool isAdmin,
+    String? errorMessage,
+  }) {
+    if (errorMessage != null) {
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: isLoading ? _buildLoadingContent() : _buildContent(),
-              ),
+            AppText(errorMessage, style: AppTextStyle.bodyMedium),
+            const SizedBox(height: 16),
+            AppButton(
+              text: context.l10n.maintenanceScheduleCancel,
+              onPressed: () => context.pop(),
             ),
-            if (!isLoading && isAdmin)
-              AppDetailActionButtons(
-                onEdit: _handleEdit,
-                onDelete: _handleDelete,
-              ),
           ],
         ),
+      );
+    }
+
+    return Skeletonizer(
+      enabled: isLoading || schedule == null,
+      child: Column(
+        children: [
+          Expanded(
+            child: ScreenWrapper(
+              child: isLoading || schedule == null
+                  ? _buildLoadingContent()
+                  : _buildContent(schedule),
+            ),
+          ),
+          if (!isLoading && schedule != null && isAdmin)
+            AppDetailActionButtons(
+              onEdit: () => _handleEdit(schedule),
+              onDelete: () => _handleDelete(schedule),
+            ),
+        ],
       ),
     );
   }
@@ -286,7 +270,7 @@ class _MaintenanceScheduleDetailScreenState
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(MaintenanceSchedule schedule) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,65 +278,64 @@ class _MaintenanceScheduleDetailScreenState
           _buildInfoCard(context.l10n.maintenanceScheduleInformation, [
             _buildInfoRow(
               context.l10n.maintenanceScheduleTitle,
-              _maintenanceSchedule!.title,
+              schedule.title,
             ),
             _buildTextBlock(
               context.l10n.maintenanceScheduleDescription,
-              _maintenanceSchedule!.description,
+              schedule.description,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleAsset,
-              _maintenanceSchedule!.asset?.assetName ??
+              schedule.asset?.assetName ??
                   context.l10n.maintenanceScheduleUnknownAsset,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleMaintenanceType,
-              _maintenanceSchedule!.maintenanceType.name,
+              schedule.maintenanceType.name,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleIsRecurring,
-              _maintenanceSchedule!.isRecurring
+              schedule.isRecurring
                   ? context.l10n.maintenanceScheduleYes
                   : context.l10n.maintenanceScheduleNo,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleInterval,
-              _maintenanceSchedule!.intervalValue != null &&
-                      _maintenanceSchedule!.intervalUnit != null
-                  ? '${_maintenanceSchedule!.intervalValue} ${_maintenanceSchedule!.intervalUnit!.label}'
+              schedule.intervalValue != null && schedule.intervalUnit != null
+                  ? '${schedule.intervalValue} ${schedule.intervalUnit!.label}'
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleScheduledTime,
-              _maintenanceSchedule!.scheduledTime ?? '-',
+              schedule.scheduledTime ?? '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleNextScheduledDate,
-              _formatDateTime(_maintenanceSchedule!.nextScheduledDate),
+              _formatDateTime(schedule.nextScheduledDate),
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleLastExecutedDate,
-              _maintenanceSchedule!.lastExecutedDate != null
-                  ? _formatDateTime(_maintenanceSchedule!.lastExecutedDate!)
+              schedule.lastExecutedDate != null
+                  ? _formatDateTime(schedule.lastExecutedDate!)
                   : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleState,
-              _maintenanceSchedule!.state.name,
+              schedule.state.name,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleAutoComplete,
-              _maintenanceSchedule!.autoComplete
+              schedule.autoComplete
                   ? context.l10n.maintenanceScheduleYes
                   : context.l10n.maintenanceScheduleNo,
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleEstimatedCost,
-              _maintenanceSchedule!.estimatedCost?.toString() ?? '-',
+              schedule.estimatedCost?.toString() ?? '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleCreatedBy,
-              _maintenanceSchedule!.createdBy?.name ??
+              schedule.createdBy?.name ??
                   context.l10n.maintenanceScheduleUnknownUser,
             ),
           ]),
@@ -360,11 +343,11 @@ class _MaintenanceScheduleDetailScreenState
           _buildInfoCard(context.l10n.maintenanceScheduleMetadata, [
             _buildInfoRow(
               context.l10n.maintenanceScheduleCreatedAt,
-              _formatDateTime(_maintenanceSchedule!.createdAt),
+              _formatDateTime(schedule.createdAt),
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleUpdatedAt,
-              _formatDateTime(_maintenanceSchedule!.updatedAt),
+              _formatDateTime(schedule.updatedAt),
             ),
           ]),
         ],

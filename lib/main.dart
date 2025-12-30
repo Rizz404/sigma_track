@@ -127,8 +127,11 @@ class _MyAppState extends ConsumerState<MyApp> {
     // * Setup notification opened app handler (background)
     _setupNotificationOpenedHandler();
 
-    // * Check initial message (terminated state)
+    // * Check initial FCM message (terminated state)
     _checkInitialMessage();
+
+    // * Check if app was launched from local notification tap
+    _checkLocalNotificationAppLaunch();
   }
 
   // * Handle FCM message saat app di foreground
@@ -198,6 +201,31 @@ class _MyAppState extends ConsumerState<MyApp> {
       // * Navigate to relevant screen
       final router = ref.read(routerProvider);
       navigationService.handleNotificationNavigation(router, params);
+    }
+  }
+
+  // * Check if app was launched from local notification tap (terminated state)
+  Future<void> _checkLocalNotificationAppLaunch() async {
+    final localNotificationService = ref.read(localNotificationServiceProvider);
+    final launchDetails = await localNotificationService.getAppLaunchDetails();
+
+    if (launchDetails?.didNotificationLaunchApp ?? false) {
+      final payload = launchDetails!.notificationResponse?.payload;
+      logger.info('App launched from local notification: $payload');
+
+      if (payload != null && payload.isNotEmpty) {
+        final navigationService = ref.read(
+          notificationNavigationServiceProvider,
+        );
+        final params = navigationService.parsePayload(payload);
+        logger.info('Local notification launch params: $params');
+
+        // * Delay navigation sampai router dan auth state ready
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final router = ref.read(routerProvider);
+          navigationService.handleNotificationNavigation(router, params);
+        });
+      }
     }
   }
 
