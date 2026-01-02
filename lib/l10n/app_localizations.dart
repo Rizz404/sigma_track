@@ -6230,6 +6230,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Profile'**
   String get staffShellBottomNavProfile;
+
+  /// Message shown when user needs to press back again to exit app
+  ///
+  /// In en, this message translates to:
+  /// **'Press back again to exit'**
+  String get shellDoubleBackToExitApp;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

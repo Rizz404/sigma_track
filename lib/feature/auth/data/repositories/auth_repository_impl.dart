@@ -84,14 +84,7 @@ class AuthRepositoryImpl implements AuthRepository {
         refreshToken: refreshToken,
       );
 
-      return Right(
-        ItemSuccess(
-          message: auth.isAuthenticated
-              ? 'Authentication data retrieved'
-              : 'No authentication data',
-          data: auth,
-        ),
-      );
+      return Right(ItemSuccess(message: '', data: auth));
     } catch (e) {
       return Left(
         NetworkFailure(message: 'Failed to get auth data: ${e.toString()}'),

@@ -9,6 +9,7 @@ import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/logout_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
+import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
 // Todo: Nanti samain pattern state dan notifier kayak yang udah ada, jangan async
 // * Global Auth Notifier Provider
@@ -109,5 +110,14 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
         state = AsyncData(AuthState.unauthenticated());
       },
     );
+  }
+
+  // * Update user data in auth state (for sync after profile update)
+  void updateUserData(User updatedUser) {
+    state.whenData((authState) {
+      if (authState.status == AuthStatus.authenticated) {
+        state = AsyncData(authState.copyWith(user: () => updatedUser));
+      }
+    });
   }
 }

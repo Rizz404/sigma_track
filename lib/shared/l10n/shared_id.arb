@@ -167,5 +167,9 @@
   "staffShellBottomNavProfile": "Profil",
   "@staffShellBottomNavProfile": {
     "description": "Staff shell bottom navigation label for profile"
+  },
+  "shellDoubleBackToExitApp": "Tekan kembali sekali lagi untuk keluar",
+  "@shellDoubleBackToExitApp": {
+    "description": "Message shown when user needs to press back again to exit app"
   }
 }

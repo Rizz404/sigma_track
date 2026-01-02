@@ -3,6 +3,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
@@ -82,6 +83,14 @@ class CurrentUserNotifier extends AutoDisposeNotifier<CurrentUserState> {
             message: success.message ?? 'Profile updated successfully',
             mutatedUser: success.data,
           );
+
+          // * Sync dengan authNotifierProvider
+          final authState = await ref.read(authNotifierProvider.future);
+          if (authState.user != null) {
+            ref
+                .read(authNotifierProvider.notifier)
+                .updateUserData(success.data!);
+          }
 
           // * Wait for listener to consume message before refresh
           await Future.delayed(const Duration(milliseconds: 100));

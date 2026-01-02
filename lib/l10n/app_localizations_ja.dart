@@ -3182,4 +3182,7 @@ class L10nJa extends L10n {
 
   @override
   String get staffShellBottomNavProfile => 'プロフィール';
+
+  @override
+  String get shellDoubleBackToExitApp => 'もう一度戻るボタンを押して終了';
 }

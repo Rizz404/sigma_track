@@ -3305,4 +3305,7 @@ class L10nEn extends L10n {
 
   @override
   String get staffShellBottomNavProfile => 'Profile';
+
+  @override
+  String get shellDoubleBackToExitApp => 'Press back again to exit';
 }
