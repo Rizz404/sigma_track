@@ -406,6 +406,19 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(scanLogsProvider);
+      final allIds = state.scanLogs.map((s) => s.id).toSet();
+
+      if (_selectedScanLogIds.containsAll(allIds)) {
+        _selectedScanLogIds.clear();
+      } else {
+        _selectedScanLogIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -519,6 +532,11 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(scanLogsProvider);
+    final allIds = state.scanLogs.map((s) => s.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedScanLogIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -537,6 +555,13 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

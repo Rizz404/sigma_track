@@ -332,6 +332,19 @@ class _ListNotificationsScreenState
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(notificationsProvider);
+      final allIds = state.notifications.map((n) => n.id).toSet();
+
+      if (_selectedNotificationIds.containsAll(allIds)) {
+        _selectedNotificationIds.clear();
+      } else {
+        _selectedNotificationIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -436,6 +449,11 @@ class _ListNotificationsScreenState
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(notificationsProvider);
+    final allIds = state.notifications.map((n) => n.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedNotificationIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -454,6 +472,13 @@ class _ListNotificationsScreenState
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

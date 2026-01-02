@@ -445,6 +445,19 @@ class _ListIssueReportsScreenState
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(issueReportsProvider);
+      final allIds = state.issueReports.map((i) => i.id).toSet();
+
+      if (_selectedIssueReportIds.containsAll(allIds)) {
+        _selectedIssueReportIds.clear();
+      } else {
+        _selectedIssueReportIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -561,6 +574,11 @@ class _ListIssueReportsScreenState
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(issueReportsProvider);
+    final allIds = state.issueReports.map((i) => i.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedIssueReportIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -579,6 +597,13 @@ class _ListIssueReportsScreenState
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

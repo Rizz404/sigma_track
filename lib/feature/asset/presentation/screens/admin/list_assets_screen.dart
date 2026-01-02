@@ -438,6 +438,19 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(assetsProvider);
+      final allIds = state.assets.map((a) => a.id).toSet();
+
+      if (_selectedAssetIds.containsAll(allIds)) {
+        _selectedAssetIds.clear();
+      } else {
+        _selectedAssetIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -551,6 +564,11 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(assetsProvider);
+    final allIds = state.assets.map((a) => a.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedAssetIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -569,6 +587,13 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

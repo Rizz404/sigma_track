@@ -304,6 +304,19 @@ class _ListMaintenanceRecordsScreenState
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(maintenanceRecordsProvider);
+      final allIds = state.maintenanceRecords.map((m) => m.id).toSet();
+
+      if (_selectedMaintenanceRecordIds.containsAll(allIds)) {
+        _selectedMaintenanceRecordIds.clear();
+      } else {
+        _selectedMaintenanceRecordIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -427,6 +440,11 @@ class _ListMaintenanceRecordsScreenState
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(maintenanceRecordsProvider);
+    final allIds = state.maintenanceRecords.map((m) => m.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedMaintenanceRecordIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -445,6 +463,13 @@ class _ListMaintenanceRecordsScreenState
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

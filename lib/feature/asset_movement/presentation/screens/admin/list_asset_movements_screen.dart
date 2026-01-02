@@ -497,6 +497,19 @@ class _ListAssetMovementsScreenState
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(assetMovementsProvider);
+      final allIds = state.assetMovements.map((a) => a.id).toSet();
+
+      if (_selectedAssetMovementIds.containsAll(allIds)) {
+        _selectedAssetMovementIds.clear();
+      } else {
+        _selectedAssetMovementIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -613,6 +626,11 @@ class _ListAssetMovementsScreenState
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(assetMovementsProvider);
+    final allIds = state.assetMovements.map((a) => a.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedAssetMovementIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -631,6 +649,13 @@ class _ListAssetMovementsScreenState
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(

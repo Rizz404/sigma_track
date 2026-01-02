@@ -275,6 +275,19 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     });
   }
 
+  void _toggleSelectAll() {
+    setState(() {
+      final state = ref.read(categoriesProvider);
+      final allIds = state.categories.map((c) => c.id).toSet();
+
+      if (_selectedCategoryIds.containsAll(allIds)) {
+        _selectedCategoryIds.clear();
+      } else {
+        _selectedCategoryIds.addAll(allIds);
+      }
+    });
+  }
+
   void _cancelSelectMode() {
     setState(() {
       _isSelectMode = false;
@@ -389,6 +402,11 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   }
 
   Widget _buildSelectionBar(BuildContext context) {
+    final state = ref.watch(categoriesProvider);
+    final allIds = state.categories.map((c) => c.id).toSet();
+    final isAllSelected =
+        allIds.isNotEmpty && _selectedCategoryIds.containsAll(allIds);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colorScheme.primary,
@@ -407,6 +425,13 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: _cancelSelectMode,
+            ),
+            IconButton(
+              icon: Icon(
+                isAllSelected ? Icons.deselect : Icons.select_all,
+                color: Colors.white,
+              ),
+              onPressed: _toggleSelectAll,
             ),
             const SizedBox(width: 8),
             Expanded(
