@@ -191,6 +191,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
             AppTextField(
               name: 'email',
               label: context.l10n.userEmail,
+              type: AppTextFieldType.email,
               placeHolder: context.l10n.userEnterEmail,
               initialValue: widget.user?.email,
               validator: (value) =>

@@ -179,7 +179,8 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
     widget.onChanged?.call(value ?? '');
 
     if (widget.enableAutocomplete) {
-      _debounceSearch(value ?? '');
+      final searchQuery = value?.trim() ?? '';
+      _debounceSearch(value ?? searchQuery);
     }
   }
 
@@ -410,6 +411,7 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
             focusNode: widget.enableAutocomplete ? _focusNode : null,
             onChanged: _onTextChanged,
             validator: widget.validator,
+            valueTransformer: (value) => value?.trim(),
             decoration: InputDecoration(
               labelText: widget.label,
               hintText: widget.hintText ?? context.l10n.appSearchFieldHint,

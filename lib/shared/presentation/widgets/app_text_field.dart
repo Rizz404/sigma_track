@@ -141,6 +141,7 @@ class _AppTextFieldState extends State<AppTextField> {
       textCapitalization: getTextCapitalization(),
       inputFormatters: getInputFormatters(),
       readOnly: widget.readOnly,
+      valueTransformer: (value) => value?.trim(),
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.placeHolder,
