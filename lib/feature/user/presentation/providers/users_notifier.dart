@@ -185,9 +185,14 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       (success) async {
         this.logData('User created successfully');
 
-        // * Reload users dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.usersFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload users dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadUsers(usersFilter: state.usersFilter);
+        final newState = await _loadUsers(usersFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = UsersState.mutationSuccess(
@@ -226,9 +231,14 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       (success) async {
         this.logData('User updated successfully');
 
-        // * Reload users dengan state sukses
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.usersFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload users dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadUsers(usersFilter: state.usersFilter);
+        final newState = await _loadUsers(usersFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = UsersState.mutationSuccess(
@@ -267,9 +277,14 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       (success) async {
         this.logData('User deleted successfully');
 
-        // * Reload users dengan state sukses
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.usersFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload users dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadUsers(usersFilter: state.usersFilter);
+        final newState = await _loadUsers(usersFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = UsersState.mutationSuccess(
@@ -348,9 +363,14 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
           'Users created successfully: ${success.data?.users.length ?? 0}',
         );
 
-        // * Reload users dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.usersFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload users dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadUsers(usersFilter: state.usersFilter);
+        final newState = await _loadUsers(usersFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = UsersState.mutationSuccess(

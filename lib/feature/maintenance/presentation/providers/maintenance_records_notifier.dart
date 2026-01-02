@@ -213,10 +213,15 @@ class MaintenanceRecordsNotifier
       (success) async {
         this.logData('Maintenance record created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecordsFilter: resetCursorFilter,
         );
 
         state = MaintenanceRecordsState.mutationSuccess(
@@ -257,10 +262,15 @@ class MaintenanceRecordsNotifier
       (success) async {
         this.logData('Maintenance record updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecordsFilter: resetCursorFilter,
         );
 
         state = MaintenanceRecordsState.mutationSuccess(
@@ -301,10 +311,15 @@ class MaintenanceRecordsNotifier
       (success) async {
         this.logData('Maintenance record deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceRecords(
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecordsFilter: resetCursorFilter,
         );
 
         state = MaintenanceRecordsState.mutationSuccess(
@@ -349,10 +364,15 @@ class MaintenanceRecordsNotifier
           'Maintenance records created successfully: ${success.data?.maintenanceRecords.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload maintenance records dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadMaintenanceRecords(
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecordsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -397,10 +417,15 @@ class MaintenanceRecordsNotifier
       (success) async {
         this.logData('Maintenance records deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload maintenance records dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadMaintenanceRecords(
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecordsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

@@ -218,10 +218,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for location created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         state = AssetMovementsState.mutationSuccess(
@@ -262,10 +267,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for user created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         state = AssetMovementsState.mutationSuccess(
@@ -306,10 +316,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for location updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         state = AssetMovementsState.mutationSuccess(
@@ -350,10 +365,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for user updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         state = AssetMovementsState.mutationSuccess(
@@ -394,10 +414,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         state = AssetMovementsState.mutationSuccess(
@@ -444,10 +469,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
           'Asset movements for location created successfully: ${success.data?.assetMovements.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload asset movements dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -493,10 +523,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
           'Asset movements for user created successfully: ${success.data?.assetMovements.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload asset movements dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -537,10 +572,15 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movements deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.assetMovementsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload asset movements dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadAssetMovements(
-          assetMovementsFilter: state.assetMovementsFilter,
+          assetMovementsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

@@ -218,10 +218,15 @@ class MaintenanceSchedulesNotifier
       (success) async {
         this.logData('Maintenance schedule created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedulesFilter: resetCursorFilter,
         );
 
         state = MaintenanceSchedulesState.mutationSuccess(
@@ -262,10 +267,15 @@ class MaintenanceSchedulesNotifier
       (success) async {
         this.logData('Maintenance schedule updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedulesFilter: resetCursorFilter,
         );
 
         state = MaintenanceSchedulesState.mutationSuccess(
@@ -306,10 +316,15 @@ class MaintenanceSchedulesNotifier
       (success) async {
         this.logData('Maintenance schedule deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadMaintenanceSchedules(
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedulesFilter: resetCursorFilter,
         );
 
         state = MaintenanceSchedulesState.mutationSuccess(
@@ -354,10 +369,15 @@ class MaintenanceSchedulesNotifier
           'Maintenance schedules created successfully: ${success.data?.maintenanceSchedules.length ?? 0}',
         );
 
-        // * Reload maintenance schedules dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload maintenance schedules dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadMaintenanceSchedules(
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedulesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -402,10 +422,15 @@ class MaintenanceSchedulesNotifier
       (success) async {
         this.logData('Maintenance schedules deleted successfully');
 
-        // * Reload maintenance schedules dengan state sukses
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload maintenance schedules dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadMaintenanceSchedules(
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedulesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

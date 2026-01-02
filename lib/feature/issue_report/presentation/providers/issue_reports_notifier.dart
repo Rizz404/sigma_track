@@ -209,10 +209,13 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       (success) async {
         this.logData('Issue report created successfully');
 
-        state = state.copyWith(isLoading: true);
-        state = await _loadIssueReports(
-          issueReportsFilter: state.issueReportsFilter,
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.issueReportsFilter.copyWith(
+          cursor: () => null,
         );
+
+        state = state.copyWith(isLoading: true);
+        state = await _loadIssueReports(issueReportsFilter: resetCursorFilter);
 
         state = IssueReportsState.mutationSuccess(
           issueReports: state.issueReports,
@@ -250,10 +253,13 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       (success) async {
         this.logData('Issue report updated successfully');
 
-        state = state.copyWith(isLoading: true);
-        state = await _loadIssueReports(
-          issueReportsFilter: state.issueReportsFilter,
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.issueReportsFilter.copyWith(
+          cursor: () => null,
         );
+
+        state = state.copyWith(isLoading: true);
+        state = await _loadIssueReports(issueReportsFilter: resetCursorFilter);
 
         state = IssueReportsState.mutationSuccess(
           issueReports: state.issueReports,
@@ -291,10 +297,13 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       (success) async {
         this.logData('Issue report deleted successfully');
 
-        state = state.copyWith(isLoading: true);
-        state = await _loadIssueReports(
-          issueReportsFilter: state.issueReportsFilter,
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.issueReportsFilter.copyWith(
+          cursor: () => null,
         );
+
+        state = state.copyWith(isLoading: true);
+        state = await _loadIssueReports(issueReportsFilter: resetCursorFilter);
 
         state = IssueReportsState.mutationSuccess(
           issueReports: state.issueReports,
@@ -338,10 +347,15 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
           'Issue reports created successfully: ${success.data?.issueReports.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.issueReportsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload issue reports dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadIssueReports(
-          issueReportsFilter: state.issueReportsFilter,
+          issueReportsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -382,10 +396,15 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       (success) async {
         this.logData('Issue reports deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.issueReportsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload issue reports dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadIssueReports(
-          issueReportsFilter: state.issueReportsFilter,
+          issueReportsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

@@ -208,10 +208,15 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       (success) async {
         this.logData('Notification created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.notificationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
-          notificationsFilter: state.notificationsFilter,
+          notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
@@ -252,10 +257,15 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       (success) async {
         this.logData('Notification updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.notificationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
-          notificationsFilter: state.notificationsFilter,
+          notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
@@ -296,10 +306,15 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       (success) async {
         this.logData('Notification deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.notificationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
         state = await _loadNotifications(
-          notificationsFilter: state.notificationsFilter,
+          notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
@@ -344,10 +359,15 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
           'Notifications created successfully: ${success.data?.notifications.length ?? 0}',
         );
 
-        // * Reload notifications dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.notificationsFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload notifications dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadNotifications(
-          notificationsFilter: state.notificationsFilter,
+          notificationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -388,10 +408,15 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
       (success) async {
         this.logData('Notifications deleted successfully');
 
-        // * Reload notifications dengan state sukses
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.notificationsFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload notifications dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadNotifications(
-          notificationsFilter: state.notificationsFilter,
+          notificationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

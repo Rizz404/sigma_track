@@ -178,10 +178,15 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       (success) async {
         this.logData('Category created successfully');
 
-        // * Reload categories dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.categoriesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload categories dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadCategories(
-          categoriesFilter: state.categoriesFilter,
+          categoriesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -221,10 +226,15 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       (success) async {
         this.logData('Category updated successfully');
 
-        // * Reload categories dengan state sukses
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.categoriesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload categories dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadCategories(
-          categoriesFilter: state.categoriesFilter,
+          categoriesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -264,10 +274,15 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       (success) async {
         this.logData('Category deleted successfully');
 
-        // * Reload categories dengan state sukses
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.categoriesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload categories dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadCategories(
-          categoriesFilter: state.categoriesFilter,
+          categoriesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -309,10 +324,15 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
           'Categories created successfully: ${success.data?.categories.length ?? 0}',
         );
 
-        // * Reload categories dengan state sukses
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.categoriesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload categories dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadCategories(
-          categoriesFilter: state.categoriesFilter,
+          categoriesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -353,10 +373,15 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       (success) async {
         this.logData('Categories deleted successfully');
 
-        // * Reload categories dengan state sukses
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.categoriesFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload categories dari awal dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadCategories(
-          categoriesFilter: state.categoriesFilter,
+          categoriesFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

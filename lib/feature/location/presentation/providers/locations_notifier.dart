@@ -177,10 +177,15 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       (success) async {
         this.logData('Location created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.locationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload locations dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadLocations(
-          locationsFilter: state.locationsFilter,
+          locationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -220,10 +225,15 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       (success) async {
         this.logData('Location updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.locationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload locations dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadLocations(
-          locationsFilter: state.locationsFilter,
+          locationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -263,10 +273,15 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       (success) async {
         this.logData('Location deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.locationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload locations dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadLocations(
-          locationsFilter: state.locationsFilter,
+          locationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -307,10 +322,15 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       (success) async {
         this.logData('Locations deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.locationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload locations dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadLocations(
-          locationsFilter: state.locationsFilter,
+          locationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload
@@ -352,10 +372,15 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
           'Locations created successfully: ${success.data?.locations.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.locationsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload locations dengan state sukses
         state = state.copyWith(isLoading: true);
         final newState = await _loadLocations(
-          locationsFilter: state.locationsFilter,
+          locationsFilter: resetCursorFilter,
         );
 
         // * Set mutation success setelah reload

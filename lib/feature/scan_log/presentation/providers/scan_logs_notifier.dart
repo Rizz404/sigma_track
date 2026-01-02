@@ -181,9 +181,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       (success) async {
         this.logData('Scan log created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.scanLogsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
-        state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
+        state = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         state = ScanLogsState.mutationSuccess(
           scanLogs: state.scanLogs,
@@ -221,9 +226,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       (success) async {
         this.logData('Scan log deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.scanLogsFilter.copyWith(
+          cursor: () => null,
+        );
+
         state = state.copyWith(isLoading: true);
 
-        state = await _loadScanLogs(scanLogsFilter: state.scanLogsFilter);
+        state = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         state = ScanLogsState.mutationSuccess(
           scanLogs: state.scanLogs,
@@ -263,11 +273,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
           'Scan logs created successfully: ${success.data?.scanLogs.length ?? 0}',
         );
 
-        // * Reload scan logs dengan state sukses
-        state = state.copyWith(isLoading: true);
-        final newState = await _loadScanLogs(
-          scanLogsFilter: state.scanLogsFilter,
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.scanLogsFilter.copyWith(
+          cursor: () => null,
         );
+
+        // * Reload scan logs dari awal dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = ScanLogsState.mutationSuccess(
@@ -307,11 +320,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
       (success) async {
         this.logData('Scan logs deleted successfully');
 
-        // * Reload scan logs dengan state sukses
-        state = state.copyWith(isLoading: true);
-        final newState = await _loadScanLogs(
-          scanLogsFilter: state.scanLogsFilter,
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.scanLogsFilter.copyWith(
+          cursor: () => null,
         );
+
+        // * Reload scan logs dari awal dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = ScanLogsState.mutationSuccess(
