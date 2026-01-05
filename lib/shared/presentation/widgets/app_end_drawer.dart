@@ -5,6 +5,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
@@ -474,17 +475,22 @@ class AppEndDrawer extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.track_changes,
-            size: 48,
-            color: context.colorScheme.onPrimaryContainer,
-          ),
-          const SizedBox(height: 8),
-          AppText(
-            context.l10n.appEndDrawerTitle,
-            style: AppTextStyle.titleLarge,
-            color: context.colorScheme.onPrimaryContainer,
-            fontWeight: FontWeight.bold,
+          Row(
+            children: [
+              AppImage(
+                size: ImageSize.large,
+                assetPath: 'assets/images/app-logo.png',
+                backgroundColor: context.colorScheme.primaryContainer,
+                shape: ImageShape.rectangle,
+              ),
+              const SizedBox(width: 8),
+              AppText(
+                context.l10n.appEndDrawerTitle,
+                style: AppTextStyle.titleLarge,
+                color: context.colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
           ),
         ],
       ),
@@ -605,20 +611,20 @@ class AppEndDrawer extends ConsumerWidget {
             ],
           ),
         ),
-        // DropdownMenuItem(
-        //   value: const Locale('id'),
-        //   child: Row(
-        //     mainAxisSize: MainAxisSize.min,
-        //     children: [
-        //       const Text('🇮🇩'),
-        //       const SizedBox(width: 8),
-        //       AppText(
-        //         context.l10n.appEndDrawerIndonesian,
-        //         style: AppTextStyle.bodyMedium,
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        DropdownMenuItem(
+          value: const Locale('id'),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('🇮🇩'),
+              const SizedBox(width: 8),
+              AppText(
+                context.l10n.appEndDrawerIndonesian,
+                style: AppTextStyle.bodyMedium,
+              ),
+            ],
+          ),
+        ),
         DropdownMenuItem(
           value: const Locale('ja'),
           child: Row(

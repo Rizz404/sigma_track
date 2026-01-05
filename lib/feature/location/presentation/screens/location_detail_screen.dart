@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
@@ -234,6 +235,10 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (location.latitude != null && location.longitude != null)
+            _buildMapCard(location),
+          if (location.latitude != null && location.longitude != null)
+            const SizedBox(height: 16),
           _buildInfoCard(context.l10n.locationInformation, [
             _buildInfoRow(context.l10n.locationCode, location.locationCode),
             _buildInfoRow(context.l10n.locationName, location.locationName),
@@ -264,6 +269,40 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
             ),
           ]),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMapCard(Location location) {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: SizedBox(
+        height: 300,
+        child: GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: LatLng(location.latitude!, location.longitude!),
+            zoom: 16,
+          ),
+          markers: {
+            Marker(
+              markerId: const MarkerId('location'),
+              position: LatLng(location.latitude!, location.longitude!),
+              infoWindow: InfoWindow(
+                title: location.locationName,
+                snippet: location.locationCode,
+              ),
+            ),
+          },
+          zoomControlsEnabled: false,
+          myLocationButtonEnabled: false,
+          mapToolbarEnabled: false,
+        ),
       ),
     );
   }

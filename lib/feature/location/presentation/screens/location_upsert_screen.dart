@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// TODO: Google Maps feature disabled temporarily
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -26,7 +27,8 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'map_picker_screen.dart';
+// TODO: Google Maps feature disabled temporarily
+// import 'map_picker_screen.dart';
 
 class LocationUpsertScreen extends ConsumerStatefulWidget {
   final Location? location;
@@ -157,30 +159,31 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         false;
   }
 
-  Future<void> _pickFromMap() async {
-    final latitude = _formKey.currentState?.fields['latitude']?.value;
-    final longitude = _formKey.currentState?.fields['longitude']?.value;
+  // TODO: Google Maps feature disabled temporarily
+  // Future<void> _pickFromMap() async {
+  //   final latitude = _formKey.currentState?.fields['latitude']?.value;
+  //   final longitude = _formKey.currentState?.fields['longitude']?.value;
 
-    final double? lat = latitude != null ? double.tryParse(latitude) : null;
-    final double? lng = longitude != null ? double.tryParse(longitude) : null;
+  //   final double? lat = latitude != null ? double.tryParse(latitude) : null;
+  //   final double? lng = longitude != null ? double.tryParse(longitude) : null;
 
-    final LatLng? result = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) =>
-            MapPickerScreen(initialLatitude: lat, initialLongitude: lng),
-      ),
-    );
+  //   final LatLng? result = await Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (context) =>
+  //           MapPickerScreen(initialLatitude: lat, initialLongitude: lng),
+  //     ),
+  //   );
 
-    if (result != null && mounted) {
-      _formKey.currentState?.fields['latitude']?.didChange(
-        result.latitude.toString(),
-      );
-      _formKey.currentState?.fields['longitude']?.didChange(
-        result.longitude.toString(),
-      );
-      AppToast.success(context.l10n.locationSelectedFromMap);
-    }
-  }
+  //   if (result != null && mounted) {
+  //     _formKey.currentState?.fields['latitude']?.didChange(
+  //       result.latitude.toString(),
+  //     );
+  //     _formKey.currentState?.fields['longitude']?.didChange(
+  //       result.longitude.toString(),
+  //     );
+  //     AppToast.success(context.l10n.locationSelectedFromMap);
+  //   }
+  // }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -365,6 +368,16 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   }
 
   Widget _buildLocationInfoSection() {
+    final latitudeValue = _formKey.currentState?.fields['latitude']?.value;
+    final longitudeValue = _formKey.currentState?.fields['longitude']?.value;
+    final double? currentLat = latitudeValue != null && latitudeValue.isNotEmpty
+        ? double.tryParse(latitudeValue)
+        : null;
+    final double? currentLng =
+        longitudeValue != null && longitudeValue.isNotEmpty
+        ? double.tryParse(longitudeValue)
+        : null;
+
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -383,6 +396,11 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
+            // TODO: Google Maps feature disabled temporarily
+            // if (currentLat != null && currentLng != null) ...[
+            //   _buildMapPreview(currentLat, currentLng),
+            //   const SizedBox(height: 16),
+            // ],
             AppTextField(
               name: 'locationCode',
               label: context.l10n.locationCode,
@@ -424,6 +442,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                           value,
                           isUpdate: _isEdit,
                         ),
+                    onChanged: (_) => setState(() {}),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -439,6 +458,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                           value,
                           isUpdate: _isEdit,
                         ),
+                    onChanged: (_) => setState(() {}),
                   ),
                 ),
               ],
@@ -459,17 +479,45 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                   : const Icon(Icons.my_location, size: 18),
             ),
             const SizedBox(height: 12),
-            AppButton(
-              text: context.l10n.locationPickFromMap,
-              variant: AppButtonVariant.outlined,
-              onPressed: _pickFromMap,
-              leadingIcon: const Icon(Icons.map, size: 18),
-            ),
+            // TODO: Google Maps feature disabled temporarily
+            // AppButton(
+            //   text: context.l10n.locationPickFromMap,
+            //   variant: AppButtonVariant.outlined,
+            //   onPressed: _pickFromMap,
+            //   leadingIcon: const Icon(Icons.map, size: 18),
+            // ),
           ],
         ),
       ),
     );
   }
+
+  // TODO: Google Maps feature disabled temporarily
+  // Widget _buildMapPreview(double latitude, double longitude) {
+  //   return Container(
+  //     height: 250,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(8),
+  //       border: Border.all(color: context.colors.border),
+  //     ),
+  //     clipBehavior: Clip.antiAlias,
+  //     child: GoogleMap(
+  //       initialCameraPosition: CameraPosition(
+  //         target: LatLng(latitude, longitude),
+  //         zoom: 16,
+  //       ),
+  //       markers: {
+  //         Marker(
+  //           markerId: const MarkerId('location'),
+  //           position: LatLng(latitude, longitude),
+  //         ),
+  //       },
+  //       zoomControlsEnabled: false,
+  //       myLocationButtonEnabled: false,
+  //       mapToolbarEnabled: false,
+  //     ),
+  //   );
+  // }
 
   Widget _buildTranslationsSection() {
     return Skeletonizer(

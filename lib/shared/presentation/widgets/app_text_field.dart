@@ -29,6 +29,7 @@ class AppTextField extends StatefulWidget {
   final String? suffixText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final void Function(String?)? onChanged;
 
   const AppTextField({
     super.key,
@@ -45,6 +46,7 @@ class AppTextField extends StatefulWidget {
     this.suffixText,
     this.prefixIcon,
     this.suffixIcon,
+    this.onChanged,
   });
 
   @override
@@ -142,6 +144,7 @@ class _AppTextFieldState extends State<AppTextField> {
       inputFormatters: getInputFormatters(),
       readOnly: widget.readOnly,
       valueTransformer: (value) => value?.trim(),
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.placeHolder,
