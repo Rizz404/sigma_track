@@ -46,7 +46,7 @@ class FcmNotificationNotifier extends Notifier<RemoteMessage?> {
 
       _localNotificationService.showNotification(
         id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-        title: notification.title ?? 'Sigma Track',
+        title: notification.title ?? 'Sigma Asset',
         body: notification.body ?? '',
         payload: payload,
         highPriority: data['priority'] == 'high',

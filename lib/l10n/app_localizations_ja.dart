@@ -3076,7 +3076,7 @@ class L10nJa extends L10n {
   String get userShellBottomNavProfile => 'プロフィール';
 
   @override
-  String get appEndDrawerTitle => 'Sigma Track';
+  String get appEndDrawerTitle => 'Sigma Asset';
 
   @override
   String get appEndDrawerPleaseLoginFirst => 'まずログインしてください';
@@ -3157,7 +3157,7 @@ class L10nJa extends L10n {
   String get appEndDrawerProfile => 'プロフィール';
 
   @override
-  String get customAppBarTitle => 'Sigma Track';
+  String get customAppBarTitle => 'Sigma Asset';
 
   @override
   String get customAppBarOpenMenu => 'メニューを開く';

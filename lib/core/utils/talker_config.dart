@@ -36,7 +36,7 @@ class TalkerConfig {
 
   /// Log application startup
   static void _logAppStart() {
-    logger.info('🚀 Sigma Track App Started');
+    logger.info('🚀 Sigma Asset App Started');
     logger.debug('Environment: ${kDebugMode ? 'DEBUG' : 'RELEASE'}');
     logger.debug('Platform: ${defaultTargetPlatform.name}');
   }

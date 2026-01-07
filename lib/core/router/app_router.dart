@@ -63,7 +63,7 @@ import 'package:sigma_track/shared/presentation/widgets/user_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/admin_shell.dart';
 import 'package:sigma_track/shared/presentation/widgets/staff_shell.dart';
 
-/// * GoRouter configuration untuk aplikasi Sigma Track
+/// * GoRouter configuration untuk aplikasi Sigma Asset
 /// * Menggunakan static GlobalKeys untuk refreshListenable pattern
 class AppRouter {
   AppRouter._();

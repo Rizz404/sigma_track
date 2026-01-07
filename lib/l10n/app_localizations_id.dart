@@ -3233,7 +3233,7 @@ class L10nId extends L10n {
   String get userShellBottomNavProfile => 'Profil';
 
   @override
-  String get appEndDrawerTitle => 'Sigma Track';
+  String get appEndDrawerTitle => 'Sigma Asset';
 
   @override
   String get appEndDrawerPleaseLoginFirst => 'Silakan login terlebih dahulu';
@@ -3314,7 +3314,7 @@ class L10nId extends L10n {
   String get appEndDrawerProfile => 'Profil';
 
   @override
-  String get customAppBarTitle => 'Sigma Track';
+  String get customAppBarTitle => 'Sigma Asset';
 
   @override
   String get customAppBarOpenMenu => 'Buka Menu';

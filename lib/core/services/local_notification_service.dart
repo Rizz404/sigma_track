@@ -23,7 +23,7 @@ class LocalNotificationService {
       AndroidNotificationChannel(
         'sigma_track_default', // id
         'Default Notifications', // name
-        description: 'General notifications from Sigma Track',
+        description: 'General notifications from Sigma Asset',
         importance: Importance.max,
         enableVibration: true,
         playSound: true,

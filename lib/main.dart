@@ -265,7 +265,7 @@ class _MyAppState extends ConsumerState<MyApp> {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: "Sigma Track",
+      title: "Sigma Asset",
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
