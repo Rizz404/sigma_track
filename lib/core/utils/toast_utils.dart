@@ -18,11 +18,13 @@ class AppToast {
   static const Duration _defaultDuration = Duration(seconds: 3);
 
   /// Menampilkan toast dengan tipe success (hijau)
+  /// Tidak akan ditampilkan jika message kosong
   static void success(
     String message, {
     Duration? duration,
     VoidCallback? onTap,
   }) {
+    if (message.isEmpty) return;
     BotToast.showCustomText(
       duration: duration ?? _defaultDuration,
       onlyOne: true,
@@ -33,6 +35,7 @@ class AppToast {
 
   /// Menampilkan toast dengan tipe error (merah)
   static void error(String message, {Duration? duration, VoidCallback? onTap}) {
+    if (message.isEmpty) return;
     BotToast.showCustomText(
       duration: duration ?? _defaultDuration,
       onlyOne: true,
@@ -47,6 +50,7 @@ class AppToast {
     Duration? duration,
     VoidCallback? onTap,
   }) {
+    if (message.isEmpty) return;
     BotToast.showCustomText(
       duration: duration ?? _defaultDuration,
       onlyOne: true,
@@ -57,6 +61,7 @@ class AppToast {
 
   /// Menampilkan toast dengan tipe info (biru)
   static void info(String message, {Duration? duration, VoidCallback? onTap}) {
+    if (message.isEmpty) return;
     BotToast.showCustomText(
       duration: duration ?? _defaultDuration,
       onlyOne: true,
