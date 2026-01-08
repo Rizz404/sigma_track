@@ -11,6 +11,7 @@ class AppDateTimePicker extends StatelessWidget {
   final DateTime? initialValue;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final void Function(DateTime?)? onChanged;
 
   const AppDateTimePicker({
     super.key,
@@ -22,6 +23,7 @@ class AppDateTimePicker extends StatelessWidget {
     this.initialValue,
     this.firstDate,
     this.lastDate,
+    this.onChanged,
   });
 
   IconData get _defaultIcon {
@@ -40,6 +42,7 @@ class AppDateTimePicker extends StatelessWidget {
     return FormBuilderDateTimePicker(
       name: name,
       inputType: inputType,
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
         suffixIcon: Icon(icon ?? _defaultIcon),

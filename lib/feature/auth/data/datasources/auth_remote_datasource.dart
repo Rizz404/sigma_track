@@ -3,9 +3,12 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/auth/data/models/login_response_model.dart';
+import 'package:sigma_track/feature/auth/data/models/verify_reset_code_response_model.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 
 abstract class AuthRemoteDatasource {
@@ -14,6 +17,10 @@ abstract class AuthRemoteDatasource {
   Future<ApiResponse<dynamic>> forgotPassword(
     ForgotPasswordUsecaseParams params,
   );
+  Future<ApiResponse<VerifyResetCodeResponseModel>> verifyResetCode(
+    VerifyResetCodeUsecaseParams params,
+  );
+  Future<ApiResponse<dynamic>> resetPassword(ResetPasswordUsecaseParams params);
   Future<ApiResponse<LoginResponseModel>> refreshToken(String refreshToken);
 }
 
@@ -80,6 +87,39 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         ApiConstant.authRefreshToken,
         data: {'refreshToken': refreshToken},
         fromJson: (json) => LoginResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<VerifyResetCodeResponseModel>> verifyResetCode(
+    VerifyResetCodeUsecaseParams params,
+  ) async {
+    this.logData('verifyResetCode called');
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.authVerifyResetCode,
+        data: params.toMap(),
+        fromJson: (json) => VerifyResetCodeResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> resetPassword(
+    ResetPasswordUsecaseParams params,
+  ) async {
+    this.logData('resetPassword called');
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.authResetPassword,
+        data: params.toMap(),
       );
       return response;
     } catch (e) {

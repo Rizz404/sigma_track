@@ -265,6 +265,30 @@ class L10nJa extends L10n {
   String get assetWarrantyEndDateOptional => '保証終了日 (オプション)';
 
   @override
+  String get assetWarrantyDuration => '保証期間 (自動計算)';
+
+  @override
+  String get assetWarrantyDurationHelper => '購入日から保証終了日を自動計算';
+
+  @override
+  String get assetEnterDuration => '期間を入力';
+
+  @override
+  String get assetMonth => 'ヶ月';
+
+  @override
+  String get assetMonths => 'ヶ月';
+
+  @override
+  String get assetYear => '年';
+
+  @override
+  String get assetYears => '年';
+
+  @override
+  String get assetSelectPeriod => '期間を選択';
+
+  @override
   String get assetStatusAndCondition => 'ステータスと状態';
 
   @override

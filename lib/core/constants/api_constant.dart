@@ -26,6 +26,8 @@ class ApiConstant {
   static const String authRegister = '$authPrefix/register';
   static const String authLogin = '$authPrefix/login';
   static const String authForgotPassword = '$authPrefix/forgot-password';
+  static const String authVerifyResetCode = '$authPrefix/verify-reset-code';
+  static const String authResetPassword = '$authPrefix/reset-password';
   static const String authRefreshToken = '$authPrefix/refresh-token';
 
   // * Users

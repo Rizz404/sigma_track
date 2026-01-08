@@ -269,6 +269,31 @@ class L10nEn extends L10n {
   String get assetWarrantyEndDateOptional => 'Warranty End Date (Optional)';
 
   @override
+  String get assetWarrantyDuration => 'Warranty Duration (Auto-calculate)';
+
+  @override
+  String get assetWarrantyDurationHelper =>
+      'Auto-calculate warranty end from purchase date';
+
+  @override
+  String get assetEnterDuration => 'Enter duration';
+
+  @override
+  String get assetMonth => 'Month';
+
+  @override
+  String get assetMonths => 'Months';
+
+  @override
+  String get assetYear => 'Year';
+
+  @override
+  String get assetYears => 'Years';
+
+  @override
+  String get assetSelectPeriod => 'Select period';
+
+  @override
   String get assetStatusAndCondition => 'Status & Condition';
 
   @override

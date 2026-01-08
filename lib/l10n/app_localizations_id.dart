@@ -270,6 +270,31 @@ class L10nId extends L10n {
       'Tanggal Berakhir Garansi (Opsional)';
 
   @override
+  String get assetWarrantyDuration => 'Durasi Garansi (Auto-hitung)';
+
+  @override
+  String get assetWarrantyDurationHelper =>
+      'Auto-hitung akhir garansi dari tanggal pembelian';
+
+  @override
+  String get assetEnterDuration => 'Masukkan durasi';
+
+  @override
+  String get assetMonth => 'Bulan';
+
+  @override
+  String get assetMonths => 'Bulan';
+
+  @override
+  String get assetYear => 'Tahun';
+
+  @override
+  String get assetYears => 'Tahun';
+
+  @override
+  String get assetSelectPeriod => 'Pilih periode';
+
+  @override
   String get assetStatusAndCondition => 'Status & Kondisi';
 
   @override

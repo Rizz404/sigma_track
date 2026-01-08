@@ -597,6 +597,54 @@ abstract class L10n {
   /// **'Warranty End Date (Optional)'**
   String get assetWarrantyEndDateOptional;
 
+  /// Warranty duration utility label
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty Duration (Auto-calculate)'**
+  String get assetWarrantyDuration;
+
+  /// Helper text for warranty duration utility
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-calculate warranty end from purchase date'**
+  String get assetWarrantyDurationHelper;
+
+  /// Warranty duration input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter duration'**
+  String get assetEnterDuration;
+
+  /// Month (singular)
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get assetMonth;
+
+  /// Months (plural)
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get assetMonths;
+
+  /// Year (singular)
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get assetYear;
+
+  /// Years (plural)
+  ///
+  /// In en, this message translates to:
+  /// **'Years'**
+  String get assetYears;
+
+  /// Period selection dropdown placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select period'**
+  String get assetSelectPeriod;
+
   /// Status and condition section title
   ///
   /// In en, this message translates to:

@@ -350,6 +350,38 @@
   "@assetWarrantyEndDateOptional": {
     "description": "Warranty end date input label"
   },
+  "assetWarrantyDuration": "Durasi Garansi (Auto-hitung)",
+  "@assetWarrantyDuration": {
+    "description": "Warranty duration utility label"
+  },
+  "assetWarrantyDurationHelper": "Auto-hitung akhir garansi dari tanggal pembelian",
+  "@assetWarrantyDurationHelper": {
+    "description": "Helper text for warranty duration utility"
+  },
+  "assetEnterDuration": "Masukkan durasi",
+  "@assetEnterDuration": {
+    "description": "Warranty duration input placeholder"
+  },
+  "assetMonth": "Bulan",
+  "@assetMonth": {
+    "description": "Month (singular)"
+  },
+  "assetMonths": "Bulan",
+  "@assetMonths": {
+    "description": "Months (plural)"
+  },
+  "assetYear": "Tahun",
+  "@assetYear": {
+    "description": "Year (singular)"
+  },
+  "assetYears": "Tahun",
+  "@assetYears": {
+    "description": "Years (plural)"
+  },
+  "assetSelectPeriod": "Pilih periode",
+  "@assetSelectPeriod": {
+    "description": "Period selection dropdown placeholder"
+  },
   "assetStatusAndCondition": "Status & Kondisi",
   "@assetStatusAndCondition": {
     "description": "Status and condition section title"

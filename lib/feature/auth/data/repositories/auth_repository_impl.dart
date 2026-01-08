@@ -8,10 +8,13 @@ import 'package:sigma_track/feature/auth/data/datasources/auth_remote_datasource
 import 'package:sigma_track/feature/auth/data/mapper/auth_mappers.dart';
 import 'package:sigma_track/feature/auth/domain/entities/auth.dart';
 import 'package:sigma_track/feature/auth/domain/entities/login_response.dart';
+import 'package:sigma_track/feature/auth/domain/entities/verify_reset_code_response.dart';
 import 'package:sigma_track/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
@@ -63,6 +66,37 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _authRemoteDatasource.forgotPassword(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<VerifyResetCodeResponse>>> verifyResetCode(
+    VerifyResetCodeUsecaseParams params,
+  ) async {
+    try {
+      final response = await _authRemoteDatasource.verifyResetCode(params);
+      final verifyResponse = response.data.toEntity();
+      return Right(
+        ItemSuccess(message: response.message, data: verifyResponse),
+      );
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ActionSuccess>> resetPassword(
+    ResetPasswordUsecaseParams params,
+  ) async {
+    try {
+      final response = await _authRemoteDatasource.resetPassword(params);
+      return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {

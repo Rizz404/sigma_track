@@ -38,7 +38,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
-// Todo: Fix error database reflect.Set: value of type *string is not assignable to type *domain.AssetStatus
 class AssetUpsertScreen extends ConsumerStatefulWidget {
   final Asset? asset;
   final String? assetId;
@@ -56,6 +55,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   bool get _isEdit => widget.asset != null || widget.assetId != null;
   File? _generatedDataMatrixFile;
   String? _dataMatrixPreviewData;
+  String? _warrantyDurationPeriod = 'months';
 
   Future<List<Category>> _searchCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -152,6 +152,39 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
     final state = ref.read(usersSearchProvider);
     return state.users;
+  }
+
+  void _calculateWarrantyEnd() {
+    final purchaseDate =
+        _formKey.currentState?.fields['purchaseDate']?.value as DateTime?;
+    final durationStr =
+        _formKey.currentState?.fields['warrantyDuration']?.value as String?;
+
+    if (purchaseDate == null || durationStr == null || durationStr.isEmpty) {
+      return;
+    }
+
+    final duration = int.tryParse(durationStr);
+    if (duration == null || duration <= 0) {
+      return;
+    }
+
+    DateTime warrantyEndDate;
+    if (_warrantyDurationPeriod == 'months') {
+      warrantyEndDate = DateTime(
+        purchaseDate.year,
+        purchaseDate.month + duration,
+        purchaseDate.day,
+      );
+    } else {
+      warrantyEndDate = DateTime(
+        purchaseDate.year + duration,
+        purchaseDate.month,
+        purchaseDate.day,
+      );
+    }
+
+    _formKey.currentState?.fields['warrantyEnd']?.didChange(warrantyEndDate);
   }
 
   void _handleSubmit() async {
@@ -630,6 +663,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: context.l10n.assetPurchaseDateOptional,
               initialValue: widget.asset?.purchaseDate,
               inputType: InputType.date,
+              onChanged: (_) => _calculateWarrantyEnd(),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -655,6 +689,56 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 value,
                 isUpdate: _isEdit,
               ),
+            ),
+            const SizedBox(height: 16),
+            AppText(
+              context.l10n.assetWarrantyDuration,
+              style: AppTextStyle.bodyMedium,
+              fontWeight: FontWeight.w500,
+            ),
+            const SizedBox(height: 4),
+            AppText(
+              context.l10n.assetWarrantyDurationHelper,
+              style: AppTextStyle.bodySmall,
+              color: context.colors.textSecondary,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: AppTextField(
+                    name: 'warrantyDuration',
+                    label: '',
+                    placeHolder: context.l10n.assetEnterDuration,
+                    type: AppTextFieldType.number,
+                    onChanged: (_) => _calculateWarrantyEnd(),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  flex: 2,
+                  child: AppDropdown<String>(
+                    name: 'warrantyPeriod',
+                    hintText: context.l10n.assetSelectPeriod,
+                    initialValue: _warrantyDurationPeriod,
+                    items: [
+                      AppDropdownItem(
+                        value: 'months',
+                        label: context.l10n.assetMonths,
+                      ),
+                      AppDropdownItem(
+                        value: 'years',
+                        label: context.l10n.assetYears,
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() => _warrantyDurationPeriod = value);
+                      _calculateWarrantyEnd();
+                    },
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(

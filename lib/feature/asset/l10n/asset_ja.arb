@@ -350,6 +350,38 @@
   "@assetWarrantyEndDateOptional": {
     "description": "Warranty end date input label"
   },
+  "assetWarrantyDuration": "保証期間 (自動計算)",
+  "@assetWarrantyDuration": {
+    "description": "Warranty duration utility label"
+  },
+  "assetWarrantyDurationHelper": "購入日から保証終了日を自動計算",
+  "@assetWarrantyDurationHelper": {
+    "description": "Helper text for warranty duration utility"
+  },
+  "assetEnterDuration": "期間を入力",
+  "@assetEnterDuration": {
+    "description": "Warranty duration input placeholder"
+  },
+  "assetMonth": "ヶ月",
+  "@assetMonth": {
+    "description": "Month (singular)"
+  },
+  "assetMonths": "ヶ月",
+  "@assetMonths": {
+    "description": "Months (plural)"
+  },
+  "assetYear": "年",
+  "@assetYear": {
+    "description": "Year (singular)"
+  },
+  "assetYears": "年",
+  "@assetYears": {
+    "description": "Years (plural)"
+  },
+  "assetSelectPeriod": "期間を選択",
+  "@assetSelectPeriod": {
+    "description": "Period selection dropdown placeholder"
+  },
   "assetStatusAndCondition": "ステータスと状態",
   "@assetStatusAndCondition": {
     "description": "Status and condition section title"

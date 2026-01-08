@@ -350,6 +350,38 @@
   "@assetWarrantyEndDateOptional": {
     "description": "Warranty end date input label"
   },
+  "assetWarrantyDuration": "Warranty Duration (Auto-calculate)",
+  "@assetWarrantyDuration": {
+    "description": "Warranty duration utility label"
+  },
+  "assetWarrantyDurationHelper": "Auto-calculate warranty end from purchase date",
+  "@assetWarrantyDurationHelper": {
+    "description": "Helper text for warranty duration utility"
+  },
+  "assetEnterDuration": "Enter duration",
+  "@assetEnterDuration": {
+    "description": "Warranty duration input placeholder"
+  },
+  "assetMonth": "Month",
+  "@assetMonth": {
+    "description": "Month (singular)"
+  },
+  "assetMonths": "Months",
+  "@assetMonths": {
+    "description": "Months (plural)"
+  },
+  "assetYear": "Year",
+  "@assetYear": {
+    "description": "Year (singular)"
+  },
+  "assetYears": "Years",
+  "@assetYears": {
+    "description": "Years (plural)"
+  },
+  "assetSelectPeriod": "Select period",
+  "@assetSelectPeriod": {
+    "description": "Period selection dropdown placeholder"
+  },
   "assetStatusAndCondition": "Status & Condition",
   "@assetStatusAndCondition": {
     "description": "Status and condition section title"

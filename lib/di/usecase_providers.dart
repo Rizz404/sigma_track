@@ -12,6 +12,8 @@ import 'package:sigma_track/feature/auth/domain/usecases/get_current_auth_usecas
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/logout_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 
 // ===== ASSET USECASES =====
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
@@ -191,6 +193,16 @@ final registerUsecaseProvider = Provider<RegisterUsecase>((ref) {
 final forgotPasswordUsecaseProvider = Provider<ForgotPasswordUsecase>((ref) {
   final authRepository = ref.read(authRepositoryProvider);
   return ForgotPasswordUsecase(authRepository);
+});
+
+final verifyResetCodeUsecaseProvider = Provider<VerifyResetCodeUsecase>((ref) {
+  final authRepository = ref.read(authRepositoryProvider);
+  return VerifyResetCodeUsecase(authRepository);
+});
+
+final resetPasswordUsecaseProvider = Provider<ResetPasswordUsecase>((ref) {
+  final authRepository = ref.read(authRepositoryProvider);
+  return ResetPasswordUsecase(authRepository);
 });
 
 final logoutUsecaseProvider = Provider<LogoutUsecase>((ref) {
