@@ -30,6 +30,7 @@ class AppTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final void Function(String?)? onChanged;
+  final bool? enabled;
 
   const AppTextField({
     super.key,
@@ -47,6 +48,7 @@ class AppTextField extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onChanged,
+    this.enabled,
   });
 
   @override
@@ -193,6 +195,7 @@ class _AppTextFieldState extends State<AppTextField> {
         ),
       ),
       validator: widget.validator,
+      enabled: widget.enabled ?? true,
     );
   }
 }

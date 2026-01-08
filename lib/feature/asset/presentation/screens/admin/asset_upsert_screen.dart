@@ -658,18 +658,22 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     label: context.l10n.assetTag,
                     placeHolder: context.l10n.assetEnterAssetTag,
                     initialValue: widget.asset?.assetTag,
+                    enabled: !_enableBulkCopy,
                     validator: (value) => AssetUpsertValidator.validateAssetTag(
                       context,
                       value,
                       isUpdate: _isEdit,
+                      isBulkCopy: _enableBulkCopy,
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  onPressed: _handleGenerateAssetTag,
+                  onPressed: _enableBulkCopy ? null : _handleGenerateAssetTag,
                   icon: const Icon(Icons.auto_awesome),
-                  tooltip: 'Auto-generate asset tag',
+                  tooltip: _enableBulkCopy
+                      ? 'Auto-generation disabled in bulk copy mode'
+                      : 'Auto-generate asset tag',
                   style: IconButton.styleFrom(
                     backgroundColor: context.colorScheme.primaryContainer,
                     foregroundColor: context.colorScheme.onPrimaryContainer,
@@ -1116,7 +1120,14 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 Switch(
                   value: _enableBulkCopy,
                   onChanged: (value) {
-                    setState(() => _enableBulkCopy = value);
+                    setState(() {
+                      _enableBulkCopy = value;
+                      // * Clear data matrix preview when enabling bulk copy
+                      if (value) {
+                        _generatedDataMatrixFile = null;
+                        _dataMatrixPreviewData = null;
+                      }
+                    });
                   },
                 ),
                 const SizedBox(width: 12),

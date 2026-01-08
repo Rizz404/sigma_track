@@ -6,7 +6,13 @@ class AssetUpsertValidator {
     BuildContext context,
     String? value, {
     bool isUpdate = false,
+    bool isBulkCopy = false,
   }) {
+    // * Skip validation if bulk copy is enabled (tags will be auto-generated)
+    if (isBulkCopy) {
+      return null;
+    }
+
     if (!isUpdate && (value == null || value.isEmpty)) {
       return context.l10n.assetValidationTagRequired;
     }
