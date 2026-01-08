@@ -139,5 +139,73 @@
   "authValidationPasswordsDoNotMatch": "パスワードが一致しません",
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
+  },
+  "authVerifyResetCode": "リセットコードの確認",
+  "@authVerifyResetCode": {
+    "description": "Verify reset code screen title"
+  },
+  "authEnterResetCode": "メールに送信されたリセットコードを入力してください",
+  "@authEnterResetCode": {
+    "description": "Verify reset code screen subtitle"
+  },
+  "authResetCode": "リセットコード",
+  "@authResetCode": {
+    "description": "Reset code field label"
+  },
+  "authEnterResetCodePlaceholder": "リセットコードを入力",
+  "@authEnterResetCodePlaceholder": {
+    "description": "Reset code field placeholder"
+  },
+  "authVerifyCode": "コードを確認",
+  "@authVerifyCode": {
+    "description": "Verify code button label"
+  },
+  "authResetPasswordTitle": "パスワードリセット",
+  "@authResetPasswordTitle": {
+    "description": "Reset password screen title"
+  },
+  "authEnterNewPassword": "新しいパスワードを入力してください",
+  "@authEnterNewPassword": {
+    "description": "Reset password screen subtitle"
+  },
+  "authNewPassword": "新しいパスワード",
+  "@authNewPassword": {
+    "description": "New password field label"
+  },
+  "authEnterNewPasswordPlaceholder": "新しいパスワードを入力",
+  "@authEnterNewPasswordPlaceholder": {
+    "description": "New password field placeholder"
+  },
+  "authConfirmNewPassword": "新しいパスワードの確認",
+  "@authConfirmNewPassword": {
+    "description": "Confirm new password field label"
+  },
+  "authReEnterNewPassword": "新しいパスワードを再入力",
+  "@authReEnterNewPassword": {
+    "description": "Confirm new password field placeholder"
+  },
+  "authResetPasswordButton": "パスワードリセット",
+  "@authResetPasswordButton": {
+    "description": "Reset password button label"
+  },
+  "authCodeVerifiedSuccessfully": "コードが正常に確認されました",
+  "@authCodeVerifiedSuccessfully": {
+    "description": "Success message after verifying reset code"
+  },
+  "authPasswordResetSuccessfully": "パスワードが正常にリセットされました",
+  "@authPasswordResetSuccessfully": {
+    "description": "Success message after resetting password"
+  },
+  "authValidationResetCodeRequired": "リセットコードは必須です",
+  "@authValidationResetCodeRequired": {
+    "description": "Validation error for required reset code"
+  },
+  "authValidationResetCodeLength": "リセットコードは6文字である必要があります",
+  "@authValidationResetCodeLength": {
+    "description": "Validation error for reset code length"
+  },
+  "authValidationNewPasswordRequired": "新しいパスワードは必須です",
+  "@authValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
   }
 }

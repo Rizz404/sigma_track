@@ -1046,6 +1046,57 @@ class L10nJa extends L10n {
   String get authValidationPasswordsDoNotMatch => 'パスワードが一致しません';
 
   @override
+  String get authVerifyResetCode => 'リセットコードの確認';
+
+  @override
+  String get authEnterResetCode => 'メールに送信されたリセットコードを入力してください';
+
+  @override
+  String get authResetCode => 'リセットコード';
+
+  @override
+  String get authEnterResetCodePlaceholder => 'リセットコードを入力';
+
+  @override
+  String get authVerifyCode => 'コードを確認';
+
+  @override
+  String get authResetPasswordTitle => 'パスワードリセット';
+
+  @override
+  String get authEnterNewPassword => '新しいパスワードを入力してください';
+
+  @override
+  String get authNewPassword => '新しいパスワード';
+
+  @override
+  String get authEnterNewPasswordPlaceholder => '新しいパスワードを入力';
+
+  @override
+  String get authConfirmNewPassword => '新しいパスワードの確認';
+
+  @override
+  String get authReEnterNewPassword => '新しいパスワードを再入力';
+
+  @override
+  String get authResetPasswordButton => 'パスワードリセット';
+
+  @override
+  String get authCodeVerifiedSuccessfully => 'コードが正常に確認されました';
+
+  @override
+  String get authPasswordResetSuccessfully => 'パスワードが正常にリセットされました';
+
+  @override
+  String get authValidationResetCodeRequired => 'リセットコードは必須です';
+
+  @override
+  String get authValidationResetCodeLength => 'リセットコードは6文字である必要があります';
+
+  @override
+  String get authValidationNewPasswordRequired => '新しいパスワードは必須です';
+
+  @override
   String get categoryDetail => 'カテゴリ詳細';
 
   @override

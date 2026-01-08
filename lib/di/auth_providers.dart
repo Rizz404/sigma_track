@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -8,6 +9,8 @@ import 'package:sigma_track/feature/auth/domain/usecases/get_current_auth_usecas
 import 'package:sigma_track/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/logout_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/register_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 
@@ -23,6 +26,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   late LoginUsecase _loginUsecase;
   late RegisterUsecase _registerUsecase;
   late ForgotPasswordUsecase _forgotPasswordUsecase;
+  late VerifyResetCodeUsecase _verifyResetCodeUsecase;
+  late ResetPasswordUsecase _resetPasswordUsecase;
   late LogoutUsecase _logoutUsecase;
 
   @override
@@ -31,6 +36,8 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
     _loginUsecase = ref.read(loginUsecaseProvider);
     _registerUsecase = ref.read(registerUsecaseProvider);
     _forgotPasswordUsecase = ref.read(forgotPasswordUsecaseProvider);
+    _verifyResetCodeUsecase = ref.read(verifyResetCodeUsecaseProvider);
+    _resetPasswordUsecase = ref.read(resetPasswordUsecaseProvider);
     _logoutUsecase = ref.read(logoutUsecaseProvider);
 
     final result = await _getCurrentAuthUsecase.call(NoParams());
@@ -93,6 +100,41 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
       },
       (success) {
         state = AsyncData(AuthState.unauthenticated(success: success));
+      },
+    );
+  }
+
+  Future<void> verifyResetCode(VerifyResetCodeUsecaseParams params) async {
+    state = const AsyncLoading();
+
+    final result = await _verifyResetCodeUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
+      },
+      (success) {
+        state = AsyncData(AuthState.unauthenticated(success: success));
+      },
+    );
+  }
+
+  Future<void> resetPassword(ResetPasswordUsecaseParams params) async {
+    state = const AsyncLoading();
+
+    final result = await _resetPasswordUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        state = AsyncData(AuthState.unauthenticated(failure: failure));
+      },
+      (success) {
+        // * ActionSuccess, wrap dalam ItemSuccess untuk compatibility
+        state = AsyncData(
+          AuthState.unauthenticated(
+            success: ItemSuccess(message: success.message, data: null),
+          ),
+        );
       },
     );
   }

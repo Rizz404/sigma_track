@@ -1412,6 +1412,74 @@
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
   },
+  "authVerifyResetCode": "Verify Reset Code",
+  "@authVerifyResetCode": {
+    "description": "Verify reset code screen title"
+  },
+  "authEnterResetCode": "Enter the reset code sent to your email",
+  "@authEnterResetCode": {
+    "description": "Verify reset code screen subtitle"
+  },
+  "authResetCode": "Reset Code",
+  "@authResetCode": {
+    "description": "Reset code field label"
+  },
+  "authEnterResetCodePlaceholder": "Enter reset code",
+  "@authEnterResetCodePlaceholder": {
+    "description": "Reset code field placeholder"
+  },
+  "authVerifyCode": "Verify Code",
+  "@authVerifyCode": {
+    "description": "Verify code button label"
+  },
+  "authResetPasswordTitle": "Reset Password",
+  "@authResetPasswordTitle": {
+    "description": "Reset password screen title"
+  },
+  "authEnterNewPassword": "Enter your new password",
+  "@authEnterNewPassword": {
+    "description": "Reset password screen subtitle"
+  },
+  "authNewPassword": "New Password",
+  "@authNewPassword": {
+    "description": "New password field label"
+  },
+  "authEnterNewPasswordPlaceholder": "Enter new password",
+  "@authEnterNewPasswordPlaceholder": {
+    "description": "New password field placeholder"
+  },
+  "authConfirmNewPassword": "Confirm New Password",
+  "@authConfirmNewPassword": {
+    "description": "Confirm new password field label"
+  },
+  "authReEnterNewPassword": "Re-enter new password",
+  "@authReEnterNewPassword": {
+    "description": "Confirm new password field placeholder"
+  },
+  "authResetPasswordButton": "Reset Password",
+  "@authResetPasswordButton": {
+    "description": "Reset password button label"
+  },
+  "authCodeVerifiedSuccessfully": "Code verified successfully",
+  "@authCodeVerifiedSuccessfully": {
+    "description": "Success message after verifying reset code"
+  },
+  "authPasswordResetSuccessfully": "Password reset successfully",
+  "@authPasswordResetSuccessfully": {
+    "description": "Success message after resetting password"
+  },
+  "authValidationResetCodeRequired": "Reset code is required",
+  "@authValidationResetCodeRequired": {
+    "description": "Validation error for required reset code"
+  },
+  "authValidationResetCodeLength": "Reset code must be 6 characters",
+  "@authValidationResetCodeLength": {
+    "description": "Validation error for reset code length"
+  },
+  "authValidationNewPasswordRequired": "New password is required",
+  "@authValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
   "categoryDetail": "Category Detail",
   "@categoryDetail": {
     "description": "Category detail screen title"

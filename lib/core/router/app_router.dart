@@ -19,6 +19,8 @@ import 'package:sigma_track/feature/asset_movement/presentation/screens/asset_mo
 import 'package:sigma_track/feature/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/screens/login_screen.dart';
 import 'package:sigma_track/feature/auth/presentation/screens/register_screen.dart';
+import 'package:sigma_track/feature/auth/presentation/screens/reset_password_screen.dart';
+import 'package:sigma_track/feature/auth/presentation/screens/verify_reset_code_screen.dart';
 import 'package:sigma_track/feature/category/presentation/screens/admin/list_categories_screen.dart';
 import 'package:sigma_track/feature/category/presentation/screens/category_detail_screen.dart';
 import 'package:sigma_track/feature/category/presentation/screens/category_upsert_screen.dart';
@@ -276,6 +278,30 @@ class AppRouter {
         key: state.pageKey,
         child: const ForgotPasswordScreen(),
       ),
+    ),
+    GoRoute(
+      path: RouteConstant.verifyResetCode,
+      name: PageKeyConstant.verifyResetCode,
+      pageBuilder: (context, state) {
+        final email = state.extra as String? ?? '';
+        return NoTransitionPage(
+          key: state.pageKey,
+          child: VerifyResetCodeScreen(email: email),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouteConstant.resetPassword,
+      name: PageKeyConstant.resetPassword,
+      pageBuilder: (context, state) {
+        final params = state.extra as Map<String, dynamic>? ?? {};
+        final email = params['email'] as String? ?? '';
+        final resetToken = params['resetToken'] as String? ?? '';
+        return NoTransitionPage(
+          key: state.pageKey,
+          child: ResetPasswordScreen(email: email, resetToken: resetToken),
+        );
+      },
     ),
 
     // ==================== USER SHELL ====================

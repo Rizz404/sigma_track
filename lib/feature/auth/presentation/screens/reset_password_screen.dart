@@ -11,24 +11,31 @@ import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
-import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
-import 'package:sigma_track/feature/auth/presentation/validators/forgot_password_validator.dart';
+import 'package:sigma_track/feature/auth/presentation/validators/reset_password_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
-class ForgotPasswordScreen extends ConsumerStatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class ResetPasswordScreen extends ConsumerStatefulWidget {
+  final String email;
+  final String resetToken;
+
+  const ResetPasswordScreen({
+    super.key,
+    required this.email,
+    required this.resetToken,
+  });
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() =>
-      _ForgotPasswordScreenState();
+  ConsumerState<ResetPasswordScreen> createState() =>
+      _ResetPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
+class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
 
@@ -40,17 +47,19 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  Future<void> _handleForgotPassword() async {
+  Future<void> _handleResetPassword() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       context.loaderOverlay.show();
 
       final formValues = _formKey.currentState!.value;
 
-      final params = ForgotPasswordUsecaseParams(
-        email: (formValues['email'] as String).trim(),
+      final params = ResetPasswordUsecaseParams(
+        email: widget.email,
+        code: widget.resetToken,
+        newPassword: (formValues['newPassword'] as String).trim(),
       );
 
-      await ref.read(authNotifierProvider.notifier).forgotPassword(params);
+      await ref.read(authNotifierProvider.notifier).resetPassword(params);
 
       if (mounted) {
         context.loaderOverlay.hide();
@@ -69,13 +78,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           AppToast.success(
             state.success?.message?.isNotEmpty == true
                 ? state.success!.message!
-                : context.l10n.authEmailSentSuccessfully,
+                : context.l10n.authPasswordResetSuccessfully,
           );
-          // * Navigate to verify reset code screen
-          context.pushReplacement(
-            RouteConstant.verifyResetCode,
-            extra: _formKey.currentState!.value['email'] as String,
-          );
+          // * Navigate to login screen
+          context.go(RouteConstant.login);
         } else if (state.failure != null) {
           if (state.failure is ValidationFailure) {
             setState(
@@ -106,29 +112,51 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 children: [
                   // * Header section
                   AppText(
-                    context.l10n.authForgotPasswordTitle,
+                    context.l10n.authResetPasswordTitle,
                     style: AppTextStyle.headlineMedium,
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    context.l10n.authEnterEmailToResetPassword,
+                    context.l10n.authEnterNewPassword,
                     style: AppTextStyle.bodyLarge,
                     color: context.colors.textSecondary,
                   ),
                   const SizedBox(height: 32),
 
-                  // * Email field
+                  // * New password field
                   AppTextField(
-                    name: 'email',
-                    label: context.l10n.authEmail,
-                    placeHolder: context.l10n.authEnterYourEmail,
-                    type: AppTextFieldType.email,
+                    name: 'newPassword',
+                    label: context.l10n.authNewPassword,
+                    placeHolder: context.l10n.authEnterNewPasswordPlaceholder,
+                    type: AppTextFieldType.password,
                     validator: (value) =>
-                        ForgotPasswordValidator.validateEmail(context, value),
+                        ResetPasswordValidator.validateNewPassword(
+                          context,
+                          value,
+                        ),
                     prefixIcon: Icon(
-                      Icons.email_outlined,
+                      Icons.lock_outline,
+                      color: context.colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // * Confirm new password field
+                  AppTextField(
+                    name: 'confirmNewPassword',
+                    label: context.l10n.authConfirmNewPassword,
+                    placeHolder: context.l10n.authReEnterNewPassword,
+                    type: AppTextFieldType.password,
+                    validator: (value) =>
+                        ResetPasswordValidator.validateConfirmPassword(
+                          context,
+                          value,
+                          _formKey,
+                        ),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
                       color: context.colorScheme.primary,
                     ),
                   ),
@@ -139,10 +167,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   if (validationErrors != null && validationErrors!.isNotEmpty)
                     const SizedBox(height: 16),
 
-                  // * Send reset link button
+                  // * Reset password button
                   AppButton(
-                    text: context.l10n.authSendResetLink,
-                    onPressed: _handleForgotPassword,
+                    text: context.l10n.authResetPasswordButton,
+                    onPressed: _handleResetPassword,
                     size: AppButtonSize.large,
                   ),
                   const SizedBox(height: 16),
@@ -157,7 +185,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         color: context.colors.textSecondary,
                       ),
                       GestureDetector(
-                        onTap: () => context.push(RouteConstant.login),
+                        onTap: () => context.go(RouteConstant.login),
                         child: AppText(
                           context.l10n.authLogin,
                           style: AppTextStyle.bodyMedium,

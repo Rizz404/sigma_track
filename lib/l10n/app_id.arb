@@ -1412,6 +1412,74 @@
   "@authValidationPasswordsDoNotMatch": {
     "description": "Validation error when passwords don't match"
   },
+  "authVerifyResetCode": "Verifikasi Kode Reset",
+  "@authVerifyResetCode": {
+    "description": "Verify reset code screen title"
+  },
+  "authEnterResetCode": "Masukkan kode reset yang dikirim ke email Anda",
+  "@authEnterResetCode": {
+    "description": "Verify reset code screen subtitle"
+  },
+  "authResetCode": "Kode Reset",
+  "@authResetCode": {
+    "description": "Reset code field label"
+  },
+  "authEnterResetCodePlaceholder": "Masukkan kode reset",
+  "@authEnterResetCodePlaceholder": {
+    "description": "Reset code field placeholder"
+  },
+  "authVerifyCode": "Verifikasi Kode",
+  "@authVerifyCode": {
+    "description": "Verify code button label"
+  },
+  "authResetPasswordTitle": "Reset Kata Sandi",
+  "@authResetPasswordTitle": {
+    "description": "Reset password screen title"
+  },
+  "authEnterNewPassword": "Masukkan kata sandi baru Anda",
+  "@authEnterNewPassword": {
+    "description": "Reset password screen subtitle"
+  },
+  "authNewPassword": "Kata Sandi Baru",
+  "@authNewPassword": {
+    "description": "New password field label"
+  },
+  "authEnterNewPasswordPlaceholder": "Masukkan kata sandi baru",
+  "@authEnterNewPasswordPlaceholder": {
+    "description": "New password field placeholder"
+  },
+  "authConfirmNewPassword": "Konfirmasi Kata Sandi Baru",
+  "@authConfirmNewPassword": {
+    "description": "Confirm new password field label"
+  },
+  "authReEnterNewPassword": "Masukkan ulang kata sandi baru",
+  "@authReEnterNewPassword": {
+    "description": "Confirm new password field placeholder"
+  },
+  "authResetPasswordButton": "Reset Kata Sandi",
+  "@authResetPasswordButton": {
+    "description": "Reset password button label"
+  },
+  "authCodeVerifiedSuccessfully": "Kode berhasil diverifikasi",
+  "@authCodeVerifiedSuccessfully": {
+    "description": "Success message after verifying reset code"
+  },
+  "authPasswordResetSuccessfully": "Kata sandi berhasil direset",
+  "@authPasswordResetSuccessfully": {
+    "description": "Success message after resetting password"
+  },
+  "authValidationResetCodeRequired": "Kode reset wajib diisi",
+  "@authValidationResetCodeRequired": {
+    "description": "Validation error for required reset code"
+  },
+  "authValidationResetCodeLength": "Kode reset harus 6 karakter",
+  "@authValidationResetCodeLength": {
+    "description": "Validation error for reset code length"
+  },
+  "authValidationNewPasswordRequired": "Kata sandi baru wajib diisi",
+  "@authValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
   "categoryDetail": "Detail Kategori",
   "@categoryDetail": {
     "description": "Category detail screen title"

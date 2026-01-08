@@ -1091,6 +1091,57 @@ class L10nEn extends L10n {
   String get authValidationPasswordsDoNotMatch => 'Passwords do not match';
 
   @override
+  String get authVerifyResetCode => 'Verify Reset Code';
+
+  @override
+  String get authEnterResetCode => 'Enter the reset code sent to your email';
+
+  @override
+  String get authResetCode => 'Reset Code';
+
+  @override
+  String get authEnterResetCodePlaceholder => 'Enter reset code';
+
+  @override
+  String get authVerifyCode => 'Verify Code';
+
+  @override
+  String get authResetPasswordTitle => 'Reset Password';
+
+  @override
+  String get authEnterNewPassword => 'Enter your new password';
+
+  @override
+  String get authNewPassword => 'New Password';
+
+  @override
+  String get authEnterNewPasswordPlaceholder => 'Enter new password';
+
+  @override
+  String get authConfirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get authReEnterNewPassword => 'Re-enter new password';
+
+  @override
+  String get authResetPasswordButton => 'Reset Password';
+
+  @override
+  String get authCodeVerifiedSuccessfully => 'Code verified successfully';
+
+  @override
+  String get authPasswordResetSuccessfully => 'Password reset successfully';
+
+  @override
+  String get authValidationResetCodeRequired => 'Reset code is required';
+
+  @override
+  String get authValidationResetCodeLength => 'Reset code must be 6 characters';
+
+  @override
+  String get authValidationNewPasswordRequired => 'New password is required';
+
+  @override
   String get categoryDetail => 'Category Detail';
 
   @override

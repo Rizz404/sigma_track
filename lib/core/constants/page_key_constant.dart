@@ -6,6 +6,8 @@ class PageKeyConstant {
   static const String login = 'login';
   static const String register = 'register';
   static const String forgotPassword = 'forgot-password';
+  static const String verifyResetCode = 'verify-reset-code';
+  static const String resetPassword = 'reset-password';
 
   // ==================== USER MAIN PAGES ====================
   static const String userMain = 'user-main';

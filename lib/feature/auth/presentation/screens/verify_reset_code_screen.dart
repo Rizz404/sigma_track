@@ -11,26 +11,29 @@ import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
-import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
-import 'package:sigma_track/feature/auth/presentation/validators/forgot_password_validator.dart';
+import 'package:sigma_track/feature/auth/presentation/validators/verify_reset_code_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 
-class ForgotPasswordScreen extends ConsumerStatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class VerifyResetCodeScreen extends ConsumerStatefulWidget {
+  final String email;
+
+  const VerifyResetCodeScreen({super.key, required this.email});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() =>
-      _ForgotPasswordScreenState();
+  ConsumerState<VerifyResetCodeScreen> createState() =>
+      _VerifyResetCodeScreenState();
 }
 
-class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
+class _VerifyResetCodeScreenState extends ConsumerState<VerifyResetCodeScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
+  String? _verifiedCode;
 
   @override
   void dispose() {
@@ -40,17 +43,21 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  Future<void> _handleForgotPassword() async {
+  Future<void> _handleVerifyCode() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
       context.loaderOverlay.show();
 
       final formValues = _formKey.currentState!.value;
+      final code = (formValues['resetCode'] as String).trim();
 
-      final params = ForgotPasswordUsecaseParams(
-        email: (formValues['email'] as String).trim(),
+      final params = VerifyResetCodeUsecaseParams(
+        email: widget.email,
+        code: code,
       );
 
-      await ref.read(authNotifierProvider.notifier).forgotPassword(params);
+      _verifiedCode = code;
+
+      await ref.read(authNotifierProvider.notifier).verifyResetCode(params);
 
       if (mounted) {
         context.loaderOverlay.hide();
@@ -69,12 +76,12 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           AppToast.success(
             state.success?.message?.isNotEmpty == true
                 ? state.success!.message!
-                : context.l10n.authEmailSentSuccessfully,
+                : context.l10n.authCodeVerifiedSuccessfully,
           );
-          // * Navigate to verify reset code screen
+          // * Navigate to reset password screen with resetToken
           context.pushReplacement(
-            RouteConstant.verifyResetCode,
-            extra: _formKey.currentState!.value['email'] as String,
+            RouteConstant.resetPassword,
+            extra: {'email': widget.email, 'resetToken': _verifiedCode ?? ''},
           );
         } else if (state.failure != null) {
           if (state.failure is ValidationFailure) {
@@ -106,29 +113,32 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 children: [
                   // * Header section
                   AppText(
-                    context.l10n.authForgotPasswordTitle,
+                    context.l10n.authVerifyResetCode,
                     style: AppTextStyle.headlineMedium,
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8),
                   AppText(
-                    context.l10n.authEnterEmailToResetPassword,
+                    context.l10n.authEnterResetCode,
                     style: AppTextStyle.bodyLarge,
                     color: context.colors.textSecondary,
                   ),
                   const SizedBox(height: 32),
 
-                  // * Email field
+                  // * Reset code field
                   AppTextField(
-                    name: 'email',
-                    label: context.l10n.authEmail,
-                    placeHolder: context.l10n.authEnterYourEmail,
-                    type: AppTextFieldType.email,
+                    name: 'resetCode',
+                    label: context.l10n.authResetCode,
+                    placeHolder: context.l10n.authEnterResetCodePlaceholder,
+                    type: AppTextFieldType.text,
                     validator: (value) =>
-                        ForgotPasswordValidator.validateEmail(context, value),
+                        VerifyResetCodeValidator.validateResetCode(
+                          context,
+                          value,
+                        ),
                     prefixIcon: Icon(
-                      Icons.email_outlined,
+                      Icons.lock_reset,
                       color: context.colorScheme.primary,
                     ),
                   ),
@@ -139,10 +149,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   if (validationErrors != null && validationErrors!.isNotEmpty)
                     const SizedBox(height: 16),
 
-                  // * Send reset link button
+                  // * Verify code button
                   AppButton(
-                    text: context.l10n.authSendResetLink,
-                    onPressed: _handleForgotPassword,
+                    text: context.l10n.authVerifyCode,
+                    onPressed: _handleVerifyCode,
                     size: AppButtonSize.large,
                   ),
                   const SizedBox(height: 16),

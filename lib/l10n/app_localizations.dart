@@ -2121,6 +2121,108 @@ abstract class L10n {
   /// **'Passwords do not match'**
   String get authValidationPasswordsDoNotMatch;
 
+  /// Verify reset code screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Reset Code'**
+  String get authVerifyResetCode;
+
+  /// Verify reset code screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the reset code sent to your email'**
+  String get authEnterResetCode;
+
+  /// Reset code field label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Code'**
+  String get authResetCode;
+
+  /// Reset code field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reset code'**
+  String get authEnterResetCodePlaceholder;
+
+  /// Verify code button label
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get authVerifyCode;
+
+  /// Reset password screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get authResetPasswordTitle;
+
+  /// Reset password screen subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new password'**
+  String get authEnterNewPassword;
+
+  /// New password field label
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get authNewPassword;
+
+  /// New password field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new password'**
+  String get authEnterNewPasswordPlaceholder;
+
+  /// Confirm new password field label
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get authConfirmNewPassword;
+
+  /// Confirm new password field placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter new password'**
+  String get authReEnterNewPassword;
+
+  /// Reset password button label
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get authResetPasswordButton;
+
+  /// Success message after verifying reset code
+  ///
+  /// In en, this message translates to:
+  /// **'Code verified successfully'**
+  String get authCodeVerifiedSuccessfully;
+
+  /// Success message after resetting password
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully'**
+  String get authPasswordResetSuccessfully;
+
+  /// Validation error for required reset code
+  ///
+  /// In en, this message translates to:
+  /// **'Reset code is required'**
+  String get authValidationResetCodeRequired;
+
+  /// Validation error for reset code length
+  ///
+  /// In en, this message translates to:
+  /// **'Reset code must be 6 characters'**
+  String get authValidationResetCodeLength;
+
+  /// Validation error for required new password
+  ///
+  /// In en, this message translates to:
+  /// **'New password is required'**
+  String get authValidationNewPasswordRequired;
+
   /// Category detail screen title
   ///
   /// In en, this message translates to:

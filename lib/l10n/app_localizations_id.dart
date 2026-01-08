@@ -1093,6 +1093,58 @@ class L10nId extends L10n {
   String get authValidationPasswordsDoNotMatch => 'Kata sandi tidak cocok';
 
   @override
+  String get authVerifyResetCode => 'Verifikasi Kode Reset';
+
+  @override
+  String get authEnterResetCode =>
+      'Masukkan kode reset yang dikirim ke email Anda';
+
+  @override
+  String get authResetCode => 'Kode Reset';
+
+  @override
+  String get authEnterResetCodePlaceholder => 'Masukkan kode reset';
+
+  @override
+  String get authVerifyCode => 'Verifikasi Kode';
+
+  @override
+  String get authResetPasswordTitle => 'Reset Kata Sandi';
+
+  @override
+  String get authEnterNewPassword => 'Masukkan kata sandi baru Anda';
+
+  @override
+  String get authNewPassword => 'Kata Sandi Baru';
+
+  @override
+  String get authEnterNewPasswordPlaceholder => 'Masukkan kata sandi baru';
+
+  @override
+  String get authConfirmNewPassword => 'Konfirmasi Kata Sandi Baru';
+
+  @override
+  String get authReEnterNewPassword => 'Masukkan ulang kata sandi baru';
+
+  @override
+  String get authResetPasswordButton => 'Reset Kata Sandi';
+
+  @override
+  String get authCodeVerifiedSuccessfully => 'Kode berhasil diverifikasi';
+
+  @override
+  String get authPasswordResetSuccessfully => 'Kata sandi berhasil direset';
+
+  @override
+  String get authValidationResetCodeRequired => 'Kode reset wajib diisi';
+
+  @override
+  String get authValidationResetCodeLength => 'Kode reset harus 6 karakter';
+
+  @override
+  String get authValidationNewPasswordRequired => 'Kata sandi baru wajib diisi';
+
+  @override
   String get categoryDetail => 'Detail Kategori';
 
   @override
