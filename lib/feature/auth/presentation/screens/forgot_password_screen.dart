@@ -100,75 +100,90 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // * Header section
-                  AppText(
-                    context.l10n.authForgotPasswordTitle,
-                    style: AppTextStyle.headlineMedium,
-                    color: context.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: 8),
-                  AppText(
-                    context.l10n.authEnterEmailToResetPassword,
-                    style: AppTextStyle.bodyLarge,
-                    color: context.colors.textSecondary,
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * Email field
-                  AppTextField(
-                    name: 'email',
-                    label: context.l10n.authEmail,
-                    placeHolder: context.l10n.authEnterYourEmail,
-                    type: AppTextFieldType.email,
-                    validator: (value) =>
-                        ForgotPasswordValidator.validateEmail(context, value),
-                    prefixIcon: Icon(
-                      Icons.email_outlined,
-                      color: context.colorScheme.primary,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * Validation errors
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-
-                  // * Send reset link button
-                  AppButton(
-                    text: context.l10n.authSendResetLink,
-                    onPressed: _handleForgotPassword,
-                    size: AppButtonSize.large,
-                  ),
-                  const SizedBox(height: 16),
-
-                  // * Back to login link
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        context.l10n.authRememberPassword,
-                        style: AppTextStyle.bodyMedium,
-                        color: context.colors.textSecondary,
-                      ),
-                      GestureDetector(
-                        onTap: () => context.push(RouteConstant.login),
-                        child: AppText(
-                          context.l10n.authLogin,
-                          style: AppTextStyle.bodyMedium,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // * Header section
+                        AppText(
+                          context.l10n.authForgotPasswordTitle,
+                          style: AppTextStyle.headlineMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        AppText(
+                          context.l10n.authEnterEmailToResetPassword,
+                          style: AppTextStyle.bodyLarge,
+                          color: context.colors.textSecondary,
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * Email field
+                        AppTextField(
+                          name: 'email',
+                          label: context.l10n.authEmail,
+                          placeHolder: context.l10n.authEnterYourEmail,
+                          type: AppTextFieldType.email,
+                          validator: (value) =>
+                              ForgotPasswordValidator.validateEmail(
+                                context,
+                                value,
+                              ),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * Validation errors
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+
+                        // * Send reset link button
+                        AppButton(
+                          text: context.l10n.authSendResetLink,
+                          onPressed: _handleForgotPassword,
+                          size: AppButtonSize.large,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // * Back to login link
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText(
+                              context.l10n.authRememberPassword,
+                              style: AppTextStyle.bodyMedium,
+                              color: context.colors.textSecondary,
+                            ),
+                            GestureDetector(
+                              onTap: () => context.push(RouteConstant.login),
+                              child: AppText(
+                                context.l10n.authLogin,
+                                style: AppTextStyle.bodyMedium,
+                                color: context.colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),

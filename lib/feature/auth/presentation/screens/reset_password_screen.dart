@@ -106,97 +106,110 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // * Header section
-                  AppText(
-                    context.l10n.authResetPasswordTitle,
-                    style: AppTextStyle.headlineMedium,
-                    color: context.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: 8),
-                  AppText(
-                    context.l10n.authEnterNewPassword,
-                    style: AppTextStyle.bodyLarge,
-                    color: context.colors.textSecondary,
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * New password field
-                  AppTextField(
-                    name: 'newPassword',
-                    label: context.l10n.authNewPassword,
-                    placeHolder: context.l10n.authEnterNewPasswordPlaceholder,
-                    type: AppTextFieldType.password,
-                    validator: (value) =>
-                        ResetPasswordValidator.validateNewPassword(
-                          context,
-                          value,
-                        ),
-                    prefixIcon: Icon(
-                      Icons.lock_outline,
-                      color: context.colorScheme.primary,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // * Confirm new password field
-                  AppTextField(
-                    name: 'confirmNewPassword',
-                    label: context.l10n.authConfirmNewPassword,
-                    placeHolder: context.l10n.authReEnterNewPassword,
-                    type: AppTextFieldType.password,
-                    validator: (value) =>
-                        ResetPasswordValidator.validateConfirmPassword(
-                          context,
-                          value,
-                          _formKey,
-                        ),
-                    prefixIcon: Icon(
-                      Icons.lock_outline,
-                      color: context.colorScheme.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * Validation errors
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-
-                  // * Reset password button
-                  AppButton(
-                    text: context.l10n.authResetPasswordButton,
-                    onPressed: _handleResetPassword,
-                    size: AppButtonSize.large,
-                  ),
-                  const SizedBox(height: 16),
-
-                  // * Back to login link
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        context.l10n.authRememberPassword,
-                        style: AppTextStyle.bodyMedium,
-                        color: context.colors.textSecondary,
-                      ),
-                      GestureDetector(
-                        onTap: () => context.go(RouteConstant.login),
-                        child: AppText(
-                          context.l10n.authLogin,
-                          style: AppTextStyle.bodyMedium,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // * Header section
+                        AppText(
+                          context.l10n.authResetPasswordTitle,
+                          style: AppTextStyle.headlineMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        AppText(
+                          context.l10n.authEnterNewPassword,
+                          style: AppTextStyle.bodyLarge,
+                          color: context.colors.textSecondary,
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * New password field
+                        AppTextField(
+                          name: 'newPassword',
+                          label: context.l10n.authNewPassword,
+                          placeHolder:
+                              context.l10n.authEnterNewPasswordPlaceholder,
+                          type: AppTextFieldType.password,
+                          validator: (value) =>
+                              ResetPasswordValidator.validateNewPassword(
+                                context,
+                                value,
+                              ),
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // * Confirm new password field
+                        AppTextField(
+                          name: 'confirmNewPassword',
+                          label: context.l10n.authConfirmNewPassword,
+                          placeHolder: context.l10n.authReEnterNewPassword,
+                          type: AppTextFieldType.password,
+                          validator: (value) =>
+                              ResetPasswordValidator.validateConfirmPassword(
+                                context,
+                                value,
+                                _formKey,
+                              ),
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * Validation errors
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+
+                        // * Reset password button
+                        AppButton(
+                          text: context.l10n.authResetPasswordButton,
+                          onPressed: _handleResetPassword,
+                          size: AppButtonSize.large,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // * Back to login link
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText(
+                              context.l10n.authRememberPassword,
+                              style: AppTextStyle.bodyMedium,
+                              color: context.colors.textSecondary,
+                            ),
+                            GestureDetector(
+                              onTap: () => context.go(RouteConstant.login),
+                              child: AppText(
+                                context.l10n.authLogin,
+                                style: AppTextStyle.bodyMedium,
+                                color: context.colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),

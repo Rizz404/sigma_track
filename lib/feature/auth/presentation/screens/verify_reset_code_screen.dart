@@ -107,78 +107,91 @@ class _VerifyResetCodeScreenState extends ConsumerState<VerifyResetCodeScreen> {
         body: ScreenWrapper(
           child: FormBuilder(
             key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // * Header section
-                  AppText(
-                    context.l10n.authVerifyResetCode,
-                    style: AppTextStyle.headlineMedium,
-                    color: context.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: 8),
-                  AppText(
-                    context.l10n.authEnterResetCode,
-                    style: AppTextStyle.bodyLarge,
-                    color: context.colors.textSecondary,
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * Reset code field
-                  AppTextField(
-                    name: 'resetCode',
-                    label: context.l10n.authResetCode,
-                    placeHolder: context.l10n.authEnterResetCodePlaceholder,
-                    type: AppTextFieldType.text,
-                    validator: (value) =>
-                        VerifyResetCodeValidator.validateResetCode(
-                          context,
-                          value,
-                        ),
-                    prefixIcon: Icon(
-                      Icons.lock_reset,
-                      color: context.colorScheme.primary,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // * Validation errors
-                  AppValidationErrors(errors: validationErrors),
-                  if (validationErrors != null && validationErrors!.isNotEmpty)
-                    const SizedBox(height: 16),
-
-                  // * Verify code button
-                  AppButton(
-                    text: context.l10n.authVerifyCode,
-                    onPressed: _handleVerifyCode,
-                    size: AppButtonSize.large,
-                  ),
-                  const SizedBox(height: 16),
-
-                  // * Back to login link
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        context.l10n.authRememberPassword,
-                        style: AppTextStyle.bodyMedium,
-                        color: context.colors.textSecondary,
-                      ),
-                      GestureDetector(
-                        onTap: () => context.push(RouteConstant.login),
-                        child: AppText(
-                          context.l10n.authLogin,
-                          style: AppTextStyle.bodyMedium,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // * Header section
+                        AppText(
+                          context.l10n.authVerifyResetCode,
+                          style: AppTextStyle.headlineMedium,
                           color: context.colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        AppText(
+                          context.l10n.authEnterResetCode,
+                          style: AppTextStyle.bodyLarge,
+                          color: context.colors.textSecondary,
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * Reset code field
+                        AppTextField(
+                          name: 'resetCode',
+                          label: context.l10n.authResetCode,
+                          placeHolder:
+                              context.l10n.authEnterResetCodePlaceholder,
+                          type: AppTextFieldType.text,
+                          validator: (value) =>
+                              VerifyResetCodeValidator.validateResetCode(
+                                context,
+                                value,
+                              ),
+                          prefixIcon: Icon(
+                            Icons.lock_reset,
+                            color: context.colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+
+                        // * Validation errors
+                        AppValidationErrors(errors: validationErrors),
+                        if (validationErrors != null &&
+                            validationErrors!.isNotEmpty)
+                          const SizedBox(height: 16),
+
+                        // * Verify code button
+                        AppButton(
+                          text: context.l10n.authVerifyCode,
+                          onPressed: _handleVerifyCode,
+                          size: AppButtonSize.large,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // * Back to login link
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText(
+                              context.l10n.authRememberPassword,
+                              style: AppTextStyle.bodyMedium,
+                              color: context.colors.textSecondary,
+                            ),
+                            GestureDetector(
+                              onTap: () => context.push(RouteConstant.login),
+                              child: AppText(
+                                context.l10n.authLogin,
+                                style: AppTextStyle.bodyMedium,
+                                color: context.colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),
