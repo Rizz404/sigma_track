@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart'
 import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/generate_bulk_asset_tags_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/upload_bulk_data_matrix_response.dart';
+import 'package:sigma_track/feature/asset/domain/entities/delete_bulk_data_matrix_response.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
@@ -20,6 +21,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usec
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_tags_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -69,6 +71,8 @@ abstract class AssetRepository {
   generateBulkAssetTags(GenerateBulkAssetTagsUsecaseParams params);
   Future<Either<Failure, ItemSuccess<UploadBulkDataMatrixResponse>>>
   uploadBulkDataMatrix(UploadBulkDataMatrixUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<DeleteBulkDataMatrixResponse>>>
+  deleteBulkDataMatrix(DeleteBulkDataMatrixUsecaseParams params);
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetList(
     ExportAssetListUsecaseParams params,
   );

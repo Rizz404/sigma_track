@@ -104,7 +104,9 @@ class ApiConstant {
   static const String generateAssetTagSuggestion = '$assetPrefix/generate-tag';
   static const String generateBulkAssetTags = '$assetPrefix/generate-bulk-tags';
   static const String uploadBulkDataMatrix =
-      '$assetPrefix/upload-bulk-datamatrix';
+      '$assetPrefix/upload/bulk-datamatrix';
+  static const String deleteBulkDataMatrix =
+      '$assetPrefix/delete/bulk-datamatrix';
   static const String exportAssetList = '$assetPrefix/export/list';
   static const String exportAssetDataMatrix = '$assetPrefix/export/datamatrix';
   static const String bulkCreateAssets = '$assetPrefix/bulk';
