@@ -10,15 +10,20 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/core/services/auth_service.dart';
 import 'package:sigma_track/core/utils/logger.dart';
 
-// Todo: Handle refresh token otomatis jadi, seakan-akan gak pernah error invalid token
 class DioClient {
   final Dio _dio;
   final LocaleInterceptor _localeInterceptor;
   final AuthInterceptor _authInterceptor;
 
-  DioClient(this._dio, AuthService authService)
-    : _localeInterceptor = LocaleInterceptor(),
-      _authInterceptor = AuthInterceptor(authService) {
+  DioClient(
+    this._dio,
+    AuthService authService, {
+    void Function()? onTokenInvalid,
+  }) : _localeInterceptor = LocaleInterceptor(),
+       _authInterceptor = AuthInterceptor(
+         authService,
+         onTokenInvalid: onTokenInvalid,
+       ) {
     // ! Dari bot, nanti rungkat salahin ini
     _dio.interceptors.clear();
     _dio

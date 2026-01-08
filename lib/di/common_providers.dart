@@ -9,6 +9,7 @@ import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
 import 'package:sigma_track/core/services/theme_storage_service.dart';
+import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/l10n/app_localizations.dart';
 
@@ -35,7 +36,14 @@ final dioProvider = Provider<Dio>((ref) {
 final dioClientProvider = Provider<DioClient>((ref) {
   final _dio = ref.watch(dioProvider);
   final _authService = ref.watch(authServiceProvider);
-  final dioClient = DioClient(_dio, _authService);
+  final dioClient = DioClient(
+    _dio,
+    _authService,
+    onTokenInvalid: () {
+      // * Invalidate auth provider to trigger re-check
+      ref.invalidate(authNotifierProvider);
+    },
+  );
 
   final currentLocale = ref.watch(localeProvider);
   dioClient.updateLocale(currentLocale);

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:sigma_track/core/services/auth_service.dart';
+import 'package:sigma_track/core/utils/logging.dart';
 
 class AuthInterceptor extends Interceptor {
   final AuthService _authService;
+  final void Function()? onTokenInvalid;
 
-  AuthInterceptor(this._authService);
+  AuthInterceptor(this._authService, {this.onTokenInvalid});
 
   @override
   void onRequest(
@@ -12,42 +14,46 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     try {
-      // Get the access token from secure storage
       final token = await _authService.getAccessToken();
 
       if (token != null && token.isNotEmpty) {
-        // Add the Bearer token to the Authorization header
         options.headers['Authorization'] = 'Bearer $token';
       }
-    } catch (e) {
-      // If there's an error getting the token, continue without it
-      // This prevents the request from failing due to storage issues
-      print('Error getting access token: $e');
+    } catch (e, s) {
+      this.logError('Error getting access token', e, s);
     }
 
-    // Continue with the request
     handler.next(options);
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
-    // Handle 401 Unauthorized responses
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      // Token might be expired or invalid
-      // Clear the stored token and user data
-      _clearAuthData();
+      final responseData = err.response?.data;
+      final isInvalidToken =
+          responseData is Map &&
+          responseData['message']?.toString().toLowerCase().contains(
+                'invalid token',
+              ) ==
+              true;
+
+      if (isInvalidToken) {
+        this.logInfo('Invalid token detected, clearing auth data');
+        await _handleInvalidToken();
+      }
     }
 
-    // Continue with the error
     handler.next(err);
   }
 
-  /// Clear authentication data when token is invalid
-  Future<void> _clearAuthData() async {
+  Future<void> _handleInvalidToken() async {
     try {
       await _authService.clearAuthData();
-    } catch (e) {
-      print('Error clearing auth data: $e');
+
+      // * Notify listener (will trigger auth state refresh)
+      onTokenInvalid?.call();
+    } catch (e, s) {
+      this.logError('Error handling invalid token', e, s);
     }
   }
 }

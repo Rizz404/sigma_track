@@ -130,11 +130,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, ActionSuccess>> logout() async {
     try {
       this.logData('Logout: Starting logout process');
-      await _authLocalDatasource.deleteAccessToken();
-      await _authLocalDatasource.deleteRefreshToken();
-      await _authLocalDatasource.deleteUser();
-      this.logData('Logout: Successfully cleared all auth data');
 
+      // * Clear all local auth data
+      await Future.wait([
+        _authLocalDatasource.deleteAccessToken(),
+        _authLocalDatasource.deleteRefreshToken(),
+        _authLocalDatasource.deleteUser(),
+      ]);
+
+      this.logData('Logout: Successfully cleared all auth data');
       return const Right(ActionSuccess(message: 'Logout successful'));
     } catch (e, s) {
       this.logError('Logout failed', e, s);

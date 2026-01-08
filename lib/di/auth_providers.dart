@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
+import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/get_current_auth_usecase.dart';
@@ -13,6 +15,7 @@ import 'package:sigma_track/feature/auth/domain/usecases/reset_password_usecase.
 import 'package:sigma_track/feature/auth/domain/usecases/verify_reset_code_usecase.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 
 // Todo: Nanti samain pattern state dan notifier kayak yang udah ada, jangan async
 // * Global Auth Notifier Provider
@@ -65,6 +68,9 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
         state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
       (success) {
+        // * Invalidate current user provider untuk refresh data
+        ref.invalidate(currentUserNotifierProvider);
+
         state = AsyncData(
           AuthState.authenticated(user: success.data, success: success),
         );
@@ -82,6 +88,9 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
         state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
       (success) {
+        // * Invalidate current user provider untuk refresh data user baru
+        ref.invalidate(currentUserNotifierProvider);
+
         state = AsyncData(
           AuthState.authenticated(user: success.data!.user, success: success),
         );
@@ -142,16 +151,34 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   Future<void> logout() async {
     state = const AsyncLoading();
 
-    final result = await _logoutUsecase.call(NoParams());
+    try {
+      // * Clear FCM token first
+      final fcmManager = ref.read(fcmTokenManagerProvider);
+      await fcmManager.clearToken();
 
-    result.fold(
-      (failure) {
-        state = AsyncData(AuthState.unauthenticated(failure: failure));
-      },
-      (success) {
-        state = AsyncData(AuthState.unauthenticated());
-      },
-    );
+      final result = await _logoutUsecase.call(NoParams());
+
+      result.fold(
+        (failure) {
+          state = AsyncData(AuthState.unauthenticated(failure: failure));
+        },
+        (success) {
+          this.logInfo('Logout successful, all data cleared');
+
+          // * Invalidate current user provider untuk clear cached data
+          ref.invalidate(currentUserNotifierProvider);
+
+          state = AsyncData(AuthState.unauthenticated());
+        },
+      );
+    } catch (e, s) {
+      this.logError('Logout error', e, s);
+
+      // * Tetap invalidate meskipun error
+      ref.invalidate(currentUserNotifierProvider);
+
+      state = AsyncData(AuthState.unauthenticated());
+    }
   }
 
   // * Update user data in auth state (for sync after profile update)
