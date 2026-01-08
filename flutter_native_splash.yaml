@@ -1,10 +1,10 @@
 flutter_native_splash:
   color: "#fafbfc"
-  image: assets/images/splash.png
+  image: assets/images/splash-bigger-padding.png
   color_dark: "#0f172a"
-  image_dark: assets/images/splash.png
+  image_dark: assets/images/splash-bigger-padding.png
   android_12:
-    image: assets/images/splash.png
+    image: assets/images/splash-bigger-padding.png
     icon_background_color: "#fafbfc"
-    image_dark: assets/images/splash.png
+    image_dark: assets/images/splash-bigger-padding.png
     icon_background_color_dark: "#0f172a"
