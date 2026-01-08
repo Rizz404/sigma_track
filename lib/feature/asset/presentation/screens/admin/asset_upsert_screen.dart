@@ -204,7 +204,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
     final formData = _formKey.currentState!.value;
 
-    final assetTag = formData['assetTag'] as String;
+    final assetTag = formData['assetTag'] as String?;
     final assetName = formData['assetName'] as String;
     final categoryId = formData['categoryId'] as String?;
     final brand = formData['brand'] as String?;
@@ -262,6 +262,12 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         assignedTo: assignedTo,
         quantity: quantity,
       );
+      return;
+    }
+
+    // * Validate asset tag for single create
+    if (assetTag == null || assetTag.isEmpty) {
+      AppToast.warning(context.l10n.assetValidationTagRequired);
       return;
     }
 
@@ -357,9 +363,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       final tagsNotifier = ref.read(
         generateBulkAssetTagsNotifierProvider.notifier,
       );
+
       await tagsNotifier.generateTags(categoryId, quantity);
 
       final tagsState = ref.read(generateBulkAssetTagsNotifierProvider);
+
       if (tagsState.status != BulkAssetTagsStatus.success ||
           tagsState.data == null) {
         throw Exception(

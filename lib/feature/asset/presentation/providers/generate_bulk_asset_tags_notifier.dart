@@ -5,8 +5,7 @@ import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_tags_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_asset_tags_state.dart';
 
-class GenerateBulkAssetTagsNotifier
-    extends AutoDisposeNotifier<BulkAssetTagsState> {
+class GenerateBulkAssetTagsNotifier extends Notifier<BulkAssetTagsState> {
   GenerateBulkAssetTagsUsecase get _generateBulkAssetTagsUsecase =>
       ref.watch(generateBulkAssetTagsUsecaseProvider);
 
@@ -64,7 +63,6 @@ class GenerateBulkAssetTagsNotifier
 }
 
 final generateBulkAssetTagsNotifierProvider =
-    AutoDisposeNotifierProvider<
-      GenerateBulkAssetTagsNotifier,
-      BulkAssetTagsState
-    >(GenerateBulkAssetTagsNotifier.new);
+    NotifierProvider<GenerateBulkAssetTagsNotifier, BulkAssetTagsState>(
+      GenerateBulkAssetTagsNotifier.new,
+    );
