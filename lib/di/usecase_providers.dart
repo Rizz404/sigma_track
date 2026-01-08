@@ -31,6 +31,8 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_assets_statistics_
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_tags_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 
 // ===== ASSET MOVEMENT USECASES =====
@@ -309,6 +311,18 @@ final getGenerateAssetTagSuggestionProvider =
     Provider<GenerateAssetTagSuggestionUsecase>((ref) {
       final assetRepository = ref.read(assetRepositoryProvider);
       return GenerateAssetTagSuggestionUsecase(assetRepository);
+    });
+
+final generateBulkAssetTagsUsecaseProvider =
+    Provider<GenerateBulkAssetTagsUsecase>((ref) {
+      final assetRepository = ref.read(assetRepositoryProvider);
+      return GenerateBulkAssetTagsUsecase(assetRepository);
+    });
+
+final uploadBulkDataMatrixUsecaseProvider =
+    Provider<UploadBulkDataMatrixUsecase>((ref) {
+      final assetRepository = ref.read(assetRepositoryProvider);
+      return UploadBulkDataMatrixUsecase(assetRepository);
     });
 
 // =============================================

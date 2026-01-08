@@ -10,6 +10,8 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_model.dart';
 import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dart';
 import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/generate_bulk_asset_tags_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/upload_bulk_data_matrix_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -19,6 +21,8 @@ import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.d
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/export_asset_list_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_suggestion_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_tags_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -57,6 +61,12 @@ abstract class AssetRemoteDatasource {
   Future<ApiResponse<dynamic>> deleteAsset(DeleteAssetUsecaseParams params);
   Future<ApiResponse<GenerateAssetTagResponseModel>> generateAssetTagSuggestion(
     GenerateAssetTagSuggestionUsecaseParams params,
+  );
+  Future<ApiResponse<GenerateBulkAssetTagsResponseModel>> generateBulkAssetTags(
+    GenerateBulkAssetTagsUsecaseParams params,
+  );
+  Future<ApiResponse<UploadBulkDataMatrixResponseModel>> uploadBulkDataMatrix(
+    UploadBulkDataMatrixUsecaseParams params,
   );
   Future<ApiResponse<Uint8List>> exportAssetList(
     ExportAssetListUsecaseParams params,
@@ -364,6 +374,55 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         ApiConstant.bulkDeleteAssets,
         data: params.toMap(),
         fromJson: (json) => BulkDeleteResponse.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<GenerateBulkAssetTagsResponseModel>> generateBulkAssetTags(
+    GenerateBulkAssetTagsUsecaseParams params,
+  ) async {
+    this.logData('generateBulkAssetTags called');
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.generateBulkAssetTags,
+        data: params.toMap(),
+        fromJson: (json) => GenerateBulkAssetTagsResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<UploadBulkDataMatrixResponseModel>> uploadBulkDataMatrix(
+    UploadBulkDataMatrixUsecaseParams params,
+  ) async {
+    this.logData('uploadBulkDataMatrix called');
+    try {
+      final formData = dio.FormData();
+
+      // * Add assetTags as JSON array field
+      formData.fields.add(MapEntry('assetTags', params.assetTags.join(',')));
+
+      // * Add files: dataMatrixImages[0], dataMatrixImages[1], etc.
+      for (int i = 0; i < params.filePaths.length; i++) {
+        formData.files.add(
+          MapEntry(
+            'dataMatrixImages[$i]',
+            await dio.MultipartFile.fromFile(params.filePaths[i]),
+          ),
+        );
+      }
+
+      final response = await _dioClient.post(
+        ApiConstant.uploadBulkDataMatrix,
+        data: formData,
+        fromJson: (json) => UploadBulkDataMatrixResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {
