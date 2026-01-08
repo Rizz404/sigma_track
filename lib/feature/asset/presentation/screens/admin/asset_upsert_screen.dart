@@ -15,9 +15,14 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/generate_bulk_asset_tags_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_asset_tags_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_data_matrix_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/validators/asset_upsert_validator.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
@@ -56,6 +61,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   File? _generatedDataMatrixFile;
   String? _dataMatrixPreviewData;
   String? _warrantyDurationPeriod = 'months';
+  bool _enableBulkCopy = false;
+  bool _isBulkProcessing = false;
+  String _bulkProcessingStatus = '';
+  double _bulkProcessingProgress = 0.0;
 
   Future<List<Category>> _searchCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -215,6 +224,47 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       return;
     }
 
+    // * Check if bulk copy enabled
+    if (_enableBulkCopy && !_isEdit) {
+      final copyQuantity = formData['copyQuantity'] as String?;
+      final quantity = int.tryParse(copyQuantity ?? '0') ?? 0;
+
+      if (quantity < 1) {
+        AppToast.warning('Please enter copy quantity (minimum 1)');
+        return;
+      }
+
+      // * Parse bulk serial numbers
+      final bulkSerialNumbersStr = formData['bulkSerialNumbers'] as String?;
+      List<String>? bulkSerialNumbers;
+      if (bulkSerialNumbersStr != null &&
+          bulkSerialNumbersStr.trim().isNotEmpty) {
+        bulkSerialNumbers = bulkSerialNumbersStr
+            .split(RegExp(r'[,\n]'))
+            .map((e) => e.trim())
+            .where((e) => e.isNotEmpty)
+            .toList();
+      }
+
+      await _handleBulkCopy(
+        categoryId: categoryId,
+        assetName: assetName,
+        brand: brand,
+        model: model,
+        bulkSerialNumbers: bulkSerialNumbers,
+        purchaseDate: purchaseDate,
+        purchasePrice: purchasePrice,
+        vendorName: vendorName,
+        warrantyEnd: warrantyEnd,
+        status: status,
+        condition: condition,
+        locationId: locationId,
+        assignedTo: assignedTo,
+        quantity: quantity,
+      );
+      return;
+    }
+
     // * Generate data matrix if not already generated or asset tag changed
     if (_generatedDataMatrixFile == null ||
         _dataMatrixPreviewData != assetTag) {
@@ -279,13 +329,227 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
   }
 
+  Future<void> _handleBulkCopy({
+    required String categoryId,
+    required String assetName,
+    String? brand,
+    String? model,
+    List<String>? bulkSerialNumbers,
+    DateTime? purchaseDate,
+    String? purchasePrice,
+    String? vendorName,
+    DateTime? warrantyEnd,
+    String? status,
+    String? condition,
+    String? locationId,
+    String? assignedTo,
+    required int quantity,
+  }) async {
+    setState(() {
+      _isBulkProcessing = true;
+      _bulkProcessingStatus = 'Generating asset tags...';
+      _bulkProcessingProgress = 0.0;
+    });
+
+    try {
+      // * Step 1: Generate bulk asset tags
+      this.logPresentation('Generating $quantity asset tags');
+      final tagsNotifier = ref.read(
+        generateBulkAssetTagsNotifierProvider.notifier,
+      );
+      await tagsNotifier.generateTags(categoryId, quantity);
+
+      final tagsState = ref.read(generateBulkAssetTagsNotifierProvider);
+      if (tagsState.status != BulkAssetTagsStatus.success ||
+          tagsState.data == null) {
+        throw Exception(
+          tagsState.failure?.message ?? 'Failed to generate tags',
+        );
+      }
+
+      final tags = tagsState.data!.tags;
+      this.logData('Generated ${tags.length} tags');
+
+      setState(() {
+        _bulkProcessingStatus = 'Generating data matrix images...';
+        _bulkProcessingProgress = 0.2;
+      });
+
+      // * Step 2: Generate data matrix for each tag
+      final List<File> dataMatrixFiles = [];
+      for (int i = 0; i < tags.length; i++) {
+        final tag = tags[i];
+        final imageBytes = await _screenshotController.captureFromWidget(
+          Container(
+            width: 420,
+            height: 420,
+            color: Colors.white,
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                border: Border.all(color: Colors.grey[300]!, width: 1),
+              ),
+              child: Center(
+                child: BarcodeWidget(
+                  barcode: Barcode.dataMatrix(),
+                  data: tag,
+                  width: 380,
+                  height: 380,
+                  drawText: false,
+                ),
+              ),
+            ),
+          ),
+        );
+
+        final tempDir = await getTemporaryDirectory();
+        final file = File(
+          '${tempDir.path}/data_matrix_${tag}_${DateTime.now().millisecondsSinceEpoch}.png',
+        );
+        await file.writeAsBytes(imageBytes);
+        dataMatrixFiles.add(file);
+
+        // * Update progress
+        final progress = 0.2 + (0.3 * (i + 1) / tags.length);
+        setState(() {
+          _bulkProcessingProgress = progress;
+          _bulkProcessingStatus =
+              'Generated ${i + 1}/${tags.length} data matrix images';
+        });
+      }
+
+      this.logData('Generated ${dataMatrixFiles.length} data matrix images');
+
+      // * Step 3: Upload bulk data matrix with progress tracking
+      this.logPresentation(
+        'Uploading ${dataMatrixFiles.length} data matrix images',
+      );
+
+      setState(() {
+        _bulkProcessingStatus =
+            'Uploading 0/${dataMatrixFiles.length} data matrix images...';
+        _bulkProcessingProgress = 0.5;
+      });
+
+      final uploadNotifier = ref.read(
+        uploadBulkDataMatrixNotifierProvider.notifier,
+      );
+
+      // * Listen to upload completion (simulated progress since API doesn't support it yet)
+      final uploadStartProgress = 0.5;
+      final uploadEndProgress = 0.8;
+
+      // * Start upload
+      final uploadFuture = uploadNotifier.uploadImages(
+        tags,
+        dataMatrixFiles.map((f) => f.path).toList(),
+      );
+
+      // * Simulate progress while uploading (since API doesn't report progress)
+      bool uploadComplete = false;
+      uploadFuture.then((_) => uploadComplete = true);
+
+      int progressSteps = 0;
+      while (!uploadComplete && progressSteps < 30) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        progressSteps++;
+        final simulatedProgress =
+            uploadStartProgress +
+            ((uploadEndProgress - uploadStartProgress) * (progressSteps / 30));
+        setState(() {
+          _bulkProcessingProgress = simulatedProgress;
+          _bulkProcessingStatus =
+              'Uploading data matrix images... ${(simulatedProgress * 100).toInt()}%';
+        });
+      }
+
+      await uploadFuture;
+
+      final uploadState = ref.read(uploadBulkDataMatrixNotifierProvider);
+      if (uploadState.status != BulkDataMatrixStatus.success ||
+          uploadState.data == null) {
+        throw Exception(
+          uploadState.failure?.message ?? 'Failed to upload data matrix',
+        );
+      }
+
+      this.logData('Uploaded ${uploadState.data!.count} data matrix images');
+
+      setState(() {
+        _bulkProcessingStatus = 'Creating assets...';
+        _bulkProcessingProgress = 0.8;
+      });
+
+      // * Step 4: Create bulk assets
+      final assetParams = tags.asMap().entries.map((entry) {
+        final index = entry.key;
+        final tag = entry.value;
+
+        // * Map serial number from bulk input if provided
+        String? finalSerialNumber;
+        if (bulkSerialNumbers != null && index < bulkSerialNumbers.length) {
+          finalSerialNumber = bulkSerialNumbers[index];
+        }
+
+        return CreateAssetUsecaseParams(
+          assetTag: tag,
+          assetName: assetName,
+          categoryId: categoryId,
+          brand: brand,
+          model: model,
+          serialNumber: finalSerialNumber,
+          purchaseDate: purchaseDate,
+          purchasePrice: purchasePrice != null
+              ? double.tryParse(purchasePrice)
+              : null,
+          vendorName: vendorName,
+          warrantyEnd: warrantyEnd,
+          status: status != null
+              ? AssetStatus.values.firstWhere((e) => e.value == status)
+              : AssetStatus.active,
+          condition: condition != null
+              ? AssetCondition.values.firstWhere((e) => e.value == condition)
+              : AssetCondition.good,
+          locationId: locationId,
+          assignedTo: assignedTo,
+        );
+      }).toList();
+
+      ref
+          .read(assetsProvider.notifier)
+          .createManyAssets(BulkCreateAssetsParams(assets: assetParams));
+
+      setState(() {
+        _bulkProcessingProgress = 1.0;
+      });
+
+      // * Clean up temp files
+      for (final file in dataMatrixFiles) {
+        if (await file.exists()) {
+          await file.delete();
+        }
+      }
+
+      // * Clear notifier states
+      tagsNotifier.clearState();
+      uploadNotifier.clearState();
+    } catch (e, s) {
+      this.logError('Bulk copy failed', e, s);
+      setState(() {
+        _isBulkProcessing = false;
+      });
+      AppToast.error('Failed to create bulk assets: ${e.toString()}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen<AssetsState>(assetsProvider, (previous, next) {
       // * Handle loading state
-      if (next.isMutating) {
+      if (next.isMutating && !_isBulkProcessing) {
         context.loaderOverlay.show();
-      } else {
+      } else if (!_isBulkProcessing) {
         context.loaderOverlay.hide();
       }
 
@@ -294,11 +558,13 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         AppToast.success(
           next.mutationMessage ?? context.l10n.assetSavedSuccessfully,
         );
+        setState(() => _isBulkProcessing = false);
         context.pop();
       }
 
       // * Handle mutation error
       if (next.hasMutationError) {
+        setState(() => _isBulkProcessing = false);
         if (next.mutationFailure is ValidationFailure) {
           setState(
             () => validationErrors =
@@ -331,18 +597,23 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        _buildBasicInfoSection(),
-                        const SizedBox(height: 24),
-                        _buildCategoryLocationSection(),
-                        const SizedBox(height: 24),
-                        _buildPurchaseInfoSection(),
-                        const SizedBox(height: 24),
-                        _buildStatusSection(),
-                        const SizedBox(height: 24),
-                        AppValidationErrors(errors: validationErrors),
-                        if (validationErrors != null &&
-                            validationErrors!.isNotEmpty)
-                          const SizedBox(height: 16),
+                        if (_isBulkProcessing) _buildBulkProgressSection(),
+                        if (!_isBulkProcessing) ...[
+                          _buildBasicInfoSection(),
+                          const SizedBox(height: 24),
+                          if (!_isEdit) _buildBulkCopySection(),
+                          if (!_isEdit) const SizedBox(height: 24),
+                          _buildCategoryLocationSection(),
+                          const SizedBox(height: 24),
+                          _buildPurchaseInfoSection(),
+                          const SizedBox(height: 24),
+                          _buildStatusSection(),
+                          const SizedBox(height: 24),
+                          AppValidationErrors(errors: validationErrors),
+                          if (validationErrors != null &&
+                              validationErrors!.isNotEmpty)
+                            const SizedBox(height: 16),
+                        ],
                         const SizedBox(
                           height: 80,
                         ), // * Space for sticky buttons
@@ -809,6 +1080,226 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     );
   }
 
+  Widget _buildBulkCopySection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.copy_all, color: context.colors.primary, size: 20),
+                const SizedBox(width: 8),
+                AppText(
+                  'Bulk Copy',
+                  style: AppTextStyle.titleMedium,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              'Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.',
+              style: AppTextStyle.bodySmall,
+              color: context.colors.textSecondary,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Switch(
+                  value: _enableBulkCopy,
+                  onChanged: (value) {
+                    setState(() => _enableBulkCopy = value);
+                  },
+                ),
+                const SizedBox(width: 12),
+                AppText('Enable bulk copy', style: AppTextStyle.bodyMedium),
+              ],
+            ),
+            if (_enableBulkCopy) ...[
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'copyQuantity',
+                label: 'Number of copies',
+                placeHolder: 'Enter quantity',
+                type: AppTextFieldType.number,
+                initialValue: '1',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter quantity';
+                  }
+                  final num = int.tryParse(value);
+                  if (num == null || num < 1) {
+                    return 'Minimum 1 copy';
+                  }
+                  if (num > 100) {
+                    return 'Maximum 100 copies';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              AppTextField(
+                name: 'bulkSerialNumbers',
+                label: 'Serial Numbers (Optional)',
+                placeHolder:
+                    'Enter serial numbers separated by comma or newline',
+                maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return null; // * Optional field
+                  }
+
+                  final quantity =
+                      int.tryParse(
+                        _formKey.currentState?.fields['copyQuantity']?.value ??
+                            '0',
+                      ) ??
+                      0;
+
+                  if (quantity <= 0) return null;
+
+                  final serialNumbers = value
+                      .split(RegExp(r'[,\n]'))
+                      .map((e) => e.trim())
+                      .where((e) => e.isNotEmpty)
+                      .toList();
+
+                  if (serialNumbers.length != quantity) {
+                    return 'Please enter exactly $quantity serial numbers';
+                  }
+
+                  // * Check for duplicates
+                  final uniqueSerials = serialNumbers.toSet();
+                  if (uniqueSerials.length != serialNumbers.length) {
+                    return 'Duplicate serial numbers found';
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.colorScheme.primaryContainer.withValues(
+                    alpha: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.colorScheme.primary.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.tips_and_updates_outlined,
+                      color: context.colorScheme.primary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: AppText(
+                        'Enter one serial number per line or separated by comma. Leave empty to skip serial numbers.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.semantic.warning.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.semantic.warning.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: context.semantic.warning,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: AppText(
+                        'Asset tags and data matrix will be auto-generated for each copy.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.semantic.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBulkProgressSection() {
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Icon(Icons.cloud_upload, size: 64, color: context.colors.primary),
+            const SizedBox(height: 24),
+            AppText(
+              'Creating Bulk Assets',
+              style: AppTextStyle.headlineSmall,
+              fontWeight: FontWeight.bold,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              _bulkProcessingStatus,
+              style: AppTextStyle.bodyMedium,
+              color: context.colors.textSecondary,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: _bulkProcessingProgress,
+                minHeight: 8,
+                backgroundColor: context.colors.border,
+                valueColor: AlwaysStoppedAnimation(context.colors.primary),
+              ),
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              '${(_bulkProcessingProgress * 100).toStringAsFixed(0)}%',
+              style: AppTextStyle.bodyMedium,
+              fontWeight: FontWeight.w600,
+              color: context.colors.primary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildStickyActionButtons() {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -831,16 +1322,18 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               child: AppButton(
                 text: context.l10n.assetCancel,
                 variant: AppButtonVariant.outlined,
-                onPressed: () => context.pop(),
+                onPressed: _isBulkProcessing ? null : () => context.pop(),
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
               child: AppButton(
-                text: _isEdit
+                text: _enableBulkCopy && !_isEdit
+                    ? 'Create Bulk Assets'
+                    : _isEdit
                     ? context.l10n.assetUpdate
                     : context.l10n.assetCreate,
-                onPressed: _handleSubmit,
+                onPressed: _isBulkProcessing ? null : _handleSubmit,
               ),
             ),
           ],
