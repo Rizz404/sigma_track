@@ -761,5 +761,147 @@
   "assetExportSubtitle": "Export data to file",
   "@assetExportSubtitle": {
     "description": "Export option subtitle"
+  },
+  "assetBulkCopy": "Bulk Copy",
+  "@asset BulkCopy": {
+    "description": "Bulk copy section title"
+  },
+  "assetBulkCopyDescription": "Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.",
+  "@assetBulkCopyDescription": {
+    "description": "Bulk copy feature description"
+  },
+  "assetEnableBulkCopy": "Enable bulk copy",
+  "@assetEnableBulkCopy": {
+    "description": "Enable bulk copy toggle label"
+  },
+  "assetNumberOfCopies": "Number of copies",
+  "@assetNumberOfCopies": {
+    "description": "Number of copies input label"
+  },
+  "assetEnterQuantity": "Enter quantity",
+  "@assetEnterQuantity": {
+    "description": "Enter quantity placeholder"
+  },
+  "assetPleaseEnterQuantity": "Please enter quantity",
+  "@assetPleaseEnterQuantity": {
+    "description": "Validation error for empty quantity"
+  },
+  "assetMinimumOneCopy": "Minimum 1 copy",
+  "@assetMinimumOneCopy": {
+    "description": "Validation error for minimum copy quantity"
+  },
+  "assetMaximumCopies": "Maximum 100 copies",
+  "@assetMaximumCopies": {
+    "description": "Validation error for maximum copy quantity"
+  },
+  "assetSerialNumbersOptional": "Serial Numbers (Optional)",
+  "@assetSerialNumbersOptional": {
+    "description": "Serial numbers bulk input label"
+  },
+  "assetEnterSerialNumbers": "Enter serial numbers separated by comma or newline",
+  "@assetEnterSerialNumbers": {
+    "description": "Serial numbers bulk input placeholder"
+  },
+  "assetPleaseEnterCopyQuantity": "Please enter copy quantity (minimum 1)",
+  "@assetPleaseEnterCopyQuantity": {
+    "description": "Warning message for bulk copy quantity"
+  },
+  "assetEnterExactlySerialNumbers": "Please enter exactly {quantity} serial numbers",
+  "@assetEnterExactlySerialNumbers": {
+    "description": "Validation error for serial number count mismatch",
+    "placeholders": {
+      "quantity": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "assetDuplicateSerialNumbers": "Duplicate serial numbers found",
+  "@assetDuplicateSerialNumbers": {
+    "description": "Validation error for duplicate serial numbers"
+  },
+  "assetSerialNumbersHint": "Enter one serial number per line or separated by comma. Leave empty to skip serial numbers.",
+  "@assetSerialNumbersHint": {
+    "description": "Hint text for serial numbers input"
+  },
+  "assetBulkAutoGenerateInfo": "Asset tags and data matrix will be auto-generated for each copy.",
+  "@assetBulkAutoGenerateInfo": {
+    "description": "Information about auto-generation in bulk mode"
+  },
+  "assetCreatingBulkAssets": "Creating Bulk Assets",
+  "@assetCreatingBulkAssets": {
+    "description": "Bulk creation progress title"
+  },
+  "assetCreateBulkAssets": "Create Bulk Assets",
+  "@assetCreateBulkAssets": {
+    "description": "Create bulk assets button label"
+  },
+  "assetGeneratingAssetTags": "Generating asset tags...",
+  "@assetGeneratingAssetTags": {
+    "description": "Progress status for generating asset tags"
+  },
+  "assetGeneratingDataMatrixImages": "Generating data matrix images...",
+  "@assetGeneratingDataMatrixImages": {
+    "description": "Progress status for generating data matrix images"
+  },
+  "assetGeneratedDataMatrix": "Generated {current}/{total} data matrix images",
+  "@assetGeneratedDataMatrix": {
+    "description": "Progress status for data matrix generation count",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrix": "Uploading {current}/{total} data matrix images...",
+  "@assetUploadingDataMatrix": {
+    "description": "Progress status for uploading data matrix images",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "0"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrixProgress": "Uploading data matrix images... {progress}%",
+  "@assetUploadingDataMatrixProgress": {
+    "description": "Progress status with percentage for uploading data matrix",
+    "placeholders": {
+      "progress": {
+        "type": "int",
+        "example": "75"
+      }
+    }
+  },
+  "assetCreatingAssets": "Creating assets...",
+  "@assetCreatingAssets": {
+    "description": "Progress status for creating assets"
+  },
+  "assetFailedToCreateBulkAssets": "Failed to create bulk assets: {error}",
+  "@assetFailedToCreateBulkAssets": {
+    "description": "Error message for bulk asset creation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "assetAutoGenerationDisabled": "Auto-generation disabled in bulk copy mode",
+  "@assetAutoGenerationDisabled": {
+    "description": "Tooltip when auto-generation is disabled"
+  },
+  "assetAutoGenerateAssetTag": "Auto-generate asset tag",
+  "@assetAutoGenerateAssetTag": {
+    "description": "Tooltip for auto-generate button"
   }
-}
+}

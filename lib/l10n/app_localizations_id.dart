@@ -577,6 +577,100 @@ class L10nId extends L10n {
   String get assetExportSubtitle => 'Ekspor data ke file';
 
   @override
+  String get assetBulkCopy => 'Salin Massal';
+
+  @override
+  String get assetBulkCopyDescription =>
+      'Buat beberapa aset dengan data yang sama. Hanya tag aset, data matrix, dan nomor seri yang akan berbeda.';
+
+  @override
+  String get assetEnableBulkCopy => 'Aktifkan salin massal';
+
+  @override
+  String get assetNumberOfCopies => 'Jumlah salinan';
+
+  @override
+  String get assetEnterQuantity => 'Masukkan jumlah';
+
+  @override
+  String get assetPleaseEnterQuantity => 'Harap masukkan jumlah';
+
+  @override
+  String get assetMinimumOneCopy => 'Minimal 1 salinan';
+
+  @override
+  String get assetMaximumCopies => 'Maksimal 100 salinan';
+
+  @override
+  String get assetSerialNumbersOptional => 'Nomor Seri (Opsional)';
+
+  @override
+  String get assetEnterSerialNumbers =>
+      'Masukkan nomor seri dipisahkan dengan koma atau baris baru';
+
+  @override
+  String get assetPleaseEnterCopyQuantity =>
+      'Harap masukkan jumlah salinan (minimal 1)';
+
+  @override
+  String assetEnterExactlySerialNumbers(int quantity) {
+    return 'Harap masukkan tepat $quantity nomor seri';
+  }
+
+  @override
+  String get assetDuplicateSerialNumbers => 'Ditemukan nomor seri duplikat';
+
+  @override
+  String get assetSerialNumbersHint =>
+      'Masukkan satu nomor seri per baris atau dipisahkan dengan koma. Biarkan kosong untuk melewati nomor seri.';
+
+  @override
+  String get assetBulkAutoGenerateInfo =>
+      'Tag aset dan data matrix akan dibuat secara otomatis untuk setiap salinan.';
+
+  @override
+  String get assetCreatingBulkAssets => 'Membuat Aset Massal';
+
+  @override
+  String get assetCreateBulkAssets => 'Buat Aset Massal';
+
+  @override
+  String get assetGeneratingAssetTags => 'Membuat tag aset...';
+
+  @override
+  String get assetGeneratingDataMatrixImages => 'Membuat gambar data matrix...';
+
+  @override
+  String assetGeneratedDataMatrix(int current, int total) {
+    return 'Berhasil membuat $current/$total gambar data matrix';
+  }
+
+  @override
+  String assetUploadingDataMatrix(int current, int total) {
+    return 'Mengunggah $current/$total gambar data matrix...';
+  }
+
+  @override
+  String assetUploadingDataMatrixProgress(int progress) {
+    return 'Mengunggah gambar data matrix... $progress%';
+  }
+
+  @override
+  String get assetCreatingAssets => 'Membuat aset...';
+
+  @override
+  String assetFailedToCreateBulkAssets(String error) {
+    return 'Gagal membuat aset massal: $error';
+  }
+
+  @override
+  String get assetAutoGenerationDisabled =>
+      'Pembuatan otomatis dinonaktifkan dalam mode salin massal';
+
+  @override
+  String get assetAutoGenerateAssetTag => 'Buat tag aset secara otomatis';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';
 
   @override

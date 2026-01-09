@@ -761,5 +761,147 @@
   "assetExportSubtitle": "Ekspor data ke file",
   "@assetExportSubtitle": {
     "description": "Export option subtitle"
+  },
+  "assetBulkCopy": "Salin Massal",
+  "@assetBulkCopy": {
+    "description": "Bulk copy section title"
+  },
+  "assetBulkCopyDescription": "Buat beberapa aset dengan data yang sama. Hanya tag aset, data matrix, dan nomor seri yang akan berbeda.",
+  "@assetBulkCopyDescription": {
+    "description": "Bulk copy feature description"
+  },
+  "assetEnableBulkCopy": "Aktifkan salin massal",
+  "@assetEnableBulkCopy": {
+    "description": "Enable bulk copy toggle label"
+  },
+  "assetNumberOfCopies": "Jumlah salinan",
+  "@assetNumberOfCopies": {
+    "description": "Number of copies input label"
+  },
+  "assetEnterQuantity": "Masukkan jumlah",
+  "@assetEnterQuantity": {
+    "description": "Enter quantity placeholder"
+  },
+  "assetPleaseEnterQuantity": "Harap masukkan jumlah",
+  "@assetPleaseEnterQuantity": {
+    "description": "Validation error for empty quantity"
+  },
+  "assetMinimumOneCopy": "Minimal 1 salinan",
+  "@assetMinimumOneCopy": {
+    "description": "Validation error for minimum copy quantity"
+  },
+  "assetMaximumCopies": "Maksimal 100 salinan",
+  "@assetMaximumCopies": {
+    "description": "Validation error for maximum copy quantity"
+  },
+  "assetSerialNumbersOptional": "Nomor Seri (Opsional)",
+  "@assetSerialNumbersOptional": {
+    "description": "Serial numbers bulk input label"
+  },
+  "assetEnterSerialNumbers": "Masukkan nomor seri dipisahkan dengan koma atau baris baru",
+  "@assetEnterSerialNumbers": {
+    "description": "Serial numbers bulk input placeholder"
+  },
+  "assetPleaseEnterCopyQuantity": "Harap masukkan jumlah salinan (minimal 1)",
+  "@assetPleaseEnterCopyQuantity": {
+    "description": "Warning message for bulk copy quantity"
+  },
+  "assetEnterExactlySerialNumbers": "Harap masukkan tepat {quantity} nomor seri",
+  "@assetEnterExactlySerialNumbers": {
+    "description": "Validation error for serial number count mismatch",
+    "placeholders": {
+      "quantity": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "assetDuplicateSerialNumbers": "Ditemukan nomor seri duplikat",
+  "@assetDuplicateSerialNumbers": {
+    "description": "Validation error for duplicate serial numbers"
+  },
+  "assetSerialNumbersHint": "Masukkan satu nomor seri per baris atau dipisahkan dengan koma. Biarkan kosong untuk melewati nomor seri.",
+  "@assetSerialNumbersHint": {
+    "description": "Hint text for serial numbers input"
+  },
+  "assetBulkAutoGenerateInfo": "Tag aset dan data matrix akan dibuat secara otomatis untuk setiap salinan.",
+  "@assetBulkAutoGenerateInfo": {
+    "description": "Information about auto-generation in bulk mode"
+  },
+  "assetCreatingBulkAssets": "Membuat Aset Massal",
+  "@assetCreatingBulkAssets": {
+    "description": "Bulk creation progress title"
+  },
+  "assetCreateBulkAssets": "Buat Aset Massal",
+  "@assetCreateBulkAssets": {
+    "description": "Create bulk assets button label"
+  },
+  "assetGeneratingAssetTags": "Membuat tag aset...",
+  "@assetGeneratingAssetTags": {
+    "description": "Progress status for generating asset tags"
+  },
+  "assetGeneratingDataMatrixImages": "Membuat gambar data matrix...",
+  "@assetGeneratingDataMatrixImages": {
+    "description": "Progress status for generating data matrix images"
+  },
+  "assetGeneratedDataMatrix": "Berhasil membuat {current}/{total} gambar data matrix",
+  "@assetGeneratedDataMatrix": {
+    "description": "Progress status for data matrix generation count",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrix": "Mengunggah {current}/{total} gambar data matrix...",
+  "@assetUploadingDataMatrix": {
+    "description": "Progress status for uploading data matrix images",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "0"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrixProgress": "Mengunggah gambar data matrix... {progress}%",
+  "@assetUploadingDataMatrixProgress": {
+    "description": "Progress status with percentage for uploading data matrix",
+    "placeholders": {
+      "progress": {
+        "type": "int",
+        "example": "75"
+      }
+    }
+  },
+  "assetCreatingAssets": "Membuat aset...",
+  "@assetCreatingAssets": {
+    "description": "Progress status for creating assets"
+  },
+  "assetFailedToCreateBulkAssets": "Gagal membuat aset massal: {error}",
+  "@assetFailedToCreateBulkAssets": {
+    "description": "Error message for bulk asset creation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "assetAutoGenerationDisabled": "Pembuatan otomatis dinonaktifkan dalam mode salin massal",
+  "@assetAutoGenerationDisabled": {
+    "description": "Tooltip when auto-generation is disabled"
+  },
+  "assetAutoGenerateAssetTag": "Buat tag aset secara otomatis",
+  "@assetAutoGenerateAssetTag": {
+    "description": "Tooltip for auto-generate button"
   }
-}
+}

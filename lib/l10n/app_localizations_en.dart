@@ -580,6 +580,101 @@ class L10nEn extends L10n {
   String get assetExportSubtitle => 'Export data to file';
 
   @override
+  String get assetBulkCopy => 'Bulk Copy';
+
+  @override
+  String get assetBulkCopyDescription =>
+      'Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.';
+
+  @override
+  String get assetEnableBulkCopy => 'Enable bulk copy';
+
+  @override
+  String get assetNumberOfCopies => 'Number of copies';
+
+  @override
+  String get assetEnterQuantity => 'Enter quantity';
+
+  @override
+  String get assetPleaseEnterQuantity => 'Please enter quantity';
+
+  @override
+  String get assetMinimumOneCopy => 'Minimum 1 copy';
+
+  @override
+  String get assetMaximumCopies => 'Maximum 100 copies';
+
+  @override
+  String get assetSerialNumbersOptional => 'Serial Numbers (Optional)';
+
+  @override
+  String get assetEnterSerialNumbers =>
+      'Enter serial numbers separated by comma or newline';
+
+  @override
+  String get assetPleaseEnterCopyQuantity =>
+      'Please enter copy quantity (minimum 1)';
+
+  @override
+  String assetEnterExactlySerialNumbers(int quantity) {
+    return 'Please enter exactly $quantity serial numbers';
+  }
+
+  @override
+  String get assetDuplicateSerialNumbers => 'Duplicate serial numbers found';
+
+  @override
+  String get assetSerialNumbersHint =>
+      'Enter one serial number per line or separated by comma. Leave empty to skip serial numbers.';
+
+  @override
+  String get assetBulkAutoGenerateInfo =>
+      'Asset tags and data matrix will be auto-generated for each copy.';
+
+  @override
+  String get assetCreatingBulkAssets => 'Creating Bulk Assets';
+
+  @override
+  String get assetCreateBulkAssets => 'Create Bulk Assets';
+
+  @override
+  String get assetGeneratingAssetTags => 'Generating asset tags...';
+
+  @override
+  String get assetGeneratingDataMatrixImages =>
+      'Generating data matrix images...';
+
+  @override
+  String assetGeneratedDataMatrix(int current, int total) {
+    return 'Generated $current/$total data matrix images';
+  }
+
+  @override
+  String assetUploadingDataMatrix(int current, int total) {
+    return 'Uploading $current/$total data matrix images...';
+  }
+
+  @override
+  String assetUploadingDataMatrixProgress(int progress) {
+    return 'Uploading data matrix images... $progress%';
+  }
+
+  @override
+  String get assetCreatingAssets => 'Creating assets...';
+
+  @override
+  String assetFailedToCreateBulkAssets(String error) {
+    return 'Failed to create bulk assets: $error';
+  }
+
+  @override
+  String get assetAutoGenerationDisabled =>
+      'Auto-generation disabled in bulk copy mode';
+
+  @override
+  String get assetAutoGenerateAssetTag => 'Auto-generate asset tag';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
 
   @override

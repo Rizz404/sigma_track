@@ -561,6 +561,96 @@ class L10nJa extends L10n {
   String get assetExportSubtitle => 'データをファイルにエクスポート';
 
   @override
+  String get assetBulkCopy => '一括コピー';
+
+  @override
+  String get assetBulkCopyDescription =>
+      '同じデータで複数のアセットを作成します。アセットタグ、データマトリックス、シリアル番号のみが異なります。';
+
+  @override
+  String get assetEnableBulkCopy => '一括コピーを有効にする';
+
+  @override
+  String get assetNumberOfCopies => 'コピー数';
+
+  @override
+  String get assetEnterQuantity => '数量を入力';
+
+  @override
+  String get assetPleaseEnterQuantity => '数量を入力してください';
+
+  @override
+  String get assetMinimumOneCopy => '最小1コピー';
+
+  @override
+  String get assetMaximumCopies => '最大100コピー';
+
+  @override
+  String get assetSerialNumbersOptional => 'シリアル番号（オプション）';
+
+  @override
+  String get assetEnterSerialNumbers => 'カンマまたは改行で区切ったシリアル番号を入力';
+
+  @override
+  String get assetPleaseEnterCopyQuantity => 'コピー数を入力してください（最小1）';
+
+  @override
+  String assetEnterExactlySerialNumbers(int quantity) {
+    return '正確に$quantity個のシリアル番号を入力してください';
+  }
+
+  @override
+  String get assetDuplicateSerialNumbers => '重複したシリアル番号が見つかりました';
+
+  @override
+  String get assetSerialNumbersHint =>
+      '1行に1つのシリアル番号を入力するか、カンマで区切ります。シリアル番号をスキップする場合は空のままにしてください。';
+
+  @override
+  String get assetBulkAutoGenerateInfo => 'アセットタグとデータマトリックスは各コピーに対して自動生成されます。';
+
+  @override
+  String get assetCreatingBulkAssets => '一括アセットを作成中';
+
+  @override
+  String get assetCreateBulkAssets => '一括アセットを作成';
+
+  @override
+  String get assetGeneratingAssetTags => 'アセットタグを生成中...';
+
+  @override
+  String get assetGeneratingDataMatrixImages => 'データマトリックス画像を生成中...';
+
+  @override
+  String assetGeneratedDataMatrix(int current, int total) {
+    return '$current/$total個のデータマトリックス画像を生成しました';
+  }
+
+  @override
+  String assetUploadingDataMatrix(int current, int total) {
+    return '$current/$total個のデータマトリックス画像をアップロード中...';
+  }
+
+  @override
+  String assetUploadingDataMatrixProgress(int progress) {
+    return 'データマトリックス画像をアップロード中... $progress%';
+  }
+
+  @override
+  String get assetCreatingAssets => 'アセットを作成中...';
+
+  @override
+  String assetFailedToCreateBulkAssets(String error) {
+    return '一括アセットの作成に失敗しました: $error';
+  }
+
+  @override
+  String get assetAutoGenerationDisabled => '一括コピーモードでは自動生成が無効になっています';
+
+  @override
+  String get assetAutoGenerateAssetTag => 'アセットタグを自動生成';
+
+  @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';
 
   @override

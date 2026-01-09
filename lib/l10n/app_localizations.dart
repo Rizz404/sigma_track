@@ -1161,6 +1161,162 @@ abstract class L10n {
   /// **'Export data to file'**
   String get assetExportSubtitle;
 
+  /// No description provided for @assetBulkCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk Copy'**
+  String get assetBulkCopy;
+
+  /// Bulk copy feature description
+  ///
+  /// In en, this message translates to:
+  /// **'Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.'**
+  String get assetBulkCopyDescription;
+
+  /// Enable bulk copy toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Enable bulk copy'**
+  String get assetEnableBulkCopy;
+
+  /// Number of copies input label
+  ///
+  /// In en, this message translates to:
+  /// **'Number of copies'**
+  String get assetNumberOfCopies;
+
+  /// Enter quantity placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter quantity'**
+  String get assetEnterQuantity;
+
+  /// Validation error for empty quantity
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter quantity'**
+  String get assetPleaseEnterQuantity;
+
+  /// Validation error for minimum copy quantity
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum 1 copy'**
+  String get assetMinimumOneCopy;
+
+  /// Validation error for maximum copy quantity
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 100 copies'**
+  String get assetMaximumCopies;
+
+  /// Serial numbers bulk input label
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Numbers (Optional)'**
+  String get assetSerialNumbersOptional;
+
+  /// Serial numbers bulk input placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Enter serial numbers separated by comma or newline'**
+  String get assetEnterSerialNumbers;
+
+  /// Warning message for bulk copy quantity
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter copy quantity (minimum 1)'**
+  String get assetPleaseEnterCopyQuantity;
+
+  /// Validation error for serial number count mismatch
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter exactly {quantity} serial numbers'**
+  String assetEnterExactlySerialNumbers(int quantity);
+
+  /// Validation error for duplicate serial numbers
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate serial numbers found'**
+  String get assetDuplicateSerialNumbers;
+
+  /// Hint text for serial numbers input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter one serial number per line or separated by comma. Leave empty to skip serial numbers.'**
+  String get assetSerialNumbersHint;
+
+  /// Information about auto-generation in bulk mode
+  ///
+  /// In en, this message translates to:
+  /// **'Asset tags and data matrix will be auto-generated for each copy.'**
+  String get assetBulkAutoGenerateInfo;
+
+  /// Bulk creation progress title
+  ///
+  /// In en, this message translates to:
+  /// **'Creating Bulk Assets'**
+  String get assetCreatingBulkAssets;
+
+  /// Create bulk assets button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create Bulk Assets'**
+  String get assetCreateBulkAssets;
+
+  /// Progress status for generating asset tags
+  ///
+  /// In en, this message translates to:
+  /// **'Generating asset tags...'**
+  String get assetGeneratingAssetTags;
+
+  /// Progress status for generating data matrix images
+  ///
+  /// In en, this message translates to:
+  /// **'Generating data matrix images...'**
+  String get assetGeneratingDataMatrixImages;
+
+  /// Progress status for data matrix generation count
+  ///
+  /// In en, this message translates to:
+  /// **'Generated {current}/{total} data matrix images'**
+  String assetGeneratedDataMatrix(int current, int total);
+
+  /// Progress status for uploading data matrix images
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading {current}/{total} data matrix images...'**
+  String assetUploadingDataMatrix(int current, int total);
+
+  /// Progress status with percentage for uploading data matrix
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading data matrix images... {progress}%'**
+  String assetUploadingDataMatrixProgress(int progress);
+
+  /// Progress status for creating assets
+  ///
+  /// In en, this message translates to:
+  /// **'Creating assets...'**
+  String get assetCreatingAssets;
+
+  /// Error message for bulk asset creation failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create bulk assets: {error}'**
+  String assetFailedToCreateBulkAssets(String error);
+
+  /// Tooltip when auto-generation is disabled
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-generation disabled in bulk copy mode'**
+  String get assetAutoGenerationDisabled;
+
+  /// Tooltip for auto-generate button
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-generate asset tag'**
+  String get assetAutoGenerateAssetTag;
+
   /// Dialog title for deleting an asset movement
   ///
   /// In en, this message translates to:

@@ -761,5 +761,147 @@
   "assetExportSubtitle": "データをファイルにエクスポート",
   "@assetExportSubtitle": {
     "description": "Export option subtitle"
+  },
+  "assetBulkCopy": "一括コピー",
+  "@assetBulkCopy": {
+    "description": "Bulk copy section title"
+  },
+  "assetBulkCopyDescription": "同じデータで複数のアセットを作成します。アセットタグ、データマトリックス、シリアル番号のみが異なります。",
+  "@assetBulkCopyDescription": {
+    "description": "Bulk copy feature description"
+  },
+  "assetEnableBulkCopy": "一括コピーを有効にする",
+  "@assetEnableBulkCopy": {
+    "description": "Enable bulk copy toggle label"
+  },
+  "assetNumberOfCopies": "コピー数",
+  "@assetNumberOfCopies": {
+    "description": "Number of copies input label"
+  },
+  "assetEnterQuantity": "数量を入力",
+  "@assetEnterQuantity": {
+    "description": "Enter quantity placeholder"
+  },
+  "assetPleaseEnterQuantity": "数量を入力してください",
+  "@assetPleaseEnterQuantity": {
+    "description": "Validation error for empty quantity"
+  },
+  "assetMinimumOneCopy": "最小1コピー",
+  "@assetMinimumOneCopy": {
+    "description": "Validation error for minimum copy quantity"
+  },
+  "assetMaximumCopies": "最大100コピー",
+  "@assetMaximumCopies": {
+    "description": "Validation error for maximum copy quantity"
+  },
+  "assetSerialNumbersOptional": "シリアル番号（オプション）",
+  "@assetSerialNumbersOptional": {
+    "description": "Serial numbers bulk input label"
+  },
+  "assetEnterSerialNumbers": "カンマまたは改行で区切ったシリアル番号を入力",
+  "@assetEnterSerialNumbers": {
+    "description": "Serial numbers bulk input placeholder"
+  },
+  "assetPleaseEnterCopyQuantity": "コピー数を入力してください（最小1）",
+  "@assetPleaseEnterCopyQuantity": {
+    "description": "Warning message for bulk copy quantity"
+  },
+  "assetEnterExactlySerialNumbers": "正確に{quantity}個のシリアル番号を入力してください",
+  "@assetEnterExactlySerialNumbers": {
+    "description": "Validation error for serial number count mismatch",
+    "placeholders": {
+      "quantity": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "assetDuplicateSerialNumbers": "重複したシリアル番号が見つかりました",
+  "@assetDuplicateSerialNumbers": {
+    "description": "Validation error for duplicate serial numbers"
+  },
+  "assetSerialNumbersHint": "1行に1つのシリアル番号を入力するか、カンマで区切ります。シリアル番号をスキップする場合は空のままにしてください。",
+  "@assetSerialNumbersHint": {
+    "description": "Hint text for serial numbers input"
+  },
+  "assetBulkAutoGenerateInfo": "アセットタグとデータマトリックスは各コピーに対して自動生成されます。",
+  "@assetBulkAutoGenerateInfo": {
+    "description": "Information about auto-generation in bulk mode"
+  },
+  "assetCreatingBulkAssets": "一括アセットを作成中",
+  "@assetCreatingBulkAssets": {
+    "description": "Bulk creation progress title"
+  },
+  "assetCreateBulkAssets": "一括アセットを作成",
+  "@assetCreateBulkAssets": {
+    "description": "Create bulk assets button label"
+  },
+  "assetGeneratingAssetTags": "アセットタグを生成中...",
+  "@assetGeneratingAssetTags": {
+    "description": "Progress status for generating asset tags"
+  },
+  "assetGeneratingDataMatrixImages": "データマトリックス画像を生成中...",
+  "@assetGeneratingDataMatrixImages": {
+    "description": "Progress status for generating data matrix images"
+  },
+  "assetGeneratedDataMatrix": "{current}/{total}個のデータマトリックス画像を生成しました",
+  "@assetGeneratedDataMatrix": {
+    "description": "Progress status for data matrix generation count",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrix": "{current}/{total}個のデータマトリックス画像をアップロード中...",
+  "@assetUploadingDataMatrix": {
+    "description": "Progress status for uploading data matrix images",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "0"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "assetUploadingDataMatrixProgress": "データマトリックス画像をアップロード中... {progress}%",
+  "@assetUploadingDataMatrixProgress": {
+    "description": "Progress status with percentage for uploading data matrix",
+    "placeholders": {
+      "progress": {
+        "type": "int",
+        "example": "75"
+      }
+    }
+  },
+  "assetCreatingAssets": "アセットを作成中...",
+  "@assetCreatingAssets": {
+    "description": "Progress status for creating assets"
+  },
+  "assetFailedToCreateBulkAssets": "一括アセットの作成に失敗しました: {error}",
+  "@assetFailedToCreateBulkAssets": {
+    "description": "Error message for bulk asset creation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "assetAutoGenerationDisabled": "一括コピーモードでは自動生成が無効になっています",
+  "@assetAutoGenerationDisabled": {
+    "description": "Tooltip when auto-generation is disabled"
+  },
+  "assetAutoGenerateAssetTag": "アセットタグを自動生成",
+  "@assetAutoGenerateAssetTag": {
+    "description": "Tooltip for auto-generate button"
   }
-}
+}

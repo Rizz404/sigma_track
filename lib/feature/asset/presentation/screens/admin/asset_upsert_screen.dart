@@ -230,7 +230,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       final quantity = int.tryParse(copyQuantity ?? '0') ?? 0;
 
       if (quantity < 1) {
-        AppToast.warning('Please enter copy quantity (minimum 1)');
+        AppToast.warning(context.l10n.assetPleaseEnterCopyQuantity);
         return;
       }
 
@@ -353,7 +353,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   }) async {
     setState(() {
       _isBulkProcessing = true;
-      _bulkProcessingStatus = 'Generating asset tags...';
+      _bulkProcessingStatus = context.l10n.assetGeneratingAssetTags;
       _bulkProcessingProgress = 0.0;
     });
 
@@ -379,7 +379,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       this.logData('Generated ${tags.length} tags');
 
       setState(() {
-        _bulkProcessingStatus = 'Generating data matrix images...';
+        _bulkProcessingStatus = context.l10n.assetGeneratingDataMatrixImages;
         _bulkProcessingProgress = 0.2;
       });
 
@@ -422,8 +422,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         final progress = 0.2 + (0.3 * (i + 1) / tags.length);
         setState(() {
           _bulkProcessingProgress = progress;
-          _bulkProcessingStatus =
-              'Generated ${i + 1}/${tags.length} data matrix images';
+          _bulkProcessingStatus = context.l10n.assetGeneratedDataMatrix(
+            i + 1,
+            tags.length,
+          );
         });
       }
 
@@ -435,8 +437,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       );
 
       setState(() {
-        _bulkProcessingStatus =
-            'Uploading 0/${dataMatrixFiles.length} data matrix images...';
+        _bulkProcessingStatus = context.l10n.assetUploadingDataMatrix(
+          0,
+          dataMatrixFiles.length,
+        );
         _bulkProcessingProgress = 0.5;
       });
 
@@ -467,8 +471,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ((uploadEndProgress - uploadStartProgress) * (progressSteps / 30));
         setState(() {
           _bulkProcessingProgress = simulatedProgress;
-          _bulkProcessingStatus =
-              'Uploading data matrix images... ${(simulatedProgress * 100).toInt()}%';
+          _bulkProcessingStatus = context.l10n.assetUploadingDataMatrixProgress(
+            (simulatedProgress * 100).toInt(),
+          );
         });
       }
 
@@ -497,7 +502,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       this.logData('Mapped ${tagToUrlMap.length} data matrix URLs to tags');
 
       setState(() {
-        _bulkProcessingStatus = 'Creating assets...';
+        _bulkProcessingStatus = context.l10n.assetCreatingAssets;
         _bulkProcessingProgress = 0.8;
       });
 
@@ -560,7 +565,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       setState(() {
         _isBulkProcessing = false;
       });
-      AppToast.error('Failed to create bulk assets: ${e.toString()}');
+      AppToast.error(context.l10n.assetFailedToCreateBulkAssets(e.toString()));
     }
   }
 
@@ -693,8 +698,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   onPressed: _enableBulkCopy ? null : _handleGenerateAssetTag,
                   icon: const Icon(Icons.auto_awesome),
                   tooltip: _enableBulkCopy
-                      ? 'Auto-generation disabled in bulk copy mode'
-                      : 'Auto-generate asset tag',
+                      ? context.l10n.assetAutoGenerationDisabled
+                      : context.l10n.assetAutoGenerateAssetTag,
                   style: IconButton.styleFrom(
                     backgroundColor: context.colorScheme.primaryContainer,
                     foregroundColor: context.colorScheme.onPrimaryContainer,
@@ -1123,7 +1128,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 Icon(Icons.copy_all, color: context.colors.primary, size: 20),
                 const SizedBox(width: 8),
                 AppText(
-                  'Bulk Copy',
+                  context.l10n.assetBulkCopy,
                   style: AppTextStyle.titleMedium,
                   fontWeight: FontWeight.bold,
                 ),
@@ -1131,7 +1136,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ),
             const SizedBox(height: 8),
             AppText(
-              'Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.',
+              context.l10n.assetBulkCopyDescription,
               style: AppTextStyle.bodySmall,
               color: context.colors.textSecondary,
             ),
@@ -1152,27 +1157,30 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   },
                 ),
                 const SizedBox(width: 12),
-                AppText('Enable bulk copy', style: AppTextStyle.bodyMedium),
+                AppText(
+                  context.l10n.assetEnableBulkCopy,
+                  style: AppTextStyle.bodyMedium,
+                ),
               ],
             ),
             if (_enableBulkCopy) ...[
               const SizedBox(height: 16),
               AppTextField(
                 name: 'copyQuantity',
-                label: 'Number of copies',
-                placeHolder: 'Enter quantity',
+                label: context.l10n.assetNumberOfCopies,
+                placeHolder: context.l10n.assetEnterQuantity,
                 type: AppTextFieldType.number,
                 initialValue: '1',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter quantity';
+                    return context.l10n.assetPleaseEnterQuantity;
                   }
                   final num = int.tryParse(value);
                   if (num == null || num < 1) {
-                    return 'Minimum 1 copy';
+                    return context.l10n.assetMinimumOneCopy;
                   }
                   if (num > 100) {
-                    return 'Maximum 100 copies';
+                    return context.l10n.assetMaximumCopies;
                   }
                   return null;
                 },
@@ -1180,9 +1188,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               const SizedBox(height: 16),
               AppTextField(
                 name: 'bulkSerialNumbers',
-                label: 'Serial Numbers (Optional)',
-                placeHolder:
-                    'Enter serial numbers separated by comma or newline',
+                label: context.l10n.assetSerialNumbersOptional,
+                placeHolder: context.l10n.assetEnterSerialNumbers,
                 maxLines: 5,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -1205,13 +1212,15 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                       .toList();
 
                   if (serialNumbers.length != quantity) {
-                    return 'Please enter exactly $quantity serial numbers';
+                    return context.l10n.assetEnterExactlySerialNumbers(
+                      quantity,
+                    );
                   }
 
                   // * Check for duplicates
                   final uniqueSerials = serialNumbers.toSet();
                   if (uniqueSerials.length != serialNumbers.length) {
-                    return 'Duplicate serial numbers found';
+                    return context.l10n.assetDuplicateSerialNumbers;
                   }
 
                   return null;
@@ -1239,7 +1248,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: AppText(
-                        'Enter one serial number per line or separated by comma. Leave empty to skip serial numbers.',
+                        context.l10n.assetSerialNumbersHint,
                         style: AppTextStyle.bodySmall,
                         color: context.colorScheme.primary,
                       ),
@@ -1267,7 +1276,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: AppText(
-                        'Asset tags and data matrix will be auto-generated for each copy.',
+                        context.l10n.assetBulkAutoGenerateInfo,
                         style: AppTextStyle.bodySmall,
                         color: context.semantic.warning,
                       ),
@@ -1297,7 +1306,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             Icon(Icons.cloud_upload, size: 64, color: context.colors.primary),
             const SizedBox(height: 24),
             AppText(
-              'Creating Bulk Assets',
+              context.l10n.assetCreatingBulkAssets,
               style: AppTextStyle.headlineSmall,
               fontWeight: FontWeight.bold,
               textAlign: TextAlign.center,
@@ -1361,7 +1370,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             Expanded(
               child: AppButton(
                 text: _enableBulkCopy && !_isEdit
-                    ? 'Create Bulk Assets'
+                    ? context.l10n.assetCreateBulkAssets
                     : _isEdit
                     ? context.l10n.assetUpdate
                     : context.l10n.assetCreate,
