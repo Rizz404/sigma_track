@@ -29,6 +29,7 @@ class CreateAssetUsecase
 class CreateAssetUsecaseParams extends Equatable {
   final String assetTag;
   final File? dataMatrixImageFile;
+  final String? dataMatrixImageUrl;
   final String assetName;
   final String categoryId;
   final String? brand;
@@ -46,6 +47,7 @@ class CreateAssetUsecaseParams extends Equatable {
   CreateAssetUsecaseParams({
     required this.assetTag,
     this.dataMatrixImageFile,
+    this.dataMatrixImageUrl,
     required this.assetName,
     required this.categoryId,
     this.brand,
@@ -66,6 +68,7 @@ class CreateAssetUsecaseParams extends Equatable {
       'assetTag': assetTag,
       if (dataMatrixImageFile != null)
         'dataMatrixImageFile': dataMatrixImageFile!.path,
+      if (dataMatrixImageUrl != null) 'dataMatrixImageUrl': dataMatrixImageUrl,
       'assetName': assetName,
       'categoryId': categoryId,
       'status': status.value,
@@ -95,6 +98,7 @@ class CreateAssetUsecaseParams extends Equatable {
       dataMatrixImageFile: map['dataMatrixImageFile'] != null
           ? File(map['dataMatrixImageFile'])
           : null,
+      dataMatrixImageUrl: map['dataMatrixImageUrl'],
       assetName: map['assetName'] ?? '',
       categoryId: map['categoryId'] ?? '',
       brand: map['brand'],
@@ -126,6 +130,7 @@ class CreateAssetUsecaseParams extends Equatable {
   List<Object?> get props => [
     assetTag,
     dataMatrixImageFile,
+    dataMatrixImageUrl,
     assetName,
     categoryId,
     brand,

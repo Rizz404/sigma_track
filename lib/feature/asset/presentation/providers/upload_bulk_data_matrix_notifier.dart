@@ -13,6 +13,8 @@ class UploadBulkDataMatrixNotifier
   @override
   BulkDataMatrixState build() {
     this.logPresentation('Initializing UploadBulkDataMatrixNotifier');
+    // * Keep alive to prevent disposal during upload
+    ref.keepAlive();
     return BulkDataMatrixState.initial();
   }
 

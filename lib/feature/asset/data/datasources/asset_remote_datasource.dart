@@ -411,18 +411,30 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     try {
       final formData = dio.FormData();
 
-      // * Add assetTags as JSON array field
-      formData.fields.add(MapEntry('assetTags', params.assetTags.join(',')));
-
-      // * Add files: dataMatrixImages[0], dataMatrixImages[1], etc.
-      for (int i = 0; i < params.filePaths.length; i++) {
+      // ✅ PENTING: Loop setiap file, tambahkan dengan field name yang SAMA
+      for (final filePath in params.filePaths) {
         formData.files.add(
           MapEntry(
-            'dataMatrixImages[$i]',
-            await dio.MultipartFile.fromFile(params.filePaths[i]),
+            'dataMatrixImages', // ⚠️ Field name SAMA untuk semua files
+            await dio.MultipartFile.fromFile(
+              filePath,
+              filename: filePath.split('/').last,
+            ),
           ),
         );
       }
+
+      // ✅ Loop setiap tag, tambahkan dengan field name yang SAMA
+      for (final tag in params.assetTags) {
+        formData.fields.add(
+          MapEntry('assetTags', tag), // ⚠️ Field name SAMA untuk semua tags
+        );
+      }
+
+      // Debug log untuk memastikan
+      this.logData(
+        'uploadBulkDataMatrix: Uploading ${params.filePaths.length} files with ${params.assetTags.length} tags',
+      );
 
       final response = await _dioClient.post(
         ApiConstant.uploadBulkDataMatrix,

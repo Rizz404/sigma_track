@@ -484,12 +484,24 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
       this.logData('Uploaded ${uploadState.data!.count} data matrix images');
 
+      // * Map asset tags to their data matrix URLs
+      final uploadedTags = uploadState.data!.assetTags;
+      final uploadedUrls = uploadState.data!.urls;
+      final tagToUrlMap = <String, String>{};
+      for (int i = 0; i < uploadedTags.length; i++) {
+        if (i < uploadedUrls.length) {
+          tagToUrlMap[uploadedTags[i]] = uploadedUrls[i];
+        }
+      }
+
+      this.logData('Mapped ${tagToUrlMap.length} data matrix URLs to tags');
+
       setState(() {
         _bulkProcessingStatus = 'Creating assets...';
         _bulkProcessingProgress = 0.8;
       });
 
-      // * Step 4: Create bulk assets
+      // * Step 4: Create bulk assets with data matrix URLs
       final assetParams = tags.asMap().entries.map((entry) {
         final index = entry.key;
         final tag = entry.value;
@@ -521,6 +533,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               : AssetCondition.good,
           locationId: locationId,
           assignedTo: assignedTo,
+          dataMatrixImageUrl: tagToUrlMap[tag],
         );
       }).toList();
 
