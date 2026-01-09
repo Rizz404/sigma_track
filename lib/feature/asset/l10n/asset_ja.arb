@@ -754,6 +754,10 @@
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
   },
+  "assetCopyAsset": "資産を\nコピー",
+  "@assetCopyAsset": {
+    "description": "Copy asset action label"
+  },
   "assetExportTitle": "エクスポート",
   "@assetExportTitle": {
     "description": "Export option title"
@@ -903,5 +907,21 @@
   "assetAutoGenerateAssetTag": "アセットタグを自動生成",
   "@assetAutoGenerateAssetTag": {
     "description": "Tooltip for auto-generate button"
+  },
+  "assetCancelBulkProcessingTitle": "一括処理をキャンセルしますか？",
+  "@assetCancelBulkProcessingTitle": {
+    "description": "Dialog title for canceling bulk processing"
+  },
+  "assetCancelBulkProcessingMessage": "一括資産作成が進行中です。今キャンセルすると、すべての進行状況が失われます。本当にキャンセルしますか？",
+  "@assetCancelBulkProcessingMessage": {
+    "description": "Dialog message for canceling bulk processing"
+  },
+  "assetContinueProcessing": "続行",
+  "@assetContinueProcessing": {
+    "description": "Continue processing button label"
+  },
+  "assetCancelProcessing": "処理をキャンセル",
+  "@assetCancelProcessing": {
+    "description": "Cancel processing button label"
   }
-}
+}

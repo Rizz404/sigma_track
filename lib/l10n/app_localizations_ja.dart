@@ -555,6 +555,9 @@ class L10nJa extends L10n {
   String get assetRecordMaintenance => 'メンテを\n記録';
 
   @override
+  String get assetCopyAsset => '資産を\nコピー';
+
+  @override
   String get assetExportTitle => 'エクスポート';
 
   @override
@@ -649,6 +652,19 @@ class L10nJa extends L10n {
 
   @override
   String get assetAutoGenerateAssetTag => 'アセットタグを自動生成';
+
+  @override
+  String get assetCancelBulkProcessingTitle => '一括処理をキャンセルしますか？';
+
+  @override
+  String get assetCancelBulkProcessingMessage =>
+      '一括資産作成が進行中です。今キャンセルすると、すべての進行状況が失われます。本当にキャンセルしますか？';
+
+  @override
+  String get assetContinueProcessing => '続行';
+
+  @override
+  String get assetCancelProcessing => '処理をキャンセル';
 
   @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';

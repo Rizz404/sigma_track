@@ -46,8 +46,14 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 class AssetUpsertScreen extends ConsumerStatefulWidget {
   final Asset? asset;
   final String? assetId;
+  final Asset? copyFromAsset;
 
-  const AssetUpsertScreen({super.key, this.asset, this.assetId});
+  const AssetUpsertScreen({
+    super.key,
+    this.asset,
+    this.assetId,
+    this.copyFromAsset,
+  });
 
   @override
   ConsumerState<AssetUpsertScreen> createState() => _AssetUpsertScreenState();
@@ -58,6 +64,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   final ScreenshotController _screenshotController = ScreenshotController();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.asset != null || widget.assetId != null;
+  bool get _isCopyMode => widget.copyFromAsset != null;
+  // * Helper to get source asset for initialization (copy or edit)
+  Asset? get _sourceAsset => widget.copyFromAsset ?? widget.asset;
   File? _generatedDataMatrixFile;
   String? _dataMatrixPreviewData;
   String? _warrantyDurationPeriod = 'months';
@@ -569,6 +578,42 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
   }
 
+  Future<bool> _showCancelProcessingDialog() async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: AppText(
+            context.l10n.assetCancelBulkProcessingTitle,
+            style: AppTextStyle.titleMedium,
+            fontWeight: FontWeight.bold,
+          ),
+          content: AppText(
+            context.l10n.assetCancelBulkProcessingMessage,
+            style: AppTextStyle.bodyMedium,
+          ),
+          actions: [
+            AppButton(
+              text: context.l10n.assetContinueProcessing,
+              variant: AppButtonVariant.text,
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+            ),
+            AppButton(
+              text: context.l10n.assetCancelProcessing,
+              variant: AppButtonVariant.filled,
+              onPressed: () {
+                setState(() => _isBulkProcessing = false);
+                Navigator.of(dialogContext).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+    return result ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen<AssetsState>(assetsProvider, (previous, next) {
@@ -605,52 +650,66 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       }
     });
 
-    return AppLoaderOverlay(
-      child: Scaffold(
-        appBar: CustomAppBar(
-          title: _isEdit
-              ? context.l10n.assetEditAsset
-              : context.l10n.assetCreateAsset,
-        ),
-        endDrawer: const AppEndDrawer(),
-        body: Column(
-          children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: FormBuilder(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (_isBulkProcessing) _buildBulkProgressSection(),
-                        if (!_isBulkProcessing) ...[
-                          _buildBasicInfoSection(),
-                          const SizedBox(height: 24),
-                          if (!_isEdit) _buildBulkCopySection(),
-                          if (!_isEdit) const SizedBox(height: 24),
-                          _buildCategoryLocationSection(),
-                          const SizedBox(height: 24),
-                          _buildPurchaseInfoSection(),
-                          const SizedBox(height: 24),
-                          _buildStatusSection(),
-                          const SizedBox(height: 24),
-                          AppValidationErrors(errors: validationErrors),
-                          if (validationErrors != null &&
-                              validationErrors!.isNotEmpty)
-                            const SizedBox(height: 16),
+    return PopScope(
+      canPop: !_isBulkProcessing,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
+        }
+        if (_isBulkProcessing) {
+          final shouldPop = await _showCancelProcessingDialog();
+          if (shouldPop && context.mounted) {
+            context.pop();
+          }
+        }
+      },
+      child: AppLoaderOverlay(
+        child: Scaffold(
+          appBar: CustomAppBar(
+            title: _isEdit
+                ? context.l10n.assetEditAsset
+                : context.l10n.assetCreateAsset,
+          ),
+          endDrawer: const AppEndDrawer(),
+          body: Column(
+            children: [
+              Expanded(
+                child: ScreenWrapper(
+                  child: FormBuilder(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (_isBulkProcessing) _buildBulkProgressSection(),
+                          if (!_isBulkProcessing) ...[
+                            _buildBasicInfoSection(),
+                            const SizedBox(height: 24),
+                            if (!_isEdit) _buildBulkCopySection(),
+                            if (!_isEdit) const SizedBox(height: 24),
+                            _buildCategoryLocationSection(),
+                            const SizedBox(height: 24),
+                            _buildPurchaseInfoSection(),
+                            const SizedBox(height: 24),
+                            _buildStatusSection(),
+                            const SizedBox(height: 24),
+                            AppValidationErrors(errors: validationErrors),
+                            if (validationErrors != null &&
+                                validationErrors!.isNotEmpty)
+                              const SizedBox(height: 16),
+                          ],
+                          const SizedBox(
+                            height: 80,
+                          ), // * Space for sticky buttons
                         ],
-                        const SizedBox(
-                          height: 80,
-                        ), // * Space for sticky buttons
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            _buildStickyActionButtons(),
-          ],
+              _buildStickyActionButtons(),
+            ],
+          ),
         ),
       ),
     );
@@ -683,7 +742,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     name: 'assetTag',
                     label: context.l10n.assetTag,
                     placeHolder: context.l10n.assetEnterAssetTag,
-                    initialValue: widget.asset?.assetTag,
+                    // * Don't copy asset tag in copy mode
+                    initialValue: _isCopyMode ? null : widget.asset?.assetTag,
                     enabled: !_enableBulkCopy,
                     validator: (value) => AssetUpsertValidator.validateAssetTag(
                       context,
@@ -712,7 +772,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'assetName',
               label: context.l10n.assetName,
               placeHolder: context.l10n.assetEnterAssetName,
-              initialValue: widget.asset?.assetName,
+              initialValue: _sourceAsset?.assetName,
               validator: (value) => AssetUpsertValidator.validateAssetName(
                 context,
                 value,
@@ -724,7 +784,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'brand',
               label: context.l10n.assetBrandOptional,
               placeHolder: context.l10n.assetEnterBrand,
-              initialValue: widget.asset?.brand,
+              initialValue: _sourceAsset?.brand,
               validator: (value) => AssetUpsertValidator.validateBrand(
                 context,
                 value,
@@ -736,7 +796,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'model',
               label: context.l10n.assetModelOptional,
               placeHolder: context.l10n.assetEnterModel,
-              initialValue: widget.asset?.model,
+              initialValue: _sourceAsset?.model,
               validator: (value) => AssetUpsertValidator.validateModel(
                 context,
                 value,
@@ -748,7 +808,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'serialNumber',
               label: context.l10n.assetSerialNumberOptional,
               placeHolder: context.l10n.assetEnterSerialNumber,
-              initialValue: widget.asset?.serialNumber,
+              // * Don't copy serial number in copy mode
+              initialValue: _isCopyMode ? null : widget.asset?.serialNumber,
               validator: (value) => AssetUpsertValidator.validateSerialNumber(
                 context,
                 value,
@@ -840,8 +901,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'categoryId',
               label: context.l10n.assetCategory,
               hintText: context.l10n.assetSearchCategory,
-              initialValue: widget.asset?.categoryId,
-              initialDisplayText: widget.asset?.category?.categoryName,
+              initialValue: _sourceAsset?.categoryId,
+              initialDisplayText: _sourceAsset?.category?.categoryName,
               enableAutocomplete: true,
               onSearch: _searchCategories,
               itemDisplayMapper: (category) => category.categoryName,
@@ -884,8 +945,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 name: 'locationId',
                 label: context.l10n.assetLocationOptional,
                 hintText: context.l10n.assetSearchLocation,
-                initialValue: widget.asset?.locationId,
-                initialDisplayText: widget.asset?.location?.locationName,
+                initialValue: _sourceAsset?.locationId,
+                initialDisplayText: _sourceAsset?.location?.locationName,
                 enableAutocomplete: true,
                 onSearch: _searchLocations,
                 itemDisplayMapper: (location) => location.locationName,
@@ -924,8 +985,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 name: 'assignedTo',
                 label: context.l10n.assetAssignedToOptional,
                 hintText: context.l10n.assetSearchUser,
-                initialValue: widget.asset?.assignedToId,
-                initialDisplayText: widget.asset?.assignedTo?.fullName,
+                initialValue: _sourceAsset?.assignedToId,
+                initialDisplayText: _sourceAsset?.assignedTo?.fullName,
                 enableAutocomplete: true,
                 onSearch: _searchUsers,
                 itemDisplayMapper: (user) => user.name,
@@ -962,7 +1023,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             AppDateTimePicker(
               name: 'purchaseDate',
               label: context.l10n.assetPurchaseDateOptional,
-              initialValue: widget.asset?.purchaseDate,
+              initialValue: _sourceAsset?.purchaseDate,
               inputType: InputType.date,
               onChanged: (_) => _calculateWarrantyEnd(),
             ),
@@ -972,7 +1033,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: context.l10n.assetPurchasePrice,
               placeHolder: context.l10n.assetEnterPurchasePrice,
               type: AppTextFieldType.number,
-              initialValue: widget.asset?.purchasePrice?.toString(),
+              initialValue: _sourceAsset?.purchasePrice?.toString(),
               validator: (value) => AssetUpsertValidator.validatePurchasePrice(
                 context,
                 value,
@@ -984,7 +1045,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'vendorName',
               label: context.l10n.assetVendorNameOptional,
               placeHolder: context.l10n.assetEnterVendorName,
-              initialValue: widget.asset?.vendorName,
+              initialValue: _sourceAsset?.vendorName,
               validator: (value) => AssetUpsertValidator.validateVendorName(
                 context,
                 value,
@@ -1045,7 +1106,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             AppDateTimePicker(
               name: 'warrantyEnd',
               label: context.l10n.assetWarrantyEndDateOptional,
-              initialValue: widget.asset?.warrantyEnd,
+              initialValue: _sourceAsset?.warrantyEnd,
               inputType: InputType.date,
             ),
           ],
@@ -1086,7 +1147,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     ),
                   )
                   .toList(),
-              initialValue: widget.asset?.status.value,
+              initialValue: _sourceAsset?.status.value,
             ),
             const SizedBox(height: 16),
             AppDropdown(
@@ -1102,7 +1163,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     ),
                   )
                   .toList(),
-              initialValue: widget.asset?.condition.value,
+              initialValue: _sourceAsset?.condition.value,
             ),
           ],
         ),

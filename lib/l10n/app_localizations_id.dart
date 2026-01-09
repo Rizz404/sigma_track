@@ -571,6 +571,9 @@ class L10nId extends L10n {
   String get assetRecordMaintenance => 'Catat\nPemel.';
 
   @override
+  String get assetCopyAsset => 'Salin\nAset';
+
+  @override
   String get assetExportTitle => 'Ekspor';
 
   @override
@@ -669,6 +672,19 @@ class L10nId extends L10n {
 
   @override
   String get assetAutoGenerateAssetTag => 'Buat tag aset secara otomatis';
+
+  @override
+  String get assetCancelBulkProcessingTitle => 'Batalkan Proses Massal?';
+
+  @override
+  String get assetCancelBulkProcessingMessage =>
+      'Pembuatan aset massal sedang berlangsung. Jika Anda membatalkan sekarang, semua progres akan hilang. Apakah Anda yakin ingin membatalkan?';
+
+  @override
+  String get assetContinueProcessing => 'Lanjutkan';
+
+  @override
+  String get assetCancelProcessing => 'Batalkan Proses';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';

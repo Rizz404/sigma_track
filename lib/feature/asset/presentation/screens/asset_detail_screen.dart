@@ -126,6 +126,20 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     }
   }
 
+  void _handleCopy(Asset asset) {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (isAdmin) {
+      context.push(
+        RouteConstant.adminAssetUpsert,
+        extra: {'copyFromAsset': asset},
+      );
+    } else {
+      AppToast.warning(context.l10n.assetOnlyAdminCanEdit);
+    }
+  }
+
   void _handleDelete(Asset asset) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
@@ -550,6 +564,11 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             RouteConstant.adminMaintenanceRecordUpsert,
             extra: {'prePopulatedAsset': asset},
           ),
+        ),
+        _ActionItem(
+          icon: Icons.content_copy,
+          label: context.l10n.assetCopyAsset,
+          onTap: () => _handleCopy(asset),
         ),
       ],
     ];

@@ -1149,6 +1149,12 @@ abstract class L10n {
   /// **'Record\nMaint.'**
   String get assetRecordMaintenance;
 
+  /// Copy asset action label
+  ///
+  /// In en, this message translates to:
+  /// **'Copy\nAsset'**
+  String get assetCopyAsset;
+
   /// Export option title
   ///
   /// In en, this message translates to:
@@ -1161,7 +1167,7 @@ abstract class L10n {
   /// **'Export data to file'**
   String get assetExportSubtitle;
 
-  /// No description provided for @assetBulkCopy.
+  /// Bulk copy section title
   ///
   /// In en, this message translates to:
   /// **'Bulk Copy'**
@@ -1316,6 +1322,30 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Auto-generate asset tag'**
   String get assetAutoGenerateAssetTag;
+
+  /// Dialog title for canceling bulk processing
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Bulk Processing?'**
+  String get assetCancelBulkProcessingTitle;
+
+  /// Dialog message for canceling bulk processing
+  ///
+  /// In en, this message translates to:
+  /// **'Bulk asset creation is in progress. If you cancel now, all progress will be lost. Are you sure you want to cancel?'**
+  String get assetCancelBulkProcessingMessage;
+
+  /// Continue processing button label
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get assetContinueProcessing;
+
+  /// Cancel processing button label
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Processing'**
+  String get assetCancelProcessing;
 
   /// Dialog title for deleting an asset movement
   ///

@@ -754,6 +754,10 @@
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
   },
+  "assetCopyAsset": "Copy\nAsset",
+  "@assetCopyAsset": {
+    "description": "Copy asset action label"
+  },
   "assetExportTitle": "Export",
   "@assetExportTitle": {
     "description": "Export option title"
@@ -763,7 +767,7 @@
     "description": "Export option subtitle"
   },
   "assetBulkCopy": "Bulk Copy",
-  "@asset BulkCopy": {
+  "@assetBulkCopy": {
     "description": "Bulk copy section title"
   },
   "assetBulkCopyDescription": "Create multiple assets with the same data. Only asset tag, data matrix, and serial number will be different.",
@@ -903,6 +907,22 @@
   "assetAutoGenerateAssetTag": "Auto-generate asset tag",
   "@assetAutoGenerateAssetTag": {
     "description": "Tooltip for auto-generate button"
+  },
+  "assetCancelBulkProcessingTitle": "Cancel Bulk Processing?",
+  "@assetCancelBulkProcessingTitle": {
+    "description": "Dialog title for canceling bulk processing"
+  },
+  "assetCancelBulkProcessingMessage": "Bulk asset creation is in progress. If you cancel now, all progress will be lost. Are you sure you want to cancel?",
+  "@assetCancelBulkProcessingMessage": {
+    "description": "Dialog message for canceling bulk processing"
+  },
+  "assetContinueProcessing": "Continue",
+  "@assetContinueProcessing": {
+    "description": "Continue processing button label"
+  },
+  "assetCancelProcessing": "Cancel Processing",
+  "@assetCancelProcessing": {
+    "description": "Cancel processing button label"
   },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {

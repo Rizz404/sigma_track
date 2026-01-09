@@ -754,6 +754,10 @@
   "@assetRecordMaintenance": {
     "description": "Record maintenance action label"
   },
+  "assetCopyAsset": "Salin\nAset",
+  "@assetCopyAsset": {
+    "description": "Copy asset action label"
+  },
   "assetExportTitle": "Ekspor",
   "@assetExportTitle": {
     "description": "Export option title"
@@ -903,5 +907,21 @@
   "assetAutoGenerateAssetTag": "Buat tag aset secara otomatis",
   "@assetAutoGenerateAssetTag": {
     "description": "Tooltip for auto-generate button"
+  },
+  "assetCancelBulkProcessingTitle": "Batalkan Proses Massal?",
+  "@assetCancelBulkProcessingTitle": {
+    "description": "Dialog title for canceling bulk processing"
+  },
+  "assetCancelBulkProcessingMessage": "Pembuatan aset massal sedang berlangsung. Jika Anda membatalkan sekarang, semua progres akan hilang. Apakah Anda yakin ingin membatalkan?",
+  "@assetCancelBulkProcessingMessage": {
+    "description": "Dialog message for canceling bulk processing"
+  },
+  "assetContinueProcessing": "Lanjutkan",
+  "@assetContinueProcessing": {
+    "description": "Continue processing button label"
+  },
+  "assetCancelProcessing": "Batalkan Proses",
+  "@assetCancelProcessing": {
+    "description": "Cancel processing button label"
   }
-}
+}

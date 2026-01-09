@@ -786,10 +786,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final assetId = state.uri.queryParameters['assetId'];
-        final asset = state.extra as Asset?;
+        Asset? asset;
+        Asset? copyFromAsset;
+
+        // * Handle both Asset and Map<String, dynamic> in extra
+        if (state.extra is Asset) {
+          asset = state.extra as Asset;
+        } else if (state.extra is Map<String, dynamic>) {
+          copyFromAsset =
+              (state.extra as Map<String, dynamic>)['copyFromAsset'] as Asset?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
-          child: AssetUpsertScreen(asset: asset, assetId: assetId),
+          child: AssetUpsertScreen(
+            asset: asset,
+            assetId: assetId,
+            copyFromAsset: copyFromAsset,
+          ),
         );
       },
     ),

@@ -574,6 +574,9 @@ class L10nEn extends L10n {
   String get assetRecordMaintenance => 'Record\nMaint.';
 
   @override
+  String get assetCopyAsset => 'Copy\nAsset';
+
+  @override
   String get assetExportTitle => 'Export';
 
   @override
@@ -673,6 +676,19 @@ class L10nEn extends L10n {
 
   @override
   String get assetAutoGenerateAssetTag => 'Auto-generate asset tag';
+
+  @override
+  String get assetCancelBulkProcessingTitle => 'Cancel Bulk Processing?';
+
+  @override
+  String get assetCancelBulkProcessingMessage =>
+      'Bulk asset creation is in progress. If you cancel now, all progress will be lost. Are you sure you want to cancel?';
+
+  @override
+  String get assetContinueProcessing => 'Continue';
+
+  @override
+  String get assetCancelProcessing => 'Cancel Processing';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
