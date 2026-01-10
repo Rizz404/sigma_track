@@ -82,3 +82,9 @@ Follow these rules strictly and consistently.
 - Prefer small, focused diffs.
 - When editing code, preserve existing architecture and patterns in the repo.
 - Avoid introducing new dependencies unless explicitly requested.
+
+## 11) Translations (static text default)
+- DO NOT modify or add to translation files (.arb / l10n) unless explicitly requested.
+- Use static/hardcoded text strings in widgets by default.
+- Only use context.l10n when the user specifically asks for localization support.
+- If you're unsure whether to localize, ask first: "Mau pakai translation atau static text?"

@@ -27,12 +27,14 @@ class CreateIssueReportUsecase
 
 class CreateIssueReportUsecaseParams extends Equatable {
   final String assetId;
+  final String reportedById;
   final String issueType;
   final IssuePriority priority;
   final List<CreateIssueReportTranslation> translations;
 
   CreateIssueReportUsecaseParams({
     required this.assetId,
+    required this.reportedById,
     required this.issueType,
     required this.priority,
     required this.translations,
@@ -41,6 +43,7 @@ class CreateIssueReportUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'assetId': assetId,
+      'reportedById': reportedById,
       'issueType': issueType,
       'priority': priority.value,
       'translations': translations.map((x) => x.toMap()).toList(),
@@ -50,6 +53,7 @@ class CreateIssueReportUsecaseParams extends Equatable {
   factory CreateIssueReportUsecaseParams.fromMap(Map<String, dynamic> map) {
     return CreateIssueReportUsecaseParams(
       assetId: map['assetId'] ?? '',
+      reportedById: map['reportedById'] ?? '',
       issueType: map['issueType'] ?? '',
       priority: IssuePriority.values.firstWhere(
         (e) => e.value == map['priority'],
@@ -68,7 +72,13 @@ class CreateIssueReportUsecaseParams extends Equatable {
       CreateIssueReportUsecaseParams.fromMap(json.decode(source));
 
   @override
-  List<Object> get props => [assetId, issueType, priority, translations];
+  List<Object> get props => [
+    assetId,
+    reportedById,
+    issueType,
+    priority,
+    translations,
+  ];
 }
 
 class CreateIssueReportTranslation extends Equatable {

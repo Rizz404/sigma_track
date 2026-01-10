@@ -29,6 +29,7 @@ class CreateAssetMovementForUserUsecase
 
 class CreateAssetMovementForUserUsecaseParams extends Equatable {
   final String assetId;
+  final String? fromUserId;
   final String toUserId;
   final String movedById;
   final DateTime movementDate;
@@ -36,6 +37,7 @@ class CreateAssetMovementForUserUsecaseParams extends Equatable {
 
   CreateAssetMovementForUserUsecaseParams({
     required this.assetId,
+    this.fromUserId,
     required this.toUserId,
     required this.movedById,
     required this.movementDate,
@@ -45,6 +47,7 @@ class CreateAssetMovementForUserUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'assetId': assetId,
+      if (fromUserId != null) 'fromUserId': fromUserId,
       'toUserId': toUserId,
       'movedById': movedById,
       'movementDate': movementDate.toIso8601String(),
@@ -57,6 +60,7 @@ class CreateAssetMovementForUserUsecaseParams extends Equatable {
   ) {
     return CreateAssetMovementForUserUsecaseParams(
       assetId: map['assetId'] ?? '',
+      fromUserId: map['fromUserId'],
       toUserId: map['toUserId'] ?? '',
       movedById: map['movedById'] ?? '',
       movementDate: DateTime.parse(map['movementDate']),
@@ -77,6 +81,7 @@ class CreateAssetMovementForUserUsecaseParams extends Equatable {
   @override
   List<Object?> get props => [
     assetId,
+    fromUserId,
     toUserId,
     movedById,
     movementDate,

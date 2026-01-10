@@ -18,8 +18,9 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedule_providers.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/validators/maintenance_schedule_upsert_validator.dart';
-import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/current_user_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -79,13 +80,15 @@ class _MaintenanceScheduleUpsertScreenState
     return state.assets;
   }
 
-  Future<List<User>> _searchUsers(String query) async {
-    final notifier = ref.read(usersSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(usersSearchProvider);
-    return state.users;
-  }
+  // * OLD IMPLEMENTATION: Search users function
+  // * Commented out but kept for future reference
+  // Future<List<User>> _searchUsers(String query) async {
+  //   final notifier = ref.read(usersSearchProvider.notifier);
+  //   await notifier.search(query);
+  //
+  //   final state = ref.read(usersSearchProvider);
+  //   return state.users;
+  // }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -134,7 +137,17 @@ class _MaintenanceScheduleUpsertScreenState
     final state = formData['state'] as String?;
     final autoComplete = formData['autoComplete'] as bool? ?? false;
     final estimatedCost = formData['estimatedCost'] as String?;
-    final createdById = formData['createdById'] as String;
+
+    // * NEW IMPLEMENTATION: Get current user ID from provider in create mode
+    final createdById = !_isEdit
+        ? (ref.read(currentUserNotifierProvider).user?.id ?? '')
+        : (formData['createdById'] as String? ?? '');
+
+    // * Pastikan createdById tidak kosong saat create
+    if (!_isEdit && createdById.isEmpty) {
+      AppToast.warning('Created by user tidak ditemukan');
+      return;
+    }
 
     if (_isEdit) {
       final maintenanceScheduleId =
@@ -482,23 +495,25 @@ class _MaintenanceScheduleUpsertScreenState
                   ),
             ),
             const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'createdById',
-              label: context.l10n.maintenanceScheduleCreatedBy,
-              hintText: context.l10n.maintenanceScheduleSearchUser,
-              initialValue: widget.maintenanceSchedule?.createdById,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-              validator: (value) =>
-                  MaintenanceScheduleUpsertValidator.validateCreatedById(
-                    value,
-                    isUpdate: _isEdit,
-                  ),
-            ),
+            // * OLD IMPLEMENTATION: User dropdown for created by
+            // * Commented out for future reference
+            // AppSearchField<User>(
+            //   name: 'createdById',
+            //   label: context.l10n.maintenanceScheduleCreatedBy,
+            //   hintText: context.l10n.maintenanceScheduleSearchUser,
+            //   initialValue: widget.maintenanceSchedule?.createdById,
+            //   enableAutocomplete: true,
+            //   onSearch: _searchUsers,
+            //   itemDisplayMapper: (user) => user.name,
+            //   itemValueMapper: (user) => user.id,
+            //   itemSubtitleMapper: (user) => user.email,
+            //   itemIcon: Icons.person,
+            //   validator: (value) =>
+            //       MaintenanceScheduleUpsertValidator.validateCreatedById(
+            //         value,
+            //         isUpdate: _isEdit,
+            //       ),
+            // ),
           ],
         ),
       ),

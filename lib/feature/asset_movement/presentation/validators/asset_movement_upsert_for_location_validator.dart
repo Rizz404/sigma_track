@@ -13,6 +13,15 @@ class AssetMovementUpsertForLocationValidator {
     return null;
   }
 
+  static String? validateFromLocationId(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
+    // * fromLocationId is optional, no validation required
+    return null;
+  }
+
   static String? validateToLocationId(
     BuildContext context,
     String? value, {

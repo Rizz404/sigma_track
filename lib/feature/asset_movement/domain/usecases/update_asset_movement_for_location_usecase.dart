@@ -32,6 +32,7 @@ class UpdateAssetMovementForLocationUsecase
 class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
   final String id;
   final String? assetId;
+  final String? fromLocationId;
   final String? toLocationId;
   final String? movedById;
   final DateTime? movementDate;
@@ -40,6 +41,7 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
   UpdateAssetMovementForLocationUsecaseParams({
     required this.id,
     this.assetId,
+    this.fromLocationId,
     this.toLocationId,
     this.movedById,
     this.movementDate,
@@ -51,6 +53,7 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
     required String id,
     required AssetMovement original,
     String? assetId,
+    String? fromLocationId,
     String? toLocationId,
     String? movedById,
     DateTime? movementDate,
@@ -59,6 +62,9 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
     return UpdateAssetMovementForLocationUsecaseParams(
       id: id,
       assetId: assetId != original.assetId ? assetId : null,
+      fromLocationId: fromLocationId != original.fromLocationId
+          ? fromLocationId
+          : null,
       toLocationId: toLocationId != original.toLocationId ? toLocationId : null,
       movedById: movedById != original.movedById ? movedById : null,
       movementDate: movementDate != original.movementDate ? movementDate : null,
@@ -70,6 +76,7 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
     return {
       'id': id,
       if (assetId != null) 'assetId': assetId,
+      if (fromLocationId != null) 'fromLocationId': fromLocationId,
       if (toLocationId != null) 'toLocationId': toLocationId,
       if (movedById != null) 'movedById': movedById,
       if (movementDate != null) 'movementDate': movementDate!.toIso8601String(),
@@ -84,6 +91,7 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
     return UpdateAssetMovementForLocationUsecaseParams(
       id: map['id'] ?? '',
       assetId: map['assetId'],
+      fromLocationId: map['fromLocationId'],
       toLocationId: map['toLocationId'],
       movedById: map['movedById'],
       movementDate: map['movementDate'] != null
@@ -109,6 +117,7 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
   List<Object?> get props => [
     id,
     assetId,
+    fromLocationId,
     toLocationId,
     movedById,
     movementDate,

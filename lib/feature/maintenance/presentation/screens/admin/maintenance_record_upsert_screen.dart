@@ -20,8 +20,9 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedule_providers.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_records_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/validators/maintenance_record_upsert_validator.dart';
-import 'package:sigma_track/feature/user/domain/entities/user.dart';
+import 'package:sigma_track/feature/user/presentation/providers/current_user_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
@@ -80,13 +81,15 @@ class _MaintenanceRecordUpsertScreenState
     return state.maintenanceSchedules;
   }
 
-  Future<List<User>> _searchUsers(String query) async {
-    final notifier = ref.read(usersSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(usersSearchProvider);
-    return state.users;
-  }
+  // * OLD IMPLEMENTATION: Search users function
+  // * Commented out but kept for future reference
+  // Future<List<User>> _searchUsers(String query) async {
+  //   final notifier = ref.read(usersSearchProvider.notifier);
+  //   await notifier.search(query);
+  //
+  //   final state = ref.read(usersSearchProvider);
+  //   return state.users;
+  // }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -127,7 +130,11 @@ class _MaintenanceRecordUpsertScreenState
     final maintenanceDate = formData['maintenanceDate'] as DateTime;
     final completionDate = formData['completionDate'] as DateTime?;
     final durationMinutes = formData['durationMinutes'] as String?;
-    final performedById = formData['performedById'] as String?;
+
+    // * NEW IMPLEMENTATION: Get current user ID from provider
+    final currentUserState = ref.read(currentUserNotifierProvider);
+    final performedById = currentUserState.user?.id;
+
     final performedByVendor = formData['performedByVendor'] as String?;
     final result = formData['result'] as String?;
     final actualCost = formData['actualCost'] != null
@@ -396,18 +403,20 @@ class _MaintenanceRecordUpsertScreenState
               type: AppTextFieldType.number,
             ),
             const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'performedById',
-              label: context.l10n.maintenanceRecordPerformedByUser,
-              hintText: context.l10n.maintenanceRecordSearchPerformedByUser,
-              initialValue: widget.maintenanceRecord?.performedByUserId,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-            ),
+            // * OLD IMPLEMENTATION: User dropdown for performed by
+            // * Commented out for future reference
+            // AppSearchField<User>(
+            //   name: 'performedById',
+            //   label: context.l10n.maintenanceRecordPerformedByUser,
+            //   hintText: context.l10n.maintenanceRecordSearchPerformedByUser,
+            //   initialValue: widget.maintenanceRecord?.performedByUserId,
+            //   enableAutocomplete: true,
+            //   onSearch: _searchUsers,
+            //   itemDisplayMapper: (user) => user.name,
+            //   itemValueMapper: (user) => user.id,
+            //   itemSubtitleMapper: (user) => user.email,
+            //   itemIcon: Icons.person,
+            // ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'performedByVendor',

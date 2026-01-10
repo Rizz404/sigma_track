@@ -31,6 +31,7 @@ class CreateAssetMovementForLocationUsecase
 
 class CreateAssetMovementForLocationUsecaseParams extends Equatable {
   final String assetId;
+  final String? fromLocationId;
   final String toLocationId;
   final String movedById;
   final DateTime movementDate;
@@ -38,6 +39,7 @@ class CreateAssetMovementForLocationUsecaseParams extends Equatable {
 
   CreateAssetMovementForLocationUsecaseParams({
     required this.assetId,
+    this.fromLocationId,
     required this.toLocationId,
     required this.movedById,
     required this.movementDate,
@@ -47,6 +49,7 @@ class CreateAssetMovementForLocationUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'assetId': assetId,
+      if (fromLocationId != null) 'fromLocationId': fromLocationId,
       'toLocationId': toLocationId,
       'movedById': movedById,
       'movementDate': movementDate.toIso8601String(),
@@ -59,6 +62,7 @@ class CreateAssetMovementForLocationUsecaseParams extends Equatable {
   ) {
     return CreateAssetMovementForLocationUsecaseParams(
       assetId: map['assetId'] ?? '',
+      fromLocationId: map['fromLocationId'],
       toLocationId: map['toLocationId'] ?? '',
       movedById: map['movedById'] ?? '',
       movementDate: DateTime.parse(map['movementDate']),
@@ -79,6 +83,7 @@ class CreateAssetMovementForLocationUsecaseParams extends Equatable {
   @override
   List<Object?> get props => [
     assetId,
+    fromLocationId,
     toLocationId,
     movedById,
     movementDate,

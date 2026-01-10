@@ -107,8 +107,18 @@ class _AssetMovementUpsertForUserScreenState
     }
 
     final assetId = formData['assetId'] as String;
+    final fromUserId = formData['fromUserId'] as String?;
     final toUserId = formData['toUserId'] as String;
-    final movedById = formData['movedById'] as String;
+
+    // * NEW IMPLEMENTATION: Get current user ID from provider
+    final currentUserState = ref.read(currentUserNotifierProvider);
+    final movedById = currentUserState.user?.id ?? '';
+
+    // * Pastikan movedById tidak kosong
+    if (movedById.isEmpty) {
+      AppToast.warning('Moved by user tidak ditemukan');
+      return;
+    }
     final movementDate = formData['movementDate'] as DateTime;
 
     if (_isEdit) {
@@ -118,6 +128,7 @@ class _AssetMovementUpsertForUserScreenState
         id: assetMovementId,
         original: _fetchedAssetMovement ?? widget.assetMovement!,
         assetId: assetId,
+        fromUserId: fromUserId,
         toUserId: toUserId,
         movedById: movedById,
         movementDate: movementDate,
@@ -130,6 +141,7 @@ class _AssetMovementUpsertForUserScreenState
     } else {
       final params = CreateAssetMovementForUserUsecaseParams(
         assetId: assetId,
+        fromUserId: fromUserId,
         toUserId: toUserId,
         movedById: movedById,
         movementDate: movementDate,
@@ -305,6 +317,25 @@ class _AssetMovementUpsertForUserScreenState
             ),
             const SizedBox(height: 16),
             AppSearchField<User>(
+              name: 'fromUserId',
+              label: context.l10n.assetMovementFromUser,
+              hintText: context.l10n.assetMovementSearchFromUser,
+              initialValue: widget.assetMovement?.fromUserId,
+              enableAutocomplete: true,
+              onSearch: _searchUsers,
+              itemDisplayMapper: (user) => user.name,
+              itemValueMapper: (user) => user.id,
+              itemSubtitleMapper: (user) => user.email,
+              itemIcon: Icons.person,
+              validator: (value) =>
+                  AssetMovementUpsertForUserValidator.validateFromUserId(
+                    context,
+                    value,
+                    isUpdate: _isEdit,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            AppSearchField<User>(
               name: 'toUserId',
               label: context.l10n.assetMovementToUser,
               hintText: context.l10n.assetMovementSearchToUser,
@@ -323,24 +354,26 @@ class _AssetMovementUpsertForUserScreenState
                   ),
             ),
             const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'movedById',
-              label: context.l10n.assetMovementMovedBy,
-              hintText: context.l10n.assetMovementSearchFromUser,
-              initialValue: widget.assetMovement?.movedById,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-              validator: (value) =>
-                  AssetMovementUpsertForUserValidator.validateMovedById(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  ),
-            ),
+            // * OLD IMPLEMENTATION: User dropdown for moved by
+            // * Commented out for future reference
+            // AppSearchField<User>(
+            //   name: 'movedById',
+            //   label: context.l10n.assetMovementMovedBy,
+            //   hintText: context.l10n.assetMovementSearchFromUser,
+            //   initialValue: widget.assetMovement?.movedById,
+            //   enableAutocomplete: true,
+            //   onSearch: _searchUsers,
+            //   itemDisplayMapper: (user) => user.name,
+            //   itemValueMapper: (user) => user.id,
+            //   itemSubtitleMapper: (user) => user.email,
+            //   itemIcon: Icons.person,
+            //   validator: (value) =>
+            //       AssetMovementUpsertForUserValidator.validateMovedById(
+            //         context,
+            //         value,
+            //         isUpdate: _isEdit,
+            //       ),
+            // ),
             const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'movementDate',

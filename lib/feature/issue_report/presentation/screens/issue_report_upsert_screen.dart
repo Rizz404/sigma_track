@@ -114,6 +114,12 @@ class _IssueReportUpsertScreenState
     }
 
     final assetId = formData['assetId'] as String;
+
+    // * NEW IMPLEMENTATION: Get current user ID from provider in create mode
+    final reportedById = !_isEdit
+        ? (ref.read(currentUserNotifierProvider).user?.id ?? '')
+        : (formData['reportedById'] as String? ?? '');
+
     final issueType = formData['issueType'] as String;
     final priority = IssuePriority.values.firstWhere(
       (e) => e.value == formData['priority'],
@@ -134,8 +140,15 @@ class _IssueReportUpsertScreenState
       );
       ref.read(issueReportsProvider.notifier).updateIssueReport(params);
     } else {
+      // * Pastikan reportedById tidak kosong saat create
+      if (reportedById.isEmpty) {
+        AppToast.warning('Reported by user tidak ditemukan');
+        return;
+      }
+
       final params = CreateIssueReportUsecaseParams(
         assetId: assetId,
+        reportedById: reportedById,
         issueType: issueType,
         priority: priority,
         translations: translations.cast<CreateIssueReportTranslation>(),
@@ -307,26 +320,28 @@ class _IssueReportUpsertScreenState
               ),
             ),
             const SizedBox(height: 16),
-            AppSearchField<User>(
-              name: 'reportedById',
-              label: context.l10n.issueReportReportedBy,
-              hintText: context.l10n.issueReportSearchReportedBy,
-              initialValue:
-                  (_isEdit ? _fetchedIssueReport?.reportedById : null) ??
-                  widget.issueReport?.reportedById,
-              enableAutocomplete: true,
-              onSearch: _searchUsers,
-              itemDisplayMapper: (user) => user.name,
-              itemValueMapper: (user) => user.id,
-              itemSubtitleMapper: (user) => user.email,
-              itemIcon: Icons.person,
-              validator: (value) =>
-                  IssueReportUpsertValidator.validateReportedById(
-                    value,
-                    context: context,
-                    isUpdate: _isEdit,
-                  ),
-            ),
+            // * OLD IMPLEMENTATION: User dropdown for reported by
+            // * Commented out for future reference
+            // AppSearchField<User>(
+            //   name: 'reportedById',
+            //   label: context.l10n.issueReportReportedBy,
+            //   hintText: context.l10n.issueReportSearchReportedBy,
+            //   initialValue:
+            //       (_isEdit ? _fetchedIssueReport?.reportedById : null) ??
+            //       widget.issueReport?.reportedById,
+            //   enableAutocomplete: true,
+            //   onSearch: _searchUsers,
+            //   itemDisplayMapper: (user) => user.name,
+            //   itemValueMapper: (user) => user.id,
+            //   itemSubtitleMapper: (user) => user.email,
+            //   itemIcon: Icons.person,
+            //   validator: (value) =>
+            //       IssueReportUpsertValidator.validateReportedById(
+            //         value,
+            //         context: context,
+            //         isUpdate: _isEdit,
+            //       ),
+            // ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'issueType',

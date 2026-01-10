@@ -13,6 +13,15 @@ class AssetMovementUpsertForUserValidator {
     return null;
   }
 
+  static String? validateFromUserId(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
+    // * fromUserId is optional, no validation required
+    return null;
+  }
+
   static String? validateToUserId(
     BuildContext context,
     String? value, {
