@@ -2354,6 +2354,9 @@ class L10nEn extends L10n {
   String get maintenanceScheduleJapanese => 'Japanese';
 
   @override
+  String get maintenanceScheduleIndonesian => 'Indonesian';
+
+  @override
   String maintenanceScheduleEnterTitle(String language) {
     return 'Enter title in $language';
   }
@@ -2613,6 +2616,9 @@ class L10nEn extends L10n {
 
   @override
   String get maintenanceRecordJapanese => 'Japanese';
+
+  @override
+  String get maintenanceRecordIndonesian => 'Indonesian';
 
   @override
   String maintenanceRecordEnterTitle(String language) {

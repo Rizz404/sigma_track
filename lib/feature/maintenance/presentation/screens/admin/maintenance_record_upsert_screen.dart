@@ -499,6 +499,11 @@ class _MaintenanceRecordUpsertScreenState
                 'ja-JP',
                 context.l10n.maintenanceRecordJapanese,
               ),
+              const SizedBox(height: 12),
+              _buildTranslationFields(
+                'id-ID',
+                context.l10n.maintenanceRecordIndonesian,
+              ),
             ],
           ),
         ),

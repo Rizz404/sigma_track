@@ -550,6 +550,11 @@ class _MaintenanceScheduleUpsertScreenState
                 'ja-JP',
                 context.l10n.maintenanceScheduleJapanese,
               ),
+              const SizedBox(height: 12),
+              _buildTranslationFields(
+                'id-ID',
+                context.l10n.maintenanceScheduleIndonesian,
+              ),
             ],
           ),
         ),

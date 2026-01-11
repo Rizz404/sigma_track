@@ -36,7 +36,9 @@ Follow these rules strictly and consistently.
 ## 4) Comments (Better Comments format)
 - Only use these prefixes:
   - TODO: | FIXME: | ! warning | ? question | * important note
+- Use Bahasa Indonesia for comments: singkat, padat, jelas.
 - Keep inline comments max 1–2 lines; code should be self-explanatory.
+- If explanation is long, put it in chat response, NOT in code comments.
 
 ## 5) const everywhere possible
 - Use const for widgets, durations, paddings, SizedBox, constructors, lists, etc.

@@ -4443,6 +4443,12 @@ abstract class L10n {
   /// **'Japanese'**
   String get maintenanceScheduleJapanese;
 
+  /// Indonesian language label
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get maintenanceScheduleIndonesian;
+
   /// Title input placeholder
   ///
   /// In en, this message translates to:
@@ -4904,6 +4910,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Japanese'**
   String get maintenanceRecordJapanese;
+
+  /// Indonesian language label
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get maintenanceRecordIndonesian;
 
   /// Title input placeholder
   ///

@@ -3082,6 +3082,10 @@
   "@maintenanceScheduleJapanese": {
     "description": "Japanese language label"
   },
+  "maintenanceScheduleIndonesian": "Indonesian",
+  "@maintenanceScheduleIndonesian": {
+    "description": "Indonesian language label"
+  },
   "maintenanceScheduleEnterTitle": "Enter title in {language}",
   "@maintenanceScheduleEnterTitle": {
     "description": "Title input placeholder",
@@ -3431,6 +3435,10 @@
   "maintenanceRecordJapanese": "Japanese",
   "@maintenanceRecordJapanese": {
     "description": "Japanese language label"
+  },
+  "maintenanceRecordIndonesian": "Indonesian",
+  "@maintenanceRecordIndonesian": {
+    "description": "Indonesian language label"
   },
   "maintenanceRecordEnterTitle": "Enter title in {language}",
   "@maintenanceRecordEnterTitle": {
