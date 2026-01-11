@@ -297,5 +297,13 @@
   "categoryValidationDescriptionMaxLength": "Description must not exceed 500 characters",
   "@categoryValidationDescriptionMaxLength": {
     "description": "Validation error for description maximum length"
+  },
+  "categoryImage": "Category Image",
+  "@categoryImage": {
+    "description": "Category image label"
+  },
+  "categoryChooseImage": "Choose Image",
+  "@categoryChooseImage": {
+    "description": "Choose image button label"
   }
 }

@@ -1940,6 +1940,14 @@
   "@categoryValidationDescriptionMaxLength": {
     "description": "Validation error for description maximum length"
   },
+  "categoryImage": "カテゴリ画像",
+  "@categoryImage": {
+    "description": "Category image label"
+  },
+  "categoryChooseImage": "画像を選択",
+  "@categoryChooseImage": {
+    "description": "Choose image button label"
+  },
   "dashboardTotalUsers": "総ユーザー数",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"

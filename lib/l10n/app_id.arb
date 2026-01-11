@@ -1940,6 +1940,14 @@
   "@categoryValidationDescriptionMaxLength": {
     "description": "Validation error for description maximum length"
   },
+  "categoryImage": "Gambar Kategori",
+  "@categoryImage": {
+    "description": "Category image label"
+  },
+  "categoryChooseImage": "Pilih Gambar",
+  "@categoryChooseImage": {
+    "description": "Choose image button label"
+  },
   "dashboardTotalUsers": "Total Pengguna",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"

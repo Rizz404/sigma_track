@@ -1485,6 +1485,12 @@ class L10nId extends L10n {
       'Deskripsi maksimal 500 karakter';
 
   @override
+  String get categoryImage => 'Gambar Kategori';
+
+  @override
+  String get categoryChooseImage => 'Pilih Gambar';
+
+  @override
   String get dashboardTotalUsers => 'Total Pengguna';
 
   @override

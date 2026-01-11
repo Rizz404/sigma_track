@@ -1420,6 +1420,12 @@ class L10nJa extends L10n {
   String get categoryValidationDescriptionMaxLength => '説明は500文字を超えることはできません';
 
   @override
+  String get categoryImage => 'カテゴリ画像';
+
+  @override
+  String get categoryChooseImage => '画像を選択';
+
+  @override
   String get dashboardTotalUsers => '総ユーザー数';
 
   @override

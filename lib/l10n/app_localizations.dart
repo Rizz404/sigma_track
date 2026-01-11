@@ -2829,6 +2829,18 @@ abstract class L10n {
   /// **'Description must not exceed 500 characters'**
   String get categoryValidationDescriptionMaxLength;
 
+  /// Category image label
+  ///
+  /// In en, this message translates to:
+  /// **'Category Image'**
+  String get categoryImage;
+
+  /// Choose image button label
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Image'**
+  String get categoryChooseImage;
+
   /// Total users stat card title
   ///
   /// In en, this message translates to:

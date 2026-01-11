@@ -314,8 +314,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             AppFilePicker(
               key: _filePickerKey,
               name: 'image',
-              label: context.l10n.userProfilePicture,
-              hintText: context.l10n.userChooseImage,
+              label: context.l10n.categoryImage,
+              hintText: context.l10n.categoryChooseImage,
               fileType: FileType.image,
               allowMultiple: false,
               maxFiles: 1,

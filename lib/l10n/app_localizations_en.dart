@@ -1480,6 +1480,12 @@ class L10nEn extends L10n {
       'Description must not exceed 500 characters';
 
   @override
+  String get categoryImage => 'Category Image';
+
+  @override
+  String get categoryChooseImage => 'Choose Image';
+
+  @override
   String get dashboardTotalUsers => 'Total Users';
 
   @override

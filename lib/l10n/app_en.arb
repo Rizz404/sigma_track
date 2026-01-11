@@ -1940,6 +1940,14 @@
   "@categoryValidationDescriptionMaxLength": {
     "description": "Validation error for description maximum length"
   },
+  "categoryImage": "Category Image",
+  "@categoryImage": {
+    "description": "Category image label"
+  },
+  "categoryChooseImage": "Choose Image",
+  "@categoryChooseImage": {
+    "description": "Choose image button label"
+  },
   "dashboardTotalUsers": "Total Users",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
