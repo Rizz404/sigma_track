@@ -5,6 +5,8 @@ import 'package:sigma_track/feature/asset/presentation/providers/assets_search_n
 import 'package:sigma_track/feature/asset/presentation/providers/export_assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/export_asset_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_statistics_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_asset_image_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/delete_bulk_asset_image_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_exists_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_serial_exists_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_tag_exists_notifier.dart';
@@ -110,3 +112,16 @@ final exportAssetDataMatrixProvider =
       ExportAssetDataMatrixNotifier,
       ExportAssetsState
     >(ExportAssetDataMatrixNotifier.new);
+// * Provider untuk upload bulk asset image
+final uploadBulkAssetImageProvider =
+    AutoDisposeNotifierProvider<
+      UploadBulkAssetImageNotifier,
+      ExportAssetsState
+    >(UploadBulkAssetImageNotifier.new);
+
+// * Provider untuk delete bulk asset image
+final deleteBulkAssetImageProvider =
+    AutoDisposeNotifierProvider<
+      DeleteBulkAssetImageNotifier,
+      ExportAssetsState
+    >(DeleteBulkAssetImageNotifier.new);

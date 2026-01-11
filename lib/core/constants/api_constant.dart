@@ -107,6 +107,8 @@ class ApiConstant {
       '$assetPrefix/upload/bulk-datamatrix';
   static const String deleteBulkDataMatrix =
       '$assetPrefix/delete/bulk-datamatrix';
+  static const String uploadBulkAssetImage = '$assetPrefix/upload/bulk-images';
+  static const String deleteBulkAssetImage = '$assetPrefix/delete/bulk-images';
   static const String exportAssetList = '$assetPrefix/export/list';
   static const String exportAssetDataMatrix = '$assetPrefix/export/datamatrix';
   static const String bulkCreateAssets = '$assetPrefix/bulk';

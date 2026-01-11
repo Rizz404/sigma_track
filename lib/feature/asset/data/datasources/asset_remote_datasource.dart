@@ -13,6 +13,8 @@ import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_respons
 import 'package:sigma_track/feature/asset/data/models/generate_bulk_asset_tags_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/upload_bulk_data_matrix_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/delete_bulk_data_matrix_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/upload_bulk_asset_image_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/delete_bulk_asset_image_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -25,6 +27,8 @@ import 'package:sigma_track/feature/asset/domain/usecases/generate_asset_tag_sug
 import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_tags_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_data_matrix_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_asset_image_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_asset_image_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -72,6 +76,12 @@ abstract class AssetRemoteDatasource {
   );
   Future<ApiResponse<DeleteBulkDataMatrixResponseModel>> deleteBulkDataMatrix(
     DeleteBulkDataMatrixUsecaseParams params,
+  );
+  Future<ApiResponse<UploadBulkAssetImageResponseModel>> uploadBulkAssetImage(
+    UploadBulkAssetImageUsecaseParams params,
+  );
+  Future<ApiResponse<DeleteBulkAssetImageResponseModel>> deleteBulkAssetImage(
+    DeleteBulkAssetImageUsecaseParams params,
   );
   Future<ApiResponse<Uint8List>> exportAssetList(
     ExportAssetListUsecaseParams params,
@@ -457,6 +467,67 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         ApiConstant.deleteBulkDataMatrix,
         data: params.toMap(),
         fromJson: (json) => DeleteBulkDataMatrixResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<UploadBulkAssetImageResponseModel>> uploadBulkAssetImage(
+    UploadBulkAssetImageUsecaseParams params,
+  ) async {
+    this.logData('uploadBulkAssetImage called');
+    try {
+      final formData = dio.FormData();
+
+      // ✅ PENTING: Loop setiap file, tambahkan dengan field name yang SAMA
+      for (final filePath in params.filePaths) {
+        formData.files.add(
+          MapEntry(
+            'assetImages', // ⚠️ Field name SAMA untuk semua files
+            await dio.MultipartFile.fromFile(
+              filePath,
+              filename: filePath.split('/').last,
+            ),
+          ),
+        );
+      }
+
+      // ✅ Loop setiap id, tambahkan dengan field name yang SAMA
+      for (final id in params.assetIds) {
+        formData.fields.add(
+          MapEntry('assetIds', id), // ⚠️ Field name SAMA untuk semua ids
+        );
+      }
+
+      // Debug log untuk memastikan
+      this.logData(
+        'uploadBulkAssetImage: Uploading ${params.filePaths.length} files with ${params.assetIds.length} asset ids',
+      );
+
+      final response = await _dioClient.post(
+        ApiConstant.uploadBulkAssetImage,
+        data: formData,
+        fromJson: (json) => UploadBulkAssetImageResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<DeleteBulkAssetImageResponseModel>> deleteBulkAssetImage(
+    DeleteBulkAssetImageUsecaseParams params,
+  ) async {
+    this.logData('deleteBulkAssetImage called');
+    try {
+      final response = await _dioClient.post(
+        ApiConstant.deleteBulkAssetImage,
+        data: params.toMap(),
+        fromJson: (json) => DeleteBulkAssetImageResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {
