@@ -7,12 +7,14 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/bulk_delete_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/create_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/delete_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_users_cursor_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/users_state.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 
 class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   GetUsersCursorUsecase get _getUsersCursorUsecase =>
@@ -27,6 +29,8 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       ref.watch(changeUserPasswordUsecaseProvider);
   BulkCreateUsersUsecase get _bulkCreateUsersUsecase =>
       ref.watch(bulkCreateUsersUsecaseProvider);
+  BulkDeleteUsersUsecase get _bulkDeleteUsersUsecase =>
+      ref.watch(bulkDeleteUsersUsecaseProvider);
 
   @override
   UsersState build() {
@@ -387,8 +391,48 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   Future<void> deleteManyUsers(List<String> userIds) async {
     this.logPresentation('Deleting ${userIds.length} users');
 
-    // Todo: Tunggu backend impl
-    await refresh();
+    state = UsersState.deleting(
+      currentUsers: state.users,
+      usersFilter: state.usersFilter,
+      cursor: state.cursor,
+    );
+
+    final params = BulkDeleteParams(ids: userIds);
+    final result = await _bulkDeleteUsersUsecase.call(params);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to delete users', failure);
+        state = UsersState.mutationError(
+          currentUsers: state.users,
+          usersFilter: state.usersFilter,
+          mutationType: MutationType.delete,
+          failure: failure,
+          cursor: state.cursor,
+        );
+      },
+      (success) async {
+        this.logData('Users deleted successfully');
+
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.usersFilter.copyWith(
+          cursor: () => null,
+        );
+
+        // * Reload users dari awal dengan state sukses
+        state = state.copyWith(isLoading: true);
+        final newState = await _loadUsers(usersFilter: resetCursorFilter);
+
+        // * Set mutation success setelah reload
+        state = UsersState.mutationSuccess(
+          users: newState.users,
+          usersFilter: newState.usersFilter,
+          mutationType: MutationType.delete,
+          message: 'Users deleted successfully',
+          cursor: newState.cursor,
+        );
+      },
+    );
   }
 
   Future<void> refresh() async {

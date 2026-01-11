@@ -158,6 +158,7 @@ import 'package:sigma_track/feature/scan_log/domain/usecases/export_scan_log_lis
 
 // ===== USER USECASES =====
 import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/bulk_delete_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_user_password_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
@@ -1118,6 +1119,11 @@ final deleteUserUsecaseProvider = Provider<DeleteUserUsecase>((ref) {
 final bulkCreateUsersUsecaseProvider = Provider<BulkCreateUsersUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return BulkCreateUsersUsecase(userRepository);
+});
+
+final bulkDeleteUsersUsecaseProvider = Provider<BulkDeleteUsersUsecase>((ref) {
+  final userRepository = ref.read(userRepositoryProvider);
+  return BulkDeleteUsersUsecase(userRepository);
 });
 
 final getCurrentUserUsecaseProvider = Provider<GetCurrentUserUsecase>((ref) {

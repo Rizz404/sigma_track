@@ -22,6 +22,8 @@ import 'package:sigma_track/feature/user/domain/usecases/change_user_password_us
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/export_user_list_usecase.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
+import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, ItemSuccess<User>>> createUser(
@@ -76,5 +78,8 @@ abstract class UserRepository {
   );
   Future<Either<Failure, ItemSuccess<BulkCreateUsersResponse>>> createManyUsers(
     BulkCreateUsersParams params,
+  );
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyUsers(
+    BulkDeleteParams params,
   );
 }

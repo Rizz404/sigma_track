@@ -32,7 +32,6 @@ import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-// Todo: fix belum ada resolved date dan resolved by
 class IssueReportUpsertScreen extends ConsumerStatefulWidget {
   final IssueReport? issueReport;
   final String? issueReportId;
