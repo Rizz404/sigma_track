@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
@@ -152,16 +153,14 @@ class UserTile extends StatelessWidget {
     );
   }
 
-  Color _getRoleColor(BuildContext context, dynamic role) {
-    switch (role.toString().split('.').last) {
-      case 'admin':
+  Color _getRoleColor(BuildContext context, UserRole role) {
+    switch (role) {
+      case UserRole.admin:
         return context.semantic.error;
-      case 'manager':
+      case UserRole.staff:
         return context.semantic.warning;
-      case 'employee':
+      case UserRole.employee:
         return context.semantic.info;
-      default:
-        return context.colors.textPrimary;
     }
   }
 }

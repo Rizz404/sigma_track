@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/notification/domain/entities/notification.dart'
@@ -136,37 +137,39 @@ class NotificationTile extends StatelessWidget {
     );
   }
 
-  IconData _getTypeIcon(dynamic type) {
-    switch (type.toString().split('.').last) {
-      case 'maintenance':
+  IconData _getTypeIcon(NotificationType type) {
+    switch (type) {
+      case NotificationType.maintenance:
         return Icons.build_outlined;
-      case 'issue':
-        return Icons.warning_amber_outlined;
-      case 'movement':
-        return Icons.move_to_inbox_outlined;
-      case 'assignment':
-        return Icons.assignment_outlined;
-      case 'warranty':
+      case NotificationType.warranty:
         return Icons.verified_user_outlined;
-      default:
-        return Icons.notifications_outlined;
+      case NotificationType.issue:
+        return Icons.warning_amber_outlined;
+      case NotificationType.movement:
+        return Icons.move_to_inbox_outlined;
+      case NotificationType.statusChange:
+        return Icons.swap_horiz;
+      case NotificationType.locationChange:
+        return Icons.location_on;
+      case NotificationType.categoryChange:
+        return Icons.category;
     }
   }
 
-  Color _getTypeColor(BuildContext context, dynamic type) {
-    switch (type.toString().split('.').last) {
-      case 'maintenance':
+  Color _getTypeColor(BuildContext context, NotificationType type) {
+    switch (type) {
+      case NotificationType.maintenance:
         return context.semantic.info;
-      case 'issue':
-        return context.semantic.error;
-      case 'movement':
-        return context.semantic.warning;
-      case 'assignment':
-        return context.semantic.success;
-      case 'warranty':
+      case NotificationType.warranty:
         return context.colorScheme.primary;
-      default:
-        return context.colors.textPrimary;
+      case NotificationType.issue:
+        return context.semantic.error;
+      case NotificationType.movement:
+        return context.semantic.warning;
+      case NotificationType.statusChange:
+      case NotificationType.locationChange:
+      case NotificationType.categoryChange:
+        return context.semantic.success;
     }
   }
 

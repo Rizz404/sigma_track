@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/issue_report/domain/entities/issue_report.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -173,33 +174,28 @@ class IssueReportTile extends StatelessWidget {
     );
   }
 
-  Color _getPriorityColor(BuildContext context, dynamic priority) {
-    switch (priority.toString().split('.').last) {
-      case 'low':
+  Color _getPriorityColor(BuildContext context, IssuePriority priority) {
+    switch (priority) {
+      case IssuePriority.low:
         return context.semantic.info;
-      case 'medium':
+      case IssuePriority.medium:
         return context.semantic.warning;
-      case 'high':
+      case IssuePriority.high:
+      case IssuePriority.critical:
         return context.semantic.error;
-      case 'critical':
-        return context.semantic.error;
-      default:
-        return context.colors.textPrimary;
     }
   }
 
-  Color _getStatusColor(BuildContext context, dynamic status) {
-    switch (status.toString().split('.').last) {
-      case 'pending':
+  Color _getStatusColor(BuildContext context, IssueStatus status) {
+    switch (status) {
+      case IssueStatus.open:
         return context.semantic.warning;
-      case 'inProgress':
+      case IssueStatus.inProgress:
         return context.semantic.info;
-      case 'resolved':
+      case IssueStatus.resolved:
         return context.semantic.success;
-      case 'closed':
+      case IssueStatus.closed:
         return context.colors.textSecondary;
-      default:
-        return context.colors.textPrimary;
     }
   }
 }

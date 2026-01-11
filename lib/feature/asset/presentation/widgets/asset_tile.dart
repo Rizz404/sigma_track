@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -180,35 +181,27 @@ class AssetTile extends StatelessWidget {
     );
   }
 
-  Color _getStatusColor(BuildContext context, dynamic status) {
-    switch (status.toString().split('.').last) {
-      case 'available':
+  Color _getStatusColor(BuildContext context, AssetStatus status) {
+    switch (status) {
+      case AssetStatus.active:
         return context.semantic.success;
-      case 'inUse':
-        return context.semantic.info;
-      case 'inMaintenance':
+      case AssetStatus.maintenance:
         return context.semantic.warning;
-      case 'retired':
-      case 'disposed':
+      case AssetStatus.disposed:
+      case AssetStatus.lost:
         return context.colors.textSecondary;
-      default:
-        return context.colors.textPrimary;
     }
   }
 
-  Color _getConditionColor(BuildContext context, dynamic condition) {
-    switch (condition.toString().split('.').last) {
-      case 'excellent':
+  Color _getConditionColor(BuildContext context, AssetCondition condition) {
+    switch (condition) {
+      case AssetCondition.good:
         return context.semantic.success;
-      case 'good':
-        return context.semantic.info;
-      case 'fair':
+      case AssetCondition.fair:
         return context.semantic.warning;
-      case 'poor':
-      case 'broken':
+      case AssetCondition.poor:
+      case AssetCondition.damaged:
         return context.semantic.error;
-      default:
-        return context.colors.textPrimary;
     }
   }
 }

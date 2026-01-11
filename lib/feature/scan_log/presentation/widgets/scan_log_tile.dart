@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -181,29 +182,22 @@ class ScanLogTile extends StatelessWidget {
     );
   }
 
-  IconData _getScanMethodIcon(dynamic method) {
-    switch (method.toString().split('.').last) {
-      case 'dataMatrix':
+  IconData _getScanMethodIcon(ScanMethodType method) {
+    switch (method) {
+      case ScanMethodType.dataMatrix:
         return Icons.qr_code_2;
-      case 'barcode':
-        return Icons.barcode_reader;
-      case 'rfid':
-        return Icons.nfc;
-      default:
-        return Icons.qr_code_scanner;
+      case ScanMethodType.manualInput:
+        return Icons.keyboard;
     }
   }
 
-  Color _getResultColor(BuildContext context, dynamic result) {
-    switch (result.toString().split('.').last) {
-      case 'success':
+  Color _getResultColor(BuildContext context, ScanResultType result) {
+    switch (result) {
+      case ScanResultType.success:
         return context.semantic.success;
-      case 'failed':
+      case ScanResultType.invalidID:
+      case ScanResultType.assetNotFound:
         return context.semantic.error;
-      case 'notFound':
-        return context.semantic.warning;
-      default:
-        return context.colors.textPrimary;
     }
   }
 }
