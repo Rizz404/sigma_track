@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
+import 'package:sigma_track/feature/asset/data/models/asset_image_model.dart';
 import 'package:sigma_track/feature/category/data/models/category_model.dart';
 import 'package:sigma_track/feature/location/data/models/location_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
@@ -30,6 +31,7 @@ class AssetModel extends Equatable {
   final CategoryModel? category;
   final LocationModel? location;
   final UserModel? assignedTo;
+  final List<AssetImageModel>? images;
 
   const AssetModel({
     required this.id,
@@ -53,6 +55,7 @@ class AssetModel extends Equatable {
     this.category,
     this.location,
     this.assignedTo,
+    this.images,
   });
 
   @override
@@ -79,6 +82,7 @@ class AssetModel extends Equatable {
       category,
       location,
       assignedTo,
+      images,
     ];
   }
 
@@ -104,6 +108,7 @@ class AssetModel extends Equatable {
     ValueGetter<CategoryModel?>? category,
     ValueGetter<LocationModel?>? location,
     ValueGetter<UserModel?>? assignedTo,
+    ValueGetter<List<AssetImageModel>?>? images,
   }) {
     return AssetModel(
       id: id ?? this.id,
@@ -129,6 +134,7 @@ class AssetModel extends Equatable {
       category: category != null ? category() : this.category,
       location: location != null ? location() : this.location,
       assignedTo: assignedTo != null ? assignedTo() : this.assignedTo,
+      images: images != null ? images() : this.images,
     );
   }
 
@@ -155,6 +161,7 @@ class AssetModel extends Equatable {
       'category': category?.toMap(),
       'location': location?.toMap(),
       'assignedTo': assignedTo?.toMap(),
+      'images': images?.map((e) => e.toMap()).toList(),
     };
   }
 
@@ -195,6 +202,13 @@ class AssetModel extends Equatable {
       assignedTo: map.getFieldOrNull<Map<String, dynamic>>('assignedTo') != null
           ? UserModel.fromMap(map.getField<Map<String, dynamic>>('assignedTo'))
           : null,
+      images: map.getFieldOrNull<List<dynamic>>('images') != null
+          ? List<AssetImageModel>.from(
+              (map.getField<List<dynamic>>(
+                'images',
+              )).map((e) => AssetImageModel.fromMap(e as Map<String, dynamic>)),
+            )
+          : null,
     );
   }
 
@@ -205,6 +219,6 @@ class AssetModel extends Equatable {
 
   @override
   String toString() {
-    return 'AssetModel(id: $id, assetTag: $assetTag, dataMatrixImageUrl: $dataMatrixImageUrl, assetName: $assetName, categoryId: $categoryId, brand: $brand, model: $model, serialNumber: $serialNumber, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, vendorName: $vendorName, warrantyEnd: $warrantyEnd, status: $status, condition: $condition, locationId: $locationId, assignedToId: $assignedToId, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, location: $location, assignedTo: $assignedTo)';
+    return 'AssetModel(id: $id, assetTag: $assetTag, dataMatrixImageUrl: $dataMatrixImageUrl, assetName: $assetName, categoryId: $categoryId, brand: $brand, model: $model, serialNumber: $serialNumber, purchaseDate: $purchaseDate, purchasePrice: $purchasePrice, vendorName: $vendorName, warrantyEnd: $warrantyEnd, status: $status, condition: $condition, locationId: $locationId, assignedToId: $assignedToId, createdAt: $createdAt, updatedAt: $updatedAt, category: $category, location: $location, assignedTo: $assignedTo, images: $images)';
   }
 }

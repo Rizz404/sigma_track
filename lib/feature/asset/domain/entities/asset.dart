@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset_image.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
@@ -26,6 +27,7 @@ class Asset extends Equatable {
   final Category? category;
   final Location? location;
   final User? assignedTo;
+  final List<AssetImage>? images;
 
   const Asset({
     required this.id,
@@ -49,6 +51,7 @@ class Asset extends Equatable {
     this.category,
     this.location,
     this.assignedTo,
+    this.images,
   });
 
   factory Asset.dummy() => Asset(
@@ -61,6 +64,7 @@ class Asset extends Equatable {
     condition: AssetCondition.good,
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
+    images: const [],
   );
 
   @override
@@ -87,6 +91,7 @@ class Asset extends Equatable {
       category,
       location,
       assignedTo,
+      images,
     ];
   }
 }
