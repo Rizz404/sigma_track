@@ -575,7 +575,7 @@ class DashboardScreen extends ConsumerWidget {
                 _buildBarGroup(
                   2,
                   stats.byCondition.poor.toDouble(),
-                  Colors.orange,
+                  context.semantic.warning,
                 ),
                 _buildBarGroup(
                   3,

@@ -395,7 +395,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
   Widget _buildScannerOverlay() {
     return Container(
-      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.5)),
+      decoration: BoxDecoration(color: context.colors.scrim),
       child: Stack(
         children: [
           // * Dark overlay with transparent center
@@ -405,7 +405,10 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
               width: 250,
               height: 250,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 3),
+                border: Border.all(
+                  color: context.colorScheme.primary,
+                  width: 3,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ClipRRect(
@@ -426,13 +429,13 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.7),
+                  color: context.colors.overlay,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: AppText(
                   context.l10n.assetAlignDataMatrix,
                   style: AppTextStyle.bodyMedium,
-                  color: Colors.white,
+                  color: context.colors.textOnPrimary,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -495,7 +498,7 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
 
   Widget _buildLoadingOverlay() {
     return Container(
-      color: Colors.black.withValues(alpha: 0.7),
+      color: context.colors.overlay,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -566,17 +569,21 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.7),
+            color: context.colors.overlay,
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            icon: Icon(icon, color: Colors.white),
+            icon: Icon(icon, color: context.colors.textOnPrimary),
             onPressed: onPressed,
             iconSize: 28,
           ),
         ),
         const SizedBox(height: 4),
-        AppText(label, style: AppTextStyle.bodySmall, color: Colors.white),
+        AppText(
+          label,
+          style: AppTextStyle.bodySmall,
+          color: context.colors.textOnPrimary,
+        ),
       ],
     );
   }

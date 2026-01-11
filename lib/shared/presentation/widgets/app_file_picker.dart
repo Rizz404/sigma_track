@@ -118,7 +118,7 @@ class AppFilePickerState extends State<AppFilePicker> {
   void _previewFile(PlatformFile file) {
     showDialog(
       context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.8),
+      barrierColor: context.colors.overlay,
       builder: (context) => _FilePreviewDialog(file: file),
     );
   }
@@ -157,9 +157,9 @@ class AppFilePickerState extends State<AppFilePicker> {
                     fontWeight: FontWeight.w600,
                   ),
                   if (widget.isRequired)
-                    const AppText(
+                    AppText(
                       ' *',
-                      color: Colors.red,
+                      color: context.semantic.error,
                       style: AppTextStyle.bodySmall,
                     ),
                 ],
@@ -362,7 +362,7 @@ class _FilePreviewDialog extends StatelessWidget {
           top: 16,
           right: 16,
           child: IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: context.colors.textOnPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -382,12 +382,12 @@ class _FilePreviewDialog extends StatelessWidget {
             : const AppText('Unable to preview image');
       }
     } else if (_isVideo()) {
-      return Column(
+      return const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.video_file, size: 64, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          const AppText(
+          Icon(Icons.video_file, size: 64, color: Colors.grey),
+          SizedBox(height: 16),
+          AppText(
             'Video preview not implemented yet',
             style: AppTextStyle.bodyMedium,
           ),

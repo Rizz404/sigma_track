@@ -522,7 +522,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       _ActionItem(
         icon: Icons.report_problem_rounded,
         label: context.l10n.assetReportIssue,
-        color: Colors.orange, // Opsional: Highlight color
+        color: context.semantic.warning, // * Highlight color", "StartLine": 525
         onTap: () => context.push(
           RouteConstant.issueReportUpsert,
           extra: {'prePopulatedAsset': asset},

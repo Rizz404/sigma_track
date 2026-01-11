@@ -119,7 +119,7 @@ class _ToastCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
+              color: context.colors.scrim,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -128,13 +128,13 @@ class _ToastCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(_getIcon(), color: Colors.white, size: 24),
+            Icon(_getIcon(), color: context.colors.textOnPrimary, size: 24),
             const SizedBox(width: 12),
             Flexible(
               child: Text(
                 message,
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
+                  color: context.colors.textOnPrimary,
                   fontWeight: FontWeight.w500,
                 ),
               ),

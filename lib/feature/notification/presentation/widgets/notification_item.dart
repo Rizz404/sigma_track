@@ -126,17 +126,17 @@ class NotificationItem extends StatelessWidget {
       case NotificationType.maintenance:
         return (Icons.build_outlined, context.colorScheme.primary);
       case NotificationType.warranty:
-        return (Icons.verified_outlined, Colors.blue);
+        return (Icons.verified_outlined, context.semantic.info);
       case NotificationType.statusChange:
-        return (Icons.swap_horiz_outlined, Colors.orange);
+        return (Icons.swap_horiz_outlined, context.semantic.warning);
       case NotificationType.movement:
-        return (Icons.local_shipping_outlined, Colors.purple);
+        return (Icons.local_shipping_outlined, context.colors.accent);
       case NotificationType.issue:
         return (Icons.warning_amber_outlined, context.colorScheme.error);
       case NotificationType.locationChange:
-        return (Icons.location_on_outlined, Colors.green);
+        return (Icons.location_on_outlined, context.semantic.success);
       case NotificationType.categoryChange:
-        return (Icons.category_outlined, Colors.teal);
+        return (Icons.category_outlined, context.colors.primary);
     }
   }
 }

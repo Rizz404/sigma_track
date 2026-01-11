@@ -286,7 +286,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         border: Border(top: BorderSide(color: context.colors.border, width: 1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: context.colors.divider,
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
