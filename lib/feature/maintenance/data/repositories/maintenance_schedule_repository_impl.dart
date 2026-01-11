@@ -84,23 +84,6 @@ class MaintenanceScheduleRepositoryImpl
         ),
       );
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -141,23 +124,6 @@ class MaintenanceScheduleRepositoryImpl
         ),
       );
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));

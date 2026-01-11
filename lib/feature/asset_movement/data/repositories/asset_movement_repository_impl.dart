@@ -194,7 +194,25 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -211,7 +229,25 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -228,7 +264,25 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -245,7 +299,25 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
       final assetMovement = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: assetMovement));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -272,7 +344,8 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
     BulkCreateAssetMovementsForUserParams params,
   ) async {
     try {
-      final response = await _assetMovementRemoteDatasource.createManyAssetMovements(params);
+      final response = await _assetMovementRemoteDatasource
+          .createManyAssetMovements(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -303,7 +376,8 @@ class AssetMovementRepositoryImpl implements AssetMovementRepository {
   Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
   deleteManyAssetMovements(BulkDeleteParams params) async {
     try {
-      final response = await _assetMovementRemoteDatasource.deleteManyAssetMovements(params);
+      final response = await _assetMovementRemoteDatasource
+          .deleteManyAssetMovements(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

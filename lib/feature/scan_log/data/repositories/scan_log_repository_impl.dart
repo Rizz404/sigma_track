@@ -39,7 +39,25 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
       final scanLog = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: scanLog));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -224,7 +242,9 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
   Future<Either<Failure, ItemSuccess<BulkCreateScanLogsResponse>>>
   createManyScanLogs(BulkCreateScanLogsParams params) async {
     try {
-      final response = await _scanLogRemoteDatasource.createManyScanLogs(params);
+      final response = await _scanLogRemoteDatasource.createManyScanLogs(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -238,7 +258,9 @@ class ScanLogRepositoryImpl implements ScanLogRepository {
     BulkDeleteParams params,
   ) async {
     try {
-      final response = await _scanLogRemoteDatasource.deleteManyScanLogs(params);
+      final response = await _scanLogRemoteDatasource.deleteManyScanLogs(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

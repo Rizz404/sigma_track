@@ -33,7 +33,25 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: user));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -53,7 +71,25 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return Right(ItemSuccess(message: response.message, data: loginResponse));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -98,7 +134,25 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await _authRemoteDatasource.resetPassword(params);
       return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }

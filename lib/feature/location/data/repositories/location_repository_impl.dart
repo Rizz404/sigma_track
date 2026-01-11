@@ -75,23 +75,6 @@ class LocationRepositoryImpl implements LocationRepository {
         ),
       );
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -106,23 +89,6 @@ class LocationRepositoryImpl implements LocationRepository {
       final statistics = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: statistics));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -146,23 +112,6 @@ class LocationRepositoryImpl implements LocationRepository {
         ),
       );
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -177,23 +126,6 @@ class LocationRepositoryImpl implements LocationRepository {
       final response = await _locationRemoteDatasource.countLocations(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -211,23 +143,6 @@ class LocationRepositoryImpl implements LocationRepository {
       final location = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: location));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -244,23 +159,6 @@ class LocationRepositoryImpl implements LocationRepository {
       );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -277,23 +175,6 @@ class LocationRepositoryImpl implements LocationRepository {
       );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -309,23 +190,6 @@ class LocationRepositoryImpl implements LocationRepository {
       final location = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: location));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -372,23 +236,6 @@ class LocationRepositoryImpl implements LocationRepository {
       final response = await _locationRemoteDatasource.deleteLocation(params);
       return Right(ActionSuccess(message: response.message));
     } on ApiErrorResponse catch (apiError) {
-      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
-        return Left(
-          ValidationFailure(
-            message: apiError.message,
-            errors: apiError.errors!
-                .map(
-                  (e) => ValidationError(
-                    field: e.field,
-                    tag: e.tag,
-                    value: e.value,
-                    message: e.message,
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      }
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
@@ -399,7 +246,9 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<Either<Failure, ItemSuccess<BulkCreateLocationsResponse>>>
   createManyLocations(BulkCreateLocationsParams params) async {
     try {
-      final response = await _locationRemoteDatasource.createManyLocations(params);
+      final response = await _locationRemoteDatasource.createManyLocations(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -413,7 +262,9 @@ class LocationRepositoryImpl implements LocationRepository {
     BulkDeleteParams params,
   ) async {
     try {
-      final response = await _locationRemoteDatasource.deleteManyLocations(params);
+      final response = await _locationRemoteDatasource.deleteManyLocations(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

@@ -226,7 +226,25 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
       final issueReport = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: issueReport));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -243,7 +261,25 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
       final issueReport = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: issueReport));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -285,7 +321,8 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
   Future<Either<Failure, ItemSuccess<BulkCreateIssueReportsResponse>>>
   createManyIssueReports(BulkCreateIssueReportsParams params) async {
     try {
-      final response = await _issueReportRemoteDatasource.createManyIssueReports(params);
+      final response = await _issueReportRemoteDatasource
+          .createManyIssueReports(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -298,7 +335,8 @@ class IssueReportRepositoryImpl implements IssueReportRepository {
   Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
   deleteManyIssueReports(BulkDeleteParams params) async {
     try {
-      final response = await _issueReportRemoteDatasource.deleteManyIssueReports(params);
+      final response = await _issueReportRemoteDatasource
+          .deleteManyIssueReports(params);
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));

@@ -37,7 +37,25 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -193,7 +211,25 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final category = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: category));
     } on ApiErrorResponse catch (apiError) {
-      return Left(ServerFailure(message: apiError.message));
+      if (apiError.errors != null && apiError.errors!.isNotEmpty) {
+        return Left(
+          ValidationFailure(
+            message: apiError.message,
+            errors: apiError.errors!
+                .map(
+                  (e) => ValidationError(
+                    field: e.field,
+                    tag: e.tag,
+                    value: e.value,
+                    message: e.message,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      } else {
+        return Left(ServerFailure(message: apiError.message));
+      }
     } catch (e) {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
@@ -212,12 +248,14 @@ class CategoryRepositoryImpl implements CategoryRepository {
       return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
     }
   }
+
   @override
   Future<Either<Failure, ItemSuccess<BulkCreateCategoriesResponse>>>
-      createManyCategories(BulkCreateCategoriesParams params) async {
+  createManyCategories(BulkCreateCategoriesParams params) async {
     try {
-      final response =
-          await _categoryRemoteDatasource.createManyCategories(params);
+      final response = await _categoryRemoteDatasource.createManyCategories(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
@@ -227,11 +265,13 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>>
-      deleteManyCategories(BulkDeleteParams params) async {
+  Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyCategories(
+    BulkDeleteParams params,
+  ) async {
     try {
-      final response =
-          await _categoryRemoteDatasource.deleteManyCategories(params);
+      final response = await _categoryRemoteDatasource.deleteManyCategories(
+        params,
+      );
       return Right(ItemSuccess(message: response.message, data: response.data));
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
