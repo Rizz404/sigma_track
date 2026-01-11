@@ -4,8 +4,7 @@ import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_asset_image_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/export_assets_state.dart';
 
-class UploadBulkAssetImageNotifier
-    extends AutoDisposeNotifier<ExportAssetsState> {
+class UploadBulkAssetImageNotifier extends Notifier<ExportAssetsState> {
   UploadBulkAssetImageUsecase get _uploadBulkAssetImageUsecase =>
       ref.watch(uploadBulkAssetImageUsecaseProvider);
 

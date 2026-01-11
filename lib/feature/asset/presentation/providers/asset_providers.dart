@@ -2,9 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/count_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/assets_search_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/delete_bulk_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/export_assets_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/export_asset_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_statistics_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_data_matrix_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/delete_bulk_data_matrix_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_asset_image_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/delete_bulk_asset_image_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/check_asset_exists_notifier.dart';
@@ -22,6 +25,7 @@ import 'package:sigma_track/feature/asset/presentation/providers/state/asset_boo
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_count_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_detail_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/export_assets_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_data_matrix_notifier.dart';
 
 // * Main list provider untuk asset (cursor pagination)
 final assetsProvider = AutoDisposeNotifierProvider<AssetsNotifier, AssetsState>(
@@ -112,12 +116,25 @@ final exportAssetDataMatrixProvider =
       ExportAssetDataMatrixNotifier,
       ExportAssetsState
     >(ExportAssetDataMatrixNotifier.new);
+
+// * Provider untuk upload bulk data matrix
+final uploadBulkDataMatrixNotifierProvider =
+    NotifierProvider<UploadBulkDataMatrixNotifier, BulkDataMatrixState>(
+      UploadBulkDataMatrixNotifier.new,
+    );
+
+// * Provider untuk delete bulk data matrix
+final deleteBulkDataMatrixNotifierProvider =
+    AutoDisposeNotifierProvider<
+      DeleteBulkDataMatrixNotifier,
+      DeleteBulkDataMatrixState
+    >(DeleteBulkDataMatrixNotifier.new);
+
 // * Provider untuk upload bulk asset image
 final uploadBulkAssetImageProvider =
-    AutoDisposeNotifierProvider<
-      UploadBulkAssetImageNotifier,
-      ExportAssetsState
-    >(UploadBulkAssetImageNotifier.new);
+    NotifierProvider<UploadBulkAssetImageNotifier, ExportAssetsState>(
+      UploadBulkAssetImageNotifier.new,
+    );
 
 // * Provider untuk delete bulk asset image
 final deleteBulkAssetImageProvider =

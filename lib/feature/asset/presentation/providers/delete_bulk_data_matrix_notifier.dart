@@ -59,9 +59,3 @@ class DeleteBulkDataMatrixNotifier
     state = DeleteBulkDataMatrixState.initial();
   }
 }
-
-final deleteBulkDataMatrixNotifierProvider =
-    AutoDisposeNotifierProvider<
-      DeleteBulkDataMatrixNotifier,
-      DeleteBulkDataMatrixState
-    >(DeleteBulkDataMatrixNotifier.new);

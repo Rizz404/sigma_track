@@ -22,7 +22,6 @@ import 'package:sigma_track/feature/asset/presentation/providers/asset_providers
 import 'package:sigma_track/feature/asset/presentation/providers/generate_bulk_asset_tags_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_asset_tags_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_data_matrix_state.dart';
-import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_data_matrix_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
 import 'package:sigma_track/feature/asset/presentation/validators/asset_upsert_validator.dart';
 import 'package:sigma_track/feature/category/domain/entities/category.dart';

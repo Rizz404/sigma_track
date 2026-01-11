@@ -5,16 +5,13 @@ import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/bulk_data_matrix_state.dart';
 
-class UploadBulkDataMatrixNotifier
-    extends AutoDisposeNotifier<BulkDataMatrixState> {
+class UploadBulkDataMatrixNotifier extends Notifier<BulkDataMatrixState> {
   UploadBulkDataMatrixUsecase get _uploadBulkDataMatrixUsecase =>
       ref.watch(uploadBulkDataMatrixUsecaseProvider);
 
   @override
   BulkDataMatrixState build() {
     this.logPresentation('Initializing UploadBulkDataMatrixNotifier');
-    // * Keep alive to prevent disposal during upload
-    ref.keepAlive();
     return BulkDataMatrixState.initial();
   }
 
@@ -67,9 +64,3 @@ class UploadBulkDataMatrixNotifier
     state = BulkDataMatrixState.initial();
   }
 }
-
-final uploadBulkDataMatrixNotifierProvider =
-    AutoDisposeNotifierProvider<
-      UploadBulkDataMatrixNotifier,
-      BulkDataMatrixState
-    >(UploadBulkDataMatrixNotifier.new);

@@ -18,7 +18,6 @@ import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenan
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedule_providers.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_schedules_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/validators/maintenance_schedule_upsert_validator.dart';
-import 'package:sigma_track/feature/user/presentation/providers/current_user_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';

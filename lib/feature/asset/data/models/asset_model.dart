@@ -204,9 +204,9 @@ class AssetModel extends Equatable {
           : null,
       images: map.getFieldOrNull<List<dynamic>>('images') != null
           ? List<AssetImageModel>.from(
-              (map.getField<List<dynamic>>(
+              map.getField<List<dynamic>>(
                 'images',
-              )).map((e) => AssetImageModel.fromMap(e as Map<String, dynamic>)),
+              ).map((e) => AssetImageModel.fromMap(e as Map<String, dynamic>)),
             )
           : null,
     );

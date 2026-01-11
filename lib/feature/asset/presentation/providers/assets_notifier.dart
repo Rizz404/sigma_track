@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_delete_assets_usecase.dart';
@@ -193,6 +194,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
           message: success.message ?? 'Asset created',
           cursor: newState.cursor,
         );
+
+        // * Invalidate non-auto-dispose providers
+        ref.invalidate(uploadBulkDataMatrixNotifierProvider);
+        ref.invalidate(uploadBulkAssetImageProvider);
       },
     );
   }
@@ -234,6 +239,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
           message: success.message ?? 'Asset updated',
           cursor: newState.cursor,
         );
+
+        // * Invalidate non-auto-dispose providers
+        ref.invalidate(uploadBulkDataMatrixNotifierProvider);
+        ref.invalidate(uploadBulkAssetImageProvider);
       },
     );
   }
@@ -318,6 +327,10 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
           message: 'Assets created successfully',
           cursor: newState.cursor,
         );
+
+        // * Invalidate non-auto-dispose providers
+        ref.invalidate(uploadBulkDataMatrixNotifierProvider);
+        ref.invalidate(uploadBulkAssetImageProvider);
       },
     );
   }
