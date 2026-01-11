@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 
@@ -69,6 +70,24 @@ class CategoryUpsertValidator {
       }
       if (value.length > 500) {
         return context.l10n.categoryValidationDescriptionMaxLength;
+      }
+    }
+    return null;
+  }
+
+  static String? validateImage(List<PlatformFile>? files) {
+    if (files != null && files.isNotEmpty) {
+      final file = files.first;
+      final extension = file.extension?.toLowerCase();
+      final allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+      if (!allowedExtensions.contains(extension)) {
+        return 'Only image files are allowed (jpg, jpeg, png, gif, webp)';
+      }
+
+      // * Max 5MB
+      if (file.size > 5 * 1024 * 1024) {
+        return 'Image size must not exceed 5MB';
       }
     }
     return null;

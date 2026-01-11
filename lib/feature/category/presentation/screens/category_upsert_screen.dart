@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +19,7 @@ import 'package:sigma_track/feature/category/presentation/providers/category_pro
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/feature/category/presentation/validators/category_upsert_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -39,10 +43,14 @@ class CategoryUpsertScreen extends ConsumerStatefulWidget {
 
 class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<AppFilePickerState> _filePickerKey =
+      GlobalKey<AppFilePickerState>();
+
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.category != null || widget.categoryId != null;
   Category? _fetchedCategory;
   bool _isLoadingTranslations = false;
+  File? _imageFile;
 
   Future<List<Category>> _searchParentCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -90,6 +98,17 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     final parentId = formData['parentId'] as String?;
     final categoryCode = formData['categoryCode'] as String;
 
+    // * Handle image file selection (align with user profile screen)
+    final imageFiles = formData['image'] as List<PlatformFile>?;
+    File? selectedImageFile;
+    if (imageFiles != null && imageFiles.isNotEmpty) {
+      final filePath = imageFiles.first.path;
+      if (filePath != null) {
+        selectedImageFile = File(filePath);
+      }
+    }
+    _imageFile = selectedImageFile;
+
     if (_isEdit) {
       final categoryId = _fetchedCategory?.id ?? widget.category!.id;
       final params = UpdateCategoryUsecaseParams.fromChanges(
@@ -98,6 +117,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         parentId: parentId,
         categoryCode: categoryCode,
         translations: translations.cast<UpdateCategoryTranslation>(),
+        imageFile: selectedImageFile,
       );
       ref.read(categoriesProvider.notifier).updateCategory(params);
     } else {
@@ -105,6 +125,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         parentId: parentId ?? '',
         categoryCode: categoryCode,
         translations: translations.cast<CreateCategoryTranslation>(),
+        imageFile: selectedImageFile,
       );
       ref.read(categoriesProvider.notifier).createCategory(params);
     }
@@ -168,6 +189,12 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         AppToast.success(
           next.mutationMessage ?? context.l10n.categorySavedSuccessfully,
         );
+        // * Clean up selected file and reset picker
+        if (_imageFile != null) {
+          _imageFile!.deleteSync();
+          _imageFile = null;
+        }
+        _filePickerKey.currentState?.reset();
         context.pop();
       }
 
@@ -268,7 +295,6 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                 isUpdate: _isEdit,
               ),
             ),
-
             const SizedBox(height: 16),
             AppTextField(
               name: 'categoryCode',
@@ -283,6 +309,19 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                     value,
                     isUpdate: _isEdit,
                   ),
+            ),
+            const SizedBox(height: 16),
+            AppFilePicker(
+              key: _filePickerKey,
+              name: 'image',
+              label: context.l10n.userProfilePicture,
+              hintText: context.l10n.userChooseImage,
+              fileType: FileType.image,
+              allowMultiple: false,
+              maxFiles: 1,
+              maxSizeInMB: 5,
+              validator: CategoryUpsertValidator.validateImage,
+              allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
             ),
           ],
         ),

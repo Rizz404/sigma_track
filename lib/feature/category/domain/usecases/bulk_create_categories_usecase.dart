@@ -94,6 +94,7 @@ class BulkCreateCategoriesResponse extends Equatable {
       'categoryCode': category.categoryCode,
       'categoryName': category.categoryName,
       'description': category.description,
+      'imageUrl': category.imageUrl,
       'createdAt': category.createdAt.toIso8601String(),
       'updatedAt': category.updatedAt.toIso8601String(),
     };
@@ -106,6 +107,7 @@ class BulkCreateCategoriesResponse extends Equatable {
       categoryCode: map['categoryCode'] ?? '',
       categoryName: map['categoryName'] ?? '',
       description: map['description'] ?? '',
+      imageUrl: map['imageUrl'],
       createdAt: DateTime.parse(map['createdAt'].toString()),
       updatedAt: DateTime.parse(map['updatedAt'].toString()),
     );

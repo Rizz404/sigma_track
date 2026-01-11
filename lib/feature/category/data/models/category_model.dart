@@ -12,6 +12,7 @@ class CategoryModel extends Equatable {
   final String categoryName;
   final String description;
   final CategoryModel? parent;
+  final String? imageUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<CategoryTranslationModel>? translations;
@@ -23,6 +24,7 @@ class CategoryModel extends Equatable {
     required this.categoryName,
     required this.description,
     this.parent,
+    this.imageUrl,
     required this.createdAt,
     required this.updatedAt,
     required this.translations,
@@ -37,6 +39,7 @@ class CategoryModel extends Equatable {
       categoryName,
       description,
       parent,
+      imageUrl,
       createdAt,
       updatedAt,
       translations,
@@ -50,6 +53,7 @@ class CategoryModel extends Equatable {
     String? categoryName,
     String? description,
     ValueGetter<CategoryModel?>? parent,
+    ValueGetter<String?>? imageUrl,
     DateTime? createdAt,
     DateTime? updatedAt,
     ValueGetter<List<CategoryTranslationModel>?>? translations,
@@ -61,6 +65,7 @@ class CategoryModel extends Equatable {
       categoryName: categoryName ?? this.categoryName,
       description: description ?? this.description,
       parent: parent != null ? parent() : this.parent,
+      imageUrl: imageUrl != null ? imageUrl() : this.imageUrl,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       translations: translations != null ? translations() : this.translations,
@@ -75,6 +80,7 @@ class CategoryModel extends Equatable {
       'categoryName': categoryName,
       'description': description,
       'parent': parent,
+      'imageUrl': imageUrl,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
       'translations': translations?.map((x) => x.toMap()).toList() ?? [],
@@ -91,6 +97,7 @@ class CategoryModel extends Equatable {
       parent: map.getFieldOrNull<Map<String, dynamic>>('parent') != null
           ? CategoryModel.fromMap(map.getField<Map<String, dynamic>>('parent'))
           : null,
+      imageUrl: map.getFieldOrNull<String>('imageUrl'),
       createdAt: map.getField<DateTime>('createdAt'),
       updatedAt: map.getField<DateTime>('updatedAt'),
       translations: List<CategoryTranslationModel>.from(
@@ -113,7 +120,7 @@ class CategoryModel extends Equatable {
 
   @override
   String toString() {
-    return 'CategoryModel(id: $id, parentId: $parentId, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, parent: $parent, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
+    return 'CategoryModel(id: $id, parentId: $parentId, categoryCode: $categoryCode, categoryName: $categoryName, description: $description, parent: $parent, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, translations: $translations)';
   }
 }
 

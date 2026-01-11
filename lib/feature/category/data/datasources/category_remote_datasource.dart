@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
@@ -69,9 +70,27 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
   ) async {
     this.logData('createCategory called');
     try {
+      final formData = dio.FormData();
+      final map = params.toMap();
+      for (final entry in map.entries) {
+        if (entry.key == 'imageFile' && entry.value != null) {
+          formData.files.add(
+            MapEntry(
+              'image',
+              await dio.MultipartFile.fromFile(entry.value as String),
+            ),
+          );
+        } else if (entry.key == 'imageUrl' &&
+            entry.value != null &&
+            map['imageFile'] == null) {
+          formData.fields.add(MapEntry('image', entry.value.toString()));
+        } else if (entry.value != null && entry.key != 'imageFile') {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
       final response = await _dioClient.post(
         ApiConstant.createCategory,
-        data: params.toMap(),
+        data: formData,
         fromJson: (json) => CategoryModel.fromMap(json),
       );
       return response;
@@ -207,9 +226,27 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
     UpdateCategoryUsecaseParams params,
   ) async {
     try {
+      final formData = dio.FormData();
+      final map = params.toMap();
+      for (final entry in map.entries) {
+        if (entry.key == 'imageFile' && entry.value != null) {
+          formData.files.add(
+            MapEntry(
+              'image',
+              await dio.MultipartFile.fromFile(entry.value as String),
+            ),
+          );
+        } else if (entry.key == 'imageUrl' &&
+            entry.value != null &&
+            map['imageFile'] == null) {
+          formData.fields.add(MapEntry('image', entry.value.toString()));
+        } else if (entry.value != null && entry.key != 'imageFile') {
+          formData.fields.add(MapEntry(entry.key, entry.value.toString()));
+        }
+      }
       final response = await _dioClient.patch(
         ApiConstant.updateCategory(params.id),
-        data: params.toMap(),
+        data: formData,
         fromJson: (json) => CategoryModel.fromMap(json),
       );
       return response;

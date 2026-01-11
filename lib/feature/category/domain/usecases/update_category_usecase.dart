@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
@@ -29,12 +30,16 @@ class UpdateCategoryUsecaseParams extends Equatable {
   final String? parentId;
   final String? categoryCode;
   final List<UpdateCategoryTranslation>? translations;
+  final String? imageUrl;
+  final File? imageFile;
 
   UpdateCategoryUsecaseParams({
     required this.id,
     this.parentId,
     this.categoryCode,
     this.translations,
+    this.imageUrl,
+    this.imageFile,
   });
 
   /// * Factory method to create params with only changed fields
@@ -44,12 +49,16 @@ class UpdateCategoryUsecaseParams extends Equatable {
     String? parentId,
     String? categoryCode,
     List<UpdateCategoryTranslation>? translations,
+    String? imageUrl,
+    File? imageFile,
   }) {
     return UpdateCategoryUsecaseParams(
       id: id,
       parentId: parentId != original.parentId ? parentId : null,
       categoryCode: categoryCode != original.categoryCode ? categoryCode : null,
       translations: translations,
+      imageUrl: imageUrl != original.imageUrl ? imageUrl : null,
+      imageFile: imageFile,
     );
   }
 
@@ -58,12 +67,16 @@ class UpdateCategoryUsecaseParams extends Equatable {
     String? parentId,
     String? categoryCode,
     List<UpdateCategoryTranslation>? translations,
+    ValueGetter<String?>? imageUrl,
+    ValueGetter<File?>? imageFile,
   }) {
     return UpdateCategoryUsecaseParams(
       id: id ?? this.id,
       parentId: parentId ?? this.parentId,
       categoryCode: categoryCode ?? this.categoryCode,
       translations: translations ?? this.translations,
+      imageUrl: imageUrl != null ? imageUrl() : this.imageUrl,
+      imageFile: imageFile != null ? imageFile() : this.imageFile,
     );
   }
 
@@ -74,6 +87,8 @@ class UpdateCategoryUsecaseParams extends Equatable {
       if (categoryCode != null) 'categoryCode': categoryCode,
       if (translations != null)
         'translations': translations!.map((x) => x.toMap()).toList(),
+      if (imageUrl != null) 'imageUrl': imageUrl,
+      if (imageFile != null) 'imageFile': imageFile!.path,
     };
   }
 
@@ -89,6 +104,8 @@ class UpdateCategoryUsecaseParams extends Equatable {
               ),
             )
           : null,
+      imageUrl: map['imageUrl'],
+      imageFile: map['imageFile'] != null ? File(map['imageFile']) : null,
     );
   }
 
@@ -99,10 +116,17 @@ class UpdateCategoryUsecaseParams extends Equatable {
 
   @override
   String toString() =>
-      'UpdateCategoryUsecaseParams(id: $id, parentId: $parentId, categoryCode: $categoryCode, translations: $translations)';
+      'UpdateCategoryUsecaseParams(id: $id, parentId: $parentId, categoryCode: $categoryCode, translations: $translations, imageUrl: $imageUrl, imageFile: $imageFile)';
 
   @override
-  List<Object?> get props => [id, parentId, categoryCode, translations];
+  List<Object?> get props => [
+    id,
+    parentId,
+    categoryCode,
+    translations,
+    imageUrl,
+    imageFile,
+  ];
 }
 
 class UpdateCategoryTranslation extends Equatable {

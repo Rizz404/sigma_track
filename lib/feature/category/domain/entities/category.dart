@@ -7,6 +7,7 @@ class Category extends Equatable {
   final String categoryName;
   final String description;
   final Category? parent;
+  final String? imageUrl;
   final DateTime createdAt;
   final DateTime updatedAt;
   final List<CategoryTranslation>? translations;
@@ -18,6 +19,7 @@ class Category extends Equatable {
     required this.categoryName,
     required this.description,
     this.parent,
+    this.imageUrl,
     required this.createdAt,
     required this.updatedAt,
     this.translations,
@@ -28,6 +30,7 @@ class Category extends Equatable {
     categoryCode: '',
     categoryName: '',
     description: '',
+    imageUrl: null,
     createdAt: DateTime(0),
     updatedAt: DateTime(0),
   );
@@ -41,6 +44,7 @@ class Category extends Equatable {
       categoryName,
       description,
       parent,
+      imageUrl,
       createdAt,
       updatedAt,
       translations,

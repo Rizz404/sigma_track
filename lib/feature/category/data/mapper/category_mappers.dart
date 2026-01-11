@@ -12,6 +12,7 @@ extension CategoryModelMapper on CategoryModel {
       categoryName: categoryName,
       description: description,
       parent: parent?.toEntity(),
+      imageUrl: imageUrl,
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations:
@@ -29,6 +30,7 @@ extension CategoryEntityMapper on Category {
       categoryName: categoryName,
       description: description,
       parent: parent?.toModel(),
+      imageUrl: imageUrl,
       createdAt: createdAt,
       updatedAt: updatedAt,
       translations:
