@@ -15,6 +15,7 @@ import 'package:sigma_track/feature/asset/data/models/upload_bulk_data_matrix_re
 import 'package:sigma_track/feature/asset/data/models/delete_bulk_data_matrix_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/upload_bulk_asset_image_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/delete_bulk_asset_image_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/upload_template_images_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -28,6 +29,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/generate_bulk_asset_ta
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_asset_image_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/upload_template_images_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_asset_image_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
@@ -82,6 +84,9 @@ abstract class AssetRemoteDatasource {
   );
   Future<ApiResponse<DeleteBulkAssetImageResponseModel>> deleteBulkAssetImage(
     DeleteBulkAssetImageUsecaseParams params,
+  );
+  Future<ApiResponse<UploadTemplateImagesResponseModel>> uploadTemplateImages(
+    UploadTemplateImagesUsecaseParams params,
   );
   Future<ApiResponse<Uint8List>> exportAssetList(
     ExportAssetListUsecaseParams params,
@@ -528,6 +533,43 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         ApiConstant.deleteBulkAssetImage,
         data: params.toMap(),
         fromJson: (json) => DeleteBulkAssetImageResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<UploadTemplateImagesResponseModel>> uploadTemplateImages(
+    UploadTemplateImagesUsecaseParams params,
+  ) async {
+    this.logData('uploadTemplateImages called');
+    try {
+      final formData = dio.FormData();
+
+      // ✅ PENTING: Loop setiap file, tambahkan dengan field name yang SAMA
+      for (final filePath in params.filePaths) {
+        formData.files.add(
+          MapEntry(
+            'templateImages', // ⚠️ Field name SAMA untuk semua files
+            await dio.MultipartFile.fromFile(
+              filePath,
+              filename: filePath.split('/').last,
+            ),
+          ),
+        );
+      }
+
+      // Debug log untuk memastikan
+      this.logData(
+        'uploadTemplateImages: Uploading ${params.filePaths.length} files',
+      );
+
+      final response = await _dioClient.post(
+        ApiConstant.uploadTemplateImages,
+        data: formData,
+        fromJson: (json) => UploadTemplateImagesResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {

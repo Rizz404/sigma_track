@@ -11,6 +11,7 @@ import 'package:sigma_track/feature/asset/domain/entities/upload_bulk_data_matri
 import 'package:sigma_track/feature/asset/domain/entities/delete_bulk_data_matrix_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/upload_bulk_asset_image_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/delete_bulk_asset_image_response.dart';
+import 'package:sigma_track/feature/asset/domain/entities/upload_template_images_response.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_data_matri
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_data_matrix_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_asset_image_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_asset_image_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/upload_template_images_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_cursor_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecase.dart';
@@ -81,6 +83,8 @@ abstract class AssetRepository {
   uploadBulkAssetImage(UploadBulkAssetImageUsecaseParams params);
   Future<Either<Failure, ItemSuccess<DeleteBulkAssetImageResponse>>>
   deleteBulkAssetImage(DeleteBulkAssetImageUsecaseParams params);
+  Future<Either<Failure, ItemSuccess<UploadTemplateImagesResponse>>>
+  uploadTemplateImages(UploadTemplateImagesUsecaseParams params);
   Future<Either<Failure, ItemSuccess<Uint8List>>> exportAssetList(
     ExportAssetListUsecaseParams params,
   );

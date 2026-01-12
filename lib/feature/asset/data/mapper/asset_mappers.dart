@@ -4,6 +4,8 @@ import 'package:sigma_track/feature/asset/domain/entities/asset_statistics.dart'
 import 'package:sigma_track/feature/asset/data/models/asset_statistics_model.dart';
 import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_response.dart';
 import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_response_model.dart';
+import 'package:sigma_track/feature/asset/domain/entities/upload_template_images_response.dart';
+import 'package:sigma_track/feature/asset/data/models/upload_template_images_response_model.dart';
 import 'package:sigma_track/feature/category/data/mapper/category_mappers.dart';
 import 'package:sigma_track/feature/location/data/mapper/location_mappers.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
@@ -322,4 +324,21 @@ extension LocationStatisticsEntityMapper on LocationStatistics {
     assetCount: assetCount,
     percentage: percentage,
   );
+}
+
+extension UploadTemplateImagesResponseModelMapper
+    on UploadTemplateImagesResponseModel {
+  UploadTemplateImagesResponse toEntity() {
+    return UploadTemplateImagesResponse(imageUrls: imageUrls, count: count);
+  }
+}
+
+extension UploadTemplateImagesResponseEntityMapper
+    on UploadTemplateImagesResponse {
+  UploadTemplateImagesResponseModel toModel() {
+    return UploadTemplateImagesResponseModel(
+      imageUrls: imageUrls,
+      count: count,
+    );
+  }
 }
