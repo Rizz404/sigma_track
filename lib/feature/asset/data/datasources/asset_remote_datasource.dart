@@ -16,6 +16,7 @@ import 'package:sigma_track/feature/asset/data/models/delete_bulk_data_matrix_re
 import 'package:sigma_track/feature/asset/data/models/upload_bulk_asset_image_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/delete_bulk_asset_image_response_model.dart';
 import 'package:sigma_track/feature/asset/data/models/upload_template_images_response_model.dart';
+import 'package:sigma_track/feature/asset/data/models/image_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_tag_exists_usecase.dart';
@@ -37,6 +38,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecas
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/get_available_asset_images_cursor_usecase.dart';
 import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
@@ -100,6 +102,8 @@ abstract class AssetRemoteDatasource {
   Future<ApiResponse<BulkDeleteResponse>> deleteManyAssets(
     BulkDeleteParams params,
   );
+  Future<ApiCursorPaginationResponse<ImageResponseModel>>
+  getAvailableAssetImages(GetAvailableAssetImagesCursorUsecaseParams params);
 }
 
 class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
@@ -570,6 +574,24 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
         ApiConstant.uploadTemplateImages,
         data: formData,
         fromJson: (json) => UploadTemplateImagesResponseModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiCursorPaginationResponse<ImageResponseModel>>
+  getAvailableAssetImages(
+    GetAvailableAssetImagesCursorUsecaseParams params,
+  ) async {
+    this.logData('getAvailableAssetImages called');
+    try {
+      final response = await _dioClient.getWithCursor(
+        ApiConstant.getAvailableAssetImagesCursor,
+        queryParameters: params.toMap(),
+        fromJson: (json) => ImageResponseModel.fromMap(json),
       );
       return response;
     } catch (e) {

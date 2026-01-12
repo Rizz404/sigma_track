@@ -238,6 +238,32 @@
   "@assetFailedToGenerateTag": {
     "description": "Error message for asset tag generation failure"
   },
+  "assetSelectImages": "Pilih Gambar",
+  "@assetSelectImages": {
+    "description": "Button text for selecting images"
+  },
+  "assetTemplateImagesHint": "Unggah gambar yang akan digunakan untuk aset ini",
+  "@assetTemplateImagesHint": {
+    "description": "Hint text for template images section"
+  },
+  "assetImagesSelected": "{count} gambar dipilih",
+  "@assetImagesSelected": {
+    "description": "Text showing number of selected images",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetClearImages": "Hapus",
+  "@assetClearImages": {
+    "description": "Button text for clearing selected images"
+  },
+  "assetSelectTemplateImages": "Pilih Gambar Template",
+  "@assetSelectTemplateImages": {
+    "description": "Label for template images section"
+  },
   "assetEnterAssetTagFirst": "Harap masukkan tag aset terlebih dahulu",
   "@assetEnterAssetTagFirst": {
     "description": "Warning message for entering asset tag before regeneration"
@@ -843,6 +869,20 @@
   "assetGeneratingAssetTags": "Membuat tag aset...",
   "@assetGeneratingAssetTags": {
     "description": "Progress status for generating asset tags"
+  },
+  "assetUploadingTemplateImages": "Mengunggah gambar template...",
+  "@assetUploadingTemplateImages": {
+    "description": "Progress status for uploading template images"
+  },
+  "assetFailedToUploadTemplateImages": "Gagal mengunggah gambar template: {error}",
+  "@assetFailedToUploadTemplateImages": {
+    "description": "Error message for failed template image upload",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
   },
   "assetGeneratingDataMatrixImages": "Membuat gambar data matrix...",
   "@assetGeneratingDataMatrixImages": {

@@ -429,6 +429,36 @@ abstract class L10n {
   /// **'Failed to generate asset tag'**
   String get assetFailedToGenerateTag;
 
+  /// Button text for selecting images
+  ///
+  /// In en, this message translates to:
+  /// **'Select Images'**
+  String get assetSelectImages;
+
+  /// Hint text for template images section
+  ///
+  /// In en, this message translates to:
+  /// **'Upload images that will be used for this asset'**
+  String get assetTemplateImagesHint;
+
+  /// Text showing number of selected images
+  ///
+  /// In en, this message translates to:
+  /// **'{count} images selected'**
+  String assetImagesSelected(int count);
+
+  /// Button text for clearing selected images
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get assetClearImages;
+
+  /// Label for template images section
+  ///
+  /// In en, this message translates to:
+  /// **'Select Template Images'**
+  String get assetSelectTemplateImages;
+
   /// Warning message for entering asset tag before regeneration
   ///
   /// In en, this message translates to:
@@ -1274,6 +1304,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Generating asset tags...'**
   String get assetGeneratingAssetTags;
+
+  /// Progress status for uploading template images
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading template images...'**
+  String get assetUploadingTemplateImages;
+
+  /// Error message for failed template image upload
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to upload template images: {error}'**
+  String assetFailedToUploadTemplateImages(String error);
 
   /// Progress status for generating data matrix images
   ///

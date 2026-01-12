@@ -183,6 +183,24 @@ class L10nEn extends L10n {
   String get assetFailedToGenerateTag => 'Failed to generate asset tag';
 
   @override
+  String get assetSelectImages => 'Select Images';
+
+  @override
+  String get assetTemplateImagesHint =>
+      'Upload images that will be used for this asset';
+
+  @override
+  String assetImagesSelected(int count) {
+    return '$count images selected';
+  }
+
+  @override
+  String get assetClearImages => 'Clear';
+
+  @override
+  String get assetSelectTemplateImages => 'Select Template Images';
+
+  @override
   String get assetEnterAssetTagFirst => 'Please enter asset tag first';
 
   @override
@@ -642,6 +660,14 @@ class L10nEn extends L10n {
 
   @override
   String get assetGeneratingAssetTags => 'Generating asset tags...';
+
+  @override
+  String get assetUploadingTemplateImages => 'Uploading template images...';
+
+  @override
+  String assetFailedToUploadTemplateImages(String error) {
+    return 'Failed to upload template images: $error';
+  }
 
   @override
   String get assetGeneratingDataMatrixImages =>

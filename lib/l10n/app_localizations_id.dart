@@ -182,6 +182,24 @@ class L10nId extends L10n {
   String get assetFailedToGenerateTag => 'Gagal membuat tag aset';
 
   @override
+  String get assetSelectImages => 'Pilih Gambar';
+
+  @override
+  String get assetTemplateImagesHint =>
+      'Unggah gambar yang akan digunakan untuk aset ini';
+
+  @override
+  String assetImagesSelected(int count) {
+    return '$count gambar dipilih';
+  }
+
+  @override
+  String get assetClearImages => 'Hapus';
+
+  @override
+  String get assetSelectTemplateImages => 'Pilih Gambar Template';
+
+  @override
   String get assetEnterAssetTagFirst =>
       'Harap masukkan tag aset terlebih dahulu';
 
@@ -639,6 +657,14 @@ class L10nId extends L10n {
 
   @override
   String get assetGeneratingAssetTags => 'Membuat tag aset...';
+
+  @override
+  String get assetUploadingTemplateImages => 'Mengunggah gambar template...';
+
+  @override
+  String assetFailedToUploadTemplateImages(String error) {
+    return 'Gagal mengunggah gambar template: $error';
+  }
 
   @override
   String get assetGeneratingDataMatrixImages => 'Membuat gambar data matrix...';

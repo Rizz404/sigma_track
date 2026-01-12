@@ -17,6 +17,7 @@ import 'package:sigma_track/feature/asset/domain/entities/delete_bulk_data_matri
 import 'package:sigma_track/feature/asset/domain/entities/upload_bulk_asset_image_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/delete_bulk_asset_image_response.dart';
 import 'package:sigma_track/feature/asset/domain/entities/upload_template_images_response.dart';
+import 'package:sigma_track/feature/asset/domain/entities/image_response.dart';
 import 'package:sigma_track/feature/asset/domain/repositories/asset_repository.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_exists_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/check_asset_serial_exists_usecase.dart';
@@ -39,6 +40,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_id_usecas
 import 'package:sigma_track/feature/asset/domain/usecases/get_asset_by_tag_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/get_available_asset_images_cursor_usecase.dart';
 import 'package:sigma_track/shared/domain/entities/bulk_delete_params.dart';
 import 'package:sigma_track/shared/domain/entities/bulk_delete_response.dart';
 
@@ -455,6 +457,31 @@ class AssetRepositoryImpl implements AssetRepository {
       );
       final result = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: result));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CursorPaginatedSuccess<ImageResponse>>>
+  getAvailableAssetImages(
+    GetAvailableAssetImagesCursorUsecaseParams params,
+  ) async {
+    try {
+      final response = await _assetRemoteDatasource.getAvailableAssetImages(
+        params,
+      );
+      final images = response.data.map((model) => model.toEntity()).toList();
+      final cursor = response.cursor.toEntity();
+      return Right(
+        CursorPaginatedSuccess(
+          message: response.message,
+          data: images,
+          cursor: cursor,
+        ),
+      );
     } on ApiErrorResponse catch (apiError) {
       return Left(ServerFailure(message: apiError.message));
     } catch (e) {

@@ -19,6 +19,7 @@ import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_id
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_by_tag_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/get_asset_tag_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/my_assets_notifier.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/available_asset_images_notifier.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_statistics_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_tag_suggestion_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
@@ -26,6 +27,8 @@ import 'package:sigma_track/feature/asset/presentation/providers/state/asset_boo
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_count_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/asset_detail_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/export_assets_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/upload_template_images_state.dart';
+import 'package:sigma_track/feature/asset/presentation/providers/state/available_asset_images_state.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/upload_bulk_data_matrix_notifier.dart';
 
 // * Main list provider untuk asset (cursor pagination)
@@ -145,6 +148,12 @@ final deleteBulkAssetImageProvider =
     >(DeleteBulkAssetImageNotifier.new);
 // * Provider untuk upload template images
 final uploadTemplateImagesProvider =
-    NotifierProvider<UploadTemplateImagesNotifier, ExportAssetsState>(
+    NotifierProvider<UploadTemplateImagesNotifier, UploadTemplateImagesState>(
       UploadTemplateImagesNotifier.new,
     );
+// * Provider untuk available asset images (cursor pagination)
+final availableAssetImagesProvider =
+    AutoDisposeNotifierProvider<
+      AvailableAssetImagesNotifier,
+      AvailableAssetImagesState
+    >(AvailableAssetImagesNotifier.new);

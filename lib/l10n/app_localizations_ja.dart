@@ -181,6 +181,23 @@ class L10nJa extends L10n {
   String get assetFailedToGenerateTag => '資産タグの生成に失敗しました';
 
   @override
+  String get assetSelectImages => '画像を選択';
+
+  @override
+  String get assetTemplateImagesHint => 'このアセットに使用する画像をアップロードしてください';
+
+  @override
+  String assetImagesSelected(int count) {
+    return '$count枚の画像が選択されました';
+  }
+
+  @override
+  String get assetClearImages => 'クリア';
+
+  @override
+  String get assetSelectTemplateImages => 'テンプレート画像を選択';
+
+  @override
   String get assetEnterAssetTagFirst => 'まず資産タグを入力してください';
 
   @override
@@ -620,6 +637,14 @@ class L10nJa extends L10n {
 
   @override
   String get assetGeneratingAssetTags => 'アセットタグを生成中...';
+
+  @override
+  String get assetUploadingTemplateImages => 'テンプレート画像をアップロード中...';
+
+  @override
+  String assetFailedToUploadTemplateImages(String error) {
+    return 'テンプレート画像のアップロードに失敗しました: $error';
+  }
 
   @override
   String get assetGeneratingDataMatrixImages => 'データマトリックス画像を生成中...';

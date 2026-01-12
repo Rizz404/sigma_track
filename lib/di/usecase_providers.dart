@@ -38,6 +38,7 @@ import 'package:sigma_track/feature/asset/domain/usecases/upload_bulk_asset_imag
 import 'package:sigma_track/feature/asset/domain/usecases/delete_bulk_asset_image_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/upload_template_images_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
+import 'package:sigma_track/feature/asset/domain/usecases/get_available_asset_images_cursor_usecase.dart';
 
 // ===== ASSET MOVEMENT USECASES =====
 import 'package:sigma_track/feature/asset_movement/domain/usecases/bulk_create_asset_movements_for_location_usecase.dart';
@@ -283,6 +284,12 @@ final getAssetsCursorUsecaseProvider = Provider<GetAssetsCursorUsecase>((ref) {
   final assetRepository = ref.read(assetRepositoryProvider);
   return GetAssetsCursorUsecase(assetRepository);
 });
+
+final getAvailableAssetImagesUsecaseProvider =
+    Provider<GetAvailableAssetImagesCursorUsecase>((ref) {
+      final assetRepository = ref.read(assetRepositoryProvider);
+      return GetAvailableAssetImagesCursorUsecase(assetRepository);
+    });
 
 final getAssetsStatisticsUsecaseProvider = Provider<GetAssetsStatisticsUsecase>(
   (ref) {

@@ -92,6 +92,9 @@ class ApiConstant {
   static const String getAssetsStatistics = '$assetPrefix/statistics';
   static const String getAssetsCursor = '$assetPrefix/cursor';
   static const String countAssets = '$assetPrefix/count';
+  static const String getAvailableAssetImages = '$baseUrl/assets/images';
+  static const String getAvailableAssetImagesCursor =
+      '$baseUrl/assets/images/cursor';
   static String getAssetByTag(String tag) => '$assetPrefix/tag/$tag';
   static String checkAssetTagExists(String tag) =>
       '$assetPrefix/check/tag/$tag';
@@ -109,7 +112,8 @@ class ApiConstant {
       '$assetPrefix/delete/bulk-datamatrix';
   static const String uploadBulkAssetImage = '$assetPrefix/upload/bulk-images';
   static const String deleteBulkAssetImage = '$assetPrefix/delete/bulk-images';
-  static const String uploadTemplateImages = '$assetPrefix/upload/template-images';
+  static const String uploadTemplateImages =
+      '$assetPrefix/upload/template-images';
   static const String exportAssetList = '$assetPrefix/export/list';
   static const String exportAssetDataMatrix = '$assetPrefix/export/datamatrix';
   static const String bulkCreateAssets = '$assetPrefix/bulk';

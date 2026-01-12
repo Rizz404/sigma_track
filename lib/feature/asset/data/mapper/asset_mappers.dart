@@ -6,6 +6,8 @@ import 'package:sigma_track/feature/asset/domain/entities/generate_asset_tag_res
 import 'package:sigma_track/feature/asset/data/models/generate_asset_tag_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/entities/upload_template_images_response.dart';
 import 'package:sigma_track/feature/asset/data/models/upload_template_images_response_model.dart';
+import 'package:sigma_track/feature/asset/domain/entities/image_response.dart';
+import 'package:sigma_track/feature/asset/data/models/image_response_model.dart';
 import 'package:sigma_track/feature/category/data/mapper/category_mappers.dart';
 import 'package:sigma_track/feature/location/data/mapper/location_mappers.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
@@ -339,6 +341,17 @@ extension UploadTemplateImagesResponseEntityMapper
     return UploadTemplateImagesResponseModel(
       imageUrls: imageUrls,
       count: count,
+    );
+  }
+}
+
+extension ImageResponseModelMapper on ImageResponseModel {
+  ImageResponse toEntity() {
+    return ImageResponse(
+      id: id,
+      imageUrl: imageUrl,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

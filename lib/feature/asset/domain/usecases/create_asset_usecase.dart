@@ -43,6 +43,7 @@ class CreateAssetUsecaseParams extends Equatable {
   final AssetCondition condition;
   final String? locationId;
   final String? assignedTo;
+  final List<String>? imageUrls;
 
   CreateAssetUsecaseParams({
     required this.assetTag,
@@ -61,6 +62,7 @@ class CreateAssetUsecaseParams extends Equatable {
     required this.condition,
     this.locationId,
     this.assignedTo,
+    this.imageUrls,
   });
 
   Map<String, dynamic> toMap() {
@@ -88,6 +90,9 @@ class CreateAssetUsecaseParams extends Equatable {
     }
     if (locationId != null) map['locationId'] = locationId;
     if (assignedTo != null) map['assignedTo'] = assignedTo;
+    if (imageUrls != null && imageUrls!.isNotEmpty) {
+      map['imageUrls'] = imageUrls;
+    }
 
     return map;
   }
@@ -118,6 +123,9 @@ class CreateAssetUsecaseParams extends Equatable {
       ),
       locationId: map['locationId'],
       assignedTo: map['assignedTo'],
+      imageUrls: map['imageUrls'] != null
+          ? List<String>.from(map['imageUrls'])
+          : null,
     );
   }
 
@@ -144,5 +152,6 @@ class CreateAssetUsecaseParams extends Equatable {
     condition,
     locationId,
     assignedTo,
+    imageUrls,
   ];
 }

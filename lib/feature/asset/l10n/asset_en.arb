@@ -238,6 +238,32 @@
   "@assetFailedToGenerateTag": {
     "description": "Error message for asset tag generation failure"
   },
+  "assetSelectImages": "Select Images",
+  "@assetSelectImages": {
+    "description": "Button text for selecting images"
+  },
+  "assetTemplateImagesHint": "Upload images that will be used for this asset",
+  "@assetTemplateImagesHint": {
+    "description": "Hint text for template images section"
+  },
+  "assetImagesSelected": "{count} images selected",
+  "@assetImagesSelected": {
+    "description": "Text showing number of selected images",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetClearImages": "Clear",
+  "@assetClearImages": {
+    "description": "Button text for clearing selected images"
+  },
+  "assetSelectTemplateImages": "Select Template Images",
+  "@assetSelectTemplateImages": {
+    "description": "Label for template images section"
+  },
   "assetEnterAssetTagFirst": "Please enter asset tag first",
   "@assetEnterAssetTagFirst": {
     "description": "Warning message for entering asset tag before regeneration"
@@ -843,6 +869,20 @@
   "assetGeneratingAssetTags": "Generating asset tags...",
   "@assetGeneratingAssetTags": {
     "description": "Progress status for generating asset tags"
+  },
+  "assetUploadingTemplateImages": "Uploading template images...",
+  "@assetUploadingTemplateImages": {
+    "description": "Progress status for uploading template images"
+  },
+  "assetFailedToUploadTemplateImages": "Failed to upload template images: {error}",
+  "@assetFailedToUploadTemplateImages": {
+    "description": "Error message for failed template image upload",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
   },
   "assetGeneratingDataMatrixImages": "Generating data matrix images...",
   "@assetGeneratingDataMatrixImages": {
