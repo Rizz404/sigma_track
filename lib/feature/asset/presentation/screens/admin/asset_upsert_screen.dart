@@ -670,6 +670,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 : context.l10n.assetCreateAsset,
           ),
           endDrawer: const AppEndDrawer(),
+          endDrawerEnableOpenDragGesture: false,
           body: Column(
             children: [
               Expanded(

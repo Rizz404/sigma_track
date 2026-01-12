@@ -255,6 +255,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMyAssets),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

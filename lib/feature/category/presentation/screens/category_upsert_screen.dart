@@ -223,6 +223,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               : context.l10n.categoryCreateCategory,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

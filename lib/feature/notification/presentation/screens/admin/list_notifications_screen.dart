@@ -404,6 +404,7 @@ class _ListNotificationsScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationManagement),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

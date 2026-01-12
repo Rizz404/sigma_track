@@ -137,6 +137,7 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: category?.categoryName ?? 'Category Detail'),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         category: category,
         isLoading: isLoading,

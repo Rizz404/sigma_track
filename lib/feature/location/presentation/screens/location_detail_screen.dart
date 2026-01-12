@@ -140,6 +140,7 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
         title: location?.locationName ?? context.l10n.locationDetail,
       ),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         location: location,
         isLoading: isLoading,

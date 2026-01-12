@@ -112,6 +112,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.scanLogDetail),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         scanLog: scanLog,
         isLoading: isLoading,

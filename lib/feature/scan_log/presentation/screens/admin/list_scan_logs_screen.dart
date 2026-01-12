@@ -490,6 +490,7 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.scanLogManagement),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

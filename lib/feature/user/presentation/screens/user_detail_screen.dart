@@ -123,6 +123,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: user?.fullName ?? context.l10n.userDetail),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         user: user,
         isLoading: isLoading,

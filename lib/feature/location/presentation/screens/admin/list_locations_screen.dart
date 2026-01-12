@@ -320,6 +320,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.locationManagement),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

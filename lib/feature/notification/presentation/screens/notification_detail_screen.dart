@@ -142,6 +142,7 @@ class _NotificationDetailScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationDetail),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         notification: notification,
         isLoading: isLoading,

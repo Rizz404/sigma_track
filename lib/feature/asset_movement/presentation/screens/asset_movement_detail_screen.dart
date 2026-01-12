@@ -172,6 +172,7 @@ class _AssetMovementDetailScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMovementDetail),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         assetMovement: assetMovement,
         isLoading: isLoading,

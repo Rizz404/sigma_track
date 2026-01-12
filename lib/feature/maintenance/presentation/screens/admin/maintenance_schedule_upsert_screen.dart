@@ -305,6 +305,7 @@ class _MaintenanceScheduleUpsertScreenState
               : context.l10n.maintenanceScheduleCreateSchedule,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

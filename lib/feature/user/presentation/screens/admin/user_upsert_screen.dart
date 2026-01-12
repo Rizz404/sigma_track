@@ -130,6 +130,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               : context.l10n.userCreateUser,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

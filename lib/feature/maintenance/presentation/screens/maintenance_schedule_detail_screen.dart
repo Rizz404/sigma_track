@@ -142,6 +142,7 @@ class _MaintenanceScheduleDetailScreenState
         title: schedule?.title ?? context.l10n.maintenanceScheduleDetail,
       ),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         schedule: schedule,
         isLoading: isLoading,

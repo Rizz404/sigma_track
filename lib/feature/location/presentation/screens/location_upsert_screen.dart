@@ -333,6 +333,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               : context.l10n.locationCreateLocation,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

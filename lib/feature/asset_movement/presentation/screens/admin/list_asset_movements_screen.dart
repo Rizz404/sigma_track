@@ -581,6 +581,7 @@ class _ListAssetMovementsScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMovementManagement),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

@@ -252,6 +252,7 @@ class _MyListIssueReportsScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.issueReportMyIssueReports),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(RouteConstant.issueReportUpsert),
         tooltip: context.l10n.issueReportCreateIssueReportTooltip,

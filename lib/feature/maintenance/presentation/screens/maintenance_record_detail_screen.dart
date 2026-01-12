@@ -139,6 +139,7 @@ class _MaintenanceRecordDetailScreenState
         title: record?.title ?? context.l10n.maintenanceRecordDetail,
       ),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         record: record,
         isLoading: isLoading,

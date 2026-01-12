@@ -241,6 +241,7 @@ class _AssetMovementUpsertForUserScreenState
               : context.l10n.assetMovementCreateAssetMovement,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

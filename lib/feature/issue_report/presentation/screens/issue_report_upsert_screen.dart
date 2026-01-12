@@ -242,6 +242,7 @@ class _IssueReportUpsertScreenState
               : context.l10n.issueReportCreateIssueReport,
         ),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

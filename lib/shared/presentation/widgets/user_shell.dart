@@ -57,6 +57,7 @@ class _UserShellState extends State<UserShell> {
         appBar: const CustomAppBar(),
         body: widget.navigationShell,
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         bottomNavigationBar: NavigationBar(
           selectedIndex: widget.navigationShell.currentIndex,
           onDestinationSelected: (index) {

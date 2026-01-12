@@ -132,6 +132,7 @@ class _IssueReportDetailScreenState
         title: issueReport?.title ?? context.l10n.issueReportDetail,
       ),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         issueReport: issueReport,
         isLoading: isLoading,

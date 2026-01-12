@@ -357,6 +357,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Category Management'),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

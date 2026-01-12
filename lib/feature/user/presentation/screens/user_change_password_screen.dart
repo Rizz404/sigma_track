@@ -106,6 +106,7 @@ class _UserChangePasswordScreenState
         child: Scaffold(
           appBar: CustomAppBar(title: context.l10n.userChangePassword),
           endDrawer: const AppEndDrawer(),
+          endDrawerEnableOpenDragGesture: false,
           body: Center(child: AppText(context.l10n.userNoUserData)),
         ),
       );
@@ -116,6 +117,7 @@ class _UserChangePasswordScreenState
       child: Scaffold(
         appBar: CustomAppBar(title: context.l10n.userChangePassword),
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         body: Column(
           children: [
             Expanded(

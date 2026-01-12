@@ -239,6 +239,7 @@ class _MyListNotificationsScreenState
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationMyNotifications),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [

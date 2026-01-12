@@ -57,6 +57,7 @@ class _AdminShellState extends State<AdminShell> {
         appBar: const CustomAppBar(),
         body: widget.navigationShell,
         endDrawer: const AppEndDrawer(),
+        endDrawerEnableOpenDragGesture: false,
         bottomNavigationBar: NavigationBar(
           selectedIndex: widget.navigationShell.currentIndex,
           onDestinationSelected: (index) {

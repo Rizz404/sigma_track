@@ -243,6 +243,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: asset?.assetName ?? context.l10n.assetDetail),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: _buildBody(
         asset: asset,
         isLoading: isLoading,

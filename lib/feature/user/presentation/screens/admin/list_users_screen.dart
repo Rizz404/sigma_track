@@ -397,6 +397,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.userManagement),
       endDrawer: const AppEndDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
         child: Column(
           children: [
