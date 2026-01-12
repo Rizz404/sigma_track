@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -16,6 +17,8 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset_image.dart'
+    as entity;
 import 'package:sigma_track/feature/asset/domain/usecases/bulk_create_assets_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/create_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/domain/usecases/update_asset_usecase.dart';
@@ -35,6 +38,8 @@ import 'package:sigma_track/feature/user/presentation/providers/user_providers.d
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -77,9 +82,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   double _bulkProcessingProgress = 0.0;
 
   // * Asset images state
-  List<String> _selectedImagePaths = [];
+  List<PlatformFile> _selectedImageFiles = [];
   List<String> _uploadedTemplateImageUrls = [];
   bool _enableReuseImages = false;
+  final GlobalKey<AppFilePickerState> _filePickerKey =
+      GlobalKey<AppFilePickerState>();
 
   Future<List<Category>> _searchCategories(String query) async {
     final notifier = ref.read(categoriesSearchProvider.notifier);
@@ -211,34 +218,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     _formKey.currentState?.fields['warrantyEnd']?.didChange(warrantyEndDate);
   }
 
-  Future<void> _pickAssetImages() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-        allowMultiple: true,
-      );
-
-      if (result != null && result.files.isNotEmpty) {
-        setState(() {
-          _selectedImagePaths = result.files
-              .where((file) => file.path != null)
-              .map((file) => file.path!)
-              .toList();
-        });
-        this.logInfo('Selected ${_selectedImagePaths.length} images');
-      }
-    } catch (e, s) {
-      this.logError('Failed to pick images', e, s);
-      AppToast.error(
-        context.l10n.assetFailedToUploadTemplateImages(e.toString()),
-      );
-    }
-  }
-
   void _clearSelectedImages() {
     setState(() {
-      _selectedImagePaths.clear();
+      _selectedImageFiles.clear();
       _uploadedTemplateImageUrls.clear();
+      _filePickerKey.currentState?.reset();
     });
   }
 
@@ -341,12 +325,16 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
     // * Upload asset images if selected (for single create only, not edit)
     // * Skip upload if reuse mode enabled (imageUrls already set)
-    if (!_isEdit && _selectedImagePaths.isNotEmpty && !_enableReuseImages) {
+    if (!_isEdit && _selectedImageFiles.isNotEmpty && !_enableReuseImages) {
       context.loaderOverlay.show();
       try {
         final uploadNotifier = ref.read(uploadTemplateImagesProvider.notifier);
+        final imagePaths = _selectedImageFiles
+            .map((file) => file.path!)
+            .where((path) => path.isNotEmpty)
+            .toList();
 
-        await uploadNotifier.uploadImages(_selectedImagePaths);
+        await uploadNotifier.uploadImages(imagePaths);
 
         final uploadState = ref.read(uploadTemplateImagesProvider);
 
@@ -484,7 +472,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         setState(() {
           _bulkProcessingProgress = 0.15;
         });
-      } else if (_selectedImagePaths.isNotEmpty) {
+      } else if (_selectedImageFiles.isNotEmpty) {
         // * Alur 3: Upload new template images
         setState(() {
           _bulkProcessingStatus = context.l10n.assetUploadingTemplateImages;
@@ -492,12 +480,16 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         });
 
         this.logPresentation(
-          'Uploading ${_selectedImagePaths.length} template images',
+          'Uploading ${_selectedImageFiles.length} template images',
         );
 
         final uploadNotifier = ref.read(uploadTemplateImagesProvider.notifier);
+        final imagePaths = _selectedImageFiles
+            .map((file) => file.path!)
+            .where((path) => path.isNotEmpty)
+            .toList();
 
-        await uploadNotifier.uploadImages(_selectedImagePaths);
+        await uploadNotifier.uploadImages(imagePaths);
 
         final uploadState = ref.read(uploadTemplateImagesProvider);
 
@@ -1311,6 +1303,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   }
 
   Widget _buildAssetImagesSection() {
+    // * Get existing images from asset when in edit mode
+    final existingImages = _isEdit && _sourceAsset?.images != null
+        ? _sourceAsset!.images!
+        : <entity.AssetImage>[];
+
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -1332,15 +1329,121 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 ),
                 const SizedBox(width: 8),
                 AppText(
-                  context.l10n.assetSelectImages,
+                  _isEdit
+                      ? context.l10n.assetExistingImages
+                      : context.l10n.assetSelectImages,
                   style: AppTextStyle.titleMedium,
                   fontWeight: FontWeight.bold,
                 ),
+                if (existingImages.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: AppText(
+                      '${existingImages.length}',
+                      style: AppTextStyle.labelSmall,
+                      color: context.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ],
             ),
+
+            // * Show existing images in edit mode
+            if (_isEdit && existingImages.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              AppText(
+                context.l10n.assetExistingImagesHint,
+                style: AppTextStyle.bodySmall,
+                color: context.colors.textSecondary,
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 120,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: existingImages.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 12),
+                  itemBuilder: (context, index) {
+                    final image = existingImages[index];
+                    return Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: image.isPrimary
+                                    ? context.colorScheme.primary
+                                    : context.colors.border,
+                                width: image.isPrimary ? 2 : 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: image.imageUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color:
+                                    context.colorScheme.surfaceContainerHighest,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                color:
+                                    context.colorScheme.surfaceContainerHighest,
+                                child: const Icon(Icons.broken_image),
+                              ),
+                            ),
+                          ),
+                        ),
+                        if (image.isPrimary)
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: context.colorScheme.primary,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: AppText(
+                                context.l10n.assetPrimaryImage,
+                                style: AppTextStyle.labelSmall,
+                                color: context.colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              Divider(color: context.colors.border),
+            ],
+
             const SizedBox(height: 8),
             AppText(
-              context.l10n.assetTemplateImagesHint,
+              _isEdit
+                  ? context.l10n.assetUpdateImagesHint
+                  : context.l10n.assetTemplateImagesHint,
               style: AppTextStyle.bodySmall,
               color: context.colors.textSecondary,
             ),
@@ -1362,7 +1465,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   setState(() {
                     _enableReuseImages = value;
                     if (value) {
-                      _selectedImagePaths.clear();
+                      _selectedImageFiles.clear();
+                      _filePickerKey.currentState?.reset();
                     } else {
                       _uploadedTemplateImageUrls.clear();
                     }
@@ -1372,54 +1476,96 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               ),
             ],
             const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: AppButton(
-                    text: _enableReuseImages
-                        ? (_uploadedTemplateImageUrls.isEmpty
-                              ? 'Select from Available Images'
-                              : 'Images Selected (${_uploadedTemplateImageUrls.length})')
-                        : (_selectedImagePaths.isEmpty
-                              ? context.l10n.assetSelectImages
-                              : context.l10n.assetImagesSelected(
-                                  _selectedImagePaths.length,
-                                )),
-                    onPressed: _enableReuseImages
-                        ? _showAvailableImagesPicker
-                        : _pickAssetImages,
-                    variant:
-                        (_enableReuseImages
-                            ? _uploadedTemplateImageUrls.isEmpty
-                            : _selectedImagePaths.isEmpty)
-                        ? AppButtonVariant.outlined
-                        : AppButtonVariant.filled,
-                    leadingIcon: Icon(
-                      _enableReuseImages
-                          ? (_uploadedTemplateImageUrls.isEmpty
-                                ? Icons.cloud_download_outlined
-                                : Icons.check_circle_outline)
-                          : (_selectedImagePaths.isEmpty
-                                ? Icons.image_outlined
-                                : Icons.check_circle_outline),
-                      size: 20,
+            if (_enableReuseImages) ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      text: _uploadedTemplateImageUrls.isEmpty
+                          ? 'Select from Available Images'
+                          : 'Images Selected (${_uploadedTemplateImageUrls.length})',
+                      onPressed: _showAvailableImagesPicker,
+                      variant: _uploadedTemplateImageUrls.isEmpty
+                          ? AppButtonVariant.outlined
+                          : AppButtonVariant.filled,
+                      leadingIcon: Icon(
+                        _uploadedTemplateImageUrls.isEmpty
+                            ? Icons.cloud_download_outlined
+                            : Icons.check_circle_outline,
+                        size: 20,
+                      ),
                     ),
                   ),
-                ),
-                if ((_enableReuseImages &&
-                        _uploadedTemplateImageUrls.isNotEmpty) ||
-                    (!_enableReuseImages &&
-                        _selectedImagePaths.isNotEmpty)) ...[
-                  const SizedBox(width: 12),
-                  AppButton(
-                    text: context.l10n.assetClearImages,
-                    onPressed: _clearSelectedImages,
-                    variant: AppButtonVariant.text,
-                    leadingIcon: const Icon(Icons.clear, size: 20),
-                  ),
+                  if (_uploadedTemplateImageUrls.isNotEmpty) ...[
+                    const SizedBox(width: 12),
+                    SizedBox(
+                      width: 140,
+                      child: AppButton(
+                        text: context.l10n.assetClearImages,
+                        onPressed: _clearSelectedImages,
+                        variant: AppButtonVariant.text,
+                        leadingIcon: const Icon(Icons.clear, size: 20),
+                      ),
+                    ),
+                  ],
                 ],
-              ],
-            ),
+              ),
+            ] else ...[
+              AppFilePicker(
+                key: _filePickerKey,
+                name: 'assetImages',
+                label: null,
+                hintText: context.l10n.assetSelectImages,
+                fileType: FileType.image,
+                allowMultiple: true,
+                maxFiles: 10,
+                maxSizeInMB: 5,
+                onFilesChanged: (files) {
+                  setState(() => _selectedImageFiles = files);
+                },
+                validator: (files) {
+                  if (files == null || files.isEmpty) return null;
+                  if (files.length > 10) {
+                    return 'Maximum 10 images allowed';
+                  }
+                  return null;
+                },
+              ),
+            ],
+            if (_enableReuseImages &&
+                _uploadedTemplateImageUrls.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 100,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _uploadedTemplateImageUrls.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 8),
+                  itemBuilder: (context, index) {
+                    final imageUrl = _uploadedTemplateImageUrls[index];
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        imageUrl,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          width: 100,
+                          height: 100,
+                          color: context.colors.surfaceVariant,
+                          child: Icon(
+                            Icons.broken_image,
+                            color: context.colors.textSecondary,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -1614,37 +1760,25 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      text: _selectedImagePaths.isEmpty
-                          ? context.l10n.assetSelectImages
-                          : context.l10n.assetImagesSelected(
-                              _selectedImagePaths.length,
-                            ),
-                      onPressed: _pickAssetImages,
-                      variant: _selectedImagePaths.isEmpty
-                          ? AppButtonVariant.outlined
-                          : AppButtonVariant.filled,
-                      leadingIcon: Icon(
-                        _selectedImagePaths.isEmpty
-                            ? Icons.image_outlined
-                            : Icons.check_circle_outline,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  if (_selectedImagePaths.isNotEmpty) ...[
-                    const SizedBox(width: 12),
-                    AppButton(
-                      text: context.l10n.assetClearImages,
-                      onPressed: _clearSelectedImages,
-                      variant: AppButtonVariant.text,
-                      leadingIcon: const Icon(Icons.clear, size: 20),
-                    ),
-                  ],
-                ],
+              AppFilePicker(
+                key: _filePickerKey,
+                name: 'bulkAssetImages',
+                label: null,
+                hintText: context.l10n.assetSelectImages,
+                fileType: FileType.image,
+                allowMultiple: true,
+                maxFiles: 10,
+                maxSizeInMB: 5,
+                onFilesChanged: (files) {
+                  setState(() => _selectedImageFiles = files);
+                },
+                validator: (files) {
+                  if (files == null || files.isEmpty) return null;
+                  if (files.length > 10) {
+                    return 'Maximum 10 images allowed';
+                  }
+                  return null;
+                },
               ),
             ],
           ],
@@ -1746,7 +1880,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   }
 }
 
-// * Available Images Picker Dialog
+// * Available Images Picker Dialog (FULL SCREEN VERSION)
 class _AvailableImagesPickerDialog extends ConsumerStatefulWidget {
   final List<String> initialSelectedUrls;
 
@@ -1767,7 +1901,6 @@ class _AvailableImagesPickerDialogState
     super.initState();
     _selectedUrls = List.from(widget.initialSelectedUrls);
 
-    // * Load more on scroll
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 200) {
@@ -1796,174 +1929,140 @@ class _AvailableImagesPickerDialogState
   Widget build(BuildContext context) {
     final state = ref.watch(availableAssetImagesProvider);
 
-    return Dialog(
-      backgroundColor: context.colors.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: SizedBox(
-        width: 700,
-        height: 600,
-        child: Column(
-          children: [
-            // * Header
+    // * MENGGUNAKAN DIALOG.FULLSCREEN AGAR LEGA
+    return Dialog.fullscreen(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.pop(context),
+            tooltip: context.l10n.assetCancel,
+          ),
+          title: AppText(
+            'Select Images', // Atau context.l10n...
+            style: AppTextStyle.titleMedium,
+            fontWeight: FontWeight.bold,
+          ),
+          actions: [
+            // Indikator jumlah yang dipilih di pojok kanan atas (opsional)
             Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.cloud_download_outlined,
-                    color: Color(0xFF2563EB),
-                    size: 24,
-                  ),
-                  const SizedBox(width: 12),
-                  const Expanded(
-                    child: AppText(
-                      'Select Available Images',
-                      style: AppTextStyle.titleLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                    color: context.colors.textSecondary,
-                  ),
-                ],
-              ),
-            ),
-            Divider(height: 1, color: context.colors.divider),
-
-            // * Content
-            Expanded(
-              child: state.isLoading && state.images.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : state.failure != null && state.images.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            size: 64,
-                            color: context.colorScheme.error,
-                          ),
-                          const SizedBox(height: 16),
-                          AppText(
-                            'Failed to load images',
-                            style: AppTextStyle.bodyLarge,
-                            color: context.colorScheme.error,
-                          ),
-                          const SizedBox(height: 8),
-                          AppText(
-                            state.failure?.message ?? 'Unknown error',
-                            style: AppTextStyle.bodySmall,
-                            color: context.colors.textSecondary,
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
-                          AppButton(
-                            text: 'Retry',
-                            variant: AppButtonVariant.outlined,
-                            onPressed: () => ref
-                                .read(availableAssetImagesProvider.notifier)
-                                .refresh(),
-                          ),
-                        ],
-                      ),
-                    )
-                  : state.images.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.image_not_supported_outlined,
-                            size: 64,
-                            color: context.colors.textSecondary,
-                          ),
-                          const SizedBox(height: 16),
-                          AppText(
-                            'No images available',
-                            style: AppTextStyle.bodyLarge,
-                            color: context.colors.textSecondary,
-                          ),
-                          const SizedBox(height: 8),
-                          AppText(
-                            'Upload some images first',
-                            style: AppTextStyle.bodySmall,
-                            color: context.colors.textSecondary,
-                          ),
-                        ],
-                      ),
-                    )
-                  : GridView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.all(20),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12,
-                            childAspectRatio: 1,
-                          ),
-                      itemCount:
-                          state.images.length + (state.isLoadingMore ? 4 : 0),
-                      itemBuilder: (context, index) {
-                        if (index >= state.images.length) {
-                          return Card(
-                            elevation: 0,
-                            color: context.colors.surfaceVariant,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Center(
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
-                          );
-                        }
-
-                        final image = state.images[index];
-                        final isSelected = _selectedUrls.contains(
-                          image.imageUrl,
-                        );
-
-                        return _ImageTile(
-                          imageUrl: image.imageUrl,
-                          isSelected: isSelected,
-                          onTap: () => _toggleSelection(image.imageUrl),
-                        );
-                      },
-                    ),
-            ),
-
-            // * Footer
-            Divider(height: 1, color: context.colors.divider),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  AppText(
-                    '${_selectedUrls.length} selected',
-                    style: AppTextStyle.bodyMedium,
-                    color: context.colors.textSecondary,
-                  ),
-                  const Spacer(),
-                  AppButton(
-                    text: 'Cancel',
-                    variant: AppButtonVariant.outlined,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const SizedBox(width: 12),
-                  AppButton(
-                    text: 'Select (${_selectedUrls.length})',
-                    onPressed: _selectedUrls.isEmpty
-                        ? null
-                        : () => Navigator.pop(context, _selectedUrls),
-                  ),
-                ],
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Center(
+                child: AppText(
+                  '${_selectedUrls.length} selected',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
         ),
+        // * Footer Action Button ditaruh di bottomNavigationBar agar aman
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: context.colors.surface,
+            border: Border(top: BorderSide(color: context.colors.border)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            child: AppButton(
+              text: _selectedUrls.isEmpty
+                  ? 'Select Images'
+                  : 'Select (${_selectedUrls.length})',
+              onPressed: _selectedUrls.isEmpty
+                  ? null
+                  : () => Navigator.pop(context, _selectedUrls),
+              variant: AppButtonVariant.filled,
+            ),
+          ),
+        ),
+        body: state.isLoading && state.images.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : state.failure != null && state.images.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 64,
+                      color: context.colorScheme.error,
+                    ),
+                    const SizedBox(height: 16),
+                    AppText(
+                      'Failed to load images',
+                      style: AppTextStyle.bodyLarge,
+                      color: context.colorScheme.error,
+                    ),
+                    const SizedBox(height: 8),
+                    AppButton(
+                      text: 'Retry',
+                      variant: AppButtonVariant.outlined,
+                      onPressed: () => ref
+                          .read(availableAssetImagesProvider.notifier)
+                          .refresh(),
+                    ),
+                  ],
+                ),
+              )
+            : state.images.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 64,
+                      color: context.colors.textSecondary,
+                    ),
+                    const SizedBox(height: 16),
+                    AppText(
+                      'No images available',
+                      style: AppTextStyle.bodyLarge,
+                      color: context.colors.textSecondary,
+                    ),
+                  ],
+                ),
+              )
+            : GridView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.all(16),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // 3 Kolom biar gambar lebih JELAS
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1,
+                ),
+                itemCount: state.images.length + (state.isLoadingMore ? 3 : 0),
+                itemBuilder: (context, index) {
+                  if (index >= state.images.length) {
+                    return Card(
+                      elevation: 0,
+                      color: context.colors.surfaceVariant,
+                      child: const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    );
+                  }
+
+                  final image = state.images[index];
+                  final isSelected = _selectedUrls.contains(image.imageUrl);
+
+                  return _ImageTile(
+                    imageUrl: image.imageUrl,
+                    isSelected: isSelected,
+                    onTap: () => _toggleSelection(image.imageUrl),
+                  );
+                },
+              ),
       ),
     );
   }

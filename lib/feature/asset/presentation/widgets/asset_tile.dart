@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+// Pastikan path import AppImage ini sesuai dengan struktur project kamu ya!
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class AssetTile extends StatelessWidget {
@@ -31,6 +33,17 @@ class AssetTile extends StatelessWidget {
         ? context.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : null;
 
+    // ✨ LOGIC BARU: Cari gambar primary atau fallback ke gambar pertama
+    String? displayImageUrl;
+    if (asset.images != null && asset.images!.isNotEmpty) {
+      // Dart 3: Menggunakan firstWhere atau fallback null, lalu ambil yang pertama jika null
+      final primaryImg = asset.images!
+          .where((img) => img.isPrimary)
+          .firstOrNull;
+
+      displayImageUrl = primaryImg?.imageUrl ?? asset.images!.first.imageUrl;
+    }
+
     return Card(
       elevation: 0,
       color: tileColor,
@@ -48,7 +61,9 @@ class AssetTile extends StatelessWidget {
           opacity: isDisabled ? 0.5 : 1.0,
           child: Stack(
             children: [
-              // Background Icon - hanya tampil jika bukan dummy/skeleton
+              // Background Icon - Tetap dipertahankan buat estetika kalau gak ada gambar
+              // Tapi kalau ada gambar, mungkin kita hide biar gak too much, atau biarin aja?
+              // Aku biarin aja tapi lebih tipis opacity-nya biar tetep kece.
               if (asset.id.isNotEmpty)
                 Positioned(
                   right: -15,
@@ -59,16 +74,21 @@ class AssetTile extends StatelessWidget {
                       Icons.inventory_2_rounded,
                       size: 100,
                       color: context.colorScheme.primary.withValues(
-                        alpha: 0.08,
+                        alpha:
+                            0.05, // Sedikit lebih tipis biar gak tabrakan sama foto
                       ),
                     ),
                   ),
                 ),
-              // Content
+
+              // Main Content
               Padding(
                 padding: const EdgeInsets.all(12),
                 child: Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center, // Center vertical alignment
                   children: [
+                    // Checkbox Section
                     if (onSelect != null) ...[
                       SizedBox(
                         width: 24,
@@ -80,9 +100,57 @@ class AssetTile extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                     ],
+
+                    // ✨ IMAGE SECTION ✨
+                    // Kita tampilkan AppImage hanya jika URL-nya ada
+                    if (displayImageUrl != null) ...[
+                      AppImage(
+                        imageUrl: displayImageUrl,
+                        size: ImageSize
+                            .large, // Ukuran 48px pas banget buat list tile
+                        shape: ImageShape.rectangle,
+                        fit: BoxFit.cover,
+                        showBorder: true, // Biar rapi ada bordernya dikit
+                        borderColor: context.colors.border,
+                        borderWidth: 1,
+                        // Placeholder simple kalau loading
+                        placeholder: Container(
+                          color: context.colorScheme.surfaceContainerHighest,
+                          child: const Center(
+                            child: Icon(
+                              Icons.image,
+                              size: 20,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                    ] else ...[
+                      // Kalau gak ada gambar, kita kasih Placeholder Icon standar yang rapi
+                      // Biar align text-nya tetep enak dilihat (opsional, bisa dihapus kalau mau text mentok kiri)
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: context.colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.inventory_2_outlined,
+                          color: context.colors.textSecondary.withValues(
+                            alpha: 0.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                    ],
+
+                    // Text Info Section
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AppText(
                             asset.assetName,
@@ -100,74 +168,59 @@ class AssetTile extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 4),
+
+                          // Brand & Model Row
                           Row(
                             children: [
-                              if (asset.brand != null) ...[
+                              if (asset.brand != null)
+                                Flexible(
+                                  child: AppText(
+                                    asset.brand!,
+                                    style: AppTextStyle.bodySmall,
+                                    color: context.colors.textSecondary,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              if (asset.brand != null && asset.model != null)
                                 AppText(
-                                  asset.brand!,
+                                  ' • ',
                                   style: AppTextStyle.bodySmall,
                                   color: context.colors.textSecondary,
                                 ),
-                                if (asset.model != null) ...[
-                                  AppText(
-                                    ' • ',
-                                    style: AppTextStyle.bodySmall,
-                                    color: context.colors.textSecondary,
-                                  ),
-                                  AppText(
+                              if (asset.model != null)
+                                Flexible(
+                                  child: AppText(
                                     asset.model!,
                                     style: AppTextStyle.bodySmall,
                                     color: context.colors.textSecondary,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ],
-                              ],
+                                ),
                             ],
                           ),
                         ],
                       ),
                     ),
+
                     const SizedBox(width: 12),
+
+                    // Badges Section (Status & Condition)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _getStatusColor(
-                              context,
-                              asset.status,
-                            ).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: AppText(
-                            asset.status.name.toUpperCase(),
-                            style: AppTextStyle.labelSmall,
-                            color: _getStatusColor(context, asset.status),
-                            fontWeight: FontWeight.w600,
-                          ),
+                        _buildBadge(
+                          context,
+                          label: asset.status.name.toUpperCase(),
+                          color: _getStatusColor(context, asset.status),
                         ),
-                        const SizedBox(height: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _getConditionColor(
-                              context,
-                              asset.condition,
-                            ).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: AppText(
-                            asset.condition.name.toUpperCase(),
-                            style: AppTextStyle.labelSmall,
-                            color: _getConditionColor(context, asset.condition),
-                            fontWeight: FontWeight.w600,
-                          ),
+                        const SizedBox(height: 6),
+                        _buildBadge(
+                          context,
+                          label: asset.condition.name.toUpperCase(),
+                          color: _getConditionColor(context, asset.condition),
                         ),
                       ],
                     ),
@@ -177,6 +230,31 @@ class AssetTile extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Helper widget biar kodingan di atas gak kepanjangan
+  Widget _buildBadge(
+    BuildContext context, {
+    required String label,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: color.withValues(alpha: 0.2),
+          width: 1,
+        ), // Tambah border tipis biar pop!
+      ),
+      child: AppText(
+        label,
+        style: AppTextStyle.labelSmall,
+        color: color,
+        fontWeight: FontWeight.w600,
       ),
     );
   }

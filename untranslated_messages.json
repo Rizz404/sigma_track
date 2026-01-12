@@ -1,1 +1,7 @@
-{}
+{
+  "ja": [
+    "assetExistingImages",
+    "assetExistingImagesHint",
+    "assetUpdateImagesHint"
+  ]
+}

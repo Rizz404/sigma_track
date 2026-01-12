@@ -255,6 +255,18 @@ abstract class L10n {
   /// **'Updated At'**
   String get assetUpdatedAt;
 
+  /// Asset images gallery section title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Images'**
+  String get assetImages;
+
+  /// Label for primary image badge
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get assetPrimaryImage;
+
   /// Data matrix image section title
   ///
   /// In en, this message translates to:
@@ -434,6 +446,24 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Select Images'**
   String get assetSelectImages;
+
+  /// Title for existing images section in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Existing Images'**
+  String get assetExistingImages;
+
+  /// Hint for existing images in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Current images attached to this asset'**
+  String get assetExistingImagesHint;
+
+  /// Hint for updating images in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Upload new images to replace existing ones (optional)'**
+  String get assetUpdateImagesHint;
 
   /// Hint text for template images section
   ///

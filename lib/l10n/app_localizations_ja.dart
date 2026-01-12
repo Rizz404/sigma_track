@@ -89,6 +89,12 @@ class L10nJa extends L10n {
   String get assetUpdatedAt => '更新日時';
 
   @override
+  String get assetImages => '資産画像';
+
+  @override
+  String get assetPrimaryImage => 'メイン';
+
+  @override
   String get assetDataMatrixImage => 'データマトリックス画像';
 
   @override
@@ -182,6 +188,16 @@ class L10nJa extends L10n {
 
   @override
   String get assetSelectImages => '画像を選択';
+
+  @override
+  String get assetExistingImages => 'Existing Images';
+
+  @override
+  String get assetExistingImagesHint => 'Current images attached to this asset';
+
+  @override
+  String get assetUpdateImagesHint =>
+      'Upload new images to replace existing ones (optional)';
 
   @override
   String get assetTemplateImagesHint => 'このアセットに使用する画像をアップロードしてください';

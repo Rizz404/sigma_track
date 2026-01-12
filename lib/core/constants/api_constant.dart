@@ -93,8 +93,8 @@ class ApiConstant {
   static const String getAssetsCursor = '$assetPrefix/cursor';
   static const String countAssets = '$assetPrefix/count';
   static const String getAvailableAssetImages = '$baseUrl/assets/images';
-  static const String getAvailableAssetImagesCursor =
-      '$baseUrl/assets/images/cursor';
+  // static const String getAvailableAssetImagesCursor =
+  //     '$baseUrl/assets/images/cursor';
   static String getAssetByTag(String tag) => '$assetPrefix/tag/$tag';
   static String checkAssetTagExists(String tag) =>
       '$assetPrefix/check/tag/$tag';

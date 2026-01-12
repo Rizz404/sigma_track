@@ -89,6 +89,12 @@ class L10nEn extends L10n {
   String get assetUpdatedAt => 'Updated At';
 
   @override
+  String get assetImages => 'Asset Images';
+
+  @override
+  String get assetPrimaryImage => 'Primary';
+
+  @override
   String get assetDataMatrixImage => 'Data Matrix Image';
 
   @override
@@ -184,6 +190,16 @@ class L10nEn extends L10n {
 
   @override
   String get assetSelectImages => 'Select Images';
+
+  @override
+  String get assetExistingImages => 'Existing Images';
+
+  @override
+  String get assetExistingImagesHint => 'Current images attached to this asset';
+
+  @override
+  String get assetUpdateImagesHint =>
+      'Upload new images to replace existing ones (optional)';
 
   @override
   String get assetTemplateImagesHint =>

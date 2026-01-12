@@ -89,6 +89,12 @@ class L10nId extends L10n {
   String get assetUpdatedAt => 'Diperbarui Pada';
 
   @override
+  String get assetImages => 'Gambar Aset';
+
+  @override
+  String get assetPrimaryImage => 'Utama';
+
+  @override
   String get assetDataMatrixImage => 'Gambar Data Matrix';
 
   @override
@@ -183,6 +189,17 @@ class L10nId extends L10n {
 
   @override
   String get assetSelectImages => 'Pilih Gambar';
+
+  @override
+  String get assetExistingImages => 'Gambar yang Ada';
+
+  @override
+  String get assetExistingImagesHint =>
+      'Gambar yang saat ini terlampir pada aset ini';
+
+  @override
+  String get assetUpdateImagesHint =>
+      'Unggah gambar baru untuk mengganti yang lama (opsional)';
 
   @override
   String get assetTemplateImagesHint =>

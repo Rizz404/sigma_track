@@ -110,6 +110,14 @@
   "@assetUpdatedAt": {
     "description": "Updated at label"
   },
+  "assetImages": "Gambar Aset",
+  "@assetImages": {
+    "description": "Asset images gallery section title"
+  },
+  "assetPrimaryImage": "Utama",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
   "assetDataMatrixImage": "Gambar Data Matrix",
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
@@ -241,6 +249,18 @@
   "assetSelectImages": "Pilih Gambar",
   "@assetSelectImages": {
     "description": "Button text for selecting images"
+  },
+  "assetExistingImages": "Gambar yang Ada",
+  "@assetExistingImages": {
+    "description": "Title for existing images section in edit mode"
+  },
+  "assetExistingImagesHint": "Gambar yang saat ini terlampir pada aset ini",
+  "@assetExistingImagesHint": {
+    "description": "Hint for existing images in edit mode"
+  },
+  "assetUpdateImagesHint": "Unggah gambar baru untuk mengganti yang lama (opsional)",
+  "@assetUpdateImagesHint": {
+    "description": "Hint for updating images in edit mode"
   },
   "assetTemplateImagesHint": "Unggah gambar yang akan digunakan untuk aset ini",
   "@assetTemplateImagesHint": {

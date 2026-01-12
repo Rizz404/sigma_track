@@ -110,6 +110,14 @@
   "@assetUpdatedAt": {
     "description": "Updated at label"
   },
+  "assetImages": "資産画像",
+  "@assetImages": {
+    "description": "Asset images gallery section title"
+  },
+  "assetPrimaryImage": "メイン",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
   "assetDataMatrixImage": "データマトリックス画像",
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"

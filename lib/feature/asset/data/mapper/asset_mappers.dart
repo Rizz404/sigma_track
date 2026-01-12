@@ -8,6 +8,7 @@ import 'package:sigma_track/feature/asset/domain/entities/upload_template_images
 import 'package:sigma_track/feature/asset/data/models/upload_template_images_response_model.dart';
 import 'package:sigma_track/feature/asset/domain/entities/image_response.dart';
 import 'package:sigma_track/feature/asset/data/models/image_response_model.dart';
+import 'package:sigma_track/feature/asset/data/mapper/asset_image_mappers.dart';
 import 'package:sigma_track/feature/category/data/mapper/category_mappers.dart';
 import 'package:sigma_track/feature/location/data/mapper/location_mappers.dart';
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
@@ -36,6 +37,7 @@ extension AssetModelMapper on AssetModel {
       category: category?.toEntity(),
       location: location?.toEntity(),
       assignedTo: assignedTo?.toEntity(),
+      images: images?.map((e) => e.toEntity()).toList(),
     );
   }
 }
@@ -64,6 +66,7 @@ extension AssetEntityMapper on Asset {
       category: category?.toModel(),
       location: location?.toModel(),
       assignedTo: assignedTo?.toModel(),
+      images: images?.map((e) => e.toModel()).toList(),
     );
   }
 }

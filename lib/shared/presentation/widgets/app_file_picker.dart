@@ -24,6 +24,7 @@ class AppFilePicker extends StatefulWidget {
   final String? Function(List<PlatformFile>?)? validator;
   final List<PlatformFile>? initialFiles;
   final FileType fileType;
+  final void Function(List<PlatformFile>)? onFilesChanged;
 
   const AppFilePicker({
     super.key,
@@ -38,6 +39,7 @@ class AppFilePicker extends StatefulWidget {
     this.validator,
     this.initialFiles,
     this.fileType = FileType.any,
+    this.onFilesChanged,
   });
 
   @override
@@ -95,6 +97,7 @@ class AppFilePickerState extends State<AppFilePicker> {
 
         // * Update form value
         FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
+        widget.onFilesChanged?.call(_selectedFiles);
         this.logData('Files selected: ${_selectedFiles.length}');
       }
     } catch (e, s) {
@@ -107,12 +110,14 @@ class AppFilePickerState extends State<AppFilePicker> {
     setState(() {
       _selectedFiles.removeAt(index);
       FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
+      widget.onFilesChanged?.call(_selectedFiles);
     });
   }
 
   void reset() {
     setState(() => _selectedFiles = []);
     FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
+    widget.onFilesChanged?.call(_selectedFiles);
   }
 
   void _previewFile(PlatformFile file) {
@@ -244,6 +249,12 @@ class _FileItem extends StatelessWidget {
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 
+  // Helper untuk cek apakah file adalah gambar
+  bool get _isImage {
+    final extension = file.extension?.toLowerCase();
+    return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].contains(extension);
+  }
+
   IconData _getFileIcon(String? extension) {
     switch (extension?.toLowerCase()) {
       case 'pdf':
@@ -254,11 +265,6 @@ class _FileItem extends StatelessWidget {
       case 'xls':
       case 'xlsx':
         return Icons.table_chart;
-      case 'jpg':
-      case 'jpeg':
-      case 'png':
-      case 'gif':
-        return Icons.image;
       case 'mp4':
       case 'mov':
       case 'avi':
@@ -268,11 +274,62 @@ class _FileItem extends StatelessWidget {
     }
   }
 
+  Widget _buildFileThumbnail(BuildContext context) {
+    // 1. Jika file adalah gambar, coba tampilkan previewnya
+    if (_isImage) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          width: 48, // Ukuran thumbnail
+          height: 48,
+          child: kIsWeb
+              ? (file.bytes != null
+                    ? Image.memory(
+                        file.bytes!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            _buildFallbackIcon(context),
+                      )
+                    : _buildFallbackIcon(context))
+              : (file.path != null
+                    ? Image.file(
+                        File(file.path!),
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            _buildFallbackIcon(context),
+                      )
+                    : _buildFallbackIcon(context)),
+        ),
+      );
+    }
+
+    // 2. Jika bukan gambar, tampilkan icon biasa
+    return _buildFallbackIcon(context);
+  }
+
+  Widget _buildFallbackIcon(BuildContext context) {
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        color: context.colors.surfaceVariant, // Background icon biar manis
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Icon(
+        _getFileIcon(file.extension),
+        color: context.colorScheme.primary,
+        size: 24,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(
+        8,
+      ), // Padding sedikit dikurangi biar compact
       decoration: BoxDecoration(
         color: context.colors.surface,
         borderRadius: BorderRadius.circular(8),
@@ -280,10 +337,9 @@ class _FileItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            _getFileIcon(file.extension),
-            color: context.colorScheme.primary,
-          ),
+          // * Ganti Icon statis dengan Thumbnail Builder
+          _buildFileThumbnail(context),
+
           const SizedBox(width: 12),
           Expanded(
             child: Column(

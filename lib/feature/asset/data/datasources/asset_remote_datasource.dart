@@ -127,7 +127,15 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
               await dio.MultipartFile.fromFile(entry.value as String),
             ),
           );
-        } else if (entry.value != null && entry.key != 'dataMatrixImageFile') {
+        } else if (entry.key == 'imageUrls' && entry.value != null) {
+          // * Handle imageUrls as array, not string
+          final urls = entry.value as List<String>;
+          for (final url in urls) {
+            formData.fields.add(MapEntry('imageUrls', url));
+          }
+        } else if (entry.value != null &&
+            entry.key != 'dataMatrixImageFile' &&
+            entry.key != 'imageUrls') {
           formData.fields.add(MapEntry(entry.key, entry.value.toString()));
         }
       }
@@ -589,7 +597,7 @@ class AssetRemoteDatasourceImpl implements AssetRemoteDatasource {
     this.logData('getAvailableAssetImages called');
     try {
       final response = await _dioClient.getWithCursor(
-        ApiConstant.getAvailableAssetImagesCursor,
+        ApiConstant.getAvailableAssetImages,
         queryParameters: params.toMap(),
         fromJson: (json) => ImageResponseModel.fromMap(json),
       );

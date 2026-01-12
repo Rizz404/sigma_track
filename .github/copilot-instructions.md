@@ -46,14 +46,19 @@ import 'package:sigma_track/core/utils/logging.dart';
 // Monitor: btm, procs, dust, duf
 // ❌ Avoid: dir, findstr, find, grep, cat, manual cd
 
+// 10) Text/Localization (IMPORTANT!)
+// ✅ DO: Use static text strings by default ('Submit', 'Cancel', etc.)
+// ❌ DON'T: Use context.l10n or edit .arb files UNLESS explicitly asked
+// Only use translation when user specifically requests it
+
 // Quick examples:
 Widget build(BuildContext context) => Container(
   color: context.colors.surface,
-  child: AppText(context.l10n.ok, style: AppStyle.titleMedium),
+  child: AppText('Title', style: AppStyle.titleMedium), // static text
 );
 
 AppButton(
-  text: context.l10n.submit,
+  text: 'Submit', // static text unless told to translate
   onPressed: onSubmit,
 )
 

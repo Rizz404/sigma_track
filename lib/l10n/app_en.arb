@@ -110,6 +110,14 @@
   "@assetUpdatedAt": {
     "description": "Updated at label"
   },
+  "assetImages": "Asset Images",
+  "@assetImages": {
+    "description": "Asset images gallery section title"
+  },
+  "assetPrimaryImage": "Primary",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
   "assetDataMatrixImage": "Data Matrix Image",
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
@@ -241,6 +249,18 @@
   "assetSelectImages": "Select Images",
   "@assetSelectImages": {
     "description": "Button text for selecting images"
+  },
+  "assetExistingImages": "Existing Images",
+  "@assetExistingImages": {
+    "description": "Title for existing images section in edit mode"
+  },
+  "assetExistingImagesHint": "Current images attached to this asset",
+  "@assetExistingImagesHint": {
+    "description": "Hint for existing images in edit mode"
+  },
+  "assetUpdateImagesHint": "Upload new images to replace existing ones (optional)",
+  "@assetUpdateImagesHint": {
+    "description": "Hint for updating images in edit mode"
   },
   "assetTemplateImagesHint": "Upload images that will be used for this asset",
   "@assetTemplateImagesHint": {

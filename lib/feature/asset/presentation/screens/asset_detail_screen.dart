@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,6 +12,8 @@ import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
+import 'package:sigma_track/feature/asset/domain/entities/asset_image.dart'
+    as entity;
 import 'package:sigma_track/feature/asset/domain/usecases/delete_asset_usecase.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/state/assets_state.dart';
@@ -364,6 +367,12 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 0. Asset Images Gallery (NEW!)
+          if (asset.images != null && asset.images!.isNotEmpty) ...[
+            _buildImageGallery(asset.images!),
+            const SizedBox(height: 16),
+          ],
+
           // 1. Info Utama Dulu
           _buildInfoCard(context.l10n.assetInformation, [
             _buildInfoRow(context.l10n.assetTag, asset.assetTag),
@@ -622,6 +631,128 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildImageGallery(List<entity.AssetImage> images) {
+    // * Sort images by displayOrder and primary flag
+    final sortedImages = List<entity.AssetImage>.from(images)
+      ..sort((a, b) {
+        if (a.isPrimary && !b.isPrimary) return -1;
+        if (!a.isPrimary && b.isPrimary) return 1;
+        return a.displayOrder.compareTo(b.displayOrder);
+      });
+
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                AppText(
+                  context.l10n.assetImages,
+                  style: AppTextStyle.titleMedium,
+                  fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: AppText(
+                    '${images.length}',
+                    style: AppTextStyle.labelSmall,
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              height: 120,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: sortedImages.length,
+                separatorBuilder: (context, index) => const SizedBox(width: 12),
+                itemBuilder: (context, index) {
+                  final image = sortedImages[index];
+                  return Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: image.isPrimary
+                                  ? context.colorScheme.primary
+                                  : context.colors.border,
+                              width: image.isPrimary ? 2 : 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: image.imageUrl,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Container(
+                              color:
+                                  context.colorScheme.surfaceContainerHighest,
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              color:
+                                  context.colorScheme.surfaceContainerHighest,
+                              child: const Icon(Icons.broken_image),
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (image.isPrimary)
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: context.colorScheme.primary,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: AppText(
+                              context.l10n.assetPrimaryImage,
+                              style: AppTextStyle.labelSmall,
+                              color: context.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
