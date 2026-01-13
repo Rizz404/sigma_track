@@ -214,9 +214,9 @@ class _ScanAssetScreenState extends ConsumerState<ScanAssetScreen>
         AppToast.success(context.l10n.assetFound(state.asset!.assetName));
 
         if (mounted) {
-          // * Navigate to asset detail screen by assetTag (from QR scan)
-          // ? This prevents duplicate log creation in asset_detail_screen
-          await context.push('${RouteConstant.assetDetail}?assetTag=$assetTag');
+          // * Navigate to asset detail screen using asset ID and assetTag
+          // ? assetTag query param prevents duplicate log creation in asset_detail_screen
+          await context.push('/asset/${state.asset!.id}?assetTag=$assetTag');
           // * Reset processing state after navigation completes
           if (mounted) {
             setState(() => _isProcessing = false);
