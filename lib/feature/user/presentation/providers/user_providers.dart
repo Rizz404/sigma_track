@@ -12,6 +12,7 @@ import 'package:sigma_track/feature/user/presentation/providers/state/current_us
 import 'package:sigma_track/feature/user/presentation/providers/user_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_search_notifier.dart';
+import 'package:sigma_track/feature/user/presentation/providers/users_search_dropdown_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/notifier/export_users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_boolean_state.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/user_count_state.dart';
@@ -28,6 +29,12 @@ final usersProvider = AutoDisposeNotifierProvider<UsersNotifier, UsersState>(
 final usersSearchProvider =
     AutoDisposeNotifierProvider<UsersSearchNotifier, UsersState>(
       UsersSearchNotifier.new,
+    );
+
+// * Provider khusus untuk dropdown search dengan load data saat pertama kali
+final usersSearchDropdownProvider =
+    AutoDisposeNotifierProvider<UsersSearchDropdownNotifier, UsersState>(
+      UsersSearchDropdownNotifier.new,
     );
 
 // * Provider untuk check apakah user email exists

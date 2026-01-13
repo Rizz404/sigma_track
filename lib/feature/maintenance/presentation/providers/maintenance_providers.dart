@@ -9,8 +9,10 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/get_maint
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_dropdown_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_search_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_schedules_search_dropdown_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/notifier/export_maintenance_schedules_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/notifier/export_maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_boolean_state.dart';
@@ -45,11 +47,23 @@ final maintenanceSchedulesSearchProvider =
       MaintenanceSchedulesState
     >(MaintenanceSchedulesSearchNotifier.new);
 
+final maintenanceSchedulesSearchDropdownProvider =
+    AutoDisposeNotifierProvider<
+      MaintenanceSchedulesSearchDropdownNotifier,
+      MaintenanceSchedulesState
+    >(MaintenanceSchedulesSearchDropdownNotifier.new);
+
 final maintenanceRecordsSearchProvider =
     AutoDisposeNotifierProvider<
       MaintenanceRecordsSearchNotifier,
       MaintenanceRecordsState
     >(MaintenanceRecordsSearchNotifier.new);
+
+final maintenanceRecordsSearchDropdownProvider =
+    AutoDisposeNotifierProvider<
+      MaintenanceRecordsSearchDropdownNotifier,
+      MaintenanceRecordsState
+    >(MaintenanceRecordsSearchDropdownNotifier.new);
 
 final getMaintenanceScheduleByIdProvider =
     AutoDisposeNotifierProviderFamily<

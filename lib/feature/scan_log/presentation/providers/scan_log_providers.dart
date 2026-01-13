@@ -6,6 +6,7 @@ import 'package:sigma_track/feature/scan_log/presentation/providers/get_scan_log
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_statistics_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_logs_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_logs_search_notifier.dart';
+import 'package:sigma_track/feature/scan_log/presentation/providers/scan_logs_search_dropdown_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/notifier/export_scan_logs_notifier.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_boolean_state.dart';
 import 'package:sigma_track/feature/scan_log/presentation/providers/state/scan_log_count_state.dart';
@@ -23,6 +24,12 @@ final scanLogsProvider =
 final scanLogsSearchProvider =
     AutoDisposeNotifierProvider<ScanLogsSearchNotifier, ScanLogsState>(
       ScanLogsSearchNotifier.new,
+    );
+
+// * Provider khusus untuk dropdown search dengan load data saat pertama kali
+final scanLogsSearchDropdownProvider =
+    AutoDisposeNotifierProvider<ScanLogsSearchDropdownNotifier, ScanLogsState>(
+      ScanLogsSearchDropdownNotifier.new,
     );
 
 // * Provider untuk check apakah scan log exists

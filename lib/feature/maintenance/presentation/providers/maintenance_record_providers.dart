@@ -5,6 +5,7 @@ import 'package:sigma_track/feature/maintenance/presentation/providers/get_maint
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_statistics_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_notifier.dart';
+import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_records_search_dropdown_notifier.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_boolean_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_count_state.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/state/maintenance_record_detail_state.dart';
@@ -23,6 +24,13 @@ final maintenanceRecordsSearchProvider =
       MaintenanceRecordsSearchNotifier,
       MaintenanceRecordsState
     >(MaintenanceRecordsSearchNotifier.new);
+
+// * Provider khusus untuk dropdown search dengan load data saat pertama kali
+final maintenanceRecordsSearchDropdownProvider =
+    AutoDisposeNotifierProvider<
+      MaintenanceRecordsSearchDropdownNotifier,
+      MaintenanceRecordsState
+    >(MaintenanceRecordsSearchDropdownNotifier.new);
 
 final getMaintenanceRecordByIdProvider =
     AutoDisposeNotifierProviderFamily<
