@@ -6,6 +6,7 @@ import 'package:fpdart/src/either.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/feature/maintenance/domain/repositories/maintenance_record_repository.dart';
@@ -57,9 +58,8 @@ class CreateMaintenanceRecordUsecaseParams extends Equatable {
     return {
       if (scheduleId != null) 'scheduleId': scheduleId,
       'assetId': assetId,
-      'maintenanceDate': maintenanceDate.toIso8601String(),
-      if (completionDate != null)
-        'completionDate': completionDate!.toIso8601String(),
+      'maintenanceDate': maintenanceDate.iso8601Date,
+      if (completionDate != null) 'completionDate': completionDate!.iso8601Date,
       if (durationMinutes != null) 'durationMinutes': durationMinutes,
       if (performedByUserId != null) 'performedByUserId': performedByUserId,
       if (performedByVendor != null) 'performedByVendor': performedByVendor,

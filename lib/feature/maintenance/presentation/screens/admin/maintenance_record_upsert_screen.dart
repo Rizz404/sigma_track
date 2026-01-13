@@ -6,6 +6,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
@@ -70,15 +71,17 @@ class _MaintenanceRecordUpsertScreenState
     return state.assets;
   }
 
-  Future<List<MaintenanceSchedule>> _searchMaintenanceSchedules(
-    String query,
-  ) async {
-    final notifier = ref.read(maintenanceSchedulesSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(maintenanceSchedulesSearchProvider);
-    return state.maintenanceSchedules;
-  }
+  // * OLD IMPLEMENTATION: Search maintenance schedules function
+  // * Commented out - no backend search feature yet
+  // Future<List<MaintenanceSchedule>> _searchMaintenanceSchedules(
+  //   String query,
+  // ) async {
+  //   final notifier = ref.read(maintenanceSchedulesSearchProvider.notifier);
+  //   await notifier.search(query);
+  //
+  //   final state = ref.read(maintenanceSchedulesSearchProvider);
+  //   return state.maintenanceSchedules;
+  // }
 
   // * OLD IMPLEMENTATION: Search users function
   // * Commented out but kept for future reference
@@ -333,24 +336,32 @@ class _MaintenanceRecordUpsertScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppSearchField<MaintenanceSchedule>(
-              name: 'scheduleId',
-              label: context.l10n.maintenanceRecordSchedule,
-              hintText: context.l10n.maintenanceRecordSearchSchedule,
-              initialValue: widget.maintenanceRecord?.scheduleId,
-              enableAutocomplete: true,
-              onSearch: _searchMaintenanceSchedules,
-              itemDisplayMapper: (schedule) => schedule.title,
-              itemValueMapper: (schedule) => schedule.id,
-              itemSubtitleMapper: (schedule) =>
-                  schedule.asset?.assetName ??
-                  context.l10n.maintenanceRecordUnknownAsset,
-              itemIcon: Icons.schedule,
-              validator: (value) =>
-                  MaintenanceRecordUpsertValidator.validateScheduleId(
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+            Builder(
+              builder: (context) {
+                final schedulesState = ref.watch(maintenanceSchedulesProvider);
+                final schedules = schedulesState.maintenanceSchedules;
+
+                return AppDropdown<String>(
+                  name: 'scheduleId',
+                  label: context.l10n.maintenanceRecordSchedule,
+                  hintText: context.l10n.maintenanceRecordSearchSchedule,
+                  initialValue: widget.maintenanceRecord?.scheduleId,
+                  items: schedules
+                      .map(
+                        (schedule) => AppDropdownItem(
+                          value: schedule.id,
+                          label: schedule.title,
+                          icon: const Icon(Icons.schedule, size: 18),
+                        ),
+                      )
+                      .toList(),
+                  validator: (value) =>
+                      MaintenanceRecordUpsertValidator.validateScheduleId(
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
             AppSearchField<Asset>(
