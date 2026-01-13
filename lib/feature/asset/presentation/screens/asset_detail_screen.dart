@@ -202,7 +202,8 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       errorMessage = state.failure?.message;
 
       // * Create scan log once when asset is fetched (not from extra)
-      if (asset != null && !_scanLogCreated) {
+      // ! Skip if assetTag query param exists (means from QR scanner)
+      if (asset != null && !_scanLogCreated && widget.assetTag == null) {
         _scanLogCreated = true;
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _createScanLog(assetId: asset!.id, scannedValue: asset.assetTag);
@@ -214,13 +215,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
       isLoading = state.isLoading;
       errorMessage = state.failure?.message;
 
-      // * Create scan log once when asset is fetched (not from extra)
-      if (asset != null && !_scanLogCreated) {
-        _scanLogCreated = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _createScanLog(assetId: asset!.id, scannedValue: asset.assetTag);
-        });
-      }
+      // ! Don't create scan log when assetTag is provided
+      // * assetTag query param means this navigation came from QR scan
+      // * Scan log already created in scan_asset_screen.dart
     }
 
     // * Listen only for delete operation
