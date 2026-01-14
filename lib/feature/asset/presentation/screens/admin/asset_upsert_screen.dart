@@ -42,6 +42,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
@@ -92,14 +93,6 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   bool _enableReuseImages = false;
   final GlobalKey<AppFilePickerState> _filePickerKey =
       GlobalKey<AppFilePickerState>();
-
-  Future<List<Category>> _searchCategories(String query) async {
-    final notifier = ref.read(categoriesSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(categoriesSearchProvider);
-    return state.categories;
-  }
 
   Future<void> _generateDataMatrix(String assetTag) async {
     try {
@@ -1049,6 +1042,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   }
 
   Widget _buildCategoryLocationSection() {
+    final categoriesState = ref.watch(categoriesSearchDropdownProvider);
+
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -1067,23 +1062,31 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppSearchField<Category>(
+            AppSearchableDropdown<Category>(
               name: 'categoryId',
               label: context.l10n.assetCategory,
               hintText: context.l10n.assetSearchCategory,
-              initialValue: _sourceAsset?.categoryId,
-              initialDisplayText: _sourceAsset?.category?.categoryName,
-              enableAutocomplete: true,
-              onSearch: _searchCategories,
+              initialValue: _sourceAsset?.category,
+              items: categoriesState.categories,
+              isLoading: categoriesState.isLoading,
+              onSearch: (query) {
+                ref
+                    .read(categoriesSearchDropdownProvider.notifier)
+                    .search(query);
+              },
               itemDisplayMapper: (category) => category.categoryName,
               itemValueMapper: (category) => category.id,
-              itemSubtitleMapper: (category) => category.categoryCode,
-              itemIcon: Icons.category,
+              itemSubtitleMapper: (category) =>
+                  category.parent?.categoryName ?? 'Root Category',
+              itemIconMapper: (category) => Icons.category,
               validator: (value) => AssetUpsertValidator.validateCategoryId(
                 context,
                 value,
                 isUpdate: _isEdit,
               ),
+              onChanged: (category) {
+                // Optional: handle category change
+              },
             ),
             const SizedBox(height: 16),
             if (_isEdit) ...[

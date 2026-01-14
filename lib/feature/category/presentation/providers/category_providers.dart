@@ -34,6 +34,13 @@ final categoriesSearchDropdownProvider =
       CategoriesState
     >(CategoriesSearchDropdownNotifier.new);
 
+// * Provider khusus untuk root categories dropdown search
+final categoriesRootSearchDropdownProvider =
+    AutoDisposeNotifierProvider<
+      CategoriesRootSearchDropdownNotifier,
+      CategoriesState
+    >(CategoriesRootSearchDropdownNotifier.new);
+
 // * Provider untuk check apakah category code exists
 final checkCategoryCodeExistsProvider =
     AutoDisposeNotifierProviderFamily<

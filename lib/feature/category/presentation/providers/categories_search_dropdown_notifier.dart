@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sigma_track/core/extensions/riverpod_extension.dart';
@@ -94,5 +92,14 @@ class CategoriesSearchDropdownNotifier
   void clear() {
     this.logPresentation('Clearing search results');
     state = CategoriesState.initial();
+  }
+}
+
+/// Notifier for root categories only (categories without parent)
+class CategoriesRootSearchDropdownNotifier
+    extends CategoriesSearchDropdownNotifier {
+  @override
+  Future<void> search(String search) async {
+    await searchRootCategories(search);
   }
 }

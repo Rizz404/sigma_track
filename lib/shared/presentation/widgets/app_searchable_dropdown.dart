@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
-/// Searchable dropdown with initial data loading and infinite scroll
-/// Combines dropdown + search + pagination in one widget
+/// Reusable searchable dropdown widget with search functionality
+/// Parent widget manages state and provides items/callbacks
+///
+/// Example usage with Riverpod provider:
+/// ```dart
+/// final categoriesState = ref.watch(categoriesSearchDropdownProvider);
+///
+/// AppSearchableDropdown<Category>(
+///   name: 'category_id',
+///   label: 'Category',
+///   items: categoriesState.categories,
+///   isLoading: categoriesState.isLoading,
+///   onSearch: (query) {
+///     ref.read(categoriesSearchDropdownProvider.notifier).search(query);
+///   },
+///   itemDisplayMapper: (category) => category.name,
+///   itemValueMapper: (category) => category.id,
+///   onChanged: (category) => print(category?.name),
+/// )
+/// ```
 class AppSearchableDropdown<T> extends StatefulWidget {
   final String name;
   final T? initialValue;
@@ -14,12 +31,10 @@ class AppSearchableDropdown<T> extends StatefulWidget {
   final bool enabled;
   final String? Function(String?)? validator;
 
-  // * Initial data loading (cursor-based pagination)
-  final Future<List<T>> Function({String? cursor})? onLoadInitial;
-  final int initialLoadCount;
-
-  // * Search functionality
-  final Future<List<T>> Function(String query)? onSearch;
+  // * Data & callbacks
+  final List<T> items;
+  final bool isLoading;
+  final ValueChanged<String> onSearch;
 
   // * Item configuration
   final String Function(T item) itemDisplayMapper;
@@ -35,11 +50,13 @@ class AppSearchableDropdown<T> extends StatefulWidget {
   final Color? fillColor;
   final Widget? prefixIcon;
   final double dropdownMaxHeight;
-  final int itemsPerPage;
 
   const AppSearchableDropdown({
     super.key,
     required this.name,
+    required this.items,
+    required this.isLoading,
+    required this.onSearch,
     required this.itemDisplayMapper,
     required this.itemValueMapper,
     this.initialValue,
@@ -47,9 +64,6 @@ class AppSearchableDropdown<T> extends StatefulWidget {
     this.hintText,
     this.enabled = true,
     this.validator,
-    this.onLoadInitial,
-    this.initialLoadCount = 20,
-    this.onSearch,
     this.itemSubtitleMapper,
     this.itemIconMapper,
     this.onChanged,
@@ -57,11 +71,7 @@ class AppSearchableDropdown<T> extends StatefulWidget {
     this.fillColor,
     this.prefixIcon,
     this.dropdownMaxHeight = 400,
-    this.itemsPerPage = 20,
-  }) : assert(
-         onLoadInitial != null || onSearch != null,
-         'Either onLoadInitial or onSearch must be provided',
-       );
+  });
 
   @override
   State<AppSearchableDropdown<T>> createState() =>
@@ -76,26 +86,14 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   late GlobalKey<FormBuilderFieldState> _fieldKey;
 
   OverlayEntry? _overlayEntry;
-  List<T> _items = [];
-  bool _isLoading = false;
-  bool _isSearchMode = false;
-  String? _cursor;
-  bool _hasMoreData = true;
   T? _selectedItem;
+  DateTime? _lastSearchTime;
 
   @override
   void initState() {
     super.initState();
     _fieldKey = GlobalKey<FormBuilderFieldState>();
-    _scrollController.addListener(_onScroll);
     _selectedItem = widget.initialValue;
-
-    // * Load initial data if initialValue exists
-    if (widget.initialValue != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _loadInitialData();
-      });
-    }
   }
 
   @override
@@ -107,100 +105,20 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
     super.dispose();
   }
 
-  void _onScroll() {
-    if (_isSearchMode) return; // No pagination in search mode
-    if (!_hasMoreData || _isLoading) return;
-
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 50) {
-      _loadMoreData();
-    }
+  void _performSearch(String query) {
+    _debounceSearch(query);
   }
 
-  Future<void> _loadInitialData() async {
-    if (widget.onLoadInitial == null) return;
-
-    setState(() {
-      _isLoading = true;
-      _cursor = null;
-      _hasMoreData = true;
-      _items.clear();
+  void _debounceSearch(String query) {
+    _lastSearchTime = DateTime.now();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (_lastSearchTime != null &&
+          DateTime.now().difference(_lastSearchTime!) >=
+              const Duration(milliseconds: 500)) {
+        widget.onSearch(query);
+        _updateOverlay();
+      }
     });
-
-    try {
-      final results = await widget.onLoadInitial!(cursor: null);
-      setState(() {
-        _items = results;
-        _hasMoreData = results.length >= widget.initialLoadCount;
-        if (results.isNotEmpty && results.length >= widget.itemsPerPage) {
-          _cursor = widget.itemValueMapper(results.last);
-        }
-      });
-    } catch (e) {
-      // Handle error silently or show toast
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _loadMoreData() async {
-    if (widget.onLoadInitial == null || !_hasMoreData || _isLoading) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final results = await widget.onLoadInitial!(cursor: _cursor);
-      setState(() {
-        _items.addAll(results);
-        _hasMoreData = results.length >= widget.itemsPerPage;
-        if (results.isNotEmpty) {
-          _cursor = widget.itemValueMapper(results.last);
-        }
-      });
-    } catch (e) {
-      // Handle error
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _performSearch(String query) async {
-    if (widget.onSearch == null) return;
-
-    final trimmedQuery = query.trim();
-    if (trimmedQuery.isEmpty) {
-      // Switch back to browse mode
-      setState(() {
-        _isSearchMode = false;
-      });
-      await _loadInitialData();
-      return;
-    }
-
-    setState(() {
-      _isSearchMode = true;
-      _isLoading = true;
-    });
-
-    try {
-      final results = await widget.onSearch!(trimmedQuery);
-      setState(() {
-        _items = results;
-        _hasMoreData = false; // No pagination in search mode
-      });
-    } catch (e) {
-      // Handle error
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   void _toggleDropdown() {
@@ -213,12 +131,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
     }
   }
 
-  void _showDropdown() async {
-    // Load initial data if not loaded yet
-    if (_items.isEmpty && !_isLoading) {
-      await _loadInitialData();
-    }
-
+  void _showDropdown() {
     _removeOverlay();
     _overlayEntry = _createOverlayEntry();
     Overlay.of(context).insert(_overlayEntry!);
@@ -228,7 +141,8 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   void _hideDropdown() {
     _removeOverlay();
     _searchController.clear();
-    _isSearchMode = false;
+    // Reset search when closing
+    widget.onSearch('');
   }
 
   void _removeOverlay() {
@@ -289,7 +203,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (widget.onSearch != null) _buildSearchHeader(),
+                  _buildSearchHeader(),
                   Flexible(child: _buildItemsList()),
                 ],
               ),
@@ -309,10 +223,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       child: TextField(
         controller: _searchController,
         focusNode: _focusNode,
-        onChanged: (value) {
-          _performSearch(value);
-          _updateOverlay();
-        },
+        onChanged: _performSearch,
         decoration: InputDecoration(
           hintText: 'Search...',
           hintStyle: context.textTheme.bodySmall?.copyWith(
@@ -333,7 +244,6 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                   onPressed: () {
                     _searchController.clear();
                     _performSearch('');
-                    _updateOverlay();
                   },
                 )
               : null,
@@ -355,7 +265,10 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   }
 
   Widget _buildItemsList() {
-    if (_isLoading && _items.isEmpty) {
+    final items = widget.items;
+    final isLoading = widget.isLoading;
+
+    if (isLoading && items.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(24),
         child: Center(
@@ -366,12 +279,12 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       );
     }
 
-    if (_items.isEmpty) {
+    if (items.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(24),
         child: Center(
           child: AppText(
-            _isSearchMode ? 'No results found' : 'No items available',
+            'No items available',
             style: AppTextStyle.bodyMedium,
             color: context.colors.textSecondary,
           ),
@@ -383,25 +296,9 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       controller: _scrollController,
       padding: const EdgeInsets.all(8),
       shrinkWrap: true,
-      itemCount: _items.length + (_isLoading ? 1 : 0),
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        if (index >= _items.length) {
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Center(
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(context.colors.primary),
-                ),
-              ),
-            ),
-          );
-        }
-
-        final item = _items[index];
+        final item = items[index];
         final isSelected =
             _selectedItem != null &&
             widget.itemValueMapper(_selectedItem as T) ==
