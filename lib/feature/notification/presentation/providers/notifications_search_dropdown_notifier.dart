@@ -25,7 +25,7 @@ class NotificationsSearchDropdownNotifier
 
   Future<void> _initializeNotifications() async {
     state = await _loadNotifications(
-      notificationsFilter: GetNotificationsCursorUsecaseParams(),
+      notificationsFilter: const GetNotificationsCursorUsecaseParams(),
     );
   }
 

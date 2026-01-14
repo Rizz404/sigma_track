@@ -24,7 +24,7 @@ class MaintenanceRecordsSearchDropdownNotifier
 
   Future<void> _initializeMaintenanceRecords() async {
     state = await _loadMaintenanceRecords(
-      maintenanceRecordsFilter: GetMaintenanceRecordsCursorUsecaseParams(),
+      maintenanceRecordsFilter: const GetMaintenanceRecordsCursorUsecaseParams(),
     );
   }
 

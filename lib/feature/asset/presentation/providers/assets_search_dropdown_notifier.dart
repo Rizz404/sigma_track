@@ -23,7 +23,7 @@ class AssetsSearchDropdownNotifier extends AutoDisposeNotifier<AssetsState> {
   }
 
   Future<void> _initializeAssets() async {
-    state = await _loadAssets(assetsFilter: GetAssetsCursorUsecaseParams());
+    state = await _loadAssets(assetsFilter: const GetAssetsCursorUsecaseParams());
   }
 
   Future<AssetsState> _loadAssets({

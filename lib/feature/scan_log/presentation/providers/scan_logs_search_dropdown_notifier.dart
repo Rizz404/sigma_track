@@ -25,7 +25,7 @@ class ScanLogsSearchDropdownNotifier
 
   Future<void> _initializeScanLogs() async {
     state = await _loadScanLogs(
-      scanLogsFilter: GetScanLogsCursorUsecaseParams(),
+      scanLogsFilter: const GetScanLogsCursorUsecaseParams(),
     );
   }
 

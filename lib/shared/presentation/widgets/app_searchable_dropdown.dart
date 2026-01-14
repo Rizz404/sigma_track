@@ -380,7 +380,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
         key: _fieldKey,
         name: widget.name,
         initialValue: widget.initialValue != null
-            ? widget.itemValueMapper(widget.initialValue!)
+            ? widget.itemValueMapper(widget.initialValue as T)
             : null,
         enabled: widget.enabled,
         validator: widget.validator,

@@ -25,7 +25,7 @@ class MaintenanceSchedulesSearchDropdownNotifier
 
   Future<void> _initializeMaintenanceSchedules() async {
     state = await _loadMaintenanceSchedules(
-      maintenanceSchedulesFilter: GetMaintenanceSchedulesCursorUsecaseParams(),
+      maintenanceSchedulesFilter: const GetMaintenanceSchedulesCursorUsecaseParams(),
     );
   }
 
