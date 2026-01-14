@@ -110,14 +110,6 @@
   "@assetUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetImages": "Gambar Aset",
-  "@assetImages": {
-    "description": "Asset images gallery section title"
-  },
-  "assetPrimaryImage": "Utama",
-  "@assetPrimaryImage": {
-    "description": "Label for primary image badge"
-  },
   "assetDataMatrixImage": "Gambar Data Matrix",
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
@@ -249,18 +241,6 @@
   "assetSelectImages": "Pilih Gambar",
   "@assetSelectImages": {
     "description": "Button text for selecting images"
-  },
-  "assetExistingImages": "Gambar yang Ada",
-  "@assetExistingImages": {
-    "description": "Title for existing images section in edit mode"
-  },
-  "assetExistingImagesHint": "Gambar yang saat ini terlampir pada aset ini",
-  "@assetExistingImagesHint": {
-    "description": "Hint for existing images in edit mode"
-  },
-  "assetUpdateImagesHint": "Unggah gambar baru untuk mengganti yang lama (opsional)",
-  "@assetUpdateImagesHint": {
-    "description": "Hint for updating images in edit mode"
   },
   "assetTemplateImagesHint": "Unggah gambar yang akan digunakan untuk aset ini",
   "@assetTemplateImagesHint": {
@@ -983,6 +963,102 @@
   "assetCancelProcessing": "Batalkan Proses",
   "@assetCancelProcessing": {
     "description": "Cancel processing button label"
+  },
+  "assetRootCategory": "Kategori Akar",
+  "@assetRootCategory": {
+    "description": "Label for root category when category has no parent"
+  },
+  "assetReuseExistingImages": "Gunakan Ulang Gambar yang Ada",
+  "@assetReuseExistingImages": {
+    "description": "Title for reuse existing images toggle"
+  },
+  "assetReuseExistingImagesHint": "Gunakan gambar yang sudah diunggah ke sistem",
+  "@assetReuseExistingImagesHint": {
+    "description": "Subtitle hint for reuse existing images feature"
+  },
+  "assetSelectFromAvailableImages": "Pilih dari Gambar yang Tersedia",
+  "@assetSelectFromAvailableImages": {
+    "description": "Button text to select from available images pool"
+  },
+  "assetImagesSelectedCount": "Gambar Dipilih ({count})",
+  "@assetImagesSelectedCount": {
+    "description": "Button text showing number of images selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetMaxImagesWarning": "Maksimal 5 gambar diperbolehkan ({count} dipilih)",
+  "@assetMaxImagesWarning": {
+    "description": "Warning message when too many images are selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "assetPickerTitle": "Pilih Gambar",
+  "@assetPickerTitle": {
+    "description": "Title for image picker dialog"
+  },
+  "assetPickerCountSelected": "{count} dipilih",
+  "@assetPickerCountSelected": {
+    "description": "Text showing number of items selected in picker",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetPickerSelectButton": "Pilih Gambar",
+  "@assetPickerSelectButton": {
+    "description": "Button text to confirm selection in picker dialog (when nothing selected)"
+  },
+  "assetPickerSelectWithCount": "Pilih ({count})",
+  "@assetPickerSelectWithCount": {
+    "description": "Button text to confirm selection in picker dialog (with count)",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetFailedToLoadImages": "Gagal memuat gambar",
+  "@assetFailedToLoadImages": {
+    "description": "Error message when images fail to load"
+  },
+  "assetRetry": "Coba Lagi",
+  "@assetRetry": {
+    "description": "Retry button label"
+  },
+  "assetNoImagesAvailable": "Tidak ada gambar yang tersedia",
+  "@assetNoImagesAvailable": {
+    "description": "Message when no images are available in the pool"
+  },
+  "assetExistingImages": "Gambar yang Ada",
+  "@assetExistingImages": {
+    "description": "Title for existing images section in edit mode"
+  },
+  "assetExistingImagesHint": "Gambar yang sudah terlampir pada aset ini",
+  "@assetExistingImagesHint": {
+    "description": "Hint text for existing images section"
+  },
+  "assetPrimaryImage": "Utama",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
+  "assetUpdateImagesHint": "Pilih gambar baru untuk memperbarui (gambar yang ada akan tetap ada)",
+  "@assetUpdateImagesHint": {
+    "description": "Hint text for updating images in edit mode"
+  },
+  "assetImages": "Gambar Aset",
+  "@assetImages": {
+    "description": "Title for asset images section in detail screen"
   },
   "assetMovementDeleteAssetMovement": "Hapus Perpindahan Aset",
   "@assetMovementDeleteAssetMovement": {

@@ -963,5 +963,101 @@
   "assetCancelProcessing": "処理をキャンセル",
   "@assetCancelProcessing": {
     "description": "Cancel processing button label"
+  },
+  "assetRootCategory": "ルートカテゴリ",
+  "@assetRootCategory": {
+    "description": "Label for root category when category has no parent"
+  },
+  "assetReuseExistingImages": "既存の画像を再利用",
+  "@assetReuseExistingImages": {
+    "description": "Title for reuse existing images toggle"
+  },
+  "assetReuseExistingImagesHint": "システムにアップロード済みの画像を使用",
+  "@assetReuseExistingImagesHint": {
+    "description": "Subtitle hint for reuse existing images feature"
+  },
+  "assetSelectFromAvailableImages": "利用可能な画像から選択",
+  "@assetSelectFromAvailableImages": {
+    "description": "Button text to select from available images pool"
+  },
+  "assetImagesSelectedCount": "画像が選択されました ({count})",
+  "@assetImagesSelectedCount": {
+    "description": "Button text showing number of images selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetMaxImagesWarning": "最大5枚の画像が許可されています（{count}枚選択済み）",
+  "@assetMaxImagesWarning": {
+    "description": "Warning message when too many images are selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "assetPickerTitle": "画像を選択",
+  "@assetPickerTitle": {
+    "description": "Title for image picker dialog"
+  },
+  "assetPickerCountSelected": "{count}個選択済み",
+  "@assetPickerCountSelected": {
+    "description": "Text showing number of items selected in picker",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetPickerSelectButton": "画像を選択",
+  "@assetPickerSelectButton": {
+    "description": "Button text to confirm selection in picker dialog (when nothing selected)"
+  },
+  "assetPickerSelectWithCount": "選択 ({count})",
+  "@assetPickerSelectWithCount": {
+    "description": "Button text to confirm selection in picker dialog (with count)",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetFailedToLoadImages": "画像の読み込みに失敗しました",
+  "@assetFailedToLoadImages": {
+    "description": "Error message when images fail to load"
+  },
+  "assetRetry": "再試行",
+  "@assetRetry": {
+    "description": "Retry button label"
+  },
+  "assetNoImagesAvailable": "利用可能な画像がありません",
+  "@assetNoImagesAvailable": {
+    "description": "Message when no images are available in the pool"
+  },
+  "assetExistingImages": "既存の画像",
+  "@assetExistingImages": {
+    "description": "Title for existing images section in edit mode"
+  },
+  "assetExistingImagesHint": "この資産に既に添付されている画像",
+  "@assetExistingImagesHint": {
+    "description": "Hint text for existing images section"
+  },
+  "assetPrimaryImage": "メイン",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
+  "assetUpdateImagesHint": "新しい画像を選択して更新（既存の画像は保持されます）",
+  "@assetUpdateImagesHint": {
+    "description": "Hint text for updating images in edit mode"
+  },
+  "assetImages": "資産画像",
+  "@assetImages": {
+    "description": "Title for asset images section in detail screen"
   }
 }

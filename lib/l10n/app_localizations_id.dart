@@ -89,12 +89,6 @@ class L10nId extends L10n {
   String get assetUpdatedAt => 'Diperbarui Pada';
 
   @override
-  String get assetImages => 'Gambar Aset';
-
-  @override
-  String get assetPrimaryImage => 'Utama';
-
-  @override
   String get assetDataMatrixImage => 'Gambar Data Matrix';
 
   @override
@@ -189,17 +183,6 @@ class L10nId extends L10n {
 
   @override
   String get assetSelectImages => 'Pilih Gambar';
-
-  @override
-  String get assetExistingImages => 'Gambar yang Ada';
-
-  @override
-  String get assetExistingImagesHint =>
-      'Gambar yang saat ini terlampir pada aset ini';
-
-  @override
-  String get assetUpdateImagesHint =>
-      'Unggah gambar baru untuk mengganti yang lama (opsional)';
 
   @override
   String get assetTemplateImagesHint =>
@@ -728,6 +711,72 @@ class L10nId extends L10n {
 
   @override
   String get assetCancelProcessing => 'Batalkan Proses';
+
+  @override
+  String get assetRootCategory => 'Kategori Akar';
+
+  @override
+  String get assetReuseExistingImages => 'Gunakan Ulang Gambar yang Ada';
+
+  @override
+  String get assetReuseExistingImagesHint =>
+      'Gunakan gambar yang sudah diunggah ke sistem';
+
+  @override
+  String get assetSelectFromAvailableImages =>
+      'Pilih dari Gambar yang Tersedia';
+
+  @override
+  String assetImagesSelectedCount(int count) {
+    return 'Gambar Dipilih ($count)';
+  }
+
+  @override
+  String assetMaxImagesWarning(int count) {
+    return 'Maksimal 5 gambar diperbolehkan ($count dipilih)';
+  }
+
+  @override
+  String get assetPickerTitle => 'Pilih Gambar';
+
+  @override
+  String assetPickerCountSelected(int count) {
+    return '$count dipilih';
+  }
+
+  @override
+  String get assetPickerSelectButton => 'Pilih Gambar';
+
+  @override
+  String assetPickerSelectWithCount(int count) {
+    return 'Pilih ($count)';
+  }
+
+  @override
+  String get assetFailedToLoadImages => 'Gagal memuat gambar';
+
+  @override
+  String get assetRetry => 'Coba Lagi';
+
+  @override
+  String get assetNoImagesAvailable => 'Tidak ada gambar yang tersedia';
+
+  @override
+  String get assetExistingImages => 'Gambar yang Ada';
+
+  @override
+  String get assetExistingImagesHint =>
+      'Gambar yang sudah terlampir pada aset ini';
+
+  @override
+  String get assetPrimaryImage => 'Utama';
+
+  @override
+  String get assetUpdateImagesHint =>
+      'Pilih gambar baru untuk memperbarui (gambar yang ada akan tetap ada)';
+
+  @override
+  String get assetImages => 'Gambar Aset';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';

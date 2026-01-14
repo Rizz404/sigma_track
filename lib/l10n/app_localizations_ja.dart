@@ -89,12 +89,6 @@ class L10nJa extends L10n {
   String get assetUpdatedAt => '更新日時';
 
   @override
-  String get assetImages => '資産画像';
-
-  @override
-  String get assetPrimaryImage => 'メイン';
-
-  @override
   String get assetDataMatrixImage => 'データマトリックス画像';
 
   @override
@@ -188,16 +182,6 @@ class L10nJa extends L10n {
 
   @override
   String get assetSelectImages => '画像を選択';
-
-  @override
-  String get assetExistingImages => 'Existing Images';
-
-  @override
-  String get assetExistingImagesHint => 'Current images attached to this asset';
-
-  @override
-  String get assetUpdateImagesHint =>
-      'Upload new images to replace existing ones (optional)';
 
   @override
   String get assetTemplateImagesHint => 'このアセットに使用する画像をアップロードしてください';
@@ -706,6 +690,68 @@ class L10nJa extends L10n {
 
   @override
   String get assetCancelProcessing => '処理をキャンセル';
+
+  @override
+  String get assetRootCategory => 'ルートカテゴリ';
+
+  @override
+  String get assetReuseExistingImages => '既存の画像を再利用';
+
+  @override
+  String get assetReuseExistingImagesHint => 'システムにアップロード済みの画像を使用';
+
+  @override
+  String get assetSelectFromAvailableImages => '利用可能な画像から選択';
+
+  @override
+  String assetImagesSelectedCount(int count) {
+    return '画像が選択されました ($count)';
+  }
+
+  @override
+  String assetMaxImagesWarning(int count) {
+    return '最大5枚の画像が許可されています（$count枚選択済み）';
+  }
+
+  @override
+  String get assetPickerTitle => '画像を選択';
+
+  @override
+  String assetPickerCountSelected(int count) {
+    return '$count個選択済み';
+  }
+
+  @override
+  String get assetPickerSelectButton => '画像を選択';
+
+  @override
+  String assetPickerSelectWithCount(int count) {
+    return '選択 ($count)';
+  }
+
+  @override
+  String get assetFailedToLoadImages => '画像の読み込みに失敗しました';
+
+  @override
+  String get assetRetry => '再試行';
+
+  @override
+  String get assetNoImagesAvailable => '利用可能な画像がありません';
+
+  @override
+  String get assetExistingImages => '既存の画像';
+
+  @override
+  String get assetExistingImagesHint => 'この資産に既に添付されている画像';
+
+  @override
+  String get assetPrimaryImage => 'メイン';
+
+  @override
+  String get assetUpdateImagesHint => '新しい画像を選択して更新（既存の画像は保持されます）';
+
+  @override
+  String get assetImages => '資産画像';
 
   @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';

@@ -89,12 +89,6 @@ class L10nEn extends L10n {
   String get assetUpdatedAt => 'Updated At';
 
   @override
-  String get assetImages => 'Asset Images';
-
-  @override
-  String get assetPrimaryImage => 'Primary';
-
-  @override
   String get assetDataMatrixImage => 'Data Matrix Image';
 
   @override
@@ -190,16 +184,6 @@ class L10nEn extends L10n {
 
   @override
   String get assetSelectImages => 'Select Images';
-
-  @override
-  String get assetExistingImages => 'Existing Images';
-
-  @override
-  String get assetExistingImagesHint => 'Current images attached to this asset';
-
-  @override
-  String get assetUpdateImagesHint =>
-      'Upload new images to replace existing ones (optional)';
 
   @override
   String get assetTemplateImagesHint =>
@@ -731,6 +715,70 @@ class L10nEn extends L10n {
 
   @override
   String get assetCancelProcessing => 'Cancel Processing';
+
+  @override
+  String get assetRootCategory => 'Root Category';
+
+  @override
+  String get assetReuseExistingImages => 'Reuse Existing Images';
+
+  @override
+  String get assetReuseExistingImagesHint =>
+      'Use images already uploaded to the system';
+
+  @override
+  String get assetSelectFromAvailableImages => 'Select from Available Images';
+
+  @override
+  String assetImagesSelectedCount(int count) {
+    return 'Images Selected ($count)';
+  }
+
+  @override
+  String assetMaxImagesWarning(int count) {
+    return 'Maximum 5 images allowed ($count selected)';
+  }
+
+  @override
+  String get assetPickerTitle => 'Select Images';
+
+  @override
+  String assetPickerCountSelected(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get assetPickerSelectButton => 'Select Images';
+
+  @override
+  String assetPickerSelectWithCount(int count) {
+    return 'Select ($count)';
+  }
+
+  @override
+  String get assetFailedToLoadImages => 'Failed to load images';
+
+  @override
+  String get assetRetry => 'Retry';
+
+  @override
+  String get assetNoImagesAvailable => 'No images available';
+
+  @override
+  String get assetExistingImages => 'Existing Images';
+
+  @override
+  String get assetExistingImagesHint => 'Images already attached to this asset';
+
+  @override
+  String get assetPrimaryImage => 'Primary';
+
+  @override
+  String get assetUpdateImagesHint =>
+      'Select new images to update (existing images will remain)';
+
+  @override
+  String get assetImages => 'Asset Images';
 
   @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';

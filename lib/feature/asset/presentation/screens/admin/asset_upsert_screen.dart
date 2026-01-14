@@ -1077,7 +1077,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               itemDisplayMapper: (category) => category.categoryName,
               itemValueMapper: (category) => category.id,
               itemSubtitleMapper: (category) =>
-                  category.parent?.categoryName ?? 'Root Category',
+                  category.parent?.categoryName ??
+                  context.l10n.assetRootCategory,
               itemIconMapper: (category) => Icons.category,
               validator: (value) => AssetUpsertValidator.validateCategoryId(
                 context,
@@ -1524,8 +1525,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   Expanded(
                     child: AppButton(
                       text: _uploadedTemplateImageUrls.isEmpty
-                          ? 'Select from Available Images'
-                          : 'Images Selected (${_uploadedTemplateImageUrls.length})',
+                          ? context.l10n.assetSelectFromAvailableImages
+                          : context.l10n.assetImagesSelectedCount(
+                              _uploadedTemplateImageUrls.length,
+                            ),
                       onPressed: _showAvailableImagesPicker,
                       variant: _uploadedTemplateImageUrls.isEmpty
                           ? AppButtonVariant.outlined
@@ -1810,13 +1813,13 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               ),
               const SizedBox(height: 12),
               SwitchListTile(
-                title: const AppText(
-                  'Reuse Existing Images',
+                title: AppText(
+                  context.l10n.assetReuseExistingImages,
                   style: AppTextStyle.bodyMedium,
                   fontWeight: FontWeight.w500,
                 ),
                 subtitle: AppText(
-                  'Use images already uploaded to the system',
+                  context.l10n.assetReuseExistingImagesHint,
                   style: AppTextStyle.bodySmall,
                   color: context.colors.textSecondary,
                 ),
@@ -1860,7 +1863,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: AppText(
-                              'Maksimal 5 images diizinkan (${_uploadedTemplateImageUrls.length} dipilih)',
+                              context.l10n.assetMaxImagesWarning(
+                                _uploadedTemplateImageUrls.length,
+                              ),
                               style: AppTextStyle.bodySmall,
                               color: context.colorScheme.error,
                             ),
@@ -1874,8 +1879,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     Expanded(
                       child: AppButton(
                         text: _uploadedTemplateImageUrls.isEmpty
-                            ? 'Select from Available Images'
-                            : 'Images Selected (${_uploadedTemplateImageUrls.length})',
+                            ? context.l10n.assetSelectFromAvailableImages
+                            : context.l10n.assetImagesSelectedCount(
+                                _uploadedTemplateImageUrls.length,
+                              ),
                         onPressed: _showAvailableImagesPicker,
                         variant: _uploadedTemplateImageUrls.isEmpty
                             ? AppButtonVariant.outlined
@@ -2123,7 +2130,7 @@ class _AvailableImagesPickerDialogState
             tooltip: context.l10n.assetCancel,
           ),
           title: AppText(
-            'Select Images', // Atau context.l10n...
+            context.l10n.assetPickerTitle,
             style: AppTextStyle.titleMedium,
             fontWeight: FontWeight.bold,
           ),
@@ -2133,7 +2140,7 @@ class _AvailableImagesPickerDialogState
               padding: const EdgeInsets.only(right: 16.0),
               child: Center(
                 child: AppText(
-                  '${_selectedUrls.length} selected',
+                  context.l10n.assetPickerCountSelected(_selectedUrls.length),
                   style: AppTextStyle.bodySmall,
                   color: context.colors.primary,
                   fontWeight: FontWeight.bold,
@@ -2159,8 +2166,10 @@ class _AvailableImagesPickerDialogState
           child: SafeArea(
             child: AppButton(
               text: _selectedUrls.isEmpty
-                  ? 'Select Images'
-                  : 'Select (${_selectedUrls.length})',
+                  ? context.l10n.assetPickerSelectButton
+                  : context.l10n.assetPickerSelectWithCount(
+                      _selectedUrls.length,
+                    ),
               onPressed: _selectedUrls.isEmpty
                   ? null
                   : () => Navigator.pop(context, _selectedUrls),
@@ -2182,13 +2191,13 @@ class _AvailableImagesPickerDialogState
                     ),
                     const SizedBox(height: 16),
                     AppText(
-                      'Failed to load images',
+                      context.l10n.assetFailedToLoadImages,
                       style: AppTextStyle.bodyLarge,
                       color: context.colorScheme.error,
                     ),
                     const SizedBox(height: 8),
                     AppButton(
-                      text: 'Retry',
+                      text: context.l10n.assetRetry,
                       variant: AppButtonVariant.outlined,
                       onPressed: () => ref
                           .read(availableAssetImagesProvider.notifier)
@@ -2209,7 +2218,7 @@ class _AvailableImagesPickerDialogState
                     ),
                     const SizedBox(height: 16),
                     AppText(
-                      'No images available',
+                      context.l10n.assetNoImagesAvailable,
                       style: AppTextStyle.bodyLarge,
                       color: context.colors.textSecondary,
                     ),

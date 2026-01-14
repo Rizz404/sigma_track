@@ -255,18 +255,6 @@ abstract class L10n {
   /// **'Updated At'**
   String get assetUpdatedAt;
 
-  /// Asset images gallery section title
-  ///
-  /// In en, this message translates to:
-  /// **'Asset Images'**
-  String get assetImages;
-
-  /// Label for primary image badge
-  ///
-  /// In en, this message translates to:
-  /// **'Primary'**
-  String get assetPrimaryImage;
-
   /// Data matrix image section title
   ///
   /// In en, this message translates to:
@@ -446,24 +434,6 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Select Images'**
   String get assetSelectImages;
-
-  /// Title for existing images section in edit mode
-  ///
-  /// In en, this message translates to:
-  /// **'Existing Images'**
-  String get assetExistingImages;
-
-  /// Hint for existing images in edit mode
-  ///
-  /// In en, this message translates to:
-  /// **'Current images attached to this asset'**
-  String get assetExistingImagesHint;
-
-  /// Hint for updating images in edit mode
-  ///
-  /// In en, this message translates to:
-  /// **'Upload new images to replace existing ones (optional)'**
-  String get assetUpdateImagesHint;
 
   /// Hint text for template images section
   ///
@@ -1418,6 +1388,114 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Cancel Processing'**
   String get assetCancelProcessing;
+
+  /// Label for root category when category has no parent
+  ///
+  /// In en, this message translates to:
+  /// **'Root Category'**
+  String get assetRootCategory;
+
+  /// Title for reuse existing images toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Reuse Existing Images'**
+  String get assetReuseExistingImages;
+
+  /// Subtitle hint for reuse existing images feature
+  ///
+  /// In en, this message translates to:
+  /// **'Use images already uploaded to the system'**
+  String get assetReuseExistingImagesHint;
+
+  /// Button text to select from available images pool
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Available Images'**
+  String get assetSelectFromAvailableImages;
+
+  /// Button text showing number of images selected
+  ///
+  /// In en, this message translates to:
+  /// **'Images Selected ({count})'**
+  String assetImagesSelectedCount(int count);
+
+  /// Warning message when too many images are selected
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum 5 images allowed ({count} selected)'**
+  String assetMaxImagesWarning(int count);
+
+  /// Title for image picker dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select Images'**
+  String get assetPickerTitle;
+
+  /// Text showing number of items selected in picker
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String assetPickerCountSelected(int count);
+
+  /// Button text to confirm selection in picker dialog (when nothing selected)
+  ///
+  /// In en, this message translates to:
+  /// **'Select Images'**
+  String get assetPickerSelectButton;
+
+  /// Button text to confirm selection in picker dialog (with count)
+  ///
+  /// In en, this message translates to:
+  /// **'Select ({count})'**
+  String assetPickerSelectWithCount(int count);
+
+  /// Error message when images fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load images'**
+  String get assetFailedToLoadImages;
+
+  /// Retry button label
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get assetRetry;
+
+  /// Message when no images are available in the pool
+  ///
+  /// In en, this message translates to:
+  /// **'No images available'**
+  String get assetNoImagesAvailable;
+
+  /// Title for existing images section in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Existing Images'**
+  String get assetExistingImages;
+
+  /// Hint text for existing images section
+  ///
+  /// In en, this message translates to:
+  /// **'Images already attached to this asset'**
+  String get assetExistingImagesHint;
+
+  /// Label for primary image badge
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get assetPrimaryImage;
+
+  /// Hint text for updating images in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Select new images to update (existing images will remain)'**
+  String get assetUpdateImagesHint;
+
+  /// Title for asset images section in detail screen
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Images'**
+  String get assetImages;
 
   /// Dialog title for deleting an asset movement
   ///

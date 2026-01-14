@@ -110,14 +110,6 @@
   "@assetUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetImages": "Asset Images",
-  "@assetImages": {
-    "description": "Asset images gallery section title"
-  },
-  "assetPrimaryImage": "Primary",
-  "@assetPrimaryImage": {
-    "description": "Label for primary image badge"
-  },
   "assetDataMatrixImage": "Data Matrix Image",
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
@@ -249,18 +241,6 @@
   "assetSelectImages": "Select Images",
   "@assetSelectImages": {
     "description": "Button text for selecting images"
-  },
-  "assetExistingImages": "Existing Images",
-  "@assetExistingImages": {
-    "description": "Title for existing images section in edit mode"
-  },
-  "assetExistingImagesHint": "Current images attached to this asset",
-  "@assetExistingImagesHint": {
-    "description": "Hint for existing images in edit mode"
-  },
-  "assetUpdateImagesHint": "Upload new images to replace existing ones (optional)",
-  "@assetUpdateImagesHint": {
-    "description": "Hint for updating images in edit mode"
   },
   "assetTemplateImagesHint": "Upload images that will be used for this asset",
   "@assetTemplateImagesHint": {
@@ -983,6 +963,102 @@
   "assetCancelProcessing": "Cancel Processing",
   "@assetCancelProcessing": {
     "description": "Cancel processing button label"
+  },
+  "assetRootCategory": "Root Category",
+  "@assetRootCategory": {
+    "description": "Label for root category when category has no parent"
+  },
+  "assetReuseExistingImages": "Reuse Existing Images",
+  "@assetReuseExistingImages": {
+    "description": "Title for reuse existing images toggle"
+  },
+  "assetReuseExistingImagesHint": "Use images already uploaded to the system",
+  "@assetReuseExistingImagesHint": {
+    "description": "Subtitle hint for reuse existing images feature"
+  },
+  "assetSelectFromAvailableImages": "Select from Available Images",
+  "@assetSelectFromAvailableImages": {
+    "description": "Button text to select from available images pool"
+  },
+  "assetImagesSelectedCount": "Images Selected ({count})",
+  "@assetImagesSelectedCount": {
+    "description": "Button text showing number of images selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetMaxImagesWarning": "Maximum 5 images allowed ({count} selected)",
+  "@assetMaxImagesWarning": {
+    "description": "Warning message when too many images are selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "assetPickerTitle": "Select Images",
+  "@assetPickerTitle": {
+    "description": "Title for image picker dialog"
+  },
+  "assetPickerCountSelected": "{count} selected",
+  "@assetPickerCountSelected": {
+    "description": "Text showing number of items selected in picker",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetPickerSelectButton": "Select Images",
+  "@assetPickerSelectButton": {
+    "description": "Button text to confirm selection in picker dialog (when nothing selected)"
+  },
+  "assetPickerSelectWithCount": "Select ({count})",
+  "@assetPickerSelectWithCount": {
+    "description": "Button text to confirm selection in picker dialog (with count)",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "assetFailedToLoadImages": "Failed to load images",
+  "@assetFailedToLoadImages": {
+    "description": "Error message when images fail to load"
+  },
+  "assetRetry": "Retry",
+  "@assetRetry": {
+    "description": "Retry button label"
+  },
+  "assetNoImagesAvailable": "No images available",
+  "@assetNoImagesAvailable": {
+    "description": "Message when no images are available in the pool"
+  },
+  "assetExistingImages": "Existing Images",
+  "@assetExistingImages": {
+    "description": "Title for existing images section in edit mode"
+  },
+  "assetExistingImagesHint": "Images already attached to this asset",
+  "@assetExistingImagesHint": {
+    "description": "Hint text for existing images section"
+  },
+  "assetPrimaryImage": "Primary",
+  "@assetPrimaryImage": {
+    "description": "Label for primary image badge"
+  },
+  "assetUpdateImagesHint": "Select new images to update (existing images will remain)",
+  "@assetUpdateImagesHint": {
+    "description": "Hint text for updating images in edit mode"
+  },
+  "assetImages": "Asset Images",
+  "@assetImages": {
+    "description": "Title for asset images section in detail screen"
   },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
