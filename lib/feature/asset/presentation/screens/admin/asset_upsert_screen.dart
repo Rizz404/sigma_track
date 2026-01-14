@@ -40,6 +40,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
@@ -1591,23 +1592,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                       const SizedBox(width: 8),
                   itemBuilder: (context, index) {
                     final imageUrl = _uploadedTemplateImageUrls[index];
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        imageUrl,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          width: 100,
-                          height: 100,
-                          color: context.colors.surfaceVariant,
-                          child: Icon(
-                            Icons.broken_image,
-                            color: context.colors.textSecondary,
-                          ),
-                        ),
-                      ),
+                    return AppImage(
+                      imageUrl: imageUrl,
+                      size: ImageSize.xLarge,
+                      fit: BoxFit.cover,
+                      shape: ImageShape.rectangle,
                     );
                   },
                 ),
@@ -1920,24 +1909,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                           const SizedBox(width: 8),
                       itemBuilder: (context, index) {
                         final imageUrl = _uploadedTemplateImageUrls[index];
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            imageUrl,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  color: context.colors.surfaceVariant,
-                                  child: Icon(
-                                    Icons.broken_image,
-                                    color: context.colors.textSecondary,
-                                  ),
-                                ),
-                          ),
+                        return AppImage(
+                          imageUrl: imageUrl,
+                          size: ImageSize.xLarge,
+                          fit: BoxFit.cover,
+                          shape: ImageShape.rectangle,
                         );
                       },
                     ),

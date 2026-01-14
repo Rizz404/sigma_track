@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 
 /// Widget untuk menampilkan image tile dengan selection state
 ///
@@ -36,37 +37,11 @@ class ImageTile extends StatelessWidget {
         child: Stack(
           children: [
             // * Image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(7),
-              child: Image.network(
-                imageUrl,
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: context.colors.surfaceVariant,
-                  child: Icon(
-                    Icons.broken_image_outlined,
-                    color: context.colors.textSecondary,
-                    size: 32,
-                  ),
-                ),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    color: context.colors.surfaceVariant,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    ),
-                  );
-                },
-              ),
+            AppImage(
+              imageUrl: imageUrl,
+              size: ImageSize.fullWidth,
+              fit: BoxFit.cover,
+              shape: ImageShape.rectangle,
             ),
 
             // * Selection overlay
