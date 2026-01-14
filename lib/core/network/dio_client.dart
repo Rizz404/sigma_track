@@ -32,7 +32,7 @@ class DioClient {
         milliseconds: ApiConstant.defaultConnectTimeout,
       )
       ..options.receiveTimeout = const Duration(
-        milliseconds: ApiConstant.defaultReceiveTimeout,
+        milliseconds: ApiConstant.defaultReceiveTimeout, // * 3 minutes default
       )
       ..options.responseType = ResponseType.json
       ..options.headers = {

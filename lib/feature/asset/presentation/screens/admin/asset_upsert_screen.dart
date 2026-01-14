@@ -66,6 +66,11 @@ class AssetUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
+  // * Bulk copy limits
+  static const int maxBulkCopyWithoutImages = 100;
+  static const int maxBulkCopyWithExistingImages = 50;
+  static const int maxBulkCopyWithNewImages = 25;
+
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final ScreenshotController _screenshotController = ScreenshotController();
   List<ValidationError>? validationErrors;
@@ -231,6 +236,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       context: context,
       builder: (context) => _AvailableImagesPickerDialog(
         initialSelectedUrls: _uploadedTemplateImageUrls,
+        lockedImageUrls: _uploadedTemplateImageUrls,
       ),
     );
 
@@ -277,6 +283,39 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
       if (quantity < 1) {
         AppToast.warning(context.l10n.assetPleaseEnterCopyQuantity);
+        return;
+      }
+
+      // * Validate bulk copy quantity using validator
+      final hasNewImages = _selectedImageFiles.isNotEmpty;
+      final hasExistingImages =
+          _enableReuseImages && _uploadedTemplateImageUrls.isNotEmpty;
+      final quantityError = AssetUpsertValidator.validateBulkCopyQuantity(
+        context,
+        quantity.toString(),
+        maxWithoutImages: _AssetUpsertScreenState.maxBulkCopyWithoutImages,
+        maxWithExistingImages:
+            _AssetUpsertScreenState.maxBulkCopyWithExistingImages,
+        maxWithNewImages: _AssetUpsertScreenState.maxBulkCopyWithNewImages,
+        hasNewImages: hasNewImages,
+        hasExistingImages: hasExistingImages,
+      );
+      if (quantityError != null) {
+        AppToast.warning(quantityError);
+        return;
+      }
+
+      // * Validate total image count (max 5)
+      final totalImages =
+          _uploadedTemplateImageUrls.length + _selectedImageFiles.length;
+      final imageCountError = AssetUpsertValidator.validateImageCount(
+        context,
+        totalImages,
+        maxImages: 5,
+        context_label: 'images',
+      );
+      if (imageCountError != null) {
+        AppToast.warning(imageCountError);
         return;
       }
 
@@ -1518,17 +1557,19 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 hintText: context.l10n.assetSelectImages,
                 fileType: FileType.image,
                 allowMultiple: true,
-                maxFiles: 10,
+                maxFiles: 5,
                 maxSizeInMB: 5,
                 onFilesChanged: (files) {
                   setState(() => _selectedImageFiles = files);
                 },
                 validator: (files) {
                   if (files == null || files.isEmpty) return null;
-                  if (files.length > 10) {
-                    return 'Maximum 10 images allowed';
-                  }
-                  return null;
+                  return AssetUpsertValidator.validateImageCount(
+                    context,
+                    files.length,
+                    maxImages: 5,
+                    context_label: 'images',
+                  );
                 },
               ),
             ],
@@ -1634,17 +1675,22 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 type: AppTextFieldType.number,
                 initialValue: '1',
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return context.l10n.assetPleaseEnterQuantity;
-                  }
-                  final num = int.tryParse(value);
-                  if (num == null || num < 1) {
-                    return context.l10n.assetMinimumOneCopy;
-                  }
-                  if (num > 100) {
-                    return context.l10n.assetMaximumCopies;
-                  }
-                  return null;
+                  final hasNewImages = _selectedImageFiles.isNotEmpty;
+                  final hasExistingImages =
+                      _enableReuseImages &&
+                      _uploadedTemplateImageUrls.isNotEmpty;
+                  return AssetUpsertValidator.validateBulkCopyQuantity(
+                    context,
+                    value,
+                    maxWithoutImages:
+                        _AssetUpsertScreenState.maxBulkCopyWithoutImages,
+                    maxWithExistingImages:
+                        _AssetUpsertScreenState.maxBulkCopyWithExistingImages,
+                    maxWithNewImages:
+                        _AssetUpsertScreenState.maxBulkCopyWithNewImages,
+                    hasNewImages: hasNewImages,
+                    hasExistingImages: hasExistingImages,
+                  );
                 },
               ),
               const SizedBox(height: 16),
@@ -1760,26 +1806,157 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 color: context.colors.textSecondary,
               ),
               const SizedBox(height: 12),
-              AppFilePicker(
-                key: _filePickerKey,
-                name: 'bulkAssetImages',
-                label: null,
-                hintText: context.l10n.assetSelectImages,
-                fileType: FileType.image,
-                allowMultiple: true,
-                maxFiles: 10,
-                maxSizeInMB: 5,
-                onFilesChanged: (files) {
-                  setState(() => _selectedImageFiles = files);
+              SwitchListTile(
+                title: const AppText(
+                  'Reuse Existing Images',
+                  style: AppTextStyle.bodyMedium,
+                  fontWeight: FontWeight.w500,
+                ),
+                subtitle: AppText(
+                  'Use images already uploaded to the system',
+                  style: AppTextStyle.bodySmall,
+                  color: context.colors.textSecondary,
+                ),
+                value: _enableReuseImages,
+                onChanged: (value) {
+                  setState(() {
+                    _enableReuseImages = value;
+                    if (value) {
+                      _selectedImageFiles.clear();
+                      _filePickerKey.currentState?.reset();
+                    } else {
+                      _uploadedTemplateImageUrls.clear();
+                    }
+                  });
                 },
-                validator: (files) {
-                  if (files == null || files.isEmpty) return null;
-                  if (files.length > 10) {
-                    return 'Maximum 10 images allowed';
-                  }
-                  return null;
-                },
+                activeTrackColor: context.colors.primary,
               ),
+              const SizedBox(height: 16),
+              if (_enableReuseImages) ...[
+                // * Validate reused images count (max 5)
+                if (_uploadedTemplateImageUrls.length > 5)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.error.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: context.colorScheme.error,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.warning_rounded,
+                            color: context.colorScheme.error,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: AppText(
+                              'Maksimal 5 images diizinkan (${_uploadedTemplateImageUrls.length} dipilih)',
+                              style: AppTextStyle.bodySmall,
+                              color: context.colorScheme.error,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        text: _uploadedTemplateImageUrls.isEmpty
+                            ? 'Select from Available Images'
+                            : 'Images Selected (${_uploadedTemplateImageUrls.length})',
+                        onPressed: _showAvailableImagesPicker,
+                        variant: _uploadedTemplateImageUrls.isEmpty
+                            ? AppButtonVariant.outlined
+                            : AppButtonVariant.filled,
+                        leadingIcon: Icon(
+                          _uploadedTemplateImageUrls.isEmpty
+                              ? Icons.cloud_download_outlined
+                              : Icons.check_circle_outline,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    if (_uploadedTemplateImageUrls.isNotEmpty) ...[
+                      const SizedBox(width: 12),
+                      SizedBox(
+                        width: 140,
+                        child: AppButton(
+                          text: context.l10n.assetClearImages,
+                          onPressed: _clearSelectedImages,
+                          variant: AppButtonVariant.text,
+                          leadingIcon: const Icon(Icons.clear, size: 20),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                if (_uploadedTemplateImageUrls.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 100,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _uploadedTemplateImageUrls.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 8),
+                      itemBuilder: (context, index) {
+                        final imageUrl = _uploadedTemplateImageUrls[index];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            imageUrl,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  color: context.colors.surfaceVariant,
+                                  child: Icon(
+                                    Icons.broken_image,
+                                    color: context.colors.textSecondary,
+                                  ),
+                                ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ] else ...[
+                AppFilePicker(
+                  key: _filePickerKey,
+                  name: 'bulkAssetImages',
+                  label: null,
+                  hintText: context.l10n.assetSelectImages,
+                  fileType: FileType.image,
+                  allowMultiple: true,
+                  maxFiles: 5,
+                  maxSizeInMB: 5,
+                  onFilesChanged: (files) {
+                    setState(() => _selectedImageFiles = files);
+                  },
+                  validator: (files) {
+                    if (files == null || files.isEmpty) return null;
+                    return AssetUpsertValidator.validateImageCount(
+                      context,
+                      files.length,
+                      maxImages: 5,
+                      context_label: 'images',
+                    );
+                  },
+                ),
+              ],
             ],
           ],
         ),
@@ -1883,8 +2060,12 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 // * Available Images Picker Dialog (FULL SCREEN VERSION)
 class _AvailableImagesPickerDialog extends ConsumerStatefulWidget {
   final List<String> initialSelectedUrls;
+  final List<String> lockedImageUrls;
 
-  const _AvailableImagesPickerDialog({this.initialSelectedUrls = const []});
+  const _AvailableImagesPickerDialog({
+    this.initialSelectedUrls = const [],
+    this.lockedImageUrls = const [],
+  });
 
   @override
   ConsumerState<_AvailableImagesPickerDialog> createState() =>
@@ -2150,6 +2331,35 @@ class _ImageTile extends StatelessWidget {
                         color: Colors.white,
                         size: 24,
                       ),
+                    ),
+                  ),
+                ),
+              ),
+
+            // * Deselect button (hanya muncul jika selected)
+            if (isSelected)
+              Positioned(
+                top: 4,
+                right: 4,
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.error,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.close,
+                      color: context.colors.surface,
+                      size: 16,
                     ),
                   ),
                 ),
