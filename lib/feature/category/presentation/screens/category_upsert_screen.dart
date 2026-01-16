@@ -21,7 +21,7 @@ import 'package:sigma_track/feature/category/presentation/validators/category_up
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
@@ -51,15 +51,6 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   Category? _fetchedCategory;
   bool _isLoadingTranslations = false;
   File? _imageFile;
-
-  Future<List<Category>> _searchParentCategories(String query) async {
-    final notifier = ref.read(categoriesSearchProvider.notifier);
-    // * Only search root categories (no parent) for parent selection
-    await notifier.searchRootCategories(query);
-
-    final state = ref.read(categoriesSearchProvider);
-    return state.categories;
-  }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -277,24 +268,39 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppSearchField<Category>(
-              name: 'parentId',
-              label: context.l10n.categoryParentCategory,
-              hintText: context.l10n.categorySearchCategory,
-              initialValue:
-                  (_isEdit ? _fetchedCategory?.parentId : null) ??
-                  widget.category?.parentId,
-              enableAutocomplete: true,
-              onSearch: _searchParentCategories,
-              itemDisplayMapper: (category) => category.categoryName,
-              itemValueMapper: (category) => category.id,
-              itemSubtitleMapper: (category) => category.categoryCode,
-              itemIcon: Icons.category,
-              validator: (value) => CategoryUpsertValidator.validateParentId(
-                context,
-                value,
-                isUpdate: _isEdit,
-              ),
+            Builder(
+              builder: (context) {
+                final categoriesState = ref.watch(
+                  categoriesRootSearchDropdownProvider,
+                );
+                final categoryData = _isEdit
+                    ? _fetchedCategory
+                    : widget.category;
+
+                return AppSearchableDropdown<Category>(
+                  name: 'parentId',
+                  label: context.l10n.categoryParentCategory,
+                  hintText: context.l10n.categorySearchCategory,
+                  initialValue: categoryData?.parent,
+                  items: categoriesState.categories,
+                  isLoading: categoriesState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(categoriesRootSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (category) => category.categoryName,
+                  itemValueMapper: (category) => category.id,
+                  itemSubtitleMapper: (category) => category.categoryCode,
+                  itemIconMapper: (category) => Icons.category,
+                  validator: (value) =>
+                      CategoryUpsertValidator.validateParentId(
+                        context,
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
             AppTextField(

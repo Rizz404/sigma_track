@@ -168,22 +168,6 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
   }
 
-  Future<List<Location>> _searchLocations(String query) async {
-    final notifier = ref.read(locationsSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(locationsSearchProvider);
-    return state.locations;
-  }
-
-  Future<List<User>> _searchUsers(String query) async {
-    final notifier = ref.read(usersSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(usersSearchProvider);
-    return state.users;
-  }
-
   void _calculateWarrantyEnd() {
     final purchaseDate =
         _formKey.currentState?.fields['purchaseDate']?.value as DateTime?;
@@ -1116,18 +1100,30 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 ],
               ),
             ] else ...[
-              AppSearchField<Location>(
-                name: 'locationId',
-                label: context.l10n.assetLocationOptional,
-                hintText: context.l10n.assetSearchLocation,
-                initialValue: _sourceAsset?.locationId,
-                initialDisplayText: _sourceAsset?.location?.locationName,
-                enableAutocomplete: true,
-                onSearch: _searchLocations,
-                itemDisplayMapper: (location) => location.locationName,
-                itemValueMapper: (location) => location.id,
-                itemSubtitleMapper: (location) => location.locationCode,
-                itemIcon: Icons.location_on,
+              Builder(
+                builder: (context) {
+                  final locationsState = ref.watch(
+                    locationsSearchDropdownProvider,
+                  );
+
+                  return AppSearchableDropdown<Location>(
+                    name: 'locationId',
+                    label: context.l10n.assetLocationOptional,
+                    hintText: context.l10n.assetSearchLocation,
+                    initialValue: _sourceAsset?.location,
+                    items: locationsState.locations,
+                    isLoading: locationsState.isLoading,
+                    onSearch: (query) {
+                      ref
+                          .read(locationsSearchDropdownProvider.notifier)
+                          .search(query);
+                    },
+                    itemDisplayMapper: (location) => location.locationName,
+                    itemValueMapper: (location) => location.id,
+                    itemSubtitleMapper: (location) => location.locationCode,
+                    itemIconMapper: (location) => Icons.location_on,
+                  );
+                },
               ),
             ],
             const SizedBox(height: 16),
@@ -1156,18 +1152,28 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 ],
               ),
             ] else ...[
-              AppSearchField<User>(
-                name: 'assignedTo',
-                label: context.l10n.assetAssignedToOptional,
-                hintText: context.l10n.assetSearchUser,
-                initialValue: _sourceAsset?.assignedToId,
-                initialDisplayText: _sourceAsset?.assignedTo?.fullName,
-                enableAutocomplete: true,
-                onSearch: _searchUsers,
-                itemDisplayMapper: (user) => user.name,
-                itemValueMapper: (user) => user.id,
-                itemSubtitleMapper: (user) => user.email,
-                itemIcon: Icons.person,
+              Builder(
+                builder: (context) {
+                  final usersState = ref.watch(usersSearchDropdownProvider);
+
+                  return AppSearchableDropdown<User>(
+                    name: 'assignedTo',
+                    label: context.l10n.assetAssignedToOptional,
+                    hintText: context.l10n.assetSearchUser,
+                    initialValue: _sourceAsset?.assignedTo,
+                    items: usersState.users,
+                    isLoading: usersState.isLoading,
+                    onSearch: (query) {
+                      ref
+                          .read(usersSearchDropdownProvider.notifier)
+                          .search(query);
+                    },
+                    itemDisplayMapper: (user) => user.name,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIconMapper: (user) => Icons.person,
+                  );
+                },
               ),
             ],
           ],

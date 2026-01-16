@@ -23,7 +23,7 @@ import 'package:sigma_track/feature/user/presentation/providers/user_providers.d
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
@@ -58,22 +58,6 @@ class _IssueReportUpsertScreenState
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   IssueReport? _fetchedIssueReport;
   bool _isLoadingTranslations = false;
-
-  Future<List<Asset>> _searchAssets(String query) async {
-    final notifier = ref.read(assetsSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(assetsSearchProvider);
-    return state.assets;
-  }
-
-  Future<List<User>> _searchUsers(String query) async {
-    final notifier = ref.read(usersSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(usersSearchProvider);
-    return state.users;
-  }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -296,28 +280,39 @@ class _IssueReportUpsertScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppSearchField<Asset>(
-              name: 'assetId',
-              label: context.l10n.issueReportAsset,
-              hintText: context.l10n.issueReportSearchAsset,
-              initialValue: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.id
-                  : ((_isEdit ? _fetchedIssueReport?.assetId : null) ??
-                        widget.issueReport?.assetId),
-              initialDisplayText: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.assetTag
-                  : null,
-              enableAutocomplete: true,
-              onSearch: _searchAssets,
-              itemDisplayMapper: (asset) => asset.assetTag,
-              itemValueMapper: (asset) => asset.id,
-              itemSubtitleMapper: (asset) => asset.assetName,
-              itemIcon: Icons.inventory,
-              validator: (value) => IssueReportUpsertValidator.validateAssetId(
-                value,
-                context: context,
-                isUpdate: _isEdit,
-              ),
+            Builder(
+              builder: (context) {
+                final assetsState = ref.watch(assetsSearchDropdownProvider);
+                final issueReportData = _isEdit
+                    ? _fetchedIssueReport
+                    : widget.issueReport;
+
+                return AppSearchableDropdown<Asset>(
+                  name: 'assetId',
+                  label: context.l10n.issueReportAsset,
+                  hintText: context.l10n.issueReportSearchAsset,
+                  initialValue: _hasPrePopulatedAsset
+                      ? widget.prePopulatedAsset
+                      : issueReportData?.asset,
+                  items: assetsState.assets,
+                  isLoading: assetsState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(assetsSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (asset) => asset.assetTag,
+                  itemValueMapper: (asset) => asset.id,
+                  itemSubtitleMapper: (asset) => asset.assetName,
+                  itemIconMapper: (asset) => Icons.inventory,
+                  validator: (value) =>
+                      IssueReportUpsertValidator.validateAssetId(
+                        value,
+                        context: context,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
             // * OLD IMPLEMENTATION: User dropdown for reported by
@@ -405,25 +400,37 @@ class _IssueReportUpsertScreenState
                 ),
               ),
               const SizedBox(height: 16),
-              AppSearchField<User>(
-                name: 'resolvedBy',
-                label: context.l10n.issueReportResolvedBy,
-                hintText: context.l10n.issueReportSearchResolvedBy,
-                initialValue:
-                    _fetchedIssueReport?.resolvedById ??
-                    widget.issueReport?.resolvedById,
-                enableAutocomplete: true,
-                onSearch: _searchUsers,
-                itemDisplayMapper: (user) => user.name,
-                itemValueMapper: (user) => user.id,
-                itemSubtitleMapper: (user) => user.email,
-                itemIcon: Icons.person,
-                validator: (value) =>
-                    IssueReportUpsertValidator.validateResolvedBy(
-                      value,
-                      context: context,
-                      isUpdate: _isEdit,
-                    ),
+              Builder(
+                builder: (context) {
+                  final usersState = ref.watch(usersSearchDropdownProvider);
+                  final issueReportData = _isEdit
+                      ? _fetchedIssueReport
+                      : widget.issueReport;
+
+                  return AppSearchableDropdown<User>(
+                    name: 'resolvedBy',
+                    label: context.l10n.issueReportResolvedBy,
+                    hintText: context.l10n.issueReportSearchResolvedBy,
+                    initialValue: issueReportData?.resolvedBy,
+                    items: usersState.users,
+                    isLoading: usersState.isLoading,
+                    onSearch: (query) {
+                      ref
+                          .read(usersSearchDropdownProvider.notifier)
+                          .search(query);
+                    },
+                    itemDisplayMapper: (user) => user.name,
+                    itemValueMapper: (user) => user.id,
+                    itemSubtitleMapper: (user) => user.email,
+                    itemIconMapper: (user) => Icons.person,
+                    validator: (value) =>
+                        IssueReportUpsertValidator.validateResolvedBy(
+                          value,
+                          context: context,
+                          isUpdate: _isEdit,
+                        ),
+                  );
+                },
               ),
             ],
           ],

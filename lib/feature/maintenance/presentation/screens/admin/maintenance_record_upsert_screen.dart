@@ -25,7 +25,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
@@ -60,14 +60,6 @@ class _MaintenanceRecordUpsertScreenState
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   MaintenanceRecord? _fetchedMaintenanceRecord;
   bool _isLoadingTranslations = false;
-
-  Future<List<Asset>> _searchAssets(String query) async {
-    final notifier = ref.read(assetsSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(assetsSearchProvider);
-    return state.assets;
-  }
 
   // * OLD IMPLEMENTATION: Search maintenance schedules function
   // * Commented out - no backend search feature yet
@@ -362,27 +354,36 @@ class _MaintenanceRecordUpsertScreenState
               },
             ),
             const SizedBox(height: 16),
-            AppSearchField<Asset>(
-              name: 'assetId',
-              label: context.l10n.maintenanceRecordAsset,
-              hintText: context.l10n.maintenanceRecordSearchAsset,
-              initialValue: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.id
-                  : widget.maintenanceRecord?.assetId,
-              initialDisplayText: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.assetTag
-                  : null,
-              enableAutocomplete: true,
-              onSearch: _searchAssets,
-              itemDisplayMapper: (asset) => asset.assetTag,
-              itemValueMapper: (asset) => asset.id,
-              itemSubtitleMapper: (asset) => asset.assetName,
-              itemIcon: Icons.inventory,
-              validator: (value) =>
-                  MaintenanceRecordUpsertValidator.validateAssetId(
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+            Builder(
+              builder: (context) {
+                final assetsState = ref.watch(assetsSearchDropdownProvider);
+                final maintenanceRecordData = widget.maintenanceRecord;
+
+                return AppSearchableDropdown<Asset>(
+                  name: 'assetId',
+                  label: context.l10n.maintenanceRecordAsset,
+                  hintText: context.l10n.maintenanceRecordSearchAsset,
+                  initialValue: _hasPrePopulatedAsset
+                      ? widget.prePopulatedAsset
+                      : maintenanceRecordData?.asset,
+                  items: assetsState.assets,
+                  isLoading: assetsState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(assetsSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (asset) => asset.assetTag,
+                  itemValueMapper: (asset) => asset.id,
+                  itemSubtitleMapper: (asset) => asset.assetName,
+                  itemIconMapper: (asset) => Icons.inventory,
+                  validator: (value) =>
+                      MaintenanceRecordUpsertValidator.validateAssetId(
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
             AppDateTimePicker(
