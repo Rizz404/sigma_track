@@ -10,10 +10,6 @@ class UserUpsertValidator {
       if (value.length > 20) {
         return 'Name must not exceed 20 characters';
       }
-      // ! Name hanya boleh alfanumerik dan underscore
-      if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-        return 'Name can only contain letters, numbers, and underscores';
-      }
     }
     return null;
   }

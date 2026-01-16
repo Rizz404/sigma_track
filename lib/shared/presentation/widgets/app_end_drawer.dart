@@ -176,7 +176,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.appEndDrawerScanAsset,
                   onTap: () {
                     context.pop();
-                    context.push(RouteConstant.scanAsset);
+                    context.push(RouteConstant.adminScanAsset);
                   },
                 ),
                 const Divider(),
@@ -306,7 +306,7 @@ class AppEndDrawer extends ConsumerWidget {
                   title: context.l10n.appEndDrawerProfile,
                   onTap: () {
                     context.pop();
-                    context.push(RouteConstant.userDetailProfile);
+                    context.push(RouteConstant.adminUserDetailProfile);
                   },
                 ),
               ],
