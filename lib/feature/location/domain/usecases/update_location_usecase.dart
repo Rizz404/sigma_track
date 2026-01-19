@@ -61,8 +61,29 @@ class UpdateLocationUsecaseParams extends Equatable {
       floor: floor != original.floor ? floor : null,
       latitude: latitude != original.latitude ? latitude : null,
       longitude: longitude != original.longitude ? longitude : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<LocationTranslation>? original,
+    List<UpdateLocationTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<LocationTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.locationName != upd.locationName) return false;
+    }
+    return true;
   }
 
   UpdateLocationUsecaseParams copyWith({

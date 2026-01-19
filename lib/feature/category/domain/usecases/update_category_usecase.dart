@@ -56,10 +56,34 @@ class UpdateCategoryUsecaseParams extends Equatable {
       id: id,
       parentId: parentId != original.parentId ? parentId : null,
       categoryCode: categoryCode != original.categoryCode ? categoryCode : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
       imageUrl: imageUrl != original.imageUrl ? imageUrl : null,
       imageFile: imageFile,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<CategoryTranslation>? original,
+    List<UpdateCategoryTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<CategoryTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.categoryName != upd.categoryName ||
+          orig.description != upd.description) {
+        return false;
+      }
+    }
+    return true;
   }
 
   UpdateCategoryUsecaseParams copyWith({

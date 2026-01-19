@@ -68,8 +68,29 @@ class UpdateNotificationUsecaseParams extends Equatable {
       isRead: isRead != original.isRead ? isRead : null,
       priority: priority != original.priority ? priority : null,
       expiresAt: expiresAt != original.expiresAt ? expiresAt : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<NotificationTranslation>? original,
+    List<UpdateNotificationTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<NotificationTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.title != upd.title || orig.message != upd.message) return false;
+    }
+    return true;
   }
 
   Map<String, dynamic> toMap() {

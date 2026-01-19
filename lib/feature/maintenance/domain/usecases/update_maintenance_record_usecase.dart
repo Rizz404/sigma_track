@@ -92,8 +92,29 @@ class UpdateMaintenanceRecordUsecaseParams extends Equatable {
           : null,
       result: result != original.result ? result : null,
       actualCost: actualCost != original.actualCost ? actualCost : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<MaintenanceRecordTranslation>? original,
+    List<UpdateMaintenanceRecordTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<MaintenanceRecordTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.title != upd.title || orig.notes != upd.notes) return false;
+    }
+    return true;
   }
 
   Map<String, dynamic> toMap() {

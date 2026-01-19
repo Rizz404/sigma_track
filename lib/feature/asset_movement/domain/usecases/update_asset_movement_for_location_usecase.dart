@@ -68,8 +68,29 @@ class UpdateAssetMovementForLocationUsecaseParams extends Equatable {
       toLocationId: toLocationId != original.toLocationId ? toLocationId : null,
       movedById: movedById != original.movedById ? movedById : null,
       movementDate: movementDate != original.movementDate ? movementDate : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<AssetMovementTranslation>? original,
+    List<UpdateAssetMovementForLocationTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<AssetMovementTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.notes != upd.notes) return false;
+    }
+    return true;
   }
 
   Map<String, dynamic> toMap() {

@@ -53,6 +53,12 @@ class _UserUpdateProfileScreenState
     }
 
     final formData = _formKey.currentState!.value;
+    final currentUser = ref.read(currentUserNotifierProvider).user;
+
+    if (currentUser == null) {
+      AppToast.error(context.l10n.userNoUserData);
+      return;
+    }
 
     final name = formData['name'] as String;
     final email = formData['email'] as String;
@@ -70,7 +76,9 @@ class _UserUpdateProfileScreenState
     }
     _avatarFile = avatarFile;
 
-    final params = UpdateCurrentUserUsecaseParams(
+    // * Use fromChanges to only send changed fields
+    final params = UpdateCurrentUserUsecaseParams.fromChanges(
+      original: currentUser,
       name: name,
       email: email,
       fullName: fullName,

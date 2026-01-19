@@ -49,6 +49,36 @@ class UpdateCurrentUserUsecaseParams extends Equatable {
     this.fcmToken,
   });
 
+  /// * Factory method to create params with only changed fields
+  factory UpdateCurrentUserUsecaseParams.fromChanges({
+    required User original,
+    String? name,
+    String? email,
+    String? fullName,
+    String? role,
+    String? employeeId,
+    String? preferredLang,
+    bool? isActive,
+    String? avatarUrl,
+    File? avatarFile,
+    String? fcmToken,
+  }) {
+    return UpdateCurrentUserUsecaseParams(
+      name: name != original.name ? name : null,
+      email: email != original.email ? email : null,
+      fullName: fullName != original.fullName ? fullName : null,
+      role: role != original.role ? role : null,
+      employeeId: employeeId != original.employeeId ? employeeId : null,
+      preferredLang: preferredLang != original.preferredLang
+          ? preferredLang
+          : null,
+      isActive: isActive != original.isActive ? isActive : null,
+      avatarUrl: avatarUrl != original.avatarUrl ? avatarUrl : null,
+      avatarFile: avatarFile,
+      fcmToken: fcmToken,
+    );
+  }
+
   UpdateCurrentUserUsecaseParams copyWith({
     ValueGetter<String?>? name,
     ValueGetter<String?>? email,

@@ -53,9 +53,34 @@ class UpdateIssueReportUsecaseParams extends Equatable {
       id: id,
       priority: priority != original.priority ? priority : null,
       status: status != original.status ? status : null,
-      resolvedBy: resolvedBy,
-      translations: translations,
+      resolvedBy: resolvedBy != original.resolvedBy ? resolvedBy : null,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<IssueReportTranslation>? original,
+    List<UpdateIssueReportTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<IssueReportTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.title != upd.title ||
+          orig.description != upd.description ||
+          orig.resolutionNotes != upd.resolutionNotes) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Map<String, dynamic> toMap() {

@@ -94,8 +94,31 @@ class UpdateMaintenanceScheduleUsecaseParams extends Equatable {
       estimatedCost: estimatedCost != original.estimatedCost
           ? estimatedCost
           : null,
-      translations: translations,
+      translations: _areTranslationsEqual(original.translations, translations)
+          ? null
+          : translations,
     );
+  }
+
+  /// * Helper method to compare translations
+  static bool _areTranslationsEqual(
+    List<MaintenanceScheduleTranslation>? original,
+    List<UpdateMaintenanceScheduleTranslation>? updated,
+  ) {
+    if (updated == null) return true;
+    if (original == null || original.length != updated.length) return false;
+
+    for (final upd in updated) {
+      final orig = original.cast<MaintenanceScheduleTranslation?>().firstWhere(
+        (o) => o?.langCode == upd.langCode,
+        orElse: () => null,
+      );
+      if (orig == null) return false;
+      if (orig.title != upd.title || orig.description != upd.description) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Map<String, dynamic> toMap() {
