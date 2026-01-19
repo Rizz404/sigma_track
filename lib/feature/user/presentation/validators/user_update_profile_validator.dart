@@ -9,9 +9,9 @@ class UserUpdateProfileValidator {
       if (value.length > 20) {
         return 'Name must not exceed 20 characters';
       }
-      // ! Name hanya boleh alfanumerik dan underscore
-      if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
-        return 'Name can only contain letters, numbers, and underscores';
+      // ! Name hanya boleh alfanumerik dan dash
+      if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
+        return 'Name can only contain letters, numbers, and dashes';
       }
     }
     return null;

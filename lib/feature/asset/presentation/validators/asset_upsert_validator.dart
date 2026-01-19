@@ -24,7 +24,7 @@ class AssetUpsertValidator {
         return context.l10n.assetValidationTagMaxLength;
       }
       // ! Asset tag hanya boleh alfanumerik dan dash
-      if (!RegExp(r'^[a-zA-Z0-9-_]+$').hasMatch(value)) {
+      if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
         return context.l10n.assetValidationTagAlphanumeric;
       }
     }

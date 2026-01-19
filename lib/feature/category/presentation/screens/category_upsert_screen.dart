@@ -92,9 +92,11 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
     // * Handle image file selection (align with user profile screen)
     final imageFiles = formData['image'] as List<PlatformFile>?;
+
     File? selectedImageFile;
     if (imageFiles != null && imageFiles.isNotEmpty) {
       final filePath = imageFiles.first.path;
+
       if (filePath != null) {
         selectedImageFile = File(filePath);
       }
@@ -103,6 +105,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
     if (_isEdit) {
       final categoryId = _fetchedCategory?.id ?? widget.category!.id;
+
       final params = UpdateCategoryUsecaseParams.fromChanges(
         id: categoryId,
         original: _fetchedCategory ?? widget.category!,
@@ -111,6 +114,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         translations: translations.cast<UpdateCategoryTranslation>(),
         imageFile: selectedImageFile,
       );
+
       ref.read(categoriesProvider.notifier).updateCategory(params);
     } else {
       final params = CreateCategoryUsecaseParams(
@@ -191,8 +195,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               setState(() {
                 _fetchedCategory = categoryDetailState.category;
                 _isLoadingTranslations = false;
-                // ! Recreate form key to rebuild form with new data
-                _formKey = GlobalKey<FormBuilderState>();
+                // * Don't recreate form key - it will lose file picker data!
+                // * Form will update automatically via initialValue in widgets
               });
             }
           });

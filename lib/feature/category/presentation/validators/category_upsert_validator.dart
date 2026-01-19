@@ -29,8 +29,8 @@ class CategoryUpsertValidator {
       if (value.length > 20) {
         return context.l10n.categoryValidationCodeMaxLength;
       }
-      // ! Category code hanya boleh alfanumerik dan underscore
-      if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
+      // ! Category code hanya boleh alfanumerik dan dash
+      if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
         return context.l10n.categoryValidationCodeAlphanumeric;
       }
     }

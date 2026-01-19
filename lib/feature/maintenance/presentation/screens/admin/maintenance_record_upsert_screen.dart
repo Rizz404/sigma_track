@@ -206,8 +206,8 @@ class _MaintenanceRecordUpsertScreenState
                 _fetchedMaintenanceRecord =
                     maintenanceRecordDetailState.maintenanceRecord;
                 _isLoadingTranslations = false;
-                // ! Recreate form key to rebuild form with new data
-                _formKey = GlobalKey<FormBuilderState>();
+                // * Don't recreate form key - it will lose user input & file picker data!
+                // * Form will update automatically via initialValue in widgets
               });
             }
           });

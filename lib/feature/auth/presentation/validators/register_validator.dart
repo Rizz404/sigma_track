@@ -12,8 +12,8 @@ class RegisterValidator {
     if (value.length > 20) {
       return context.l10n.authValidationNameMaxLength;
     }
-    // ! Name hanya boleh alfanumerik dan underscore
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) {
+    // ! Name hanya boleh alfanumerik dan dash
+    if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(value)) {
       return context.l10n.authValidationNameAlphanumeric;
     }
     return null;
