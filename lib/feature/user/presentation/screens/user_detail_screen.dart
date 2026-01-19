@@ -15,6 +15,7 @@ import 'package:sigma_track/feature/user/presentation/providers/user_providers.d
 import 'package:sigma_track/feature/user/presentation/providers/state/users_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -210,6 +211,43 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // * User avatar
+          if (user.avatarUrl != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: InkWell(
+                onTap: () => _showFullImage(user.avatarUrl!),
+                borderRadius: BorderRadius.circular(12),
+                child: AppImage(
+                  imageUrl: user.avatarUrl,
+                  width: double.infinity,
+                  height: 280,
+                  fit: BoxFit.cover,
+                  shape: ImageShape.rectangle,
+                  showBorder: true,
+                ),
+              ),
+            )
+          else
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Container(
+                  width: 128,
+                  height: 128,
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: context.colorScheme.outline),
+                  ),
+                  child: Icon(
+                    Icons.person,
+                    size: 64,
+                    color: context.colorScheme.primary,
+                  ),
+                ),
+              ),
+            ),
           _buildInfoCard(context.l10n.userInformation, [
             _buildInfoRow(context.l10n.userName, user.name),
             _buildInfoRow(context.l10n.userEmail, user.email),
@@ -288,6 +326,44 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showFullImage(String imageUrl) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black,
+      barrierDismissible: true,
+      useSafeArea: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+              child: Center(
+                child: InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  panEnabled: true,
+                  child: AppImage(
+                    imageUrl: imageUrl,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.contain,
+                    shape: ImageShape.rectangle,
+                    showBorder: false,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

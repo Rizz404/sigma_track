@@ -19,7 +19,7 @@ import 'package:sigma_track/feature/user/domain/usecases/update_current_user_use
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/current_user_state.dart';
 import 'package:sigma_track/feature/user/presentation/validators/user_update_profile_validator.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
@@ -199,9 +199,10 @@ class _UserUpdateProfileScreenState
             ),
             const SizedBox(height: 16),
             Center(
-              child: AppAvatar(
-                size: AvatarSize.xxxLarge,
+              child: AppImage(
+                size: ImageSize.xxxLarge,
                 imageUrl: user.avatarUrl,
+                shape: ImageShape.circle,
                 backgroundColor: context.colorScheme.primary.withValues(
                   alpha: 0.1,
                 ),

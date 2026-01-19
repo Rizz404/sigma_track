@@ -14,6 +14,7 @@ import 'package:sigma_track/feature/category/presentation/providers/category_pro
 import 'package:sigma_track/feature/category/presentation/providers/state/categories_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_detail_action_buttons.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
@@ -208,6 +209,46 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // * Category image
+          if (category.imageUrl != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              // Nggak perlu Center karena kita mau full width
+              child: InkWell(
+                onTap: () => _showFullImage(category.imageUrl!),
+                borderRadius: BorderRadius.circular(12),
+                child: AppImage(
+                  imageUrl: category.imageUrl,
+                  width: double.infinity, // Lebar mentok
+                  height:
+                      280, // Tinggi dibatasi biar estetik (sesuaikan selera)
+                  fit: BoxFit.cover, // Biar full ngisi kotaknya
+                  shape: ImageShape.rectangle,
+                  showBorder: true,
+                ),
+              ),
+            )
+          else
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Container(
+                  width: 128,
+                  height: 128,
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: context.colorScheme.outline),
+                  ),
+                  child: Icon(
+                    Icons.category_rounded,
+                    size: 64,
+                    color: context.colorScheme.primary,
+                  ),
+                ),
+              ),
+            ),
+          const SizedBox(height: 16),
           _buildInfoCard('Category Information', [
             _buildInfoRow('Category Code', category.categoryCode),
             _buildInfoRow('Category Name', category.categoryName),
@@ -222,6 +263,48 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
           ]),
         ],
       ),
+    );
+  }
+
+  void _showFullImage(String imageUrl) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black,
+      barrierDismissible: true,
+      useSafeArea: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+              child: Stack(
+                children: [
+                  Center(
+                    child: InteractiveViewer(
+                      minScale: 0.5,
+                      maxScale: 4.0,
+                      panEnabled: true,
+                      child: AppImage(
+                        imageUrl: imageUrl,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.contain,
+                        shape: ImageShape.rectangle,
+                        showBorder: false,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

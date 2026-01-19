@@ -11,7 +11,7 @@ enum ImageSize {
   xLarge(64),
   xxLarge(96),
   xxxLarge(128),
-  fullWidth(250);
+  fullWidth(250); // Ini default height kalau pakai enum fullWidth
 
   const ImageSize(this.value);
   final double value;
@@ -33,6 +33,10 @@ class AppImage extends StatelessWidget {
   final BoxFit fit;
   final Color? backgroundColor;
 
+  // NEW: Custom overrides biar fleksibel!
+  final double? width;
+  final double? height;
+
   const AppImage({
     super.key,
     this.size = ImageSize.medium,
@@ -47,6 +51,8 @@ class AppImage extends StatelessWidget {
     this.shape = ImageShape.rectangle,
     this.fit = BoxFit.cover,
     this.backgroundColor,
+    this.width, // Tambahkan ini
+    this.height, // Tambahkan ini
   });
 
   bool get _isNetworkImage =>
@@ -56,14 +62,19 @@ class AppImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    final isFullWidth = size == ImageSize.fullWidth;
+    // Logic: Kalau width/height di-isi manual, pakai itu.
+    // Kalau null, baru fallback ke logic Enum.
+    final isFullWidthEnum = size == ImageSize.fullWidth;
 
-    final effectiveWidth = isFullWidth ? null : size.value;
-    final effectiveHeight = size.value;
+    final effectiveWidth =
+        width ?? (isFullWidthEnum ? double.infinity : size.value);
+    final effectiveHeight = height ?? size.value;
 
     final borderRadius = shape == ImageShape.circle
         ? BorderRadius.circular((effectiveWidth ?? size.value) / 2)
-        : BorderRadius.circular(8);
+        : BorderRadius.circular(
+            12,
+          ); // Bestie, aku ubah default radius ke 12 biar lebih smooth
 
     final effectiveBorderColor = borderColor ?? theme.colorScheme.outline;
     final effectiveBorderWidth = borderWidth ?? 1.0;
@@ -88,7 +99,7 @@ class AppImage extends StatelessWidget {
             errorWidget ??
             Icon(
               Icons.broken_image,
-              size: (effectiveWidth ?? size.value) * 0.5,
+              size: (effectiveWidth ?? 32) * 0.5,
               color: theme.colorScheme.error,
             ),
       );
@@ -102,7 +113,7 @@ class AppImage extends StatelessWidget {
             errorWidget ??
             Icon(
               Icons.broken_image,
-              size: (effectiveWidth ?? size.value) * 0.5,
+              size: (effectiveWidth ?? 32) * 0.5,
               color: theme.colorScheme.error,
             ),
       );
@@ -116,15 +127,19 @@ class AppImage extends StatelessWidget {
           );
     }
 
-    final containerWidth = isFullWidth
+    // Container wrapper
+    // Hati-hati: kalau width infinity, jangan ditambah margin border nanti error overflow
+    final containerWidth = effectiveWidth == double.infinity
         ? double.infinity
-        : size.value + (showBorder ? effectiveBorderWidth * 2 : 0);
+        : (effectiveWidth ?? 0) + (showBorder ? effectiveBorderWidth * 2 : 0);
+
     final containerHeight =
-        size.value + (showBorder ? effectiveBorderWidth * 2 : 0);
+        (effectiveHeight ?? 0) + (showBorder ? effectiveBorderWidth * 2 : 0);
 
     final container = Container(
       width: containerWidth,
-      height: containerHeight,
+      // Kalau height null (misal auto), biarkan null. Kalau ada nilainya, pakai containerHeight.
+      height: effectiveHeight != null ? containerHeight : null,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
         border: showBorder

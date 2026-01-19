@@ -9,7 +9,7 @@ import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -155,11 +155,16 @@ class UserDetailProfileScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () => _showAvatarDialog(context, user.avatarUrl),
-                child: AppAvatar(
-                  size: AvatarSize.xxxLarge,
+              // * Wrap avatar dengan InkWell untuk tap action
+              InkWell(
+                onTap: user.avatarUrl != null
+                    ? () => _showFullImage(context, user.avatarUrl!)
+                    : null,
+                borderRadius: BorderRadius.circular(64),
+                child: AppImage(
+                  size: ImageSize.xxxLarge,
                   imageUrl: user.avatarUrl,
+                  shape: ImageShape.circle,
                   backgroundColor: context.colorScheme.primary.withValues(
                     alpha: 0.1,
                   ),
@@ -265,40 +270,45 @@ class UserDetailProfileScreen extends ConsumerWidget {
     );
   }
 
-  void _showAvatarDialog(BuildContext context, String? imageUrl) {
+  void _showFullImage(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.8),
-      builder: (context) => Stack(
-        children: [
-          GestureDetector(
+      barrierColor: Colors.black,
+      barrierDismissible: true,
+      useSafeArea: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
+              color: Colors.black,
               width: double.infinity,
               height: double.infinity,
-              color: Colors.transparent,
-              child: Center(
-                child: imageUrl != null
-                    ? AppAvatar(
+              child: Stack(
+                children: [
+                  Center(
+                    child: InteractiveViewer(
+                      minScale: 0.5,
+                      maxScale: 4.0,
+                      panEnabled: true,
+                      child: AppImage(
                         imageUrl: imageUrl,
-                        size: AvatarSize.xxxLarge,
-                        shape: AvatarShape.rectangle,
+                        width: double.infinity,
+                        height: double.infinity,
                         fit: BoxFit.contain,
-                      )
-                    : const Icon(Icons.person, size: 100, color: Colors.white),
+                        shape: ImageShape.rectangle,
+                        showBorder: false,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          Positioned(
-            top: 16,
-            right: 16,
-            child: IconButton(
-              icon: const Icon(Icons.close, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

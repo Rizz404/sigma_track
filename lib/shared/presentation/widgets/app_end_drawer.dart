@@ -9,7 +9,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/di/auth_providers.dart';
 import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/feature/auth/presentation/providers/auth_state.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 /// * End Drawer dengan konten berbeda berdasarkan role user
@@ -505,7 +504,16 @@ class AppEndDrawer extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          AppAvatar(size: AvatarSize.large, imageUrl: user.avatarUrl),
+          AppImage(
+            size: ImageSize.large,
+            imageUrl: user.avatarUrl,
+            shape: ImageShape.circle,
+            placeholder: Icon(
+              Icons.person,
+              size: 24,
+              color: context.colorScheme.onSurfaceVariant,
+            ),
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

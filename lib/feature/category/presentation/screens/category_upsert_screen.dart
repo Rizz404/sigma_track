@@ -20,6 +20,7 @@ import 'package:sigma_track/feature/category/presentation/providers/state/catego
 import 'package:sigma_track/feature/category/presentation/validators/category_upsert_validator.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -120,6 +121,50 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
       );
       ref.read(categoriesProvider.notifier).createCategory(params);
     }
+  }
+
+  void _showFullImage(String imageUrl) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false, // Biar transisinya smooth di atas halaman sebelumnya
+        barrierColor: Colors.black, // Background belakangnya hitam
+        pageBuilder: (BuildContext context, _, __) {
+          return Scaffold(
+            backgroundColor: Colors.black, // Canvas hitam
+            body: GestureDetector(
+              // Klik di mana aja (gambar atau area hitam) langsung close
+              onTap: () => Navigator.of(context).pop(),
+              child: Stack(
+                children: [
+                  Center(
+                    child: InteractiveViewer(
+                      minScale: 0.5,
+                      maxScale: 4.0,
+                      // panEnabled true biar bisa geser-geser pas di-zoom
+                      panEnabled: true,
+                      child: AppImage(
+                        imageUrl: imageUrl,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.contain, // Gambar utuh fit layar
+                        shape: ImageShape.rectangle,
+                        showBorder: false,
+                      ),
+                    ),
+                  ),
+
+                  // Tetap dikasih biar user tau bisa di-close
+                ],
+              ),
+            ),
+          );
+        },
+        // Custom Transition: Fade In / Fade Out
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
   }
 
   @override
@@ -318,6 +363,39 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                   ),
             ),
             const SizedBox(height: 16),
+            // * Current image preview (edit mode only)
+            if (_isEdit &&
+                (_fetchedCategory?.imageUrl ?? widget.category?.imageUrl) !=
+                    null) ...[
+              Center(
+                child: Column(
+                  children: [
+                    AppText(
+                      'Current Image',
+                      style: AppTextStyle.labelMedium,
+                      color: context.colors.textSecondary,
+                    ),
+                    const SizedBox(height: 8),
+                    InkWell(
+                      onTap: () => _showFullImage(
+                        _fetchedCategory?.imageUrl ??
+                            widget.category!.imageUrl!,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      child: AppImage(
+                        imageUrl:
+                            _fetchedCategory?.imageUrl ??
+                            widget.category?.imageUrl,
+                        size: ImageSize.xxxLarge,
+                        shape: ImageShape.rectangle,
+                        showBorder: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             AppFilePicker(
               key: _filePickerKey,
               name: 'image',

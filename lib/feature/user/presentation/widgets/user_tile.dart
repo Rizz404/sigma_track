@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_avatar.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
 class UserTile extends StatelessWidget {
@@ -62,20 +62,23 @@ class UserTile extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                 ],
-                AppAvatar(
-                  size: AvatarSize.large,
+                AppImage(
+                  size: ImageSize.large,
                   imageUrl: user.avatarUrl,
+                  shape: ImageShape.circle,
                   backgroundColor: context.colorScheme.primaryContainer,
-                  placeholder: AppText(
-                    user.fullName
-                        .split(' ')
-                        .map((e) => e.isNotEmpty ? e[0] : '')
-                        .take(2)
-                        .join()
-                        .toUpperCase(),
-                    style: AppTextStyle.titleMedium,
-                    color: context.colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w600,
+                  placeholder: Center(
+                    child: AppText(
+                      user.fullName
+                          .split(' ')
+                          .map((e) => e.isNotEmpty ? e[0] : '')
+                          .take(2)
+                          .join()
+                          .toUpperCase(),
+                      style: AppTextStyle.titleMedium,
+                      color: context.colorScheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
