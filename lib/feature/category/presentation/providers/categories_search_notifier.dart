@@ -68,12 +68,26 @@ class CategoriesSearchNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   /// Search for root categories only (categories without parent)
-  Future<void> searchRootCategories(String search) async {
+  Future<void> searchParentCategories(String search) async {
     this.logPresentation('Searching root categories: $search');
 
     final newFilter = state.categoriesFilter.copyWith(
       search: () => search.isEmpty ? null : search,
       hasParent: () => false,
+      cursor: () => null,
+    );
+
+    state = state.copyWith(isLoading: true);
+    state = await _loadCategories(categoriesFilter: newFilter);
+  }
+
+  /// Search for non-root categories only (categories with parent)
+  Future<void> searchChildCategories(String search) async {
+    this.logPresentation('Searching non-root categories: $search');
+
+    final newFilter = state.categoriesFilter.copyWith(
+      search: () => search.isEmpty ? null : search,
+      hasParent: () => true,
       cursor: () => null,
     );
 

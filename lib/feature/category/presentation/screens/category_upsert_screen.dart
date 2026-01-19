@@ -271,7 +271,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             Builder(
               builder: (context) {
                 final categoriesState = ref.watch(
-                  categoriesRootSearchDropdownProvider,
+                  categoriesParentSearchDropdownProvider,
                 );
                 final categoryData = _isEdit
                     ? _fetchedCategory
@@ -286,7 +286,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                   isLoading: categoriesState.isLoading,
                   onSearch: (query) {
                     ref
-                        .read(categoriesRootSearchDropdownProvider.notifier)
+                        .read(categoriesParentSearchDropdownProvider.notifier)
                         .search(query);
                   },
                   itemDisplayMapper: (category) => category.categoryName,

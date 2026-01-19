@@ -1027,7 +1027,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   }
 
   Widget _buildCategoryLocationSection() {
-    final categoriesState = ref.watch(categoriesSearchDropdownProvider);
+    final categoriesState = ref.watch(categoriesChildSearchDropdownProvider);
 
     return Card(
       color: context.colors.surface,
@@ -1056,7 +1056,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               isLoading: categoriesState.isLoading,
               onSearch: (query) {
                 ref
-                    .read(categoriesSearchDropdownProvider.notifier)
+                    .read(categoriesChildSearchDropdownProvider.notifier)
                     .search(query);
               },
               itemDisplayMapper: (category) => category.categoryName,

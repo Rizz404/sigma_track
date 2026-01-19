@@ -35,11 +35,18 @@ final categoriesSearchDropdownProvider =
     >(CategoriesSearchDropdownNotifier.new);
 
 // * Provider khusus untuk root categories dropdown search
-final categoriesRootSearchDropdownProvider =
+final categoriesParentSearchDropdownProvider =
     AutoDisposeNotifierProvider<
-      CategoriesRootSearchDropdownNotifier,
+      CategoriesParentSearchDropdownNotifier,
       CategoriesState
-    >(CategoriesRootSearchDropdownNotifier.new);
+    >(CategoriesParentSearchDropdownNotifier.new);
+
+// * Provider khusus untuk non-root categories dropdown search
+final categoriesChildSearchDropdownProvider =
+    AutoDisposeNotifierProvider<
+      CategoriesChildSearchDropdownNotifier,
+      CategoriesState
+    >(CategoriesChildSearchDropdownNotifier.new);
 
 // * Provider untuk check apakah category code exists
 final checkCategoryCodeExistsProvider =

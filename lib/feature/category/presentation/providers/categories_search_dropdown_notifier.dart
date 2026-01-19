@@ -76,12 +76,26 @@ class CategoriesSearchDropdownNotifier
   }
 
   /// Search for root categories only (categories without parent)
-  Future<void> searchRootCategories(String search) async {
+  Future<void> searchParentCategories(String search) async {
     this.logPresentation('Searching root categories: $search');
 
     final newFilter = state.categoriesFilter.copyWith(
       search: () => search.isEmpty ? null : search,
       hasParent: () => false,
+      cursor: () => null,
+    );
+
+    state = state.copyWith(isLoading: true);
+    state = await _loadCategories(categoriesFilter: newFilter);
+  }
+
+  /// Search for non-root categories only (categories with parent)
+  Future<void> searchChildCategories(String search) async {
+    this.logPresentation('Searching non-root categories: $search');
+
+    final newFilter = state.categoriesFilter.copyWith(
+      search: () => search.isEmpty ? null : search,
+      hasParent: () => true,
       cursor: () => null,
     );
 
@@ -96,10 +110,33 @@ class CategoriesSearchDropdownNotifier
 }
 
 /// Notifier for root categories only (categories without parent)
-class CategoriesRootSearchDropdownNotifier
+class CategoriesParentSearchDropdownNotifier
     extends CategoriesSearchDropdownNotifier {
   @override
+  Future<void> _initializeCategories() async {
+    state = await _loadCategories(
+      categoriesFilter: GetCategoriesCursorUsecaseParams(hasParent: false),
+    );
+  }
+
+  @override
   Future<void> search(String search) async {
-    await searchRootCategories(search);
+    await searchParentCategories(search);
+  }
+}
+
+/// Notifier for non-root categories only (categories with parent)
+class CategoriesChildSearchDropdownNotifier
+    extends CategoriesSearchDropdownNotifier {
+  @override
+  Future<void> _initializeCategories() async {
+    state = await _loadCategories(
+      categoriesFilter: GetCategoriesCursorUsecaseParams(hasParent: true),
+    );
+  }
+
+  @override
+  Future<void> search(String search) async {
+    await searchChildCategories(search);
   }
 }

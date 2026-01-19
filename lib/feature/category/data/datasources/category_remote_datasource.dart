@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
@@ -84,6 +86,9 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
             entry.value != null &&
             map['imageFile'] == null) {
           formData.fields.add(MapEntry('image', entry.value.toString()));
+        } else if (entry.key == 'translations' && entry.value != null) {
+          // * Encode translations as proper JSON string
+          formData.fields.add(MapEntry(entry.key, json.encode(entry.value)));
         } else if (entry.value != null && entry.key != 'imageFile') {
           formData.fields.add(MapEntry(entry.key, entry.value.toString()));
         }
@@ -240,6 +245,9 @@ class CategoryRemoteDatasourceImpl implements CategoryRemoteDatasource {
             entry.value != null &&
             map['imageFile'] == null) {
           formData.fields.add(MapEntry('image', entry.value.toString()));
+        } else if (entry.key == 'translations' && entry.value != null) {
+          // * Encode translations as proper JSON string
+          formData.fields.add(MapEntry(entry.key, json.encode(entry.value)));
         } else if (entry.value != null && entry.key != 'imageFile') {
           formData.fields.add(MapEntry(entry.key, entry.value.toString()));
         }

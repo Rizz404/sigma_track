@@ -93,7 +93,7 @@ class CategoryModel extends Equatable {
       parentId: map.getFieldOrNull<String>('parentId'),
       categoryCode: map.getField<String>('categoryCode'),
       categoryName: map.getField<String>('categoryName'),
-      description: map.getField<String>('description'),
+      description: map.getFieldOrNull<String>('description') ?? '',
       parent: map.getFieldOrNull<Map<String, dynamic>>('parent') != null
           ? CategoryModel.fromMap(map.getField<Map<String, dynamic>>('parent'))
           : null,
