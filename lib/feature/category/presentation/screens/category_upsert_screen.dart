@@ -6,6 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -235,7 +236,16 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
           _imageFile = null;
         }
         _filePickerKey.currentState?.reset();
-        context.pop();
+
+        // * Redirect ke detail screen dengan updated category
+        // * Pop 2x: hapus edit screen + detail old screen → kembali ke list
+        // * Lalu push detail baru → stack: List → Detail (new) ✓
+        if (_isEdit && next.mutatedCategory != null) {
+          context.pop(); // * Hapus edit screen → kembali ke detail old
+          context.pop(); // * Hapus detail old → kembali ke list
+        } else {
+          context.pop();
+        }
       }
 
       // * Handle mutation error
