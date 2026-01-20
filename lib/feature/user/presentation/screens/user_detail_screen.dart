@@ -194,7 +194,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             ),
             _buildInfoRow(
               context.l10n.userPreferredLang,
-              dummyUser.preferredLang,
+              dummyUser.preferredLang.backendCode,
             ),
             _buildInfoRow(
               context.l10n.userActive,
@@ -254,7 +254,10 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             _buildInfoRow(context.l10n.userFullName, user.fullName),
             _buildInfoRow(context.l10n.userRole, user.role.value),
             _buildInfoRow(context.l10n.userEmployeeId, user.employeeId ?? '-'),
-            _buildInfoRow(context.l10n.userPreferredLang, user.preferredLang),
+            _buildInfoRow(
+              context.l10n.userPreferredLang,
+              user.preferredLang.backendCode,
+            ),
             _buildInfoRow(
               context.l10n.userActive,
               user.isActive ? context.l10n.userYes : context.l10n.userNo,

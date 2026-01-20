@@ -283,12 +283,7 @@ class _UserUpdateProfileScreenState
                     ),
                   )
                   .toList(),
-              initialValue:
-                  Language.values
-                      .map((e) => e.backendCode)
-                      .contains(user.preferredLang)
-                  ? user.preferredLang
-                  : null,
+              initialValue: user.preferredLang.backendCode,
             ),
           ],
         ),

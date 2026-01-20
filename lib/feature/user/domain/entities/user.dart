@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 
 class User extends Equatable {
@@ -8,7 +9,7 @@ class User extends Equatable {
   final String fullName;
   final UserRole role;
   final String? employeeId;
-  final String preferredLang;
+  final Language preferredLang;
   final bool isActive;
   final String? avatarUrl;
   final String? fcmToken;
@@ -36,7 +37,7 @@ class User extends Equatable {
     email: '',
     fullName: '',
     role: UserRole.employee,
-    preferredLang: 'en',
+    preferredLang: Language.english,
     isActive: false,
     createdAt: DateTime(0),
     updatedAt: DateTime(0),

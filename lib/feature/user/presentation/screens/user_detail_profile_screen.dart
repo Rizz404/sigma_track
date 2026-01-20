@@ -100,7 +100,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
             _buildInfoRow(
               context,
               context.l10n.userPreferredLang,
-              user.preferredLang,
+              user.preferredLang.backendCode,
             ),
           ]),
           const SizedBox(height: 16),

@@ -1,3 +1,4 @@
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
@@ -12,7 +13,7 @@ extension UserModelMapper on UserModel {
       fullName: fullName,
       role: role,
       employeeId: employeeId,
-      preferredLang: preferredLang,
+      preferredLang: Language.fromBackendCode(preferredLang),
       isActive: isActive,
       avatarUrl: avatarUrl,
       fcmToken: fcmToken,
@@ -31,7 +32,7 @@ extension UserEntityMapper on User {
       fullName: fullName,
       role: role,
       employeeId: employeeId,
-      preferredLang: preferredLang,
+      preferredLang: preferredLang.backendCode,
       isActive: isActive,
       avatarUrl: avatarUrl,
       fcmToken: fcmToken,

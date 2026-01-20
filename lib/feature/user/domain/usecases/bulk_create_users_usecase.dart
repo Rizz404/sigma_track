@@ -5,6 +5,7 @@ import 'package:fpdart/src/either.dart';
 
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
@@ -93,7 +94,7 @@ class BulkCreateUsersResponse extends Equatable {
       'fullName': user.fullName,
       'role': user.role.value,
       'employeeId': user.employeeId,
-      'preferredLang': user.preferredLang,
+      'preferredLang': user.preferredLang.backendCode,
       'isActive': user.isActive,
       'avatarUrl': user.avatarUrl,
       'fcmToken': user.fcmToken,
@@ -113,7 +114,7 @@ class BulkCreateUsersResponse extends Equatable {
         orElse: () => UserRole.employee,
       ),
       employeeId: map['employeeId'],
-      preferredLang: map['preferredLang'] ?? 'en',
+      preferredLang: Language.fromBackendCode(map['preferredLang'] ?? 'en-US'),
       isActive: map['isActive'] ?? true,
       avatarUrl: map['avatarUrl'],
       fcmToken: map['fcmToken'],

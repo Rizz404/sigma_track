@@ -4,6 +4,7 @@ import 'package:sigma_track/core/extensions/riverpod_extension.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/di/auth_providers.dart';
+import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/user/domain/usecases/get_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/change_current_user_password_usecase.dart';
@@ -91,6 +92,11 @@ class CurrentUserNotifier extends AutoDisposeNotifier<CurrentUserState> {
                 .read(authNotifierProvider.notifier)
                 .updateUserData(success.data!);
           }
+
+          // * Sync locale dengan preferredLang user yang baru
+          ref
+              .read(localeProvider.notifier)
+              .syncFromUserLanguage(success.data!.preferredLang);
 
           // * Wait for listener to consume message before refresh
           await Future.delayed(const Duration(milliseconds: 100));

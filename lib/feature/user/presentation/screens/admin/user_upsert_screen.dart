@@ -263,7 +263,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                     ),
                   )
                   .toList(),
-              initialValue: widget.user?.preferredLang ?? 'en-US',
+              initialValue: widget.user?.preferredLang.backendCode ?? 'en-US',
             ),
             if (_isEdit) ...[
               const SizedBox(height: 16),

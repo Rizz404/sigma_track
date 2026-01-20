@@ -21,6 +21,20 @@ enum Language {
     }
   }
 
+  // * Convert dari backend code ke enum
+  static Language fromBackendCode(String code) {
+    switch (code) {
+      case 'en-US':
+        return Language.english;
+      case 'ja-JP':
+        return Language.japanese;
+      case 'id-ID':
+        return Language.indonesian;
+      default:
+        return Language.english; // * Fallback ke english
+    }
+  }
+
   // * Dropdown helper
   String get label => mobileCode;
 

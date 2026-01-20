@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/core/usecases/usecase.dart';
 import 'package:sigma_track/core/utils/logging.dart';
+import 'package:sigma_track/di/common_providers.dart';
 import 'package:sigma_track/di/service_providers.dart';
 import 'package:sigma_track/di/usecase_providers.dart';
 import 'package:sigma_track/feature/auth/domain/usecases/forgot_password_usecase.dart';
@@ -67,9 +68,14 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
       (failure) {
         state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
-      (success) {
+      (success) async {
         // * Invalidate current user provider untuk refresh data
         ref.invalidate(currentUserNotifierProvider);
+
+        // * Sync locale dengan preferredLang user
+        await ref
+            .read(localeProvider.notifier)
+            .syncFromUserLanguage(success.data!.preferredLang);
 
         state = AsyncData(
           AuthState.authenticated(user: success.data, success: success),
@@ -87,9 +93,15 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
       (failure) {
         state = AsyncData(AuthState.unauthenticated(failure: failure));
       },
-      (success) {
+      (success) async {
         // * Invalidate current user provider untuk refresh data user baru
         ref.invalidate(currentUserNotifierProvider);
+
+        // * Sync locale dengan preferredLang user
+        final user = success.data!.user;
+        await ref
+            .read(localeProvider.notifier)
+            .syncFromUserLanguage(user.preferredLang);
 
         state = AsyncData(
           AuthState.authenticated(user: success.data!.user, success: success),

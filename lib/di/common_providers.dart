@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/network/dio_client.dart';
 import 'package:sigma_track/core/router/app_router.dart';
 import 'package:sigma_track/core/services/language_storage_service.dart';
@@ -105,6 +106,19 @@ class LocaleNotifier extends Notifier<Locale> {
     try {
       await _languageStorageService.removeLocale();
       state = L10n.supportedLocales.first;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// * Sync locale dari Language enum user
+  Future<void> syncFromUserLanguage(Language language) async {
+    try {
+      final locale = Locale(language.mobileCode);
+      if (L10n.supportedLocales.contains(locale)) {
+        await _languageStorageService.setLocale(locale);
+        state = locale;
+      }
     } catch (e) {
       rethrow;
     }
