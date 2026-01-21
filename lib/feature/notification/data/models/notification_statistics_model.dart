@@ -352,8 +352,10 @@ class NotificationSummaryStatisticsModel extends Equatable {
       mostCommonType: map.getFieldOrNull<String>('mostCommonType') ?? '',
       averageNotificationsPerDay:
           map.getFieldOrNull<double>('averageNotificationsPerDay') ?? 0.0,
-      latestCreationDate: map.getField<DateTime>('latestCreationDate'),
-      earliestCreationDate: map.getField<DateTime>('earliestCreationDate'),
+      latestCreationDate:
+          map.getFieldOrNull<DateTime>('latestCreationDate') ?? DateTime(0),
+      earliestCreationDate:
+          map.getFieldOrNull<DateTime>('earliestCreationDate') ?? DateTime(0),
     );
   }
 

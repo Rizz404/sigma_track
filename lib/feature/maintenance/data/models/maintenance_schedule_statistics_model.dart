@@ -606,8 +606,10 @@ class MaintenanceScheduleSummaryStatisticsModel extends Equatable {
           map.getFieldOrNull<int>('assetsWithoutScheduledMaintenance') ?? 0,
       averageSchedulesPerDay:
           map.getFieldOrNull<double>('averageSchedulesPerDay') ?? 0.0,
-      latestScheduleDate: map.getField<DateTime>('latestScheduleDate'),
-      earliestScheduleDate: map.getField<DateTime>('earliestScheduleDate'),
+      latestScheduleDate:
+          map.getFieldOrNull<DateTime>('latestScheduleDate') ?? DateTime(0),
+      earliestScheduleDate:
+          map.getFieldOrNull<DateTime>('earliestScheduleDate') ?? DateTime(0),
       totalUniqueCreators: map.getFieldOrNull<int>('totalUniqueCreators') ?? 0,
     );
   }

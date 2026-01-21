@@ -463,8 +463,10 @@ class AssetMovementSummaryStatisticsModel {
       averageMovementsPerAsset: map.getField<double>(
         'averageMovementsPerAsset',
       ),
-      latestMovementDate: map.getField<DateTime>('latestMovementDate'),
-      earliestMovementDate: map.getField<DateTime>('earliestMovementDate'),
+      latestMovementDate:
+          map.getFieldOrNull<DateTime>('latestMovementDate') ?? DateTime(0),
+      earliestMovementDate:
+          map.getFieldOrNull<DateTime>('earliestMovementDate') ?? DateTime(0),
       uniqueAssetsWithMovements: map.getField<int>('uniqueAssetsWithMovements'),
       uniqueLocationsInvolved: map.getField<int>('uniqueLocationsInvolved'),
       uniqueUsersInvolved: map.getField<int>('uniqueUsersInvolved'),

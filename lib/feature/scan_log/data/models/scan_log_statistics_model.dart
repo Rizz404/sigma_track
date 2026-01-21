@@ -426,8 +426,10 @@ class ScanLogSummaryStatisticsModel extends Equatable {
           map.getFieldOrNull<double>('coordinatesPercentage') ?? 0.0,
       averageScansPerDay:
           map.getFieldOrNull<double>('averageScansPerDay') ?? 0.0,
-      latestScanDate: map.getField<DateTime>('latestScanDate'),
-      earliestScanDate: map.getField<DateTime>('earliestScanDate'),
+      latestScanDate:
+          map.getFieldOrNull<DateTime>('latestScanDate') ?? DateTime(0),
+      earliestScanDate:
+          map.getFieldOrNull<DateTime>('earliestScanDate') ?? DateTime(0),
     );
   }
 

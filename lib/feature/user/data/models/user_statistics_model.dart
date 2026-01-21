@@ -332,10 +332,11 @@ class UserSummaryStatisticsModel extends Equatable {
           map.getFieldOrNull<double>('employeePercentage') ?? 0.0,
       averageUsersPerDay:
           map.getFieldOrNull<double>('averageUsersPerDay') ?? 0.0,
-      latestRegistrationDate: map.getField<DateTime>('latestRegistrationDate'),
-      earliestRegistrationDate: map.getField<DateTime>(
-        'earliestRegistrationDate',
-      ),
+      latestRegistrationDate:
+          map.getFieldOrNull<DateTime>('latestRegistrationDate') ?? DateTime(0),
+      earliestRegistrationDate:
+          map.getFieldOrNull<DateTime>('earliestRegistrationDate') ??
+          DateTime(0),
     );
   }
 

@@ -298,8 +298,10 @@ class IssueReportSummaryStatisticsModel extends Equatable {
           map.getFieldOrNull<int>('criticalUnresolvedCount') ?? 0,
       averageReportsPerDay:
           map.getFieldOrNull<double>('averageReportsPerDay') ?? 0.0,
-      latestCreationDate: map.getField<DateTime>('latestCreationDate'),
-      earliestCreationDate: map.getField<DateTime>('earliestCreationDate'),
+      latestCreationDate:
+          map.getFieldOrNull<DateTime>('latestCreationDate') ?? DateTime(0),
+      earliestCreationDate:
+          map.getFieldOrNull<DateTime>('earliestCreationDate') ?? DateTime(0),
     );
   }
 

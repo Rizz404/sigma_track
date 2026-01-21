@@ -488,8 +488,10 @@ class MaintenanceRecordSummaryStatisticsModel extends Equatable {
           map.getFieldOrNull<int>('totalUniquePerformers') ?? 0,
       averageRecordsPerDay:
           map.getFieldOrNull<double>('averageRecordsPerDay') ?? 0.0,
-      latestRecordDate: map.getField<DateTime>('latestRecordDate'),
-      earliestRecordDate: map.getField<DateTime>('earliestRecordDate'),
+      latestRecordDate:
+          map.getFieldOrNull<DateTime>('latestRecordDate') ?? DateTime(0),
+      earliestRecordDate:
+          map.getFieldOrNull<DateTime>('earliestRecordDate') ?? DateTime(0),
       mostExpensiveMaintenanceCost: map.getFieldOrNull<double>(
         'mostExpensiveMaintenanceCost',
       ),
