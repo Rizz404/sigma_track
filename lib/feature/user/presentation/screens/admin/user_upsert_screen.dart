@@ -30,8 +30,14 @@ import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 class UserUpsertScreen extends ConsumerStatefulWidget {
   final User? user;
   final String? userId;
+  final User? copyFromUser;
 
-  const UserUpsertScreen({super.key, this.user, this.userId});
+  const UserUpsertScreen({
+    super.key,
+    this.user,
+    this.userId,
+    this.copyFromUser,
+  });
 
   @override
   ConsumerState<UserUpsertScreen> createState() => _UserUpsertScreenState();
@@ -41,6 +47,9 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.user != null || widget.userId != null;
+  bool get _isCopyMode => widget.copyFromUser != null;
+  // * Helper to get source user for initialization (copy or edit)
+  User? get _sourceUser => widget.copyFromUser ?? widget.user;
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -184,7 +193,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               name: 'name',
               label: context.l10n.userUsername,
               placeHolder: context.l10n.userEnterUsername,
-              initialValue: widget.user?.name,
+              // * Don't copy username in copy mode (must be unique)
+              initialValue: _isCopyMode ? null : widget.user?.name,
               validator: (value) =>
                   UserUpsertValidator.validateName(value, isUpdate: _isEdit),
             ),
@@ -194,7 +204,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               label: context.l10n.userEmail,
               type: AppTextFieldType.email,
               placeHolder: context.l10n.userEnterEmail,
-              initialValue: widget.user?.email,
+              // * Don't copy email in copy mode (must be unique)
+              initialValue: _isCopyMode ? null : widget.user?.email,
               validator: (value) =>
                   UserUpsertValidator.validateEmail(value, isUpdate: _isEdit),
             ),
@@ -217,7 +228,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               name: 'fullName',
               label: context.l10n.userFullName,
               placeHolder: context.l10n.userEnterFullName,
-              initialValue: widget.user?.fullName,
+              initialValue: _sourceUser?.fullName,
               validator: (value) => UserUpsertValidator.validateFullName(
                 value,
                 isUpdate: _isEdit,
@@ -237,7 +248,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                     ),
                   )
                   .toList(),
-              initialValue: widget.user?.role.value,
+              initialValue: _sourceUser?.role.value,
               validator: (value) =>
                   UserUpsertValidator.validateRole(value, isUpdate: _isEdit),
             ),
@@ -246,7 +257,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               name: 'employeeId',
               label: context.l10n.userEmployeeIdOptional,
               placeHolder: context.l10n.userEnterEmployeeIdOptional,
-              initialValue: widget.user?.employeeId,
+              initialValue: _sourceUser?.employeeId,
               validator: UserUpsertValidator.validateEmployeeId,
             ),
             const SizedBox(height: 16),
@@ -263,7 +274,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                     ),
                   )
                   .toList(),
-              initialValue: widget.user?.preferredLang.backendCode ?? 'en-US',
+              initialValue: _sourceUser?.preferredLang.backendCode ?? 'en-US',
             ),
             if (_isEdit) ...[
               const SizedBox(height: 16),

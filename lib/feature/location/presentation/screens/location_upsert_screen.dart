@@ -33,8 +33,14 @@ import 'package:skeletonizer/skeletonizer.dart';
 class LocationUpsertScreen extends ConsumerStatefulWidget {
   final Location? location;
   final String? locationId;
+  final Location? copyFromLocation;
 
-  const LocationUpsertScreen({super.key, this.location, this.locationId});
+  const LocationUpsertScreen({
+    super.key,
+    this.location,
+    this.locationId,
+    this.copyFromLocation,
+  });
 
   @override
   ConsumerState<LocationUpsertScreen> createState() =>
@@ -45,6 +51,9 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.location != null || widget.locationId != null;
+  bool get _isCopyMode => widget.copyFromLocation != null;
+  // * Helper to get source location for initialization (copy or edit)
+  Location? get _sourceLocation => widget.copyFromLocation ?? widget.location;
   Location? _fetchedLocation;
   bool _isLoadingTranslations = false;
   bool _isLoadingCurrentLocation = false;
@@ -406,7 +415,8 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               name: 'locationCode',
               label: context.l10n.locationCode,
               placeHolder: context.l10n.locationEnterLocationCode,
-              initialValue: widget.location?.locationCode,
+              // * Don't copy location code in copy mode (must be unique)
+              initialValue: _isCopyMode ? null : widget.location?.locationCode,
               validator: (value) =>
                   LocationUpsertValidator.validateLocationCode(
                     context,
@@ -419,14 +429,14 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
               name: 'building',
               label: context.l10n.locationBuildingOptional,
               placeHolder: context.l10n.locationEnterBuilding,
-              initialValue: widget.location?.building,
+              initialValue: _sourceLocation?.building,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'floor',
               label: context.l10n.locationFloorOptional,
               placeHolder: context.l10n.locationEnterFloor,
-              initialValue: widget.location?.floor,
+              initialValue: _sourceLocation?.floor,
             ),
             const SizedBox(height: 16),
             Row(
@@ -436,7 +446,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                     name: 'latitude',
                     label: context.l10n.locationLatitudeOptional,
                     placeHolder: context.l10n.locationEnterLatitude,
-                    initialValue: widget.location?.latitude?.toString(),
+                    initialValue: _sourceLocation?.latitude?.toString(),
                     validator: (value) =>
                         LocationUpsertValidator.validateLatitude(
                           context,
@@ -452,7 +462,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
                     name: 'longitude',
                     label: context.l10n.locationLongitudeOptional,
                     placeHolder: context.l10n.locationEnterLongitude,
-                    initialValue: widget.location?.longitude?.toString(),
+                    initialValue: _sourceLocation?.longitude?.toString(),
                     validator: (value) =>
                         LocationUpsertValidator.validateLongitude(
                           context,
@@ -560,8 +570,8 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    // * Use fetched location translations in edit mode
-    final locationData = _isEdit ? _fetchedLocation : widget.location;
+    // * Use fetched location translations in edit mode, or source location in copy mode
+    final locationData = _isEdit ? _fetchedLocation : _sourceLocation;
     final translation = locationData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => LocationTranslation(langCode: langCode, locationName: ''),

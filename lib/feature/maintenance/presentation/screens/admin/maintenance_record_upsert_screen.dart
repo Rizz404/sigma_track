@@ -38,12 +38,14 @@ class MaintenanceRecordUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceRecord? maintenanceRecord;
   final String? maintenanceRecordId;
   final Asset? prePopulatedAsset;
+  final MaintenanceRecord? copyFromRecord;
 
   const MaintenanceRecordUpsertScreen({
     super.key,
     this.maintenanceRecord,
     this.maintenanceRecordId,
     this.prePopulatedAsset,
+    this.copyFromRecord,
   });
 
   @override
@@ -57,7 +59,11 @@ class _MaintenanceRecordUpsertScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceRecord != null || widget.maintenanceRecordId != null;
+  bool get _isCopyMode => widget.copyFromRecord != null;
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
+  // * Helper to get source record for initialization (copy or edit)
+  MaintenanceRecord? get _sourceRecord =>
+      widget.copyFromRecord ?? widget.maintenanceRecord;
   MaintenanceRecord? _fetchedMaintenanceRecord;
   bool _isLoadingTranslations = false;
 
@@ -335,7 +341,7 @@ class _MaintenanceRecordUpsertScreenState
                   name: 'scheduleId',
                   label: context.l10n.maintenanceRecordSchedule,
                   hintText: context.l10n.maintenanceRecordSearchSchedule,
-                  initialValue: widget.maintenanceRecord?.scheduleId,
+                  initialValue: _sourceRecord?.scheduleId,
                   items: schedules
                       .map(
                         (schedule) => AppDropdownItem(
@@ -357,7 +363,9 @@ class _MaintenanceRecordUpsertScreenState
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
-                final maintenanceRecordData = widget.maintenanceRecord;
+                final maintenanceRecordData = _isCopyMode
+                    ? _sourceRecord
+                    : widget.maintenanceRecord;
 
                 return AppSearchableDropdown<Asset>(
                   name: 'assetId',
@@ -389,7 +397,7 @@ class _MaintenanceRecordUpsertScreenState
             AppDateTimePicker(
               name: 'maintenanceDate',
               label: context.l10n.maintenanceRecordMaintenanceDate,
-              initialValue: widget.maintenanceRecord?.maintenanceDate,
+              initialValue: _sourceRecord?.maintenanceDate,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateMaintenanceDate(
                     value,
@@ -400,15 +408,14 @@ class _MaintenanceRecordUpsertScreenState
             AppDateTimePicker(
               name: 'completionDate',
               label: context.l10n.maintenanceRecordCompletionDateOptional,
-              initialValue: widget.maintenanceRecord?.completionDate,
+              initialValue: _sourceRecord?.completionDate,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'durationMinutes',
               label: context.l10n.maintenanceRecordDurationMinutesLabel,
               placeHolder: context.l10n.maintenanceRecordEnterDuration,
-              initialValue: widget.maintenanceRecord?.durationMinutes
-                  ?.toString(),
+              initialValue: _sourceRecord?.durationMinutes?.toString(),
               type: AppTextFieldType.number,
             ),
             const SizedBox(height: 16),
@@ -431,7 +438,7 @@ class _MaintenanceRecordUpsertScreenState
               name: 'performedByVendor',
               label: context.l10n.maintenanceRecordPerformedByVendorLabel,
               placeHolder: context.l10n.maintenanceRecordEnterVendor,
-              initialValue: widget.maintenanceRecord?.performedByVendor,
+              initialValue: _sourceRecord?.performedByVendor,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validatePerformedByVendor(
                     value,
@@ -452,7 +459,7 @@ class _MaintenanceRecordUpsertScreenState
                     ),
                   )
                   .toList(),
-              initialValue: widget.maintenanceRecord?.result.value,
+              initialValue: _sourceRecord?.result.value,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateResult(
                     value,
@@ -464,7 +471,7 @@ class _MaintenanceRecordUpsertScreenState
               name: 'actualCost',
               label: context.l10n.maintenanceRecordActualCostLabel,
               placeHolder: context.l10n.maintenanceRecordEnterActualCost,
-              initialValue: widget.maintenanceRecord?.actualCost?.toString(),
+              initialValue: _sourceRecord?.actualCost?.toString(),
               type: AppTextFieldType.priceUS,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateActualCost(
@@ -521,10 +528,10 @@ class _MaintenanceRecordUpsertScreenState
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    // * Use fetched maintenance record translations in edit mode
+    // * Use fetched maintenance record translations in edit mode, or source in copy
     final maintenanceRecordData = _isEdit
         ? _fetchedMaintenanceRecord
-        : widget.maintenanceRecord;
+        : _sourceRecord;
     final translation = maintenanceRecordData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => MaintenanceRecordTranslation(

@@ -39,12 +39,14 @@ class MaintenanceScheduleUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceSchedule? maintenanceSchedule;
   final String? maintenanceId;
   final Asset? prePopulatedAsset;
+  final MaintenanceSchedule? copyFromSchedule;
 
   const MaintenanceScheduleUpsertScreen({
     super.key,
     this.maintenanceSchedule,
     this.maintenanceId,
     this.prePopulatedAsset,
+    this.copyFromSchedule,
   });
 
   @override
@@ -58,7 +60,11 @@ class _MaintenanceScheduleUpsertScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceSchedule != null || widget.maintenanceId != null;
+  bool get _isCopyMode => widget.copyFromSchedule != null;
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
+  // * Helper to get source schedule for initialization (copy or edit)
+  MaintenanceSchedule? get _sourceSchedule =>
+      widget.copyFromSchedule ?? widget.maintenanceSchedule;
   MaintenanceSchedule? _fetchedMaintenanceSchedule;
   bool _isLoadingTranslations = false;
 
@@ -352,7 +358,9 @@ class _MaintenanceScheduleUpsertScreenState
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
-                final maintenanceScheduleData = widget.maintenanceSchedule;
+                final maintenanceScheduleData = _isCopyMode
+                    ? _sourceSchedule
+                    : widget.maintenanceSchedule;
 
                 return AppSearchableDropdown<Asset>(
                   name: 'assetId',
@@ -394,7 +402,7 @@ class _MaintenanceScheduleUpsertScreenState
                     ),
                   )
                   .toList(),
-              initialValue: widget.maintenanceSchedule?.maintenanceType.value,
+              initialValue: _sourceSchedule?.maintenanceType.value,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateMaintenanceType(
                     value,
@@ -405,7 +413,7 @@ class _MaintenanceScheduleUpsertScreenState
             AppDateTimePicker(
               name: 'nextScheduledDate',
               label: context.l10n.maintenanceScheduleNextScheduledDate,
-              initialValue: widget.maintenanceSchedule?.nextScheduledDate,
+              initialValue: _sourceSchedule?.nextScheduledDate,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateNextScheduledDate(
                     value,
@@ -416,15 +424,14 @@ class _MaintenanceScheduleUpsertScreenState
             AppCheckbox(
               name: 'isRecurring',
               title: AppText(context.l10n.maintenanceScheduleIsRecurring),
-              initialValue: widget.maintenanceSchedule?.isRecurring ?? false,
+              initialValue: _sourceSchedule?.isRecurring ?? false,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'intervalValue',
               label: context.l10n.maintenanceScheduleIntervalValueLabel,
               placeHolder: context.l10n.maintenanceScheduleEnterIntervalValue,
-              initialValue: widget.maintenanceSchedule?.intervalValue
-                  ?.toString(),
+              initialValue: _sourceSchedule?.intervalValue?.toString(),
               type: AppTextFieldType.number,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateIntervalValue(
@@ -443,15 +450,13 @@ class _MaintenanceScheduleUpsertScreenState
                         AppDropdownItem(value: unit.value, label: unit.label),
                   )
                   .toList(),
-              initialValue: widget.maintenanceSchedule?.intervalUnit?.value,
+              initialValue: _sourceSchedule?.intervalUnit?.value,
             ),
             const SizedBox(height: 16),
             AppTimePicker(
               name: 'scheduledTime',
               label: context.l10n.maintenanceScheduleScheduledTimeLabel,
-              initialValue: _parseTimeOfDay(
-                widget.maintenanceSchedule?.scheduledTime,
-              ),
+              initialValue: _parseTimeOfDay(_sourceSchedule?.scheduledTime),
             ),
             const SizedBox(height: 16),
             if (_isEdit)
@@ -479,15 +484,14 @@ class _MaintenanceScheduleUpsertScreenState
             AppCheckbox(
               name: 'autoComplete',
               title: AppText(context.l10n.maintenanceScheduleAutoComplete),
-              initialValue: widget.maintenanceSchedule?.autoComplete ?? false,
+              initialValue: _sourceSchedule?.autoComplete ?? false,
             ),
             const SizedBox(height: 16),
             AppTextField(
               name: 'estimatedCost',
               label: context.l10n.maintenanceScheduleEstimatedCost,
               placeHolder: context.l10n.maintenanceScheduleEnterEstimatedCost,
-              initialValue: widget.maintenanceSchedule?.estimatedCost
-                  ?.toString(),
+              initialValue: _sourceSchedule?.estimatedCost?.toString(),
               type: AppTextFieldType.number,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateEstimatedCost(
@@ -564,10 +568,10 @@ class _MaintenanceScheduleUpsertScreenState
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    // * Use fetched maintenance schedule translations in edit mode
+    // * Use fetched maintenance schedule translations in edit mode, or source in copy
     final maintenanceScheduleData = _isEdit
         ? _fetchedMaintenanceSchedule
-        : widget.maintenanceSchedule;
+        : _sourceSchedule;
     final translation = maintenanceScheduleData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => MaintenanceScheduleTranslation(

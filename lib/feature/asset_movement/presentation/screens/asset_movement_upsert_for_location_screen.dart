@@ -24,7 +24,7 @@ import 'package:sigma_track/feature/user/presentation/providers/user_providers.d
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
-import 'package:sigma_track/shared/presentation/widgets/app_search_field.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
@@ -38,12 +38,14 @@ class AssetMovementUpsertForLocationScreen extends ConsumerStatefulWidget {
   final AssetMovement? assetMovement;
   final String? assetMovementId;
   final Asset? prePopulatedAsset;
+  final AssetMovement? copyFromMovement;
 
   const AssetMovementUpsertForLocationScreen({
     super.key,
     this.assetMovement,
     this.assetMovementId,
     this.prePopulatedAsset,
+    this.copyFromMovement,
   });
 
   @override
@@ -57,33 +59,13 @@ class _AssetMovementUpsertForLocationScreenState
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.assetMovement != null || widget.assetMovementId != null;
+  bool get _isCopyMode => widget.copyFromMovement != null;
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
+  // * Helper to get source movement for initialization (copy or edit)
+  AssetMovement? get _sourceMovement =>
+      widget.copyFromMovement ?? widget.assetMovement;
   AssetMovement? _fetchedAssetMovement;
   bool _isLoadingTranslations = false;
-
-  Future<List<Asset>> _searchAssets(String query) async {
-    final notifier = ref.read(assetsSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(assetsSearchProvider);
-    return state.assets;
-  }
-
-  Future<List<Location>> _searchLocations(String query) async {
-    final notifier = ref.read(locationsSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(locationsSearchProvider);
-    return state.locations;
-  }
-
-  Future<List<User>> _searchUsers(String query) async {
-    final notifier = ref.read(usersSearchProvider.notifier);
-    await notifier.search(query);
-
-    final state = ref.read(usersSearchProvider);
-    return state.users;
-  }
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -303,66 +285,103 @@ class _AssetMovementUpsertForLocationScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
-            AppSearchField<Asset>(
-              name: 'assetId',
-              label: context.l10n.assetMovementAsset,
-              hintText: context.l10n.assetMovementSearchAsset,
-              initialValue: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.id
-                  : widget.assetMovement?.assetId,
-              initialDisplayText: _hasPrePopulatedAsset
-                  ? widget.prePopulatedAsset!.assetTag
-                  : null,
-              enableAutocomplete: true,
-              onSearch: _searchAssets,
-              itemDisplayMapper: (asset) => asset.assetTag,
-              itemValueMapper: (asset) => asset.id,
-              itemSubtitleMapper: (asset) => asset.assetName,
-              itemIcon: Icons.inventory,
-              validator: (value) =>
-                  AssetMovementUpsertForLocationValidator.validateAssetId(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+            Builder(
+              builder: (context) {
+                final assetsState = ref.watch(assetsSearchDropdownProvider);
+                final assetMovementData = widget.assetMovement;
+
+                return AppSearchableDropdown<Asset>(
+                  name: 'assetId',
+                  label: context.l10n.assetMovementAsset,
+                  hintText: context.l10n.assetMovementSearchAsset,
+                  initialValue: _hasPrePopulatedAsset
+                      ? widget.prePopulatedAsset
+                      : assetMovementData?.asset,
+                  items: assetsState.assets,
+                  isLoading: assetsState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(assetsSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (asset) => asset.assetTag,
+                  itemValueMapper: (asset) => asset.id,
+                  itemSubtitleMapper: (asset) => asset.assetName,
+                  itemIconMapper: (asset) => Icons.inventory,
+                  validator: (value) =>
+                      AssetMovementUpsertForLocationValidator.validateAssetId(
+                        context,
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
-            AppSearchField<Location>(
-              name: 'fromLocationId',
-              label: context.l10n.assetMovementFromLocation,
-              hintText: context.l10n.assetMovementSearchFromLocation,
-              initialValue: widget.assetMovement?.fromLocationId,
-              enableAutocomplete: true,
-              onSearch: _searchLocations,
-              itemDisplayMapper: (location) => location.locationName,
-              itemValueMapper: (location) => location.id,
-              itemSubtitleMapper: (location) => location.locationCode,
-              itemIcon: Icons.location_on,
-              validator: (value) =>
-                  AssetMovementUpsertForLocationValidator.validateFromLocationId(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+            Builder(
+              builder: (context) {
+                final locationsState = ref.watch(
+                  locationsSearchDropdownProvider,
+                );
+                final assetMovementData = widget.assetMovement;
+
+                return AppSearchableDropdown<Location>(
+                  name: 'fromLocationId',
+                  label: context.l10n.assetMovementFromLocation,
+                  hintText: context.l10n.assetMovementSearchFromLocation,
+                  initialValue: assetMovementData?.fromLocation,
+                  items: locationsState.locations,
+                  isLoading: locationsState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(locationsSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (location) => location.locationName,
+                  itemValueMapper: (location) => location.id,
+                  itemSubtitleMapper: (location) => location.locationCode,
+                  itemIconMapper: (location) => Icons.location_on,
+                  validator: (value) =>
+                      AssetMovementUpsertForLocationValidator.validateFromLocationId(
+                        context,
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
-            AppSearchField<Location>(
-              name: 'toLocationId',
-              label: context.l10n.assetMovementToLocation,
-              hintText: context.l10n.assetMovementSearchToLocation,
-              initialValue: widget.assetMovement?.toLocationId,
-              enableAutocomplete: true,
-              onSearch: _searchLocations,
-              itemDisplayMapper: (location) => location.locationName,
-              itemValueMapper: (location) => location.id,
-              itemSubtitleMapper: (location) => location.locationCode,
-              itemIcon: Icons.location_on,
-              validator: (value) =>
-                  AssetMovementUpsertForLocationValidator.validateToLocationId(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  ),
+            Builder(
+              builder: (context) {
+                final locationsState = ref.watch(
+                  locationsSearchDropdownProvider,
+                );
+                final assetMovementData = widget.assetMovement;
+
+                return AppSearchableDropdown<Location>(
+                  name: 'toLocationId',
+                  label: context.l10n.assetMovementToLocation,
+                  hintText: context.l10n.assetMovementSearchToLocation,
+                  initialValue: assetMovementData?.toLocation,
+                  items: locationsState.locations,
+                  isLoading: locationsState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(locationsSearchDropdownProvider.notifier)
+                        .search(query);
+                  },
+                  itemDisplayMapper: (location) => location.locationName,
+                  itemValueMapper: (location) => location.id,
+                  itemSubtitleMapper: (location) => location.locationCode,
+                  itemIconMapper: (location) => Icons.location_on,
+                  validator: (value) =>
+                      AssetMovementUpsertForLocationValidator.validateToLocationId(
+                        context,
+                        value,
+                        isUpdate: _isEdit,
+                      ),
+                );
+              },
             ),
             const SizedBox(height: 16),
             // * OLD IMPLEMENTATION: User dropdown for moved by
@@ -389,7 +408,7 @@ class _AssetMovementUpsertForLocationScreenState
             AppDateTimePicker(
               name: 'movementDate',
               label: context.l10n.assetMovementMovementDate,
-              initialValue: widget.assetMovement?.movementDate,
+              initialValue: _sourceMovement?.movementDate,
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateMovementDate(
                     context,
@@ -446,10 +465,8 @@ class _AssetMovementUpsertForLocationScreenState
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    // * Use fetched asset movement translations in edit mode
-    final assetMovementData = _isEdit
-        ? _fetchedAssetMovement
-        : widget.assetMovement;
+    // * Use fetched asset movement translations in edit mode, or source in copy
+    final assetMovementData = _isEdit ? _fetchedAssetMovement : _sourceMovement;
     final translation = assetMovementData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => AssetMovementTranslation(langCode: langCode, notes: ''),

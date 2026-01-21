@@ -35,8 +35,14 @@ import 'package:skeletonizer/skeletonizer.dart';
 class CategoryUpsertScreen extends ConsumerStatefulWidget {
   final Category? category;
   final String? categoryId;
+  final Category? copyFromCategory;
 
-  const CategoryUpsertScreen({super.key, this.category, this.categoryId});
+  const CategoryUpsertScreen({
+    super.key,
+    this.category,
+    this.categoryId,
+    this.copyFromCategory,
+  });
 
   @override
   ConsumerState<CategoryUpsertScreen> createState() =>
@@ -50,6 +56,9 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.category != null || widget.categoryId != null;
+  bool get _isCopyMode => widget.copyFromCategory != null;
+  // * Helper to get source category for initialization (copy or edit)
+  Category? get _sourceCategory => widget.copyFromCategory ?? widget.category;
   Category? _fetchedCategory;
   bool _isLoadingTranslations = false;
   File? _imageFile;
@@ -334,7 +343,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                 );
                 final categoryData = _isEdit
                     ? _fetchedCategory
-                    : widget.category;
+                    : _sourceCategory;
 
                 return AppSearchableDropdown<Category>(
                   name: 'parentId',
@@ -366,9 +375,11 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               name: 'categoryCode',
               label: context.l10n.categoryCategoryCode,
               placeHolder: context.l10n.categoryEnterCategoryCode,
-              initialValue:
-                  (_isEdit ? _fetchedCategory?.categoryCode : null) ??
-                  widget.category?.categoryCode,
+              // * Don't copy category code in copy mode (must be unique)
+              initialValue: _isCopyMode
+                  ? null
+                  : ((_isEdit ? _fetchedCategory?.categoryCode : null) ??
+                        widget.category?.categoryCode),
               validator: (value) =>
                   CategoryUpsertValidator.validateCategoryCode(
                     context,
@@ -468,8 +479,8 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
-    // * Use fetched category translations in edit mode
-    final categoryData = _isEdit ? _fetchedCategory : widget.category;
+    // * Use fetched category translations in edit mode, or source category in copy mode
+    final categoryData = _isEdit ? _fetchedCategory : _sourceCategory;
     final translation = categoryData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => CategoryTranslation(

@@ -815,12 +815,14 @@ class AppRouter {
         final assetMovementId = state.uri.queryParameters['movementId'];
         final extra = state.extra;
         AssetMovement? assetMovement;
+        AssetMovement? copyFromMovement;
         Asset? prePopulatedAsset;
 
         if (extra is AssetMovement) {
           assetMovement = extra;
         } else if (extra is Map<String, dynamic>) {
           assetMovement = extra['assetMovement'] as AssetMovement?;
+          copyFromMovement = extra['copyFromMovement'] as AssetMovement?;
           prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
         }
 
@@ -830,6 +832,7 @@ class AppRouter {
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
             prePopulatedAsset: prePopulatedAsset,
+            copyFromMovement: copyFromMovement,
           ),
         );
       },
@@ -842,12 +845,14 @@ class AppRouter {
         final assetMovementId = state.uri.queryParameters['movementId'];
         final extra = state.extra;
         AssetMovement? assetMovement;
+        AssetMovement? copyFromMovement;
         Asset? prePopulatedAsset;
 
         if (extra is AssetMovement) {
           assetMovement = extra;
         } else if (extra is Map<String, dynamic>) {
           assetMovement = extra['assetMovement'] as AssetMovement?;
+          copyFromMovement = extra['copyFromMovement'] as AssetMovement?;
           prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
         }
 
@@ -857,6 +862,7 @@ class AppRouter {
             assetMovement: assetMovement,
             assetMovementId: assetMovementId,
             prePopulatedAsset: prePopulatedAsset,
+            copyFromMovement: copyFromMovement,
           ),
         );
       },
@@ -867,12 +873,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final categoryId = state.uri.queryParameters['categoryId'];
-        final category = state.extra as Category?;
+        Category? category;
+        Category? copyFromCategory;
+
+        // * Handle both Category and Map<String, dynamic> in extra
+        if (state.extra is Category) {
+          category = state.extra as Category;
+        } else if (state.extra is Map<String, dynamic>) {
+          copyFromCategory =
+              (state.extra as Map<String, dynamic>)['copyFromCategory']
+                  as Category?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: CategoryUpsertScreen(
             category: category,
             categoryId: categoryId,
+            copyFromCategory: copyFromCategory,
           ),
         );
       },
@@ -883,12 +901,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final locationId = state.uri.queryParameters['locationId'];
-        final location = state.extra as Location?;
+        Location? location;
+        Location? copyFromLocation;
+
+        // * Handle both Location and Map<String, dynamic> in extra
+        if (state.extra is Location) {
+          location = state.extra as Location;
+        } else if (state.extra is Map<String, dynamic>) {
+          copyFromLocation =
+              (state.extra as Map<String, dynamic>)['copyFromLocation']
+                  as Location?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
           child: LocationUpsertScreen(
             location: location,
             locationId: locationId,
+            copyFromLocation: copyFromLocation,
           ),
         );
       },
@@ -899,10 +929,24 @@ class AppRouter {
       parentNavigatorKey: _rootNavigatorKey,
       pageBuilder: (context, state) {
         final userId = state.uri.queryParameters['userId'];
-        final user = state.extra as User?;
+        User? user;
+        User? copyFromUser;
+
+        // * Handle both User and Map<String, dynamic> in extra
+        if (state.extra is User) {
+          user = state.extra as User;
+        } else if (state.extra is Map<String, dynamic>) {
+          copyFromUser =
+              (state.extra as Map<String, dynamic>)['copyFromUser'] as User?;
+        }
+
         return _slideFromBottom(
           key: state.pageKey,
-          child: UserUpsertScreen(user: user, userId: userId),
+          child: UserUpsertScreen(
+            user: user,
+            userId: userId,
+            copyFromUser: copyFromUser,
+          ),
         );
       },
     ),
@@ -914,6 +958,7 @@ class AppRouter {
         final maintenanceId = state.uri.queryParameters['maintenanceId'];
         final extra = state.extra;
         MaintenanceSchedule? maintenanceSchedule;
+        MaintenanceSchedule? copyFromSchedule;
         Asset? prePopulatedAsset;
 
         if (extra is MaintenanceSchedule) {
@@ -921,6 +966,7 @@ class AppRouter {
         } else if (extra is Map<String, dynamic>) {
           maintenanceSchedule =
               extra['maintenanceSchedule'] as MaintenanceSchedule?;
+          copyFromSchedule = extra['copyFromSchedule'] as MaintenanceSchedule?;
           prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
         }
 
@@ -930,6 +976,7 @@ class AppRouter {
             maintenanceSchedule: maintenanceSchedule,
             maintenanceId: maintenanceId,
             prePopulatedAsset: prePopulatedAsset,
+            copyFromSchedule: copyFromSchedule,
           ),
         );
       },
@@ -943,12 +990,14 @@ class AppRouter {
             state.uri.queryParameters['maintenanceRecordId'];
         final extra = state.extra;
         MaintenanceRecord? maintenanceRecord;
+        MaintenanceRecord? copyFromRecord;
         Asset? prePopulatedAsset;
 
         if (extra is MaintenanceRecord) {
           maintenanceRecord = extra;
         } else if (extra is Map<String, dynamic>) {
           maintenanceRecord = extra['maintenanceRecord'] as MaintenanceRecord?;
+          copyFromRecord = extra['copyFromRecord'] as MaintenanceRecord?;
           prePopulatedAsset = extra['prePopulatedAsset'] as Asset?;
         }
 
@@ -958,6 +1007,7 @@ class AppRouter {
             maintenanceRecord: maintenanceRecord,
             maintenanceRecordId: maintenanceRecordId,
             prePopulatedAsset: prePopulatedAsset,
+            copyFromRecord: copyFromRecord,
           ),
         );
       },
