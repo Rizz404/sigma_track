@@ -106,6 +106,18 @@
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "maintenanceScheduleOnlyAdminCanCopy": "Hanya admin yang dapat menyalin jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceScheduleCopyFromThis": "Salin dari jadwal ini",
+  "@maintenanceScheduleCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceScheduleCreateNewBasedOnThis": "Buat jadwal baru berdasarkan ini",
+  "@maintenanceScheduleCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceScheduleFailedToLoad": "Gagal memuat jadwal pemeliharaan",
   "@maintenanceScheduleFailedToLoad": {
     "description": "Error message when schedule fails to load"
@@ -435,6 +447,18 @@
         "example": "1500.00"
       }
     }
+  },
+  "maintenanceRecordOnlyAdminCanCopy": "Hanya admin yang dapat menyalin catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceRecordCopyFromThis": "Salin dari catatan ini",
+  "@maintenanceRecordCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceRecordCreateNewBasedOnThis": "Buat catatan baru berdasarkan ini",
+  "@maintenanceRecordCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "maintenanceRecordUnknownAsset": "Aset Tidak Diketahui",
   "@maintenanceRecordUnknownAsset": {

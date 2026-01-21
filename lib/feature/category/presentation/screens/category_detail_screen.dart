@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -96,6 +97,20 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
       await ref
           .read(categoriesProvider.notifier)
           .deleteCategory(DeleteCategoryUsecaseParams(id: category.id));
+    }
+  }
+
+  void _handleCopy(Category category) {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (isAdmin) {
+      context.push(
+        RouteConstant.adminCategoryUpsert,
+        extra: {'copyFromCategory': category},
+      );
+    } else {
+      AppToast.warning(context.l10n.categoryOnlyAdminCanCopy);
     }
   }
 
@@ -257,11 +272,65 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
               _buildInfoRow('Parent Category', category.parent!.categoryName),
           ]),
           const SizedBox(height: 16),
+          // * Copy button (admin only)
+          _buildCopyButton(category),
+          const SizedBox(height: 16),
           _buildInfoCard('Metadata', [
             _buildInfoRow('Created At', _formatDateTime(category.createdAt)),
             _buildInfoRow('Updated At', _formatDateTime(category.updatedAt)),
           ]),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCopyButton(Category category) {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (!isAdmin) return const SizedBox.shrink();
+
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: InkWell(
+        onTap: () => _handleCopy(category),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(Icons.content_copy, color: context.colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      context.l10n.categoryCopyFromThisCategory,
+                      style: AppTextStyle.bodyMedium,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    AppText(
+                      context.l10n.categoryCreateNewBasedOnThis,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: context.colors.textSecondary,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

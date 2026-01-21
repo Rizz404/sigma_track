@@ -44,6 +44,18 @@
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
   },
+  "userOnlyAdminCanCopy": "Only admin can copy users",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "Copy from this user",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "Create new user based on this one",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "userActiveStatus": "Active Status",
   "@userActiveStatus": {
     "description": "Active status label"

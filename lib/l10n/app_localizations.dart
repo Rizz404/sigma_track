@@ -2625,6 +2625,24 @@ abstract class L10n {
   /// **'Only admin can delete categories'**
   String get categoryOnlyAdminCanDelete;
 
+  /// Error message for non-admin trying to copy
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can copy categories'**
+  String get categoryOnlyAdminCanCopy;
+
+  /// Copy button title
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from this category'**
+  String get categoryCopyFromThisCategory;
+
+  /// Copy button subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Create new category based on this one'**
+  String get categoryCreateNewBasedOnThis;
+
   /// Delete category dialog title
   ///
   /// In en, this message translates to:
@@ -3861,6 +3879,24 @@ abstract class L10n {
   /// **'Only admin can delete locations'**
   String get locationOnlyAdminCanDelete;
 
+  /// Error message for non-admin trying to copy
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can copy locations'**
+  String get locationOnlyAdminCanCopy;
+
+  /// Copy button title
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from this location'**
+  String get locationCopyFromThisLocation;
+
+  /// Copy button subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Create new location based on this one'**
+  String get locationCreateNewBasedOnThis;
+
   /// Error message when location fails to load
   ///
   /// In en, this message translates to:
@@ -4497,6 +4533,24 @@ abstract class L10n {
   /// **'Only admin can delete maintenance schedules'**
   String get maintenanceScheduleOnlyAdminCanDelete;
 
+  /// Error message for non-admin trying to copy
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can copy maintenance schedules'**
+  String get maintenanceScheduleOnlyAdminCanCopy;
+
+  /// Copy button title
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from this schedule'**
+  String get maintenanceScheduleCopyFromThis;
+
+  /// Copy button subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Create new schedule based on this one'**
+  String get maintenanceScheduleCreateNewBasedOnThis;
+
   /// Error message when schedule fails to load
   ///
   /// In en, this message translates to:
@@ -4928,6 +4982,24 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'\${cost}'**
   String maintenanceRecordActualCostValue(String cost);
+
+  /// Error message for non-admin trying to copy
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can copy maintenance records'**
+  String get maintenanceRecordOnlyAdminCanCopy;
+
+  /// Copy button title
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from this record'**
+  String get maintenanceRecordCopyFromThis;
+
+  /// Copy button subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Create new record based on this one'**
+  String get maintenanceRecordCreateNewBasedOnThis;
 
   /// Unknown asset text
   ///
@@ -5984,6 +6056,24 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Enter employee ID...'**
   String get userEnterEmployeeId;
+
+  /// Error message for non-admin trying to copy
+  ///
+  /// In en, this message translates to:
+  /// **'Only admin can copy users'**
+  String get userOnlyAdminCanCopy;
+
+  /// Copy button title
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from this user'**
+  String get userCopyFromThisUser;
+
+  /// Copy button subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Create new user based on this one'**
+  String get userCreateNewBasedOnThis;
 
   /// Active status label
   ///

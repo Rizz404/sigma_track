@@ -1822,6 +1822,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "Hanya admin yang dapat menyalin kategori",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "Salin dari kategori ini",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "Buat kategori baru berdasarkan ini",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "Hapus Kategori",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"
@@ -2706,6 +2718,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "Hanya admin yang dapat menyalin lokasi",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "Salin dari lokasi ini",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "Buat lokasi baru berdasarkan ini",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "Gagal memuat lokasi",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"
@@ -3154,6 +3178,18 @@
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "maintenanceScheduleOnlyAdminCanCopy": "Hanya admin yang dapat menyalin jadwal pemeliharaan",
+  "@maintenanceScheduleOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceScheduleCopyFromThis": "Salin dari jadwal ini",
+  "@maintenanceScheduleCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceScheduleCreateNewBasedOnThis": "Buat jadwal baru berdasarkan ini",
+  "@maintenanceScheduleCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceScheduleFailedToLoad": "Gagal memuat jadwal pemeliharaan",
   "@maintenanceScheduleFailedToLoad": {
     "description": "Error message when schedule fails to load"
@@ -3483,6 +3519,18 @@
         "example": "1500.00"
       }
     }
+  },
+  "maintenanceRecordOnlyAdminCanCopy": "Hanya admin yang dapat menyalin catatan pemeliharaan",
+  "@maintenanceRecordOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceRecordCopyFromThis": "Salin dari catatan ini",
+  "@maintenanceRecordCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceRecordCreateNewBasedOnThis": "Buat catatan baru berdasarkan ini",
+  "@maintenanceRecordCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "maintenanceRecordUnknownAsset": "Aset Tidak Diketahui",
   "@maintenanceRecordUnknownAsset": {
@@ -4265,6 +4313,18 @@
   "userEnterEmployeeId": "Masukkan ID karyawan...",
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
+  },
+  "userOnlyAdminCanCopy": "Hanya admin yang dapat menyalin pengguna",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "Salin dari pengguna ini",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "Buat pengguna baru berdasarkan ini",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "userActiveStatus": "Status Aktif",
   "@userActiveStatus": {

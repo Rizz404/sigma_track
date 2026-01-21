@@ -88,6 +88,20 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     }
   }
 
+  void _handleCopy(User user) {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (isAdmin) {
+      context.push(
+        RouteConstant.adminUserUpsert,
+        extra: {'copyFromUser': user},
+      );
+    } else {
+      AppToast.warning(context.l10n.userOnlyAdminCanCopy);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // * Determine user source: extra > fetch by id
@@ -264,6 +278,9 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             ),
           ]),
           const SizedBox(height: 16),
+          // * Copy button (admin only)
+          _buildCopyButton(user),
+          const SizedBox(height: 16),
           _buildInfoCard(context.l10n.userMetadata, [
             _buildInfoRow(
               context.l10n.userCreatedAt,
@@ -275,6 +292,57 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             ),
           ]),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCopyButton(User user) {
+    final authState = ref.read(authNotifierProvider).valueOrNull;
+    final isAdmin = authState?.user?.role == UserRole.admin;
+
+    if (!isAdmin) return const SizedBox.shrink();
+
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: InkWell(
+        onTap: () => _handleCopy(user),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(Icons.content_copy, color: context.colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      context.l10n.userCopyFromThisUser,
+                      style: AppTextStyle.bodyMedium,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    AppText(
+                      context.l10n.userCreateNewBasedOnThis,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: context.colors.textSecondary,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

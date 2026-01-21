@@ -44,6 +44,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "Hanya admin yang dapat menyalin kategori",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "Salin dari kategori ini",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "Buat kategori baru berdasarkan ini",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "Hapus Kategori",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"

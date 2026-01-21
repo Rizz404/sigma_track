@@ -74,6 +74,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "管理者のみがロケーションをコピーできます",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "このロケーションからコピー",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "これをもとに新しいロケーションを作成",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "場所の読み込みに失敗しました",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"

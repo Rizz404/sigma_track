@@ -1376,6 +1376,16 @@ class L10nEn extends L10n {
   String get categoryOnlyAdminCanDelete => 'Only admin can delete categories';
 
   @override
+  String get categoryOnlyAdminCanCopy => 'Only admin can copy categories';
+
+  @override
+  String get categoryCopyFromThisCategory => 'Copy from this category';
+
+  @override
+  String get categoryCreateNewBasedOnThis =>
+      'Create new category based on this one';
+
+  @override
   String get categoryDeleteCategory => 'Delete Category';
 
   @override
@@ -2041,6 +2051,16 @@ class L10nEn extends L10n {
   String get locationOnlyAdminCanDelete => 'Only admin can delete locations';
 
   @override
+  String get locationOnlyAdminCanCopy => 'Only admin can copy locations';
+
+  @override
+  String get locationCopyFromThisLocation => 'Copy from this location';
+
+  @override
+  String get locationCreateNewBasedOnThis =>
+      'Create new location based on this one';
+
+  @override
   String get locationFailedToLoad => 'Failed to load location';
 
   @override
@@ -2388,6 +2408,17 @@ class L10nEn extends L10n {
       'Only admin can delete maintenance schedules';
 
   @override
+  String get maintenanceScheduleOnlyAdminCanCopy =>
+      'Only admin can copy maintenance schedules';
+
+  @override
+  String get maintenanceScheduleCopyFromThis => 'Copy from this schedule';
+
+  @override
+  String get maintenanceScheduleCreateNewBasedOnThis =>
+      'Create new schedule based on this one';
+
+  @override
   String get maintenanceScheduleFailedToLoad =>
       'Failed to load maintenance schedule';
 
@@ -2630,6 +2661,17 @@ class L10nEn extends L10n {
   String maintenanceRecordActualCostValue(String cost) {
     return '\$$cost';
   }
+
+  @override
+  String get maintenanceRecordOnlyAdminCanCopy =>
+      'Only admin can copy maintenance records';
+
+  @override
+  String get maintenanceRecordCopyFromThis => 'Copy from this record';
+
+  @override
+  String get maintenanceRecordCreateNewBasedOnThis =>
+      'Create new record based on this one';
 
   @override
   String get maintenanceRecordUnknownAsset => 'Unknown Asset';
@@ -3208,6 +3250,15 @@ class L10nEn extends L10n {
 
   @override
   String get userEnterEmployeeId => 'Enter employee ID...';
+
+  @override
+  String get userOnlyAdminCanCopy => 'Only admin can copy users';
+
+  @override
+  String get userCopyFromThisUser => 'Copy from this user';
+
+  @override
+  String get userCreateNewBasedOnThis => 'Create new user based on this one';
 
   @override
   String get userActiveStatus => 'Active Status';

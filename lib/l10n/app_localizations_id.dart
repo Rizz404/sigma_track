@@ -1382,6 +1382,17 @@ class L10nId extends L10n {
       'Hanya admin yang dapat menghapus kategori';
 
   @override
+  String get categoryOnlyAdminCanCopy =>
+      'Hanya admin yang dapat menyalin kategori';
+
+  @override
+  String get categoryCopyFromThisCategory => 'Salin dari kategori ini';
+
+  @override
+  String get categoryCreateNewBasedOnThis =>
+      'Buat kategori baru berdasarkan ini';
+
+  @override
   String get categoryDeleteCategory => 'Hapus Kategori';
 
   @override
@@ -2059,6 +2070,16 @@ class L10nId extends L10n {
       'Hanya admin yang dapat menghapus lokasi';
 
   @override
+  String get locationOnlyAdminCanCopy =>
+      'Hanya admin yang dapat menyalin lokasi';
+
+  @override
+  String get locationCopyFromThisLocation => 'Salin dari lokasi ini';
+
+  @override
+  String get locationCreateNewBasedOnThis => 'Buat lokasi baru berdasarkan ini';
+
+  @override
   String get locationFailedToLoad => 'Gagal memuat lokasi';
 
   @override
@@ -2407,6 +2428,17 @@ class L10nId extends L10n {
       'Hanya admin yang dapat menghapus jadwal pemeliharaan';
 
   @override
+  String get maintenanceScheduleOnlyAdminCanCopy =>
+      'Hanya admin yang dapat menyalin jadwal pemeliharaan';
+
+  @override
+  String get maintenanceScheduleCopyFromThis => 'Salin dari jadwal ini';
+
+  @override
+  String get maintenanceScheduleCreateNewBasedOnThis =>
+      'Buat jadwal baru berdasarkan ini';
+
+  @override
   String get maintenanceScheduleFailedToLoad =>
       'Gagal memuat jadwal pemeliharaan';
 
@@ -2651,6 +2683,17 @@ class L10nId extends L10n {
   String maintenanceRecordActualCostValue(String cost) {
     return '\$$cost';
   }
+
+  @override
+  String get maintenanceRecordOnlyAdminCanCopy =>
+      'Hanya admin yang dapat menyalin catatan pemeliharaan';
+
+  @override
+  String get maintenanceRecordCopyFromThis => 'Salin dari catatan ini';
+
+  @override
+  String get maintenanceRecordCreateNewBasedOnThis =>
+      'Buat catatan baru berdasarkan ini';
 
   @override
   String get maintenanceRecordUnknownAsset => 'Aset Tidak Diketahui';
@@ -3242,6 +3285,15 @@ class L10nId extends L10n {
 
   @override
   String get userEnterEmployeeId => 'Masukkan ID karyawan...';
+
+  @override
+  String get userOnlyAdminCanCopy => 'Hanya admin yang dapat menyalin pengguna';
+
+  @override
+  String get userCopyFromThisUser => 'Salin dari pengguna ini';
+
+  @override
+  String get userCreateNewBasedOnThis => 'Buat pengguna baru berdasarkan ini';
 
   @override
   String get userActiveStatus => 'Status Aktif';

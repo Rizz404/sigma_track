@@ -106,6 +106,18 @@
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "maintenanceScheduleOnlyAdminCanCopy": "Only admin can copy maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceScheduleCopyFromThis": "Copy from this schedule",
+  "@maintenanceScheduleCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceScheduleCreateNewBasedOnThis": "Create new schedule based on this one",
+  "@maintenanceScheduleCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceScheduleFailedToLoad": "Failed to load maintenance schedule",
   "@maintenanceScheduleFailedToLoad": {
     "description": "Error message when schedule fails to load"
@@ -435,6 +447,18 @@
         "example": "1500.00"
       }
     }
+  },
+  "maintenanceRecordOnlyAdminCanCopy": "Only admin can copy maintenance records",
+  "@maintenanceRecordOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceRecordCopyFromThis": "Copy from this record",
+  "@maintenanceRecordCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceRecordCreateNewBasedOnThis": "Create new record based on this one",
+  "@maintenanceRecordCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "maintenanceRecordUnknownAsset": "Unknown Asset",
   "@maintenanceRecordUnknownAsset": {

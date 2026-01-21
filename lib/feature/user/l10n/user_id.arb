@@ -44,6 +44,18 @@
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
   },
+  "userOnlyAdminCanCopy": "Hanya admin yang dapat menyalin pengguna",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "Salin dari pengguna ini",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "Buat pengguna baru berdasarkan ini",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "userActiveStatus": "Status Aktif",
   "@userActiveStatus": {
     "description": "Active status label"

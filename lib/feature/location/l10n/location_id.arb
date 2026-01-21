@@ -74,6 +74,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "Hanya admin yang dapat menyalin lokasi",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "Salin dari lokasi ini",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "Buat lokasi baru berdasarkan ini",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "Gagal memuat lokasi",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"

@@ -44,6 +44,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "Only admin can copy categories",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "Copy from this category",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "Create new category based on this one",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "Delete Category",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"

@@ -1822,6 +1822,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "Only admin can copy categories",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "Copy from this category",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "Create new category based on this one",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "Delete Category",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"
@@ -2706,6 +2718,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "Only admin can copy locations",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "Copy from this location",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "Create new location based on this one",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "Failed to load location",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"
@@ -3154,6 +3178,18 @@
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "maintenanceScheduleOnlyAdminCanCopy": "Only admin can copy maintenance schedules",
+  "@maintenanceScheduleOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceScheduleCopyFromThis": "Copy from this schedule",
+  "@maintenanceScheduleCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceScheduleCreateNewBasedOnThis": "Create new schedule based on this one",
+  "@maintenanceScheduleCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceScheduleFailedToLoad": "Failed to load maintenance schedule",
   "@maintenanceScheduleFailedToLoad": {
     "description": "Error message when schedule fails to load"
@@ -3483,6 +3519,18 @@
         "example": "1500.00"
       }
     }
+  },
+  "maintenanceRecordOnlyAdminCanCopy": "Only admin can copy maintenance records",
+  "@maintenanceRecordOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceRecordCopyFromThis": "Copy from this record",
+  "@maintenanceRecordCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceRecordCreateNewBasedOnThis": "Create new record based on this one",
+  "@maintenanceRecordCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "maintenanceRecordUnknownAsset": "Unknown Asset",
   "@maintenanceRecordUnknownAsset": {
@@ -4265,6 +4313,18 @@
   "userEnterEmployeeId": "Enter employee ID...",
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
+  },
+  "userOnlyAdminCanCopy": "Only admin can copy users",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "Copy from this user",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "Create new user based on this one",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "userActiveStatus": "Active Status",
   "@userActiveStatus": {

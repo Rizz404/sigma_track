@@ -44,6 +44,18 @@
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
   },
+  "userOnlyAdminCanCopy": "管理者のみがユーザーをコピーできます",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "このユーザーからコピー",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "これをもとに新しいユーザーを作成",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "userActiveStatus": "アクティブステータス",
   "@userActiveStatus": {
     "description": "Active status label"

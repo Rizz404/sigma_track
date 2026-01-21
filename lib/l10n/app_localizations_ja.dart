@@ -1323,6 +1323,15 @@ class L10nJa extends L10n {
   String get categoryOnlyAdminCanDelete => 'カテゴリを削除できるのは管理者のみです';
 
   @override
+  String get categoryOnlyAdminCanCopy => '管理者のみがカテゴリをコピーできます';
+
+  @override
+  String get categoryCopyFromThisCategory => 'このカテゴリからコピー';
+
+  @override
+  String get categoryCreateNewBasedOnThis => 'これをもとに新しいカテゴリを作成';
+
+  @override
   String get categoryDeleteCategory => 'カテゴリを削除';
 
   @override
@@ -1965,6 +1974,15 @@ class L10nJa extends L10n {
   String get locationOnlyAdminCanDelete => '場所を削除できるのは管理者のみです';
 
   @override
+  String get locationOnlyAdminCanCopy => '管理者のみがロケーションをコピーできます';
+
+  @override
+  String get locationCopyFromThisLocation => 'このロケーションからコピー';
+
+  @override
+  String get locationCreateNewBasedOnThis => 'これをもとに新しいロケーションを作成';
+
+  @override
   String get locationFailedToLoad => '場所の読み込みに失敗しました';
 
   @override
@@ -2294,6 +2312,16 @@ class L10nJa extends L10n {
       '管理者のみがメンテナンススケジュールを削除できます';
 
   @override
+  String get maintenanceScheduleOnlyAdminCanCopy =>
+      '管理者のみがメンテナンススケジュールをコピーできます';
+
+  @override
+  String get maintenanceScheduleCopyFromThis => 'このスケジュールからコピー';
+
+  @override
+  String get maintenanceScheduleCreateNewBasedOnThis => 'これをもとに新しいスケジュールを作成';
+
+  @override
   String get maintenanceScheduleFailedToLoad => 'メンテナンススケジュールの読み込みに失敗しました';
 
   @override
@@ -2522,6 +2550,15 @@ class L10nJa extends L10n {
   String maintenanceRecordActualCostValue(String cost) {
     return '$cost';
   }
+
+  @override
+  String get maintenanceRecordOnlyAdminCanCopy => '管理者のみがメンテナンス記録をコピーできます';
+
+  @override
+  String get maintenanceRecordCopyFromThis => 'この記録からコピー';
+
+  @override
+  String get maintenanceRecordCreateNewBasedOnThis => 'これをもとに新しい記録を作成';
 
   @override
   String get maintenanceRecordUnknownAsset => '不明な資産';
@@ -3076,6 +3113,15 @@ class L10nJa extends L10n {
 
   @override
   String get userEnterEmployeeId => '従業員IDを入力...';
+
+  @override
+  String get userOnlyAdminCanCopy => '管理者のみがユーザーをコピーできます';
+
+  @override
+  String get userCopyFromThisUser => 'このユーザーからコピー';
+
+  @override
+  String get userCreateNewBasedOnThis => 'これをもとに新しいユーザーを作成';
 
   @override
   String get userActiveStatus => 'アクティブステータス';

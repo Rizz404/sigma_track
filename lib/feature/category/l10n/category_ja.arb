@@ -44,6 +44,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "管理者のみがカテゴリをコピーできます",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "このカテゴリからコピー",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "これをもとに新しいカテゴリを作成",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "カテゴリを削除",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"

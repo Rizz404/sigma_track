@@ -74,6 +74,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "Only admin can copy locations",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "Copy from this location",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "Create new location based on this one",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "Failed to load location",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"

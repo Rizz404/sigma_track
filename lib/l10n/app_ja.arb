@@ -1822,6 +1822,18 @@
   "@categoryOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "categoryOnlyAdminCanCopy": "管理者のみがカテゴリをコピーできます",
+  "@categoryOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "categoryCopyFromThisCategory": "このカテゴリからコピー",
+  "@categoryCopyFromThisCategory": {
+    "description": "Copy button title"
+  },
+  "categoryCreateNewBasedOnThis": "これをもとに新しいカテゴリを作成",
+  "@categoryCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "categoryDeleteCategory": "カテゴリを削除",
   "@categoryDeleteCategory": {
     "description": "Delete category dialog title"
@@ -2706,6 +2718,18 @@
   "@locationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
+  "locationOnlyAdminCanCopy": "管理者のみがロケーションをコピーできます",
+  "@locationOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "locationCopyFromThisLocation": "このロケーションからコピー",
+  "@locationCopyFromThisLocation": {
+    "description": "Copy button title"
+  },
+  "locationCreateNewBasedOnThis": "これをもとに新しいロケーションを作成",
+  "@locationCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "locationFailedToLoad": "場所の読み込みに失敗しました",
   "@locationFailedToLoad": {
     "description": "Error message when location fails to load"
@@ -3073,6 +3097,18 @@
   "maintenanceScheduleUnknownUser": "不明なユーザー",
   "maintenanceScheduleOnlyAdminCanEdit": "管理者のみがメンテナンススケジュールを編集できます",
   "maintenanceScheduleOnlyAdminCanDelete": "管理者のみがメンテナンススケジュールを削除できます",
+  "maintenanceScheduleOnlyAdminCanCopy": "管理者のみがメンテナンススケジュールをコピーできます",
+  "@maintenanceScheduleOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceScheduleCopyFromThis": "このスケジュールからコピー",
+  "@maintenanceScheduleCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceScheduleCreateNewBasedOnThis": "これをもとに新しいスケジュールを作成",
+  "@maintenanceScheduleCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceScheduleFailedToLoad": "メンテナンススケジュールの読み込みに失敗しました",
   "maintenanceScheduleEditSchedule": "メンテナンススケジュールの編集",
   "maintenanceScheduleCreateSchedule": "メンテナンススケジュールの作成",
@@ -3148,6 +3184,18 @@
   "maintenanceRecordUnknownAsset": "不明な資産",
   "maintenanceRecordOnlyAdminCanEdit": "管理者のみがメンテナンス記録を編集できます",
   "maintenanceRecordOnlyAdminCanDelete": "管理者のみがメンテナンス記録を削除できます",
+  "maintenanceRecordOnlyAdminCanCopy": "管理者のみがメンテナンス記録をコピーできます",
+  "@maintenanceRecordOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "maintenanceRecordCopyFromThis": "この記録からコピー",
+  "@maintenanceRecordCopyFromThis": {
+    "description": "Copy button title"
+  },
+  "maintenanceRecordCreateNewBasedOnThis": "これをもとに新しい記録を作成",
+  "@maintenanceRecordCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
+  },
   "maintenanceRecordFailedToLoad": "メンテナンス記録の読み込みに失敗しました",
   "maintenanceRecordEditRecord": "メンテナンス記録の編集",
   "maintenanceRecordCreateRecord": "メンテナンス記録の作成",
@@ -3728,6 +3776,18 @@
   "userEnterEmployeeId": "従業員IDを入力...",
   "@userEnterEmployeeId": {
     "description": "Employee ID input placeholder"
+  },
+  "userOnlyAdminCanCopy": "管理者のみがユーザーをコピーできます",
+  "@userOnlyAdminCanCopy": {
+    "description": "Error message for non-admin trying to copy"
+  },
+  "userCopyFromThisUser": "このユーザーからコピー",
+  "@userCopyFromThisUser": {
+    "description": "Copy button title"
+  },
+  "userCreateNewBasedOnThis": "これをもとに新しいユーザーを作成",
+  "@userCreateNewBasedOnThis": {
+    "description": "Copy button subtitle"
   },
   "userActiveStatus": "アクティブステータス",
   "@userActiveStatus": {
