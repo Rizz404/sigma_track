@@ -33,7 +33,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class MaintenanceScheduleUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceSchedule? maintenanceSchedule;
@@ -56,7 +55,7 @@ class MaintenanceScheduleUpsertScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceScheduleUpsertScreenState
     extends ConsumerState<MaintenanceScheduleUpsertScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceSchedule != null || widget.maintenanceId != null;
@@ -65,8 +64,6 @@ class _MaintenanceScheduleUpsertScreenState
   // * Helper to get source schedule for initialization (copy or edit)
   MaintenanceSchedule? get _sourceSchedule =>
       widget.copyFromSchedule ?? widget.maintenanceSchedule;
-  MaintenanceSchedule? _fetchedMaintenanceSchedule;
-  bool _isLoadingTranslations = false;
 
   TimeOfDay? _parseTimeOfDay(String? timeString) {
     if (timeString == null || timeString.isEmpty) return null;
@@ -147,11 +144,10 @@ class _MaintenanceScheduleUpsertScreenState
     }
 
     if (_isEdit) {
-      final maintenanceScheduleId =
-          _fetchedMaintenanceSchedule?.id ?? widget.maintenanceSchedule!.id;
+      final maintenanceScheduleId = widget.maintenanceSchedule!.id;
       final params = UpdateMaintenanceScheduleUsecaseParams.fromChanges(
         id: maintenanceScheduleId,
-        original: _fetchedMaintenanceSchedule ?? widget.maintenanceSchedule!,
+        original: widget.maintenanceSchedule!,
         maintenanceType: maintenanceType != null
             ? MaintenanceScheduleType.values.firstWhere(
                 (e) => e.value == maintenanceType,
@@ -210,50 +206,6 @@ class _MaintenanceScheduleUpsertScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Auto load translations in edit mode
-    if (_isEdit && widget.maintenanceSchedule?.id != null) {
-      final maintenanceScheduleDetailState = ref.watch(
-        getMaintenanceScheduleByIdProvider(widget.maintenanceSchedule!.id),
-      );
-
-      // ? Update fetched maintenanceSchedule when data changes
-      if (maintenanceScheduleDetailState.isLoading) {
-        if (!_isLoadingTranslations) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() => _isLoadingTranslations = true);
-            }
-          });
-        }
-      } else if (maintenanceScheduleDetailState.maintenanceSchedule != null) {
-        if (_fetchedMaintenanceSchedule?.id !=
-            maintenanceScheduleDetailState.maintenanceSchedule!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedMaintenanceSchedule =
-                    maintenanceScheduleDetailState.maintenanceSchedule;
-                _isLoadingTranslations = false;
-                // * Don't recreate form key - it will lose user input & file picker data!
-                // * Form will update automatically via initialValue in widgets
-              });
-            }
-          });
-        }
-      } else if (maintenanceScheduleDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              maintenanceScheduleDetailState.failure?.message ??
-                  context.l10n.maintenanceScheduleFailedToLoadTranslations,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<MaintenanceSchedulesState>(maintenanceSchedulesProvider, (
       previous,
@@ -526,42 +478,39 @@ class _MaintenanceScheduleUpsertScreenState
   }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.maintenanceScheduleTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields(
-                'en-US',
-                context.l10n.maintenanceScheduleEnglish,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'ja-JP',
-                context.l10n.maintenanceScheduleJapanese,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'id-ID',
-                context.l10n.maintenanceScheduleIndonesian,
-              ),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.maintenanceScheduleTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields(
+              'en-US',
+              context.l10n.maintenanceScheduleEnglish,
+            ),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'ja-JP',
+              context.l10n.maintenanceScheduleJapanese,
+            ),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'id-ID',
+              context.l10n.maintenanceScheduleIndonesian,
+            ),
+          ],
         ),
       ),
     );
@@ -569,9 +518,7 @@ class _MaintenanceScheduleUpsertScreenState
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched maintenance schedule translations in edit mode, or source in copy
-    final maintenanceScheduleData = _isEdit
-        ? _fetchedMaintenanceSchedule
-        : _sourceSchedule;
+    final maintenanceScheduleData = _sourceSchedule;
     final translation = maintenanceScheduleData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => MaintenanceScheduleTranslation(

@@ -30,7 +30,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class IssueReportUpsertScreen extends ConsumerStatefulWidget {
   final IssueReport? issueReport;
@@ -51,13 +50,11 @@ class IssueReportUpsertScreen extends ConsumerStatefulWidget {
 
 class _IssueReportUpsertScreenState
     extends ConsumerState<IssueReportUpsertScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.issueReport != null || widget.issueReportId != null;
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
-  IssueReport? _fetchedIssueReport;
-  bool _isLoadingTranslations = false;
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -109,13 +106,13 @@ class _IssueReportUpsertScreenState
     );
 
     if (_isEdit) {
-      final issueReportId = _fetchedIssueReport?.id ?? widget.issueReport!.id;
+      final issueReportId = widget.issueReport!.id;
       final status = IssueStatus.values.firstWhere(
         (e) => e.value == formData['status'],
       );
       final params = UpdateIssueReportUsecaseParams.fromChanges(
         id: issueReportId,
-        original: _fetchedIssueReport ?? widget.issueReport!,
+        original: widget.issueReport!,
         priority: priority,
         status: status,
         resolvedBy: formData['resolvedBy'] as String?,
@@ -142,48 +139,6 @@ class _IssueReportUpsertScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Auto load translations in edit mode
-    if (_isEdit && widget.issueReport?.id != null) {
-      final issueReportDetailState = ref.watch(
-        getIssueReportByIdProvider(widget.issueReport!.id),
-      );
-
-      // ? Update fetched issueReport when data changes
-      if (issueReportDetailState.isLoading) {
-        if (!_isLoadingTranslations) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() => _isLoadingTranslations = true);
-            }
-          });
-        }
-      } else if (issueReportDetailState.issueReport != null) {
-        if (_fetchedIssueReport?.id != issueReportDetailState.issueReport!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedIssueReport = issueReportDetailState.issueReport;
-                _isLoadingTranslations = false;
-                // * Don't recreate form key - it will lose user input & file picker data!
-                // * Form will update automatically via initialValue in widgets
-              });
-            }
-          });
-        }
-      } else if (issueReportDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              issueReportDetailState.failure?.message ??
-                  context.l10n.issueReportFailedToLoadTranslations,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<IssueReportsState>(issueReportsProvider, (previous, next) {
       // * Handle loading state
@@ -283,9 +238,7 @@ class _IssueReportUpsertScreenState
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
-                final issueReportData = _isEdit
-                    ? _fetchedIssueReport
-                    : widget.issueReport;
+                final issueReportData = widget.issueReport;
 
                 return AppSearchableDropdown<Asset>(
                   name: 'assetId',
@@ -342,9 +295,7 @@ class _IssueReportUpsertScreenState
               name: 'issueType',
               label: context.l10n.issueReportIssueType,
               placeHolder: context.l10n.issueReportEnterIssueType,
-              initialValue:
-                  (_isEdit ? _fetchedIssueReport?.issueType : null) ??
-                  widget.issueReport?.issueType,
+              initialValue: widget.issueReport?.issueType,
               validator: (value) =>
                   IssueReportUpsertValidator.validateIssueType(
                     value,
@@ -366,9 +317,7 @@ class _IssueReportUpsertScreenState
                     ),
                   )
                   .toList(),
-              initialValue:
-                  (_isEdit ? _fetchedIssueReport?.priority.value : null) ??
-                  widget.issueReport?.priority.value,
+              initialValue: widget.issueReport?.priority.value,
               validator: (value) => IssueReportUpsertValidator.validatePriority(
                 value,
                 context: context,
@@ -390,9 +339,7 @@ class _IssueReportUpsertScreenState
                       ),
                     )
                     .toList(),
-                initialValue:
-                    _fetchedIssueReport?.status.value ??
-                    widget.issueReport?.status.value,
+                initialValue: widget.issueReport?.status.value,
                 validator: (value) => IssueReportUpsertValidator.validateStatus(
                   value,
                   context: context,
@@ -403,9 +350,7 @@ class _IssueReportUpsertScreenState
               Builder(
                 builder: (context) {
                   final usersState = ref.watch(usersSearchDropdownProvider);
-                  final issueReportData = _isEdit
-                      ? _fetchedIssueReport
-                      : widget.issueReport;
+                  final issueReportData = widget.issueReport;
 
                   return AppSearchableDropdown<User>(
                     name: 'resolvedBy',
@@ -440,39 +385,33 @@ class _IssueReportUpsertScreenState
   }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.issueReportTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields('en-US', context.l10n.issueReportEnglish),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'ja-JP',
-                context.l10n.issueReportJapanese,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'id-ID',
-                context.l10n.issueReportIndonesian,
-              ),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.issueReportTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields('en-US', context.l10n.issueReportEnglish),
+            const SizedBox(height: 12),
+            _buildTranslationFields('ja-JP', context.l10n.issueReportJapanese),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'id-ID',
+              context.l10n.issueReportIndonesian,
+            ),
+          ],
         ),
       ),
     );
@@ -480,7 +419,8 @@ class _IssueReportUpsertScreenState
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched issue report translations in edit mode
-    final issueReportData = _isEdit ? _fetchedIssueReport : widget.issueReport;
+    // * Use fetched issue report translations in edit mode
+    final issueReportData = widget.issueReport;
     final translation = issueReportData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => IssueReportTranslation(

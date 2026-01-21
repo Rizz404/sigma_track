@@ -26,7 +26,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.da
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+
 // TODO: Google Maps feature disabled temporarily
 // import 'map_picker_screen.dart';
 
@@ -48,14 +48,12 @@ class LocationUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit => widget.location != null || widget.locationId != null;
   bool get _isCopyMode => widget.copyFromLocation != null;
   // * Helper to get source location for initialization (copy or edit)
   Location? get _sourceLocation => widget.copyFromLocation ?? widget.location;
-  Location? _fetchedLocation;
-  bool _isLoadingTranslations = false;
   bool _isLoadingCurrentLocation = false;
 
   Future<void> _getCurrentLocation() async {
@@ -234,7 +232,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
     if (_isEdit) {
       final params = UpdateLocationUsecaseParams.fromChanges(
         id: widget.location!.id,
-        original: _fetchedLocation ?? widget.location!,
+        original: widget.location!,
         locationCode: locationCode,
         building: building,
         floor: floor,
@@ -258,48 +256,6 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // * Auto load translations in edit mode
-    if (_isEdit && widget.location?.id != null) {
-      final locationDetailState = ref.watch(
-        getLocationByIdProvider(widget.location!.id),
-      );
-
-      // ? Update fetched location when data changes
-      if (locationDetailState.isLoading) {
-        if (!_isLoadingTranslations) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() => _isLoadingTranslations = true);
-            }
-          });
-        }
-      } else if (locationDetailState.location != null) {
-        if (_fetchedLocation?.id != locationDetailState.location!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedLocation = locationDetailState.location;
-                _isLoadingTranslations = false;
-                // * Don't recreate form key - it will lose user input & file picker data!
-                // * Form will update automatically via initialValue in widgets
-              });
-            }
-          });
-        }
-      } else if (locationDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              locationDetailState.failure?.message ??
-                  context.l10n.locationFailedToLoadTranslations,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<LocationsState>(locationsProvider, (previous, next) {
       // * Handle loading state
@@ -378,16 +334,6 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   }
 
   Widget _buildLocationInfoSection() {
-    final latitudeValue = _formKey.currentState?.fields['latitude']?.value;
-    final longitudeValue = _formKey.currentState?.fields['longitude']?.value;
-    final double? currentLat = latitudeValue != null && latitudeValue.isNotEmpty
-        ? double.tryParse(latitudeValue)
-        : null;
-    final double? currentLng =
-        longitudeValue != null && longitudeValue.isNotEmpty
-        ? double.tryParse(longitudeValue)
-        : null;
-
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -531,39 +477,36 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
   // }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.locationTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 8),
-              AppText(
-                context.l10n.locationTranslationsSubtitle,
-                style: AppTextStyle.bodySmall,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields('en-US', context.l10n.locationEnglish),
-              const SizedBox(height: 16),
-              _buildTranslationFields('ja-JP', context.l10n.locationJapanese),
-              const SizedBox(height: 16),
-              _buildTranslationFields('id-ID', context.l10n.locationIndonesian),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.locationTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              context.l10n.locationTranslationsSubtitle,
+              style: AppTextStyle.bodySmall,
+              color: context.colors.textSecondary,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields('en-US', context.l10n.locationEnglish),
+            const SizedBox(height: 16),
+            _buildTranslationFields('ja-JP', context.l10n.locationJapanese),
+            const SizedBox(height: 16),
+            _buildTranslationFields('id-ID', context.l10n.locationIndonesian),
+          ],
         ),
       ),
     );
@@ -571,7 +514,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched location translations in edit mode, or source location in copy mode
-    final locationData = _isEdit ? _fetchedLocation : _sourceLocation;
+    final locationData = _sourceLocation;
     final translation = locationData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => LocationTranslation(langCode: langCode, locationName: ''),

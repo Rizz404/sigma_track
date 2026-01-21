@@ -6,7 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sigma_track/core/constants/route_constant.dart';
+
 import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/enums/language_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -30,7 +30,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.da
 import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class CategoryUpsertScreen extends ConsumerStatefulWidget {
   final Category? category;
@@ -50,7 +49,7 @@ class CategoryUpsertScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   final GlobalKey<AppFilePickerState> _filePickerKey =
       GlobalKey<AppFilePickerState>();
 
@@ -59,8 +58,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   bool get _isCopyMode => widget.copyFromCategory != null;
   // * Helper to get source category for initialization (copy or edit)
   Category? get _sourceCategory => widget.copyFromCategory ?? widget.category;
-  Category? _fetchedCategory;
-  bool _isLoadingTranslations = false;
+
   File? _imageFile;
 
   void _handleSubmit() {
@@ -114,11 +112,11 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     _imageFile = selectedImageFile;
 
     if (_isEdit) {
-      final categoryId = _fetchedCategory?.id ?? widget.category!.id;
+      final categoryId = widget.category!.id;
 
       final params = UpdateCategoryUsecaseParams.fromChanges(
         id: categoryId,
-        original: _fetchedCategory ?? widget.category!,
+        original: widget.category!,
         parentId: parentId,
         categoryCode: categoryCode,
         translations: translations.cast<UpdateCategoryTranslation>(),
@@ -181,50 +179,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
     );
   }
 
-  @override
   Widget build(BuildContext context) {
-    // * Auto load translations in edit mode
-    if (_isEdit && widget.category?.id != null) {
-      final categoryDetailState = ref.watch(
-        getCategoryByIdProvider(widget.category!.id),
-      );
-
-      // ? Update fetched category when data changes
-      if (categoryDetailState.isLoading) {
-        if (!_isLoadingTranslations) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() => _isLoadingTranslations = true);
-            }
-          });
-        }
-      } else if (categoryDetailState.category != null) {
-        if (_fetchedCategory?.id != categoryDetailState.category!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedCategory = categoryDetailState.category;
-                _isLoadingTranslations = false;
-                // * Don't recreate form key - it will lose file picker data!
-                // * Form will update automatically via initialValue in widgets
-              });
-            }
-          });
-        }
-      } else if (categoryDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              categoryDetailState.failure?.message ??
-                  context.l10n.categoryFailedToLoadTranslations,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<CategoriesState>(categoriesProvider, (previous, next) {
       // * Handle loading state
@@ -341,9 +296,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                 final categoriesState = ref.watch(
                   categoriesParentSearchDropdownProvider,
                 );
-                final categoryData = _isEdit
-                    ? _fetchedCategory
-                    : _sourceCategory;
+                final categoryData = _sourceCategory;
 
                 return AppSearchableDropdown<Category>(
                   name: 'parentId',
@@ -378,8 +331,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               // * Don't copy category code in copy mode (must be unique)
               initialValue: _isCopyMode
                   ? null
-                  : ((_isEdit ? _fetchedCategory?.categoryCode : null) ??
-                        widget.category?.categoryCode),
+                  : (widget.category?.categoryCode),
               validator: (value) =>
                   CategoryUpsertValidator.validateCategoryCode(
                     context,
@@ -389,9 +341,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             ),
             const SizedBox(height: 16),
             // * Current image preview (edit mode only)
-            if (_isEdit &&
-                (_fetchedCategory?.imageUrl ?? widget.category?.imageUrl) !=
-                    null) ...[
+            if (_isEdit && (widget.category?.imageUrl) != null) ...[
               Center(
                 child: Column(
                   children: [
@@ -402,15 +352,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                     ),
                     const SizedBox(height: 8),
                     InkWell(
-                      onTap: () => _showFullImage(
-                        _fetchedCategory?.imageUrl ??
-                            widget.category!.imageUrl!,
-                      ),
+                      onTap: () => _showFullImage(widget.category!.imageUrl!),
                       borderRadius: BorderRadius.circular(12),
                       child: AppImage(
-                        imageUrl:
-                            _fetchedCategory?.imageUrl ??
-                            widget.category?.imageUrl,
+                        imageUrl: widget.category?.imageUrl,
                         size: ImageSize.xxxLarge,
                         shape: ImageShape.rectangle,
                         showBorder: true,
@@ -440,39 +385,36 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
   }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.categoryTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 8),
-              AppText(
-                context.l10n.categoryAddTranslations,
-                style: AppTextStyle.bodySmall,
-                color: context.colors.textSecondary,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields('en-US', context.l10n.categoryEnglish),
-              const SizedBox(height: 16),
-              _buildTranslationFields('ja-JP', context.l10n.categoryJapanese),
-              const SizedBox(height: 16),
-              _buildTranslationFields('id-ID', context.l10n.categoryIndonesian),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.categoryTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              context.l10n.categoryAddTranslations,
+              style: AppTextStyle.bodySmall,
+              color: context.colors.textSecondary,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields('en-US', context.l10n.categoryEnglish),
+            const SizedBox(height: 16),
+            _buildTranslationFields('ja-JP', context.l10n.categoryJapanese),
+            const SizedBox(height: 16),
+            _buildTranslationFields('id-ID', context.l10n.categoryIndonesian),
+          ],
         ),
       ),
     );
@@ -480,7 +422,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched category translations in edit mode, or source category in copy mode
-    final categoryData = _isEdit ? _fetchedCategory : _sourceCategory;
+    final categoryData = _sourceCategory;
     final translation = categoryData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => CategoryTranslation(
@@ -513,22 +455,6 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             initialValue: translation?.categoryName,
             validator: langCode == 'en-US'
                 ? (value) => CategoryUpsertValidator.validateCategoryName(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  )
-                : null,
-          ),
-          const SizedBox(height: 12),
-          AppTextField(
-            name: '${langCode}_description',
-            label: context.l10n.categoryDescription,
-            placeHolder: context.l10n.categoryEnterDescription,
-            type: AppTextFieldType.multiline,
-            maxLines: 3,
-            initialValue: translation?.description,
-            validator: langCode == 'en-US'
-                ? (value) => CategoryUpsertValidator.validateDescription(
                     context,
                     value,
                     isUpdate: _isEdit,

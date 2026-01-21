@@ -29,7 +29,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 // Todo: Asset utama belum berubah setelah movement di backend
 class AssetMovementUpsertForUserScreen extends ConsumerStatefulWidget {
@@ -53,17 +52,15 @@ class AssetMovementUpsertForUserScreen extends ConsumerStatefulWidget {
 
 class _AssetMovementUpsertForUserScreenState
     extends ConsumerState<AssetMovementUpsertForUserScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.assetMovement != null || widget.assetMovementId != null;
-  bool get _isCopyMode => widget.copyFromMovement != null;
+
   bool get _hasPrePopulatedAsset => widget.prePopulatedAsset != null;
   // * Helper to get source movement for initialization (copy or edit)
   AssetMovement? get _sourceMovement =>
       widget.copyFromMovement ?? widget.assetMovement;
-  AssetMovement? _fetchedAssetMovement;
-  bool _isLoadingTranslations = false;
 
   void _handleSubmit() {
     if (_formKey.currentState?.saveAndValidate() != true) {
@@ -112,11 +109,10 @@ class _AssetMovementUpsertForUserScreenState
     final movementDate = formData['movementDate'] as DateTime;
 
     if (_isEdit) {
-      final assetMovementId =
-          _fetchedAssetMovement?.id ?? widget.assetMovement!.id;
+      final assetMovementId = widget.assetMovement!.id;
       final params = UpdateAssetMovementForUserUsecaseParams.fromChanges(
         id: assetMovementId,
-        original: _fetchedAssetMovement ?? widget.assetMovement!,
+        original: widget.assetMovement!,
         assetId: assetId,
         fromUserId: fromUserId,
         toUserId: toUserId,
@@ -146,49 +142,6 @@ class _AssetMovementUpsertForUserScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Watch asset movement by id provider only when showing translations in edit mode
-    if (_isEdit && widget.assetMovement?.id != null) {
-      final assetMovementDetailState = ref.watch(
-        getAssetMovementByIdProvider(widget.assetMovement!.id),
-      );
-
-      // ? Update fetched assetMovement when data changes
-      if (assetMovementDetailState.isLoading) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() {
-              _fetchedAssetMovement = assetMovementDetailState.assetMovement;
-            });
-          }
-        });
-      } else if (assetMovementDetailState.assetMovement != null) {
-        if (_fetchedAssetMovement?.id !=
-            assetMovementDetailState.assetMovement!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedAssetMovement = assetMovementDetailState.assetMovement;
-                _isLoadingTranslations = false;
-                // ! Recreate form key to rebuild form with new data
-                _formKey = GlobalKey<FormBuilderState>();
-              });
-            }
-          });
-        }
-      } else if (assetMovementDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              assetMovementDetailState.failure?.message ??
-                  context.l10n.assetMovementFailedToLoad,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
       // * Handle loading state
@@ -417,42 +370,33 @@ class _AssetMovementUpsertForUserScreenState
   }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.assetMovementTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields(
-                'en-US',
-                context.l10n.appEndDrawerEnglish,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'ja-JP',
-                context.l10n.appEndDrawerJapanese,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'id-ID',
-                context.l10n.appEndDrawerIndonesian,
-              ),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.assetMovementTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields('en-US', context.l10n.appEndDrawerEnglish),
+            const SizedBox(height: 12),
+            _buildTranslationFields('ja-JP', context.l10n.appEndDrawerJapanese),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'id-ID',
+              context.l10n.appEndDrawerIndonesian,
+            ),
+          ],
         ),
       ),
     );
@@ -460,7 +404,8 @@ class _AssetMovementUpsertForUserScreenState
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched asset movement translations in edit mode, or source in copy
-    final assetMovementData = _isEdit ? _fetchedAssetMovement : _sourceMovement;
+    // * Use fetched asset movement translations in edit mode, or source in copy
+    final assetMovementData = _sourceMovement;
     final translation = assetMovementData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => AssetMovementTranslation(langCode: langCode, notes: ''),

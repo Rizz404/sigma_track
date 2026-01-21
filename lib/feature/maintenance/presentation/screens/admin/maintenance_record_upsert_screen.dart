@@ -32,7 +32,6 @@ import 'package:sigma_track/shared/presentation/widgets/app_end_drawer.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_validation_errors.dart';
 import 'package:sigma_track/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class MaintenanceRecordUpsertScreen extends ConsumerStatefulWidget {
   final MaintenanceRecord? maintenanceRecord;
@@ -55,7 +54,7 @@ class MaintenanceRecordUpsertScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceRecordUpsertScreenState
     extends ConsumerState<MaintenanceRecordUpsertScreen> {
-  GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   List<ValidationError>? validationErrors;
   bool get _isEdit =>
       widget.maintenanceRecord != null || widget.maintenanceRecordId != null;
@@ -64,8 +63,6 @@ class _MaintenanceRecordUpsertScreenState
   // * Helper to get source record for initialization (copy or edit)
   MaintenanceRecord? get _sourceRecord =>
       widget.copyFromRecord ?? widget.maintenanceRecord;
-  MaintenanceRecord? _fetchedMaintenanceRecord;
-  bool _isLoadingTranslations = false;
 
   // * OLD IMPLEMENTATION: Search maintenance schedules function
   // * Commented out - no backend search feature yet
@@ -140,11 +137,10 @@ class _MaintenanceRecordUpsertScreenState
         : null;
 
     if (_isEdit) {
-      final maintenanceRecordId =
-          _fetchedMaintenanceRecord?.id ?? widget.maintenanceRecord!.id;
+      final maintenanceRecordId = widget.maintenanceRecord!.id;
       final params = UpdateMaintenanceRecordUsecaseParams.fromChanges(
         id: maintenanceRecordId,
-        original: _fetchedMaintenanceRecord ?? widget.maintenanceRecord!,
+        original: widget.maintenanceRecord!,
         scheduleId: scheduleId,
         assetId: assetId,
         maintenanceDate: maintenanceDate,
@@ -188,50 +184,6 @@ class _MaintenanceRecordUpsertScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Auto load translations in edit mode
-    if (_isEdit && widget.maintenanceRecord?.id != null) {
-      final maintenanceRecordDetailState = ref.watch(
-        getMaintenanceRecordByIdProvider(widget.maintenanceRecord!.id),
-      );
-
-      // ? Update fetched maintenanceRecord when data changes
-      if (maintenanceRecordDetailState.isLoading) {
-        if (!_isLoadingTranslations) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() => _isLoadingTranslations = true);
-            }
-          });
-        }
-      } else if (maintenanceRecordDetailState.maintenanceRecord != null) {
-        if (_fetchedMaintenanceRecord?.id !=
-            maintenanceRecordDetailState.maintenanceRecord!.id) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              setState(() {
-                _fetchedMaintenanceRecord =
-                    maintenanceRecordDetailState.maintenanceRecord;
-                _isLoadingTranslations = false;
-                // * Don't recreate form key - it will lose user input & file picker data!
-                // * Form will update automatically via initialValue in widgets
-              });
-            }
-          });
-        }
-      } else if (maintenanceRecordDetailState.failure != null &&
-          _isLoadingTranslations) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _isLoadingTranslations = false);
-            AppToast.error(
-              maintenanceRecordDetailState.failure?.message ??
-                  context.l10n.maintenanceRecordFailedToLoadTranslations,
-            );
-          }
-        });
-      }
-    }
-
     // * Listen to mutation state
     ref.listen<MaintenanceRecordsState>(maintenanceRecordsProvider, (
       previous,
@@ -486,42 +438,39 @@ class _MaintenanceRecordUpsertScreenState
   }
 
   Widget _buildTranslationsSection() {
-    return Skeletonizer(
-      enabled: _isLoadingTranslations,
-      child: Card(
-        color: context.colors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: context.colors.border),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                context.l10n.maintenanceRecordTranslations,
-                style: AppTextStyle.titleMedium,
-                fontWeight: FontWeight.bold,
-              ),
-              const SizedBox(height: 16),
-              _buildTranslationFields(
-                'en-US',
-                context.l10n.maintenanceRecordEnglish,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'ja-JP',
-                context.l10n.maintenanceRecordJapanese,
-              ),
-              const SizedBox(height: 12),
-              _buildTranslationFields(
-                'id-ID',
-                context.l10n.maintenanceRecordIndonesian,
-              ),
-            ],
-          ),
+    return Card(
+      color: context.colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: context.colors.border),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.maintenanceRecordTranslations,
+              style: AppTextStyle.titleMedium,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 16),
+            _buildTranslationFields(
+              'en-US',
+              context.l10n.maintenanceRecordEnglish,
+            ),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'ja-JP',
+              context.l10n.maintenanceRecordJapanese,
+            ),
+            const SizedBox(height: 12),
+            _buildTranslationFields(
+              'id-ID',
+              context.l10n.maintenanceRecordIndonesian,
+            ),
+          ],
         ),
       ),
     );
@@ -529,9 +478,7 @@ class _MaintenanceRecordUpsertScreenState
 
   Widget _buildTranslationFields(String langCode, String langName) {
     // * Use fetched maintenance record translations in edit mode, or source in copy
-    final maintenanceRecordData = _isEdit
-        ? _fetchedMaintenanceRecord
-        : _sourceRecord;
+    final maintenanceRecordData = _sourceRecord;
     final translation = maintenanceRecordData?.translations?.firstWhere(
       (t) => t.langCode == langCode,
       orElse: () => MaintenanceRecordTranslation(
