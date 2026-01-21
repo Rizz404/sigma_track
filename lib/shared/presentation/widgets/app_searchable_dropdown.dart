@@ -97,6 +97,15 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   }
 
   @override
+  void didUpdateWidget(covariant AppSearchableDropdown<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // * Update selected item jika initialValue berubah (untuk mode edit)
+    if (widget.initialValue != oldWidget.initialValue) {
+      _selectedItem = widget.initialValue;
+    }
+  }
+
+  @override
   void dispose() {
     _removeOverlay();
     _focusNode.dispose();
