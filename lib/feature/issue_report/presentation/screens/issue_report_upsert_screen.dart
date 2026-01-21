@@ -139,6 +139,9 @@ class _IssueReportUpsertScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Watch current user provider to ensure data is loaded for 'reportedBy'
+    ref.watch(currentUserNotifierProvider);
+
     // * Listen to mutation state
     ref.listen<IssueReportsState>(issueReportsProvider, (previous, next) {
       // * Handle loading state

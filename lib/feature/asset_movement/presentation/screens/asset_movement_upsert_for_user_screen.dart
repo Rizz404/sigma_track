@@ -93,31 +93,12 @@ class _AssetMovementUpsertForUserScreenState
       }
     }
 
-    final assetId = formData['assetId'] as String;
-    final fromUserId = formData['fromUserId'] as String?;
-    final toUserId = formData['toUserId'] as String;
-
-    // * NEW IMPLEMENTATION: Get current user ID from provider
-    final currentUserState = ref.read(currentUserNotifierProvider);
-    final movedById = currentUserState.user?.id ?? '';
-
-    // * Pastikan movedById tidak kosong
-    if (movedById.isEmpty) {
-      AppToast.warning('Moved by user tidak ditemukan');
-      return;
-    }
-    final movementDate = formData['movementDate'] as DateTime;
-
     if (_isEdit) {
+      // * EDIT MODE: Hanya kirim id dan translations
       final assetMovementId = widget.assetMovement!.id;
       final params = UpdateAssetMovementForUserUsecaseParams.fromChanges(
         id: assetMovementId,
         original: widget.assetMovement!,
-        assetId: assetId,
-        fromUserId: fromUserId,
-        toUserId: toUserId,
-        movedById: movedById,
-        movementDate: movementDate,
         translations: translations
             .cast<UpdateAssetMovementForUserTranslation>(),
       );
@@ -125,6 +106,22 @@ class _AssetMovementUpsertForUserScreenState
           .read(assetMovementsProvider.notifier)
           .updateAssetMovementForUser(params);
     } else {
+      // * CREATE MODE: Kirim semua field
+      final assetId = formData['assetId'] as String;
+      final fromUserId = formData['fromUserId'] as String?;
+      final toUserId = formData['toUserId'] as String;
+      final movementDate = formData['movementDate'] as DateTime;
+
+      // * Get current user ID from provider
+      final currentUserState = ref.read(currentUserNotifierProvider);
+      final movedById = currentUserState.user?.id ?? '';
+
+      // * Pastikan movedById tidak kosong
+      if (movedById.isEmpty) {
+        AppToast.warning('Moved by user tidak ditemukan');
+        return;
+      }
+
       final params = CreateAssetMovementForUserUsecaseParams(
         assetId: assetId,
         fromUserId: fromUserId,
@@ -142,6 +139,9 @@ class _AssetMovementUpsertForUserScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Watch current user provider to ensure data is loaded for 'movedBy'
+    ref.watch(currentUserNotifierProvider);
+
     // * Listen to mutation state
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
       // * Handle loading state
@@ -236,6 +236,37 @@ class _AssetMovementUpsertForUserScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
+            // * Info message saat edit mode
+            if (_isEdit) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.semantic.warning.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.semantic.warning.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: context.semantic.warning,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppText(
+                        'Asset movement information cannot be edited as it is historical data. Only notes can be updated.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.semantic.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
@@ -250,6 +281,7 @@ class _AssetMovementUpsertForUserScreenState
                       : assetMovementData?.asset,
                   items: assetsState.assets,
                   isLoading: assetsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(assetsSearchDropdownProvider.notifier)
@@ -281,6 +313,7 @@ class _AssetMovementUpsertForUserScreenState
                   initialValue: assetMovementData?.fromUser,
                   items: usersState.users,
                   isLoading: usersState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(usersSearchDropdownProvider.notifier)
@@ -312,6 +345,7 @@ class _AssetMovementUpsertForUserScreenState
                   initialValue: assetMovementData?.toUser,
                   items: usersState.users,
                   isLoading: usersState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(usersSearchDropdownProvider.notifier)
@@ -331,31 +365,11 @@ class _AssetMovementUpsertForUserScreenState
               },
             ),
             const SizedBox(height: 16),
-            // * OLD IMPLEMENTATION: User dropdown for moved by
-            // * Commented out for future reference
-            // AppSearchField<User>(
-            //   name: 'movedById',
-            //   label: context.l10n.assetMovementMovedBy,
-            //   hintText: context.l10n.assetMovementSearchFromUser,
-            //   initialValue: widget.assetMovement?.movedById,
-            //   enableAutocomplete: true,
-            //   onSearch: _searchUsers,
-            //   itemDisplayMapper: (user) => user.name,
-            //   itemValueMapper: (user) => user.id,
-            //   itemSubtitleMapper: (user) => user.email,
-            //   itemIcon: Icons.person,
-            //   validator: (value) =>
-            //       AssetMovementUpsertForUserValidator.validateMovedById(
-            //         context,
-            //         value,
-            //         isUpdate: _isEdit,
-            //       ),
-            // ),
-            const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'movementDate',
               label: context.l10n.assetMovementMovementDate,
               initialValue: _sourceMovement?.movementDate,
+              enabled: !_isEdit, // * Disable saat edit
               validator: (value) =>
                   AssetMovementUpsertForUserValidator.validateMovementDate(
                     context,

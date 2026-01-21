@@ -19,7 +19,6 @@ import 'package:sigma_track/feature/asset_movement/presentation/providers/state/
 import 'package:sigma_track/feature/asset_movement/presentation/validators/asset_movement_upsert_for_location_validator.dart';
 import 'package:sigma_track/feature/location/domain/entities/location.dart';
 import 'package:sigma_track/feature/location/presentation/providers/location_providers.dart';
-import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
@@ -95,31 +94,12 @@ class _AssetMovementUpsertForLocationScreenState
       }
     }
 
-    final assetId = formData['assetId'] as String;
-    final fromLocationId = formData['fromLocationId'] as String?;
-    final toLocationId = formData['toLocationId'] as String;
-
-    // * NEW IMPLEMENTATION: Get current user ID from provider
-    final currentUserState = ref.read(currentUserNotifierProvider);
-    final movedById = currentUserState.user?.id ?? '';
-
-    // * Pastikan movedById tidak kosong
-    if (movedById.isEmpty) {
-      AppToast.warning('Moved by user tidak ditemukan');
-      return;
-    }
-    final movementDate = formData['movementDate'] as DateTime;
-
     if (_isEdit) {
+      // * EDIT MODE: Hanya kirim id dan translations
       final assetMovementId = widget.assetMovement!.id;
       final params = UpdateAssetMovementForLocationUsecaseParams.fromChanges(
         id: assetMovementId,
         original: widget.assetMovement!,
-        assetId: assetId,
-        fromLocationId: fromLocationId,
-        toLocationId: toLocationId,
-        movedById: movedById,
-        movementDate: movementDate,
         translations: translations
             .cast<UpdateAssetMovementForLocationTranslation>(),
       );
@@ -127,6 +107,22 @@ class _AssetMovementUpsertForLocationScreenState
           .read(assetMovementsProvider.notifier)
           .updateAssetMovementForLocation(params);
     } else {
+      // * CREATE MODE: Kirim semua field
+      final assetId = formData['assetId'] as String;
+      final fromLocationId = formData['fromLocationId'] as String?;
+      final toLocationId = formData['toLocationId'] as String;
+      final movementDate = formData['movementDate'] as DateTime;
+
+      // * Get current user ID from provider
+      final currentUserState = ref.read(currentUserNotifierProvider);
+      final movedById = currentUserState.user?.id ?? '';
+
+      // * Pastikan movedById tidak kosong
+      if (movedById.isEmpty) {
+        AppToast.warning('Moved by user tidak ditemukan');
+        return;
+      }
+
       final params = CreateAssetMovementForLocationUsecaseParams(
         assetId: assetId,
         fromLocationId: fromLocationId,
@@ -144,6 +140,9 @@ class _AssetMovementUpsertForLocationScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Watch current user provider to ensure data is loaded for 'movedBy'
+    ref.watch(currentUserNotifierProvider);
+
     // * Listen to mutation state
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
       // * Handle loading state
@@ -238,6 +237,37 @@ class _AssetMovementUpsertForLocationScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
+            // * Info message saat edit mode
+            if (_isEdit) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.semantic.warning.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.semantic.warning.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: context.semantic.warning,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppText(
+                        'Asset movement information cannot be edited as it is historical data. Only notes can be updated.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.semantic.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
@@ -252,6 +282,7 @@ class _AssetMovementUpsertForLocationScreenState
                       : assetMovementData?.asset,
                   items: assetsState.assets,
                   isLoading: assetsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(assetsSearchDropdownProvider.notifier)
@@ -285,6 +316,7 @@ class _AssetMovementUpsertForLocationScreenState
                   initialValue: assetMovementData?.fromLocation,
                   items: locationsState.locations,
                   isLoading: locationsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(locationsSearchDropdownProvider.notifier)
@@ -318,6 +350,7 @@ class _AssetMovementUpsertForLocationScreenState
                   initialValue: assetMovementData?.toLocation,
                   items: locationsState.locations,
                   isLoading: locationsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(locationsSearchDropdownProvider.notifier)
@@ -337,31 +370,11 @@ class _AssetMovementUpsertForLocationScreenState
               },
             ),
             const SizedBox(height: 16),
-            // * OLD IMPLEMENTATION: User dropdown for moved by
-            // * Commented out for future reference
-            // AppSearchField<User>(
-            //   name: 'movedById',
-            //   label: context.l10n.assetMovementMovedBy,
-            //   hintText: context.l10n.assetMovementSearchFromUser,
-            //   initialValue: widget.assetMovement?.movedById,
-            //   enableAutocomplete: true,
-            //   onSearch: _searchUsers,
-            //   itemDisplayMapper: (user) => user.name,
-            //   itemValueMapper: (user) => user.id,
-            //   itemSubtitleMapper: (user) => user.email,
-            //   itemIcon: Icons.person,
-            //   validator: (value) =>
-            //       AssetMovementUpsertForLocationValidator.validateMovedById(
-            //         context,
-            //         value,
-            //         isUpdate: _isEdit,
-            //       ),
-            // ),
-            const SizedBox(height: 16),
             AppDateTimePicker(
               name: 'movementDate',
               label: context.l10n.assetMovementMovementDate,
               initialValue: _sourceMovement?.movementDate,
+              enabled: !_isEdit, // * Disable saat edit
               validator: (value) =>
                   AssetMovementUpsertForLocationValidator.validateMovementDate(
                     context,

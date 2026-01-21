@@ -206,6 +206,9 @@ class _MaintenanceScheduleUpsertScreenState
 
   @override
   Widget build(BuildContext context) {
+    // * Watch current user provider to ensure data is loaded for 'createdBy'
+    ref.watch(currentUserNotifierProvider);
+
     // * Listen to mutation state
     ref.listen<MaintenanceSchedulesState>(maintenanceSchedulesProvider, (
       previous,

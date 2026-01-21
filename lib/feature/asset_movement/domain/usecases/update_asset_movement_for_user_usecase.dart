@@ -29,41 +29,21 @@ class UpdateAssetMovementForUserUsecase
 
 class UpdateAssetMovementForUserUsecaseParams extends Equatable {
   final String id;
-  final String? assetId;
-  final String? fromUserId;
-  final String? toUserId;
-  final String? movedById;
-  final DateTime? movementDate;
   final List<UpdateAssetMovementForUserTranslation>? translations;
 
-  UpdateAssetMovementForUserUsecaseParams({
+  const UpdateAssetMovementForUserUsecaseParams({
     required this.id,
-    this.assetId,
-    this.fromUserId,
-    this.toUserId,
-    this.movedById,
-    this.movementDate,
     this.translations,
   });
 
-  /// * Factory method to create params with only changed fields
+  /// * Factory method to create params with only changed translations
   factory UpdateAssetMovementForUserUsecaseParams.fromChanges({
     required String id,
     required AssetMovement original,
-    String? assetId,
-    String? fromUserId,
-    String? toUserId,
-    String? movedById,
-    DateTime? movementDate,
     List<UpdateAssetMovementForUserTranslation>? translations,
   }) {
     return UpdateAssetMovementForUserUsecaseParams(
       id: id,
-      assetId: assetId != original.assetId ? assetId : null,
-      fromUserId: fromUserId != original.fromUserId ? fromUserId : null,
-      toUserId: toUserId != original.toUserId ? toUserId : null,
-      movedById: movedById != original.movedById ? movedById : null,
-      movementDate: movementDate != original.movementDate ? movementDate : null,
       translations: _areTranslationsEqual(original.translations, translations)
           ? null
           : translations,
@@ -92,11 +72,6 @@ class UpdateAssetMovementForUserUsecaseParams extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      if (assetId != null) 'assetId': assetId,
-      if (fromUserId != null) 'fromUserId': fromUserId,
-      if (toUserId != null) 'toUserId': toUserId,
-      if (movedById != null) 'movedById': movedById,
-      if (movementDate != null) 'movementDate': movementDate!.toIso8601String(),
       if (translations != null)
         'translations': translations!.map((x) => x.toMap()).toList(),
     };
@@ -107,13 +82,6 @@ class UpdateAssetMovementForUserUsecaseParams extends Equatable {
   ) {
     return UpdateAssetMovementForUserUsecaseParams(
       id: map['id'] ?? '',
-      assetId: map['assetId'],
-      fromUserId: map['fromUserId'],
-      toUserId: map['toUserId'],
-      movedById: map['movedById'],
-      movementDate: map['movementDate'] != null
-          ? DateTime.parse(map['movementDate'])
-          : null,
       translations: map['translations'] != null
           ? List<UpdateAssetMovementForUserTranslation>.from(
               map['translations']?.map(
@@ -131,22 +99,17 @@ class UpdateAssetMovementForUserUsecaseParams extends Equatable {
       UpdateAssetMovementForUserUsecaseParams.fromMap(json.decode(source));
 
   @override
-  List<Object?> get props => [
-    id,
-    assetId,
-    fromUserId,
-    toUserId,
-    movedById,
-    movementDate,
-    translations,
-  ];
+  List<Object?> get props => [id, translations];
 }
 
 class UpdateAssetMovementForUserTranslation extends Equatable {
   final String langCode;
   final String? notes;
 
-  UpdateAssetMovementForUserTranslation({required this.langCode, this.notes});
+  const UpdateAssetMovementForUserTranslation({
+    required this.langCode,
+    this.notes,
+  });
 
   Map<String, dynamic> toMap() {
     return {'langCode': langCode, 'notes': notes};

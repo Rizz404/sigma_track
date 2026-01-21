@@ -331,7 +331,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               // * Don't copy category code in copy mode (must be unique)
               initialValue: _isCopyMode
                   ? null
-                  : (widget.category?.categoryCode),
+                  : widget.category?.categoryCode,
               validator: (value) =>
                   CategoryUpsertValidator.validateCategoryCode(
                     context,
@@ -341,7 +341,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             ),
             const SizedBox(height: 16),
             // * Current image preview (edit mode only)
-            if (_isEdit && (widget.category?.imageUrl) != null) ...[
+            if (_isEdit && widget.category?.imageUrl != null) ...[
               Center(
                 child: Column(
                   children: [

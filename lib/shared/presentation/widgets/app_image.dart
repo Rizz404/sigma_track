@@ -139,7 +139,7 @@ class AppImage extends StatelessWidget {
     final container = Container(
       width: containerWidth,
       // Kalau height null (misal auto), biarkan null. Kalau ada nilainya, pakai containerHeight.
-      height: effectiveHeight != null ? containerHeight : null,
+      height: containerHeight,
       decoration: BoxDecoration(
         borderRadius: borderRadius,
         border: showBorder
