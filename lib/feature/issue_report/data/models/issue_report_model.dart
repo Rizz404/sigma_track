@@ -151,9 +151,7 @@ class IssueReportModel extends Equatable {
       status: IssueStatus.values.firstWhere(
         (e) => e.value == map.getField<String>('status'),
       ),
-      resolvedDate: map.getFieldOrNull<int>('resolvedDate') != null
-          ? map.getField<DateTime>('resolvedDate')
-          : null,
+      resolvedDate: map.getFieldOrNull<DateTime>('resolvedDate'),
       resolvedById: map.getFieldOrNull<String>('resolvedById'),
       title: map.getField<String>('title'),
       description: map.getFieldOrNull<String>('description'),

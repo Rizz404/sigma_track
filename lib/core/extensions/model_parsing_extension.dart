@@ -26,11 +26,16 @@ extension SafeMap on Map<String, dynamic> {
 
       // DateTime handling: String (ISO), int (timestamp), atau DateTime
       if (T == DateTime) {
-        if (value is String) return DateTime.parse(value) as T;
+        if (value is String) {
+          final parsed = DateTime.parse(value);
+          return (parsed.isUtc ? parsed.toLocal() : parsed) as T;
+        }
         if (value is int) {
           return DateTime.fromMillisecondsSinceEpoch(value) as T;
         }
-        if (value is DateTime) return value as T;
+        if (value is DateTime) {
+          return (value.isUtc ? value.toLocal() : value) as T;
+        }
 
         this.logError(
           'Field "$key" cannot be converted to DateTime\n'
@@ -85,11 +90,16 @@ extension SafeMap on Map<String, dynamic> {
 
       // DateTime handling
       if (T == DateTime) {
-        if (value is String) return DateTime.parse(value) as T?;
+        if (value is String) {
+          final parsed = DateTime.parse(value);
+          return (parsed.isUtc ? parsed.toLocal() : parsed) as T?;
+        }
         if (value is int) {
           return DateTime.fromMillisecondsSinceEpoch(value) as T?;
         }
-        if (value is DateTime) return value as T?;
+        if (value is DateTime) {
+          return (value.isUtc ? value.toLocal() : value) as T?;
+        }
 
         this.logData(
           'Field "$key" cannot be converted to DateTime (returning null)\n'
