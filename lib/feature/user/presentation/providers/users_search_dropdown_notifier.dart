@@ -75,6 +75,43 @@ class UsersSearchDropdownNotifier extends AutoDisposeNotifier<UsersState> {
     state = await _loadUsers(usersFilter: newFilter);
   }
 
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more users');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.usersFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getUsersCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more users', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More users loaded: ${success.data?.length ?? 0}');
+        state = UsersState.success(
+          users: [...state.users, ...success.data ?? []],
+          usersFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
+  }
+
   void clear() {
     this.logPresentation('Clearing search results');
     state = UsersState.initial();

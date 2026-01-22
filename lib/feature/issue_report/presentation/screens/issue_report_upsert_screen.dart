@@ -238,6 +238,37 @@ class _IssueReportUpsertScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
+            // * Info message saat edit mode
+            if (_isEdit) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.semantic.warning.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.semantic.warning.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: context.semantic.warning,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppText(
+                        'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.semantic.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             Builder(
               builder: (context) {
                 final assetsState = ref.watch(assetsSearchDropdownProvider);
@@ -252,6 +283,7 @@ class _IssueReportUpsertScreenState
                       : issueReportData?.asset,
                   items: assetsState.assets,
                   isLoading: assetsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(assetsSearchDropdownProvider.notifier)
@@ -299,6 +331,7 @@ class _IssueReportUpsertScreenState
               label: context.l10n.issueReportIssueType,
               placeHolder: context.l10n.issueReportEnterIssueType,
               initialValue: widget.issueReport?.issueType,
+              enabled: !_isEdit, // * Disable saat edit
               validator: (value) =>
                   IssueReportUpsertValidator.validateIssueType(
                     value,

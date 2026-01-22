@@ -1059,6 +1059,13 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     .read(categoriesChildSearchDropdownProvider.notifier)
                     .search(query);
               },
+              onLoadMore: () {
+                ref
+                    .read(categoriesChildSearchDropdownProvider.notifier)
+                    .loadMore();
+              },
+              hasMore: categoriesState.cursor?.hasNextPage ?? false,
+              isLoadingMore: categoriesState.isLoadingMore,
               itemDisplayMapper: (category) => category.categoryName,
               itemValueMapper: (category) => category.id,
               itemSubtitleMapper: (category) =>
@@ -1118,6 +1125,13 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                           .read(locationsSearchDropdownProvider.notifier)
                           .search(query);
                     },
+                    onLoadMore: () {
+                      ref
+                          .read(locationsSearchDropdownProvider.notifier)
+                          .loadMore();
+                    },
+                    hasMore: locationsState.cursor?.hasNextPage ?? false,
+                    isLoadingMore: locationsState.isLoadingMore,
                     itemDisplayMapper: (location) => location.locationName,
                     itemValueMapper: (location) => location.id,
                     itemSubtitleMapper: (location) => location.locationCode,
@@ -1168,6 +1182,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                           .read(usersSearchDropdownProvider.notifier)
                           .search(query);
                     },
+                    onLoadMore: () {
+                      ref.read(usersSearchDropdownProvider.notifier).loadMore();
+                    },
+                    hasMore: usersState.cursor?.hasNextPage ?? false,
+                    isLoadingMore: usersState.isLoadingMore,
                     itemDisplayMapper: (user) => user.name,
                     itemValueMapper: (user) => user.id,
                     itemSubtitleMapper: (user) => user.email,

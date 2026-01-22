@@ -35,6 +35,11 @@ class AppSearchableDropdown<T> extends StatefulWidget {
   final List<T> items;
   final bool isLoading;
   final ValueChanged<String> onSearch;
+  final VoidCallback? onLoadMore;
+
+  // * Pagination state
+  final bool hasMore;
+  final bool isLoadingMore;
 
   // * Item configuration
   final String Function(T item) itemDisplayMapper;
@@ -67,6 +72,9 @@ class AppSearchableDropdown<T> extends StatefulWidget {
     this.itemSubtitleMapper,
     this.itemIconMapper,
     this.onChanged,
+    this.onLoadMore,
+    this.hasMore = false,
+    this.isLoadingMore = false,
     this.contentPadding,
     this.fillColor,
     this.prefixIcon,
@@ -94,6 +102,25 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
     super.initState();
     _fieldKey = GlobalKey<FormBuilderFieldState>();
     _selectedItem = widget.initialValue;
+    _setupScrollListener();
+  }
+
+  void _setupScrollListener() {
+    _scrollController.addListener(() {
+      // * Trigger load more saat scroll 80% dari max extent
+      if (_scrollController.hasClients &&
+          widget.onLoadMore != null &&
+          widget.hasMore &&
+          !widget.isLoadingMore) {
+        final maxScroll = _scrollController.position.maxScrollExtent;
+        final currentScroll = _scrollController.position.pixels;
+        final threshold = maxScroll * 0.8;
+
+        if (currentScroll >= threshold) {
+          widget.onLoadMore!();
+        }
+      }
+    });
   }
 
   @override
@@ -305,8 +332,25 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       controller: _scrollController,
       padding: const EdgeInsets.all(8),
       shrinkWrap: true,
-      itemCount: items.length,
+      itemCount: items.length + (widget.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
+        // * Show loading indicator di bottom
+        if (index == items.length && widget.isLoadingMore) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Center(
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation(context.colors.primary),
+                ),
+              ),
+            ),
+          );
+        }
+
         final item = items[index];
         final isSelected =
             _selectedItem != null &&

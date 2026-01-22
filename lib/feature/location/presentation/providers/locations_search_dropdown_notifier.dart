@@ -75,6 +75,43 @@ class LocationsSearchDropdownNotifier
     state = await _loadLocations(locationsFilter: newFilter);
   }
 
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more locations');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.locationsFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getLocationsCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more locations', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More locations loaded: ${success.data?.length ?? 0}');
+        state = LocationsState.success(
+          locations: [...state.locations, ...success.data ?? []],
+          locationsFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
+  }
+
   void clear() {
     this.logPresentation('Clearing search results');
     state = LocationsState.initial();

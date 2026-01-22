@@ -103,6 +103,43 @@ class CategoriesSearchDropdownNotifier
     state = await _loadCategories(categoriesFilter: newFilter);
   }
 
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more categories');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.categoriesFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getCategoriesCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more categories', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More categories loaded: ${success.data?.length ?? 0}');
+        state = CategoriesState.success(
+          categories: [...state.categories, ...success.data ?? []],
+          categoriesFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
+  }
+
   void clear() {
     this.logPresentation('Clearing search results');
     state = CategoriesState.initial();

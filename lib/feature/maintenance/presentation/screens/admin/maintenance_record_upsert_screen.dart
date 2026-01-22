@@ -287,6 +287,37 @@ class _MaintenanceRecordUpsertScreenState
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 16),
+            // * Info message saat edit mode
+            if (_isEdit) ...[
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.semantic.info.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: context.semantic.info.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      color: context.semantic.info,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppText(
+                        'Asset cannot be changed. All other maintenance details and translations can be updated.',
+                        style: AppTextStyle.bodySmall,
+                        color: context.semantic.info,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             Builder(
               builder: (context) {
                 final schedulesState = ref.watch(maintenanceSchedulesProvider);
@@ -331,6 +362,7 @@ class _MaintenanceRecordUpsertScreenState
                       : maintenanceRecordData?.asset,
                   items: assetsState.assets,
                   isLoading: assetsState.isLoading,
+                  enabled: !_isEdit, // * Disable saat edit
                   onSearch: (query) {
                     ref
                         .read(assetsSearchDropdownProvider.notifier)
