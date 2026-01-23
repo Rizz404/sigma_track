@@ -431,5 +431,13 @@
   "issueReportValidationResolutionNotesMaxLength": "Catatan resolusi maksimal 1000 karakter",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "Pengguna yang melaporkan tidak ditemukan",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "Hanya prioritas, status, diselesaikan oleh, dan terjemahan yang dapat diperbarui. Aset dan jenis masalah bersifat tetap.",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   }
 }

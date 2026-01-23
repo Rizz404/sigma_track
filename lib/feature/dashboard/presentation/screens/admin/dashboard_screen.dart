@@ -624,7 +624,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Asset Movement Trends',
+        title: context.l10n.dashboardAssetMovementTrends,
         child: SizedBox(
           height: 250,
           child: LineChart(
@@ -723,7 +723,7 @@ class DashboardScreen extends ConsumerWidget {
         children: [
           _buildChartCard(
             context,
-            title: 'Issue Report Status Distribution',
+            title: context.l10n.dashboardIssueReportStatusDistribution,
             child: SizedBox(
               height: 250,
               child: BarChart(
@@ -762,7 +762,16 @@ class DashboardScreen extends ConsumerWidget {
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: AppText(
-                              statuses[value.toInt()].label,
+                              switch (statuses[value.toInt()]) {
+                                IssueStatus.open =>
+                                  context.l10n.dashboardIssueStatusOpen,
+                                IssueStatus.inProgress =>
+                                  context.l10n.dashboardIssueStatusInProgress,
+                                IssueStatus.resolved =>
+                                  context.l10n.dashboardIssueStatusResolved,
+                                IssueStatus.closed =>
+                                  context.l10n.dashboardIssueStatusClosed,
+                              },
                               style: AppTextStyle.bodySmall,
                               color: context.colors.textSecondary,
                             ),
@@ -831,7 +840,7 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             _buildChartCard(
               context,
-              title: 'Issue Report Creation Trends',
+              title: context.l10n.dashboardIssueReportCreationTrends,
               child: SizedBox(
                 height: 250,
                 child: LineChart(
@@ -943,7 +952,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Maintenance Schedule by Type',
+        title: context.l10n.dashboardMaintenanceScheduleByType,
         child: SizedBox(
           height: 250,
           child: BarChart(
@@ -982,7 +991,16 @@ class DashboardScreen extends ConsumerWidget {
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
-                          types[value.toInt()].label,
+                          switch (types[value.toInt()]) {
+                            MaintenanceScheduleType.preventive =>
+                              context.l10n.dashboardMaintenanceTypePreventive,
+                            MaintenanceScheduleType.corrective =>
+                              context.l10n.dashboardMaintenanceTypeCorrective,
+                            MaintenanceScheduleType.inspection =>
+                              context.l10n.dashboardMaintenanceTypeInspection,
+                            MaintenanceScheduleType.calibration =>
+                              context.l10n.dashboardMaintenanceTypeCalibration,
+                          },
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                         ),
@@ -1060,7 +1078,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Maintenance Record Completion Trends',
+        title: context.l10n.dashboardMaintenanceRecordCompletionTrends,
         child: SizedBox(
           height: 250,
           child: LineChart(

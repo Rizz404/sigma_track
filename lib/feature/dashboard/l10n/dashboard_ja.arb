@@ -112,4 +112,18 @@
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
   }
+,
+  "dashboardAssetMovementTrends": "資産移動の傾向",
+  "dashboardIssueReportStatusDistribution": "課題報告ステータスの分布",
+  "dashboardIssueReportCreationTrends": "課題報告作成の傾向",
+  "dashboardMaintenanceScheduleByType": "タイプ別メンテナンススケジュール",
+  "dashboardMaintenanceRecordCompletionTrends": "メンテナンス記録完了の傾向",
+  "dashboardIssueStatusOpen": "未解決",
+  "dashboardIssueStatusInProgress": "進行中",
+  "dashboardIssueStatusResolved": "解決済み",
+  "dashboardIssueStatusClosed": "完了",
+  "dashboardMaintenanceTypePreventive": "予防",
+  "dashboardMaintenanceTypeCorrective": "修正",
+  "dashboardMaintenanceTypeInspection": "点検",
+  "dashboardMaintenanceTypeCalibration": "校正"
 }

@@ -196,14 +196,14 @@ class _ListMaintenanceRecordsScreenState
               const SizedBox(height: 16),
               AppTextField(
                 name: 'vendorName',
-                label: 'Vendor Name',
-                placeHolder: 'Enter vendor name...',
+                label: context.l10n.maintenanceVendorName,
+                placeHolder: context.l10n.maintenanceRecordEnterVendor,
                 initialValue: currentFilter.vendorName,
               ),
               const SizedBox(height: 16),
               AppDateTimePicker(
                 name: 'fromDate',
-                label: 'From Date',
+                label: context.l10n.maintenanceFromDate,
                 inputType: InputType.date,
                 initialValue: currentFilter.fromDate != null
                     ? DateTime.parse(currentFilter.fromDate!)
@@ -212,7 +212,7 @@ class _ListMaintenanceRecordsScreenState
               const SizedBox(height: 16),
               AppDateTimePicker(
                 name: 'toDate',
-                label: 'To Date',
+                label: context.l10n.maintenanceToDate,
                 inputType: InputType.date,
                 initialValue: currentFilter.toDate != null
                     ? DateTime.parse(currentFilter.toDate!)

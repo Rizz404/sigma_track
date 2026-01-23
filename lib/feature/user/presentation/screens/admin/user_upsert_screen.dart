@@ -195,8 +195,11 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               placeHolder: context.l10n.userEnterUsername,
               // * Don't copy username in copy mode (must be unique)
               initialValue: _isCopyMode ? null : widget.user?.name,
-              validator: (value) =>
-                  UserUpsertValidator.validateName(value, isUpdate: _isEdit),
+              validator: (value) => UserUpsertValidator.validateName(
+                context,
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -206,8 +209,11 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               placeHolder: context.l10n.userEnterEmail,
               // * Don't copy email in copy mode (must be unique)
               initialValue: _isCopyMode ? null : widget.user?.email,
-              validator: (value) =>
-                  UserUpsertValidator.validateEmail(value, isUpdate: _isEdit),
+              validator: (value) => UserUpsertValidator.validateEmail(
+                context,
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             if (!_isEdit) ...[
@@ -218,6 +224,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                 type: AppTextFieldType.password,
                 initialValue: 'password123',
                 validator: (value) => UserUpsertValidator.validatePassword(
+                  context,
                   value,
                   isUpdate: _isEdit,
                 ),
@@ -230,6 +237,7 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               placeHolder: context.l10n.userEnterFullName,
               initialValue: _sourceUser?.fullName,
               validator: (value) => UserUpsertValidator.validateFullName(
+                context,
                 value,
                 isUpdate: _isEdit,
               ),
@@ -249,8 +257,11 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
                   )
                   .toList(),
               initialValue: _sourceUser?.role.value,
-              validator: (value) =>
-                  UserUpsertValidator.validateRole(value, isUpdate: _isEdit),
+              validator: (value) => UserUpsertValidator.validateRole(
+                context,
+                value,
+                isUpdate: _isEdit,
+              ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -258,7 +269,8 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
               label: context.l10n.userEmployeeIdOptional,
               placeHolder: context.l10n.userEnterEmployeeIdOptional,
               initialValue: _sourceUser?.employeeId,
-              validator: UserUpsertValidator.validateEmployeeId,
+              validator: (value) =>
+                  UserUpsertValidator.validateEmployeeId(context, value),
             ),
             const SizedBox(height: 16),
             AppDropdown(

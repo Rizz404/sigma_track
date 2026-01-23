@@ -1,22 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class UserUpsertValidator {
-  static String? validateName(String? value, {bool isUpdate = false}) {
+  static String? validateName(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Name is required';
+      return context.l10n.userValidationNameRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
-        return 'Name must be at least 3 characters';
+        return context.l10n.userValidationNameMinLength;
       }
       if (value.length > 20) {
-        return 'Name must not exceed 20 characters';
+        return context.l10n.userValidationNameMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateEmail(String? value, {bool isUpdate = false}) {
+  static String? validateEmail(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Email is required';
+      return context.l10n.userValidationEmailRequired;
     }
     if (value != null && value.isNotEmpty) {
       // * Email regex pattern standar
@@ -24,20 +35,24 @@ class UserUpsertValidator {
         r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
       );
       if (!emailRegex.hasMatch(value)) {
-        return 'Please enter a valid email address';
+        return context.l10n.userValidationEmailInvalid;
       }
     }
     return null;
   }
 
-  static String? validatePassword(String? value, {bool isUpdate = false}) {
+  static String? validatePassword(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     // Password hanya required untuk create, tidak untuk update
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Password is required';
+      return context.l10n.userValidationPasswordRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 8) {
-        return 'Password must be at least 8 characters';
+        return context.l10n.userValidationPasswordMinLength;
       }
       // if (value.length > 100) {
       //   return 'Password must not exceed 100 characters';
@@ -56,32 +71,40 @@ class UserUpsertValidator {
     return null;
   }
 
-  static String? validateFullName(String? value, {bool isUpdate = false}) {
+  static String? validateFullName(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Full name is required';
+      return context.l10n.userValidationFullNameRequired;
     }
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
-        return 'Full name must be at least 3 characters';
+        return context.l10n.userValidationFullNameMinLength;
       }
       if (value.length > 100) {
-        return 'Full name must not exceed 100 characters';
+        return context.l10n.userValidationFullNameMaxLength;
       }
     }
     return null;
   }
 
-  static String? validateRole(String? value, {bool isUpdate = false}) {
+  static String? validateRole(
+    BuildContext context,
+    String? value, {
+    bool isUpdate = false,
+  }) {
     if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Role is required';
+      return context.l10n.userValidationRoleRequired;
     }
     return null;
   }
 
-  static String? validateEmployeeId(String? value) {
+  static String? validateEmployeeId(BuildContext context, String? value) {
     if (value != null && value.isNotEmpty) {
       if (value.length > 20) {
-        return 'Employee ID must not exceed 20 characters';
+        return context.l10n.userValidationEmployeeIdMaxLength;
       }
     }
     return null;

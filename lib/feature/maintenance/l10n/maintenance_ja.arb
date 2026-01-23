@@ -178,5 +178,29 @@
   "maintenanceRecordMetadata": "メタデータ",
   "maintenanceRecordCreatedAt": "作成日時",
   "maintenanceRecordUpdatedAt": "更新日時",
-  "maintenanceRecordSchedule": "メンテナンススケジュール"
+  "maintenanceRecordSchedule": "メンテナンススケジュール",
+  "maintenanceScheduleAssetCannotBeChanged": "このスケジュールの資産は作成後に変更することはできません。",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "この記録の資産は作成後に変更することはできません。",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceCreatedByUserNotFound": "作成したユーザーが見つかりません",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
+  },
+  "maintenanceFromDate": "開始日",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "終了日",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "ベンダー名",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
+  }
 }

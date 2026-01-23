@@ -3009,6 +3009,18 @@ abstract class L10n {
   /// **'Choose Image'**
   String get categoryChooseImage;
 
+  /// Label for current image in upsert screen
+  ///
+  /// In en, this message translates to:
+  /// **'Current Image'**
+  String get categoryCurrentImage;
+
+  /// Go back button label
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get categoryGoBack;
+
   /// Total users stat card title
   ///
   /// In en, this message translates to:
@@ -3176,6 +3188,84 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Maintenance Records'**
   String get dashboardMaintenanceRecords;
+
+  /// Asset movement trends chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Movement Trends'**
+  String get dashboardAssetMovementTrends;
+
+  /// Issue report status distribution chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Report Status Distribution'**
+  String get dashboardIssueReportStatusDistribution;
+
+  /// Issue report creation trends chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Report Creation Trends'**
+  String get dashboardIssueReportCreationTrends;
+
+  /// Maintenance schedule by type chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Schedule by Type'**
+  String get dashboardMaintenanceScheduleByType;
+
+  /// Maintenance record completion trends chart title
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Record Completion Trends'**
+  String get dashboardMaintenanceRecordCompletionTrends;
+
+  /// Issue status open
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get dashboardIssueStatusOpen;
+
+  /// Issue status in progress
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get dashboardIssueStatusInProgress;
+
+  /// Issue status resolved
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get dashboardIssueStatusResolved;
+
+  /// Issue status closed
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get dashboardIssueStatusClosed;
+
+  /// Maintenance type preventive
+  ///
+  /// In en, this message translates to:
+  /// **'Preventive'**
+  String get dashboardMaintenanceTypePreventive;
+
+  /// Maintenance type corrective
+  ///
+  /// In en, this message translates to:
+  /// **'Corrective'**
+  String get dashboardMaintenanceTypeCorrective;
+
+  /// Maintenance type inspection
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection'**
+  String get dashboardMaintenanceTypeInspection;
+
+  /// Maintenance type calibration
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration'**
+  String get dashboardMaintenanceTypeCalibration;
 
   /// Home screen title
   ///
@@ -3776,6 +3866,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Resolution notes must not exceed 1000 characters'**
   String get issueReportValidationResolutionNotesMaxLength;
+
+  /// Error message when reported by user is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Reported by user not found'**
+  String get issueReportReportedByUserNotFound;
+
+  /// Warning message in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.'**
+  String get issueReportEditWarning;
 
   /// Dialog title for deleting a location
   ///
@@ -5349,6 +5451,42 @@ abstract class L10n {
   /// **'Maintenance Schedule'**
   String get maintenanceRecordSchedule;
 
+  /// From date label
+  ///
+  /// In en, this message translates to:
+  /// **'From Date'**
+  String get maintenanceFromDate;
+
+  /// To date label
+  ///
+  /// In en, this message translates to:
+  /// **'To Date'**
+  String get maintenanceToDate;
+
+  /// Vendor name label
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor Name'**
+  String get maintenanceVendorName;
+
+  /// Info message stating asset cannot be changed in schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Asset cannot be changed once the schedule is created. All schedule settings and translations can be updated.'**
+  String get maintenanceScheduleAssetCannotBeChanged;
+
+  /// Info message stating asset cannot be changed in record
+  ///
+  /// In en, this message translates to:
+  /// **'Asset cannot be changed. All other maintenance details and translations can be updated.'**
+  String get maintenanceRecordAssetCannotBeChanged;
+
+  /// Error message when created by user is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Created by user not found'**
+  String get maintenanceCreatedByUserNotFound;
+
   /// Notification management screen title
   ///
   /// In en, this message translates to:
@@ -5720,6 +5858,114 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'{count} marked as unread'**
   String notificationMarkedAsUnread(int count);
+
+  /// General channel description
+  ///
+  /// In en, this message translates to:
+  /// **'General notifications from Sigma Asset'**
+  String get notificationChannelGeneralDescription;
+
+  /// Important channel description
+  ///
+  /// In en, this message translates to:
+  /// **'Important notifications that require immediate attention'**
+  String get notificationChannelImportantDescription;
+
+  /// Test notification default title
+  ///
+  /// In en, this message translates to:
+  /// **'Default Notification'**
+  String get notificationTestDefaultTitle;
+
+  /// Test notification high priority title
+  ///
+  /// In en, this message translates to:
+  /// **'High Priority Notification'**
+  String get notificationTestHighPriorityTitle;
+
+  /// Test notification 1 title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification 1'**
+  String get notificationTest1Title;
+
+  /// Test notification 2 title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification 2'**
+  String get notificationTest2Title;
+
+  /// Title for notification test screen
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Sound Test'**
+  String get notificationSoundTestTitle;
+
+  /// Card title for sound test
+  ///
+  /// In en, this message translates to:
+  /// **'Sound Test'**
+  String get notificationSoundTestCardTitle;
+
+  /// Card message for sound test
+  ///
+  /// In en, this message translates to:
+  /// **'Test custom notification sounds. Make sure device volume is up!'**
+  String get notificationSoundTestCardMessage;
+
+  /// Button label for default sound test
+  ///
+  /// In en, this message translates to:
+  /// **'Test Default Sound'**
+  String get notificationTestDefaultSound;
+
+  /// Button label for high priority sound test
+  ///
+  /// In en, this message translates to:
+  /// **'Test High Priority Sound'**
+  String get notificationTestHighPrioritySound;
+
+  /// Button label for multiple notifications test
+  ///
+  /// In en, this message translates to:
+  /// **'Test Multiple Notifications'**
+  String get notificationTestMultipleNotifications;
+
+  /// Body text for default test notification
+  ///
+  /// In en, this message translates to:
+  /// **'This should play notification_sound.ogg'**
+  String get notificationTestBodyDefault;
+
+  /// Body text for high priority test notification
+  ///
+  /// In en, this message translates to:
+  /// **'This should play high_priority_sound.ogg'**
+  String get notificationTestBodyHighPriority;
+
+  /// Body text for multiple test notification 1
+  ///
+  /// In en, this message translates to:
+  /// **'Default sound'**
+  String get notificationTestBodyMultiple1;
+
+  /// Body text for multiple test notification 2
+  ///
+  /// In en, this message translates to:
+  /// **'High priority sound'**
+  String get notificationTestBodyMultiple2;
+
+  /// Troubleshooting card title
+  ///
+  /// In en, this message translates to:
+  /// **'Not Working?'**
+  String get notificationTestTroubleshootingTitle;
+
+  /// Troubleshooting steps
+  ///
+  /// In en, this message translates to:
+  /// **'1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/'**
+  String get notificationTestTroubleshootingMessage;
 
   /// Scan log management screen title
   ///
@@ -6579,6 +6825,120 @@ abstract class L10n {
   /// **'Password changed successfully'**
   String get userPasswordChangedSuccessfully;
 
+  /// Validation error for required name
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get userValidationNameRequired;
+
+  /// Validation error for name min length
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be at least 3 characters'**
+  String get userValidationNameMinLength;
+
+  /// Validation error for name max length
+  ///
+  /// In en, this message translates to:
+  /// **'Name must not exceed 20 characters'**
+  String get userValidationNameMaxLength;
+
+  /// Validation error for alphanumeric name
+  ///
+  /// In en, this message translates to:
+  /// **'Name can only contain letters, numbers, and dashes'**
+  String get userValidationNameAlphanumeric;
+
+  /// Validation error for required email
+  ///
+  /// In en, this message translates to:
+  /// **'Email is required'**
+  String get userValidationEmailRequired;
+
+  /// Validation error for invalid email
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get userValidationEmailInvalid;
+
+  /// Validation error for required password
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get userValidationPasswordRequired;
+
+  /// Validation error for password min length
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
+  String get userValidationPasswordMinLength;
+
+  /// Validation error for required full name
+  ///
+  /// In en, this message translates to:
+  /// **'Full name is required'**
+  String get userValidationFullNameRequired;
+
+  /// Validation error for full name min length
+  ///
+  /// In en, this message translates to:
+  /// **'Full name must be at least 3 characters'**
+  String get userValidationFullNameMinLength;
+
+  /// Validation error for full name max length
+  ///
+  /// In en, this message translates to:
+  /// **'Full name must not exceed 100 characters'**
+  String get userValidationFullNameMaxLength;
+
+  /// Validation error for employee ID max length
+  ///
+  /// In en, this message translates to:
+  /// **'Employee ID must not exceed 20 characters'**
+  String get userValidationEmployeeIdMaxLength;
+
+  /// Validation error for required role
+  ///
+  /// In en, this message translates to:
+  /// **'Role is required'**
+  String get userValidationRoleRequired;
+
+  /// Validation error for required current password
+  ///
+  /// In en, this message translates to:
+  /// **'Current password is required'**
+  String get userValidationCurrentPasswordRequired;
+
+  /// Validation error for required new password
+  ///
+  /// In en, this message translates to:
+  /// **'New password is required'**
+  String get userValidationNewPasswordRequired;
+
+  /// Validation error for required confirm password
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password is required'**
+  String get userValidationConfirmPasswordRequired;
+
+  /// Validation error for password mismatch
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get userValidationPasswordsDoNotMatch;
+
+  /// Validation error for non-image files
+  ///
+  /// In en, this message translates to:
+  /// **'Only image files are allowed'**
+  String get userValidationImageOnly;
+
+  /// Validation error for image size limit
+  ///
+  /// In en, this message translates to:
+  /// **'Image size must not exceed {size}MB'**
+  String userValidationImageSize(int size);
+
   /// Admin shell bottom navigation label for dashboard
   ///
   /// In en, this message translates to:
@@ -6836,6 +7196,126 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Press back again to exit'**
   String get shellDoubleBackToExitApp;
+
+  /// Title for validation errors widget
+  ///
+  /// In en, this message translates to:
+  /// **'Validation Errors'**
+  String get sharedValidationErrors;
+
+  /// Error message for max files allowed
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum {count} files allowed'**
+  String sharedMaxFilesAllowed(int count);
+
+  /// Error message for file size limit
+  ///
+  /// In en, this message translates to:
+  /// **'File {name} exceeds {size}MB limit'**
+  String sharedFileTooLarge(String name, int size);
+
+  /// Error message for file picking failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to pick files'**
+  String get sharedFailedToPickFiles;
+
+  /// Hint text for file picker
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file(s)'**
+  String get sharedChooseFiles;
+
+  /// Error text for image preview failure
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to preview image'**
+  String get sharedUnableToPreviewImage;
+
+  /// Placeholder text for video preview
+  ///
+  /// In en, this message translates to:
+  /// **'Video preview not implemented yet'**
+  String get sharedVideoPreviewNotImplemented;
+
+  /// Error text for unsupported file preview
+  ///
+  /// In en, this message translates to:
+  /// **'Preview not available for this file type'**
+  String get sharedPreviewNotAvailable;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get sharedDelete;
+
+  /// Edit button label
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get sharedEdit;
+
+  /// Options title
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get sharedOptions;
+
+  /// Create button label
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get sharedCreate;
+
+  /// Add new item subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new item'**
+  String get sharedAddNewItem;
+
+  /// Select many option title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Many'**
+  String get sharedSelectMany;
+
+  /// Select items to delete subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple items to delete'**
+  String get sharedSelectItemsToDelete;
+
+  /// Filter and sort option title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter & Sort'**
+  String get sharedFilterAndSort;
+
+  /// Customize display subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize display'**
+  String get sharedCustomizeDisplay;
+
+  /// Export option title
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get sharedExport;
+
+  /// Export data subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Export data to file'**
+  String get sharedExportDataToFile;
+
+  /// Time placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'HH:MM'**
+  String get sharedTimePlaceholder;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

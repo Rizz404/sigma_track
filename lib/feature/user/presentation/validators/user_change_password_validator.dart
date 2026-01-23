@@ -1,14 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+
 class UserChangePasswordValidator {
-  static String? validateCurrentPassword(String? value) {
+  static String? validateCurrentPassword(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Current password is required';
+      return context.l10n.userValidationCurrentPasswordRequired;
     }
     return null;
   }
 
-  static String? validateNewPassword(String? value) {
+  static String? validateNewPassword(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'New password is required';
+      return context.l10n.userValidationNewPasswordRequired;
     }
     // if (value.length < 8) {
     //   return 'Password must be at least 8 characters';
@@ -23,12 +26,16 @@ class UserChangePasswordValidator {
     return null;
   }
 
-  static String? validateConfirmPassword(String? value, String? newPassword) {
+  static String? validateConfirmPassword(
+    BuildContext context,
+    String? value,
+    String? newPassword,
+  ) {
     if (value == null || value.isEmpty) {
-      return 'Confirm password is required';
+      return context.l10n.userValidationConfirmPasswordRequired;
     }
     if (value != newPassword) {
-      return 'Passwords do not match';
+      return context.l10n.userValidationPasswordsDoNotMatch;
     }
     return null;
   }

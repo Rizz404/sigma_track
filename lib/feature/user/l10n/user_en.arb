@@ -409,5 +409,87 @@
   "userPasswordChangedSuccessfully": "Password changed successfully",
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
+  },
+  "userValidationNameRequired": "Name is required",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationNameMinLength": "Name must be at least 3 characters",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name min length"
+  },
+  "userValidationNameMaxLength": "Name must not exceed 20 characters",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name max length"
+  },
+  "userValidationNameAlphanumeric": "Name can only contain letters, numbers, and dashes",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationEmailRequired": "Email is required",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "Please enter a valid email address",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email"
+  },
+  "userValidationPasswordRequired": "Password is required",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "Password must be at least 8 characters",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password min length"
+  },
+  "userValidationFullNameRequired": "Full name is required",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "Full name must be at least 3 characters",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name min length"
+  },
+  "userValidationFullNameMaxLength": "Full name must not exceed 100 characters",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name max length"
+  },
+  "userValidationEmployeeIdMaxLength": "Employee ID must not exceed 20 characters",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID max length"
+  },
+  "userValidationRoleRequired": "Role is required",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "Current password is required",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "New password is required",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "Confirm password is required",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "Passwords do not match",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error for password mismatch"
+  },
+  "userValidationImageOnly": "Only image files are allowed",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
+  },
+  "userValidationImageSize": "Image size must not exceed {size}MB",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size limit",
+    "placeholders": {
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   }
 }

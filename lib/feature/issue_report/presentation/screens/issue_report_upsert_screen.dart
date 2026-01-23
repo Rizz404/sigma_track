@@ -122,7 +122,7 @@ class _IssueReportUpsertScreenState
     } else {
       // * Pastikan reportedById tidak kosong saat create
       if (reportedById.isEmpty) {
-        AppToast.warning('Reported by user tidak ditemukan');
+        AppToast.warning(context.l10n.issueReportReportedByUserNotFound);
         return;
       }
 
@@ -259,7 +259,7 @@ class _IssueReportUpsertScreenState
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppText(
-                        'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.',
+                        context.l10n.issueReportEditWarning,
                         style: AppTextStyle.bodySmall,
                         color: context.semantic.warning,
                       ),

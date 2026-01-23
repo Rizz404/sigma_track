@@ -715,5 +715,29 @@
   "maintenanceRecordSchedule": "Maintenance Schedule",
   "@maintenanceRecordSchedule": {
     "description": "Schedule label"
+  },
+  "maintenanceFromDate": "From Date",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "To Date",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "Vendor Name",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
+  },
+  "maintenanceScheduleAssetCannotBeChanged": "Asset cannot be changed once the schedule is created. All schedule settings and translations can be updated.",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Info message stating asset cannot be changed in schedule"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "Asset cannot be changed. All other maintenance details and translations can be updated.",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Info message stating asset cannot be changed in record"
+  },
+  "maintenanceCreatedByUserNotFound": "Created by user not found",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
   }
 }

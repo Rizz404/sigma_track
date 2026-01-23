@@ -406,8 +406,122 @@
   "@userChangePasswordButton": {
     "description": "Change password button text"
   },
+  "userValidationNameRequired": "名前は必須です",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationEmailRequired": "メールアドレスは必須です",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "メールアドレスの形式が無効です (例: user@example.com)",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email format"
+  },
+  "userValidationPasswordRequired": "パスワードは必須です",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "パスワードは8文字以上である必要があります",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password minimum length"
+  },
+  "userValidationPasswordFormat": "パスワードには、少なくとも1つの大文字、1つの小文字、および1つの数字を含める必要があります",
+  "@userValidationPasswordFormat": {
+    "description": "Validation error for password format requirements"
+  },
+  "userValidationPasswordMismatch": "パスワードが一致しません",
+  "@userValidationPasswordMismatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageSize": "画像サイズが大きすぎます (最大5MB)",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size"
+  },
   "userPasswordChangedSuccessfully": "パスワードが正常に変更されました",
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
+  },
+  "userValidationNameMinLength": "名前は{length}文字以上である必要があります",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationNameMaxLength": "名前は{length}文字以下である必要があります",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "50"
+      }
+    }
+  },
+  "userValidationNameAlphanumeric": "名前は英数字のみ使用できます",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationFullNameRequired": "氏名は必須です",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "氏名は{length}文字以上である必要があります",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationFullNameMaxLength": "氏名は{length}文字以下である必要があります",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "userValidationEmployeeIdMaxLength": "従業員IDは{length}文字以下である必要があります",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "userValidationRoleRequired": "役割を選択してください",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "現在のパスワードは必須です",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "新しいパスワードは必須です",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "パスワードの確認は必須です",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "パスワードが一致しません",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageOnly": "画像ファイルのみ許可されています",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
   }
 }

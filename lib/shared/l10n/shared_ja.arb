@@ -171,5 +171,101 @@
   "shellDoubleBackToExitApp": "もう一度戻るボタンを押して終了",
   "@shellDoubleBackToExitApp": {
     "description": "Message shown when user needs to press back again to exit app"
+  },
+  "sharedValidationErrors": "検証エラー",
+  "@sharedValidationErrors": {
+    "description": "Title for validation errors widget"
+  },
+  "sharedMaxFilesAllowed": "最大{count}ファイルまで許可されています",
+  "@sharedMaxFilesAllowed": {
+    "description": "Error message for max files allowed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFileTooLarge": "ファイル{name}は{size}MBの制限を超えています",
+  "@sharedFileTooLarge": {
+    "description": "Error message for file size limit",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "image.jpg"
+      },
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFailedToPickFiles": "ファイルの選択に失敗しました",
+  "@sharedFailedToPickFiles": {
+    "description": "Error message for file picking failure"
+  },
+  "sharedChooseFiles": "ファイルを選択",
+  "@sharedChooseFiles": {
+    "description": "Hint text for file picker"
+  },
+  "sharedUnableToPreviewImage": "画像のプレビューを表示できません",
+  "@sharedUnableToPreviewImage": {
+    "description": "Error text for image preview failure"
+  },
+  "sharedVideoPreviewNotImplemented": "動画のプレビューはまだ実装されていません",
+  "@sharedVideoPreviewNotImplemented": {
+    "description": "Placeholder text for video preview"
+  },
+  "sharedPreviewNotAvailable": "このファイルタイプのプレビューは利用できません",
+  "@sharedPreviewNotAvailable": {
+    "description": "Error text for unsupported file preview"
+  },
+  "sharedDelete": "削除",
+  "@sharedDelete": {
+    "description": "Delete button label"
+  },
+  "sharedEdit": "編集",
+  "@sharedEdit": {
+    "description": "Edit button label"
+  },
+  "sharedOptions": "オプション",
+  "@sharedOptions": {
+    "description": "Options title"
+  },
+  "sharedCreate": "作成",
+  "@sharedCreate": {
+    "description": "Create button label"
+  },
+  "sharedAddNewItem": "新しいアイテムを追加",
+  "@sharedAddNewItem": {
+    "description": "Add new item subtitle"
+  },
+  "sharedSelectMany": "複数選択",
+  "@sharedSelectMany": {
+    "description": "Select many option title"
+  },
+  "sharedSelectItemsToDelete": "削除するアイテムを複数選択",
+  "@sharedSelectItemsToDelete": {
+    "description": "Select items to delete subtitle"
+  },
+  "sharedFilterAndSort": "フィルタと並べ替え",
+  "@sharedFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "sharedCustomizeDisplay": "表示をカスタマイズ",
+  "@sharedCustomizeDisplay": {
+    "description": "Customize display subtitle"
+  },
+  "sharedExport": "エクスポート",
+  "@sharedExport": {
+    "description": "Export option title"
+  },
+  "sharedExportDataToFile": "データをファイルにエクスポート",
+  "@sharedExportDataToFile": {
+    "description": "Export data subtitle"
+  },
+  "sharedTimePlaceholder": "HH:MM",
+  "@sharedTimePlaceholder": {
+    "description": "Time placeholder"
   }
 }

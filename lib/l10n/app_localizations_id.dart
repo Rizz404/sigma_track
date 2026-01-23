@@ -1594,6 +1594,12 @@ class L10nId extends L10n {
   String get categoryChooseImage => 'Pilih Gambar';
 
   @override
+  String get categoryCurrentImage => 'Gambar Saat Ini';
+
+  @override
+  String get categoryGoBack => 'Kembali';
+
+  @override
   String get dashboardTotalUsers => 'Total Pengguna';
 
   @override
@@ -1676,6 +1682,49 @@ class L10nId extends L10n {
 
   @override
   String get dashboardMaintenanceRecords => 'Catatan Pemeliharaan';
+
+  @override
+  String get dashboardAssetMovementTrends => 'Tren Pergerakan Aset';
+
+  @override
+  String get dashboardIssueReportStatusDistribution =>
+      'Distribusi Status Laporan Masalah';
+
+  @override
+  String get dashboardIssueReportCreationTrends =>
+      'Tren Pembuatan Laporan Masalah';
+
+  @override
+  String get dashboardMaintenanceScheduleByType =>
+      'Jadwal Pemeliharaan berdasarkan Tipe';
+
+  @override
+  String get dashboardMaintenanceRecordCompletionTrends =>
+      'Tren Penyelesaian Rekaman Pemeliharaan';
+
+  @override
+  String get dashboardIssueStatusOpen => 'Terbuka';
+
+  @override
+  String get dashboardIssueStatusInProgress => 'Sedang Diproses';
+
+  @override
+  String get dashboardIssueStatusResolved => 'Terselesaikan';
+
+  @override
+  String get dashboardIssueStatusClosed => 'Ditutup';
+
+  @override
+  String get dashboardMaintenanceTypePreventive => 'Preventif';
+
+  @override
+  String get dashboardMaintenanceTypeCorrective => 'Korektif';
+
+  @override
+  String get dashboardMaintenanceTypeInspection => 'Inspeksi';
+
+  @override
+  String get dashboardMaintenanceTypeCalibration => 'Kalibrasi';
 
   @override
   String get homeScreen => 'Beranda';
@@ -2013,6 +2062,14 @@ class L10nId extends L10n {
   @override
   String get issueReportValidationResolutionNotesMaxLength =>
       'Catatan resolusi maksimal 1000 karakter';
+
+  @override
+  String get issueReportReportedByUserNotFound =>
+      'Pengguna yang melaporkan tidak ditemukan';
+
+  @override
+  String get issueReportEditWarning =>
+      'Hanya prioritas, status, diselesaikan oleh, dan terjemahan yang dapat diperbarui. Aset dan jenis masalah bersifat tetap.';
 
   @override
   String get locationDeleteLocation => 'Hapus Lokasi';
@@ -2896,6 +2953,27 @@ class L10nId extends L10n {
   String get maintenanceRecordSchedule => 'Jadwal Pemeliharaan';
 
   @override
+  String get maintenanceFromDate => 'Dari Tanggal';
+
+  @override
+  String get maintenanceToDate => 'Sampai Tanggal';
+
+  @override
+  String get maintenanceVendorName => 'Nama Vendor';
+
+  @override
+  String get maintenanceScheduleAssetCannotBeChanged =>
+      'Aset untuk jadwal ini tidak dapat diubah setelah dibuat.';
+
+  @override
+  String get maintenanceRecordAssetCannotBeChanged =>
+      'Aset untuk catatan ini tidak dapat diubah setelah dibuat.';
+
+  @override
+  String get maintenanceCreatedByUserNotFound =>
+      'Pengguna yang membuat tidak ditemukan';
+
+  @override
   String get notificationManagement => 'Manajemen Notifikasi';
 
   @override
@@ -3104,6 +3182,66 @@ class L10nId extends L10n {
   String notificationMarkedAsUnread(int count) {
     return '$count ditandai belum dibaca';
   }
+
+  @override
+  String get notificationChannelGeneralDescription =>
+      'Notifikasi umum dari Sigma Asset';
+
+  @override
+  String get notificationChannelImportantDescription =>
+      'Notifikasi penting yang memerlukan perhatian segera';
+
+  @override
+  String get notificationTestDefaultTitle => 'Notifikasi Default';
+
+  @override
+  String get notificationTestHighPriorityTitle => 'Notifikasi Prioritas Tinggi';
+
+  @override
+  String get notificationTest1Title => 'Notifikasi 1';
+
+  @override
+  String get notificationTest2Title => 'Notifikasi 2';
+
+  @override
+  String get notificationSoundTestTitle => 'Uji Suara';
+
+  @override
+  String get notificationSoundTestCardTitle => 'Uji Pemutaran Suara';
+
+  @override
+  String get notificationSoundTestCardMessage =>
+      'Klik tombol di bawah untuk menguji suara notifikasi.';
+
+  @override
+  String get notificationTestDefaultSound => 'Suara Default';
+
+  @override
+  String get notificationTestHighPrioritySound => 'Suara Prioritas Tinggi';
+
+  @override
+  String get notificationTestMultipleNotifications => 'Notifikasi Beruntun';
+
+  @override
+  String get notificationTestBodyDefault => 'Ini adalah notifikasi default';
+
+  @override
+  String get notificationTestBodyHighPriority =>
+      'Ini adalah notifikasi prioritas tinggi';
+
+  @override
+  String get notificationTestBodyMultiple1 => 'Notifikasi 1: Memeriksa sistem';
+
+  @override
+  String get notificationTestBodyMultiple2 =>
+      'Notifikasi 2: Sistem berfungsi normal';
+
+  @override
+  String get notificationTestTroubleshootingTitle => 'Pemecahan Masalah';
+
+  @override
+  String get notificationTestTroubleshootingMessage =>
+      'Jika Anda tidak mendengar suara, periksa pengaturan volume perangkat Anda.';
 
   @override
   String get scanLogManagement => 'Manajemen Log Pemindaian';
@@ -3558,6 +3696,72 @@ class L10nId extends L10n {
   String get userPasswordChangedSuccessfully => 'Kata sandi berhasil diubah';
 
   @override
+  String get userValidationNameRequired => 'Nama wajib diisi';
+
+  @override
+  String get userValidationNameMinLength => 'Nama minimal null karakter';
+
+  @override
+  String get userValidationNameMaxLength => 'Nama maksimal null karakter';
+
+  @override
+  String get userValidationNameAlphanumeric =>
+      'Nama hanya boleh berisi huruf dan angka';
+
+  @override
+  String get userValidationEmailRequired => 'Email wajib diisi';
+
+  @override
+  String get userValidationEmailInvalid =>
+      'Format email tidak valid (contoh: user@example.com)';
+
+  @override
+  String get userValidationPasswordRequired => 'Kata sandi wajib diisi';
+
+  @override
+  String get userValidationPasswordMinLength => 'Kata sandi minimal 8 karakter';
+
+  @override
+  String get userValidationFullNameRequired => 'Nama lengkap wajib diisi';
+
+  @override
+  String get userValidationFullNameMinLength =>
+      'Nama lengkap minimal null karakter';
+
+  @override
+  String get userValidationFullNameMaxLength =>
+      'Nama lengkap maksimal null karakter';
+
+  @override
+  String get userValidationEmployeeIdMaxLength =>
+      'ID Karyawan maksimal null karakter';
+
+  @override
+  String get userValidationRoleRequired => 'Peran wajib dipilih';
+
+  @override
+  String get userValidationCurrentPasswordRequired =>
+      'Kata sandi saat ini wajib diisi';
+
+  @override
+  String get userValidationNewPasswordRequired => 'Kata sandi baru wajib diisi';
+
+  @override
+  String get userValidationConfirmPasswordRequired =>
+      'Konfirmasi kata sandi wajib diisi';
+
+  @override
+  String get userValidationPasswordsDoNotMatch => 'Kata sandi tidak cocok';
+
+  @override
+  String get userValidationImageOnly => 'Hanya file gambar yang diperbolehkan';
+
+  @override
+  String userValidationImageSize(int size) {
+    return 'Ukuran gambar terlalu besar (maksimal 5MB)';
+  }
+
+  @override
   String get adminShellBottomNavDashboard => 'Dasbor';
 
   @override
@@ -3686,4 +3890,71 @@ class L10nId extends L10n {
   @override
   String get shellDoubleBackToExitApp =>
       'Tekan kembali sekali lagi untuk keluar';
+
+  @override
+  String get sharedValidationErrors => 'Kesalahan Validasi';
+
+  @override
+  String sharedMaxFilesAllowed(int count) {
+    return 'Maksimum $count file diizinkan';
+  }
+
+  @override
+  String sharedFileTooLarge(String name, int size) {
+    return 'File $name melebihi batas ${size}MB';
+  }
+
+  @override
+  String get sharedFailedToPickFiles => 'Gagal memilih file';
+
+  @override
+  String get sharedChooseFiles => 'Pilih file';
+
+  @override
+  String get sharedUnableToPreviewImage =>
+      'Tidak dapat melihat pratinjau gambar';
+
+  @override
+  String get sharedVideoPreviewNotImplemented =>
+      'Pratinjau video belum diimplementasikan';
+
+  @override
+  String get sharedPreviewNotAvailable =>
+      'Pratinjau tidak tersedia untuk jenis file ini';
+
+  @override
+  String get sharedDelete => 'Hapus';
+
+  @override
+  String get sharedEdit => 'Ubah';
+
+  @override
+  String get sharedOptions => 'Opsi';
+
+  @override
+  String get sharedCreate => 'Buat';
+
+  @override
+  String get sharedAddNewItem => 'Tambah item baru';
+
+  @override
+  String get sharedSelectMany => 'Pilih Banyak';
+
+  @override
+  String get sharedSelectItemsToDelete => 'Pilih beberapa item untuk dihapus';
+
+  @override
+  String get sharedFilterAndSort => 'Filter & Urutkan';
+
+  @override
+  String get sharedCustomizeDisplay => 'Sesuaikan tampilan';
+
+  @override
+  String get sharedExport => 'Ekspor';
+
+  @override
+  String get sharedExportDataToFile => 'Ekspor data ke file';
+
+  @override
+  String get sharedTimePlaceholder => 'JJ:MM';
 }

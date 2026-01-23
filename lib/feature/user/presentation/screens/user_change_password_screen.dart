@@ -178,7 +178,11 @@ class _UserChangePasswordScreenState
               label: context.l10n.userCurrentPassword,
               placeHolder: context.l10n.userEnterCurrentPassword,
               type: AppTextFieldType.password,
-              validator: UserChangePasswordValidator.validateCurrentPassword,
+              validator: (value) =>
+                  UserChangePasswordValidator.validateCurrentPassword(
+                    context,
+                    value,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -186,7 +190,11 @@ class _UserChangePasswordScreenState
               label: context.l10n.userNewPassword,
               placeHolder: context.l10n.userEnterNewPassword,
               type: AppTextFieldType.password,
-              validator: UserChangePasswordValidator.validateNewPassword,
+              validator: (value) =>
+                  UserChangePasswordValidator.validateNewPassword(
+                    context,
+                    value,
+                  ),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -196,6 +204,7 @@ class _UserChangePasswordScreenState
               type: AppTextFieldType.password,
               validator: (value) =>
                   UserChangePasswordValidator.validateConfirmPassword(
+                    context,
                     value,
                     _formKey.currentState?.fields['newPassword']?.value,
                   ),

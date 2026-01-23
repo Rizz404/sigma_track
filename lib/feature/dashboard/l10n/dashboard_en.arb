@@ -111,5 +111,57 @@
   "dashboardMaintenanceRecords": "Maintenance Records",
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
+  },
+  "dashboardAssetMovementTrends": "Asset Movement Trends",
+  "@dashboardAssetMovementTrends": {
+    "description": "Asset movement trends chart title"
+  },
+  "dashboardIssueReportStatusDistribution": "Issue Report Status Distribution",
+  "@dashboardIssueReportStatusDistribution": {
+    "description": "Issue report status distribution chart title"
+  },
+  "dashboardIssueReportCreationTrends": "Issue Report Creation Trends",
+  "@dashboardIssueReportCreationTrends": {
+    "description": "Issue report creation trends chart title"
+  },
+  "dashboardMaintenanceScheduleByType": "Maintenance Schedule by Type",
+  "@dashboardMaintenanceScheduleByType": {
+    "description": "Maintenance schedule by type chart title"
+  },
+  "dashboardMaintenanceRecordCompletionTrends": "Maintenance Record Completion Trends",
+  "@dashboardMaintenanceRecordCompletionTrends": {
+    "description": "Maintenance record completion trends chart title"
+  },
+  "dashboardIssueStatusOpen": "Open",
+  "@dashboardIssueStatusOpen": {
+    "description": "Issue status open"
+  },
+  "dashboardIssueStatusInProgress": "In Progress",
+  "@dashboardIssueStatusInProgress": {
+    "description": "Issue status in progress"
+  },
+  "dashboardIssueStatusResolved": "Resolved",
+  "@dashboardIssueStatusResolved": {
+    "description": "Issue status resolved"
+  },
+  "dashboardIssueStatusClosed": "Closed",
+  "@dashboardIssueStatusClosed": {
+    "description": "Issue status closed"
+  },
+  "dashboardMaintenanceTypePreventive": "Preventive",
+  "@dashboardMaintenanceTypePreventive": {
+    "description": "Maintenance type preventive"
+  },
+  "dashboardMaintenanceTypeCorrective": "Corrective",
+  "@dashboardMaintenanceTypeCorrective": {
+    "description": "Maintenance type corrective"
+  },
+  "dashboardMaintenanceTypeInspection": "Inspection",
+  "@dashboardMaintenanceTypeInspection": {
+    "description": "Maintenance type inspection"
+  },
+  "dashboardMaintenanceTypeCalibration": "Calibration",
+  "@dashboardMaintenanceTypeCalibration": {
+    "description": "Maintenance type calibration"
   }
 }

@@ -431,5 +431,13 @@
   "issueReportValidationResolutionNotesMaxLength": "解決メモは1000文字を超えることはできません",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "報告したユーザーが見つかりません",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "優先度、ステータス、解決者、および翻訳のみ更新できます。資産と問題タイプは変更できません。",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   }
 }

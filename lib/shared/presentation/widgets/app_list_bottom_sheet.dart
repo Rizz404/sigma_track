@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -8,14 +9,14 @@ class AppListOptionsBottomSheet extends StatelessWidget {
   final VoidCallback onSelectMany;
   final Widget Function() filterSortWidgetBuilder;
   final Widget Function()? exportWidgetBuilder;
-  final String createTitle;
-  final String createSubtitle;
-  final String selectManyTitle;
-  final String selectManySubtitle;
-  final String filterSortTitle;
-  final String filterSortSubtitle;
-  final String exportTitle;
-  final String exportSubtitle;
+  final String? createTitle;
+  final String? createSubtitle;
+  final String? selectManyTitle;
+  final String? selectManySubtitle;
+  final String? filterSortTitle;
+  final String? filterSortSubtitle;
+  final String? exportTitle;
+  final String? exportSubtitle;
 
   const AppListOptionsBottomSheet({
     super.key,
@@ -23,14 +24,14 @@ class AppListOptionsBottomSheet extends StatelessWidget {
     required this.onSelectMany,
     required this.filterSortWidgetBuilder,
     this.exportWidgetBuilder,
-    this.createTitle = 'Create',
-    this.createSubtitle = 'Add a new item',
-    this.selectManyTitle = 'Select Many',
-    this.selectManySubtitle = 'Select multiple items to delete',
-    this.filterSortTitle = 'Filter & Sort',
-    this.filterSortSubtitle = 'Customize display',
-    this.exportTitle = 'Export',
-    this.exportSubtitle = 'Export data to file',
+    this.createTitle,
+    this.createSubtitle,
+    this.selectManyTitle,
+    this.selectManySubtitle,
+    this.filterSortTitle,
+    this.filterSortSubtitle,
+    this.exportTitle,
+    this.exportSubtitle,
   });
 
   @override
@@ -50,8 +51,8 @@ class AppListOptionsBottomSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            const AppText(
-              'Options',
+            AppText(
+              context.l10n.sharedOptions,
               style: AppTextStyle.titleLarge,
               fontWeight: FontWeight.bold,
             ),
@@ -59,23 +60,25 @@ class AppListOptionsBottomSheet extends StatelessWidget {
             if (onCreate != null) ...[
               _OptionTile(
                 icon: Icons.add_circle_outline,
-                title: createTitle,
-                subtitle: createSubtitle,
+                title: createTitle ?? context.l10n.sharedCreate,
+                subtitle: createSubtitle ?? context.l10n.sharedAddNewItem,
                 onTap: onCreate!,
               ),
               const SizedBox(height: 12),
             ],
             _OptionTile(
               icon: Icons.checklist,
-              title: selectManyTitle,
-              subtitle: selectManySubtitle,
+              title: selectManyTitle ?? context.l10n.sharedSelectMany,
+              subtitle:
+                  selectManySubtitle ?? context.l10n.sharedSelectItemsToDelete,
               onTap: onSelectMany,
             ),
             const SizedBox(height: 12),
             _OptionTile(
               icon: Icons.filter_list,
-              title: filterSortTitle,
-              subtitle: filterSortSubtitle,
+              title: filterSortTitle ?? context.l10n.sharedFilterAndSort,
+              subtitle:
+                  filterSortSubtitle ?? context.l10n.sharedCustomizeDisplay,
               onTap: () {
                 Navigator.pop(context);
                 showModalBottomSheet(
@@ -95,8 +98,8 @@ class AppListOptionsBottomSheet extends StatelessWidget {
             if (exportWidgetBuilder != null) ...[
               _OptionTile(
                 icon: Icons.download,
-                title: exportTitle,
-                subtitle: exportSubtitle,
+                title: exportTitle ?? context.l10n.sharedExport,
+                subtitle: exportSubtitle ?? context.l10n.sharedExportDataToFile,
                 onTap: () {
                   Navigator.pop(context);
                   showModalBottomSheet(

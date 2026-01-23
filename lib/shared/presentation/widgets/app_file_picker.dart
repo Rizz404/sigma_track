@@ -1,9 +1,10 @@
 import 'dart:io';
-
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -71,7 +72,9 @@ class AppFilePickerState extends State<AppFilePicker> {
       if (result != null) {
         // * Validate max files
         if (widget.maxFiles != null && result.files.length > widget.maxFiles!) {
-          AppToast.warning('Maximum ${widget.maxFiles} files allowed');
+          AppToast.warning(
+            context.l10n.sharedMaxFilesAllowed(widget.maxFiles!),
+          );
           return;
         }
 
@@ -80,7 +83,7 @@ class AppFilePickerState extends State<AppFilePicker> {
           for (final file in result.files) {
             if (file.size > (widget.maxSizeInMB! * 1024 * 1024)) {
               AppToast.warning(
-                'File ${file.name} exceeds ${widget.maxSizeInMB}MB limit',
+                context.l10n.sharedFileTooLarge(file.name, widget.maxSizeInMB!),
               );
               return;
             }
@@ -102,7 +105,7 @@ class AppFilePickerState extends State<AppFilePicker> {
       }
     } catch (e, s) {
       this.logError('Error picking files', e, s);
-      AppToast.error('Failed to pick files');
+      AppToast.error(context.l10n.sharedFailedToPickFiles);
     }
   }
 
@@ -194,7 +197,7 @@ class AppFilePickerState extends State<AppFilePicker> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppText(
-                        widget.hintText ?? 'Choose file(s)',
+                        widget.hintText ?? context.l10n.sharedChooseFiles,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                       ),
@@ -411,7 +414,7 @@ class _FilePreviewDialog extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             color: Colors.transparent,
-            child: Center(child: _buildPreviewContent()),
+            child: Center(child: _buildPreviewContent(context)),
           ),
         ),
         Positioned(
@@ -426,31 +429,31 @@ class _FilePreviewDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildPreviewContent() {
+  Widget _buildPreviewContent(BuildContext context) {
     if (_isImage()) {
       if (kIsWeb) {
         return file.bytes != null
             ? Image.memory(file.bytes!, fit: BoxFit.contain)
-            : const AppText('Unable to preview image');
+            : AppText(context.l10n.sharedUnableToPreviewImage);
       } else {
         return file.path != null
             ? Image.file(File(file.path!), fit: BoxFit.contain)
-            : const AppText('Unable to preview image');
+            : AppText(context.l10n.sharedUnableToPreviewImage);
       }
     } else if (_isVideo()) {
-      return const Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.video_file, size: 64, color: Colors.grey),
-          SizedBox(height: 16),
+          const Icon(Icons.video_file, size: 64, color: Colors.grey),
+          const SizedBox(height: 16),
           AppText(
-            'Video preview not implemented yet',
+            context.l10n.sharedVideoPreviewNotImplemented,
             style: AppTextStyle.bodyMedium,
           ),
         ],
       );
     } else {
-      return const AppText('Preview not available for this file type');
+      return AppText(context.l10n.sharedPreviewNotAvailable);
     }
   }
 }

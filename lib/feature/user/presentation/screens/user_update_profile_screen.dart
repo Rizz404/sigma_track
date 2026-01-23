@@ -231,7 +231,8 @@ class _UserUpdateProfileScreenState
               allowMultiple: false,
               maxFiles: 1,
               maxSizeInMB: 5,
-              validator: UserUpdateProfileValidator.validateAvatar,
+              validator: (files) =>
+                  UserUpdateProfileValidator.validateAvatar(context, files),
               allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
             ),
             const SizedBox(height: 16),
@@ -241,7 +242,7 @@ class _UserUpdateProfileScreenState
               placeHolder: context.l10n.userEnterUsername,
               initialValue: user.name,
               validator: (value) =>
-                  UserUpdateProfileValidator.validateName(value),
+                  UserUpdateProfileValidator.validateName(context, value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -250,7 +251,7 @@ class _UserUpdateProfileScreenState
               placeHolder: context.l10n.userEnterEmail,
               initialValue: user.email,
               validator: (value) =>
-                  UserUpdateProfileValidator.validateEmail(value),
+                  UserUpdateProfileValidator.validateEmail(context, value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -259,7 +260,7 @@ class _UserUpdateProfileScreenState
               placeHolder: context.l10n.userEnterFullName,
               initialValue: user.fullName,
               validator: (value) =>
-                  UserUpdateProfileValidator.validateFullName(value),
+                  UserUpdateProfileValidator.validateFullName(context, value),
             ),
             const SizedBox(height: 16),
             AppTextField(
@@ -267,7 +268,8 @@ class _UserUpdateProfileScreenState
               label: context.l10n.userEmployeeIdOptional,
               placeHolder: context.l10n.userEnterEmployeeIdOptional,
               initialValue: user.employeeId,
-              validator: UserUpdateProfileValidator.validateEmployeeId,
+              validator: (value) =>
+                  UserUpdateProfileValidator.validateEmployeeId(context, value),
             ),
             const SizedBox(height: 16),
             AppDropdown(

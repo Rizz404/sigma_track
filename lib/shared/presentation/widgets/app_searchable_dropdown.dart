@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -261,7 +262,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
         focusNode: _focusNode,
         onChanged: _performSearch,
         decoration: InputDecoration(
-          hintText: 'Search...',
+          hintText: context.l10n.appSearchFieldHint,
           hintStyle: context.textTheme.bodySmall?.copyWith(
             color: context.colors.textTertiary,
           ),
@@ -320,7 +321,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
         padding: const EdgeInsets.all(24),
         child: Center(
           child: AppText(
-            'No items available',
+            context.l10n.appSearchFieldNoResultsFound,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textSecondary,
           ),
@@ -452,7 +453,8 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                 child: InputDecorator(
                   decoration: InputDecoration(
                     labelText: widget.label,
-                    hintText: widget.hintText ?? 'Select option',
+                    hintText:
+                        widget.hintText ?? context.l10n.appDropdownSelectOption,
                     hintStyle: context.textTheme.bodyMedium?.copyWith(
                       color: context.colors.textTertiary,
                     ),

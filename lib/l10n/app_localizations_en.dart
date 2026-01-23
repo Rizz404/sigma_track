@@ -1586,6 +1586,12 @@ class L10nEn extends L10n {
   String get categoryChooseImage => 'Choose Image';
 
   @override
+  String get categoryCurrentImage => 'Current Image';
+
+  @override
+  String get categoryGoBack => 'Go Back';
+
+  @override
   String get dashboardTotalUsers => 'Total Users';
 
   @override
@@ -1668,6 +1674,49 @@ class L10nEn extends L10n {
 
   @override
   String get dashboardMaintenanceRecords => 'Maintenance Records';
+
+  @override
+  String get dashboardAssetMovementTrends => 'Asset Movement Trends';
+
+  @override
+  String get dashboardIssueReportStatusDistribution =>
+      'Issue Report Status Distribution';
+
+  @override
+  String get dashboardIssueReportCreationTrends =>
+      'Issue Report Creation Trends';
+
+  @override
+  String get dashboardMaintenanceScheduleByType =>
+      'Maintenance Schedule by Type';
+
+  @override
+  String get dashboardMaintenanceRecordCompletionTrends =>
+      'Maintenance Record Completion Trends';
+
+  @override
+  String get dashboardIssueStatusOpen => 'Open';
+
+  @override
+  String get dashboardIssueStatusInProgress => 'In Progress';
+
+  @override
+  String get dashboardIssueStatusResolved => 'Resolved';
+
+  @override
+  String get dashboardIssueStatusClosed => 'Closed';
+
+  @override
+  String get dashboardMaintenanceTypePreventive => 'Preventive';
+
+  @override
+  String get dashboardMaintenanceTypeCorrective => 'Corrective';
+
+  @override
+  String get dashboardMaintenanceTypeInspection => 'Inspection';
+
+  @override
+  String get dashboardMaintenanceTypeCalibration => 'Calibration';
 
   @override
   String get homeScreen => 'Home';
@@ -1996,6 +2045,13 @@ class L10nEn extends L10n {
   @override
   String get issueReportValidationResolutionNotesMaxLength =>
       'Resolution notes must not exceed 1000 characters';
+
+  @override
+  String get issueReportReportedByUserNotFound => 'Reported by user not found';
+
+  @override
+  String get issueReportEditWarning =>
+      'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.';
 
   @override
   String get locationDeleteLocation => 'Delete Location';
@@ -2871,6 +2927,26 @@ class L10nEn extends L10n {
   String get maintenanceRecordSchedule => 'Maintenance Schedule';
 
   @override
+  String get maintenanceFromDate => 'From Date';
+
+  @override
+  String get maintenanceToDate => 'To Date';
+
+  @override
+  String get maintenanceVendorName => 'Vendor Name';
+
+  @override
+  String get maintenanceScheduleAssetCannotBeChanged =>
+      'Asset cannot be changed once the schedule is created. All schedule settings and translations can be updated.';
+
+  @override
+  String get maintenanceRecordAssetCannotBeChanged =>
+      'Asset cannot be changed. All other maintenance details and translations can be updated.';
+
+  @override
+  String get maintenanceCreatedByUserNotFound => 'Created by user not found';
+
+  @override
   String get notificationManagement => 'Notification Management';
 
   @override
@@ -3076,6 +3152,67 @@ class L10nEn extends L10n {
   String notificationMarkedAsUnread(int count) {
     return '$count marked as unread';
   }
+
+  @override
+  String get notificationChannelGeneralDescription =>
+      'General notifications from Sigma Asset';
+
+  @override
+  String get notificationChannelImportantDescription =>
+      'Important notifications that require immediate attention';
+
+  @override
+  String get notificationTestDefaultTitle => 'Default Notification';
+
+  @override
+  String get notificationTestHighPriorityTitle => 'High Priority Notification';
+
+  @override
+  String get notificationTest1Title => 'Notification 1';
+
+  @override
+  String get notificationTest2Title => 'Notification 2';
+
+  @override
+  String get notificationSoundTestTitle => 'Notification Sound Test';
+
+  @override
+  String get notificationSoundTestCardTitle => 'Sound Test';
+
+  @override
+  String get notificationSoundTestCardMessage =>
+      'Test custom notification sounds. Make sure device volume is up!';
+
+  @override
+  String get notificationTestDefaultSound => 'Test Default Sound';
+
+  @override
+  String get notificationTestHighPrioritySound => 'Test High Priority Sound';
+
+  @override
+  String get notificationTestMultipleNotifications =>
+      'Test Multiple Notifications';
+
+  @override
+  String get notificationTestBodyDefault =>
+      'This should play notification_sound.ogg';
+
+  @override
+  String get notificationTestBodyHighPriority =>
+      'This should play high_priority_sound.ogg';
+
+  @override
+  String get notificationTestBodyMultiple1 => 'Default sound';
+
+  @override
+  String get notificationTestBodyMultiple2 => 'High priority sound';
+
+  @override
+  String get notificationTestTroubleshootingTitle => 'Not Working?';
+
+  @override
+  String get notificationTestTroubleshootingMessage =>
+      '1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/';
 
   @override
   String get scanLogManagement => 'Scan Log Management';
@@ -3521,6 +3658,74 @@ class L10nEn extends L10n {
   String get userPasswordChangedSuccessfully => 'Password changed successfully';
 
   @override
+  String get userValidationNameRequired => 'Name is required';
+
+  @override
+  String get userValidationNameMinLength =>
+      'Name must be at least 3 characters';
+
+  @override
+  String get userValidationNameMaxLength =>
+      'Name must not exceed 20 characters';
+
+  @override
+  String get userValidationNameAlphanumeric =>
+      'Name can only contain letters, numbers, and dashes';
+
+  @override
+  String get userValidationEmailRequired => 'Email is required';
+
+  @override
+  String get userValidationEmailInvalid => 'Please enter a valid email address';
+
+  @override
+  String get userValidationPasswordRequired => 'Password is required';
+
+  @override
+  String get userValidationPasswordMinLength =>
+      'Password must be at least 8 characters';
+
+  @override
+  String get userValidationFullNameRequired => 'Full name is required';
+
+  @override
+  String get userValidationFullNameMinLength =>
+      'Full name must be at least 3 characters';
+
+  @override
+  String get userValidationFullNameMaxLength =>
+      'Full name must not exceed 100 characters';
+
+  @override
+  String get userValidationEmployeeIdMaxLength =>
+      'Employee ID must not exceed 20 characters';
+
+  @override
+  String get userValidationRoleRequired => 'Role is required';
+
+  @override
+  String get userValidationCurrentPasswordRequired =>
+      'Current password is required';
+
+  @override
+  String get userValidationNewPasswordRequired => 'New password is required';
+
+  @override
+  String get userValidationConfirmPasswordRequired =>
+      'Confirm password is required';
+
+  @override
+  String get userValidationPasswordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get userValidationImageOnly => 'Only image files are allowed';
+
+  @override
+  String userValidationImageSize(int size) {
+    return 'Image size must not exceed ${size}MB';
+  }
+
+  @override
   String get adminShellBottomNavDashboard => 'Dashboard';
 
   @override
@@ -3648,4 +3853,70 @@ class L10nEn extends L10n {
 
   @override
   String get shellDoubleBackToExitApp => 'Press back again to exit';
+
+  @override
+  String get sharedValidationErrors => 'Validation Errors';
+
+  @override
+  String sharedMaxFilesAllowed(int count) {
+    return 'Maximum $count files allowed';
+  }
+
+  @override
+  String sharedFileTooLarge(String name, int size) {
+    return 'File $name exceeds ${size}MB limit';
+  }
+
+  @override
+  String get sharedFailedToPickFiles => 'Failed to pick files';
+
+  @override
+  String get sharedChooseFiles => 'Choose file(s)';
+
+  @override
+  String get sharedUnableToPreviewImage => 'Unable to preview image';
+
+  @override
+  String get sharedVideoPreviewNotImplemented =>
+      'Video preview not implemented yet';
+
+  @override
+  String get sharedPreviewNotAvailable =>
+      'Preview not available for this file type';
+
+  @override
+  String get sharedDelete => 'Delete';
+
+  @override
+  String get sharedEdit => 'Edit';
+
+  @override
+  String get sharedOptions => 'Options';
+
+  @override
+  String get sharedCreate => 'Create';
+
+  @override
+  String get sharedAddNewItem => 'Add a new item';
+
+  @override
+  String get sharedSelectMany => 'Select Many';
+
+  @override
+  String get sharedSelectItemsToDelete => 'Select multiple items to delete';
+
+  @override
+  String get sharedFilterAndSort => 'Filter & Sort';
+
+  @override
+  String get sharedCustomizeDisplay => 'Customize display';
+
+  @override
+  String get sharedExport => 'Export';
+
+  @override
+  String get sharedExportDataToFile => 'Export data to file';
+
+  @override
+  String get sharedTimePlaceholder => 'HH:MM';
 }

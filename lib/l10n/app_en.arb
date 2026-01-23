@@ -2096,6 +2096,14 @@
   "@categoryChooseImage": {
     "description": "Choose image button label"
   },
+  "categoryCurrentImage": "Current Image",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "Go Back",
+  "@categoryGoBack": {
+    "description": "Go back button label"
+  },
   "dashboardTotalUsers": "Total Users",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2207,6 +2215,58 @@
   "dashboardMaintenanceRecords": "Maintenance Records",
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
+  },
+  "dashboardAssetMovementTrends": "Asset Movement Trends",
+  "@dashboardAssetMovementTrends": {
+    "description": "Asset movement trends chart title"
+  },
+  "dashboardIssueReportStatusDistribution": "Issue Report Status Distribution",
+  "@dashboardIssueReportStatusDistribution": {
+    "description": "Issue report status distribution chart title"
+  },
+  "dashboardIssueReportCreationTrends": "Issue Report Creation Trends",
+  "@dashboardIssueReportCreationTrends": {
+    "description": "Issue report creation trends chart title"
+  },
+  "dashboardMaintenanceScheduleByType": "Maintenance Schedule by Type",
+  "@dashboardMaintenanceScheduleByType": {
+    "description": "Maintenance schedule by type chart title"
+  },
+  "dashboardMaintenanceRecordCompletionTrends": "Maintenance Record Completion Trends",
+  "@dashboardMaintenanceRecordCompletionTrends": {
+    "description": "Maintenance record completion trends chart title"
+  },
+  "dashboardIssueStatusOpen": "Open",
+  "@dashboardIssueStatusOpen": {
+    "description": "Issue status open"
+  },
+  "dashboardIssueStatusInProgress": "In Progress",
+  "@dashboardIssueStatusInProgress": {
+    "description": "Issue status in progress"
+  },
+  "dashboardIssueStatusResolved": "Resolved",
+  "@dashboardIssueStatusResolved": {
+    "description": "Issue status resolved"
+  },
+  "dashboardIssueStatusClosed": "Closed",
+  "@dashboardIssueStatusClosed": {
+    "description": "Issue status closed"
+  },
+  "dashboardMaintenanceTypePreventive": "Preventive",
+  "@dashboardMaintenanceTypePreventive": {
+    "description": "Maintenance type preventive"
+  },
+  "dashboardMaintenanceTypeCorrective": "Corrective",
+  "@dashboardMaintenanceTypeCorrective": {
+    "description": "Maintenance type corrective"
+  },
+  "dashboardMaintenanceTypeInspection": "Inspection",
+  "@dashboardMaintenanceTypeInspection": {
+    "description": "Maintenance type inspection"
+  },
+  "dashboardMaintenanceTypeCalibration": "Calibration",
+  "@dashboardMaintenanceTypeCalibration": {
+    "description": "Maintenance type calibration"
   },
   "homeScreen": "Home",
   "@homeScreen": {
@@ -2643,6 +2703,14 @@
   "issueReportValidationResolutionNotesMaxLength": "Resolution notes must not exceed 1000 characters",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "Reported by user not found",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   },
   "locationDeleteLocation": "Delete Location",
   "@locationDeleteLocation": {
@@ -3788,6 +3856,30 @@
   "@maintenanceRecordSchedule": {
     "description": "Schedule label"
   },
+  "maintenanceFromDate": "From Date",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "To Date",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "Vendor Name",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
+  },
+  "maintenanceScheduleAssetCannotBeChanged": "Asset cannot be changed once the schedule is created. All schedule settings and translations can be updated.",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Info message stating asset cannot be changed in schedule"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "Asset cannot be changed. All other maintenance details and translations can be updated.",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Info message stating asset cannot be changed in record"
+  },
+  "maintenanceCreatedByUserNotFound": "Created by user not found",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
+  },
   "notificationManagement": "Notification Management",
   "@notificationManagement": {
     "description": "Notification management screen title"
@@ -4077,6 +4169,78 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "General notifications from Sigma Asset",
+  "@notificationChannelGeneralDescription": {
+    "description": "General channel description"
+  },
+  "notificationChannelImportantDescription": "Important notifications that require immediate attention",
+  "@notificationChannelImportantDescription": {
+    "description": "Important channel description"
+  },
+  "notificationTestDefaultTitle": "Default Notification",
+  "@notificationTestDefaultTitle": {
+    "description": "Test notification default title"
+  },
+  "notificationTestHighPriorityTitle": "High Priority Notification",
+  "@notificationTestHighPriorityTitle": {
+    "description": "Test notification high priority title"
+  },
+  "notificationTest1Title": "Notification 1",
+  "@notificationTest1Title": {
+    "description": "Test notification 1 title"
+  },
+  "notificationTest2Title": "Notification 2",
+  "@notificationTest2Title": {
+    "description": "Test notification 2 title"
+  },
+  "notificationSoundTestTitle": "Notification Sound Test",
+  "@notificationSoundTestTitle": {
+    "description": "Title for notification test screen"
+  },
+  "notificationSoundTestCardTitle": "Sound Test",
+  "@notificationSoundTestCardTitle": {
+    "description": "Card title for sound test"
+  },
+  "notificationSoundTestCardMessage": "Test custom notification sounds. Make sure device volume is up!",
+  "@notificationSoundTestCardMessage": {
+    "description": "Card message for sound test"
+  },
+  "notificationTestDefaultSound": "Test Default Sound",
+  "@notificationTestDefaultSound": {
+    "description": "Button label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "Test High Priority Sound",
+  "@notificationTestHighPrioritySound": {
+    "description": "Button label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "Test Multiple Notifications",
+  "@notificationTestMultipleNotifications": {
+    "description": "Button label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "This should play notification_sound.ogg",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "This should play high_priority_sound.ogg",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "Default sound",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for multiple test notification 1"
+  },
+  "notificationTestBodyMultiple2": "High priority sound",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for multiple test notification 2"
+  },
+  "notificationTestTroubleshootingTitle": "Not Working?",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Troubleshooting card title"
+  },
+  "notificationTestTroubleshootingMessage": "1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting steps"
   },
   "scanLogManagement": "Scan Log Management",
   "@scanLogManagement": {
@@ -4680,6 +4844,88 @@
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
   },
+  "userValidationNameRequired": "Name is required",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationNameMinLength": "Name must be at least 3 characters",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name min length"
+  },
+  "userValidationNameMaxLength": "Name must not exceed 20 characters",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name max length"
+  },
+  "userValidationNameAlphanumeric": "Name can only contain letters, numbers, and dashes",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationEmailRequired": "Email is required",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "Please enter a valid email address",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email"
+  },
+  "userValidationPasswordRequired": "Password is required",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "Password must be at least 8 characters",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password min length"
+  },
+  "userValidationFullNameRequired": "Full name is required",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "Full name must be at least 3 characters",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name min length"
+  },
+  "userValidationFullNameMaxLength": "Full name must not exceed 100 characters",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name max length"
+  },
+  "userValidationEmployeeIdMaxLength": "Employee ID must not exceed 20 characters",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID max length"
+  },
+  "userValidationRoleRequired": "Role is required",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "Current password is required",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "New password is required",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "Confirm password is required",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "Passwords do not match",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error for password mismatch"
+  },
+  "userValidationImageOnly": "Only image files are allowed",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
+  },
+  "userValidationImageSize": "Image size must not exceed {size}MB",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size limit",
+    "placeholders": {
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
   "adminShellBottomNavDashboard": "Dashboard",
   "@adminShellBottomNavDashboard": {
     "description": "Admin shell bottom navigation label for dashboard"
@@ -4851,5 +5097,101 @@
   "shellDoubleBackToExitApp": "Press back again to exit",
   "@shellDoubleBackToExitApp": {
     "description": "Message shown when user needs to press back again to exit app"
+  },
+  "sharedValidationErrors": "Validation Errors",
+  "@sharedValidationErrors": {
+    "description": "Title for validation errors widget"
+  },
+  "sharedMaxFilesAllowed": "Maximum {count} files allowed",
+  "@sharedMaxFilesAllowed": {
+    "description": "Error message for max files allowed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFileTooLarge": "File {name} exceeds {size}MB limit",
+  "@sharedFileTooLarge": {
+    "description": "Error message for file size limit",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "image.jpg"
+      },
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFailedToPickFiles": "Failed to pick files",
+  "@sharedFailedToPickFiles": {
+    "description": "Error message for file picking failure"
+  },
+  "sharedChooseFiles": "Choose file(s)",
+  "@sharedChooseFiles": {
+    "description": "Hint text for file picker"
+  },
+  "sharedUnableToPreviewImage": "Unable to preview image",
+  "@sharedUnableToPreviewImage": {
+    "description": "Error text for image preview failure"
+  },
+  "sharedVideoPreviewNotImplemented": "Video preview not implemented yet",
+  "@sharedVideoPreviewNotImplemented": {
+    "description": "Placeholder text for video preview"
+  },
+  "sharedPreviewNotAvailable": "Preview not available for this file type",
+  "@sharedPreviewNotAvailable": {
+    "description": "Error text for unsupported file preview"
+  },
+  "sharedDelete": "Delete",
+  "@sharedDelete": {
+    "description": "Delete button label"
+  },
+  "sharedEdit": "Edit",
+  "@sharedEdit": {
+    "description": "Edit button label"
+  },
+  "sharedOptions": "Options",
+  "@sharedOptions": {
+    "description": "Options title"
+  },
+  "sharedCreate": "Create",
+  "@sharedCreate": {
+    "description": "Create button label"
+  },
+  "sharedAddNewItem": "Add a new item",
+  "@sharedAddNewItem": {
+    "description": "Add new item subtitle"
+  },
+  "sharedSelectMany": "Select Many",
+  "@sharedSelectMany": {
+    "description": "Select many option title"
+  },
+  "sharedSelectItemsToDelete": "Select multiple items to delete",
+  "@sharedSelectItemsToDelete": {
+    "description": "Select items to delete subtitle"
+  },
+  "sharedFilterAndSort": "Filter & Sort",
+  "@sharedFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "sharedCustomizeDisplay": "Customize display",
+  "@sharedCustomizeDisplay": {
+    "description": "Customize display subtitle"
+  },
+  "sharedExport": "Export",
+  "@sharedExport": {
+    "description": "Export option title"
+  },
+  "sharedExportDataToFile": "Export data to file",
+  "@sharedExportDataToFile": {
+    "description": "Export data subtitle"
+  },
+  "sharedTimePlaceholder": "HH:MM",
+  "@sharedTimePlaceholder": {
+    "description": "Time placeholder"
   }
 }

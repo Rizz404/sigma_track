@@ -139,7 +139,7 @@ class _MaintenanceScheduleUpsertScreenState
 
     // * Pastikan createdById tidak kosong saat create
     if (!_isEdit && createdById.isEmpty) {
-      AppToast.warning('Created by user tidak ditemukan');
+      AppToast.warning(context.l10n.maintenanceCreatedByUserNotFound);
       return;
     }
 
@@ -331,7 +331,7 @@ class _MaintenanceScheduleUpsertScreenState
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppText(
-                        'Asset cannot be changed once the schedule is created. All schedule settings and translations can be updated.',
+                        context.l10n.maintenanceScheduleAssetCannotBeChanged,
                         style: AppTextStyle.bodySmall,
                         color: context.semantic.info,
                       ),

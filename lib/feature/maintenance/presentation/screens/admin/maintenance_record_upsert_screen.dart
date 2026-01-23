@@ -308,7 +308,7 @@ class _MaintenanceRecordUpsertScreenState
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppText(
-                        'Asset cannot be changed. All other maintenance details and translations can be updated.',
+                        context.l10n.maintenanceRecordAssetCannotBeChanged,
                         style: AppTextStyle.bodySmall,
                         color: context.semantic.info,
                       ),

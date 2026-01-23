@@ -2096,6 +2096,14 @@
   "@categoryChooseImage": {
     "description": "Choose image button label"
   },
+  "categoryCurrentImage": "現在の画像",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "戻る",
+  "@categoryGoBack": {
+    "description": "Go back button label"
+  },
   "dashboardTotalUsers": "総ユーザー数",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2208,6 +2216,19 @@
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
   },
+  "dashboardAssetMovementTrends": "資産移動の傾向",
+  "dashboardIssueReportStatusDistribution": "課題報告ステータスの分布",
+  "dashboardIssueReportCreationTrends": "課題報告作成の傾向",
+  "dashboardMaintenanceScheduleByType": "タイプ別メンテナンススケジュール",
+  "dashboardMaintenanceRecordCompletionTrends": "メンテナンス記録完了の傾向",
+  "dashboardIssueStatusOpen": "未解決",
+  "dashboardIssueStatusInProgress": "進行中",
+  "dashboardIssueStatusResolved": "解決済み",
+  "dashboardIssueStatusClosed": "完了",
+  "dashboardMaintenanceTypePreventive": "予防",
+  "dashboardMaintenanceTypeCorrective": "修正",
+  "dashboardMaintenanceTypeInspection": "点検",
+  "dashboardMaintenanceTypeCalibration": "校正",
   "homeScreen": "ホーム",
   "@homeScreen": {
     "description": "Home screen title"
@@ -2643,6 +2664,14 @@
   "issueReportValidationResolutionNotesMaxLength": "解決メモは1000文字を超えることはできません",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "報告したユーザーが見つかりません",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "優先度、ステータス、解決者、および翻訳のみ更新できます。資産と問題タイプは変更できません。",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   },
   "locationDeleteLocation": "場所を削除",
   "@locationDeleteLocation": {
@@ -3251,6 +3280,30 @@
   "maintenanceRecordCreatedAt": "作成日時",
   "maintenanceRecordUpdatedAt": "更新日時",
   "maintenanceRecordSchedule": "メンテナンススケジュール",
+  "maintenanceScheduleAssetCannotBeChanged": "このスケジュールの資産は作成後に変更することはできません。",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "この記録の資産は作成後に変更することはできません。",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceCreatedByUserNotFound": "作成したユーザーが見つかりません",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
+  },
+  "maintenanceFromDate": "開始日",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "終了日",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "ベンダー名",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
+  },
   "notificationManagement": "通知管理",
   "@notificationManagement": {
     "description": "Notification management screen title"
@@ -3540,6 +3593,64 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "Sigma Assetからの一般通知",
+  "notificationChannelImportantDescription": "早急な対応が必要な重要な通知",
+  "notificationTestDefaultTitle": "デフォルト通知",
+  "notificationTestHighPriorityTitle": "高優先度通知",
+  "notificationTest1Title": "通知1",
+  "notificationTest2Title": "通知2",
+  "notificationSoundTestTitle": "サウンドテスト",
+  "@notificationSoundTestTitle": {
+    "description": "Title for sound test notification"
+  },
+  "notificationSoundTestBody": "これはサウンドテストの通知です",
+  "@notificationSoundTestBody": {
+    "description": "Body for sound test notification"
+  },
+  "notificationTestTroubleshootingMessage": "音が聞こえない場合は、デバイスの音量設定を確認してください。",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting message for sound test"
+  },
+  "notificationSoundTestCardTitle": "サウンド再生テスト",
+  "@notificationSoundTestCardTitle": {
+    "description": "Title for sound test card"
+  },
+  "notificationSoundTestCardMessage": "下のボタンをクリックして通知音をテストしてください。",
+  "@notificationSoundTestCardMessage": {
+    "description": "Message for sound test card"
+  },
+  "notificationTestDefaultSound": "デフォルト音",
+  "@notificationTestDefaultSound": {
+    "description": "Label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "高優先度音",
+  "@notificationTestHighPrioritySound": {
+    "description": "Label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "連続通知",
+  "@notificationTestMultipleNotifications": {
+    "description": "Label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "これはデフォルトの通知です",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "これは高優先度の通知です",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "通知1: システムを確認中",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for first multiple notification"
+  },
+  "notificationTestBodyMultiple2": "通知2: システムは正常です",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for second multiple notification"
+  },
+  "notificationTestTroubleshootingTitle": "トラブルシューティング",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Title for troubleshooting section"
   },
   "scanLogManagement": "スキャンログ管理",
   "@scanLogManagement": {
@@ -4139,9 +4250,123 @@
   "@userChangePasswordButton": {
     "description": "Change password button text"
   },
+  "userValidationNameRequired": "名前は必須です",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationEmailRequired": "メールアドレスは必須です",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "メールアドレスの形式が無効です (例: user@example.com)",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email format"
+  },
+  "userValidationPasswordRequired": "パスワードは必須です",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "パスワードは8文字以上である必要があります",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password minimum length"
+  },
+  "userValidationPasswordFormat": "パスワードには、少なくとも1つの大文字、1つの小文字、および1つの数字を含める必要があります",
+  "@userValidationPasswordFormat": {
+    "description": "Validation error for password format requirements"
+  },
+  "userValidationPasswordMismatch": "パスワードが一致しません",
+  "@userValidationPasswordMismatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageSize": "画像サイズが大きすぎます (最大5MB)",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size"
+  },
   "userPasswordChangedSuccessfully": "パスワードが正常に変更されました",
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
+  },
+  "userValidationNameMinLength": "名前は{length}文字以上である必要があります",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationNameMaxLength": "名前は{length}文字以下である必要があります",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "50"
+      }
+    }
+  },
+  "userValidationNameAlphanumeric": "名前は英数字のみ使用できます",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationFullNameRequired": "氏名は必須です",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "氏名は{length}文字以上である必要があります",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationFullNameMaxLength": "氏名は{length}文字以下である必要があります",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "userValidationEmployeeIdMaxLength": "従業員IDは{length}文字以下である必要があります",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "userValidationRoleRequired": "役割を選択してください",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "現在のパスワードは必須です",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "新しいパスワードは必須です",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "パスワードの確認は必須です",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "パスワードが一致しません",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageOnly": "画像ファイルのみ許可されています",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
   },
   "adminShellBottomNavDashboard": "ダッシュボード",
   "@adminShellBottomNavDashboard": {
@@ -4314,5 +4539,101 @@
   "shellDoubleBackToExitApp": "もう一度戻るボタンを押して終了",
   "@shellDoubleBackToExitApp": {
     "description": "Message shown when user needs to press back again to exit app"
+  },
+  "sharedValidationErrors": "検証エラー",
+  "@sharedValidationErrors": {
+    "description": "Title for validation errors widget"
+  },
+  "sharedMaxFilesAllowed": "最大{count}ファイルまで許可されています",
+  "@sharedMaxFilesAllowed": {
+    "description": "Error message for max files allowed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFileTooLarge": "ファイル{name}は{size}MBの制限を超えています",
+  "@sharedFileTooLarge": {
+    "description": "Error message for file size limit",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "image.jpg"
+      },
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFailedToPickFiles": "ファイルの選択に失敗しました",
+  "@sharedFailedToPickFiles": {
+    "description": "Error message for file picking failure"
+  },
+  "sharedChooseFiles": "ファイルを選択",
+  "@sharedChooseFiles": {
+    "description": "Hint text for file picker"
+  },
+  "sharedUnableToPreviewImage": "画像のプレビューを表示できません",
+  "@sharedUnableToPreviewImage": {
+    "description": "Error text for image preview failure"
+  },
+  "sharedVideoPreviewNotImplemented": "動画のプレビューはまだ実装されていません",
+  "@sharedVideoPreviewNotImplemented": {
+    "description": "Placeholder text for video preview"
+  },
+  "sharedPreviewNotAvailable": "このファイルタイプのプレビューは利用できません",
+  "@sharedPreviewNotAvailable": {
+    "description": "Error text for unsupported file preview"
+  },
+  "sharedDelete": "削除",
+  "@sharedDelete": {
+    "description": "Delete button label"
+  },
+  "sharedEdit": "編集",
+  "@sharedEdit": {
+    "description": "Edit button label"
+  },
+  "sharedOptions": "オプション",
+  "@sharedOptions": {
+    "description": "Options title"
+  },
+  "sharedCreate": "作成",
+  "@sharedCreate": {
+    "description": "Create button label"
+  },
+  "sharedAddNewItem": "新しいアイテムを追加",
+  "@sharedAddNewItem": {
+    "description": "Add new item subtitle"
+  },
+  "sharedSelectMany": "複数選択",
+  "@sharedSelectMany": {
+    "description": "Select many option title"
+  },
+  "sharedSelectItemsToDelete": "削除するアイテムを複数選択",
+  "@sharedSelectItemsToDelete": {
+    "description": "Select items to delete subtitle"
+  },
+  "sharedFilterAndSort": "フィルタと並べ替え",
+  "@sharedFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "sharedCustomizeDisplay": "表示をカスタマイズ",
+  "@sharedCustomizeDisplay": {
+    "description": "Customize display subtitle"
+  },
+  "sharedExport": "エクスポート",
+  "@sharedExport": {
+    "description": "Export option title"
+  },
+  "sharedExportDataToFile": "データをファイルにエクスポート",
+  "@sharedExportDataToFile": {
+    "description": "Export data subtitle"
+  },
+  "sharedTimePlaceholder": "HH:MM",
+  "@sharedTimePlaceholder": {
+    "description": "Time placeholder"
   }
 }

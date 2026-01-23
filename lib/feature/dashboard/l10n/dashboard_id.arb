@@ -112,4 +112,18 @@
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
   }
+,
+  "dashboardAssetMovementTrends": "Tren Pergerakan Aset",
+  "dashboardIssueReportStatusDistribution": "Distribusi Status Laporan Masalah",
+  "dashboardIssueReportCreationTrends": "Tren Pembuatan Laporan Masalah",
+  "dashboardMaintenanceScheduleByType": "Jadwal Pemeliharaan berdasarkan Tipe",
+  "dashboardMaintenanceRecordCompletionTrends": "Tren Penyelesaian Rekaman Pemeliharaan",
+  "dashboardIssueStatusOpen": "Terbuka",
+  "dashboardIssueStatusInProgress": "Sedang Diproses",
+  "dashboardIssueStatusResolved": "Terselesaikan",
+  "dashboardIssueStatusClosed": "Ditutup",
+  "dashboardMaintenanceTypePreventive": "Preventif",
+  "dashboardMaintenanceTypeCorrective": "Korektif",
+  "dashboardMaintenanceTypeInspection": "Inspeksi",
+  "dashboardMaintenanceTypeCalibration": "Kalibrasi"
 }

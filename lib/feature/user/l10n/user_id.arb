@@ -406,8 +406,122 @@
   "@userChangePasswordButton": {
     "description": "Change password button text"
   },
+  "userValidationNameRequired": "Nama wajib diisi",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationEmailRequired": "Email wajib diisi",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "Format email tidak valid (contoh: user@example.com)",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email format"
+  },
+  "userValidationPasswordRequired": "Kata sandi wajib diisi",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "Kata sandi minimal 8 karakter",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password minimum length"
+  },
+  "userValidationPasswordFormat": "Kata sandi harus mengandung minimal satu huruf besar, satu huruf kecil, dan satu angka",
+  "@userValidationPasswordFormat": {
+    "description": "Validation error for password format requirements"
+  },
+  "userValidationPasswordMismatch": "Kata sandi tidak cocok",
+  "@userValidationPasswordMismatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageSize": "Ukuran gambar terlalu besar (maksimal 5MB)",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size"
+  },
   "userPasswordChangedSuccessfully": "Kata sandi berhasil diubah",
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
+  },
+  "userValidationNameMinLength": "Nama minimal {length} karakter",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationNameMaxLength": "Nama maksimal {length} karakter",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "50"
+      }
+    }
+  },
+  "userValidationNameAlphanumeric": "Nama hanya boleh berisi huruf dan angka",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationFullNameRequired": "Nama lengkap wajib diisi",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "Nama lengkap minimal {length} karakter",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationFullNameMaxLength": "Nama lengkap maksimal {length} karakter",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "userValidationEmployeeIdMaxLength": "ID Karyawan maksimal {length} karakter",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "userValidationRoleRequired": "Peran wajib dipilih",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "Kata sandi saat ini wajib diisi",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "Kata sandi baru wajib diisi",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "Konfirmasi kata sandi wajib diisi",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageOnly": "Hanya file gambar yang diperbolehkan",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
   }
 }

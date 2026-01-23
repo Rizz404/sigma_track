@@ -229,7 +229,7 @@ class _ListMaintenanceSchedulesScreenState
               const SizedBox(height: 16),
               AppDateTimePicker(
                 name: 'fromDate',
-                label: 'From Date',
+                label: context.l10n.maintenanceFromDate,
                 inputType: InputType.date,
                 initialValue: currentFilter.fromDate != null
                     ? DateTime.parse(currentFilter.fromDate!)
@@ -238,7 +238,7 @@ class _ListMaintenanceSchedulesScreenState
               const SizedBox(height: 16),
               AppDateTimePicker(
                 name: 'toDate',
-                label: 'To Date',
+                label: context.l10n.maintenanceToDate,
                 inputType: InputType.date,
                 initialValue: currentFilter.toDate != null
                     ? DateTime.parse(currentFilter.toDate!)

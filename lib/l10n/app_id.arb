@@ -2096,6 +2096,14 @@
   "@categoryChooseImage": {
     "description": "Choose image button label"
   },
+  "categoryCurrentImage": "Gambar Saat Ini",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "Kembali",
+  "@categoryGoBack": {
+    "description": "Go back button label"
+  },
   "dashboardTotalUsers": "Total Pengguna",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2208,6 +2216,19 @@
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
   },
+  "dashboardAssetMovementTrends": "Tren Pergerakan Aset",
+  "dashboardIssueReportStatusDistribution": "Distribusi Status Laporan Masalah",
+  "dashboardIssueReportCreationTrends": "Tren Pembuatan Laporan Masalah",
+  "dashboardMaintenanceScheduleByType": "Jadwal Pemeliharaan berdasarkan Tipe",
+  "dashboardMaintenanceRecordCompletionTrends": "Tren Penyelesaian Rekaman Pemeliharaan",
+  "dashboardIssueStatusOpen": "Terbuka",
+  "dashboardIssueStatusInProgress": "Sedang Diproses",
+  "dashboardIssueStatusResolved": "Terselesaikan",
+  "dashboardIssueStatusClosed": "Ditutup",
+  "dashboardMaintenanceTypePreventive": "Preventif",
+  "dashboardMaintenanceTypeCorrective": "Korektif",
+  "dashboardMaintenanceTypeInspection": "Inspeksi",
+  "dashboardMaintenanceTypeCalibration": "Kalibrasi",
   "homeScreen": "Beranda",
   "@homeScreen": {
     "description": "Home screen title"
@@ -2643,6 +2664,14 @@
   "issueReportValidationResolutionNotesMaxLength": "Catatan resolusi maksimal 1000 karakter",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "Pengguna yang melaporkan tidak ditemukan",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "Hanya prioritas, status, diselesaikan oleh, dan terjemahan yang dapat diperbarui. Aset dan jenis masalah bersifat tetap.",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   },
   "locationDeleteLocation": "Hapus Lokasi",
   "@locationDeleteLocation": {
@@ -3788,6 +3817,30 @@
   "@maintenanceRecordSchedule": {
     "description": "Schedule label"
   },
+  "maintenanceScheduleAssetCannotBeChanged": "Aset untuk jadwal ini tidak dapat diubah setelah dibuat.",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "Aset untuk catatan ini tidak dapat diubah setelah dibuat.",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceCreatedByUserNotFound": "Pengguna yang membuat tidak ditemukan",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
+  },
+  "maintenanceFromDate": "Dari Tanggal",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "Sampai Tanggal",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "Nama Vendor",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
+  },
   "notificationManagement": "Manajemen Notifikasi",
   "@notificationManagement": {
     "description": "Notification management screen title"
@@ -4077,6 +4130,64 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "Notifikasi umum dari Sigma Asset",
+  "notificationChannelImportantDescription": "Notifikasi penting yang memerlukan perhatian segera",
+  "notificationTestDefaultTitle": "Notifikasi Default",
+  "notificationTestHighPriorityTitle": "Notifikasi Prioritas Tinggi",
+  "notificationTest1Title": "Notifikasi 1",
+  "notificationTest2Title": "Notifikasi 2",
+  "notificationSoundTestTitle": "Uji Suara",
+  "@notificationSoundTestTitle": {
+    "description": "Title for sound test notification"
+  },
+  "notificationSoundTestBody": "Ini adalah notifikasi uji coba suara",
+  "@notificationSoundTestBody": {
+    "description": "Body for sound test notification"
+  },
+  "notificationTestTroubleshootingMessage": "Jika Anda tidak mendengar suara, periksa pengaturan volume perangkat Anda.",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting message for sound test"
+  },
+  "notificationSoundTestCardTitle": "Uji Pemutaran Suara",
+  "@notificationSoundTestCardTitle": {
+    "description": "Title for sound test card"
+  },
+  "notificationSoundTestCardMessage": "Klik tombol di bawah untuk menguji suara notifikasi.",
+  "@notificationSoundTestCardMessage": {
+    "description": "Message for sound test card"
+  },
+  "notificationTestDefaultSound": "Suara Default",
+  "@notificationTestDefaultSound": {
+    "description": "Label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "Suara Prioritas Tinggi",
+  "@notificationTestHighPrioritySound": {
+    "description": "Label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "Notifikasi Beruntun",
+  "@notificationTestMultipleNotifications": {
+    "description": "Label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "Ini adalah notifikasi default",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "Ini adalah notifikasi prioritas tinggi",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "Notifikasi 1: Memeriksa sistem",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for first multiple notification"
+  },
+  "notificationTestBodyMultiple2": "Notifikasi 2: Sistem berfungsi normal",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for second multiple notification"
+  },
+  "notificationTestTroubleshootingTitle": "Pemecahan Masalah",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Title for troubleshooting section"
   },
   "scanLogManagement": "Manajemen Log Pemindaian",
   "@scanLogManagement": {
@@ -4676,9 +4787,123 @@
   "@userChangePasswordButton": {
     "description": "Change password button text"
   },
+  "userValidationNameRequired": "Nama wajib diisi",
+  "@userValidationNameRequired": {
+    "description": "Validation error for required name"
+  },
+  "userValidationEmailRequired": "Email wajib diisi",
+  "@userValidationEmailRequired": {
+    "description": "Validation error for required email"
+  },
+  "userValidationEmailInvalid": "Format email tidak valid (contoh: user@example.com)",
+  "@userValidationEmailInvalid": {
+    "description": "Validation error for invalid email format"
+  },
+  "userValidationPasswordRequired": "Kata sandi wajib diisi",
+  "@userValidationPasswordRequired": {
+    "description": "Validation error for required password"
+  },
+  "userValidationPasswordMinLength": "Kata sandi minimal 8 karakter",
+  "@userValidationPasswordMinLength": {
+    "description": "Validation error for password minimum length"
+  },
+  "userValidationPasswordFormat": "Kata sandi harus mengandung minimal satu huruf besar, satu huruf kecil, dan satu angka",
+  "@userValidationPasswordFormat": {
+    "description": "Validation error for password format requirements"
+  },
+  "userValidationPasswordMismatch": "Kata sandi tidak cocok",
+  "@userValidationPasswordMismatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageSize": "Ukuran gambar terlalu besar (maksimal 5MB)",
+  "@userValidationImageSize": {
+    "description": "Validation error for image size"
+  },
   "userPasswordChangedSuccessfully": "Kata sandi berhasil diubah",
   "@userPasswordChangedSuccessfully": {
     "description": "Password change success message"
+  },
+  "userValidationNameMinLength": "Nama minimal {length} karakter",
+  "@userValidationNameMinLength": {
+    "description": "Validation error for name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationNameMaxLength": "Nama maksimal {length} karakter",
+  "@userValidationNameMaxLength": {
+    "description": "Validation error for name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "50"
+      }
+    }
+  },
+  "userValidationNameAlphanumeric": "Nama hanya boleh berisi huruf dan angka",
+  "@userValidationNameAlphanumeric": {
+    "description": "Validation error for alphanumeric name"
+  },
+  "userValidationFullNameRequired": "Nama lengkap wajib diisi",
+  "@userValidationFullNameRequired": {
+    "description": "Validation error for required full name"
+  },
+  "userValidationFullNameMinLength": "Nama lengkap minimal {length} karakter",
+  "@userValidationFullNameMinLength": {
+    "description": "Validation error for full name minimum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "userValidationFullNameMaxLength": "Nama lengkap maksimal {length} karakter",
+  "@userValidationFullNameMaxLength": {
+    "description": "Validation error for full name maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "userValidationEmployeeIdMaxLength": "ID Karyawan maksimal {length} karakter",
+  "@userValidationEmployeeIdMaxLength": {
+    "description": "Validation error for employee ID maximum length",
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "userValidationRoleRequired": "Peran wajib dipilih",
+  "@userValidationRoleRequired": {
+    "description": "Validation error for required role"
+  },
+  "userValidationCurrentPasswordRequired": "Kata sandi saat ini wajib diisi",
+  "@userValidationCurrentPasswordRequired": {
+    "description": "Validation error for required current password"
+  },
+  "userValidationNewPasswordRequired": "Kata sandi baru wajib diisi",
+  "@userValidationNewPasswordRequired": {
+    "description": "Validation error for required new password"
+  },
+  "userValidationConfirmPasswordRequired": "Konfirmasi kata sandi wajib diisi",
+  "@userValidationConfirmPasswordRequired": {
+    "description": "Validation error for required confirm password"
+  },
+  "userValidationPasswordsDoNotMatch": "Kata sandi tidak cocok",
+  "@userValidationPasswordsDoNotMatch": {
+    "description": "Validation error when passwords do not match"
+  },
+  "userValidationImageOnly": "Hanya file gambar yang diperbolehkan",
+  "@userValidationImageOnly": {
+    "description": "Validation error for non-image files"
   },
   "adminShellBottomNavDashboard": "Dasbor",
   "@adminShellBottomNavDashboard": {
@@ -4851,5 +5076,101 @@
   "shellDoubleBackToExitApp": "Tekan kembali sekali lagi untuk keluar",
   "@shellDoubleBackToExitApp": {
     "description": "Message shown when user needs to press back again to exit app"
+  },
+  "sharedValidationErrors": "Kesalahan Validasi",
+  "@sharedValidationErrors": {
+    "description": "Title for validation errors widget"
+  },
+  "sharedMaxFilesAllowed": "Maksimum {count} file diizinkan",
+  "@sharedMaxFilesAllowed": {
+    "description": "Error message for max files allowed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFileTooLarge": "File {name} melebihi batas {size}MB",
+  "@sharedFileTooLarge": {
+    "description": "Error message for file size limit",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "image.jpg"
+      },
+      "size": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "sharedFailedToPickFiles": "Gagal memilih file",
+  "@sharedFailedToPickFiles": {
+    "description": "Error message for file picking failure"
+  },
+  "sharedChooseFiles": "Pilih file",
+  "@sharedChooseFiles": {
+    "description": "Hint text for file picker"
+  },
+  "sharedUnableToPreviewImage": "Tidak dapat melihat pratinjau gambar",
+  "@sharedUnableToPreviewImage": {
+    "description": "Error text for image preview failure"
+  },
+  "sharedVideoPreviewNotImplemented": "Pratinjau video belum diimplementasikan",
+  "@sharedVideoPreviewNotImplemented": {
+    "description": "Placeholder text for video preview"
+  },
+  "sharedPreviewNotAvailable": "Pratinjau tidak tersedia untuk jenis file ini",
+  "@sharedPreviewNotAvailable": {
+    "description": "Error text for unsupported file preview"
+  },
+  "sharedDelete": "Hapus",
+  "@sharedDelete": {
+    "description": "Delete button label"
+  },
+  "sharedEdit": "Ubah",
+  "@sharedEdit": {
+    "description": "Edit button label"
+  },
+  "sharedOptions": "Opsi",
+  "@sharedOptions": {
+    "description": "Options title"
+  },
+  "sharedCreate": "Buat",
+  "@sharedCreate": {
+    "description": "Create button label"
+  },
+  "sharedAddNewItem": "Tambah item baru",
+  "@sharedAddNewItem": {
+    "description": "Add new item subtitle"
+  },
+  "sharedSelectMany": "Pilih Banyak",
+  "@sharedSelectMany": {
+    "description": "Select many option title"
+  },
+  "sharedSelectItemsToDelete": "Pilih beberapa item untuk dihapus",
+  "@sharedSelectItemsToDelete": {
+    "description": "Select items to delete subtitle"
+  },
+  "sharedFilterAndSort": "Filter & Urutkan",
+  "@sharedFilterAndSort": {
+    "description": "Filter and sort option title"
+  },
+  "sharedCustomizeDisplay": "Sesuaikan tampilan",
+  "@sharedCustomizeDisplay": {
+    "description": "Customize display subtitle"
+  },
+  "sharedExport": "Ekspor",
+  "@sharedExport": {
+    "description": "Export option title"
+  },
+  "sharedExportDataToFile": "Ekspor data ke file",
+  "@sharedExportDataToFile": {
+    "description": "Export data subtitle"
+  },
+  "sharedTimePlaceholder": "JJ:MM",
+  "@sharedTimePlaceholder": {
+    "description": "Time placeholder"
   }
 }

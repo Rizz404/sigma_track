@@ -317,5 +317,13 @@
   "categoryChooseImage": "Pilih Gambar",
   "@categoryChooseImage": {
     "description": "Choose image button label"
+  },
+  "categoryCurrentImage": "Gambar Saat Ini",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "Kembali",
+  "@categoryGoBack": {
+    "description": "Go back button label"
   }
 }

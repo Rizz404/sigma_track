@@ -289,5 +289,63 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "Sigma Assetからの一般通知",
+  "notificationChannelImportantDescription": "早急な対応が必要な重要な通知",
+  "notificationTestDefaultTitle": "デフォルト通知",
+  "notificationTestHighPriorityTitle": "高優先度通知",
+  "notificationTest1Title": "通知1",
+  "notificationTest2Title": "通知2",
+  "notificationSoundTestTitle": "サウンドテスト",
+  "@notificationSoundTestTitle": {
+    "description": "Title for sound test notification"
+  },
+  "notificationSoundTestBody": "これはサウンドテストの通知です",
+  "@notificationSoundTestBody": {
+    "description": "Body for sound test notification"
+  },
+  "notificationTestTroubleshootingMessage": "音が聞こえない場合は、デバイスの音量設定を確認してください。",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting message for sound test"
+  },
+  "notificationSoundTestCardTitle": "サウンド再生テスト",
+  "@notificationSoundTestCardTitle": {
+    "description": "Title for sound test card"
+  },
+  "notificationSoundTestCardMessage": "下のボタンをクリックして通知音をテストしてください。",
+  "@notificationSoundTestCardMessage": {
+    "description": "Message for sound test card"
+  },
+  "notificationTestDefaultSound": "デフォルト音",
+  "@notificationTestDefaultSound": {
+    "description": "Label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "高優先度音",
+  "@notificationTestHighPrioritySound": {
+    "description": "Label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "連続通知",
+  "@notificationTestMultipleNotifications": {
+    "description": "Label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "これはデフォルトの通知です",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "これは高優先度の通知です",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "通知1: システムを確認中",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for first multiple notification"
+  },
+  "notificationTestBodyMultiple2": "通知2: システムは正常です",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for second multiple notification"
+  },
+  "notificationTestTroubleshootingTitle": "トラブルシューティング",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Title for troubleshooting section"
   }
 }

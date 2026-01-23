@@ -176,7 +176,10 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
           children: [
             AppText(errorMessage, style: AppTextStyle.bodyMedium),
             const SizedBox(height: 16),
-            AppButton(text: 'Go Back', onPressed: () => context.pop()),
+            AppButton(
+              text: context.l10n.categoryGoBack,
+              onPressed: () => context.pop(),
+            ),
           ],
         ),
       );

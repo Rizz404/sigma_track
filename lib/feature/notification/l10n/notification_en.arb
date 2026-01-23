@@ -289,5 +289,77 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "General notifications from Sigma Asset",
+  "@notificationChannelGeneralDescription": {
+    "description": "General channel description"
+  },
+  "notificationChannelImportantDescription": "Important notifications that require immediate attention",
+  "@notificationChannelImportantDescription": {
+    "description": "Important channel description"
+  },
+  "notificationTestDefaultTitle": "Default Notification",
+  "@notificationTestDefaultTitle": {
+    "description": "Test notification default title"
+  },
+  "notificationTestHighPriorityTitle": "High Priority Notification",
+  "@notificationTestHighPriorityTitle": {
+    "description": "Test notification high priority title"
+  },
+  "notificationTest1Title": "Notification 1",
+  "@notificationTest1Title": {
+    "description": "Test notification 1 title"
+  },
+  "notificationTest2Title": "Notification 2",
+  "@notificationTest2Title": {
+    "description": "Test notification 2 title"
+  },
+  "notificationSoundTestTitle": "Notification Sound Test",
+  "@notificationSoundTestTitle": {
+    "description": "Title for notification test screen"
+  },
+  "notificationSoundTestCardTitle": "Sound Test",
+  "@notificationSoundTestCardTitle": {
+    "description": "Card title for sound test"
+  },
+  "notificationSoundTestCardMessage": "Test custom notification sounds. Make sure device volume is up!",
+  "@notificationSoundTestCardMessage": {
+    "description": "Card message for sound test"
+  },
+  "notificationTestDefaultSound": "Test Default Sound",
+  "@notificationTestDefaultSound": {
+    "description": "Button label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "Test High Priority Sound",
+  "@notificationTestHighPrioritySound": {
+    "description": "Button label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "Test Multiple Notifications",
+  "@notificationTestMultipleNotifications": {
+    "description": "Button label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "This should play notification_sound.ogg",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "This should play high_priority_sound.ogg",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "Default sound",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for multiple test notification 1"
+  },
+  "notificationTestBodyMultiple2": "High priority sound",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for multiple test notification 2"
+  },
+  "notificationTestTroubleshootingTitle": "Not Working?",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Troubleshooting card title"
+  },
+  "notificationTestTroubleshootingMessage": "1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting steps"
   }
 }

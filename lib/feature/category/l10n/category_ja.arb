@@ -317,5 +317,13 @@
   "categoryChooseImage": "画像を選択",
   "@categoryChooseImage": {
     "description": "Choose image button label"
+  },
+  "categoryCurrentImage": "現在の画像",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "戻る",
+  "@categoryGoBack": {
+    "description": "Go back button label"
   }
 }

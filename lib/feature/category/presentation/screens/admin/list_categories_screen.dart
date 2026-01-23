@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/filtering_sorting_enums.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -84,15 +85,15 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
             _isSelectMode = true;
             _selectedCategoryIds.clear();
           });
-          AppToast.info('Select categories to delete');
+          AppToast.info(context.l10n.categorySelectCategoriesToDelete);
         },
         filterSortWidgetBuilder: _buildFilterSortBottomSheet,
-        createTitle: 'Create Category',
-        createSubtitle: 'Add a new category',
-        selectManyTitle: 'Select Many',
-        selectManySubtitle: 'Select multiple categories to delete',
-        filterSortTitle: 'Filter & Sort',
-        filterSortSubtitle: 'Customize category display',
+        createTitle: context.l10n.categoryCreateCategoryTitle,
+        createSubtitle: context.l10n.categoryCreateCategorySubtitle,
+        selectManyTitle: context.l10n.categorySelectManyTitle,
+        selectManySubtitle: context.l10n.categorySelectManySubtitle,
+        filterSortTitle: context.l10n.categoryFilterAndSortTitle,
+        filterSortSubtitle: context.l10n.categoryFilterAndSortSubtitle,
       ),
     );
   }
@@ -133,15 +134,15 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              const AppText(
-                'Filter & Sort',
+              AppText(
+                context.l10n.categoryFilterAndSortTitle,
                 style: AppTextStyle.titleLarge,
                 fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 24),
               AppDropdown<String>(
                 name: 'sortBy',
-                label: 'Sort By',
+                label: context.l10n.categorySortBy,
                 initialValue: currentFilter.sortBy?.value,
                 items: CategorySortBy.values
                     .map(
@@ -156,7 +157,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
               const SizedBox(height: 16),
               AppDropdown<String>(
                 name: 'sortOrder',
-                label: 'Sort Order',
+                label: context.l10n.categorySortOrder,
                 initialValue: currentFilter.sortOrder?.value,
                 items: SortOrder.values
                     .map(
@@ -171,7 +172,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
               const SizedBox(height: 16),
               AppCheckbox(
                 name: 'hasParent',
-                title: const AppText('Has Parent'),
+                title: AppText(context.l10n.categoryHasParent),
                 initialValue: currentFilter.hasParent == true,
               ),
               const SizedBox(height: 16),
@@ -180,8 +181,8 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 children: [
                   AppSearchField<Category>(
                     name: 'parentId',
-                    label: 'Filter by Parent Category',
-                    hintText: 'Search parent category...',
+                    label: context.l10n.categoryFilterByParent,
+                    hintText: context.l10n.categorySearchParentCategory,
                     enableAutocomplete: true,
                     onSearch: _searchParentCategories,
                     itemDisplayMapper: (category) => category.categoryName,
@@ -200,7 +201,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                 children: [
                   Expanded(
                     child: AppButton(
-                      text: 'Reset',
+                      text: context.l10n.categoryReset,
                       color: AppButtonColor.secondary,
                       onPressed: () {
                         _filterFormKey.currentState?.reset();
@@ -212,14 +213,14 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                         ref
                             .read(categoriesProvider.notifier)
                             .updateFilter(newFilter);
-                        AppToast.success('Filter reset');
+                        AppToast.success(context.l10n.categoryFilterReset);
                       },
                     ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: AppButton(
-                      text: 'Apply',
+                      text: context.l10n.categoryApply,
                       onPressed: () {
                         if (_filterFormKey.currentState?.saveAndValidate() ??
                             false) {
@@ -251,7 +252,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                           ref
                               .read(categoriesProvider.notifier)
                               .updateFilter(newFilter);
-                          AppToast.success('Filter applied');
+                          AppToast.success(context.l10n.categoryFilterApplied);
                         }
                       },
                     ),
@@ -297,19 +298,21 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   Future<void> _deleteSelectedCategories() async {
     if (_selectedCategoryIds.isEmpty) {
-      AppToast.warning('No categories selected');
+      AppToast.warning(context.l10n.categoryNoCategoriesSelected);
       return;
     }
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const AppText(
-          'Delete Categories',
+        title: AppText(
+          context.l10n.categoryDeleteCategories,
           style: AppTextStyle.titleMedium,
         ),
         content: AppText(
-          'Are you sure you want to delete ${_selectedCategoryIds.length} categories?',
+          context.l10n.categoryDeleteMultipleConfirmation(
+            _selectedCategoryIds.length,
+          ),
           style: AppTextStyle.bodyMedium,
         ),
         actionsAlignment: MainAxisAlignment.end,
@@ -320,7 +323,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
           ),
           const SizedBox(width: 8),
           AppButton(
-            text: 'Delete',
+            text: context.l10n.categoryDelete,
             color: AppButtonColor.error,
             isFullWidth: false,
             onPressed: () => Navigator.pop(context, true),
@@ -355,7 +358,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
     });
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Category Management'),
+      appBar: CustomAppBar(title: context.l10n.categoryManagement),
       endDrawer: const AppEndDrawer(),
       endDrawerEnableOpenDragGesture: false,
       body: ScreenWrapper(
@@ -437,14 +440,14 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: AppText(
-                '${_selectedCategoryIds.length} selected',
+                context.l10n.categorySelectedCount(_selectedCategoryIds.length),
                 style: AppTextStyle.titleMedium,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
             AppButton(
-              text: 'Delete',
+              text: context.l10n.categoryDelete,
               color: AppButtonColor.error,
               isFullWidth: false,
               onPressed: _deleteSelectedCategories,
@@ -458,7 +461,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   Widget _buildSearchBar() {
     return AppSearchField(
       name: 'search',
-      hintText: 'Search categories...',
+      hintText: context.l10n.categorySearchCategories,
       onChanged: (value) {
         ref.read(categoriesProvider.notifier).search(value);
       },
@@ -485,13 +488,13 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
           ),
           const SizedBox(height: 16),
           AppText(
-            'No categories found',
+            context.l10n.categoryNoCategoriesFound,
             style: AppTextStyle.titleMedium,
             color: context.colors.textSecondary,
           ),
           const SizedBox(height: 8),
           AppText(
-            'Create your first category to get started',
+            context.l10n.categoryCreateFirstCategory,
             style: AppTextStyle.bodyMedium,
             color: context.colors.textTertiary,
           ),
@@ -545,7 +548,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
                         _selectedCategoryIds.clear();
                         _selectedCategoryIds.add(category.id);
                       });
-                      AppToast.info('Long press to select more categories');
+                      AppToast.info(context.l10n.categoryLongPressToSelect);
                     }
                   },
             onTap: isSkeleton || _isSelectMode

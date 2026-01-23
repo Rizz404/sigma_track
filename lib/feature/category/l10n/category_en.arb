@@ -317,5 +317,13 @@
   "categoryChooseImage": "Choose Image",
   "@categoryChooseImage": {
     "description": "Choose image button label"
+  },
+  "categoryCurrentImage": "Current Image",
+  "@categoryCurrentImage": {
+    "description": "Label for current image in upsert screen"
+  },
+  "categoryGoBack": "Go Back",
+  "@categoryGoBack": {
+    "description": "Go back button label"
   }
 }

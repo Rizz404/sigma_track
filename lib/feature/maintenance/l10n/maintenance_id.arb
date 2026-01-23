@@ -715,5 +715,29 @@
   "maintenanceRecordSchedule": "Jadwal Pemeliharaan",
   "@maintenanceRecordSchedule": {
     "description": "Schedule label"
+  },
+  "maintenanceScheduleAssetCannotBeChanged": "Aset untuk jadwal ini tidak dapat diubah setelah dibuat.",
+  "@maintenanceScheduleAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceRecordAssetCannotBeChanged": "Aset untuk catatan ini tidak dapat diubah setelah dibuat.",
+  "@maintenanceRecordAssetCannotBeChanged": {
+    "description": "Warning message that asset cannot be changed"
+  },
+  "maintenanceCreatedByUserNotFound": "Pengguna yang membuat tidak ditemukan",
+  "@maintenanceCreatedByUserNotFound": {
+    "description": "Error message when created by user is missing"
+  },
+  "maintenanceFromDate": "Dari Tanggal",
+  "@maintenanceFromDate": {
+    "description": "From date label"
+  },
+  "maintenanceToDate": "Sampai Tanggal",
+  "@maintenanceToDate": {
+    "description": "To date label"
+  },
+  "maintenanceVendorName": "Nama Vendor",
+  "@maintenanceVendorName": {
+    "description": "Vendor name label"
   }
 }

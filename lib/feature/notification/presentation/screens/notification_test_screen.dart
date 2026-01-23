@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/di/service_providers.dart';
 
@@ -12,7 +13,7 @@ class NotificationTestScreen extends ConsumerWidget {
     final localNotificationService = ref.read(localNotificationServiceProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Notification Sound Test')),
+      appBar: AppBar(title: Text(context.l10n.notificationSoundTestTitle)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -27,14 +28,14 @@ class NotificationTestScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '🔊 Sound Test',
+                      context.l10n.notificationSoundTestCardTitle,
                       style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Test custom notification sounds. Make sure device volume is up!',
+                      context.l10n.notificationSoundTestCardMessage,
                       style: context.textTheme.bodySmall,
                     ),
                   ],
@@ -47,12 +48,12 @@ class NotificationTestScreen extends ConsumerWidget {
             // * Default sound test
             ElevatedButton.icon(
               icon: const Icon(Icons.music_note),
-              label: const Text('Test Default Sound'),
+              label: Text(context.l10n.notificationTestDefaultSound),
               onPressed: () async {
                 await localNotificationService.showNotification(
                   id: DateTime.now().millisecondsSinceEpoch,
-                  title: 'Default Notification',
-                  body: 'This should play notification_sound.ogg',
+                  title: context.l10n.notificationTestDefaultTitle,
+                  body: context.l10n.notificationTestBodyDefault,
                   highPriority: false,
                 );
               },
@@ -63,12 +64,12 @@ class NotificationTestScreen extends ConsumerWidget {
             // * High priority sound test
             ElevatedButton.icon(
               icon: const Icon(Icons.warning_amber_rounded),
-              label: const Text('Test High Priority Sound'),
+              label: Text(context.l10n.notificationTestHighPrioritySound),
               onPressed: () async {
                 await localNotificationService.showNotification(
                   id: DateTime.now().millisecondsSinceEpoch,
-                  title: 'High Priority Notification',
-                  body: 'This should play high_priority_sound.ogg',
+                  title: context.l10n.notificationTestHighPriorityTitle,
+                  body: context.l10n.notificationTestBodyHighPriority,
                   highPriority: true,
                 );
               },
@@ -79,12 +80,12 @@ class NotificationTestScreen extends ConsumerWidget {
             // * Multiple notifications
             ElevatedButton.icon(
               icon: const Icon(Icons.notifications_active),
-              label: const Text('Test Multiple Notifications'),
+              label: Text(context.l10n.notificationTestMultipleNotifications),
               onPressed: () async {
                 await localNotificationService.showNotification(
                   id: 1,
-                  title: 'Notification 1',
-                  body: 'Default sound',
+                  title: context.l10n.notificationTest1Title,
+                  body: context.l10n.notificationTestBodyMultiple1,
                   highPriority: false,
                 );
 
@@ -92,8 +93,8 @@ class NotificationTestScreen extends ConsumerWidget {
 
                 await localNotificationService.showNotification(
                   id: 2,
-                  title: 'Notification 2',
-                  body: 'High priority sound',
+                  title: context.l10n.notificationTest2Title,
+                  body: context.l10n.notificationTestBodyMultiple2,
                   highPriority: true,
                 );
               },
@@ -114,7 +115,7 @@ class NotificationTestScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '⚠️ Not Working?',
+                      context.l10n.notificationTestTroubleshootingTitle,
                       style: context.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: context.colorScheme.onErrorContainer,
@@ -122,11 +123,7 @@ class NotificationTestScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '1. Uninstall app completely\n'
-                      '2. flutter clean && flutter pub get\n'
-                      '3. flutter run\n'
-                      '4. Check volume is up\n'
-                      '5. Files must be .ogg format in raw/',
+                      context.l10n.notificationTestTroubleshootingMessage,
                       style: context.textTheme.bodySmall?.copyWith(
                         color: context.colorScheme.onErrorContainer,
                       ),

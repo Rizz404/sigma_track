@@ -431,5 +431,13 @@
   "issueReportValidationResolutionNotesMaxLength": "Resolution notes must not exceed 1000 characters",
   "@issueReportValidationResolutionNotesMaxLength": {
     "description": "Validation error for resolution notes maximum length"
+  },
+  "issueReportReportedByUserNotFound": "Reported by user not found",
+  "@issueReportReportedByUserNotFound": {
+    "description": "Error message when reported by user is missing"
+  },
+  "issueReportEditWarning": "Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.",
+  "@issueReportEditWarning": {
+    "description": "Warning message in edit mode"
   }
 }

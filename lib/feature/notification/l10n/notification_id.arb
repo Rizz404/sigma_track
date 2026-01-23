@@ -289,5 +289,63 @@
         "example": "5"
       }
     }
+  },
+  "notificationChannelGeneralDescription": "Notifikasi umum dari Sigma Asset",
+  "notificationChannelImportantDescription": "Notifikasi penting yang memerlukan perhatian segera",
+  "notificationTestDefaultTitle": "Notifikasi Default",
+  "notificationTestHighPriorityTitle": "Notifikasi Prioritas Tinggi",
+  "notificationTest1Title": "Notifikasi 1",
+  "notificationTest2Title": "Notifikasi 2",
+  "notificationSoundTestTitle": "Uji Suara",
+  "@notificationSoundTestTitle": {
+    "description": "Title for sound test notification"
+  },
+  "notificationSoundTestBody": "Ini adalah notifikasi uji coba suara",
+  "@notificationSoundTestBody": {
+    "description": "Body for sound test notification"
+  },
+  "notificationTestTroubleshootingMessage": "Jika Anda tidak mendengar suara, periksa pengaturan volume perangkat Anda.",
+  "@notificationTestTroubleshootingMessage": {
+    "description": "Troubleshooting message for sound test"
+  },
+  "notificationSoundTestCardTitle": "Uji Pemutaran Suara",
+  "@notificationSoundTestCardTitle": {
+    "description": "Title for sound test card"
+  },
+  "notificationSoundTestCardMessage": "Klik tombol di bawah untuk menguji suara notifikasi.",
+  "@notificationSoundTestCardMessage": {
+    "description": "Message for sound test card"
+  },
+  "notificationTestDefaultSound": "Suara Default",
+  "@notificationTestDefaultSound": {
+    "description": "Label for default sound test"
+  },
+  "notificationTestHighPrioritySound": "Suara Prioritas Tinggi",
+  "@notificationTestHighPrioritySound": {
+    "description": "Label for high priority sound test"
+  },
+  "notificationTestMultipleNotifications": "Notifikasi Beruntun",
+  "@notificationTestMultipleNotifications": {
+    "description": "Label for multiple notifications test"
+  },
+  "notificationTestBodyDefault": "Ini adalah notifikasi default",
+  "@notificationTestBodyDefault": {
+    "description": "Body text for default test notification"
+  },
+  "notificationTestBodyHighPriority": "Ini adalah notifikasi prioritas tinggi",
+  "@notificationTestBodyHighPriority": {
+    "description": "Body text for high priority test notification"
+  },
+  "notificationTestBodyMultiple1": "Notifikasi 1: Memeriksa sistem",
+  "@notificationTestBodyMultiple1": {
+    "description": "Body text for first multiple notification"
+  },
+  "notificationTestBodyMultiple2": "Notifikasi 2: Sistem berfungsi normal",
+  "@notificationTestBodyMultiple2": {
+    "description": "Body text for second multiple notification"
+  },
+  "notificationTestTroubleshootingTitle": "Pemecahan Masalah",
+  "@notificationTestTroubleshootingTitle": {
+    "description": "Title for troubleshooting section"
   }
 }

@@ -329,9 +329,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               label: context.l10n.categoryCategoryCode,
               placeHolder: context.l10n.categoryEnterCategoryCode,
               // * Don't copy category code in copy mode (must be unique)
-              initialValue: _isCopyMode
-                  ? null
-                  : widget.category?.categoryCode,
+              initialValue: _isCopyMode ? null : widget.category?.categoryCode,
               validator: (value) =>
                   CategoryUpsertValidator.validateCategoryCode(
                     context,
@@ -346,7 +344,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                 child: Column(
                   children: [
                     AppText(
-                      'Current Image',
+                      context.l10n.categoryCurrentImage,
                       style: AppTextStyle.labelMedium,
                       color: context.colors.textSecondary,
                     ),

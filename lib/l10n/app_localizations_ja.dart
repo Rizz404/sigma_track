@@ -1522,6 +1522,12 @@ class L10nJa extends L10n {
   String get categoryChooseImage => '画像を選択';
 
   @override
+  String get categoryCurrentImage => '現在の画像';
+
+  @override
+  String get categoryGoBack => '戻る';
+
+  @override
   String get dashboardTotalUsers => '総ユーザー数';
 
   @override
@@ -1604,6 +1610,45 @@ class L10nJa extends L10n {
 
   @override
   String get dashboardMaintenanceRecords => 'メンテナンス記録';
+
+  @override
+  String get dashboardAssetMovementTrends => '資産移動の傾向';
+
+  @override
+  String get dashboardIssueReportStatusDistribution => '課題報告ステータスの分布';
+
+  @override
+  String get dashboardIssueReportCreationTrends => '課題報告作成の傾向';
+
+  @override
+  String get dashboardMaintenanceScheduleByType => 'タイプ別メンテナンススケジュール';
+
+  @override
+  String get dashboardMaintenanceRecordCompletionTrends => 'メンテナンス記録完了の傾向';
+
+  @override
+  String get dashboardIssueStatusOpen => '未解決';
+
+  @override
+  String get dashboardIssueStatusInProgress => '進行中';
+
+  @override
+  String get dashboardIssueStatusResolved => '解決済み';
+
+  @override
+  String get dashboardIssueStatusClosed => '完了';
+
+  @override
+  String get dashboardMaintenanceTypePreventive => '予防';
+
+  @override
+  String get dashboardMaintenanceTypeCorrective => '修正';
+
+  @override
+  String get dashboardMaintenanceTypeInspection => '点検';
+
+  @override
+  String get dashboardMaintenanceTypeCalibration => '校正';
 
   @override
   String get homeScreen => 'ホーム';
@@ -1919,6 +1964,13 @@ class L10nJa extends L10n {
   @override
   String get issueReportValidationResolutionNotesMaxLength =>
       '解決メモは1000文字を超えることはできません';
+
+  @override
+  String get issueReportReportedByUserNotFound => '報告したユーザーが見つかりません';
+
+  @override
+  String get issueReportEditWarning =>
+      '優先度、ステータス、解決者、および翻訳のみ更新できます。資産と問題タイプは変更できません。';
 
   @override
   String get locationDeleteLocation => '場所を削除';
@@ -2743,6 +2795,26 @@ class L10nJa extends L10n {
   String get maintenanceRecordSchedule => 'メンテナンススケジュール';
 
   @override
+  String get maintenanceFromDate => '開始日';
+
+  @override
+  String get maintenanceToDate => '終了日';
+
+  @override
+  String get maintenanceVendorName => 'ベンダー名';
+
+  @override
+  String get maintenanceScheduleAssetCannotBeChanged =>
+      'このスケジュールの資産は作成後に変更することはできません。';
+
+  @override
+  String get maintenanceRecordAssetCannotBeChanged =>
+      'この記録の資産は作成後に変更することはできません。';
+
+  @override
+  String get maintenanceCreatedByUserNotFound => '作成したユーザーが見つかりません';
+
+  @override
   String get notificationManagement => '通知管理';
 
   @override
@@ -2941,6 +3013,61 @@ class L10nJa extends L10n {
   String notificationMarkedAsUnread(int count) {
     return '$count件を未読にしました';
   }
+
+  @override
+  String get notificationChannelGeneralDescription => 'Sigma Assetからの一般通知';
+
+  @override
+  String get notificationChannelImportantDescription => '早急な対応が必要な重要な通知';
+
+  @override
+  String get notificationTestDefaultTitle => 'デフォルト通知';
+
+  @override
+  String get notificationTestHighPriorityTitle => '高優先度通知';
+
+  @override
+  String get notificationTest1Title => '通知1';
+
+  @override
+  String get notificationTest2Title => '通知2';
+
+  @override
+  String get notificationSoundTestTitle => 'サウンドテスト';
+
+  @override
+  String get notificationSoundTestCardTitle => 'サウンド再生テスト';
+
+  @override
+  String get notificationSoundTestCardMessage => '下のボタンをクリックして通知音をテストしてください。';
+
+  @override
+  String get notificationTestDefaultSound => 'デフォルト音';
+
+  @override
+  String get notificationTestHighPrioritySound => '高優先度音';
+
+  @override
+  String get notificationTestMultipleNotifications => '連続通知';
+
+  @override
+  String get notificationTestBodyDefault => 'これはデフォルトの通知です';
+
+  @override
+  String get notificationTestBodyHighPriority => 'これは高優先度の通知です';
+
+  @override
+  String get notificationTestBodyMultiple1 => '通知1: システムを確認中';
+
+  @override
+  String get notificationTestBodyMultiple2 => '通知2: システムは正常です';
+
+  @override
+  String get notificationTestTroubleshootingTitle => 'トラブルシューティング';
+
+  @override
+  String get notificationTestTroubleshootingMessage =>
+      '音が聞こえない場合は、デバイスの音量設定を確認してください。';
 
   @override
   String get scanLogManagement => 'スキャンログ管理';
@@ -3384,6 +3511,66 @@ class L10nJa extends L10n {
   String get userPasswordChangedSuccessfully => 'パスワードが正常に変更されました';
 
   @override
+  String get userValidationNameRequired => '名前は必須です';
+
+  @override
+  String get userValidationNameMinLength => '名前はnull文字以上である必要があります';
+
+  @override
+  String get userValidationNameMaxLength => '名前はnull文字以下である必要があります';
+
+  @override
+  String get userValidationNameAlphanumeric => '名前は英数字のみ使用できます';
+
+  @override
+  String get userValidationEmailRequired => 'メールアドレスは必須です';
+
+  @override
+  String get userValidationEmailInvalid =>
+      'メールアドレスの形式が無効です (例: user@example.com)';
+
+  @override
+  String get userValidationPasswordRequired => 'パスワードは必須です';
+
+  @override
+  String get userValidationPasswordMinLength => 'パスワードは8文字以上である必要があります';
+
+  @override
+  String get userValidationFullNameRequired => '氏名は必須です';
+
+  @override
+  String get userValidationFullNameMinLength => '氏名はnull文字以上である必要があります';
+
+  @override
+  String get userValidationFullNameMaxLength => '氏名はnull文字以下である必要があります';
+
+  @override
+  String get userValidationEmployeeIdMaxLength => '従業員IDはnull文字以下である必要があります';
+
+  @override
+  String get userValidationRoleRequired => '役割を選択してください';
+
+  @override
+  String get userValidationCurrentPasswordRequired => '現在のパスワードは必須です';
+
+  @override
+  String get userValidationNewPasswordRequired => '新しいパスワードは必須です';
+
+  @override
+  String get userValidationConfirmPasswordRequired => 'パスワードの確認は必須です';
+
+  @override
+  String get userValidationPasswordsDoNotMatch => 'パスワードが一致しません';
+
+  @override
+  String get userValidationImageOnly => '画像ファイルのみ許可されています';
+
+  @override
+  String userValidationImageSize(int size) {
+    return '画像サイズが大きすぎます (最大5MB)';
+  }
+
+  @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';
 
   @override
@@ -3511,4 +3698,68 @@ class L10nJa extends L10n {
 
   @override
   String get shellDoubleBackToExitApp => 'もう一度戻るボタンを押して終了';
+
+  @override
+  String get sharedValidationErrors => '検証エラー';
+
+  @override
+  String sharedMaxFilesAllowed(int count) {
+    return '最大$countファイルまで許可されています';
+  }
+
+  @override
+  String sharedFileTooLarge(String name, int size) {
+    return 'ファイル$nameは${size}MBの制限を超えています';
+  }
+
+  @override
+  String get sharedFailedToPickFiles => 'ファイルの選択に失敗しました';
+
+  @override
+  String get sharedChooseFiles => 'ファイルを選択';
+
+  @override
+  String get sharedUnableToPreviewImage => '画像のプレビューを表示できません';
+
+  @override
+  String get sharedVideoPreviewNotImplemented => '動画のプレビューはまだ実装されていません';
+
+  @override
+  String get sharedPreviewNotAvailable => 'このファイルタイプのプレビューは利用できません';
+
+  @override
+  String get sharedDelete => '削除';
+
+  @override
+  String get sharedEdit => '編集';
+
+  @override
+  String get sharedOptions => 'オプション';
+
+  @override
+  String get sharedCreate => '作成';
+
+  @override
+  String get sharedAddNewItem => '新しいアイテムを追加';
+
+  @override
+  String get sharedSelectMany => '複数選択';
+
+  @override
+  String get sharedSelectItemsToDelete => '削除するアイテムを複数選択';
+
+  @override
+  String get sharedFilterAndSort => 'フィルタと並べ替え';
+
+  @override
+  String get sharedCustomizeDisplay => '表示をカスタマイズ';
+
+  @override
+  String get sharedExport => 'エクスポート';
+
+  @override
+  String get sharedExportDataToFile => 'データをファイルにエクスポート';
+
+  @override
+  String get sharedTimePlaceholder => 'HH:MM';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -47,7 +48,7 @@ class AppValidationErrors extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               AppText(
-                'Validation Errors',
+                context.l10n.sharedValidationErrors,
                 style: AppTextStyle.bodyMedium,
                 color: context.semantic.error,
                 fontWeight: FontWeight.bold,

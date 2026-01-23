@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 
 class AppDetailActionButtons extends StatelessWidget {
@@ -24,7 +25,7 @@ class AppDetailActionButtons extends StatelessWidget {
             if (hasDelete) ...[
               Expanded(
                 child: AppButton(
-                  text: 'Delete',
+                  text: context.l10n.sharedDelete,
                   color: AppButtonColor.error,
                   variant: AppButtonVariant.outlined,
                   onPressed: onDelete,
@@ -34,7 +35,10 @@ class AppDetailActionButtons extends StatelessWidget {
             ],
             if (hasEdit)
               Expanded(
-                child: AppButton(text: 'Edit', onPressed: onEdit),
+                child: AppButton(
+                  text: context.l10n.sharedEdit,
+                  onPressed: onEdit,
+                ),
               ),
           ],
         ),
