@@ -103,16 +103,28 @@ class DashboardScreen extends ConsumerWidget {
                   assetStats.isLoading,
                 ),
                 const SizedBox(height: 24),
-                _buildRegistrationTrends(
+                _buildAssetMovementTrends(
                   context,
-                  userStats.statistics,
-                  userStats.isLoading,
+                  assetMovementStats.statistics,
+                  assetMovementStats.isLoading,
                 ),
                 const SizedBox(height: 24),
-                _buildAssetCreationTrends(
+                _buildIssueReportStatistics(
                   context,
-                  assetStats.statistics,
-                  assetStats.isLoading,
+                  issueReportStats.statistics,
+                  issueReportStats.isLoading,
+                ),
+                const SizedBox(height: 24),
+                _buildMaintenanceScheduleChart(
+                  context,
+                  maintenanceScheduleStats.statistics,
+                  maintenanceScheduleStats.isLoading,
+                ),
+                const SizedBox(height: 24),
+                _buildMaintenanceRecordChart(
+                  context,
+                  maintenanceRecordStats.statistics,
+                  maintenanceRecordStats.isLoading,
                 ),
                 const SizedBox(height: 24),
                 _buildCategoryLocationStats(
@@ -590,16 +602,16 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildRegistrationTrends(
+  Widget _buildAssetMovementTrends(
     BuildContext context,
-    dynamic userStats,
+    dynamic movementStats,
     bool isLoading,
   ) {
-    if (userStats == null || userStats.registrationTrends.isEmpty) {
+    if (movementStats == null || movementStats.movementTrends.isEmpty) {
       return const SizedBox.shrink();
     }
 
-    final spots = userStats.registrationTrends
+    final spots = movementStats.movementTrends
         .asMap()
         .entries
         .map<FlSpot>((e) => FlSpot(e.key.toDouble(), e.value.count.toDouble()))
@@ -609,7 +621,7 @@ class DashboardScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: context.l10n.dashboardUserRegistrationTrends,
+        title: 'Asset Movement Trends',
         child: SizedBox(
           height: 250,
           child: LineChart(
@@ -628,11 +640,11 @@ class DashboardScreen extends ConsumerWidget {
                     reservedSize: 32,
                     getTitlesWidget: (value, meta) {
                       if (value.toInt() >=
-                          userStats.registrationTrends.length) {
+                          movementStats.movementTrends.length) {
                         return const SizedBox.shrink();
                       }
                       final date =
-                          userStats.registrationTrends[value.toInt()].date;
+                          movementStats.movementTrends[value.toInt()].date;
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
@@ -669,7 +681,7 @@ class DashboardScreen extends ConsumerWidget {
                 LineChartBarData(
                   spots: spots,
                   isCurved: true,
-                  color: context.colors.primary,
+                  color: context.semantic.info,
                   barWidth: 3,
                   isStrokeCapRound: true,
                   dotData: const FlDotData(show: true),
@@ -677,8 +689,8 @@ class DashboardScreen extends ConsumerWidget {
                     show: true,
                     gradient: LinearGradient(
                       colors: [
-                        context.colors.primary.withValues(alpha: 0.3),
-                        context.colors.primary.withValues(alpha: 0.0),
+                        context.semantic.info.withValues(alpha: 0.3),
+                        context.semantic.info.withValues(alpha: 0.0),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -693,26 +705,363 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildAssetCreationTrends(
+  Widget _buildIssueReportStatistics(
     BuildContext context,
-    dynamic assetStats,
+    dynamic issueStats,
     bool isLoading,
   ) {
-    if (assetStats == null || assetStats.creationTrends.isEmpty) {
+    if (issueStats == null) {
       return const SizedBox.shrink();
     }
 
-    final spots = assetStats.creationTrends
-        .asMap()
-        .entries
-        .map<FlSpot>((e) => FlSpot(e.key.toDouble(), e.value.count.toDouble()))
-        .toList();
+    return Skeletonizer(
+      enabled: isLoading,
+      child: Column(
+        children: [
+          _buildChartCard(
+            context,
+            title: 'Issue Report Status Distribution',
+            child: SizedBox(
+              height: 250,
+              child: BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceAround,
+                  maxY: _getMaxValue([
+                    issueStats.byStatus.open.toDouble(),
+                    issueStats.byStatus.inProgress.toDouble(),
+                    issueStats.byStatus.resolved.toDouble(),
+                    issueStats.byStatus.closed.toDouble(),
+                  ]),
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    touchTooltipData: BarTouchTooltipData(
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                        return BarTooltipItem(
+                          '${rod.toY.toInt()}',
+                          TextStyle(
+                            color: context.colors.surface,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: (value, meta) {
+                          final titles = [
+                            'Open',
+                            'In Progress',
+                            'Resolved',
+                            'Closed',
+                          ];
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: AppText(
+                              titles[value.toInt()],
+                              style: AppTextStyle.bodySmall,
+                              color: context.colors.textSecondary,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          return AppText(
+                            value.toInt().toString(),
+                            style: AppTextStyle.bodySmall,
+                            color: context.colors.textSecondary,
+                          );
+                        },
+                      ),
+                    ),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        color: context.colors.border,
+                        strokeWidth: 1,
+                      );
+                    },
+                  ),
+                  borderData: FlBorderData(show: false),
+                  barGroups: [
+                    _buildBarGroup(
+                      0,
+                      issueStats.byStatus.open.toDouble(),
+                      context.semantic.warning,
+                    ),
+                    _buildBarGroup(
+                      1,
+                      issueStats.byStatus.inProgress.toDouble(),
+                      context.semantic.info,
+                    ),
+                    _buildBarGroup(
+                      2,
+                      issueStats.byStatus.resolved.toDouble(),
+                      context.semantic.success,
+                    ),
+                    _buildBarGroup(
+                      3,
+                      issueStats.byStatus.closed.toDouble(),
+                      context.colors.textTertiary,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          if (issueStats.creationTrends.isNotEmpty) ...[
+            const SizedBox(height: 24),
+            _buildChartCard(
+              context,
+              title: 'Issue Report Creation Trends',
+              child: SizedBox(
+                height: 250,
+                child: LineChart(
+                  LineChartData(
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: false,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                          color: context.colors.border,
+                          strokeWidth: 1,
+                        );
+                      },
+                    ),
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 32,
+                          getTitlesWidget: (value, meta) {
+                            if (value.toInt() >=
+                                issueStats.creationTrends.length) {
+                              return const SizedBox.shrink();
+                            }
+                            final date =
+                                issueStats.creationTrends[value.toInt()].date;
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: AppText(
+                                '${date.month}/${date.day}',
+                                style: AppTextStyle.bodySmall,
+                                color: context.colors.textSecondary,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 40,
+                          getTitlesWidget: (value, meta) {
+                            return AppText(
+                              value.toInt().toString(),
+                              style: AppTextStyle.bodySmall,
+                              color: context.colors.textSecondary,
+                            );
+                          },
+                        ),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                    ),
+                    borderData: FlBorderData(show: false),
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: issueStats.creationTrends
+                            .asMap()
+                            .entries
+                            .map<FlSpot>(
+                              (e) => FlSpot(
+                                e.key.toDouble(),
+                                e.value.count.toDouble(),
+                              ),
+                            )
+                            .toList(),
+                        isCurved: true,
+                        color: context.semantic.error,
+                        barWidth: 3,
+                        isStrokeCapRound: true,
+                        dotData: const FlDotData(show: true),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          gradient: LinearGradient(
+                            colors: [
+                              context.semantic.error.withValues(alpha: 0.3),
+                              context.semantic.error.withValues(alpha: 0.0),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMaintenanceScheduleChart(
+    BuildContext context,
+    dynamic scheduleStats,
+    bool isLoading,
+  ) {
+    if (scheduleStats == null) {
+      return const SizedBox.shrink();
+    }
 
     return Skeletonizer(
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: context.l10n.dashboardAssetCreationTrends,
+        title: 'Maintenance Schedule by Type',
+        child: SizedBox(
+          height: 250,
+          child: BarChart(
+            BarChartData(
+              alignment: BarChartAlignment.spaceAround,
+              maxY: _getMaxValue([
+                scheduleStats.byType.preventive.toDouble(),
+                scheduleStats.byType.corrective.toDouble(),
+                scheduleStats.byType.inspection.toDouble(),
+                scheduleStats.byType.calibration.toDouble(),
+              ]),
+              barTouchData: BarTouchData(
+                enabled: true,
+                touchTooltipData: BarTouchTooltipData(
+                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    return BarTooltipItem(
+                      '${rod.toY.toInt()}',
+                      TextStyle(
+                        color: context.colors.surface,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              titlesData: FlTitlesData(
+                show: true,
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      final titles = [
+                        'Preventive',
+                        'Corrective',
+                        'Inspection',
+                        'Calibration',
+                      ];
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: AppText(
+                          titles[value.toInt()],
+                          style: AppTextStyle.bodySmall,
+                          color: context.colors.textSecondary,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 40,
+                    getTitlesWidget: (value, meta) {
+                      return AppText(
+                        value.toInt().toString(),
+                        style: AppTextStyle.bodySmall,
+                        color: context.colors.textSecondary,
+                      );
+                    },
+                  ),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+              ),
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: false,
+                getDrawingHorizontalLine: (value) {
+                  return FlLine(color: context.colors.border, strokeWidth: 1);
+                },
+              ),
+              borderData: FlBorderData(show: false),
+              barGroups: [
+                _buildBarGroup(
+                  0,
+                  scheduleStats.byType.preventive.toDouble(),
+                  context.colors.primary,
+                ),
+                _buildBarGroup(
+                  1,
+                  scheduleStats.byType.corrective.toDouble(),
+                  context.semantic.warning,
+                ),
+                _buildBarGroup(
+                  2,
+                  scheduleStats.byType.inspection.toDouble(),
+                  context.semantic.info,
+                ),
+                _buildBarGroup(
+                  3,
+                  scheduleStats.byType.calibration.toDouble(),
+                  context.colors.secondary,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMaintenanceRecordChart(
+    BuildContext context,
+    dynamic recordStats,
+    bool isLoading,
+  ) {
+    if (recordStats == null || recordStats.completionTrend.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Skeletonizer(
+      enabled: isLoading,
+      child: _buildChartCard(
+        context,
+        title: 'Maintenance Record Completion Trends',
         child: SizedBox(
           height: 250,
           child: LineChart(
@@ -730,11 +1079,11 @@ class DashboardScreen extends ConsumerWidget {
                     showTitles: true,
                     reservedSize: 32,
                     getTitlesWidget: (value, meta) {
-                      if (value.toInt() >= assetStats.creationTrends.length) {
+                      if (value.toInt() >= recordStats.completionTrend.length) {
                         return const SizedBox.shrink();
                       }
                       final date =
-                          assetStats.creationTrends[value.toInt()].date;
+                          recordStats.completionTrend[value.toInt()].date;
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
@@ -769,7 +1118,14 @@ class DashboardScreen extends ConsumerWidget {
               borderData: FlBorderData(show: false),
               lineBarsData: [
                 LineChartBarData(
-                  spots: spots,
+                  spots: recordStats.completionTrend
+                      .asMap()
+                      .entries
+                      .map<FlSpot>(
+                        (e) =>
+                            FlSpot(e.key.toDouble(), e.value.count.toDouble()),
+                      )
+                      .toList(),
                   isCurved: true,
                   color: context.colors.secondary,
                   barWidth: 3,
