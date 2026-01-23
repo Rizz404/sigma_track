@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/interceptors/auth_interceptor.dart';
 import 'package:sigma_track/core/network/interceptors/locale_interceptor.dart';
+import 'package:sigma_track/core/network/interceptors/network_error_interceptor.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
 import 'package:sigma_track/core/network/models/api_offset_pagination_response.dart';
@@ -14,6 +15,7 @@ class DioClient {
   final Dio _dio;
   final LocaleInterceptor _localeInterceptor;
   final AuthInterceptor _authInterceptor;
+  final NetworkErrorInterceptor _networkErrorInterceptor;
 
   DioClient(
     this._dio,
@@ -23,7 +25,8 @@ class DioClient {
        _authInterceptor = AuthInterceptor(
          authService,
          onTokenInvalid: onTokenInvalid,
-       ) {
+       ),
+       _networkErrorInterceptor = NetworkErrorInterceptor() {
     // ! Dari bot, nanti rungkat salahin ini
     _dio.interceptors.clear();
     _dio
@@ -40,7 +43,8 @@ class DioClient {
         'X-API-Key': ApiConstant.apiKey,
       }
       ..interceptors.add(_localeInterceptor)
-      ..interceptors.add(_authInterceptor);
+      ..interceptors.add(_authInterceptor)
+      ..interceptors.add(_networkErrorInterceptor);
 
     // Add Talker Dio Logger
     _dio.interceptors.add(logger.dioLogger);

@@ -69,9 +69,28 @@ class AppToast {
           _ToastCard(message: message, type: _ToastType.info, onTap: onTap),
     );
   }
+
+  /// Menampilkan toast untuk server error (5xx) dengan styling khusus
+  /// Berbeda dari error biasa agar user tidak bingung
+  static void serverError(
+    String message, {
+    Duration? duration,
+    VoidCallback? onTap,
+  }) {
+    if (message.isEmpty) return;
+    BotToast.showCustomText(
+      duration: duration ?? _defaultDuration,
+      onlyOne: false, // * Allow multiple server error toasts
+      toastBuilder: (context) => _ToastCard(
+        message: message,
+        type: _ToastType.serverError,
+        onTap: onTap,
+      ),
+    );
+  }
 }
 
-enum _ToastType { success, error, warning, info }
+enum _ToastType { success, error, warning, info, serverError }
 
 class _ToastCard extends StatelessWidget {
   const _ToastCard({required this.message, required this.type, this.onTap});
@@ -91,6 +110,9 @@ class _ToastCard extends StatelessWidget {
         return semantic.warning;
       case _ToastType.info:
         return semantic.info;
+      case _ToastType.serverError:
+        // * Gunakan warna amber/orange untuk server error (beda dari error merah)
+        return context.colorScheme.tertiaryContainer;
     }
   }
 
@@ -104,7 +126,18 @@ class _ToastCard extends StatelessWidget {
         return Icons.warning;
       case _ToastType.info:
         return Icons.info;
+      case _ToastType.serverError:
+        // * Icon cloud/server untuk server error
+        return Icons.cloud_off;
     }
+  }
+
+  Color _getTextColor(BuildContext context) {
+    // * Server error perlu warna text yang berbeda karena pakai tertiaryContainer
+    if (type == _ToastType.serverError) {
+      return context.colorScheme.onTertiaryContainer;
+    }
+    return context.colors.textOnPrimary;
   }
 
   @override
@@ -128,13 +161,13 @@ class _ToastCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(_getIcon(), color: context.colors.textOnPrimary, size: 24),
+            Icon(_getIcon(), color: _getTextColor(context), size: 24),
             const SizedBox(width: 12),
             Flexible(
               child: Text(
                 message,
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color: context.colors.textOnPrimary,
+                  color: _getTextColor(context),
                   fontWeight: FontWeight.w500,
                 ),
               ),
