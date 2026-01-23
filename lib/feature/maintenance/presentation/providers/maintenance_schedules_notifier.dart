@@ -223,18 +223,19 @@ class MaintenanceSchedulesNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance schedules dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceSchedules(
+        final newState = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceSchedulesState.mutationSuccess(
-          maintenanceSchedules: state.maintenanceSchedules,
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedules: newState.maintenanceSchedules,
+          maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
           mutationType: MutationType.create,
           message: success.message ?? 'Maintenance schedule created',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -272,18 +273,19 @@ class MaintenanceSchedulesNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance schedules dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceSchedules(
+        final newState = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceSchedulesState.mutationSuccess(
-          maintenanceSchedules: state.maintenanceSchedules,
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedules: newState.maintenanceSchedules,
+          maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Maintenance schedule updated',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -321,18 +323,19 @@ class MaintenanceSchedulesNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance schedules dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceSchedules(
+        final newState = await _loadMaintenanceSchedules(
           maintenanceSchedulesFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceSchedulesState.mutationSuccess(
-          maintenanceSchedules: state.maintenanceSchedules,
-          maintenanceSchedulesFilter: state.maintenanceSchedulesFilter,
+          maintenanceSchedules: newState.maintenanceSchedules,
+          maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
           mutationType: MutationType.delete,
           message: success.message ?? 'Maintenance schedule deleted',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );

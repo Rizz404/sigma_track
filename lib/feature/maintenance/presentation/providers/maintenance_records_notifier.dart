@@ -218,18 +218,19 @@ class MaintenanceRecordsNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance records dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceRecords(
+        final newState = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceRecordsState.mutationSuccess(
-          maintenanceRecords: state.maintenanceRecords,
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecords: newState.maintenanceRecords,
+          maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
           mutationType: MutationType.create,
           message: success.message ?? 'Maintenance record created',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -267,18 +268,19 @@ class MaintenanceRecordsNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance records dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceRecords(
+        final newState = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceRecordsState.mutationSuccess(
-          maintenanceRecords: state.maintenanceRecords,
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecords: newState.maintenanceRecords,
+          maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Maintenance record updated',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -316,18 +318,19 @@ class MaintenanceRecordsNotifier
           cursor: () => null,
         );
 
+        // * Reload maintenance records dengan state sukses
         state = state.copyWith(isLoading: true);
-
-        state = await _loadMaintenanceRecords(
+        final newState = await _loadMaintenanceRecords(
           maintenanceRecordsFilter: resetCursorFilter,
         );
 
+        // * Set mutation success setelah reload
         state = MaintenanceRecordsState.mutationSuccess(
-          maintenanceRecords: state.maintenanceRecords,
-          maintenanceRecordsFilter: state.maintenanceRecordsFilter,
+          maintenanceRecords: newState.maintenanceRecords,
+          maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
           mutationType: MutationType.delete,
           message: success.message ?? 'Maintenance record deleted',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );

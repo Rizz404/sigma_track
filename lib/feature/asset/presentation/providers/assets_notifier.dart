@@ -182,9 +182,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       (success) async {
         this.logData('Asset created successfully');
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload assets dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+        final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = AssetsState.mutationSuccess(
@@ -227,9 +232,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       (success) async {
         this.logData('Asset updated successfully');
 
+        // * Reset cursor when updating to fetch from beginning
+        final resetCursorFilter = state.assetsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload assets dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+        final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = AssetsState.mutationSuccess(
@@ -272,9 +282,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       (success) async {
         this.logData('Asset deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.assetsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload assets dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+        final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = AssetsState.mutationSuccess(
@@ -315,9 +330,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
           'Assets created successfully: ${success.data?.assets.length ?? 0}',
         );
 
+        // * Reset cursor when creating to fetch from beginning
+        final resetCursorFilter = state.assetsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload assets dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+        final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = AssetsState.mutationSuccess(
@@ -361,9 +381,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       (success) async {
         this.logData('Assets deleted successfully');
 
+        // * Reset cursor when deleting to fetch from beginning
+        final resetCursorFilter = state.assetsFilter.copyWith(
+          cursor: () => null,
+        );
+
         // * Reload assets dengan state sukses
         state = state.copyWith(isLoading: true);
-        final newState = await _loadAssets(assetsFilter: state.assetsFilter);
+        final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
         // * Set mutation success setelah reload
         state = AssetsState.mutationSuccess(
