@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
@@ -281,27 +282,30 @@ class DashboardScreen extends ConsumerWidget {
       child: _buildChartCard(
         context,
         title: context.l10n.dashboardAssetStatusOverview,
-        child: SizedBox(
-          height: 250,
-          child: PieChart(
-            PieChartData(
-              sections: sections
-                  .map(
-                    (e) => PieChartSectionData(
-                      value: e.value,
-                      title: e.value > 0 ? '${e.value.toInt()}' : '',
-                      color: e.color,
-                      radius: 100,
-                      titleStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: context.colors.surface,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SizedBox(
+            height: 250,
+            child: PieChart(
+              PieChartData(
+                sections: sections
+                    .map(
+                      (e) => PieChartSectionData(
+                        value: e.value,
+                        title: e.value > 0 ? '${e.value.toInt()}' : '',
+                        color: e.color,
+                        radius: 100,
+                        titleStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: context.colors.surface,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-              sectionsSpace: 2,
-              centerSpaceRadius: 50,
+                    )
+                    .toList(),
+                sectionsSpace: 2,
+                centerSpaceRadius: 50,
+              ),
             ),
           ),
         ),
@@ -339,27 +343,30 @@ class DashboardScreen extends ConsumerWidget {
       child: _buildChartCard(
         context,
         title: context.l10n.dashboardUserRoleDistribution,
-        child: SizedBox(
-          height: 250,
-          child: PieChart(
-            PieChartData(
-              sections: sections
-                  .map(
-                    (e) => PieChartSectionData(
-                      value: e.value,
-                      title: e.value > 0 ? '${e.value.toInt()}' : '',
-                      color: e.color,
-                      radius: 100,
-                      titleStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: context.colors.surface,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SizedBox(
+            height: 250,
+            child: PieChart(
+              PieChartData(
+                sections: sections
+                    .map(
+                      (e) => PieChartSectionData(
+                        value: e.value,
+                        title: e.value > 0 ? '${e.value.toInt()}' : '',
+                        color: e.color,
+                        radius: 100,
+                        titleStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: context.colors.surface,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-              sectionsSpace: 2,
-              centerSpaceRadius: 50,
+                    )
+                    .toList(),
+                sectionsSpace: 2,
+                centerSpaceRadius: 50,
+              ),
             ),
           ),
         ),
@@ -411,16 +418,14 @@ class DashboardScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      final titles = [
-                        context.l10n.dashboardActive,
-                        context.l10n.dashboardMaintenance,
-                        context.l10n.dashboardDisposed,
-                        context.l10n.dashboardLost,
-                      ];
+                      final statuses = AssetStatus.values;
+                      if (value.toInt() >= statuses.length) {
+                        return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
-                          titles[value.toInt()],
+                          statuses[value.toInt()].label,
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                         ),
@@ -528,16 +533,14 @@ class DashboardScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      final titles = [
-                        context.l10n.dashboardGood,
-                        context.l10n.dashboardFair,
-                        context.l10n.dashboardPoor,
-                        context.l10n.dashboardDamaged,
-                      ];
+                      final conditions = AssetCondition.values;
+                      if (value.toInt() >= conditions.length) {
+                        return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
-                          titles[value.toInt()],
+                          conditions[value.toInt()].label,
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                         ),
@@ -752,16 +755,14 @@ class DashboardScreen extends ConsumerWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         getTitlesWidget: (value, meta) {
-                          final titles = [
-                            'Open',
-                            'In Progress',
-                            'Resolved',
-                            'Closed',
-                          ];
+                          final statuses = IssueStatus.values;
+                          if (value.toInt() >= statuses.length) {
+                            return const SizedBox.shrink();
+                          }
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: AppText(
-                              titles[value.toInt()],
+                              statuses[value.toInt()].label,
                               style: AppTextStyle.bodySmall,
                               color: context.colors.textSecondary,
                             ),
@@ -974,16 +975,14 @@ class DashboardScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      final titles = [
-                        'Preventive',
-                        'Corrective',
-                        'Inspection',
-                        'Calibration',
-                      ];
+                      final types = MaintenanceScheduleType.values;
+                      if (value.toInt() >= types.length) {
+                        return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: AppText(
-                          titles[value.toInt()],
+                          types[value.toInt()].label,
                           style: AppTextStyle.bodySmall,
                           color: context.colors.textSecondary,
                         ),
