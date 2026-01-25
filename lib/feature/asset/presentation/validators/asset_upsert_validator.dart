@@ -106,7 +106,9 @@ class AssetUpsertValidator {
     bool isUpdate = false,
   }) {
     if (value != null && value.isNotEmpty) {
-      final price = double.tryParse(value);
+      // ! Remove thousand separators (dots) before parsing
+      final cleanValue = value.replaceAll('.', '');
+      final price = double.tryParse(cleanValue);
       if (price == null) {
         return context.l10n.assetValidationPriceInvalid;
       }

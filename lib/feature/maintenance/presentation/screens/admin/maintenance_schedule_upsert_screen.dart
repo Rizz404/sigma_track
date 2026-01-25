@@ -168,7 +168,7 @@ class _MaintenanceScheduleUpsertScreenState
             : null,
         autoComplete: autoComplete,
         estimatedCost: estimatedCost != null
-            ? double.tryParse(estimatedCost)
+            ? double.tryParse(estimatedCost.replaceAll('.', ''))
             : null,
         translations: translations.cast<UpdateMaintenanceScheduleTranslation>(),
       );
@@ -194,7 +194,7 @@ class _MaintenanceScheduleUpsertScreenState
         nextScheduledDate: nextScheduledDate,
         autoComplete: autoComplete,
         estimatedCost: estimatedCost != null
-            ? double.tryParse(estimatedCost)
+            ? double.tryParse(estimatedCost.replaceAll('.', ''))
             : null,
         createdById: createdById,
         translations: translations.cast<CreateMaintenanceScheduleTranslation>(),

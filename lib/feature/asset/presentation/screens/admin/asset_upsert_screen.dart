@@ -389,7 +389,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         serialNumber: serialNumber,
         purchaseDate: purchaseDate,
         purchasePrice: purchasePrice != null
-            ? double.tryParse(purchasePrice)
+            ? double.tryParse(purchasePrice.replaceAll('.', ''))
             : null,
         vendorName: vendorName,
         warrantyEnd: warrantyEnd,
@@ -416,7 +416,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
         serialNumber: serialNumber,
         purchaseDate: purchaseDate,
         purchasePrice: purchasePrice != null
-            ? double.tryParse(purchasePrice)
+            ? double.tryParse(purchasePrice.replaceAll('.', ''))
             : null,
         vendorName: vendorName,
         warrantyEnd: warrantyEnd,
@@ -672,7 +672,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
           serialNumber: finalSerialNumber,
           purchaseDate: purchaseDate,
           purchasePrice: purchasePrice != null
-              ? double.tryParse(purchasePrice)
+              ? double.tryParse(purchasePrice.replaceAll('.', ''))
               : null,
           vendorName: vendorName,
           warrantyEnd: warrantyEnd,

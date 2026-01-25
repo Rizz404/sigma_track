@@ -90,7 +90,9 @@ class MaintenanceScheduleUpsertValidator {
 
   static String? validateEstimatedCost(String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
-      final cost = double.tryParse(value);
+      // ! Remove thousand separators (dots) before parsing
+      final cleanValue = value.replaceAll('.', '');
+      final cost = double.tryParse(cleanValue);
       if (cost == null) {
         return 'Estimated cost must be a valid number';
       }
