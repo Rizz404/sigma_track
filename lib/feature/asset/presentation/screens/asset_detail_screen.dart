@@ -647,6 +647,44 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     );
   }
 
+  void _showFullImage(String imageUrl) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black,
+      barrierDismissible: true,
+      useSafeArea: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+              child: Stack(
+                children: [
+                  Center(
+                    child: InteractiveViewer(
+                      minScale: 0.5,
+                      maxScale: 4.0,
+                      panEnabled: true,
+                      child: CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildImageGallery(List<entity.AssetImage> images) {
     // * Sort images by displayOrder and primary flag
     final sortedImages = List<entity.AssetImage>.from(images)
@@ -656,6 +694,50 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
         return a.displayOrder.compareTo(b.displayOrder);
       });
 
+    // * If only one image, display it like category_detail_screen
+    if (sortedImages.length == 1) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: InkWell(
+          onTap: () => _showFullImage(sortedImages[0].imageUrl),
+          borderRadius: BorderRadius.circular(12),
+          child: CachedNetworkImage(
+            imageUrl: sortedImages[0].imageUrl,
+            imageBuilder: (context, imageProvider) => Container(
+              width: double.infinity,
+              height: 280,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: context.colors.border),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
+            placeholder: (context, url) => Container(
+              width: double.infinity,
+              height: 280,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: context.colors.border),
+                color: context.colorScheme.surfaceContainerHighest,
+              ),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+            errorWidget: (context, url, error) => Container(
+              width: double.infinity,
+              height: 280,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: context.colors.border),
+                color: context.colorScheme.surfaceContainerHighest,
+              ),
+              child: const Icon(Icons.broken_image),
+            ),
+          ),
+        ),
+      );
+    }
+
+    // * Multiple images - gallery horizontal
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -703,62 +785,65 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
                 separatorBuilder: (context, index) => const SizedBox(width: 12),
                 itemBuilder: (context, index) {
                   final image = sortedImages[index];
-                  return Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: image.isPrimary
-                                  ? context.colorScheme.primary
-                                  : context.colors.border,
-                              width: image.isPrimary ? 2 : 1,
+                  return GestureDetector(
+                    onTap: () => _showFullImage(image.imageUrl),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: image.isPrimary
+                                    ? context.colorScheme.primary
+                                    : context.colors.border,
+                                width: image.isPrimary ? 2 : 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: image.imageUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Container(
-                              color:
-                                  context.colorScheme.surfaceContainerHighest,
-                              child: const Center(
-                                child: CircularProgressIndicator(),
+                            child: CachedNetworkImage(
+                              imageUrl: image.imageUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color:
+                                    context.colorScheme.surfaceContainerHighest,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                color:
+                                    context.colorScheme.surfaceContainerHighest,
+                                child: const Icon(Icons.broken_image),
                               ),
                             ),
-                            errorWidget: (context, url, error) => Container(
-                              color:
-                                  context.colorScheme.surfaceContainerHighest,
-                              child: const Icon(Icons.broken_image),
-                            ),
                           ),
                         ),
-                      ),
-                      if (image.isPrimary)
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: context.colorScheme.primary,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: AppText(
-                              context.l10n.assetPrimaryImage,
-                              style: AppTextStyle.labelSmall,
-                              color: context.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
+                        if (image.isPrimary)
+                          Positioned(
+                            top: 4,
+                            right: 4,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: context.colorScheme.primary,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: AppText(
+                                context.l10n.assetPrimaryImage,
+                                style: AppTextStyle.labelSmall,
+                                color: context.colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
