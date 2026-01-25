@@ -57,19 +57,7 @@ class MaintenanceSchedulesNotifier
     );
 
     final result = await _getMaintenanceSchedulesCursorUsecase.call(
-      GetMaintenanceSchedulesCursorUsecaseParams(
-        search: maintenanceSchedulesFilter.search,
-        assetId: maintenanceSchedulesFilter.assetId,
-        maintenanceType: maintenanceSchedulesFilter.maintenanceType,
-        state: maintenanceSchedulesFilter.state,
-        createdBy: maintenanceSchedulesFilter.createdBy,
-        fromDate: maintenanceSchedulesFilter.fromDate,
-        toDate: maintenanceSchedulesFilter.toDate,
-        sortBy: maintenanceSchedulesFilter.sortBy,
-        sortOrder: maintenanceSchedulesFilter.sortOrder,
-        cursor: maintenanceSchedulesFilter.cursor,
-        limit: maintenanceSchedulesFilter.limit,
-      ),
+      maintenanceSchedulesFilter,
     );
 
     return result.fold(

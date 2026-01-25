@@ -49,18 +49,7 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   }) async {
     this.logPresentation('Loading users with filter: $usersFilter');
 
-    final result = await _getUsersCursorUsecase.call(
-      GetUsersCursorUsecaseParams(
-        search: usersFilter.search,
-        role: usersFilter.role,
-        isActive: usersFilter.isActive,
-        employeeId: usersFilter.employeeId,
-        sortBy: usersFilter.sortBy,
-        sortOrder: usersFilter.sortOrder,
-        limit: usersFilter.limit,
-        cursor: usersFilter.cursor,
-      ),
-    );
+    final result = await _getUsersCursorUsecase.call(usersFilter);
 
     return result.fold(
       (failure) {

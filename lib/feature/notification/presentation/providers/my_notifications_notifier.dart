@@ -49,17 +49,7 @@ class MyNotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
     );
 
     final result = await _getNotificationsCursorUsecase.call(
-      GetNotificationsCursorUsecaseParams(
-        search: notificationsFilter.search,
-        userId: notificationsFilter.userId,
-        relatedAssetId: notificationsFilter.relatedAssetId,
-        type: notificationsFilter.type,
-        isRead: notificationsFilter.isRead,
-        sortBy: notificationsFilter.sortBy,
-        sortOrder: notificationsFilter.sortOrder,
-        cursor: notificationsFilter.cursor,
-        limit: notificationsFilter.limit,
-      ),
+      notificationsFilter,
     );
 
     return result.fold(

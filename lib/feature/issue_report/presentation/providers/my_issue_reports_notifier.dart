@@ -44,24 +44,7 @@ class MyIssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       'Loading issue reports with filter: $issueReportsFilter',
     );
 
-    final result = await _getIssueReportsCursorUsecase.call(
-      GetIssueReportsCursorUsecaseParams(
-        search: issueReportsFilter.search,
-        assetId: issueReportsFilter.assetId,
-        reportedBy: issueReportsFilter.reportedBy,
-        resolvedBy: issueReportsFilter.resolvedBy,
-        issueType: issueReportsFilter.issueType,
-        priority: issueReportsFilter.priority,
-        status: issueReportsFilter.status,
-        isResolved: issueReportsFilter.isResolved,
-        dateFrom: issueReportsFilter.dateFrom,
-        dateTo: issueReportsFilter.dateTo,
-        sortBy: issueReportsFilter.sortBy,
-        sortOrder: issueReportsFilter.sortOrder,
-        cursor: issueReportsFilter.cursor,
-        limit: issueReportsFilter.limit,
-      ),
-    );
+    final result = await _getIssueReportsCursorUsecase.call(issueReportsFilter);
 
     return result.fold(
       (failure) {

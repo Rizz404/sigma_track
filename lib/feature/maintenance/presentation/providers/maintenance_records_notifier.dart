@@ -55,19 +55,7 @@ class MaintenanceRecordsNotifier
     );
 
     final result = await _getMaintenanceRecordsCursorUsecase.call(
-      GetMaintenanceRecordsCursorUsecaseParams(
-        search: maintenanceRecordsFilter.search,
-        assetId: maintenanceRecordsFilter.assetId,
-        scheduleId: maintenanceRecordsFilter.scheduleId,
-        performedByUser: maintenanceRecordsFilter.performedByUser,
-        vendorName: maintenanceRecordsFilter.vendorName,
-        fromDate: maintenanceRecordsFilter.fromDate,
-        toDate: maintenanceRecordsFilter.toDate,
-        sortBy: maintenanceRecordsFilter.sortBy,
-        sortOrder: maintenanceRecordsFilter.sortOrder,
-        cursor: maintenanceRecordsFilter.cursor,
-        limit: maintenanceRecordsFilter.limit,
-      ),
+      maintenanceRecordsFilter,
     );
 
     return result.fold(

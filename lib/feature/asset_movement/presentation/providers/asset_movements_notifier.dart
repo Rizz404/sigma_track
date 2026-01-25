@@ -64,17 +64,7 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
     );
 
     final result = await _getAssetMovementsCursorUsecase.call(
-      GetAssetMovementsCursorUsecaseParams(
-        search: assetMovementsFilter.search,
-        assetId: assetMovementsFilter.assetId,
-        fromLocationId: assetMovementsFilter.fromLocationId,
-        toLocationId: assetMovementsFilter.toLocationId,
-        movedBy: assetMovementsFilter.movedBy,
-        sortBy: assetMovementsFilter.sortBy,
-        sortOrder: assetMovementsFilter.sortOrder,
-        cursor: assetMovementsFilter.cursor,
-        limit: assetMovementsFilter.limit,
-      ),
+      assetMovementsFilter,
     );
 
     return result.fold(
