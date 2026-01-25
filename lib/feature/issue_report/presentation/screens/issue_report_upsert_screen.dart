@@ -289,6 +289,11 @@ class _IssueReportUpsertScreenState
                         .read(assetsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref.read(assetsSearchDropdownProvider.notifier).loadMore();
+                  },
+                  hasMore: assetsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: assetsState.isLoadingMore,
                   itemDisplayMapper: (asset) => asset.assetTag,
                   itemValueMapper: (asset) => asset.id,
                   itemSubtitleMapper: (asset) => asset.assetName,
@@ -400,6 +405,11 @@ class _IssueReportUpsertScreenState
                           .read(usersSearchDropdownProvider.notifier)
                           .search(query);
                     },
+                    onLoadMore: () {
+                      ref.read(usersSearchDropdownProvider.notifier).loadMore();
+                    },
+                    hasMore: usersState.cursor?.hasNextPage ?? false,
+                    isLoadingMore: usersState.isLoadingMore,
                     itemDisplayMapper: (user) => user.name,
                     itemValueMapper: (user) => user.id,
                     itemSubtitleMapper: (user) => user.email,

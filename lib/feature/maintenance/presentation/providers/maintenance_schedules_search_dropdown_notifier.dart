@@ -25,7 +25,8 @@ class MaintenanceSchedulesSearchDropdownNotifier
 
   Future<void> _initializeMaintenanceSchedules() async {
     state = await _loadMaintenanceSchedules(
-      maintenanceSchedulesFilter: const GetMaintenanceSchedulesCursorUsecaseParams(),
+      maintenanceSchedulesFilter:
+          const GetMaintenanceSchedulesCursorUsecaseParams(),
     );
   }
 
@@ -86,6 +87,48 @@ class MaintenanceSchedulesSearchDropdownNotifier
     state = state.copyWith(isLoading: true);
     state = await _loadMaintenanceSchedules(
       maintenanceSchedulesFilter: newFilter,
+    );
+  }
+
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more maintenance schedules');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.maintenanceSchedulesFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getMaintenanceSchedulesCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more maintenance schedules', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData(
+          'More maintenance schedules loaded: ${success.data?.length ?? 0}',
+        );
+        state = MaintenanceSchedulesState.success(
+          maintenanceSchedules: [
+            ...state.maintenanceSchedules,
+            ...success.data ?? [],
+          ],
+          maintenanceSchedulesFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
     );
   }
 

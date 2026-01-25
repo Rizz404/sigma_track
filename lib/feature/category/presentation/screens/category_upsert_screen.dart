@@ -310,6 +310,13 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
                         .read(categoriesParentSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref
+                        .read(categoriesParentSearchDropdownProvider.notifier)
+                        .loadMore();
+                  },
+                  hasMore: categoriesState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: categoriesState.isLoadingMore,
                   itemDisplayMapper: (category) => category.categoryName,
                   itemValueMapper: (category) => category.id,
                   itemSubtitleMapper: (category) => category.categoryCode,

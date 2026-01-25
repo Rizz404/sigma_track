@@ -288,6 +288,11 @@ class _AssetMovementUpsertForLocationScreenState
                         .read(assetsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref.read(assetsSearchDropdownProvider.notifier).loadMore();
+                  },
+                  hasMore: assetsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: assetsState.isLoadingMore,
                   itemDisplayMapper: (asset) => asset.assetTag,
                   itemValueMapper: (asset) => asset.id,
                   itemSubtitleMapper: (asset) => asset.assetName,
@@ -322,6 +327,13 @@ class _AssetMovementUpsertForLocationScreenState
                         .read(locationsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref
+                        .read(locationsSearchDropdownProvider.notifier)
+                        .loadMore();
+                  },
+                  hasMore: locationsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: locationsState.isLoadingMore,
                   itemDisplayMapper: (location) => location.locationName,
                   itemValueMapper: (location) => location.id,
                   itemSubtitleMapper: (location) => location.locationCode,
@@ -356,6 +368,13 @@ class _AssetMovementUpsertForLocationScreenState
                         .read(locationsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref
+                        .read(locationsSearchDropdownProvider.notifier)
+                        .loadMore();
+                  },
+                  hasMore: locationsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: locationsState.isLoadingMore,
                   itemDisplayMapper: (location) => location.locationName,
                   itemValueMapper: (location) => location.id,
                   itemSubtitleMapper: (location) => location.locationCode,

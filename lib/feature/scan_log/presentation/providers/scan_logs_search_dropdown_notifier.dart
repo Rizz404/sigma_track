@@ -83,6 +83,43 @@ class ScanLogsSearchDropdownNotifier
     state = await _loadScanLogs(scanLogsFilter: newFilter);
   }
 
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more scan logs');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.scanLogsFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getScanLogsCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more scan logs', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More scan logs loaded: ${success.data?.length ?? 0}');
+        state = ScanLogsState.success(
+          scanLogs: [...state.scanLogs, ...success.data ?? []],
+          scanLogsFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
+  }
+
   void clear() {
     this.logPresentation('Clearing search results');
     state = ScanLogsState.initial();

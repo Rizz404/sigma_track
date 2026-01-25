@@ -24,7 +24,8 @@ class MaintenanceRecordsSearchDropdownNotifier
 
   Future<void> _initializeMaintenanceRecords() async {
     state = await _loadMaintenanceRecords(
-      maintenanceRecordsFilter: const GetMaintenanceRecordsCursorUsecaseParams(),
+      maintenanceRecordsFilter:
+          const GetMaintenanceRecordsCursorUsecaseParams(),
     );
   }
 
@@ -83,6 +84,48 @@ class MaintenanceRecordsSearchDropdownNotifier
 
     state = state.copyWith(isLoading: true);
     state = await _loadMaintenanceRecords(maintenanceRecordsFilter: newFilter);
+  }
+
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more maintenance records');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.maintenanceRecordsFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getMaintenanceRecordsCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more maintenance records', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData(
+          'More maintenance records loaded: ${success.data?.length ?? 0}',
+        );
+        state = MaintenanceRecordsState.success(
+          maintenanceRecords: [
+            ...state.maintenanceRecords,
+            ...success.data ?? [],
+          ],
+          maintenanceRecordsFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
   }
 
   void clear() {

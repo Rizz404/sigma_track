@@ -33,7 +33,7 @@ class NetworkErrorInterceptor extends Interceptor {
     // * 1. Connection errors (DNS, no internet, etc)
     if (err.type == DioExceptionType.connectionError) {
       if (err.message?.contains('Failed host lookup') == true) {
-        return _ErrorInfo(
+        return const _ErrorInfo(
           logMessage: 'DNS Failure',
           userMessage:
               'Tidak dapat terhubung ke server.\n'
@@ -43,7 +43,7 @@ class NetworkErrorInterceptor extends Interceptor {
         );
       }
       // * Generic connection error (socket exception, etc)
-      return _ErrorInfo(
+      return const _ErrorInfo(
         logMessage: 'Connection Error',
         userMessage:
             'Koneksi terputus.\n'
@@ -56,7 +56,7 @@ class NetworkErrorInterceptor extends Interceptor {
     // * 2. Timeout errors
     if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.sendTimeout) {
-      return _ErrorInfo(
+      return const _ErrorInfo(
         logMessage: 'Connection Timeout',
         userMessage:
             'Koneksi timeout.\n'
@@ -67,7 +67,7 @@ class NetworkErrorInterceptor extends Interceptor {
     }
 
     if (err.type == DioExceptionType.receiveTimeout) {
-      return _ErrorInfo(
+      return const _ErrorInfo(
         logMessage: 'Receive Timeout',
         userMessage:
             'Server terlalu lama merespons.\n'

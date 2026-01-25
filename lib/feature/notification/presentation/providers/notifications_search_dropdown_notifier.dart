@@ -84,6 +84,43 @@ class NotificationsSearchDropdownNotifier
     state = await _loadNotifications(notificationsFilter: newFilter);
   }
 
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more notifications');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.notificationsFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getNotificationsCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more notifications', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More notifications loaded: ${success.data?.length ?? 0}');
+        state = NotificationsState.success(
+          notifications: [...state.notifications, ...success.data ?? []],
+          notificationsFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
+  }
+
   void clear() {
     this.logPresentation('Clearing search results');
     state = NotificationsState.initial();

@@ -13,6 +13,7 @@ import 'package:sigma_track/core/utils/toast_utils.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
+import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_schedule.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/create_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/domain/usecases/update_maintenance_record_usecase.dart';
 import 'package:sigma_track/feature/maintenance/presentation/providers/maintenance_record_providers.dart';
@@ -320,23 +321,40 @@ class _MaintenanceRecordUpsertScreenState
             ],
             Builder(
               builder: (context) {
-                final schedulesState = ref.watch(maintenanceSchedulesProvider);
-                final schedules = schedulesState.maintenanceSchedules;
+                final schedulesState = ref.watch(
+                  maintenanceSchedulesSearchDropdownProvider,
+                );
+                final maintenanceRecordData = _isCopyMode
+                    ? _sourceRecord
+                    : widget.maintenanceRecord;
 
-                return AppDropdown<String>(
+                return AppSearchableDropdown<MaintenanceSchedule>(
                   name: 'scheduleId',
                   label: context.l10n.maintenanceRecordSchedule,
                   hintText: context.l10n.maintenanceRecordSearchSchedule,
-                  initialValue: _sourceRecord?.scheduleId,
-                  items: schedules
-                      .map(
-                        (schedule) => AppDropdownItem(
-                          value: schedule.id,
-                          label: schedule.title,
-                          icon: const Icon(Icons.schedule, size: 18),
-                        ),
-                      )
-                      .toList(),
+                  initialValue: maintenanceRecordData?.schedule,
+                  items: schedulesState.maintenanceSchedules,
+                  isLoading: schedulesState.isLoading,
+                  onSearch: (query) {
+                    ref
+                        .read(
+                          maintenanceSchedulesSearchDropdownProvider.notifier,
+                        )
+                        .search(query);
+                  },
+                  onLoadMore: () {
+                    ref
+                        .read(
+                          maintenanceSchedulesSearchDropdownProvider.notifier,
+                        )
+                        .loadMore();
+                  },
+                  hasMore: schedulesState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: schedulesState.isLoadingMore,
+                  itemDisplayMapper: (schedule) => schedule.title,
+                  itemValueMapper: (schedule) => schedule.id,
+                  itemSubtitleMapper: (schedule) =>
+                      '${schedule.asset?.assetName ?? ''} - ${schedule.maintenanceType}',
                   validator: (value) =>
                       MaintenanceRecordUpsertValidator.validateScheduleId(
                         value,
@@ -368,6 +386,11 @@ class _MaintenanceRecordUpsertScreenState
                         .read(assetsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref.read(assetsSearchDropdownProvider.notifier).loadMore();
+                  },
+                  hasMore: assetsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: assetsState.isLoadingMore,
                   itemDisplayMapper: (asset) => asset.assetTag,
                   itemValueMapper: (asset) => asset.id,
                   itemSubtitleMapper: (asset) => asset.assetName,

@@ -363,6 +363,11 @@ class _MaintenanceScheduleUpsertScreenState
                         .read(assetsSearchDropdownProvider.notifier)
                         .search(query);
                   },
+                  onLoadMore: () {
+                    ref.read(assetsSearchDropdownProvider.notifier).loadMore();
+                  },
+                  hasMore: assetsState.cursor?.hasNextPage ?? false,
+                  isLoadingMore: assetsState.isLoadingMore,
                   itemDisplayMapper: (asset) => asset.assetTag,
                   itemValueMapper: (asset) => asset.id,
                   itemSubtitleMapper: (asset) => asset.assetName,

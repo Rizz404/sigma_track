@@ -23,7 +23,9 @@ class AssetsSearchDropdownNotifier extends AutoDisposeNotifier<AssetsState> {
   }
 
   Future<void> _initializeAssets() async {
-    state = await _loadAssets(assetsFilter: const GetAssetsCursorUsecaseParams());
+    state = await _loadAssets(
+      assetsFilter: const GetAssetsCursorUsecaseParams(),
+    );
   }
 
   Future<AssetsState> _loadAssets({
@@ -74,6 +76,43 @@ class AssetsSearchDropdownNotifier extends AutoDisposeNotifier<AssetsState> {
 
     state = state.copyWith(isLoading: true);
     state = await _loadAssets(assetsFilter: newFilter);
+  }
+
+  Future<void> loadMore() async {
+    if (state.cursor == null || !state.cursor!.hasNextPage) {
+      this.logPresentation('No more pages to load');
+      return;
+    }
+
+    if (state.isLoadingMore) {
+      this.logPresentation('Already loading more');
+      return;
+    }
+
+    this.logPresentation('Loading more assets');
+
+    state = state.copyWith(isLoadingMore: true);
+
+    final newFilter = state.assetsFilter.copyWith(
+      cursor: () => state.cursor?.nextCursor,
+    );
+
+    final result = await _getAssetsCursorUsecase.call(newFilter);
+
+    result.fold(
+      (failure) {
+        this.logError('Failed to load more assets', failure);
+        state = state.copyWith(isLoadingMore: false, failure: () => failure);
+      },
+      (success) {
+        this.logData('More assets loaded: ${success.data?.length ?? 0}');
+        state = AssetsState.success(
+          assets: [...state.assets, ...success.data ?? []],
+          assetsFilter: newFilter,
+          cursor: success.cursor,
+        );
+      },
+    );
   }
 
   void clear() {
