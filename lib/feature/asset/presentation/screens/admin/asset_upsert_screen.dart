@@ -42,7 +42,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_file_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_image.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
-
+import 'package:sigma_track/shared/presentation/widgets/app_price_field_helper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -1232,13 +1232,20 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               name: 'purchasePrice',
               label: context.l10n.assetPurchasePrice,
               placeHolder: context.l10n.assetEnterPurchasePrice,
-              type: AppTextFieldType.number,
+              type: AppTextFieldType.price,
               initialValue: _sourceAsset?.purchasePrice?.toString(),
               validator: (value) => AssetUpsertValidator.validatePurchasePrice(
                 context,
                 value,
                 isUpdate: _isEdit,
               ),
+            ),
+            AppPriceFieldHelper(
+              onApply: (idrValue) {
+                _formKey.currentState?.fields['purchasePrice']?.didChange(
+                  idrValue,
+                );
+              },
             ),
             const SizedBox(height: 16),
             AppTextField(

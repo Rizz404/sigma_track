@@ -5,6 +5,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/core/extensions/num_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -272,7 +273,9 @@ class _MaintenanceScheduleDetailScreenState
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleEstimatedCost,
-              dummySchedule.estimatedCost?.toString() ?? '-',
+              dummySchedule.estimatedCost != null
+                  ? dummySchedule.estimatedCost!.toRupiah()
+                  : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleCreatedBy,
@@ -346,7 +349,9 @@ class _MaintenanceScheduleDetailScreenState
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleEstimatedCost,
-              schedule.estimatedCost?.toString() ?? '-',
+              schedule.estimatedCost != null
+                  ? schedule.estimatedCost!.toRupiah()
+                  : '-',
             ),
             _buildInfoRow(
               context.l10n.maintenanceScheduleCreatedBy,

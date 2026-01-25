@@ -7,6 +7,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/core/extensions/num_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -339,7 +340,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             _buildInfoRow(
               context.l10n.assetPurchasePrice,
               dummyAsset.purchasePrice != null
-                  ? '\$${dummyAsset.purchasePrice}'
+                  ? dummyAsset.purchasePrice!.toRupiah()
                   : '-',
             ),
             _buildInfoRow(
@@ -421,7 +422,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
             ),
             _buildInfoRow(
               context.l10n.assetPurchasePrice,
-              asset.purchasePrice != null ? '\$${asset.purchasePrice}' : '-',
+              asset.purchasePrice != null
+                  ? asset.purchasePrice!.toRupiah()
+                  : '-',
             ),
             _buildInfoRow(
               context.l10n.assetVendorName,

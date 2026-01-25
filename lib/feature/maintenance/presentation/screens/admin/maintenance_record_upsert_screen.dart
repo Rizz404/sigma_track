@@ -26,6 +26,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_price_field_helper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -133,8 +134,11 @@ class _MaintenanceRecordUpsertScreenState
 
     final performedByVendor = formData['performedByVendor'] as String?;
     final result = formData['result'] as String?;
+    // * Clean IDR formatting before parsing
     final actualCost = formData['actualCost'] != null
-        ? double.tryParse(formData['actualCost'] as String)
+        ? double.tryParse(
+            (formData['actualCost'] as String).replaceAll('.', ''),
+          )
         : null;
 
     if (_isEdit) {
@@ -482,12 +486,19 @@ class _MaintenanceRecordUpsertScreenState
               label: context.l10n.maintenanceRecordActualCostLabel,
               placeHolder: context.l10n.maintenanceRecordEnterActualCost,
               initialValue: _sourceRecord?.actualCost?.toString(),
-              type: AppTextFieldType.priceUS,
+              type: AppTextFieldType.price,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateActualCost(
                     value,
                     isUpdate: _isEdit,
                   ),
+            ),
+            AppPriceFieldHelper(
+              onApply: (idrValue) {
+                _formKey.currentState?.fields['actualCost']?.didChange(
+                  idrValue,
+                );
+              },
             ),
           ],
         ),

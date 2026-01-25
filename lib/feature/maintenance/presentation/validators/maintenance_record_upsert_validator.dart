@@ -65,7 +65,9 @@ class MaintenanceRecordUpsertValidator {
 
   static String? validateActualCost(String? value, {bool isUpdate = false}) {
     if (value != null && value.isNotEmpty) {
-      final cost = double.tryParse(value);
+      // * Remove IDR formatting (dots)
+      final cleanValue = value.replaceAll('.', '');
+      final cost = double.tryParse(cleanValue);
       if (cost == null) {
         return 'Actual cost must be a valid number';
       }

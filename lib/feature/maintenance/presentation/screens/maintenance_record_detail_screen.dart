@@ -5,6 +5,7 @@ import 'package:sigma_track/core/constants/route_constant.dart';
 import 'package:sigma_track/core/enums/helper_enums.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/core/extensions/num_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
@@ -259,9 +260,7 @@ class _MaintenanceRecordDetailScreenState
             _buildInfoRow(
               context.l10n.maintenanceRecordActualCost,
               dummyRecord.actualCost != null
-                  ? context.l10n.maintenanceRecordActualCostValue(
-                      dummyRecord.actualCost.toString(),
-                    )
+                  ? dummyRecord.actualCost!.toRupiah()
                   : '-',
             ),
           ]),
@@ -315,11 +314,7 @@ class _MaintenanceRecordDetailScreenState
             ),
             _buildInfoRow(
               context.l10n.maintenanceRecordActualCost,
-              record.actualCost != null
-                  ? context.l10n.maintenanceRecordActualCostValue(
-                      record.actualCost.toString(),
-                    )
-                  : '-',
+              record.actualCost != null ? record.actualCost!.toRupiah() : '-',
             ),
           ]),
           const SizedBox(height: 16),

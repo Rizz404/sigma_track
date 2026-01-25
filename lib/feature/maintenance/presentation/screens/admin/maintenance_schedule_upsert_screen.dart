@@ -25,6 +25,7 @@ import 'package:sigma_track/shared/presentation/widgets/app_checkbox.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_date_time_picker.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_loader_overlay.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_price_field_helper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_searchable_dropdown.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';
@@ -484,12 +485,19 @@ class _MaintenanceScheduleUpsertScreenState
               label: context.l10n.maintenanceScheduleEstimatedCost,
               placeHolder: context.l10n.maintenanceScheduleEnterEstimatedCost,
               initialValue: _sourceSchedule?.estimatedCost?.toString(),
-              type: AppTextFieldType.number,
+              type: AppTextFieldType.price,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateEstimatedCost(
                     value,
                     isUpdate: _isEdit,
                   ),
+            ),
+            AppPriceFieldHelper(
+              onApply: (idrValue) {
+                _formKey.currentState?.fields['estimatedCost']?.didChange(
+                  idrValue,
+                );
+              },
             ),
             const SizedBox(height: 16),
             // * OLD IMPLEMENTATION: User dropdown for created by

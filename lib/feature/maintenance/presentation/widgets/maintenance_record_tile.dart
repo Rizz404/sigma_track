@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/core/extensions/num_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/feature/maintenance/domain/entities/maintenance_record.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
@@ -134,7 +135,7 @@ class MaintenanceRecordTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: AppText(
-                          '\$${maintenanceRecord.actualCost!.toStringAsFixed(0)}',
+                          maintenanceRecord.actualCost!.toRupiah(),
                           style: AppTextStyle.labelSmall,
                           color: context.semantic.success,
                           fontWeight: FontWeight.w600,

@@ -9,8 +9,7 @@ enum AppTextFieldType {
   text,
   phone,
   number,
-  priceJP,
-  priceUS,
+  price,
   url,
   multiline,
 }
@@ -73,8 +72,7 @@ class _AppTextFieldState extends State<AppTextField> {
         case AppTextFieldType.phone:
           return TextInputType.phone;
         case AppTextFieldType.number:
-        case AppTextFieldType.priceJP:
-        case AppTextFieldType.priceUS:
+        case AppTextFieldType.price:
           return TextInputType.number;
         case AppTextFieldType.url:
           return TextInputType.url;
@@ -94,8 +92,7 @@ class _AppTextFieldState extends State<AppTextField> {
         case AppTextFieldType.password:
         case AppTextFieldType.phone:
         case AppTextFieldType.number:
-        case AppTextFieldType.priceJP:
-        case AppTextFieldType.priceUS:
+        case AppTextFieldType.price:
         case AppTextFieldType.url:
           return TextCapitalization.none;
         default:
@@ -108,13 +105,8 @@ class _AppTextFieldState extends State<AppTextField> {
       switch (widget.type) {
         case AppTextFieldType.number:
           return [FilteringTextInputFormatter.digitsOnly];
-        case AppTextFieldType.priceJP:
-          return [FilteringTextInputFormatter.digitsOnly, _JPPriceFormatter()];
-        case AppTextFieldType.priceUS:
-          return [
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
-            _USPriceFormatter(),
-          ];
+        case AppTextFieldType.price:
+          return [FilteringTextInputFormatter.digitsOnly, _IDRPriceFormatter()];
         case AppTextFieldType.phone:
           return [FilteringTextInputFormatter.allow(RegExp(r'[0-9+\-\s\(\)]'))];
         default:
@@ -127,10 +119,8 @@ class _AppTextFieldState extends State<AppTextField> {
       if (widget.prefixText != null) return widget.prefixText;
 
       switch (widget.type) {
-        case AppTextFieldType.priceJP:
-          return '¥';
-        case AppTextFieldType.priceUS:
-          return '\$';
+        case AppTextFieldType.price:
+          return 'Rp';
         default:
           return null;
       }
@@ -200,8 +190,8 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 }
 
-// Custom formatter untuk harga Jepang (format: 1,000,000)
-class _JPPriceFormatter extends TextInputFormatter {
+// Custom formatter untuk harga IDR (format: 1.000.000)
+class _IDRPriceFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
@@ -211,11 +201,8 @@ class _JPPriceFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    // Remove existing commas
-    String digitsOnly = newValue.text.replaceAll(',', '');
-
-    // Add commas for thousands
-    String formatted = _addCommas(digitsOnly);
+    String digitsOnly = newValue.text.replaceAll('.', '');
+    String formatted = _addDots(digitsOnly);
 
     return TextEditingValue(
       text: formatted,
@@ -223,7 +210,7 @@ class _JPPriceFormatter extends TextInputFormatter {
     );
   }
 
-  String _addCommas(String value) {
+  String _addDots(String value) {
     if (value.length <= 3) return value;
 
     String result = '';
@@ -231,70 +218,7 @@ class _JPPriceFormatter extends TextInputFormatter {
 
     for (int i = value.length - 1; i >= 0; i--) {
       if (count > 0 && count % 3 == 0) {
-        result = ',$result';
-      }
-      result = value[i] + result;
-      count++;
-    }
-
-    return result;
-  }
-}
-
-// Custom formatter untuk harga US (format: 1,000.00)
-class _USPriceFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
-    if (newValue.text.isEmpty) {
-      return newValue;
-    }
-
-    // Allow only digits, comma, and one decimal point
-    String filtered = newValue.text.replaceAll(RegExp(r'[^0-9.,]'), '');
-
-    // Ensure only one decimal point
-    List<String> parts = filtered.split('.');
-    if (parts.length > 2) {
-      filtered = '${parts[0]}.${parts.sublist(1).join('')}';
-    }
-
-    // Limit decimal places to 2
-    if (parts.length == 2 && parts[1].length > 2) {
-      filtered = '${parts[0]}.${parts[1].substring(0, 2)}';
-    }
-
-    // Format the integer part with commas
-    if (parts.isNotEmpty) {
-      String integerPart = parts[0].replaceAll(',', '');
-      String formattedInteger = _addCommas(integerPart);
-
-      if (parts.length > 1) {
-        filtered = '$formattedInteger.${parts[1]}';
-      } else if (filtered.endsWith('.')) {
-        filtered = '$formattedInteger.';
-      } else {
-        filtered = formattedInteger;
-      }
-    }
-
-    return TextEditingValue(
-      text: filtered,
-      selection: TextSelection.collapsed(offset: filtered.length),
-    );
-  }
-
-  String _addCommas(String value) {
-    if (value.length <= 3) return value;
-
-    String result = '';
-    int count = 0;
-
-    for (int i = value.length - 1; i >= 0; i--) {
-      if (count > 0 && count % 3 == 0) {
-        result = ',$result';
+        result = '.$result';
       }
       result = value[i] + result;
       count++;
