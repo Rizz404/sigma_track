@@ -13,19 +13,27 @@ class MaintenanceRecordMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final MaintenanceRecord? updatedMaintenanceRecord;
 
   const MaintenanceRecordMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedMaintenanceRecord,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedMaintenanceRecord,
+  ];
 }
 
 class MaintenanceRecordsState extends Equatable {
@@ -154,6 +162,7 @@ class MaintenanceRecordsState extends Equatable {
     required GetMaintenanceRecordsCursorUsecaseParams maintenanceRecordsFilter,
     required MutationType mutationType,
     required String message,
+    MaintenanceRecord? updatedMaintenanceRecord,
     Cursor? cursor,
   }) => MaintenanceRecordsState(
     maintenanceRecords: maintenanceRecords,
@@ -162,6 +171,7 @@ class MaintenanceRecordsState extends Equatable {
     mutation: MaintenanceRecordMutationState(
       type: mutationType,
       successMessage: message,
+      updatedMaintenanceRecord: updatedMaintenanceRecord,
     ),
   );
 

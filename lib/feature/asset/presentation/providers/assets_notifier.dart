@@ -231,6 +231,7 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
       },
       (success) async {
         this.logData('Asset updated successfully');
+        final updatedAsset = success.data; // * Simpan asset yang di-update
 
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.assetsFilter.copyWith(
@@ -241,13 +242,14 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
         state = state.copyWith(isLoading: true);
         final newState = await _loadAssets(assetsFilter: resetCursorFilter);
 
-        // * Set mutation success setelah reload
+        // * Set mutation success dengan updated asset
         state = AssetsState.mutationSuccess(
           assets: newState.assets,
           assetsFilter: newState.assetsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Asset updated',
           cursor: newState.cursor,
+          updatedAsset: updatedAsset, // * Pass updated asset
         );
 
         // * Invalidate non-auto-dispose providers

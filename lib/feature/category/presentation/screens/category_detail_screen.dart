@@ -40,17 +40,30 @@ class CategoryDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
+  Category? _currentCategory;
+
   @override
   void initState() {
     super.initState();
+    _currentCategory = widget.category;
   }
 
-  void _handleEdit(Category category) {
+  Future<void> _handleEdit(Category category) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminCategoryUpsert, extra: category);
+      final updatedCategory = await context.push<Category>(
+        RouteConstant.adminCategoryUpsert,
+        extra: category,
+      );
+
+      // * Update state dengan data baru dari edit screen (tanpa fetch API)
+      if (updatedCategory != null && mounted) {
+        setState(() {
+          _currentCategory = updatedCategory;
+        });
+      }
     } else {
       AppToast.warning('Only admin can edit categories');
     }
@@ -128,12 +141,13 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // * Determine category source: extra > fetch by id > fetch by code
-    Category? category = widget.category;
+    // * Use state category (updated from edit) or widget category (from navigation)
+    // * Only fetch from API if no category provided
+    Category? category = _currentCategory ?? widget.category;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no category from extra, fetch by id or code
+    // * Fetch from API only if no category from props/state
     if (category == null && widget.id != null) {
       final state = ref.watch(getCategoryByIdProvider(widget.id!));
       category = state.category;

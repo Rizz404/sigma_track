@@ -224,6 +224,8 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
       },
       (success) async {
         this.logData('Location updated successfully');
+        final updatedLocation =
+            success.data; // * Simpan location yang di-update
 
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.locationsFilter.copyWith(
@@ -236,13 +238,14 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
           locationsFilter: resetCursorFilter,
         );
 
-        // * Set mutation success setelah reload
+        // * Set mutation success dengan updated location
         state = LocationsState.mutationSuccess(
           locations: newState.locations,
           locationsFilter: newState.locationsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Location updated',
           cursor: newState.cursor,
+          updatedLocation: updatedLocation, // * Pass updated location
         );
       },
     );

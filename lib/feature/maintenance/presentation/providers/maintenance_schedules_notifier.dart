@@ -256,6 +256,8 @@ class MaintenanceSchedulesNotifier
       (success) async {
         this.logData('Maintenance schedule updated successfully');
 
+        final updatedMaintenanceSchedule = success.data;
+
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
           cursor: () => null,
@@ -273,6 +275,7 @@ class MaintenanceSchedulesNotifier
           maintenanceSchedulesFilter: newState.maintenanceSchedulesFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Maintenance schedule updated',
+          updatedMaintenanceSchedule: updatedMaintenanceSchedule,
           cursor: newState.cursor,
         );
       },

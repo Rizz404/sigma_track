@@ -210,7 +210,7 @@ class _MaintenanceRecordUpsertScreenState
           next.mutationMessage ??
               context.l10n.maintenanceRecordSavedSuccessfully,
         );
-        context.pop();
+        context.pop(next.mutation!.updatedMaintenanceRecord);
       }
 
       // * Handle mutation error

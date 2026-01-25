@@ -201,12 +201,10 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
         }
         _filePickerKey.currentState?.reset();
 
-        // * Redirect ke detail screen dengan updated category
-        // * Pop 2x: hapus edit screen + detail old screen → kembali ke list
-        // * Lalu push detail baru → stack: List → Detail (new) ✓
-        if (_isEdit && next.mutatedCategory != null) {
-          context.pop(); // * Hapus edit screen → kembali ke detail old
-          context.pop(); // * Hapus detail old → kembali ke list
+        // * Pop dengan membawa updated category dari mutation state
+        // * Ini lebih efisien, detail screen tidak perlu fetch ulang
+        if (_isEdit && next.mutation?.updatedCategory != null) {
+          context.pop(next.mutation!.updatedCategory);
         } else {
           context.pop();
         }

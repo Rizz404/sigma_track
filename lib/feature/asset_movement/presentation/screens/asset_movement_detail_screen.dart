@@ -34,7 +34,9 @@ class AssetMovementDetailScreen extends ConsumerStatefulWidget {
 
 class _AssetMovementDetailScreenState
     extends ConsumerState<AssetMovementDetailScreen> {
-  void _handleEdit(AssetMovement assetMovement) {
+  AssetMovement? _currentAssetMovement;
+
+  Future<void> _handleEdit(AssetMovement assetMovement) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
@@ -43,10 +45,10 @@ class _AssetMovementDetailScreenState
       return;
     }
 
-    _showEditAssetMovementDialog(assetMovement);
+    await _showEditAssetMovementDialog(assetMovement);
   }
 
-  void _showEditAssetMovementDialog(AssetMovement assetMovement) {
+  Future<void> _showEditAssetMovementDialog(AssetMovement assetMovement) async {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -61,12 +63,17 @@ class _AssetMovementDetailScreenState
         actionsAlignment: MainAxisAlignment.end,
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
-              context.push(
+              final result = await context.push<AssetMovement?>(
                 RouteConstant.adminAssetMovementUpsertForLocation,
                 extra: assetMovement,
               );
+              if (result != null && mounted) {
+                setState(() {
+                  _currentAssetMovement = result;
+                });
+              }
             },
             child: AppText(context.l10n.assetMovementForLocation),
           ),
@@ -74,12 +81,17 @@ class _AssetMovementDetailScreenState
           AppButton(
             text: context.l10n.assetMovementForUser,
             isFullWidth: false,
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
-              context.push(
+              final result = await context.push<AssetMovement?>(
                 RouteConstant.adminAssetMovementUpsertForUser,
                 extra: assetMovement,
               );
+              if (result != null && mounted) {
+                setState(() {
+                  _currentAssetMovement = result;
+                });
+              }
             },
           ),
         ],
@@ -135,12 +147,13 @@ class _AssetMovementDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Determine assetMovement source: extra > fetch by id
-    AssetMovement? assetMovement = widget.assetMovement;
+    // * Determine assetMovement source: current state > extra > fetch by id
+    AssetMovement? assetMovement =
+        _currentAssetMovement ?? widget.assetMovement;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no assetMovement from extra, fetch by id
+    // * If no assetMovement from state or extra, fetch by id
     if (assetMovement == null && widget.id != null) {
       final state = ref.watch(getAssetMovementByIdProvider(widget.id!));
       assetMovement = state.assetMovement;

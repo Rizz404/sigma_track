@@ -223,6 +223,7 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
       },
       (success) async {
         this.logData('User updated successfully');
+        final updatedUser = success.data; // * Simpan user yang di-update
 
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.usersFilter.copyWith(
@@ -233,13 +234,14 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
         state = state.copyWith(isLoading: true);
         final newState = await _loadUsers(usersFilter: resetCursorFilter);
 
-        // * Set mutation success setelah reload
+        // * Set mutation success dengan updated user
         state = UsersState.mutationSuccess(
           users: newState.users,
           usersFilter: newState.usersFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'User updated',
           cursor: newState.cursor,
+          updatedUser: updatedUser, // * Pass updated user
         );
       },
     );

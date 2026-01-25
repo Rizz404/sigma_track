@@ -157,7 +157,7 @@ class _AssetMovementUpsertForLocationScreenState
         AppToast.success(
           next.mutationMessage ?? context.l10n.assetMovementSavedSuccessfully,
         );
-        context.pop();
+        context.pop(next.mutation!.updatedAssetMovement);
       }
 
       // * Handle mutation error

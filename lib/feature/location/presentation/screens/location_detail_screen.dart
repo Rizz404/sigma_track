@@ -40,12 +40,30 @@ class LocationDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
-  void _handleEdit(Location location) {
+  Location? _currentLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentLocation = widget.location;
+  }
+
+  Future<void> _handleEdit(Location location) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminLocationUpsert, extra: location);
+      final updatedLocation = await context.push<Location>(
+        RouteConstant.adminLocationUpsert,
+        extra: location,
+      );
+
+      // * Update state dengan data baru dari edit screen (tanpa fetch API)
+      if (updatedLocation != null && mounted) {
+        setState(() {
+          _currentLocation = updatedLocation;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.locationOnlyAdminCanEdit);
     }
@@ -123,12 +141,13 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // * Determine location source: extra > fetch by id > fetch by code
-    Location? location = widget.location;
+    // * Use state location (updated from edit) or widget location (from navigation)
+    // * Only fetch from API if no location provided
+    Location? location = _currentLocation ?? widget.location;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no location from extra, fetch by id or code
+    // * Fetch from API only if no location from props/state
     if (location == null && widget.id != null) {
       final state = ref.watch(getLocationByIdProvider(widget.id!));
       location = state.location;

@@ -39,12 +39,23 @@ class MaintenanceRecordDetailScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceRecordDetailScreenState
     extends ConsumerState<MaintenanceRecordDetailScreen> {
-  void _handleEdit(MaintenanceRecord record) {
+  MaintenanceRecord? _currentMaintenanceRecord;
+
+  Future<void> _handleEdit(MaintenanceRecord record) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminMaintenanceRecordUpsert, extra: record);
+      final result = await context.push<MaintenanceRecord?>(
+        RouteConstant.adminMaintenanceRecordUpsert,
+        extra: record,
+      );
+
+      if (result != null && mounted) {
+        setState(() {
+          _currentMaintenanceRecord = result;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.maintenanceRecordOnlyAdminCanEdit);
     }
@@ -112,12 +123,13 @@ class _MaintenanceRecordDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Determine record source: extra > fetch by id
-    MaintenanceRecord? record = widget.maintenanceRecord;
+    // * Determine record source: current state > extra > fetch by id
+    MaintenanceRecord? record =
+        _currentMaintenanceRecord ?? widget.maintenanceRecord;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no record from extra, fetch by id
+    // * If no record from state or extra, fetch by id
     if (record == null && widget.id != null) {
       final state = ref.watch(getMaintenanceRecordByIdProvider(widget.id!));
       record = state.maintenanceRecord;

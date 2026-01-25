@@ -13,19 +13,27 @@ class UserMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final User? updatedUser; // * User yang baru di-update/create
 
   const UserMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedUser,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedUser,
+  ];
 }
 
 class UsersState extends Equatable {
@@ -149,11 +157,16 @@ class UsersState extends Equatable {
     required MutationType mutationType,
     required String message,
     Cursor? cursor,
+    User? updatedUser, // * User yang baru di-update/create
   }) => UsersState(
     users: users,
     usersFilter: usersFilter,
     cursor: cursor,
-    mutation: UserMutationState(type: mutationType, successMessage: message),
+    mutation: UserMutationState(
+      type: mutationType,
+      successMessage: message,
+      updatedUser: updatedUser,
+    ),
   );
 
   factory UsersState.mutationError({

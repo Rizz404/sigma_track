@@ -33,12 +33,30 @@ class UserDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
-  void _handleEdit(User user) {
+  User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentUser = widget.user;
+  }
+
+  Future<void> _handleEdit(User user) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminUserUpsert, extra: user);
+      final updatedUser = await context.push<User>(
+        RouteConstant.adminUserUpsert,
+        extra: user,
+      );
+
+      // * Update state dengan data baru dari edit screen (tanpa fetch API)
+      if (updatedUser != null && mounted) {
+        setState(() {
+          _currentUser = updatedUser;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.userOnlyAdminCanEdit);
     }
@@ -122,12 +140,13 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // * Determine user source: extra > fetch by id
-    User? user = widget.user;
+    // * Use state user (updated from edit) or widget user (from navigation)
+    // * Only fetch from API if no user provided
+    User? user = _currentUser ?? widget.user;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no user from extra, fetch by id
+    // * Fetch from API only if no user from props/state
     if (user == null && widget.id != null) {
       final state = ref.watch(getUserByIdProvider(widget.id!));
       user = state.user;

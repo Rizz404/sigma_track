@@ -39,15 +39,23 @@ class MaintenanceScheduleDetailScreen extends ConsumerStatefulWidget {
 
 class _MaintenanceScheduleDetailScreenState
     extends ConsumerState<MaintenanceScheduleDetailScreen> {
-  void _handleEdit(MaintenanceSchedule schedule) {
+  MaintenanceSchedule? _currentMaintenanceSchedule;
+
+  Future<void> _handleEdit(MaintenanceSchedule schedule) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(
+      final result = await context.push<MaintenanceSchedule?>(
         RouteConstant.adminMaintenanceScheduleUpsert,
         extra: schedule,
       );
+
+      if (result != null && mounted) {
+        setState(() {
+          _currentMaintenanceSchedule = result;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.maintenanceScheduleOnlyAdminCanEdit);
     }
@@ -129,12 +137,13 @@ class _MaintenanceScheduleDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Determine schedule source: extra > fetch by id
-    MaintenanceSchedule? schedule = widget.maintenanceSchedule;
+    // * Determine schedule source: current state > extra > fetch by id
+    MaintenanceSchedule? schedule =
+        _currentMaintenanceSchedule ?? widget.maintenanceSchedule;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no schedule from extra, fetch by id
+    // * If no schedule from state or extra, fetch by id
     if (schedule == null && widget.id != null) {
       final state = ref.watch(getMaintenanceScheduleByIdProvider(widget.id!));
       schedule = state.maintenanceSchedule;

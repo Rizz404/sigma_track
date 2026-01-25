@@ -44,6 +44,7 @@ class AssetDetailScreen extends ConsumerStatefulWidget {
 class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   // * Flag to track if scan log was already created (prevent duplicate on re-render)
   bool _scanLogCreated = false;
+  Asset? _currentAsset;
 
   Future<void> _createScanLog({
     required String assetId,
@@ -119,12 +120,21 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     );
   }
 
-  void _handleEdit(Asset asset) {
+  Future<void> _handleEdit(Asset asset) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.adminAssetUpsert, extra: asset);
+      final result = await context.push<Asset?>(
+        RouteConstant.adminAssetUpsert,
+        extra: asset,
+      );
+
+      if (result != null && mounted) {
+        setState(() {
+          _currentAsset = result;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.assetOnlyAdminCanEdit);
     }
@@ -202,12 +212,12 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // * Determine asset source: extra > fetch by id > fetch by tag
-    Asset? asset = widget.asset;
+    // * Determine asset source: current state > extra > fetch by id > fetch by tag
+    Asset? asset = _currentAsset ?? widget.asset;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no asset from extra, fetch by id or tag
+    // * If no asset from state or extra, fetch by id or tag
     if (asset == null && widget.id != null) {
       final state = ref.watch(getAssetByIdProvider(widget.id!));
       asset = state.asset;

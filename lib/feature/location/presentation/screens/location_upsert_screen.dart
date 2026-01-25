@@ -270,7 +270,14 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
         AppToast.success(
           next.mutationMessage ?? context.l10n.locationSavedSuccessfully,
         );
-        context.pop();
+
+        // * Pop dengan membawa updated location dari mutation state
+        // * Ini lebih efisien, detail screen tidak perlu fetch ulang
+        if (_isEdit && next.mutation?.updatedLocation != null) {
+          context.pop(next.mutation!.updatedLocation);
+        } else {
+          context.pop();
+        }
       }
 
       // * Handle mutation error

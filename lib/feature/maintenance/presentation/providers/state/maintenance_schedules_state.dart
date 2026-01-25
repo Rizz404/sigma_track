@@ -13,19 +13,27 @@ class MaintenanceScheduleMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final MaintenanceSchedule? updatedMaintenanceSchedule;
 
   const MaintenanceScheduleMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedMaintenanceSchedule,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedMaintenanceSchedule,
+  ];
 }
 
 class MaintenanceSchedulesState extends Equatable {
@@ -61,10 +69,12 @@ class MaintenanceSchedulesState extends Equatable {
   Failure? get mutationFailure => mutation?.failure;
 
   // * Factory methods yang lebih descriptive
-  factory MaintenanceSchedulesState.initial() => const MaintenanceSchedulesState(
-    maintenanceSchedulesFilter: GetMaintenanceSchedulesCursorUsecaseParams(),
-    isLoading: true,
-  );
+  factory MaintenanceSchedulesState.initial() =>
+      const MaintenanceSchedulesState(
+        maintenanceSchedulesFilter:
+            GetMaintenanceSchedulesCursorUsecaseParams(),
+        isLoading: true,
+      );
 
   factory MaintenanceSchedulesState.loading({
     required GetMaintenanceSchedulesCursorUsecaseParams
@@ -162,6 +172,7 @@ class MaintenanceSchedulesState extends Equatable {
     maintenanceSchedulesFilter,
     required MutationType mutationType,
     required String message,
+    MaintenanceSchedule? updatedMaintenanceSchedule,
     Cursor? cursor,
   }) => MaintenanceSchedulesState(
     maintenanceSchedules: maintenanceSchedules,
@@ -170,6 +181,7 @@ class MaintenanceSchedulesState extends Equatable {
     mutation: MaintenanceScheduleMutationState(
       type: mutationType,
       successMessage: message,
+      updatedMaintenanceSchedule: updatedMaintenanceSchedule,
     ),
   );
 

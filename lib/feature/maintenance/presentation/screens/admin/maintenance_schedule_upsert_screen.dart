@@ -228,7 +228,7 @@ class _MaintenanceScheduleUpsertScreenState
           next.mutationMessage ??
               context.l10n.maintenanceScheduleSavedSuccessfully,
         );
-        context.pop();
+        context.pop(next.mutation!.updatedMaintenanceSchedule);
       }
 
       // * Handle mutation error

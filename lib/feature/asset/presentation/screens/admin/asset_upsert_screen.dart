@@ -773,7 +773,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
           next.mutationMessage ?? context.l10n.assetSavedSuccessfully,
         );
         setState(() => _isBulkProcessing = false);
-        context.pop();
+        context.pop(next.mutation!.updatedAsset);
       }
 
       // * Handle mutation error

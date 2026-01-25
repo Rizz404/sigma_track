@@ -112,7 +112,14 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         AppToast.success(
           next.mutationMessage ?? context.l10n.userSavedSuccessfully,
         );
-        context.pop();
+
+        // * Pop dengan membawa updated user dari mutation state
+        // * Ini lebih efisien, detail screen tidak perlu fetch ulang
+        if (_isEdit && next.mutation?.updatedUser != null) {
+          context.pop(next.mutation!.updatedUser);
+        } else {
+          context.pop();
+        }
       }
 
       // * Handle mutation error

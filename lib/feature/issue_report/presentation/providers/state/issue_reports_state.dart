@@ -13,19 +13,27 @@ class IssueReportMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final IssueReport? updatedIssueReport;
 
   const IssueReportMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedIssueReport,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedIssueReport,
+  ];
 }
 
 class IssueReportsState extends Equatable {
@@ -154,6 +162,7 @@ class IssueReportsState extends Equatable {
     required GetIssueReportsCursorUsecaseParams issueReportsFilter,
     required MutationType mutationType,
     required String message,
+    IssueReport? updatedIssueReport,
     Cursor? cursor,
   }) => IssueReportsState(
     issueReports: issueReports,
@@ -162,6 +171,7 @@ class IssueReportsState extends Equatable {
     mutation: IssueReportMutationState(
       type: mutationType,
       successMessage: message,
+      updatedIssueReport: updatedIssueReport,
     ),
   );
 

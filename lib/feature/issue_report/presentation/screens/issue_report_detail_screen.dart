@@ -34,12 +34,23 @@ class IssueReportDetailScreen extends ConsumerStatefulWidget {
 
 class _IssueReportDetailScreenState
     extends ConsumerState<IssueReportDetailScreen> {
-  void _handleEdit(IssueReport issueReport) {
+  IssueReport? _currentIssueReport;
+
+  Future<void> _handleEdit(IssueReport issueReport) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
 
     if (isAdmin) {
-      context.push(RouteConstant.issueReportUpsert, extra: issueReport);
+      final result = await context.push<IssueReport?>(
+        RouteConstant.issueReportUpsert,
+        extra: issueReport,
+      );
+
+      if (result != null && mounted) {
+        setState(() {
+          _currentIssueReport = result;
+        });
+      }
     } else {
       AppToast.warning(context.l10n.issueReportOnlyAdminCanEdit);
     }
@@ -93,12 +104,12 @@ class _IssueReportDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    // * Determine issueReport source: extra > fetch by id
-    IssueReport? issueReport = widget.issueReport;
+    // * Determine issueReport source: current state > extra > fetch by id
+    IssueReport? issueReport = _currentIssueReport ?? widget.issueReport;
     bool isLoading = false;
     String? errorMessage;
 
-    // * If no issueReport from extra, fetch by id
+    // * If no issueReport from state or extra, fetch by id
     if (issueReport == null && widget.id != null) {
       final state = ref.watch(getIssueReportByIdProvider(widget.id!));
       issueReport = state.issueReport;

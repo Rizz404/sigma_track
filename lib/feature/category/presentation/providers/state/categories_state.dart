@@ -13,19 +13,27 @@ class CategoryMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final Category? updatedCategory; // * Category yang baru di-update/create
 
   const CategoryMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedCategory,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedCategory,
+  ];
 }
 
 class CategoriesState extends Equatable {
@@ -149,6 +157,7 @@ class CategoriesState extends Equatable {
     required MutationType mutationType,
     required String message,
     Cursor? cursor,
+    Category? updatedCategory, // * Category yang baru di-update/create
   }) => CategoriesState(
     categories: categories,
     categoriesFilter: categoriesFilter,
@@ -156,6 +165,7 @@ class CategoriesState extends Equatable {
     mutation: CategoryMutationState(
       type: mutationType,
       successMessage: message,
+      updatedCategory: updatedCategory,
     ),
   );
 

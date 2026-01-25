@@ -251,6 +251,8 @@ class MaintenanceRecordsNotifier
       (success) async {
         this.logData('Maintenance record updated successfully');
 
+        final updatedMaintenanceRecord = success.data;
+
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
           cursor: () => null,
@@ -268,6 +270,7 @@ class MaintenanceRecordsNotifier
           maintenanceRecordsFilter: newState.maintenanceRecordsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Maintenance record updated',
+          updatedMaintenanceRecord: updatedMaintenanceRecord,
           cursor: newState.cursor,
         );
       },

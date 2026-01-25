@@ -306,6 +306,8 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for location updated successfully');
 
+        final updatedAssetMovement = success.data;
+
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.assetMovementsFilter.copyWith(
           cursor: () => null,
@@ -322,6 +324,7 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
           assetMovementsFilter: state.assetMovementsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Asset movement updated',
+          updatedAssetMovement: updatedAssetMovement,
           cursor: state.cursor,
         );
       },
@@ -355,6 +358,8 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
       (success) async {
         this.logData('Asset movement for user updated successfully');
 
+        final updatedAssetMovement = success.data;
+
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.assetMovementsFilter.copyWith(
           cursor: () => null,
@@ -371,6 +376,7 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
           assetMovementsFilter: state.assetMovementsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Asset movement updated',
+          updatedAssetMovement: updatedAssetMovement,
           cursor: state.cursor,
         );
       },

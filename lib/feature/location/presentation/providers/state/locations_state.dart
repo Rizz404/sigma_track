@@ -13,19 +13,27 @@ class LocationMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final Location? updatedLocation; // * Location yang baru di-update/create
 
   const LocationMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedLocation,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedLocation,
+  ];
 }
 
 class LocationsState extends Equatable {
@@ -155,6 +163,7 @@ class LocationsState extends Equatable {
     required MutationType mutationType,
     required String message,
     Cursor? cursor,
+    Location? updatedLocation, // * Location yang baru di-update/create
   }) => LocationsState(
     locations: locations,
     locationsFilter: locationsFilter,
@@ -162,6 +171,7 @@ class LocationsState extends Equatable {
     mutation: LocationMutationState(
       type: mutationType,
       successMessage: message,
+      updatedLocation: updatedLocation,
     ),
   );
 

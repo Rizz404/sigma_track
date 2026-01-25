@@ -156,7 +156,7 @@ class _IssueReportUpsertScreenState
         AppToast.success(
           next.mutationMessage ?? context.l10n.issueReportSavedSuccessfully,
         );
-        context.pop();
+        context.pop(next.mutation!.updatedIssueReport);
       }
 
       // * Handle mutation error

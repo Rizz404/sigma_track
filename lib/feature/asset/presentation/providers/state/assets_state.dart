@@ -13,19 +13,27 @@ class AssetMutationState extends Equatable {
   final bool isLoading;
   final String? successMessage;
   final Failure? failure;
+  final Asset? updatedAsset; // * Asset yang baru di-update/create
 
   const AssetMutationState({
     required this.type,
     this.isLoading = false,
     this.successMessage,
     this.failure,
+    this.updatedAsset,
   });
 
   bool get isSuccess => successMessage != null && failure == null;
   bool get isError => failure != null;
 
   @override
-  List<Object?> get props => [type, isLoading, successMessage, failure];
+  List<Object?> get props => [
+    type,
+    isLoading,
+    successMessage,
+    failure,
+    updatedAsset,
+  ];
 }
 
 class AssetsState extends Equatable {
@@ -151,11 +159,16 @@ class AssetsState extends Equatable {
     required MutationType mutationType,
     required String message,
     Cursor? cursor,
+    Asset? updatedAsset, // * Asset yang baru di-update/create
   }) => AssetsState(
     assets: assets,
     assetsFilter: assetsFilter,
     cursor: cursor,
-    mutation: AssetMutationState(type: mutationType, successMessage: message),
+    mutation: AssetMutationState(
+      type: mutationType,
+      successMessage: message,
+      updatedAsset: updatedAsset,
+    ),
   );
 
   factory AssetsState.mutationError({

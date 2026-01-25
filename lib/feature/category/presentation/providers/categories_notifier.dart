@@ -225,6 +225,8 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
       },
       (success) async {
         this.logData('Category updated successfully');
+        final updatedCategory =
+            success.data; // * Simpan category yang di-update
 
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.categoriesFilter.copyWith(
@@ -237,13 +239,14 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
           categoriesFilter: resetCursorFilter,
         );
 
-        // * Set mutation success setelah reload
+        // * Set mutation success dengan updated category
         state = CategoriesState.mutationSuccess(
           categories: newState.categories,
           categoriesFilter: newState.categoriesFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Category updated',
           cursor: newState.cursor,
+          updatedCategory: updatedCategory, // * Pass updated category
         );
       },
     );

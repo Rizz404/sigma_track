@@ -236,6 +236,8 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
       (success) async {
         this.logData('Issue report updated successfully');
 
+        final updatedIssueReport = success.data;
+
         // * Reset cursor when updating to fetch from beginning
         final resetCursorFilter = state.issueReportsFilter.copyWith(
           cursor: () => null,
@@ -249,6 +251,7 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
           issueReportsFilter: state.issueReportsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Issue report updated',
+          updatedIssueReport: updatedIssueReport,
           cursor: state.cursor,
         );
       },
