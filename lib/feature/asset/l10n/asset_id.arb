@@ -1059,5 +1059,9 @@
   "assetImages": "Gambar Aset",
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
+  },
+  "assetDeleteCascadeWarning": "Ini juga akan menghapus semua data terkait: perpindahan, jadwal pemeliharaan, catatan pemeliharaan, laporan masalah, gambar, dan log pemindaian.",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
   }
 }

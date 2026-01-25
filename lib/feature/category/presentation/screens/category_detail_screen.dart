@@ -72,9 +72,21 @@ class _CategoryDetailScreenState extends ConsumerState<CategoryDetailScreen> {
           'Delete Category',
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
-          'Are you sure you want to delete "${category.categoryName}"?',
-          style: AppTextStyle.bodyMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              'Are you sure you want to delete "${category.categoryName}"?',
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            AppText(
+              context.l10n.categoryDeleteSetNullWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [

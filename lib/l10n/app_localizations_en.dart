@@ -781,6 +781,10 @@ class L10nEn extends L10n {
   String get assetImages => 'Asset Images';
 
   @override
+  String get assetDeleteCascadeWarning =>
+      'This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
 
   @override
@@ -1592,6 +1596,10 @@ class L10nEn extends L10n {
   String get categoryGoBack => 'Go Back';
 
   @override
+  String get categoryDeleteSetNullWarning =>
+      'Child categories will become root-level categories.';
+
+  @override
   String get dashboardTotalUsers => 'Total Users';
 
   @override
@@ -2384,6 +2392,10 @@ class L10nEn extends L10n {
   String get locationPickFromMap => 'Pick from map';
 
   @override
+  String get locationDeleteSetNullWarning =>
+      'Assets will have location cleared. Asset movement history will have location info removed.';
+
+  @override
   String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
 
   @override
@@ -2945,6 +2957,10 @@ class L10nEn extends L10n {
 
   @override
   String get maintenanceCreatedByUserNotFound => 'Created by user not found';
+
+  @override
+  String get maintenanceScheduleDeleteSetNullWarning =>
+      'Related maintenance records will have schedule reference removed (records become standalone).';
 
   @override
   String get notificationManagement => 'Notification Management';
@@ -3724,6 +3740,14 @@ class L10nEn extends L10n {
   String userValidationImageSize(int size) {
     return 'Image size must not exceed ${size}MB';
   }
+
+  @override
+  String get userDeleteCascadeWarning =>
+      'This will also delete all notifications related to this user.';
+
+  @override
+  String get userDeleteSetNullWarning =>
+      'Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.';
 
   @override
   String get adminShellBottomNavDashboard => 'Dashboard';

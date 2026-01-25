@@ -523,5 +523,13 @@
   "userValidationImageOnly": "Hanya file gambar yang diperbolehkan",
   "@userValidationImageOnly": {
     "description": "Validation error for non-image files"
+  },
+  "userDeleteCascadeWarning": "Ini juga akan menghapus semua notifikasi yang terkait dengan pengguna ini.",
+  "@userDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
+  "userDeleteSetNullWarning": "Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.",
+  "@userDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting user"
   }
 }

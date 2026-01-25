@@ -754,6 +754,10 @@ class L10nJa extends L10n {
   String get assetImages => '資産画像';
 
   @override
+  String get assetDeleteCascadeWarning =>
+      'これにより、関連するすべてのデータも削除されます：移動、メンテナンススケジュール、メンテナンス記録、問題レポート、画像、スキャンログ。';
+
+  @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';
 
   @override
@@ -1528,6 +1532,9 @@ class L10nJa extends L10n {
   String get categoryGoBack => '戻る';
 
   @override
+  String get categoryDeleteSetNullWarning => '子カテゴリはルートレベルのカテゴリになります。';
+
+  @override
   String get dashboardTotalUsers => '総ユーザー数';
 
   @override
@@ -2286,6 +2293,10 @@ class L10nJa extends L10n {
   String get locationPickFromMap => 'マップから選択';
 
   @override
+  String get locationDeleteSetNullWarning =>
+      '資産の場所がクリアされます。資産移動履歴の場所情報が削除されます。';
+
+  @override
   String get maintenanceScheduleDeleteSchedule => 'メンテナンススケジュールの削除';
 
   @override
@@ -2813,6 +2824,10 @@ class L10nJa extends L10n {
 
   @override
   String get maintenanceCreatedByUserNotFound => '作成したユーザーが見つかりません';
+
+  @override
+  String get maintenanceScheduleDeleteSetNullWarning =>
+      '関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。';
 
   @override
   String get notificationManagement => '通知管理';
@@ -3569,6 +3584,13 @@ class L10nJa extends L10n {
   String userValidationImageSize(int size) {
     return '画像サイズが大きすぎます (最大5MB)';
   }
+
+  @override
+  String get userDeleteCascadeWarning => 'これにより、このユーザーに関連するすべての通知も削除されます。';
+
+  @override
+  String get userDeleteSetNullWarning =>
+      '資産の割り当てがクリアされます。移動およびメンテナンス履歴のユーザー情報が削除されます。未解決の問題の解決者情報が削除されます。';
 
   @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';

@@ -325,5 +325,9 @@
   "categoryGoBack": "Go Back",
   "@categoryGoBack": {
     "description": "Go back button label"
+  },
+  "categoryDeleteSetNullWarning": "Child categories will become root-level categories.",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
   }
 }

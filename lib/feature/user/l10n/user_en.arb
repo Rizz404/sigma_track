@@ -491,5 +491,13 @@
         "example": "5"
       }
     }
+  },
+  "userDeleteCascadeWarning": "This will also delete all notifications related to this user.",
+  "@userDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
+  "userDeleteSetNullWarning": "Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.",
+  "@userDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting user"
   }
 }

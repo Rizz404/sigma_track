@@ -427,5 +427,9 @@
   "locationPickFromMap": "マップから選択",
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
+  },
+  "locationDeleteSetNullWarning": "資産の場所がクリアされます。資産移動履歴の場所情報が削除されます。",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
   }
 }

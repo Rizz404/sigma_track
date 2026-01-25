@@ -325,5 +325,9 @@
   "categoryGoBack": "戻る",
   "@categoryGoBack": {
     "description": "Go back button label"
+  },
+  "categoryDeleteSetNullWarning": "子カテゴリはルートレベルのカテゴリになります。",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
   }
 }

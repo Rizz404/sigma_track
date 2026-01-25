@@ -1060,6 +1060,10 @@
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
   },
+  "assetDeleteCascadeWarning": "Ini juga akan menghapus semua data terkait: perpindahan, jadwal pemeliharaan, catatan pemeliharaan, laporan masalah, gambar, dan log pemindaian.",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
   "assetMovementDeleteAssetMovement": "Hapus Perpindahan Aset",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -2104,6 +2108,10 @@
   "@categoryGoBack": {
     "description": "Go back button label"
   },
+  "categoryDeleteSetNullWarning": "Kategori anak akan menjadi kategori tingkat akar.",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
+  },
   "dashboardTotalUsers": "Total Pengguna",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -3101,6 +3109,10 @@
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
   },
+  "locationDeleteSetNullWarning": "Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
+  },
   "maintenanceScheduleDeleteSchedule": "Hapus Jadwal Pemeliharaan",
   "@maintenanceScheduleDeleteSchedule": {
     "description": "Dialog title for deleting a maintenance schedule"
@@ -3840,6 +3852,10 @@
   "maintenanceVendorName": "Nama Vendor",
   "@maintenanceVendorName": {
     "description": "Vendor name label"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "Catatan pemeliharaan terkait akan memiliki referensi jadwal yang dihapus (catatan menjadi mandiri).",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   },
   "notificationManagement": "Manajemen Notifikasi",
   "@notificationManagement": {
@@ -4904,6 +4920,14 @@
   "userValidationImageOnly": "Hanya file gambar yang diperbolehkan",
   "@userValidationImageOnly": {
     "description": "Validation error for non-image files"
+  },
+  "userDeleteCascadeWarning": "Ini juga akan menghapus semua notifikasi yang terkait dengan pengguna ini.",
+  "@userDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
+  "userDeleteSetNullWarning": "Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.",
+  "@userDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting user"
   },
   "adminShellBottomNavDashboard": "Dasbor",
   "@adminShellBottomNavDashboard": {

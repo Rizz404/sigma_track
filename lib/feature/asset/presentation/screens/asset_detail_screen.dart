@@ -160,9 +160,21 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           context.l10n.assetDeleteAsset,
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
-          context.l10n.assetDeleteConfirmation(asset.assetName),
-          style: AppTextStyle.bodyMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.assetDeleteConfirmation(asset.assetName),
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            AppText(
+              context.l10n.assetDeleteCascadeWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [

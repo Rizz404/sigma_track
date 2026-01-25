@@ -739,5 +739,9 @@
   "maintenanceVendorName": "Nama Vendor",
   "@maintenanceVendorName": {
     "description": "Vendor name label"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "Catatan pemeliharaan terkait akan memiliki referensi jadwal yang dihapus (catatan menjadi mandiri).",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   }
 }

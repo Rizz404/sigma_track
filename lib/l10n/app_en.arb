@@ -1060,6 +1060,10 @@
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
   },
+  "assetDeleteCascadeWarning": "This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -2104,6 +2108,10 @@
   "@categoryGoBack": {
     "description": "Go back button label"
   },
+  "categoryDeleteSetNullWarning": "Child categories will become root-level categories.",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
+  },
   "dashboardTotalUsers": "Total Users",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -3140,6 +3148,10 @@
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
   },
+  "locationDeleteSetNullWarning": "Assets will have location cleared. Asset movement history will have location info removed.",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
+  },
   "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
   "@maintenanceScheduleDeleteSchedule": {
     "description": "Dialog title for deleting a maintenance schedule"
@@ -3879,6 +3891,10 @@
   "maintenanceCreatedByUserNotFound": "Created by user not found",
   "@maintenanceCreatedByUserNotFound": {
     "description": "Error message when created by user is missing"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "Related maintenance records will have schedule reference removed (records become standalone).",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   },
   "notificationManagement": "Notification Management",
   "@notificationManagement": {
@@ -4925,6 +4941,14 @@
         "example": "5"
       }
     }
+  },
+  "userDeleteCascadeWarning": "This will also delete all notifications related to this user.",
+  "@userDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
+  "userDeleteSetNullWarning": "Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.",
+  "@userDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting user"
   },
   "adminShellBottomNavDashboard": "Dashboard",
   "@adminShellBottomNavDashboard": {

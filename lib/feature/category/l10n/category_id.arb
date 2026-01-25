@@ -325,5 +325,9 @@
   "categoryGoBack": "Kembali",
   "@categoryGoBack": {
     "description": "Go back button label"
+  },
+  "categoryDeleteSetNullWarning": "Kategori anak akan menjadi kategori tingkat akar.",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
   }
 }

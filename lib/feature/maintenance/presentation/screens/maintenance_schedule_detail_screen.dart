@@ -69,9 +69,23 @@ class _MaintenanceScheduleDetailScreenState
           context.l10n.maintenanceScheduleDeleteSchedule,
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
-          context.l10n.maintenanceScheduleDeleteConfirmation(schedule.title),
-          style: AppTextStyle.bodyMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.maintenanceScheduleDeleteConfirmation(
+                schedule.title,
+              ),
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            AppText(
+              context.l10n.maintenanceScheduleDeleteSetNullWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [

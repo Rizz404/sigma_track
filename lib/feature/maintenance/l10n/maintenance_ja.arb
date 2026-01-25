@@ -202,5 +202,9 @@
   "maintenanceVendorName": "ベンダー名",
   "@maintenanceVendorName": {
     "description": "Vendor name label"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   }
 }

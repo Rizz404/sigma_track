@@ -1497,6 +1497,12 @@ abstract class L10n {
   /// **'Asset Images'**
   String get assetImages;
 
+  /// Warning message about cascade deletion of related data
+  ///
+  /// In en, this message translates to:
+  /// **'This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.'**
+  String get assetDeleteCascadeWarning;
+
   /// Dialog title for deleting an asset movement
   ///
   /// In en, this message translates to:
@@ -3021,6 +3027,12 @@ abstract class L10n {
   /// **'Go Back'**
   String get categoryGoBack;
 
+  /// Warning message about SET NULL behavior when deleting category
+  ///
+  /// In en, this message translates to:
+  /// **'Child categories will become root-level categories.'**
+  String get categoryDeleteSetNullWarning;
+
   /// Total users stat card title
   ///
   /// In en, this message translates to:
@@ -4485,6 +4497,12 @@ abstract class L10n {
   /// **'Pick from map'**
   String get locationPickFromMap;
 
+  /// Warning message about SET NULL behavior when deleting location
+  ///
+  /// In en, this message translates to:
+  /// **'Assets will have location cleared. Asset movement history will have location info removed.'**
+  String get locationDeleteSetNullWarning;
+
   /// Dialog title for deleting a maintenance schedule
   ///
   /// In en, this message translates to:
@@ -5486,6 +5504,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Created by user not found'**
   String get maintenanceCreatedByUserNotFound;
+
+  /// Warning message about SET NULL behavior when deleting maintenance schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Related maintenance records will have schedule reference removed (records become standalone).'**
+  String get maintenanceScheduleDeleteSetNullWarning;
 
   /// Notification management screen title
   ///
@@ -6938,6 +6962,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Image size must not exceed {size}MB'**
   String userValidationImageSize(int size);
+
+  /// Warning message about cascade deletion of related data
+  ///
+  /// In en, this message translates to:
+  /// **'This will also delete all notifications related to this user.'**
+  String get userDeleteCascadeWarning;
+
+  /// Warning message about SET NULL behavior when deleting user
+  ///
+  /// In en, this message translates to:
+  /// **'Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.'**
+  String get userDeleteSetNullWarning;
 
   /// Admin shell bottom navigation label for dashboard
   ///

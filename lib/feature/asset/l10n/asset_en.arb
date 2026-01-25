@@ -1059,5 +1059,9 @@
   "assetImages": "Asset Images",
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
+  },
+  "assetDeleteCascadeWarning": "This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
   }
 }

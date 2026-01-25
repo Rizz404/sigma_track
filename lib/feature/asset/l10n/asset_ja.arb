@@ -1059,5 +1059,9 @@
   "assetImages": "資産画像",
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
+  },
+  "assetDeleteCascadeWarning": "これにより、関連するすべてのデータも削除されます：移動、メンテナンススケジュール、メンテナンス記録、問題レポート、画像、スキャンログ。",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
   }
 }

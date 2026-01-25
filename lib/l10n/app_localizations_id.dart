@@ -779,6 +779,10 @@ class L10nId extends L10n {
   String get assetImages => 'Gambar Aset';
 
   @override
+  String get assetDeleteCascadeWarning =>
+      'Ini juga akan menghapus semua data terkait: perpindahan, jadwal pemeliharaan, catatan pemeliharaan, laporan masalah, gambar, dan log pemindaian.';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';
 
   @override
@@ -1600,6 +1604,10 @@ class L10nId extends L10n {
   String get categoryGoBack => 'Kembali';
 
   @override
+  String get categoryDeleteSetNullWarning =>
+      'Kategori anak akan menjadi kategori tingkat akar.';
+
+  @override
   String get dashboardTotalUsers => 'Total Pengguna';
 
   @override
@@ -2405,6 +2413,10 @@ class L10nId extends L10n {
   String get locationPickFromMap => 'Pilih dari peta';
 
   @override
+  String get locationDeleteSetNullWarning =>
+      'Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.';
+
+  @override
   String get maintenanceScheduleDeleteSchedule => 'Hapus Jadwal Pemeliharaan';
 
   @override
@@ -2972,6 +2984,10 @@ class L10nId extends L10n {
   @override
   String get maintenanceCreatedByUserNotFound =>
       'Pengguna yang membuat tidak ditemukan';
+
+  @override
+  String get maintenanceScheduleDeleteSetNullWarning =>
+      'Catatan pemeliharaan terkait akan memiliki referensi jadwal yang dihapus (catatan menjadi mandiri).';
 
   @override
   String get notificationManagement => 'Manajemen Notifikasi';
@@ -3760,6 +3776,14 @@ class L10nId extends L10n {
   String userValidationImageSize(int size) {
     return 'Ukuran gambar terlalu besar (maksimal 5MB)';
   }
+
+  @override
+  String get userDeleteCascadeWarning =>
+      'Ini juga akan menghapus semua notifikasi yang terkait dengan pengguna ini.';
+
+  @override
+  String get userDeleteSetNullWarning =>
+      'Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.';
 
   @override
   String get adminShellBottomNavDashboard => 'Dasbor';

@@ -67,9 +67,21 @@ class _LocationDetailScreenState extends ConsumerState<LocationDetailScreen> {
           context.l10n.locationDeleteLocation,
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
-          context.l10n.locationDeleteConfirmation(location.locationName),
-          style: AppTextStyle.bodyMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.locationDeleteConfirmation(location.locationName),
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            AppText(
+              context.l10n.locationDeleteSetNullWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [

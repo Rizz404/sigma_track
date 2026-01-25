@@ -60,9 +60,27 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
           context.l10n.userDeleteUser,
           style: AppTextStyle.titleMedium,
         ),
-        content: AppText(
-          context.l10n.userDeleteSingleConfirmation(user.fullName),
-          style: AppTextStyle.bodyMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              context.l10n.userDeleteSingleConfirmation(user.fullName),
+              style: AppTextStyle.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            AppText(
+              context.l10n.userDeleteCascadeWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+            const SizedBox(height: 8),
+            AppText(
+              context.l10n.userDeleteSetNullWarning,
+              style: AppTextStyle.bodySmall,
+              color: context.semantic.warning,
+            ),
+          ],
         ),
         actionsAlignment: MainAxisAlignment.end,
         actions: [

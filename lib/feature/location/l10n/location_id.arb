@@ -427,5 +427,9 @@
   "locationPickFromMap": "Pilih dari peta",
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
+  },
+  "locationDeleteSetNullWarning": "Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
   }
 }

@@ -739,5 +739,9 @@
   "maintenanceCreatedByUserNotFound": "Created by user not found",
   "@maintenanceCreatedByUserNotFound": {
     "description": "Error message when created by user is missing"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "Related maintenance records will have schedule reference removed (records become standalone).",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   }
 }

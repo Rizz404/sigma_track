@@ -427,5 +427,9 @@
   "locationPickFromMap": "Pick from map",
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
+  },
+  "locationDeleteSetNullWarning": "Assets will have location cleared. Asset movement history will have location info removed.",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
   }
 }

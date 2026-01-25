@@ -1060,6 +1060,10 @@
   "@assetImages": {
     "description": "Title for asset images section in detail screen"
   },
+  "assetDeleteCascadeWarning": "これにより、関連するすべてのデータも削除されます：移動、メンテナンススケジュール、メンテナンス記録、問題レポート、画像、スキャンログ。",
+  "@assetDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
   "assetMovementDeleteAssetMovement": "資産移動を削除",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -2104,6 +2108,10 @@
   "@categoryGoBack": {
     "description": "Go back button label"
   },
+  "categoryDeleteSetNullWarning": "子カテゴリはルートレベルのカテゴリになります。",
+  "@categoryDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting category"
+  },
   "dashboardTotalUsers": "総ユーザー数",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -3101,6 +3109,10 @@
   "@locationPickFromMap": {
     "description": "Button text to pick location from map"
   },
+  "locationDeleteSetNullWarning": "資産の場所がクリアされます。資産移動履歴の場所情報が削除されます。",
+  "@locationDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting location"
+  },
   "maintenanceScheduleDeleteSchedule": "メンテナンススケジュールの削除",
   "maintenanceScheduleDeleteConfirmation": "「{title}」を削除してもよろしいですか？",
   "maintenanceScheduleDeleted": "メンテナンススケジュールを削除しました",
@@ -3303,6 +3315,10 @@
   "maintenanceVendorName": "ベンダー名",
   "@maintenanceVendorName": {
     "description": "Vendor name label"
+  },
+  "maintenanceScheduleDeleteSetNullWarning": "関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。",
+  "@maintenanceScheduleDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   },
   "notificationManagement": "通知管理",
   "@notificationManagement": {
@@ -4367,6 +4383,14 @@
   "userValidationImageOnly": "画像ファイルのみ許可されています",
   "@userValidationImageOnly": {
     "description": "Validation error for non-image files"
+  },
+  "userDeleteCascadeWarning": "これにより、このユーザーに関連するすべての通知も削除されます。",
+  "@userDeleteCascadeWarning": {
+    "description": "Warning message about cascade deletion of related data"
+  },
+  "userDeleteSetNullWarning": "資産の割り当てがクリアされます。移動およびメンテナンス履歴のユーザー情報が削除されます。未解決の問題の解決者情報が削除されます。",
+  "@userDeleteSetNullWarning": {
+    "description": "Warning message about SET NULL behavior when deleting user"
   },
   "adminShellBottomNavDashboard": "ダッシュボード",
   "@adminShellBottomNavDashboard": {
