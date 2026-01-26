@@ -104,7 +104,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
   }
 
-  Future<void> _generateDataMatrix(String assetTag) async {
+  Future<bool> _generateDataMatrix(String assetTag) async {
     try {
       final imageBytes = await _screenshotController.captureFromWidget(
         Container(
@@ -142,9 +142,11 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       });
 
       this.logInfo('Data matrix generated: ${file.path}');
+      return true;
     } catch (e, s) {
       this.logError('Failed to generate data matrix', e, s);
       AppToast.error(context.l10n.assetFailedToGenerateDataMatrix);
+      return false;
     }
   }
 
@@ -350,7 +352,8 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
     }
 
     // * Generate data matrix if not already generated or asset tag changed
-    if (_generatedDataMatrixFile == null ||
+    // * In edit mode, we only regenerate if the tag actually changed (because _handleSubmit is called on every save)
+    if ((!_isEdit && _generatedDataMatrixFile == null) ||
         _dataMatrixPreviewData != assetTag) {
       await _generateDataMatrix(assetTag);
     }
@@ -415,9 +418,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
             ? AssetCondition.values.firstWhere((e) => e.value == condition)
             : null,
         locationId: locationId,
-        dataMatrixImageFile: _dataMatrixPreviewData != widget.asset!.assetTag
-            ? _generatedDataMatrixFile
-            : null,
+        dataMatrixImageFile: _generatedDataMatrixFile,
         assignedTo: assignedTo,
       );
       ref.read(assetsProvider.notifier).updateAsset(params);
@@ -998,7 +999,12 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                       _formKey.currentState?.fields['assetTag']?.value
                           as String?;
                   if (assetTag != null && assetTag.isNotEmpty) {
-                    await _generateDataMatrix(assetTag);
+                    final success = await _generateDataMatrix(assetTag);
+                    if (success && context.mounted) {
+                      AppToast.success(
+                        'Data matrix berhasil di-generate ulang',
+                      );
+                    }
                   } else {
                     AppToast.warning(context.l10n.assetEnterAssetTagFirst);
                   }
