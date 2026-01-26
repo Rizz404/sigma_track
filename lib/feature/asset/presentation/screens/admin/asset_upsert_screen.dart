@@ -95,18 +95,27 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
   final GlobalKey<AppFilePickerState> _filePickerKey =
       GlobalKey<AppFilePickerState>();
 
+  @override
+  void initState() {
+    super.initState();
+    // * Load data matrix preview di edit mode
+    if (_isEdit && widget.asset?.assetTag != null) {
+      _dataMatrixPreviewData = widget.asset!.assetTag;
+    }
+  }
+
   Future<void> _generateDataMatrix(String assetTag) async {
     try {
       final imageBytes = await _screenshotController.captureFromWidget(
         Container(
           width: 420,
           height: 420,
-          color: context.colors.surface,
+          color: Colors.white,
           padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
-              color: context.colors.surfaceVariant,
-              border: Border.all(color: context.colors.border, width: 1),
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade300, width: 1),
             ),
             child: Center(
               child: BarcodeWidget(
@@ -543,12 +552,12 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
           Container(
             width: 420,
             height: 420,
-            color: context.colors.surface,
+            color: Colors.white,
             padding: const EdgeInsets.all(10),
             child: Container(
               decoration: BoxDecoration(
-                color: context.colors.surfaceVariant,
-                border: Border.all(color: context.colors.border, width: 1),
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade300, width: 1),
               ),
               child: Center(
                 child: BarcodeWidget(
@@ -959,7 +968,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                       Container(
                         width: 200,
                         height: 200,
-                        color: context.colors.surface,
+                        color: Colors.white,
                         padding: const EdgeInsets.all(5),
                         child: BarcodeWidget(
                           barcode: Barcode.dataMatrix(),
@@ -1140,19 +1149,27 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                     ),
                     const SizedBox(height: 8),
                   ],
-                  AppText(
-                    context.l10n.assetSelectCategoryFirst,
-                    style: AppTextStyle.bodySmall,
-                    color: context.colors.textSecondary,
-                  ),
-                  const SizedBox(height: 8),
-                  AppButton(
-                    text: 'Generate Asset Tag dan Data Matrix',
-                    variant: AppButtonVariant.outlined,
-                    onPressed: _handleGenerateAssetTag,
-                    leadingIcon: const Icon(Icons.auto_awesome, size: 20),
-                    size: AppButtonSize.small,
-                  ),
+                  if (!_isEdit) ...[
+                    AppText(
+                      context.l10n.assetSelectCategoryFirst,
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                    ),
+                    const SizedBox(height: 8),
+                    AppButton(
+                      text: 'Generate Asset Tag dan Data Matrix',
+                      variant: AppButtonVariant.outlined,
+                      onPressed: _handleGenerateAssetTag,
+                      leadingIcon: const Icon(Icons.auto_awesome, size: 20),
+                      size: AppButtonSize.small,
+                    ),
+                  ] else ...[
+                    AppText(
+                      'Asset tag otomatis di-generate saat kategori berubah',
+                      style: AppTextStyle.bodySmall,
+                      color: context.colors.textSecondary,
+                    ),
+                  ],
                   // * Hidden field for asset tag value
                   AppTextField(
                     name: 'assetTag',

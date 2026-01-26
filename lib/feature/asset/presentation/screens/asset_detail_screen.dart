@@ -476,11 +476,18 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
           if (asset.dataMatrixImageUrl.isNotEmpty) ...[
             const SizedBox(height: 16),
             _buildInfoCard(context.l10n.assetDataMatrixImage, [
-              AppImage(
-                imageUrl: asset.dataMatrixImageUrl,
-                size: ImageSize.fullWidth,
-                shape: ImageShape.rectangle,
-                fit: BoxFit.contain,
+              InkWell(
+                onTap: () => _showFullImage(
+                  asset.dataMatrixImageUrl,
+                  // useWhiteBackground: true,
+                ),
+                borderRadius: BorderRadius.circular(8),
+                child: AppImage(
+                  imageUrl: asset.dataMatrixImageUrl,
+                  size: ImageSize.fullWidth,
+                  shape: ImageShape.rectangle,
+                  fit: BoxFit.contain,
+                ),
               ),
             ]),
           ],
@@ -657,7 +664,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     );
   }
 
-  void _showFullImage(String imageUrl) {
+  void _showFullImage(String imageUrl, {bool useWhiteBackground = false}) {
     showDialog(
       context: context,
       barrierColor: Colors.black,
@@ -680,10 +687,22 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
                       minScale: 0.5,
                       maxScale: 4.0,
                       panEnabled: true,
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        fit: BoxFit.contain,
-                      ),
+                      child: useWhiteBackground
+                          ? Container(
+                              padding: const EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: imageUrl,
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : CachedNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.contain,
+                            ),
                     ),
                   ),
                 ],
