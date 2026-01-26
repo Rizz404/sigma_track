@@ -377,7 +377,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
               fileType: FileType.image,
               allowMultiple: false,
               maxFiles: 1,
-              maxSizeInMB: 5,
+              maxSizeInMB: 10,
               validator: CategoryUpsertValidator.validateImage,
               allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
             ),

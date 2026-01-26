@@ -148,6 +148,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       return;
     }
 
+    // * Tampilkan loading toast
+    AppToast.info('Generating asset tag dan data matrix...');
+
     final tagState = ref.read(getAssetTagNotifier(categoryId).notifier);
     await tagState.refresh();
 
@@ -159,6 +162,9 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
 
       // * Auto-generate data matrix based on asset tag
       await _generateDataMatrix(suggestedTag);
+
+      // * Trigger rebuild untuk tampilkan tag dan data matrix baru
+      setState(() {});
 
       AppToast.success(context.l10n.assetTagGenerated(suggestedTag));
     } else if (state.failure != null) {
@@ -881,40 +887,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               style: AppTextStyle.titleMedium,
               fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 16),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: AppTextField(
-                    name: 'assetTag',
-                    label: context.l10n.assetTag,
-                    placeHolder: context.l10n.assetEnterAssetTag,
-                    // * Don't copy asset tag in copy mode
-                    initialValue: _isCopyMode ? null : widget.asset?.assetTag,
-                    enabled: !_enableBulkCopy,
-                    validator: (value) => AssetUpsertValidator.validateAssetTag(
-                      context,
-                      value,
-                      isUpdate: _isEdit,
-                      isBulkCopy: _enableBulkCopy,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  onPressed: _enableBulkCopy ? null : _handleGenerateAssetTag,
-                  icon: const Icon(Icons.auto_awesome),
-                  tooltip: _enableBulkCopy
-                      ? context.l10n.assetAutoGenerationDisabled
-                      : context.l10n.assetAutoGenerateAssetTag,
-                  style: IconButton.styleFrom(
-                    backgroundColor: context.colorScheme.primaryContainer,
-                    foregroundColor: context.colorScheme.onPrimaryContainer,
-                  ),
-                ),
-              ],
-            ),
+
             const SizedBox(height: 16),
             AppTextField(
               name: 'assetName',
@@ -972,35 +945,38 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 fontWeight: FontWeight.w600,
               ),
               const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: context.colors.surface,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: context.colors.border),
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 200,
-                      height: 200,
-                      color: context.colors.surface,
-                      padding: const EdgeInsets.all(5),
-                      child: BarcodeWidget(
-                        barcode: Barcode.dataMatrix(),
-                        data: _dataMatrixPreviewData!,
-                        width: 190,
-                        height: 190,
-                        drawText: false,
+              Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 280),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: context.colors.surface,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: context.colors.border),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 200,
+                        height: 200,
+                        color: context.colors.surface,
+                        padding: const EdgeInsets.all(5),
+                        child: BarcodeWidget(
+                          barcode: Barcode.dataMatrix(),
+                          data: _dataMatrixPreviewData!,
+                          width: 190,
+                          height: 190,
+                          drawText: false,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    AppText(
-                      _dataMatrixPreviewData!,
-                      style: AppTextStyle.bodySmall,
-                      color: context.colors.textSecondary,
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      AppText(
+                        _dataMatrixPreviewData!,
+                        style: AppTextStyle.bodySmall,
+                        color: context.colors.textSecondary,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -1077,11 +1053,123 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 value,
                 isUpdate: _isEdit,
               ),
-              onChanged: (category) {
-                // Optional: handle category change
+              onChanged: (category) async {
+                // * Auto-generate asset tag saat kategori berubah (untuk edit mode)
+                if (_isEdit && category != null) {
+                  final originalCategoryId = widget.asset?.category?.id;
+                  final newCategoryId = category.id;
+
+                  // * Cek apakah kategori benar-benar berubah
+                  if (originalCategoryId != newCategoryId) {
+                    // * Auto-generate asset tag dengan kategori baru
+                    final tagState = ref.read(
+                      getAssetTagNotifier(newCategoryId).notifier,
+                    );
+                    await tagState.refresh();
+
+                    final state = ref.read(getAssetTagNotifier(newCategoryId));
+
+                    if (state.generateAssetTagResponse != null) {
+                      final suggestedTag =
+                          state.generateAssetTagResponse!.suggestedTag;
+                      _formKey.currentState?.fields['assetTag']?.didChange(
+                        suggestedTag,
+                      );
+
+                      // * Auto-generate data matrix based on new asset tag
+                      await _generateDataMatrix(suggestedTag);
+
+                      AppToast.success(
+                        context.l10n.assetTagGenerated(suggestedTag),
+                      );
+
+                      // * Trigger rebuild untuk tampilkan tag baru
+                      setState(() {});
+                    } else if (state.failure != null) {
+                      AppToast.error(
+                        state.failure?.message ??
+                            context.l10n.assetFailedToGenerateTag,
+                      );
+                    }
+                  }
+                }
               },
             ),
             const SizedBox(height: 16),
+            // * Asset Tag Generator (after category selection)
+            if (!_enableBulkCopy) ...[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    context.l10n.assetTag,
+                    style: AppTextStyle.bodyMedium,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  const SizedBox(height: 8),
+                  if (_formKey.currentState?.fields['assetTag']?.value !=
+                          null &&
+                      (_formKey.currentState!.fields['assetTag']!.value
+                              as String)
+                          .isNotEmpty) ...[
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: context.colors.surfaceVariant,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: context.colors.border),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.qr_code_2,
+                            color: context.colors.primary,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: AppText(
+                              _formKey.currentState!.fields['assetTag']!.value
+                                  as String,
+                              style: AppTextStyle.bodyMedium,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                  AppText(
+                    context.l10n.assetSelectCategoryFirst,
+                    style: AppTextStyle.bodySmall,
+                    color: context.colors.textSecondary,
+                  ),
+                  const SizedBox(height: 8),
+                  AppButton(
+                    text: 'Generate Asset Tag dan Data Matrix',
+                    variant: AppButtonVariant.outlined,
+                    onPressed: _handleGenerateAssetTag,
+                    leadingIcon: const Icon(Icons.auto_awesome, size: 20),
+                    size: AppButtonSize.small,
+                  ),
+                  // * Hidden field for asset tag value
+                  AppTextField(
+                    name: 'assetTag',
+                    label: '',
+                    type: AppTextFieldType.hidden,
+                    initialValue: _isCopyMode ? null : widget.asset?.assetTag,
+                    validator: (value) => AssetUpsertValidator.validateAssetTag(
+                      context,
+                      value,
+                      isUpdate: _isEdit,
+                      isBulkCopy: _enableBulkCopy,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            const SizedBox(height: 24),
             if (_isEdit) ...[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1597,7 +1685,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                 fileType: FileType.image,
                 allowMultiple: true,
                 maxFiles: 5,
-                maxSizeInMB: 5,
+                maxSizeInMB: 10,
                 onFilesChanged: (files) {
                   setState(() => _selectedImageFiles = files);
                 },
@@ -1960,7 +2048,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
                   fileType: FileType.image,
                   allowMultiple: true,
                   maxFiles: 5,
-                  maxSizeInMB: 5,
+                  maxSizeInMB: 10,
                   onFilesChanged: (files) {
                     setState(() => _selectedImageFiles = files);
                   },

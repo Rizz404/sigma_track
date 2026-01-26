@@ -12,6 +12,7 @@ enum AppTextFieldType {
   price,
   url,
   multiline,
+  hidden, // * Hidden field untuk form validation tanpa UI visible
 }
 
 class AppTextField extends StatefulWidget {
@@ -60,9 +61,29 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final isPassword = widget.type == AppTextFieldType.password;
+    final isHidden = widget.type == AppTextFieldType.hidden;
     final isMultiline =
         widget.type == AppTextFieldType.multiline ||
         (widget.maxLines != null && widget.maxLines! > 1);
+
+    // * Return invisible field untuk hidden type
+    if (isHidden) {
+      return SizedBox(
+        height: 0,
+        child: FormBuilderTextField(
+          name: widget.name,
+          initialValue: widget.initialValue,
+          validator: widget.validator,
+          onChanged: widget.onChanged,
+          style: const TextStyle(height: 0, fontSize: 0),
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.zero,
+            constraints: BoxConstraints(maxHeight: 0, maxWidth: 0),
+          ),
+        ),
+      );
+    }
 
     // Menentukan keyboard type berdasarkan enum
     TextInputType getKeyboardType() {

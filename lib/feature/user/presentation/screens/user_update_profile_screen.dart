@@ -230,7 +230,7 @@ class _UserUpdateProfileScreenState
               fileType: FileType.image,
               allowMultiple: false,
               maxFiles: 1,
-              maxSizeInMB: 5,
+              maxSizeInMB: 10,
               validator: (files) =>
                   UserUpdateProfileValidator.validateAvatar(context, files),
               allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
