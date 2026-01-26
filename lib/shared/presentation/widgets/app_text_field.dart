@@ -147,9 +147,17 @@ class _AppTextFieldState extends State<AppTextField> {
       }
     }
 
+    // * Format initial value untuk price field
+    String? formattedInitialValue = widget.initialValue;
+    if (widget.type == AppTextFieldType.price && widget.initialValue != null) {
+      formattedInitialValue = _IDRPriceFormatter.formatPrice(
+        widget.initialValue!,
+      );
+    }
+
     return FormBuilderTextField(
       name: widget.name,
-      initialValue: widget.initialValue,
+      initialValue: formattedInitialValue,
       maxLines: isPassword ? 1 : (widget.maxLines ?? (isMultiline ? 5 : 1)),
       obscureText: isPassword ? _obscureText : false,
       keyboardType: getKeyboardType(),
@@ -213,6 +221,17 @@ class _AppTextFieldState extends State<AppTextField> {
 
 // Custom formatter untuk harga IDR (format: 1.000.000)
 class _IDRPriceFormatter extends TextInputFormatter {
+  // * Static method untuk format initial value
+  static String formatPrice(String value) {
+    if (value.isEmpty) return value;
+
+    // * Remove semua non-digit characters (termasuk titik dan decimal point)
+    final digitsOnly = value.replaceAll(RegExp(r'[^\d]'), '');
+    if (digitsOnly.isEmpty) return '';
+
+    return _addDots(digitsOnly);
+  }
+
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
@@ -231,7 +250,7 @@ class _IDRPriceFormatter extends TextInputFormatter {
     );
   }
 
-  String _addDots(String value) {
+  static String _addDots(String value) {
     if (value.length <= 3) return value;
 
     String result = '';
