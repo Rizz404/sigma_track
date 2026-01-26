@@ -241,12 +241,39 @@ class _IDRPriceFormatter extends TextInputFormatter {
       return newValue;
     }
 
-    String digitsOnly = newValue.text.replaceAll('.', '');
+    // * Fix cursor jumping issue
+    // 1. Hitung jumlah digit di sebelah kiri cursor pada newValue
+    String newText = newValue.text;
+    int cursorIndex = newValue.selection.end;
+
+    int digitsBeforeCursor = 0;
+    for (int i = 0; i < cursorIndex && i < newText.length; i++) {
+      if (RegExp(r'\d').hasMatch(newText[i])) {
+        digitsBeforeCursor++;
+      }
+    }
+
+    // 2. Format ulang text (hanya digit)
+    String digitsOnly = newText.replaceAll(RegExp(r'[^\d]'), '');
     String formatted = _addDots(digitsOnly);
+
+    // 3. Cari posisi cursor baru di string formatted
+    int newCursorIndex = 0;
+    int digitsEncountered = 0;
+
+    for (int i = 0; i < formatted.length; i++) {
+      if (digitsEncountered == digitsBeforeCursor) {
+        break;
+      }
+      if (RegExp(r'\d').hasMatch(formatted[i])) {
+        digitsEncountered++;
+      }
+      newCursorIndex++;
+    }
 
     return TextEditingValue(
       text: formatted,
-      selection: TextSelection.collapsed(offset: formatted.length),
+      selection: TextSelection.collapsed(offset: newCursorIndex),
     );
   }
 

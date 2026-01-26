@@ -484,7 +484,7 @@ class _MaintenanceScheduleUpsertScreenState
               name: 'estimatedCost',
               label: context.l10n.maintenanceScheduleEstimatedCost,
               placeHolder: context.l10n.maintenanceScheduleEnterEstimatedCost,
-              initialValue: _sourceSchedule?.estimatedCost?.toString(),
+              initialValue: _sourceSchedule?.estimatedCost?.toInt().toString(),
               type: AppTextFieldType.price,
               validator: (value) =>
                   MaintenanceScheduleUpsertValidator.validateEstimatedCost(

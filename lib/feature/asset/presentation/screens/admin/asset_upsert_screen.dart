@@ -1344,7 +1344,7 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
               label: context.l10n.assetPurchasePrice,
               placeHolder: context.l10n.assetEnterPurchasePrice,
               type: AppTextFieldType.price,
-              initialValue: _sourceAsset?.purchasePrice?.toString(),
+              initialValue: _sourceAsset?.purchasePrice?.toInt().toString(),
               validator: (value) => AssetUpsertValidator.validatePurchasePrice(
                 context,
                 value,

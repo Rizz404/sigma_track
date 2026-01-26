@@ -485,7 +485,7 @@ class _MaintenanceRecordUpsertScreenState
               name: 'actualCost',
               label: context.l10n.maintenanceRecordActualCostLabel,
               placeHolder: context.l10n.maintenanceRecordEnterActualCost,
-              initialValue: _sourceRecord?.actualCost?.toString(),
+              initialValue: _sourceRecord?.actualCost?.toInt().toString(),
               type: AppTextFieldType.price,
               validator: (value) =>
                   MaintenanceRecordUpsertValidator.validateActualCost(
