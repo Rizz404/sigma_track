@@ -12,6 +12,8 @@ import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/core/utils/toast_utils.dart';
+import 'package:sigma_track/core/domain/failure.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_error_state.dart';
 import 'package:sigma_track/feature/asset/domain/entities/asset.dart';
 import 'package:sigma_track/feature/asset/presentation/providers/asset_providers.dart';
 import 'package:sigma_track/feature/scan_log/domain/entities/scan_log.dart';
@@ -502,6 +504,8 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
                 color: context.colorScheme.primary,
                 child: state.isLoading
                     ? _buildLoadingState(context)
+                    : state.failure != null
+                    ? _buildErrorState(context, state.failure!)
                     : state.scanLogs.isEmpty
                     ? _buildEmptyState(context)
                     : _buildScanLogsList(state.scanLogs, state.isLoadingMore),
@@ -681,6 +685,14 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildErrorState(BuildContext context, Failure failure) {
+    return AppErrorState(
+      title: 'Gagal Memuat Data',
+      description: failure.message,
+      onRetry: _onRefresh,
     );
   }
 }

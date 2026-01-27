@@ -7,6 +7,7 @@ import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_personal_statistics.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_error_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -35,33 +36,54 @@ class HomeScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSummaryCards(context, stats.statistics, stats.isLoading),
-                const SizedBox(height: 24),
-                _buildAssetConditionPieChart(
-                  context,
-                  stats.statistics,
-                  stats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildAssetConditionBarChart(
-                  context,
-                  stats.statistics,
-                  stats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildIssueReportStatusChart(
-                  context,
-                  stats.statistics,
-                  stats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildIssueReportPriorityChart(
-                  context,
-                  stats.statistics,
-                  stats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildSummaryInfo(context, stats.statistics, stats.isLoading),
+                // * hanya tampilkan widget jika loading atau ada data
+                if (stats.isLoading || stats.statistics != null) ...[
+                  _buildSummaryCards(
+                    context,
+                    stats.statistics,
+                    stats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetConditionPieChart(
+                    context,
+                    stats.statistics,
+                    stats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetConditionBarChart(
+                    context,
+                    stats.statistics,
+                    stats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildIssueReportStatusChart(
+                    context,
+                    stats.statistics,
+                    stats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildIssueReportPriorityChart(
+                    context,
+                    stats.statistics,
+                    stats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildSummaryInfo(context, stats.statistics, stats.isLoading),
+                ]
+                // * tampilkan error UI jika ada failure dan data null
+                else if (stats.failure != null && stats.statistics == null) ...[
+                  AppErrorState(
+                    title: 'Gagal Memuat Data',
+                    description: stats.failure!.message,
+                    icon: Icons.cloud_off_outlined,
+                    onRetry: () async {
+                      await ref
+                          .read(userPersonalStatisticsNotifierProvider.notifier)
+                          .refresh();
+                    },
+                    retryButtonText: 'Coba Lagi',
+                  ),
+                ],
               ],
             ),
           ),
