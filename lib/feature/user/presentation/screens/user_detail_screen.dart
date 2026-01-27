@@ -303,7 +303,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             _buildInfoRow(context.l10n.userName, user.name),
             _buildInfoRow(context.l10n.userEmail, user.email),
             _buildInfoRow(context.l10n.userFullName, user.fullName),
-            _buildInfoRow(context.l10n.userRole, user.role.value),
+            _buildInfoRow(context.l10n.userRole, user.role.label),
             _buildInfoRow(context.l10n.userEmployeeId, user.employeeId ?? '-'),
             _buildInfoRow(
               context.l10n.userPreferredLang,

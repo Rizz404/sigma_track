@@ -108,8 +108,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
-                              maintenanceSchedule.maintenanceType.name
-                                  .toUpperCase(),
+                              maintenanceSchedule.maintenanceType.label,
                               style: AppTextStyle.labelSmall,
                               color: context.semantic.info,
                               fontWeight: FontWeight.w600,
@@ -147,7 +146,7 @@ class MaintenanceScheduleTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        maintenanceSchedule.state.value.toUpperCase(),
+                        maintenanceSchedule.state.label,
                         style: AppTextStyle.labelSmall,
                         color: _getStateColor(
                           context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 
 enum Language {
   english('en'),
@@ -36,7 +37,17 @@ enum Language {
   }
 
   // * Dropdown helper
-  String get label => mobileCode;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case Language.english:
+        return l10n.enumLanguageEnglish;
+      case Language.japanese:
+        return l10n.enumLanguageJapanese;
+      case Language.indonesian:
+        return l10n.enumLanguageIndonesian;
+    }
+  }
 
   IconData get icon {
     switch (this) {

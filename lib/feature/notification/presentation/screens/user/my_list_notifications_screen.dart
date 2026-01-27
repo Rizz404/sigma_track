@@ -182,7 +182,7 @@ class _MyListNotificationsScreenState
                             .map(
                               (sortBy) => AppDropdownItem(
                                 value: sortBy.value,
-                                label: sortBy.value,
+                                label: sortBy.label,
                               ),
                             )
                             .toList(),

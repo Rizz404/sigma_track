@@ -1,6 +1,36 @@
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/l10n/app_localizations.dart';
+
 extension DateTimeExtension on DateTime {
   /// Get relative time string (e.g., "2 hours ago", "just now")
   String get timeAgo {
+    try {
+      final l10n = LocalizationExtension.current;
+      final now = DateTime.now();
+      final difference = now.difference(this);
+
+      if (difference.inDays > 365) {
+        final years = (difference.inDays / 365).floor();
+        return l10n.timeAgoYear(years);
+      } else if (difference.inDays > 30) {
+        final months = (difference.inDays / 30).floor();
+        return l10n.timeAgoMonth(months);
+      } else if (difference.inDays > 0) {
+        return l10n.timeAgoDay(difference.inDays);
+      } else if (difference.inHours > 0) {
+        return l10n.timeAgoHour(difference.inHours);
+      } else if (difference.inMinutes > 0) {
+        return l10n.timeAgoMinute(difference.inMinutes);
+      } else {
+        return l10n.timeAgoJustNow;
+      }
+    } catch (_) {
+      // Fallback if context/l10n not available
+      return _defaultTimeAgo;
+    }
+  }
+
+  String get _defaultTimeAgo {
     final now = DateTime.now();
     final difference = now.difference(this);
 
@@ -28,22 +58,43 @@ extension DateTimeExtension on DateTime {
   }
 
   /// Format date as "MMM dd, yyyy" (e.g., "Jan 15, 2024")
+  /// Format date as "MMM dd, yyyy" (e.g., "Jan 15, 2024")
   String get formattedDate {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[month - 1]} $day, $year';
+    try {
+      final l10n = LocalizationExtension.current;
+      final months = [
+        l10n.monthJan,
+        l10n.monthFeb,
+        l10n.monthMar,
+        l10n.monthApr,
+        l10n.monthMay,
+        l10n.monthJun,
+        l10n.monthJul,
+        l10n.monthAug,
+        l10n.monthSep,
+        l10n.monthOct,
+        l10n.monthNov,
+        l10n.monthDec,
+      ];
+      return '${months[month - 1]} $day, $year';
+    } catch (_) {
+      // Fallback english
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      return '${months[month - 1]} $day, $year';
+    }
   }
 
   /// Format time as "HH:mm" (e.g., "14:30")
@@ -74,16 +125,30 @@ extension DateTimeExtension on DateTime {
 
   /// Get day name (e.g., "Monday")
   String get dayName {
-    const days = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-    return days[weekday - 1];
+    try {
+      final l10n = LocalizationExtension.current;
+      final days = [
+        l10n.dayMon,
+        l10n.dayTue,
+        l10n.dayWed,
+        l10n.dayThu,
+        l10n.dayFri,
+        l10n.daySat,
+        l10n.daySun,
+      ];
+      return days[weekday - 1];
+    } catch (_) {
+      const days = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ];
+      return days[weekday - 1];
+    }
   }
 
   /// Format as ISO 8601 string (e.g., "1969-07-20T20:18:04.000Z")

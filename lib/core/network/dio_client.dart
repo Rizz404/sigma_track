@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sigma_track/core/constants/api_constant.dart';
 import 'package:sigma_track/core/network/interceptors/auth_interceptor.dart';
 import 'package:sigma_track/core/network/interceptors/locale_interceptor.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/l10n/app_localizations.dart';
 import 'package:sigma_track/core/network/interceptors/network_error_interceptor.dart';
 import 'package:sigma_track/core/network/models/api_cursor_pagination_response.dart';
 import 'package:sigma_track/core/network/models/api_error_response.dart';
@@ -77,8 +79,13 @@ class DioClient {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
-          message:
-              'Server returned HTML instead of JSON. Check API endpoint: $path',
+          message: (() {
+            try {
+              return LocalizationExtension.current.networkErrorHtmlResponse;
+            } catch (_) {
+              return 'Server returned HTML instead of JSON. Check API endpoint: $path';
+            }
+          })(),
         );
       }
 
@@ -113,8 +120,13 @@ class DioClient {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
-          message:
-              'Server returned HTML instead of JSON. Check API endpoint: $path',
+          message: (() {
+            try {
+              return LocalizationExtension.current.networkErrorHtmlResponse;
+            } catch (_) {
+              return 'Server returned HTML instead of JSON. Check API endpoint: $path';
+            }
+          })(),
         );
       }
 
@@ -149,8 +161,13 @@ class DioClient {
         throw DioException(
           requestOptions: response.requestOptions,
           response: response,
-          message:
-              'Server returned HTML instead of JSON. Check API endpoint: $path',
+          message: (() {
+            try {
+              return LocalizationExtension.current.networkErrorHtmlResponse;
+            } catch (_) {
+              return 'Server returned HTML instead of JSON. Check API endpoint: $path';
+            }
+          })(),
         );
       }
 
@@ -292,7 +309,13 @@ class DioClient {
       // * Untuk binary response, langsung return data tanpa parse JSON
       return ApiResponse<T>(
         status: 'success',
-        message: 'File downloaded successfully',
+        message: (() {
+          try {
+            return LocalizationExtension.current.networkErrorFileDownloaded;
+          } catch (_) {
+            return 'File downloaded successfully';
+          }
+        })(),
         data: fromData(response.data),
       );
     } on DioException catch (e) {
@@ -304,6 +327,16 @@ class DioClient {
   ApiErrorResponse _handleError(DioException error) {
     final errorMessage = error.message ?? 'Network error occurred';
 
+    // Helper to get l10n string safely
+    String getL10nString(String Function(L10n) callback, String fallback) {
+      try {
+        final l10n = LocalizationExtension.current;
+        return callback(l10n);
+      } catch (_) {
+        return fallback;
+      }
+    }
+
     if (error.response != null && error.response!.data != null) {
       try {
         if (error.response!.data is String &&
@@ -311,10 +344,12 @@ class DioClient {
                   '<!DOCTYPE html>',
                 ) ==
                 true) {
-          return const ApiErrorResponse(
+          return ApiErrorResponse(
             status: 'error',
-            message:
-                'Server returned HTML instead of JSON. Check API endpoint configuration.',
+            message: getL10nString(
+              (l) => l.networkErrorHtmlResponse,
+              'Server returned HTML instead of JSON. Check API endpoint configuration.',
+            ),
           );
         }
 
@@ -324,7 +359,12 @@ class DioClient {
       } catch (e) {
         return ApiErrorResponse(
           status: 'error',
-          message: error.response!.statusMessage ?? 'Unknown error occurred',
+          message:
+              error.response!.statusMessage ??
+              getL10nString(
+                (l) => l.networkErrorUnknown,
+                'Unknown error occurred',
+              ),
         );
       }
     } else {

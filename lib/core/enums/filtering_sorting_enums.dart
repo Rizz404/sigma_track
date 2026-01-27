@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 
 enum SortOrder {
   asc('asc'),
@@ -8,7 +9,15 @@ enum SortOrder {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case SortOrder.asc:
+        return l10n.enumSortOrderAsc;
+      case SortOrder.desc:
+        return l10n.enumSortOrderDesc;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -31,7 +40,21 @@ enum CategorySortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case CategorySortBy.categoryCode:
+        return l10n.enumCategorySortByCategoryCode;
+      case CategorySortBy.name:
+        return l10n.enumCategorySortByName;
+      case CategorySortBy.categoryName:
+        return l10n.enumCategorySortByCategoryName;
+      case CategorySortBy.createdAt:
+        return l10n.enumCategorySortByCreatedAt;
+      case CategorySortBy.updatedAt:
+        return l10n.enumCategorySortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -61,7 +84,25 @@ enum LocationSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case LocationSortBy.locationCode:
+        return l10n.enumLocationSortByLocationCode;
+      case LocationSortBy.name:
+        return l10n.enumLocationSortByName;
+      case LocationSortBy.locationName:
+        return l10n.enumLocationSortByLocationName;
+      case LocationSortBy.building:
+        return l10n.enumLocationSortByBuilding;
+      case LocationSortBy.floor:
+        return l10n.enumLocationSortByFloor;
+      case LocationSortBy.createdAt:
+        return l10n.enumLocationSortByCreatedAt;
+      case LocationSortBy.updatedAt:
+        return l10n.enumLocationSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -93,7 +134,21 @@ enum NotificationSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case NotificationSortBy.type:
+        return l10n.enumNotificationSortByType;
+      case NotificationSortBy.isRead:
+        return l10n.enumNotificationSortByIsRead;
+      case NotificationSortBy.createdAt:
+        return l10n.enumNotificationSortByCreatedAt;
+      case NotificationSortBy.title:
+        return l10n.enumNotificationSortByTitle;
+      case NotificationSortBy.message:
+        return l10n.enumNotificationSortByMessage;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -121,7 +176,19 @@ enum ScanLogSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case ScanLogSortBy.scanTimestamp:
+        return l10n.enumScanLogSortByScanTimestamp;
+      case ScanLogSortBy.scannedValue:
+        return l10n.enumScanLogSortByScannedValue;
+      case ScanLogSortBy.scanMethod:
+        return l10n.enumScanLogSortByScanMethod;
+      case ScanLogSortBy.scanResult:
+        return l10n.enumScanLogSortByScanResult;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -156,7 +223,37 @@ enum AssetSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case AssetSortBy.assetTag:
+        return l10n.enumAssetSortByAssetTag;
+      case AssetSortBy.assetName:
+        return l10n.enumAssetSortByAssetName;
+      case AssetSortBy.brand:
+        return l10n.enumAssetSortByBrand;
+      case AssetSortBy.model:
+        return l10n.enumAssetSortByModel;
+      case AssetSortBy.serialNumber:
+        return l10n.enumAssetSortBySerialNumber;
+      case AssetSortBy.purchaseDate:
+        return l10n.enumAssetSortByPurchaseDate;
+      case AssetSortBy.purchasePrice:
+        return l10n.enumAssetSortByPurchasePrice;
+      case AssetSortBy.vendorName:
+        return l10n.enumAssetSortByVendorName;
+      case AssetSortBy.warrantyEnd:
+        return l10n.enumAssetSortByWarrantyEnd;
+      case AssetSortBy.status:
+        return l10n.enumAssetSortByStatus;
+      case AssetSortBy.conditionStatus:
+        return l10n.enumAssetSortByConditionStatus;
+      case AssetSortBy.createdAt:
+        return l10n.enumAssetSortByCreatedAt;
+      case AssetSortBy.updatedAt:
+        return l10n.enumAssetSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -202,7 +299,20 @@ enum AssetMovementSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case AssetMovementSortBy.movementDate:
+      case AssetMovementSortBy.movementdate:
+        return l10n.enumAssetMovementSortByMovementDate;
+      case AssetMovementSortBy.createdAt:
+      case AssetMovementSortBy.createdat:
+        return l10n.enumAssetMovementSortByCreatedAt;
+      case AssetMovementSortBy.updatedAt:
+      case AssetMovementSortBy.updatedat:
+        return l10n.enumAssetMovementSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -234,7 +344,29 @@ enum IssueReportSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case IssueReportSortBy.reportedDate:
+        return l10n.enumIssueReportSortByReportedDate;
+      case IssueReportSortBy.resolvedDate:
+        return l10n.enumIssueReportSortByResolvedDate;
+      case IssueReportSortBy.issueType:
+        return l10n.enumIssueReportSortByIssueType;
+      case IssueReportSortBy.priority:
+        return l10n.enumIssueReportSortByPriority;
+      case IssueReportSortBy.status:
+        return l10n.enumIssueReportSortByStatus;
+      case IssueReportSortBy.title:
+        return l10n.enumIssueReportSortByTitle;
+      case IssueReportSortBy.description:
+        return l10n.enumIssueReportSortByDescription;
+      case IssueReportSortBy.createdAt:
+        return l10n.enumIssueReportSortByCreatedAt;
+      case IssueReportSortBy.updatedAt:
+        return l10n.enumIssueReportSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -271,7 +403,21 @@ enum MaintenanceScheduleSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case MaintenanceScheduleSortBy.nextScheduledDate:
+        return l10n.enumMaintenanceScheduleSortByNextScheduledDate;
+      case MaintenanceScheduleSortBy.maintenanceType:
+        return l10n.enumMaintenanceScheduleSortByMaintenanceType;
+      case MaintenanceScheduleSortBy.state:
+        return l10n.enumMaintenanceScheduleSortByState;
+      case MaintenanceScheduleSortBy.createdAt:
+        return l10n.enumMaintenanceScheduleSortByCreatedAt;
+      case MaintenanceScheduleSortBy.updatedAt:
+        return l10n.enumMaintenanceScheduleSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -300,7 +446,21 @@ enum MaintenanceRecordSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case MaintenanceRecordSortBy.maintenanceDate:
+        return l10n.enumMaintenanceRecordSortByMaintenanceDate;
+      case MaintenanceRecordSortBy.actualCost:
+        return l10n.enumMaintenanceRecordSortByActualCost;
+      case MaintenanceRecordSortBy.title:
+        return l10n.enumMaintenanceRecordSortByTitle;
+      case MaintenanceRecordSortBy.createdAt:
+        return l10n.enumMaintenanceRecordSortByCreatedAt;
+      case MaintenanceRecordSortBy.updatedAt:
+        return l10n.enumMaintenanceRecordSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -332,7 +492,27 @@ enum UserSortBy {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case UserSortBy.name:
+        return l10n.enumUserSortByName;
+      case UserSortBy.fullName:
+        return l10n.enumUserSortByFullName;
+      case UserSortBy.email:
+        return l10n.enumUserSortByEmail;
+      case UserSortBy.role:
+        return l10n.enumUserSortByRole;
+      case UserSortBy.employeeId:
+        return l10n.enumUserSortByEmployeeId;
+      case UserSortBy.isActive:
+        return l10n.enumUserSortByIsActive;
+      case UserSortBy.createdAt:
+        return l10n.enumUserSortByCreatedAt;
+      case UserSortBy.updatedAt:
+        return l10n.enumUserSortByUpdatedAt;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -364,7 +544,15 @@ enum ExportFormat {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case ExportFormat.pdf:
+        return l10n.enumExportFormatPdf;
+      case ExportFormat.excel:
+        return l10n.enumExportFormatExcel;
+    }
+  }
 
   IconData get icon {
     switch (this) {

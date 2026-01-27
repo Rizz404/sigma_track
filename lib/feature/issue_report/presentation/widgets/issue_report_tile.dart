@@ -113,7 +113,7 @@ class IssueReportTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
-                              issueReport.priority.name.toUpperCase(),
+                              issueReport.priority.label,
                               style: AppTextStyle.labelSmall,
                               color: _getPriorityColor(
                                 context,
@@ -150,7 +150,7 @@ class IssueReportTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        issueReport.status.name.toUpperCase(),
+                        issueReport.status.label,
                         style: AppTextStyle.labelSmall,
                         color: _getStatusColor(context, issueReport.status),
                         fontWeight: FontWeight.w600,

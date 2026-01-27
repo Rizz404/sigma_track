@@ -129,7 +129,7 @@ class UserTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        user.role.name.toUpperCase(),
+                        user.role.label,
                         style: AppTextStyle.labelSmall,
                         color: _getRoleColor(context, user.role),
                         fontWeight: FontWeight.w600,

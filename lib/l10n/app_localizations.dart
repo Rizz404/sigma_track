@@ -99,6 +99,1008 @@ abstract class L10n {
     Locale('ja'),
   ];
 
+  /// No description provided for @networkErrorDnsFailureUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot connect to server.\n• Check your internet connection\n• Disable VPN/DNS if active\n• Try again in a moment'**
+  String get networkErrorDnsFailureUser;
+
+  /// No description provided for @networkErrorConnectionUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost.\n• Check your internet connection\n• Ensure WiFi/data is active\n• Try again in a moment'**
+  String get networkErrorConnectionUser;
+
+  /// No description provided for @networkErrorTimeoutUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection timeout.\n• Check your internet speed\n• Try again in a moment\n• Contact admin if problem persists'**
+  String get networkErrorTimeoutUser;
+
+  /// No description provided for @networkErrorReceiveTimeoutUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Server took too long to respond.\n• Your internet connection might be slow\n• Try again in a moment\n• Contact admin if problem persists'**
+  String get networkErrorReceiveTimeoutUser;
+
+  /// No description provided for @networkErrorServerUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error occurred.\n• Try again in a moment\n• Contact admin if problem persists'**
+  String get networkErrorServerUser;
+
+  /// No description provided for @networkErrorServer502User.
+  ///
+  /// In en, this message translates to:
+  /// **'Server unreachable.\n• Server might be under maintenance\n• Try again in a moment\n• Contact admin if problem persists'**
+  String get networkErrorServer502User;
+
+  /// No description provided for @networkErrorServer503User.
+  ///
+  /// In en, this message translates to:
+  /// **'Service under maintenance.\n• Wait a moment\n• Try again later\n• Contact admin for more info'**
+  String get networkErrorServer503User;
+
+  /// No description provided for @networkErrorServer504User.
+  ///
+  /// In en, this message translates to:
+  /// **'Server timeout.\n• Server is busy\n• Try again in a moment\n• Contact admin if problem persists'**
+  String get networkErrorServer504User;
+
+  /// No description provided for @networkErrorHtmlResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Server returned HTML instead of JSON. Check API endpoint configuration.'**
+  String get networkErrorHtmlResponse;
+
+  /// No description provided for @networkErrorFileDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'File downloaded successfully'**
+  String get networkErrorFileDownloaded;
+
+  /// No description provided for @networkErrorUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown error occurred'**
+  String get networkErrorUnknown;
+
+  /// No description provided for @timeAgoJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get timeAgoJustNow;
+
+  /// No description provided for @timeAgoMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 minute ago} other{{count} minutes ago}}'**
+  String timeAgoMinute(int count);
+
+  /// No description provided for @timeAgoHour.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 hour ago} other{{count} hours ago}}'**
+  String timeAgoHour(int count);
+
+  /// No description provided for @timeAgoDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day ago} other{{count} days ago}}'**
+  String timeAgoDay(int count);
+
+  /// No description provided for @timeAgoMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month ago} other{{count} months ago}}'**
+  String timeAgoMonth(int count);
+
+  /// No description provided for @timeAgoYear.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 year ago} other{{count} years ago}}'**
+  String timeAgoYear(int count);
+
+  /// No description provided for @monthJan.
+  ///
+  /// In en, this message translates to:
+  /// **'Jan'**
+  String get monthJan;
+
+  /// No description provided for @monthFeb.
+  ///
+  /// In en, this message translates to:
+  /// **'Feb'**
+  String get monthFeb;
+
+  /// No description provided for @monthMar.
+  ///
+  /// In en, this message translates to:
+  /// **'Mar'**
+  String get monthMar;
+
+  /// No description provided for @monthApr.
+  ///
+  /// In en, this message translates to:
+  /// **'Apr'**
+  String get monthApr;
+
+  /// No description provided for @monthMay.
+  ///
+  /// In en, this message translates to:
+  /// **'May'**
+  String get monthMay;
+
+  /// No description provided for @monthJun.
+  ///
+  /// In en, this message translates to:
+  /// **'Jun'**
+  String get monthJun;
+
+  /// No description provided for @monthJul.
+  ///
+  /// In en, this message translates to:
+  /// **'Jul'**
+  String get monthJul;
+
+  /// No description provided for @monthAug.
+  ///
+  /// In en, this message translates to:
+  /// **'Aug'**
+  String get monthAug;
+
+  /// No description provided for @monthSep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sep'**
+  String get monthSep;
+
+  /// No description provided for @monthOct.
+  ///
+  /// In en, this message translates to:
+  /// **'Oct'**
+  String get monthOct;
+
+  /// No description provided for @monthNov.
+  ///
+  /// In en, this message translates to:
+  /// **'Nov'**
+  String get monthNov;
+
+  /// No description provided for @monthDec.
+  ///
+  /// In en, this message translates to:
+  /// **'Dec'**
+  String get monthDec;
+
+  /// No description provided for @dayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get dayMon;
+
+  /// No description provided for @dayTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get dayTue;
+
+  /// No description provided for @dayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get dayWed;
+
+  /// No description provided for @dayThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get dayThu;
+
+  /// No description provided for @dayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get dayFri;
+
+  /// No description provided for @daySat.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get daySat;
+
+  /// No description provided for @daySun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get daySun;
+
+  /// No description provided for @currencyBillionSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'B'**
+  String get currencyBillionSuffix;
+
+  /// No description provided for @currencyMillionSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'M'**
+  String get currencyMillionSuffix;
+
+  /// No description provided for @currencyThousandSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'K'**
+  String get currencyThousandSuffix;
+
+  /// Sort order ascending
+  ///
+  /// In en, this message translates to:
+  /// **'Ascending'**
+  String get enumSortOrderAsc;
+
+  /// Sort order descending
+  ///
+  /// In en, this message translates to:
+  /// **'Descending'**
+  String get enumSortOrderDesc;
+
+  /// Sort by category code
+  ///
+  /// In en, this message translates to:
+  /// **'Category Code'**
+  String get enumCategorySortByCategoryCode;
+
+  /// Sort by name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get enumCategorySortByName;
+
+  /// Sort by category name
+  ///
+  /// In en, this message translates to:
+  /// **'Category Name'**
+  String get enumCategorySortByCategoryName;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumCategorySortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumCategorySortByUpdatedAt;
+
+  /// Sort by location code
+  ///
+  /// In en, this message translates to:
+  /// **'Location Code'**
+  String get enumLocationSortByLocationCode;
+
+  /// Sort by name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get enumLocationSortByName;
+
+  /// Sort by location name
+  ///
+  /// In en, this message translates to:
+  /// **'Location Name'**
+  String get enumLocationSortByLocationName;
+
+  /// Sort by building
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get enumLocationSortByBuilding;
+
+  /// Sort by floor
+  ///
+  /// In en, this message translates to:
+  /// **'Floor'**
+  String get enumLocationSortByFloor;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumLocationSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumLocationSortByUpdatedAt;
+
+  /// Sort by type
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get enumNotificationSortByType;
+
+  /// Sort by read status
+  ///
+  /// In en, this message translates to:
+  /// **'Read Status'**
+  String get enumNotificationSortByIsRead;
+
+  /// Sort by received date
+  ///
+  /// In en, this message translates to:
+  /// **'Received Date'**
+  String get enumNotificationSortByCreatedAt;
+
+  /// Sort by title
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get enumNotificationSortByTitle;
+
+  /// Sort by message
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get enumNotificationSortByMessage;
+
+  /// Sort by scan timestamp
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Time'**
+  String get enumScanLogSortByScanTimestamp;
+
+  /// Sort by scanned value
+  ///
+  /// In en, this message translates to:
+  /// **'Scanned Value'**
+  String get enumScanLogSortByScannedValue;
+
+  /// Sort by scan method
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Method'**
+  String get enumScanLogSortByScanMethod;
+
+  /// Sort by scan result
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Result'**
+  String get enumScanLogSortByScanResult;
+
+  /// Sort by asset tag
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Tag'**
+  String get enumAssetSortByAssetTag;
+
+  /// Sort by asset name
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Name'**
+  String get enumAssetSortByAssetName;
+
+  /// Sort by brand
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get enumAssetSortByBrand;
+
+  /// Sort by model
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get enumAssetSortByModel;
+
+  /// Sort by serial number
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get enumAssetSortBySerialNumber;
+
+  /// Sort by purchase date
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Date'**
+  String get enumAssetSortByPurchaseDate;
+
+  /// Sort by purchase price
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Price'**
+  String get enumAssetSortByPurchasePrice;
+
+  /// Sort by vendor name
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor Name'**
+  String get enumAssetSortByVendorName;
+
+  /// Sort by warranty end date
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty End Date'**
+  String get enumAssetSortByWarrantyEnd;
+
+  /// Sort by status
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get enumAssetSortByStatus;
+
+  /// Sort by condition
+  ///
+  /// In en, this message translates to:
+  /// **'Condition'**
+  String get enumAssetSortByConditionStatus;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumAssetSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumAssetSortByUpdatedAt;
+
+  /// Sort by movement date
+  ///
+  /// In en, this message translates to:
+  /// **'Movement Date'**
+  String get enumAssetMovementSortByMovementDate;
+
+  /// Sort by movement date (lowercase alias)
+  ///
+  /// In en, this message translates to:
+  /// **'Movement Date'**
+  String get enumAssetMovementSortByMovementdate;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumAssetMovementSortByCreatedAt;
+
+  /// Sort by creation date (lowercase alias)
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumAssetMovementSortByCreatedat;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumAssetMovementSortByUpdatedAt;
+
+  /// Sort by update date (lowercase alias)
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumAssetMovementSortByUpdatedat;
+
+  /// Sort by reported date
+  ///
+  /// In en, this message translates to:
+  /// **'Reported Date'**
+  String get enumIssueReportSortByReportedDate;
+
+  /// Sort by resolved date
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved Date'**
+  String get enumIssueReportSortByResolvedDate;
+
+  /// Sort by issue type
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Type'**
+  String get enumIssueReportSortByIssueType;
+
+  /// Sort by priority
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get enumIssueReportSortByPriority;
+
+  /// Sort by status
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get enumIssueReportSortByStatus;
+
+  /// Sort by title
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get enumIssueReportSortByTitle;
+
+  /// Sort by description
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get enumIssueReportSortByDescription;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumIssueReportSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumIssueReportSortByUpdatedAt;
+
+  /// Sort by next scheduled date
+  ///
+  /// In en, this message translates to:
+  /// **'Next Scheduled Date'**
+  String get enumMaintenanceScheduleSortByNextScheduledDate;
+
+  /// Sort by maintenance type
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Type'**
+  String get enumMaintenanceScheduleSortByMaintenanceType;
+
+  /// Sort by state
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get enumMaintenanceScheduleSortByState;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumMaintenanceScheduleSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumMaintenanceScheduleSortByUpdatedAt;
+
+  /// Sort by maintenance date
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Date'**
+  String get enumMaintenanceRecordSortByMaintenanceDate;
+
+  /// Sort by cost
+  ///
+  /// In en, this message translates to:
+  /// **'Actual Cost'**
+  String get enumMaintenanceRecordSortByActualCost;
+
+  /// Sort by title
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get enumMaintenanceRecordSortByTitle;
+
+  /// Sort by creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created Date'**
+  String get enumMaintenanceRecordSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumMaintenanceRecordSortByUpdatedAt;
+
+  /// Sort by name
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get enumUserSortByName;
+
+  /// Sort by full name
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get enumUserSortByFullName;
+
+  /// Sort by email
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get enumUserSortByEmail;
+
+  /// Sort by role
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get enumUserSortByRole;
+
+  /// Sort by employee ID
+  ///
+  /// In en, this message translates to:
+  /// **'Employee ID'**
+  String get enumUserSortByEmployeeId;
+
+  /// Sort by active status
+  ///
+  /// In en, this message translates to:
+  /// **'Active Status'**
+  String get enumUserSortByIsActive;
+
+  /// Sort by join date
+  ///
+  /// In en, this message translates to:
+  /// **'Joined Date'**
+  String get enumUserSortByCreatedAt;
+
+  /// Sort by update date
+  ///
+  /// In en, this message translates to:
+  /// **'Updated Date'**
+  String get enumUserSortByUpdatedAt;
+
+  /// Export format PDF
+  ///
+  /// In en, this message translates to:
+  /// **'PDF'**
+  String get enumExportFormatPdf;
+
+  /// Export format Excel
+  ///
+  /// In en, this message translates to:
+  /// **'Excel'**
+  String get enumExportFormatExcel;
+
+  /// Mutation type create
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get enumMutationTypeCreate;
+
+  /// Mutation type update
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get enumMutationTypeUpdate;
+
+  /// Mutation type delete
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get enumMutationTypeDelete;
+
+  /// Language English
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get enumLanguageEnglish;
+
+  /// Language Japanese
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get enumLanguageJapanese;
+
+  /// Language Indonesian
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get enumLanguageIndonesian;
+
+  /// User role Admin
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get enumUserRoleAdmin;
+
+  /// User role Staff
+  ///
+  /// In en, this message translates to:
+  /// **'Staff'**
+  String get enumUserRoleStaff;
+
+  /// User role Employee
+  ///
+  /// In en, this message translates to:
+  /// **'Employee'**
+  String get enumUserRoleEmployee;
+
+  /// Asset status Active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get enumAssetStatusActive;
+
+  /// Asset status Maintenance
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get enumAssetStatusMaintenance;
+
+  /// Asset status Disposed
+  ///
+  /// In en, this message translates to:
+  /// **'Disposed'**
+  String get enumAssetStatusDisposed;
+
+  /// Asset status Lost
+  ///
+  /// In en, this message translates to:
+  /// **'Lost'**
+  String get enumAssetStatusLost;
+
+  /// Asset condition Good
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get enumAssetConditionGood;
+
+  /// Asset condition Fair
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get enumAssetConditionFair;
+
+  /// Asset condition Poor
+  ///
+  /// In en, this message translates to:
+  /// **'Poor'**
+  String get enumAssetConditionPoor;
+
+  /// Asset condition Damaged
+  ///
+  /// In en, this message translates to:
+  /// **'Damaged'**
+  String get enumAssetConditionDamaged;
+
+  /// Notification type Maintenance
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get enumNotificationTypeMaintenance;
+
+  /// Notification type Warranty
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty'**
+  String get enumNotificationTypeWarranty;
+
+  /// Notification type Issue
+  ///
+  /// In en, this message translates to:
+  /// **'Issue'**
+  String get enumNotificationTypeIssue;
+
+  /// Notification type Movement
+  ///
+  /// In en, this message translates to:
+  /// **'Movement'**
+  String get enumNotificationTypeMovement;
+
+  /// Notification type Status Change
+  ///
+  /// In en, this message translates to:
+  /// **'Status Change'**
+  String get enumNotificationTypeStatusChange;
+
+  /// Notification type Location Change
+  ///
+  /// In en, this message translates to:
+  /// **'Location Change'**
+  String get enumNotificationTypeLocationChange;
+
+  /// Notification type Category Change
+  ///
+  /// In en, this message translates to:
+  /// **'Category Change'**
+  String get enumNotificationTypeCategoryChange;
+
+  /// Priority Low
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get enumNotificationPriorityLow;
+
+  /// Priority Normal
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get enumNotificationPriorityNormal;
+
+  /// Priority High
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get enumNotificationPriorityHigh;
+
+  /// Priority Urgent
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get enumNotificationPriorityUrgent;
+
+  /// Scan method Data Matrix
+  ///
+  /// In en, this message translates to:
+  /// **'Data Matrix'**
+  String get enumScanMethodTypeDataMatrix;
+
+  /// Scan method Manual Input
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Input'**
+  String get enumScanMethodTypeManualInput;
+
+  /// Scan result Success
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get enumScanResultTypeSuccess;
+
+  /// Scan result Invalid ID
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid ID'**
+  String get enumScanResultTypeInvalidID;
+
+  /// Scan result Asset Not Found
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Not Found'**
+  String get enumScanResultTypeAssetNotFound;
+
+  /// Schedule type Preventive
+  ///
+  /// In en, this message translates to:
+  /// **'Preventive'**
+  String get enumMaintenanceScheduleTypePreventive;
+
+  /// Schedule type Corrective
+  ///
+  /// In en, this message translates to:
+  /// **'Corrective'**
+  String get enumMaintenanceScheduleTypeCorrective;
+
+  /// Schedule type Inspection
+  ///
+  /// In en, this message translates to:
+  /// **'Inspection'**
+  String get enumMaintenanceScheduleTypeInspection;
+
+  /// Schedule type Calibration
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration'**
+  String get enumMaintenanceScheduleTypeCalibration;
+
+  /// Schedule state Active
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get enumScheduleStateActive;
+
+  /// Schedule state Paused
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get enumScheduleStatePaused;
+
+  /// Schedule state Stopped
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get enumScheduleStateStopped;
+
+  /// Schedule state Completed
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get enumScheduleStateCompleted;
+
+  /// Interval unit Days
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get enumIntervalUnitDays;
+
+  /// Interval unit Weeks
+  ///
+  /// In en, this message translates to:
+  /// **'Weeks'**
+  String get enumIntervalUnitWeeks;
+
+  /// Interval unit Months
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get enumIntervalUnitMonths;
+
+  /// Interval unit Years
+  ///
+  /// In en, this message translates to:
+  /// **'Years'**
+  String get enumIntervalUnitYears;
+
+  /// Issue priority Low
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get enumIssuePriorityLow;
+
+  /// Issue priority Medium
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get enumIssuePriorityMedium;
+
+  /// Issue priority High
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get enumIssuePriorityHigh;
+
+  /// Issue priority Critical
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get enumIssuePriorityCritical;
+
+  /// Issue status Open
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get enumIssueStatusOpen;
+
+  /// Issue status In Progress
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get enumIssueStatusInProgress;
+
+  /// Issue status Resolved
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get enumIssueStatusResolved;
+
+  /// Issue status Closed
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get enumIssueStatusClosed;
+
+  /// Maintenance result Success
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get enumMaintenanceResultSuccess;
+
+  /// Maintenance result Partial
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get enumMaintenanceResultPartial;
+
+  /// Maintenance result Failed
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get enumMaintenanceResultFailed;
+
+  /// Maintenance result Rescheduled
+  ///
+  /// In en, this message translates to:
+  /// **'Rescheduled'**
+  String get enumMaintenanceResultRescheduled;
+
   /// Dialog title for deleting an asset
   ///
   /// In en, this message translates to:

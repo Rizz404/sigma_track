@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 
 enum UserRole {
   admin('Admin'),
@@ -10,7 +11,17 @@ enum UserRole {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case UserRole.admin:
+        return l10n.enumUserRoleAdmin;
+      case UserRole.staff:
+        return l10n.enumUserRoleStaff;
+      case UserRole.employee:
+        return l10n.enumUserRoleEmployee;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -35,7 +46,19 @@ enum AssetStatus {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case AssetStatus.active:
+        return l10n.enumAssetStatusActive;
+      case AssetStatus.maintenance:
+        return l10n.enumAssetStatusMaintenance;
+      case AssetStatus.disposed:
+        return l10n.enumAssetStatusDisposed;
+      case AssetStatus.lost:
+        return l10n.enumAssetStatusLost;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -62,7 +85,19 @@ enum AssetCondition {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case AssetCondition.good:
+        return l10n.enumAssetConditionGood;
+      case AssetCondition.fair:
+        return l10n.enumAssetConditionFair;
+      case AssetCondition.poor:
+        return l10n.enumAssetConditionPoor;
+      case AssetCondition.damaged:
+        return l10n.enumAssetConditionDamaged;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -92,7 +127,25 @@ enum NotificationType {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case NotificationType.maintenance:
+        return l10n.enumNotificationTypeMaintenance;
+      case NotificationType.warranty:
+        return l10n.enumNotificationTypeWarranty;
+      case NotificationType.issue:
+        return l10n.enumNotificationTypeIssue;
+      case NotificationType.movement:
+        return l10n.enumNotificationTypeMovement;
+      case NotificationType.statusChange:
+        return l10n.enumNotificationTypeStatusChange;
+      case NotificationType.locationChange:
+        return l10n.enumNotificationTypeLocationChange;
+      case NotificationType.categoryChange:
+        return l10n.enumNotificationTypeCategoryChange;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -125,7 +178,19 @@ enum NotificationPriority {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case NotificationPriority.low:
+        return l10n.enumNotificationPriorityLow;
+      case NotificationPriority.normal:
+        return l10n.enumNotificationPriorityNormal;
+      case NotificationPriority.high:
+        return l10n.enumNotificationPriorityHigh;
+      case NotificationPriority.urgent:
+        return l10n.enumNotificationPriorityUrgent;
+    }
+  }
 }
 
 enum ScanMethodType {
@@ -137,7 +202,15 @@ enum ScanMethodType {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case ScanMethodType.dataMatrix:
+        return l10n.enumScanMethodTypeDataMatrix;
+      case ScanMethodType.manualInput:
+        return l10n.enumScanMethodTypeManualInput;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -159,7 +232,17 @@ enum ScanResultType {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case ScanResultType.success:
+        return l10n.enumScanResultTypeSuccess;
+      case ScanResultType.invalidID:
+        return l10n.enumScanResultTypeInvalidID;
+      case ScanResultType.assetNotFound:
+        return l10n.enumScanResultTypeAssetNotFound;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -184,7 +267,19 @@ enum MaintenanceScheduleType {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case MaintenanceScheduleType.preventive:
+        return l10n.enumMaintenanceScheduleTypePreventive;
+      case MaintenanceScheduleType.corrective:
+        return l10n.enumMaintenanceScheduleTypeCorrective;
+      case MaintenanceScheduleType.inspection:
+        return l10n.enumMaintenanceScheduleTypeInspection;
+      case MaintenanceScheduleType.calibration:
+        return l10n.enumMaintenanceScheduleTypeCalibration;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -211,7 +306,19 @@ enum ScheduleState {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case ScheduleState.active:
+        return l10n.enumScheduleStateActive;
+      case ScheduleState.paused:
+        return l10n.enumScheduleStatePaused;
+      case ScheduleState.stopped:
+        return l10n.enumScheduleStateStopped;
+      case ScheduleState.completed:
+        return l10n.enumScheduleStateCompleted;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -238,7 +345,19 @@ enum IntervalUnit {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case IntervalUnit.days:
+        return l10n.enumIntervalUnitDays;
+      case IntervalUnit.weeks:
+        return l10n.enumIntervalUnitWeeks;
+      case IntervalUnit.months:
+        return l10n.enumIntervalUnitMonths;
+      case IntervalUnit.years:
+        return l10n.enumIntervalUnitYears;
+    }
+  }
 }
 
 enum IssuePriority {
@@ -252,7 +371,19 @@ enum IssuePriority {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case IssuePriority.low:
+        return l10n.enumIssuePriorityLow;
+      case IssuePriority.medium:
+        return l10n.enumIssuePriorityMedium;
+      case IssuePriority.high:
+        return l10n.enumIssuePriorityHigh;
+      case IssuePriority.critical:
+        return l10n.enumIssuePriorityCritical;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -279,7 +410,19 @@ enum IssueStatus {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case IssueStatus.open:
+        return l10n.enumIssueStatusOpen;
+      case IssueStatus.inProgress:
+        return l10n.enumIssueStatusInProgress;
+      case IssueStatus.resolved:
+        return l10n.enumIssueStatusResolved;
+      case IssueStatus.closed:
+        return l10n.enumIssueStatusClosed;
+    }
+  }
 
   IconData get icon {
     switch (this) {
@@ -306,7 +449,19 @@ enum MaintenanceResult {
   final String value;
 
   // * Dropdown helper
-  String get label => value;
+  String get label {
+    final l10n = LocalizationExtension.current;
+    switch (this) {
+      case MaintenanceResult.success:
+        return l10n.enumMaintenanceResultSuccess;
+      case MaintenanceResult.partial:
+        return l10n.enumMaintenanceResultPartial;
+      case MaintenanceResult.failed:
+        return l10n.enumMaintenanceResultFailed;
+      case MaintenanceResult.rescheduled:
+        return l10n.enumMaintenanceResultRescheduled;
+    }
+  }
 
   IconData get icon {
     switch (this) {

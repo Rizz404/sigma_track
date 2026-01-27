@@ -213,13 +213,13 @@ class AssetTile extends StatelessWidget {
                       children: [
                         _buildBadge(
                           context,
-                          label: asset.status.name.toUpperCase(),
+                          label: asset.status.label,
                           color: _getStatusColor(context, asset.status),
                         ),
                         const SizedBox(height: 6),
                         _buildBadge(
                           context,
-                          label: asset.condition.name.toUpperCase(),
+                          label: asset.condition.label,
                           color: _getConditionColor(context, asset.condition),
                         ),
                       ],

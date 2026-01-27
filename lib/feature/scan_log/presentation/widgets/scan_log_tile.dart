@@ -105,7 +105,7 @@ class ScanLogTile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: AppText(
-                              scanLog.scanMethod.name.toUpperCase(),
+                              scanLog.scanMethod.label,
                               style: AppTextStyle.labelSmall,
                               color: context.semantic.info,
                               fontWeight: FontWeight.w600,
@@ -160,7 +160,7 @@ class ScanLogTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: AppText(
-                        scanLog.scanResult.name.toUpperCase(),
+                        scanLog.scanResult.label,
                         style: AppTextStyle.labelSmall,
                         color: _getResultColor(context, scanLog.scanResult),
                         fontWeight: FontWeight.w600,

@@ -1,3 +1,6 @@
+import 'package:sigma_track/core/extensions/localization_extension.dart';
+import 'package:sigma_track/l10n/app_localizations.dart';
+
 extension NumExtension on num {
   /// Format number as IDR (Rupiah) currency string
   /// Example: 1500000.toRupiah() => "Rp 1.500.000"
@@ -12,20 +15,33 @@ extension NumExtension on num {
   /// 1500000.toRupiahShort() => "Rp 1.5jt" (Juta)
   /// 1500.toRupiahShort() => "Rp 1.5rb" (Ribu)
   String toRupiahShort() {
+    String billionSuffix = 'M';
+    String millionSuffix = 'jt';
+    String thousandSuffix = 'rb';
+
+    try {
+      final l10n = LocalizationExtension.current;
+      billionSuffix = l10n.currencyBillionSuffix;
+      millionSuffix = l10n.currencyMillionSuffix;
+      thousandSuffix = l10n.currencyThousandSuffix;
+    } catch (_) {
+      // Fallback
+    }
+
     // Cek Miliar (1.000.000.000)
     if (this >= 1000000000) {
       double result = this / 1000000000;
-      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}M';
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}$billionSuffix';
     }
     // Cek Juta (1.000.000)
     else if (this >= 1000000) {
       double result = this / 1000000;
-      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}jt';
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}$millionSuffix';
     }
     // Cek Ribu (1.000)
     else if (this >= 1000) {
       double result = this / 1000;
-      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}rb';
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}$thousandSuffix';
     }
 
     return 'Rp ${toStringAsFixed(0)}';

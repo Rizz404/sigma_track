@@ -85,11 +85,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
           ]),
           const SizedBox(height: 16),
           _buildInfoCard(context, context.l10n.userAccountDetails, [
-            _buildInfoRow(
-              context,
-              context.l10n.userRole,
-              user.role.name.toUpperCase(),
-            ),
+            _buildInfoRow(context, context.l10n.userRole, user.role.label),
             _buildInfoRow(
               context,
               context.l10n.userStatus,
@@ -200,7 +196,7 @@ class UserDetailProfileScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: AppText(
-                  user.role.name.toUpperCase(),
+                  user.role.label,
                   style: AppTextStyle.labelMedium,
                   color: context.colorScheme.primary,
                   fontWeight: FontWeight.bold,

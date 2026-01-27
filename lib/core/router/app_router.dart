@@ -76,6 +76,7 @@ class AppRouter {
   // * Static keys untuk mendukung refreshListenable tanpa GlobalKey conflict
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
+  static GlobalKey<NavigatorState> get navigatorKey => _rootNavigatorKey;
   static final GlobalKey<NavigatorState> _userShellNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'userShell');
   static final GlobalKey<NavigatorState> _adminShellNavigatorKey =
@@ -174,7 +175,7 @@ class AppRouter {
     final authRouterNotifier = RouterRefreshListenable(ref);
 
     return GoRouter(
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: rootNavigatorKey,
       initialLocation: _getInitialLocation(ref),
       debugLogDiagnostics: true,
       refreshListenable: authRouterNotifier,
