@@ -7,13 +7,27 @@ extension NumExtension on num {
   }
 
   /// Format number as IDR (Rupiah) currency string with short format
-  /// Example: 1500000.toRupiahShort() => "Rp 1.5M"
+  /// Example:
+  /// 1500000000.toRupiahShort() => "Rp 1.5M" (Miliar)
+  /// 1500000.toRupiahShort() => "Rp 1.5jt" (Juta)
+  /// 1500.toRupiahShort() => "Rp 1.5rb" (Ribu)
   String toRupiahShort() {
-    if (this >= 1000000) {
-      return 'Rp ${(this / 1000000).toStringAsFixed(1)}M';
-    } else if (this >= 1000) {
-      return 'Rp ${(this / 1000).toStringAsFixed(1)}K';
+    // Cek Miliar (1.000.000.000)
+    if (this >= 1000000000) {
+      double result = this / 1000000000;
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}M';
     }
+    // Cek Juta (1.000.000)
+    else if (this >= 1000000) {
+      double result = this / 1000000;
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}jt';
+    }
+    // Cek Ribu (1.000)
+    else if (this >= 1000) {
+      double result = this / 1000;
+      return 'Rp ${result.toStringAsFixed(1).replaceAll('.0', '')}rb';
+    }
+
     return 'Rp ${toStringAsFixed(0)}';
   }
 }

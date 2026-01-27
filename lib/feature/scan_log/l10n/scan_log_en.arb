@@ -191,5 +191,9 @@
   "scanLogNotImplementedYet": "Not implemented yet",
   "@scanLogNotImplementedYet": {
     "description": "Placeholder message for unimplemented features"
+  },
+  "scanLogFailedToLoadData": "Failed to load scan logs",
+  "@scanLogFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

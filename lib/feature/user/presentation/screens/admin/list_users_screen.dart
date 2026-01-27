@@ -588,7 +588,7 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
 
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.userFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

@@ -419,7 +419,7 @@ class _ListNotificationsScreenState
                 child: state.isLoading
                     ? _buildLoadingState(context)
                     : state.failure != null
-                        ? _buildErrorState(context, state.failure!)
+                    ? _buildErrorState(context, state.failure!)
                     : state.notifications.isEmpty
                     ? _buildEmptyState(context)
                     : _buildNotificationsList(
@@ -625,9 +625,10 @@ class _ListNotificationsScreenState
       },
     );
   }
+
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.notificationFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

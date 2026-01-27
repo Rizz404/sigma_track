@@ -1064,6 +1064,10 @@
   "@assetDeleteCascadeWarning": {
     "description": "Warning message about cascade deletion of related data"
   },
+  "assetFailedToLoadData": "Failed to load assets",
+  "@assetFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "assetMovementDeleteAssetMovement": "Delete Asset Movement",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -1573,6 +1577,10 @@
   "assetMovementForUserShort": "For User",
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
+  },
+  "assetMovementFailedToLoadData": "Failed to load asset movements",
+  "@assetMovementFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "authWelcomeBack": "Welcome Back",
   "@authWelcomeBack": {
@@ -2112,6 +2120,10 @@
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
   },
+  "categoryFailedToLoadData": "Failed to load categories",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "dashboardTotalUsers": "Total Users",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2276,13 +2288,17 @@
   "@dashboardMaintenanceTypeCalibration": {
     "description": "Maintenance type calibration"
   },
+  "dashboardFailedToLoadData": "Failed to load dashboard data",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "homeScreen": "Home",
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "Failed to Load Data",
+  "homeFailedToLoadData": "Failed to Load User Statistics",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "Try Again",
   "@homeTryAgain": {
@@ -2776,6 +2792,10 @@
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
   },
+  "issueReportFailedToLoadData": "Failed to load issue reports",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "locationDeleteLocation": "Delete Location",
   "@locationDeleteLocation": {
     "description": "Dialog title for deleting a location"
@@ -3207,6 +3227,10 @@
   "locationDeleteSetNullWarning": "Assets will have location cleared. Asset movement history will have location info removed.",
   "@locationDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting location"
+  },
+  "locationFailedToLoadData": "Failed to load locations",
+  "@locationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "maintenanceScheduleDeleteSchedule": "Delete Maintenance Schedule",
   "@maintenanceScheduleDeleteSchedule": {
@@ -3952,6 +3976,14 @@
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   },
+  "maintenanceScheduleFailedToLoadData": "Failed to load maintenance schedules",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "Failed to load maintenance records",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "notificationManagement": "Notification Management",
   "@notificationManagement": {
     "description": "Notification management screen title"
@@ -4314,6 +4346,10 @@
   "@notificationTestTroubleshootingMessage": {
     "description": "Troubleshooting steps"
   },
+  "notificationFailedToLoadData": "Failed to load notifications",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "scanLogManagement": "Scan Log Management",
   "@scanLogManagement": {
     "description": "Scan log management screen title"
@@ -4505,6 +4541,10 @@
   "scanLogNotImplementedYet": "Not implemented yet",
   "@scanLogNotImplementedYet": {
     "description": "Placeholder message for unimplemented features"
+  },
+  "scanLogFailedToLoadData": "Failed to load scan logs",
+  "@scanLogFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "userManagement": "User Management",
   "@userManagement": {
@@ -5005,6 +5045,10 @@
   "userDeleteSetNullWarning": "Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "Failed to load users",
+  "@userFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "adminShellBottomNavDashboard": "Dashboard",
   "@adminShellBottomNavDashboard": {

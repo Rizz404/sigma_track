@@ -347,5 +347,9 @@
   "notificationTestTroubleshootingTitle": "トラブルシューティング",
   "@notificationTestTroubleshootingTitle": {
     "description": "Title for troubleshooting section"
+  },
+  "notificationFailedToLoadData": "通知の読み込みに失敗しました",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

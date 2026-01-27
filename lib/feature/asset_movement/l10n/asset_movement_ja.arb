@@ -509,5 +509,9 @@
   "assetMovementForUserShort": "ユーザーへ",
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
+  },
+  "assetMovementFailedToLoadData": "アセット移動の読み込みに失敗しました",
+  "@assetMovementFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

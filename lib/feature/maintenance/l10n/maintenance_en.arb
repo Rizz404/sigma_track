@@ -743,5 +743,13 @@
   "maintenanceScheduleDeleteSetNullWarning": "Related maintenance records will have schedule reference removed (records become standalone).",
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
+  },
+  "maintenanceScheduleFailedToLoadData": "Failed to load maintenance schedules",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "Failed to load maintenance records",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

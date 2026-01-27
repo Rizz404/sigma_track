@@ -439,5 +439,9 @@
   "issueReportEditWarning": "優先度、ステータス、解決者、および翻訳のみ更新できます。資産と問題タイプは変更できません。",
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
+  },
+  "issueReportFailedToLoadData": "問題レポートの読み込みに失敗しました",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

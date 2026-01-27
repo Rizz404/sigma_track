@@ -439,5 +439,9 @@
   "issueReportEditWarning": "Hanya prioritas, status, diselesaikan oleh, dan terjemahan yang dapat diperbarui. Aset dan jenis masalah bersifat tetap.",
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
+  },
+  "issueReportFailedToLoadData": "Gagal meload laporan masalah",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

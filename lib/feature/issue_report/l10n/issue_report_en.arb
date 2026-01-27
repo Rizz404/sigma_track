@@ -439,5 +439,9 @@
   "issueReportEditWarning": "Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.",
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
+  },
+  "issueReportFailedToLoadData": "Failed to load issue reports",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

@@ -4,9 +4,9 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "Failed to Load Data",
+  "homeFailedToLoadData": "Failed to Load User Statistics",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "Try Again",
   "@homeTryAgain": {

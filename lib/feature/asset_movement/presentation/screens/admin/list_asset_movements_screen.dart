@@ -792,7 +792,7 @@ class _ListAssetMovementsScreenState
 
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.assetMovementFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

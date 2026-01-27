@@ -4,9 +4,9 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "Gagal Memuat Data",
+  "homeFailedToLoadData": "Gagal meload statistik pengguna",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "Coba Lagi",
   "@homeTryAgain": {

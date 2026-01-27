@@ -509,5 +509,9 @@
   "assetMovementForUserShort": "Untuk Pengguna",
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
+  },
+  "assetMovementFailedToLoadData": "Gagal meload pergerakan aset",
+  "@assetMovementFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

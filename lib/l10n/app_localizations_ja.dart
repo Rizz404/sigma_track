@@ -758,6 +758,9 @@ class L10nJa extends L10n {
       'これにより、関連するすべてのデータも削除されます：移動、メンテナンススケジュール、メンテナンス記録、問題レポート、画像、スキャンログ。';
 
   @override
+  String get assetFailedToLoadData => 'アセットの読み込みに失敗しました';
+
+  @override
   String get assetMovementDeleteAssetMovement => '資産移動を削除';
 
   @override
@@ -1136,6 +1139,9 @@ class L10nJa extends L10n {
 
   @override
   String get assetMovementForUserShort => 'ユーザーへ';
+
+  @override
+  String get assetMovementFailedToLoadData => 'アセット移動の読み込みに失敗しました';
 
   @override
   String get authWelcomeBack => 'おかえりなさい';
@@ -1535,6 +1541,9 @@ class L10nJa extends L10n {
   String get categoryDeleteSetNullWarning => '子カテゴリはルートレベルのカテゴリになります。';
 
   @override
+  String get categoryFailedToLoadData => 'カテゴリの読み込みに失敗しました';
+
+  @override
   String get dashboardTotalUsers => '総ユーザー数';
 
   @override
@@ -1658,10 +1667,13 @@ class L10nJa extends L10n {
   String get dashboardMaintenanceTypeCalibration => '校正';
 
   @override
+  String get dashboardFailedToLoadData => 'ダッシュボードデータの読み込みに失敗しました';
+
+  @override
   String get homeScreen => 'ホーム';
 
   @override
-  String get homeFailedToLoadData => 'データの読み込みに失敗しました';
+  String get homeFailedToLoadData => 'ユーザー統計の読み込みに失敗しました';
 
   @override
   String get homeTryAgain => '再試行';
@@ -2022,6 +2034,9 @@ class L10nJa extends L10n {
       '優先度、ステータス、解決者、および翻訳のみ更新できます。資産と問題タイプは変更できません。';
 
   @override
+  String get issueReportFailedToLoadData => '問題レポートの読み込みに失敗しました';
+
+  @override
   String get locationDeleteLocation => '場所を削除';
 
   @override
@@ -2337,6 +2352,9 @@ class L10nJa extends L10n {
   @override
   String get locationDeleteSetNullWarning =>
       '資産の場所がクリアされます。資産移動履歴の場所情報が削除されます。';
+
+  @override
+  String get locationFailedToLoadData => '場所の読み込みに失敗しました';
 
   @override
   String get maintenanceScheduleDeleteSchedule => 'メンテナンススケジュールの削除';
@@ -2872,6 +2890,12 @@ class L10nJa extends L10n {
       '関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。';
 
   @override
+  String get maintenanceScheduleFailedToLoadData => 'メンテナンススケジュールの読み込みに失敗しました';
+
+  @override
+  String get maintenanceRecordFailedToLoadData => 'メンテナンス記録の読み込みに失敗しました';
+
+  @override
   String get notificationManagement => '通知管理';
 
   @override
@@ -3127,6 +3151,9 @@ class L10nJa extends L10n {
       '音が聞こえない場合は、デバイスの音量設定を確認してください。';
 
   @override
+  String get notificationFailedToLoadData => '通知の読み込みに失敗しました';
+
+  @override
   String get scanLogManagement => 'スキャンログ管理';
 
   @override
@@ -3264,6 +3291,9 @@ class L10nJa extends L10n {
 
   @override
   String get scanLogNotImplementedYet => 'まだ実装されていません';
+
+  @override
+  String get scanLogFailedToLoadData => 'スキャンログの読み込みに失敗しました';
 
   @override
   String get userManagement => 'ユーザー管理';
@@ -3633,6 +3663,9 @@ class L10nJa extends L10n {
   @override
   String get userDeleteSetNullWarning =>
       '資産の割り当てがクリアされます。移動およびメンテナンス履歴のユーザー情報が削除されます。未解決の問題の解決者情報が削除されます。';
+
+  @override
+  String get userFailedToLoadData => 'ユーザーの読み込みに失敗しました';
 
   @override
   String get adminShellBottomNavDashboard => 'ダッシュボード';

@@ -1503,6 +1503,12 @@ abstract class L10n {
   /// **'This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.'**
   String get assetDeleteCascadeWarning;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load assets'**
+  String get assetFailedToLoadData;
+
   /// Dialog title for deleting an asset movement
   ///
   /// In en, this message translates to:
@@ -2252,6 +2258,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'For User'**
   String get assetMovementForUserShort;
+
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load asset movements'**
+  String get assetMovementFailedToLoadData;
 
   /// Login screen header title
   ///
@@ -3033,6 +3045,12 @@ abstract class L10n {
   /// **'Child categories will become root-level categories.'**
   String get categoryDeleteSetNullWarning;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load categories'**
+  String get categoryFailedToLoadData;
+
   /// Total users stat card title
   ///
   /// In en, this message translates to:
@@ -3279,16 +3297,22 @@ abstract class L10n {
   /// **'Calibration'**
   String get dashboardMaintenanceTypeCalibration;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load dashboard data'**
+  String get dashboardFailedToLoadData;
+
   /// Home screen title
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get homeScreen;
 
-  /// Error message when data fails to load
+  /// Error message when home user statistics fail to load
   ///
   /// In en, this message translates to:
-  /// **'Failed to Load Data'**
+  /// **'Failed to Load User Statistics'**
   String get homeFailedToLoadData;
 
   /// Button text to retry action
@@ -3975,6 +3999,12 @@ abstract class L10n {
   /// **'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.'**
   String get issueReportEditWarning;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load issue reports'**
+  String get issueReportFailedToLoadData;
+
   /// Dialog title for deleting a location
   ///
   /// In en, this message translates to:
@@ -4586,6 +4616,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Assets will have location cleared. Asset movement history will have location info removed.'**
   String get locationDeleteSetNullWarning;
+
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load locations'**
+  String get locationFailedToLoadData;
 
   /// Dialog title for deleting a maintenance schedule
   ///
@@ -5595,6 +5631,18 @@ abstract class L10n {
   /// **'Related maintenance records will have schedule reference removed (records become standalone).'**
   String get maintenanceScheduleDeleteSetNullWarning;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load maintenance schedules'**
+  String get maintenanceScheduleFailedToLoadData;
+
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load maintenance records'**
+  String get maintenanceRecordFailedToLoadData;
+
   /// Notification management screen title
   ///
   /// In en, this message translates to:
@@ -6075,6 +6123,12 @@ abstract class L10n {
   /// **'1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/'**
   String get notificationTestTroubleshootingMessage;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load notifications'**
+  String get notificationFailedToLoadData;
+
   /// Scan log management screen title
   ///
   /// In en, this message translates to:
@@ -6344,6 +6398,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Not implemented yet'**
   String get scanLogNotImplementedYet;
+
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load scan logs'**
+  String get scanLogFailedToLoadData;
 
   /// User management screen title
   ///
@@ -7058,6 +7118,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.'**
   String get userDeleteSetNullWarning;
+
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load users'**
+  String get userFailedToLoadData;
 
   /// Admin shell bottom navigation label for dashboard
   ///

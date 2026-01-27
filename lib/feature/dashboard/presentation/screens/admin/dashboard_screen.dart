@@ -197,7 +197,7 @@ class DashboardScreen extends ConsumerWidget {
                   ),
                 ] else if (failure != null && !hasData) ...[
                   AppErrorState(
-                    title: 'Gagal Memuat Data',
+                    title: context.l10n.dashboardFailedToLoadData,
                     description: failure.message,
                     icon: Icons.cloud_off_outlined,
                     onRetry: refresh,

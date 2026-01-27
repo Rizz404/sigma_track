@@ -743,5 +743,13 @@
   "maintenanceScheduleDeleteSetNullWarning": "Catatan pemeliharaan terkait akan memiliki referensi jadwal yang dihapus (catatan menjadi mandiri).",
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
+  },
+  "maintenanceScheduleFailedToLoadData": "Gagal meload jadwal pemeliharaan",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "Gagal meload catatan pemeliharaan",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

@@ -785,6 +785,9 @@ class L10nEn extends L10n {
       'This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.';
 
   @override
+  String get assetFailedToLoadData => 'Failed to load assets';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Delete Asset Movement';
 
   @override
@@ -1183,6 +1186,9 @@ class L10nEn extends L10n {
 
   @override
   String get assetMovementForUserShort => 'For User';
+
+  @override
+  String get assetMovementFailedToLoadData => 'Failed to load asset movements';
 
   @override
   String get authWelcomeBack => 'Welcome Back';
@@ -1600,6 +1606,9 @@ class L10nEn extends L10n {
       'Child categories will become root-level categories.';
 
   @override
+  String get categoryFailedToLoadData => 'Failed to load categories';
+
+  @override
   String get dashboardTotalUsers => 'Total Users';
 
   @override
@@ -1727,10 +1736,13 @@ class L10nEn extends L10n {
   String get dashboardMaintenanceTypeCalibration => 'Calibration';
 
   @override
+  String get dashboardFailedToLoadData => 'Failed to load dashboard data';
+
+  @override
   String get homeScreen => 'Home';
 
   @override
-  String get homeFailedToLoadData => 'Failed to Load Data';
+  String get homeFailedToLoadData => 'Failed to Load User Statistics';
 
   @override
   String get homeTryAgain => 'Try Again';
@@ -2104,6 +2116,9 @@ class L10nEn extends L10n {
       'Only priority, status, resolved by, and translations can be updated. Asset and issue type are fixed.';
 
   @override
+  String get issueReportFailedToLoadData => 'Failed to load issue reports';
+
+  @override
   String get locationDeleteLocation => 'Delete Location';
 
   @override
@@ -2436,6 +2451,9 @@ class L10nEn extends L10n {
   @override
   String get locationDeleteSetNullWarning =>
       'Assets will have location cleared. Asset movement history will have location info removed.';
+
+  @override
+  String get locationFailedToLoadData => 'Failed to load locations';
 
   @override
   String get maintenanceScheduleDeleteSchedule => 'Delete Maintenance Schedule';
@@ -3005,6 +3023,14 @@ class L10nEn extends L10n {
       'Related maintenance records will have schedule reference removed (records become standalone).';
 
   @override
+  String get maintenanceScheduleFailedToLoadData =>
+      'Failed to load maintenance schedules';
+
+  @override
+  String get maintenanceRecordFailedToLoadData =>
+      'Failed to load maintenance records';
+
+  @override
   String get notificationManagement => 'Notification Management';
 
   @override
@@ -3273,6 +3299,9 @@ class L10nEn extends L10n {
       '1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/';
 
   @override
+  String get notificationFailedToLoadData => 'Failed to load notifications';
+
+  @override
   String get scanLogManagement => 'Scan Log Management';
 
   @override
@@ -3412,6 +3441,9 @@ class L10nEn extends L10n {
 
   @override
   String get scanLogNotImplementedYet => 'Not implemented yet';
+
+  @override
+  String get scanLogFailedToLoadData => 'Failed to load scan logs';
 
   @override
   String get userManagement => 'User Management';
@@ -3790,6 +3822,9 @@ class L10nEn extends L10n {
   @override
   String get userDeleteSetNullWarning =>
       'Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.';
+
+  @override
+  String get userFailedToLoadData => 'Failed to load users';
 
   @override
   String get adminShellBottomNavDashboard => 'Dashboard';

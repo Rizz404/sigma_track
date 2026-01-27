@@ -531,5 +531,9 @@
   "userDeleteSetNullWarning": "資産の割り当てがクリアされます。移動およびメンテナンス履歴のユーザー情報が削除されます。未解決の問題の解決者情報が削除されます。",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "ユーザーの読み込みに失敗しました",
+  "@userFailedToLoadData": {
+    "description": "Error message when failing to load users data"
   }
 }

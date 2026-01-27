@@ -206,5 +206,13 @@
   "maintenanceScheduleDeleteSetNullWarning": "関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。",
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
+  },
+  "maintenanceScheduleFailedToLoadData": "メンテナンススケジュールの読み込みに失敗しました",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "メンテナンス記録の読み込みに失敗しました",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

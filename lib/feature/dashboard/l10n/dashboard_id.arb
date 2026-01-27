@@ -111,8 +111,7 @@
   "dashboardMaintenanceRecords": "Catatan Pemeliharaan",
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
-  }
-,
+  },
   "dashboardAssetMovementTrends": "Tren Pergerakan Aset",
   "dashboardIssueReportStatusDistribution": "Distribusi Status Laporan Masalah",
   "dashboardIssueReportCreationTrends": "Tren Pembuatan Laporan Masalah",
@@ -125,5 +124,9 @@
   "dashboardMaintenanceTypePreventive": "Preventif",
   "dashboardMaintenanceTypeCorrective": "Korektif",
   "dashboardMaintenanceTypeInspection": "Inspeksi",
-  "dashboardMaintenanceTypeCalibration": "Kalibrasi"
+  "dashboardMaintenanceTypeCalibration": "Kalibrasi",
+  "dashboardFailedToLoadData": "Gagal meload data dashboard",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  }
 }

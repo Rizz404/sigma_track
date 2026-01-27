@@ -4,9 +4,9 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "データの読み込みに失敗しました",
+  "homeFailedToLoadData": "ユーザー統計の読み込みに失敗しました",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "再試行",
   "@homeTryAgain": {

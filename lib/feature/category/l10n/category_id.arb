@@ -329,5 +329,9 @@
   "categoryDeleteSetNullWarning": "Kategori anak akan menjadi kategori tingkat akar.",
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
+  },
+  "categoryFailedToLoadData": "Gagal meload kategori",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

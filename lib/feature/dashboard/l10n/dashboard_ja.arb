@@ -111,8 +111,7 @@
   "dashboardMaintenanceRecords": "メンテナンス記録",
   "@dashboardMaintenanceRecords": {
     "description": "Maintenance records stat card title"
-  }
-,
+  },
   "dashboardAssetMovementTrends": "資産移動の傾向",
   "dashboardIssueReportStatusDistribution": "課題報告ステータスの分布",
   "dashboardIssueReportCreationTrends": "課題報告作成の傾向",
@@ -125,5 +124,9 @@
   "dashboardMaintenanceTypePreventive": "予防",
   "dashboardMaintenanceTypeCorrective": "修正",
   "dashboardMaintenanceTypeInspection": "点検",
-  "dashboardMaintenanceTypeCalibration": "校正"
+  "dashboardMaintenanceTypeCalibration": "校正",
+  "dashboardFailedToLoadData": "ダッシュボードデータの読み込みに失敗しました",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  }
 }

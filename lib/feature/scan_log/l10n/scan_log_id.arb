@@ -191,5 +191,9 @@
   "scanLogNotImplementedYet": "Belum diimplementasikan",
   "@scanLogNotImplementedYet": {
     "description": "Placeholder message for unimplemented features"
+  },
+  "scanLogFailedToLoadData": "Gagal meload log pemindaian",
+  "@scanLogFailedToLoadData": {
+    "description": "Error message when scan logs fail to load"
   }
 }

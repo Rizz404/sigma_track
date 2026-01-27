@@ -783,6 +783,9 @@ class L10nId extends L10n {
       'Ini juga akan menghapus semua data terkait: perpindahan, jadwal pemeliharaan, catatan pemeliharaan, laporan masalah, gambar, dan log pemindaian.';
 
   @override
+  String get assetFailedToLoadData => 'Gagal meload aset';
+
+  @override
   String get assetMovementDeleteAssetMovement => 'Hapus Perpindahan Aset';
 
   @override
@@ -1188,6 +1191,9 @@ class L10nId extends L10n {
 
   @override
   String get assetMovementForUserShort => 'Untuk Pengguna';
+
+  @override
+  String get assetMovementFailedToLoadData => 'Gagal meload pergerakan aset';
 
   @override
   String get authWelcomeBack => 'Selamat Datang Kembali';
@@ -1608,6 +1614,9 @@ class L10nId extends L10n {
       'Kategori anak akan menjadi kategori tingkat akar.';
 
   @override
+  String get categoryFailedToLoadData => 'Gagal meload kategori';
+
+  @override
   String get dashboardTotalUsers => 'Total Pengguna';
 
   @override
@@ -1735,10 +1744,13 @@ class L10nId extends L10n {
   String get dashboardMaintenanceTypeCalibration => 'Kalibrasi';
 
   @override
+  String get dashboardFailedToLoadData => 'Gagal meload data dashboard';
+
+  @override
   String get homeScreen => 'Beranda';
 
   @override
-  String get homeFailedToLoadData => 'Gagal Memuat Data';
+  String get homeFailedToLoadData => 'Gagal meload statistik pengguna';
 
   @override
   String get homeTryAgain => 'Coba Lagi';
@@ -2122,6 +2134,9 @@ class L10nId extends L10n {
       'Hanya prioritas, status, diselesaikan oleh, dan terjemahan yang dapat diperbarui. Aset dan jenis masalah bersifat tetap.';
 
   @override
+  String get issueReportFailedToLoadData => 'Gagal meload laporan masalah';
+
+  @override
   String get locationDeleteLocation => 'Hapus Lokasi';
 
   @override
@@ -2457,6 +2472,9 @@ class L10nId extends L10n {
   @override
   String get locationDeleteSetNullWarning =>
       'Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.';
+
+  @override
+  String get locationFailedToLoadData => 'Gagal meload lokasi';
 
   @override
   String get maintenanceScheduleDeleteSchedule => 'Hapus Jadwal Pemeliharaan';
@@ -3032,6 +3050,14 @@ class L10nId extends L10n {
       'Catatan pemeliharaan terkait akan memiliki referensi jadwal yang dihapus (catatan menjadi mandiri).';
 
   @override
+  String get maintenanceScheduleFailedToLoadData =>
+      'Gagal meload jadwal pemeliharaan';
+
+  @override
+  String get maintenanceRecordFailedToLoadData =>
+      'Gagal meload catatan pemeliharaan';
+
+  @override
   String get notificationManagement => 'Manajemen Notifikasi';
 
   @override
@@ -3302,6 +3328,9 @@ class L10nId extends L10n {
       'Jika Anda tidak mendengar suara, periksa pengaturan volume perangkat Anda.';
 
   @override
+  String get notificationFailedToLoadData => 'Gagal meload notifikasi';
+
+  @override
   String get scanLogManagement => 'Manajemen Log Pemindaian';
 
   @override
@@ -3447,6 +3476,9 @@ class L10nId extends L10n {
 
   @override
   String get scanLogNotImplementedYet => 'Belum diimplementasikan';
+
+  @override
+  String get scanLogFailedToLoadData => 'Gagal meload log pemindaian';
 
   @override
   String get userManagement => 'Manajemen Pengguna';
@@ -3826,6 +3858,9 @@ class L10nId extends L10n {
   @override
   String get userDeleteSetNullWarning =>
       'Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.';
+
+  @override
+  String get userFailedToLoadData => 'Gagal meload pengguna';
 
   @override
   String get adminShellBottomNavDashboard => 'Dasbor';

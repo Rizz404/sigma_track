@@ -163,5 +163,9 @@
   "dashboardMaintenanceTypeCalibration": "Calibration",
   "@dashboardMaintenanceTypeCalibration": {
     "description": "Maintenance type calibration"
+  },
+  "dashboardFailedToLoadData": "Failed to load dashboard data",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

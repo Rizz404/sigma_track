@@ -1064,6 +1064,10 @@
   "@assetDeleteCascadeWarning": {
     "description": "Warning message about cascade deletion of related data"
   },
+  "assetFailedToLoadData": "Gagal meload aset",
+  "@assetFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "assetMovementDeleteAssetMovement": "Hapus Perpindahan Aset",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -1573,6 +1577,10 @@
   "assetMovementForUserShort": "Untuk Pengguna",
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
+  },
+  "assetMovementFailedToLoadData": "Gagal meload pergerakan aset",
+  "@assetMovementFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "authWelcomeBack": "Selamat Datang Kembali",
   "@authWelcomeBack": {
@@ -2112,6 +2120,10 @@
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
   },
+  "categoryFailedToLoadData": "Gagal meload kategori",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "dashboardTotalUsers": "Total Pengguna",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2237,13 +2249,17 @@
   "dashboardMaintenanceTypeCorrective": "Korektif",
   "dashboardMaintenanceTypeInspection": "Inspeksi",
   "dashboardMaintenanceTypeCalibration": "Kalibrasi",
+  "dashboardFailedToLoadData": "Gagal meload data dashboard",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "homeScreen": "Beranda",
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "Gagal Memuat Data",
+  "homeFailedToLoadData": "Gagal meload statistik pengguna",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "Coba Lagi",
   "@homeTryAgain": {
@@ -2737,6 +2753,10 @@
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
   },
+  "issueReportFailedToLoadData": "Gagal meload laporan masalah",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "locationDeleteLocation": "Hapus Lokasi",
   "@locationDeleteLocation": {
     "description": "Dialog title for deleting a location"
@@ -3168,6 +3188,10 @@
   "locationDeleteSetNullWarning": "Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.",
   "@locationDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting location"
+  },
+  "locationFailedToLoadData": "Gagal meload lokasi",
+  "@locationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "maintenanceScheduleDeleteSchedule": "Hapus Jadwal Pemeliharaan",
   "@maintenanceScheduleDeleteSchedule": {
@@ -3913,6 +3937,14 @@
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
   },
+  "maintenanceScheduleFailedToLoadData": "Gagal meload jadwal pemeliharaan",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "Gagal meload catatan pemeliharaan",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "notificationManagement": "Manajemen Notifikasi",
   "@notificationManagement": {
     "description": "Notification management screen title"
@@ -4261,6 +4293,10 @@
   "@notificationTestTroubleshootingTitle": {
     "description": "Title for troubleshooting section"
   },
+  "notificationFailedToLoadData": "Gagal meload notifikasi",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "scanLogManagement": "Manajemen Log Pemindaian",
   "@scanLogManagement": {
     "description": "Scan log management screen title"
@@ -4452,6 +4488,10 @@
   "scanLogNotImplementedYet": "Belum diimplementasikan",
   "@scanLogNotImplementedYet": {
     "description": "Placeholder message for unimplemented features"
+  },
+  "scanLogFailedToLoadData": "Gagal meload log pemindaian",
+  "@scanLogFailedToLoadData": {
+    "description": "Error message when scan logs fail to load"
   },
   "userManagement": "Manajemen Pengguna",
   "@userManagement": {
@@ -4984,6 +5024,10 @@
   "userDeleteSetNullWarning": "Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "Gagal meload pengguna",
+  "@userFailedToLoadData": {
+    "description": "Error message when failing to load users data"
   },
   "adminShellBottomNavDashboard": "Dasbor",
   "@adminShellBottomNavDashboard": {

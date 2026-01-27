@@ -329,5 +329,9 @@
   "categoryDeleteSetNullWarning": "子カテゴリはルートレベルのカテゴリになります。",
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
+  },
+  "categoryFailedToLoadData": "カテゴリの読み込みに失敗しました",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

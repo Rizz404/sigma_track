@@ -715,7 +715,7 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
 
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.assetFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

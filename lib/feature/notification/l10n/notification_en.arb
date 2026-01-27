@@ -361,5 +361,9 @@
   "notificationTestTroubleshootingMessage": "1. Uninstall app completely\n2. flutter clean && flutter pub get\n3. flutter run\n4. Check volume is up\n5. Files must be .ogg format in raw/",
   "@notificationTestTroubleshootingMessage": {
     "description": "Troubleshooting steps"
+  },
+  "notificationFailedToLoadData": "Failed to load notifications",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

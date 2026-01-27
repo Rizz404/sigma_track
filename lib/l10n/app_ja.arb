@@ -1064,6 +1064,10 @@
   "@assetDeleteCascadeWarning": {
     "description": "Warning message about cascade deletion of related data"
   },
+  "assetFailedToLoadData": "アセットの読み込みに失敗しました",
+  "@assetFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "assetMovementDeleteAssetMovement": "資産移動を削除",
   "@assetMovementDeleteAssetMovement": {
     "description": "Dialog title for deleting an asset movement"
@@ -1573,6 +1577,10 @@
   "assetMovementForUserShort": "ユーザーへ",
   "@assetMovementForUserShort": {
     "description": "Short label for user movement"
+  },
+  "assetMovementFailedToLoadData": "アセット移動の読み込みに失敗しました",
+  "@assetMovementFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "authWelcomeBack": "おかえりなさい",
   "@authWelcomeBack": {
@@ -2112,6 +2120,10 @@
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
   },
+  "categoryFailedToLoadData": "カテゴリの読み込みに失敗しました",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "dashboardTotalUsers": "総ユーザー数",
   "@dashboardTotalUsers": {
     "description": "Total users stat card title"
@@ -2237,13 +2249,17 @@
   "dashboardMaintenanceTypeCorrective": "修正",
   "dashboardMaintenanceTypeInspection": "点検",
   "dashboardMaintenanceTypeCalibration": "校正",
+  "dashboardFailedToLoadData": "ダッシュボードデータの読み込みに失敗しました",
+  "@dashboardFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "homeScreen": "ホーム",
   "@homeScreen": {
     "description": "Home screen title"
   },
-  "homeFailedToLoadData": "データの読み込みに失敗しました",
+  "homeFailedToLoadData": "ユーザー統計の読み込みに失敗しました",
   "@homeFailedToLoadData": {
-    "description": "Error message when data fails to load"
+    "description": "Error message when home user statistics fail to load"
   },
   "homeTryAgain": "再試行",
   "@homeTryAgain": {
@@ -2737,6 +2753,10 @@
   "@issueReportEditWarning": {
     "description": "Warning message in edit mode"
   },
+  "issueReportFailedToLoadData": "問題レポートの読み込みに失敗しました",
+  "@issueReportFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "locationDeleteLocation": "場所を削除",
   "@locationDeleteLocation": {
     "description": "Dialog title for deleting a location"
@@ -3169,6 +3189,10 @@
   "@locationDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting location"
   },
+  "locationFailedToLoadData": "場所の読み込みに失敗しました",
+  "@locationFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "maintenanceScheduleDeleteSchedule": "メンテナンススケジュールの削除",
   "maintenanceScheduleDeleteConfirmation": "「{title}」を削除してもよろしいですか？",
   "maintenanceScheduleDeleted": "メンテナンススケジュールを削除しました",
@@ -3375,6 +3399,14 @@
   "maintenanceScheduleDeleteSetNullWarning": "関連するメンテナンス記録のスケジュール参照が削除されます（記録はスタンドアロンになります）。",
   "@maintenanceScheduleDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting maintenance schedule"
+  },
+  "maintenanceScheduleFailedToLoadData": "メンテナンススケジュールの読み込みに失敗しました",
+  "@maintenanceScheduleFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "maintenanceRecordFailedToLoadData": "メンテナンス記録の読み込みに失敗しました",
+  "@maintenanceRecordFailedToLoadData": {
+    "description": "Error message when data fails to load"
   },
   "notificationManagement": "通知管理",
   "@notificationManagement": {
@@ -3724,6 +3756,10 @@
   "@notificationTestTroubleshootingTitle": {
     "description": "Title for troubleshooting section"
   },
+  "notificationFailedToLoadData": "通知の読み込みに失敗しました",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
   "scanLogManagement": "スキャンログ管理",
   "@scanLogManagement": {
     "description": "Scan log management screen title"
@@ -3915,6 +3951,10 @@
   "scanLogNotImplementedYet": "まだ実装されていません",
   "@scanLogNotImplementedYet": {
     "description": "Placeholder message for unimplemented features"
+  },
+  "scanLogFailedToLoadData": "スキャンログの読み込みに失敗しました",
+  "@scanLogFailedToLoadData": {
+    "description": "Error message when scan logs fail to load"
   },
   "userManagement": "ユーザー管理",
   "@userManagement": {
@@ -4447,6 +4487,10 @@
   "userDeleteSetNullWarning": "資産の割り当てがクリアされます。移動およびメンテナンス履歴のユーザー情報が削除されます。未解決の問題の解決者情報が削除されます。",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "ユーザーの読み込みに失敗しました",
+  "@userFailedToLoadData": {
+    "description": "Error message when failing to load users data"
   },
   "adminShellBottomNavDashboard": "ダッシュボード",
   "@adminShellBottomNavDashboard": {

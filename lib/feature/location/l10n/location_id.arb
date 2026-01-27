@@ -431,5 +431,9 @@
   "locationDeleteSetNullWarning": "Aset akan memiliki lokasi yang dikosongkan. Riwayat perpindahan aset akan memiliki info lokasi yang dihapus.",
   "@locationDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting location"
+  },
+  "locationFailedToLoadData": "Gagal meload lokasi",
+  "@locationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

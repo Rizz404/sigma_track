@@ -335,7 +335,7 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
                 child: state.isLoading
                     ? _buildLoadingState(context)
                     : state.failure != null
-                        ? _buildErrorState(context, state.failure!)
+                    ? _buildErrorState(context, state.failure!)
                     : state.locations.isEmpty
                     ? _buildEmptyState(context)
                     : _buildLocationsGrid(state.locations, state.isLoadingMore),
@@ -526,9 +526,10 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
       },
     );
   }
+
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.locationFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

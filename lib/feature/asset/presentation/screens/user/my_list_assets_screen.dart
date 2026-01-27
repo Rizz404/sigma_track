@@ -272,7 +272,7 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
                 child: state.isLoading
                     ? _buildLoadingState(context)
                     : state.failure != null
-                        ? _buildErrorState(context, state.failure!)
+                    ? _buildErrorState(context, state.failure!)
                     : state.assets.isEmpty
                     ? _buildEmptyState(context)
                     : _buildAssetsList(state.assets, state.isLoadingMore),
@@ -413,9 +413,10 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
       },
     );
   }
+
   Widget _buildErrorState(BuildContext context, Failure failure) {
     return AppErrorState(
-      title: 'Gagal Memuat Data',
+      title: context.l10n.assetFailedToLoadData,
       description: failure.message,
       onRetry: _onRefresh,
     );

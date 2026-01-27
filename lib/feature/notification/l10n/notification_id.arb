@@ -347,5 +347,9 @@
   "notificationTestTroubleshootingTitle": "Pemecahan Masalah",
   "@notificationTestTroubleshootingTitle": {
     "description": "Title for troubleshooting section"
+  },
+  "notificationFailedToLoadData": "Gagal meload notifikasi",
+  "@notificationFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

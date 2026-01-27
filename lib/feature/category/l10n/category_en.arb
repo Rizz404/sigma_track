@@ -329,5 +329,9 @@
   "categoryDeleteSetNullWarning": "Child categories will become root-level categories.",
   "@categoryDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting category"
+  },
+  "categoryFailedToLoadData": "Failed to load categories",
+  "@categoryFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

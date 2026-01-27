@@ -1063,5 +1063,9 @@
   "assetDeleteCascadeWarning": "Ini juga akan menghapus semua data terkait: perpindahan, jadwal pemeliharaan, catatan pemeliharaan, laporan masalah, gambar, dan log pemindaian.",
   "@assetDeleteCascadeWarning": {
     "description": "Warning message about cascade deletion of related data"
+  },
+  "assetFailedToLoadData": "Gagal meload aset",
+  "@assetFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

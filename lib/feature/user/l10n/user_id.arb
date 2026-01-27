@@ -531,5 +531,9 @@
   "userDeleteSetNullWarning": "Aset akan memiliki penugasan yang dikosongkan. Riwayat perpindahan dan pemeliharaan akan memiliki info pengguna yang dihapus. Masalah yang belum terselesaikan akan memiliki info penyelesai yang dihapus.",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "Gagal meload pengguna",
+  "@userFailedToLoadData": {
+    "description": "Error message when failing to load users data"
   }
 }

@@ -499,5 +499,9 @@
   "userDeleteSetNullWarning": "Assets will have assignment cleared. Movement and maintenance history will have user info removed. Unresolved issues will have resolver info removed.",
   "@userDeleteSetNullWarning": {
     "description": "Warning message about SET NULL behavior when deleting user"
+  },
+  "userFailedToLoadData": "Failed to load users",
+  "@userFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }

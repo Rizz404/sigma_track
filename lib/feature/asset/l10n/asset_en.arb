@@ -1063,5 +1063,9 @@
   "assetDeleteCascadeWarning": "This will also delete all related: movements, maintenance schedules, maintenance records, issue reports, images, and scan logs.",
   "@assetDeleteCascadeWarning": {
     "description": "Warning message about cascade deletion of related data"
+  },
+  "assetFailedToLoadData": "Failed to load assets",
+  "@assetFailedToLoadData": {
+    "description": "Error message when data fails to load"
   }
 }
