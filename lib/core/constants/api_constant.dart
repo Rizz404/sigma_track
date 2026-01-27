@@ -40,6 +40,8 @@ class ApiConstant {
   static const String getUsersCursor = '$userPrefix/cursor';
   static const String countUsers = '$userPrefix/count';
   static const String getUserProfile = '$userPrefix/profile';
+  static const String getUserProfileStatistics =
+      '$userPrefix/profile/statistics';
   static const String updateUserProfile = '$userPrefix/profile';
   static String getUserByName(String name) => '$userPrefix/name/$name';
   static String getUserByEmail(String email) => '$userPrefix/email/$email';

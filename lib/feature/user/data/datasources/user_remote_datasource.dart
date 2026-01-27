@@ -9,6 +9,7 @@ import 'package:sigma_track/core/network/models/api_response.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/data/models/user_model.dart';
 import 'package:sigma_track/feature/user/data/models/user_statistics_model.dart';
+import 'package:sigma_track/feature/user/data/models/user_personal_statistics_model.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_name_exists_usecase.dart';
@@ -35,6 +36,7 @@ abstract class UserRemoteDatasource {
     GetUsersUsecaseParams params,
   );
   Future<ApiResponse<UserStatisticsModel>> getUsersStatistics();
+  Future<ApiResponse<UserPersonalStatisticsModel>> getUserPersonalStatistics();
   Future<ApiCursorPaginationResponse<UserModel>> getUsersCursor(
     GetUsersCursorUsecaseParams params,
   );
@@ -124,6 +126,21 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
       final response = await _dioClient.get(
         ApiConstant.getUsersStatistics,
         fromJson: (json) => UserStatisticsModel.fromMap(json),
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApiResponse<UserPersonalStatisticsModel>>
+  getUserPersonalStatistics() async {
+    this.logData('getUserPersonalStatistics called');
+    try {
+      final response = await _dioClient.get(
+        ApiConstant.getUserProfileStatistics,
+        fromJson: (json) => UserPersonalStatisticsModel.fromMap(json),
       );
       return response;
     } catch (e) {

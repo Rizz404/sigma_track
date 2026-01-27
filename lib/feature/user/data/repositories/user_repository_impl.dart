@@ -12,6 +12,7 @@ import 'package:sigma_track/feature/user/data/datasources/user_remote_datasource
 import 'package:sigma_track/feature/user/data/mapper/user_mappers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
+import 'package:sigma_track/feature/user/domain/entities/user_personal_statistics.dart';
 import 'package:sigma_track/feature/user/domain/repositories/user_repository.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
@@ -97,6 +98,20 @@ class UserRepositoryImpl implements UserRepository {
   getUsersStatistics() async {
     try {
       final response = await _userRemoteDatasource.getUsersStatistics();
+      final statistics = response.data.toEntity();
+      return Right(ItemSuccess(message: response.message, data: statistics));
+    } on ApiErrorResponse catch (apiError) {
+      return Left(ServerFailure(message: apiError.message));
+    } catch (e) {
+      return Left(NetworkFailure(message: 'Unexpected error: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ItemSuccess<UserPersonalStatistics>>>
+  getUserPersonalStatistics() async {
+    try {
+      final response = await _userRemoteDatasource.getUserPersonalStatistics();
       final statistics = response.data.toEntity();
       return Right(ItemSuccess(message: response.message, data: statistics));
     } on ApiErrorResponse catch (apiError) {

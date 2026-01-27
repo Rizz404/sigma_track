@@ -179,6 +179,7 @@ import 'package:sigma_track/feature/user/domain/usecases/get_users_statistics_us
 import 'package:sigma_track/feature/user/domain/usecases/get_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_current_user_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/update_user_usecase.dart';
+import 'package:sigma_track/feature/user/domain/usecases/get_user_personal_statistics_usecase.dart';
 
 // =============================================
 // AUTH USECASE PROVIDERS
@@ -1206,3 +1207,9 @@ final exportUserListUsecaseProvider = Provider<ExportUserListUsecase>((ref) {
   final userRepository = ref.read(userRepositoryProvider);
   return ExportUserListUsecase(userRepository);
 });
+
+final getUserPersonalStatisticsUseCaseProvider =
+    Provider<GetUserPersonalStatisticsUseCase>((ref) {
+      final userRepository = ref.read(userRepositoryProvider);
+      return GetUserPersonalStatisticsUseCase(userRepository);
+    });

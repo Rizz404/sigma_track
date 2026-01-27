@@ -9,6 +9,8 @@ import 'package:sigma_track/feature/user/presentation/providers/get_user_by_emai
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_id_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/get_user_by_name_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/state/current_user_state.dart';
+import 'package:sigma_track/feature/user/presentation/providers/state/user_personal_statistics_state.dart';
+import 'package:sigma_track/feature/user/presentation/providers/user_personal_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_statistics_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_notifier.dart';
 import 'package:sigma_track/feature/user/presentation/providers/users_search_notifier.dart';
@@ -104,6 +106,14 @@ final userStatisticsProvider =
     AutoDisposeNotifierProvider<UserStatisticsNotifier, UserStatisticsState>(
       UserStatisticsNotifier.new,
     );
+
+final userPersonalStatisticsNotifierProvider =
+    AutoDisposeNotifierProvider<
+      UserPersonalStatisticsNotifier,
+      UserPersonalStatisticsState
+    >(() {
+      return UserPersonalStatisticsNotifier();
+    });
 
 final exportUsersProvider =
     AutoDisposeNotifierProvider<ExportUsersNotifier, ExportUsersState>(

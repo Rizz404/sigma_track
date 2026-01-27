@@ -5,6 +5,7 @@ import 'package:sigma_track/core/domain/failure.dart';
 import 'package:sigma_track/core/domain/success.dart';
 import 'package:sigma_track/feature/user/domain/entities/user.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
+import 'package:sigma_track/feature/user/domain/entities/user_personal_statistics.dart';
 import 'package:sigma_track/feature/user/domain/usecases/bulk_create_users_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_email_exists_usecase.dart';
 import 'package:sigma_track/feature/user/domain/usecases/check_user_exists_usecase.dart';
@@ -82,4 +83,6 @@ abstract class UserRepository {
   Future<Either<Failure, ItemSuccess<BulkDeleteResponse>>> deleteManyUsers(
     BulkDeleteParams params,
   );
+  Future<Either<Failure, ItemSuccess<UserPersonalStatistics>>>
+  getUserPersonalStatistics();
 }
