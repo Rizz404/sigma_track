@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
+import 'package:sigma_track/core/extensions/num_extension.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/core/utils/logging.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_personal_statistics.dart';
@@ -72,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
                 // * tampilkan error UI jika ada failure dan data null
                 else if (stats.failure != null && stats.statistics == null) ...[
                   AppErrorState(
-                    title: 'Gagal Memuat Data',
+                    title: context.l10n.homeFailedToLoadData,
                     description: stats.failure!.message,
                     icon: Icons.cloud_off_outlined,
                     onRetry: () async {
@@ -80,7 +82,7 @@ class HomeScreen extends ConsumerWidget {
                           .read(userPersonalStatisticsNotifierProvider.notifier)
                           .refresh();
                     },
-                    retryButtonText: 'Coba Lagi',
+                    retryButtonText: context.l10n.homeTryAgain,
                   ),
                 ],
               ],
@@ -103,7 +105,7 @@ class HomeScreen extends ConsumerWidget {
             enabled: isLoading,
             child: _buildStatCard(
               context,
-              title: 'Total Aset Saya',
+              title: context.l10n.homeMyTotalAssets,
               value: '${stats?.assets.total.count ?? 0}',
               icon: Icons.inventory_2,
               color: context.colors.primary,
@@ -116,8 +118,8 @@ class HomeScreen extends ConsumerWidget {
             enabled: isLoading,
             child: _buildStatCard(
               context,
-              title: 'Total Nilai Aset',
-              value: 'Rp ${_formatNumber(stats?.assets.total.totalValue ?? 0)}',
+              title: context.l10n.homeTotalAssetValue,
+              value: '${stats?.assets.total.totalValue.toRupiahShort() ?? 0}',
               icon: Icons.attach_money,
               color: context.colors.secondary,
             ),
@@ -181,22 +183,22 @@ class HomeScreen extends ConsumerWidget {
   ) {
     final sections = [
       _PieSection(
-        'Baik',
+        AssetCondition.good.label,
         stats?.assets.byCondition.good.toDouble() ?? 0,
         context.semantic.success,
       ),
       _PieSection(
-        'Cukup',
+        AssetCondition.fair.label,
         stats?.assets.byCondition.fair.toDouble() ?? 0,
         context.semantic.warning,
       ),
       _PieSection(
-        'Buruk',
+        AssetCondition.poor.label,
         stats?.assets.byCondition.poor.toDouble() ?? 0,
         context.semantic.warning,
       ),
       _PieSection(
-        'Rusak',
+        AssetCondition.damaged.label,
         stats?.assets.byCondition.damaged.toDouble() ?? 0,
         context.semantic.error,
       ),
@@ -206,7 +208,7 @@ class HomeScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Kondisi Aset Saya',
+        title: context.l10n.homeMyAssetCondition,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: SizedBox(
@@ -248,7 +250,7 @@ class HomeScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Detail Kondisi Aset',
+        title: context.l10n.homeAssetConditionDetail,
         child: SizedBox(
           height: 250,
           child: BarChart(
@@ -359,22 +361,22 @@ class HomeScreen extends ConsumerWidget {
   ) {
     final sections = [
       _PieSection(
-        'Terbuka',
+        IssueStatus.open.label,
         stats?.issueReports.byStatus.open.toDouble() ?? 0,
         context.semantic.error,
       ),
       _PieSection(
-        'Dalam Proses',
+        IssueStatus.inProgress.label,
         stats?.issueReports.byStatus.inProgress.toDouble() ?? 0,
         context.semantic.warning,
       ),
       _PieSection(
-        'Terselesaikan',
+        IssueStatus.resolved.label,
         stats?.issueReports.byStatus.resolved.toDouble() ?? 0,
         context.semantic.success,
       ),
       _PieSection(
-        'Ditutup',
+        IssueStatus.closed.label,
         stats?.issueReports.byStatus.closed.toDouble() ?? 0,
         context.colors.textSecondary,
       ),
@@ -384,7 +386,7 @@ class HomeScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Status Laporan Masalah Saya',
+        title: context.l10n.homeMyIssueReportStatus,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: SizedBox(
@@ -426,7 +428,7 @@ class HomeScreen extends ConsumerWidget {
       enabled: isLoading,
       child: _buildChartCard(
         context,
-        title: 'Prioritas Laporan Masalah',
+        title: context.l10n.homeIssueReportPriority,
         child: SizedBox(
           height: 250,
           child: BarChart(
@@ -457,7 +459,11 @@ class HomeScreen extends ConsumerWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      final labels = ['Tinggi', 'Sedang', 'Rendah'];
+                      final labels = [
+                        IssuePriority.high.label,
+                        IssuePriority.medium.label,
+                        IssuePriority.low.label,
+                      ];
                       if (value.toInt() >= labels.length) {
                         return const SizedBox.shrink();
                       }
@@ -538,7 +544,7 @@ class HomeScreen extends ConsumerWidget {
               Expanded(
                 child: _buildInfoCard(
                   context,
-                  title: 'Health Score',
+                  title: context.l10n.homeHealthScore,
                   value: '${stats?.summary.healthScore ?? 0}',
                   icon: Icons.favorite,
                   color: _getHealthScoreColor(
@@ -551,10 +557,10 @@ class HomeScreen extends ConsumerWidget {
               Expanded(
                 child: _buildInfoCard(
                   context,
-                  title: 'Laporan Aktif',
+                  title: context.l10n.homeActiveReports,
                   value: stats?.summary.hasActiveIssues == true
-                      ? 'Ya'
-                      : 'Tidak',
+                      ? context.l10n.homeYes
+                      : context.l10n.homeNo,
                   icon: Icons.warning_amber,
                   color: stats?.summary.hasActiveIssues == true
                       ? context.semantic.warning
@@ -569,7 +575,7 @@ class HomeScreen extends ConsumerWidget {
               Expanded(
                 child: _buildInfoCard(
                   context,
-                  title: 'Usia Akun',
+                  title: context.l10n.homeAccountAge,
                   value: stats?.summary.accountAge ?? '-',
                   icon: Icons.calendar_today,
                   color: context.colors.primary,
@@ -579,7 +585,7 @@ class HomeScreen extends ConsumerWidget {
               Expanded(
                 child: _buildInfoCard(
                   context,
-                  title: 'Total Laporan',
+                  title: context.l10n.homeTotalReports,
                   value: '${stats?.issueReports.total.count ?? 0}',
                   icon: Icons.report,
                   color: context.colors.secondary,
@@ -719,17 +725,6 @@ class HomeScreen extends ConsumerWidget {
     if (score >= 80) return context.semantic.success;
     if (score >= 50) return context.semantic.warning;
     return context.semantic.error;
-  }
-
-  String _formatNumber(double value) {
-    if (value >= 1000000000) {
-      return '${(value / 1000000000).toStringAsFixed(1)}M';
-    } else if (value >= 1000000) {
-      return '${(value / 1000000).toStringAsFixed(1)}Jt';
-    } else if (value >= 1000) {
-      return '${(value / 1000).toStringAsFixed(1)}Rb';
-    }
-    return value.toStringAsFixed(0);
   }
 }
 

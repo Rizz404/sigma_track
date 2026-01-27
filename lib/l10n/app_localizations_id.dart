@@ -1738,6 +1738,48 @@ class L10nId extends L10n {
   String get homeScreen => 'Beranda';
 
   @override
+  String get homeFailedToLoadData => 'Gagal Memuat Data';
+
+  @override
+  String get homeTryAgain => 'Coba Lagi';
+
+  @override
+  String get homeMyTotalAssets => 'Total Aset Saya';
+
+  @override
+  String get homeTotalAssetValue => 'Total Nilai Aset';
+
+  @override
+  String get homeMyAssetCondition => 'Kondisi Aset Saya';
+
+  @override
+  String get homeAssetConditionDetail => 'Detail Kondisi Aset';
+
+  @override
+  String get homeMyIssueReportStatus => 'Status Laporan Masalah Saya';
+
+  @override
+  String get homeIssueReportPriority => 'Prioritas Laporan Masalah';
+
+  @override
+  String get homeHealthScore => 'Skor Kesehatan';
+
+  @override
+  String get homeActiveReports => 'Laporan Aktif';
+
+  @override
+  String get homeAccountAge => 'Usia Akun';
+
+  @override
+  String get homeTotalReports => 'Total Laporan';
+
+  @override
+  String get homeYes => 'Ya';
+
+  @override
+  String get homeNo => 'Tidak';
+
+  @override
   String get issueReportDeleteIssueReport => 'Hapus Laporan Masalah';
 
   @override

@@ -2280,6 +2280,62 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
+  "homeFailedToLoadData": "Failed to Load Data",
+  "@homeFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "homeTryAgain": "Try Again",
+  "@homeTryAgain": {
+    "description": "Button text to retry action"
+  },
+  "homeMyTotalAssets": "My Total Assets",
+  "@homeMyTotalAssets": {
+    "description": "Label for total assets statistic"
+  },
+  "homeTotalAssetValue": "Total Asset Value",
+  "@homeTotalAssetValue": {
+    "description": "Label for total asset value statistic"
+  },
+  "homeMyAssetCondition": "My Asset Condition",
+  "@homeMyAssetCondition": {
+    "description": "Title for asset condition chart"
+  },
+  "homeAssetConditionDetail": "Asset Condition Detail",
+  "@homeAssetConditionDetail": {
+    "description": "Title for asset condition detail chart"
+  },
+  "homeMyIssueReportStatus": "My Issue Report Status",
+  "@homeMyIssueReportStatus": {
+    "description": "Title for issue report status chart"
+  },
+  "homeIssueReportPriority": "Issue Report Priority",
+  "@homeIssueReportPriority": {
+    "description": "Title for issue report priority chart"
+  },
+  "homeHealthScore": "Health Score",
+  "@homeHealthScore": {
+    "description": "Label for health score statistic"
+  },
+  "homeActiveReports": "Active Reports",
+  "@homeActiveReports": {
+    "description": "Label for active reports statistic"
+  },
+  "homeAccountAge": "Account Age",
+  "@homeAccountAge": {
+    "description": "Label for account age statistic"
+  },
+  "homeTotalReports": "Total Reports",
+  "@homeTotalReports": {
+    "description": "Label for total reports statistic"
+  },
+  "homeYes": "Yes",
+  "@homeYes": {
+    "description": "Generic yes"
+  },
+  "homeNo": "No",
+  "@homeNo": {
+    "description": "Generic no"
+  },
   "issueReportDeleteIssueReport": "Delete Issue Report",
   "@issueReportDeleteIssueReport": {
     "description": "Dialog title for deleting an issue report"

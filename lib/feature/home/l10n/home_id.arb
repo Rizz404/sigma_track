@@ -3,5 +3,61 @@
   "homeScreen": "Beranda",
   "@homeScreen": {
     "description": "Home screen title"
+  },
+  "homeFailedToLoadData": "Gagal Memuat Data",
+  "@homeFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "homeTryAgain": "Coba Lagi",
+  "@homeTryAgain": {
+    "description": "Button text to retry action"
+  },
+  "homeMyTotalAssets": "Total Aset Saya",
+  "@homeMyTotalAssets": {
+    "description": "Label for total assets statistic"
+  },
+  "homeTotalAssetValue": "Total Nilai Aset",
+  "@homeTotalAssetValue": {
+    "description": "Label for total asset value statistic"
+  },
+  "homeMyAssetCondition": "Kondisi Aset Saya",
+  "@homeMyAssetCondition": {
+    "description": "Title for asset condition chart"
+  },
+  "homeAssetConditionDetail": "Detail Kondisi Aset",
+  "@homeAssetConditionDetail": {
+    "description": "Title for asset condition detail chart"
+  },
+  "homeMyIssueReportStatus": "Status Laporan Masalah Saya",
+  "@homeMyIssueReportStatus": {
+    "description": "Title for issue report status chart"
+  },
+  "homeIssueReportPriority": "Prioritas Laporan Masalah",
+  "@homeIssueReportPriority": {
+    "description": "Title for issue report priority chart"
+  },
+  "homeHealthScore": "Skor Kesehatan",
+  "@homeHealthScore": {
+    "description": "Label for health score statistic"
+  },
+  "homeActiveReports": "Laporan Aktif",
+  "@homeActiveReports": {
+    "description": "Label for active reports statistic"
+  },
+  "homeAccountAge": "Usia Akun",
+  "@homeAccountAge": {
+    "description": "Label for account age statistic"
+  },
+  "homeTotalReports": "Total Laporan",
+  "@homeTotalReports": {
+    "description": "Label for total reports statistic"
+  },
+  "homeYes": "Ya",
+  "@homeYes": {
+    "description": "Generic yes"
+  },
+  "homeNo": "Tidak",
+  "@homeNo": {
+    "description": "Generic no"
   }
 }

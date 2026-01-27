@@ -1730,6 +1730,48 @@ class L10nEn extends L10n {
   String get homeScreen => 'Home';
 
   @override
+  String get homeFailedToLoadData => 'Failed to Load Data';
+
+  @override
+  String get homeTryAgain => 'Try Again';
+
+  @override
+  String get homeMyTotalAssets => 'My Total Assets';
+
+  @override
+  String get homeTotalAssetValue => 'Total Asset Value';
+
+  @override
+  String get homeMyAssetCondition => 'My Asset Condition';
+
+  @override
+  String get homeAssetConditionDetail => 'Asset Condition Detail';
+
+  @override
+  String get homeMyIssueReportStatus => 'My Issue Report Status';
+
+  @override
+  String get homeIssueReportPriority => 'Issue Report Priority';
+
+  @override
+  String get homeHealthScore => 'Health Score';
+
+  @override
+  String get homeActiveReports => 'Active Reports';
+
+  @override
+  String get homeAccountAge => 'Account Age';
+
+  @override
+  String get homeTotalReports => 'Total Reports';
+
+  @override
+  String get homeYes => 'Yes';
+
+  @override
+  String get homeNo => 'No';
+
+  @override
   String get issueReportDeleteIssueReport => 'Delete Issue Report';
 
   @override

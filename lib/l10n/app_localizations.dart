@@ -3285,6 +3285,90 @@ abstract class L10n {
   /// **'Home'**
   String get homeScreen;
 
+  /// Error message when data fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Load Data'**
+  String get homeFailedToLoadData;
+
+  /// Button text to retry action
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get homeTryAgain;
+
+  /// Label for total assets statistic
+  ///
+  /// In en, this message translates to:
+  /// **'My Total Assets'**
+  String get homeMyTotalAssets;
+
+  /// Label for total asset value statistic
+  ///
+  /// In en, this message translates to:
+  /// **'Total Asset Value'**
+  String get homeTotalAssetValue;
+
+  /// Title for asset condition chart
+  ///
+  /// In en, this message translates to:
+  /// **'My Asset Condition'**
+  String get homeMyAssetCondition;
+
+  /// Title for asset condition detail chart
+  ///
+  /// In en, this message translates to:
+  /// **'Asset Condition Detail'**
+  String get homeAssetConditionDetail;
+
+  /// Title for issue report status chart
+  ///
+  /// In en, this message translates to:
+  /// **'My Issue Report Status'**
+  String get homeMyIssueReportStatus;
+
+  /// Title for issue report priority chart
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Report Priority'**
+  String get homeIssueReportPriority;
+
+  /// Label for health score statistic
+  ///
+  /// In en, this message translates to:
+  /// **'Health Score'**
+  String get homeHealthScore;
+
+  /// Label for active reports statistic
+  ///
+  /// In en, this message translates to:
+  /// **'Active Reports'**
+  String get homeActiveReports;
+
+  /// Label for account age statistic
+  ///
+  /// In en, this message translates to:
+  /// **'Account Age'**
+  String get homeAccountAge;
+
+  /// Label for total reports statistic
+  ///
+  /// In en, this message translates to:
+  /// **'Total Reports'**
+  String get homeTotalReports;
+
+  /// Generic yes
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get homeYes;
+
+  /// Generic no
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get homeNo;
+
   /// Dialog title for deleting an issue report
   ///
   /// In en, this message translates to:

@@ -1661,6 +1661,48 @@ class L10nJa extends L10n {
   String get homeScreen => 'ホーム';
 
   @override
+  String get homeFailedToLoadData => 'データの読み込みに失敗しました';
+
+  @override
+  String get homeTryAgain => '再試行';
+
+  @override
+  String get homeMyTotalAssets => '私の総資産';
+
+  @override
+  String get homeTotalAssetValue => '総資産価値';
+
+  @override
+  String get homeMyAssetCondition => '私の資産状態';
+
+  @override
+  String get homeAssetConditionDetail => '資産状態の詳細';
+
+  @override
+  String get homeMyIssueReportStatus => '私の問題報告ステータス';
+
+  @override
+  String get homeIssueReportPriority => '問題報告の優先度';
+
+  @override
+  String get homeHealthScore => 'ヘルススコア';
+
+  @override
+  String get homeActiveReports => 'アクティブな報告';
+
+  @override
+  String get homeAccountAge => 'アカウント年齢';
+
+  @override
+  String get homeTotalReports => '総報告数';
+
+  @override
+  String get homeYes => 'はい';
+
+  @override
+  String get homeNo => 'いいえ';
+
+  @override
   String get issueReportDeleteIssueReport => '問題報告を削除';
 
   @override

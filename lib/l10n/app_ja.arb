@@ -2241,6 +2241,62 @@
   "@homeScreen": {
     "description": "Home screen title"
   },
+  "homeFailedToLoadData": "データの読み込みに失敗しました",
+  "@homeFailedToLoadData": {
+    "description": "Error message when data fails to load"
+  },
+  "homeTryAgain": "再試行",
+  "@homeTryAgain": {
+    "description": "Button text to retry action"
+  },
+  "homeMyTotalAssets": "私の総資産",
+  "@homeMyTotalAssets": {
+    "description": "Label for total assets statistic"
+  },
+  "homeTotalAssetValue": "総資産価値",
+  "@homeTotalAssetValue": {
+    "description": "Label for total asset value statistic"
+  },
+  "homeMyAssetCondition": "私の資産状態",
+  "@homeMyAssetCondition": {
+    "description": "Title for asset condition chart"
+  },
+  "homeAssetConditionDetail": "資産状態の詳細",
+  "@homeAssetConditionDetail": {
+    "description": "Title for asset condition detail chart"
+  },
+  "homeMyIssueReportStatus": "私の問題報告ステータス",
+  "@homeMyIssueReportStatus": {
+    "description": "Title for issue report status chart"
+  },
+  "homeIssueReportPriority": "問題報告の優先度",
+  "@homeIssueReportPriority": {
+    "description": "Title for issue report priority chart"
+  },
+  "homeHealthScore": "ヘルススコア",
+  "@homeHealthScore": {
+    "description": "Label for health score statistic"
+  },
+  "homeActiveReports": "アクティブな報告",
+  "@homeActiveReports": {
+    "description": "Label for active reports statistic"
+  },
+  "homeAccountAge": "アカウント年齢",
+  "@homeAccountAge": {
+    "description": "Label for account age statistic"
+  },
+  "homeTotalReports": "総報告数",
+  "@homeTotalReports": {
+    "description": "Label for total reports statistic"
+  },
+  "homeYes": "はい",
+  "@homeYes": {
+    "description": "Generic yes"
+  },
+  "homeNo": "いいえ",
+  "@homeNo": {
+    "description": "Generic no"
+  },
   "issueReportDeleteIssueReport": "問題報告を削除",
   "@issueReportDeleteIssueReport": {
     "description": "Dialog title for deleting an issue report"
