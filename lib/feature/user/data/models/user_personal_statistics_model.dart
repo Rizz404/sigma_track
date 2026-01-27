@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:sigma_track/core/enums/model_entity_enums.dart';
-import 'package:sigma_track/core/extensions/date_time_extension.dart';
 import 'package:sigma_track/core/extensions/model_parsing_extension.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_personal_statistics.dart';
 

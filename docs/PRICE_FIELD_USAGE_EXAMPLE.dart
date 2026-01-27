@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_button.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_price_field_helper.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text_field.dart';

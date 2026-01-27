@@ -16,6 +16,7 @@ import 'package:sigma_track/feature/notification/presentation/providers/notifica
 import 'package:sigma_track/feature/scan_log/presentation/providers/scan_log_providers.dart';
 import 'package:sigma_track/feature/user/domain/entities/user_statistics.dart';
 import 'package:sigma_track/feature/user/presentation/providers/user_providers.dart';
+import 'package:sigma_track/shared/presentation/widgets/app_error_state.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 import 'package:sigma_track/shared/presentation/widgets/screen_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -48,113 +49,161 @@ class DashboardScreen extends ConsumerWidget {
       this.logError('Asset stats error', assetStats.failure);
     }
 
+    final isLoading = [
+      userStats.isLoading,
+      assetStats.isLoading,
+      categoryStats.isLoading,
+      locationStats.isLoading,
+      scanLogStats.isLoading,
+      notificationStats.isLoading,
+      assetMovementStats.isLoading,
+      issueReportStats.isLoading,
+      maintenanceScheduleStats.isLoading,
+      maintenanceRecordStats.isLoading,
+    ].any((e) => e);
+
+    // * Data dianggap ada jika statistik utama (User & Asset) tersedia
+    final hasData =
+        userStats.statistics != null ||
+        assetStats.statistics != null ||
+        categoryStats.statistics != null ||
+        locationStats.statistics != null ||
+        scanLogStats.statistics != null ||
+        notificationStats.statistics != null ||
+        assetMovementStats.statistics != null ||
+        issueReportStats.statistics != null ||
+        maintenanceScheduleStats.statistics != null ||
+        maintenanceRecordStats.statistics != null;
+
+    final failure =
+        userStats.failure ??
+        assetStats.failure ??
+        categoryStats.failure ??
+        locationStats.failure ??
+        scanLogStats.failure ??
+        notificationStats.failure ??
+        assetMovementStats.failure ??
+        issueReportStats.failure ??
+        maintenanceScheduleStats.failure ??
+        maintenanceRecordStats.failure;
+
+    Future<void> refresh() async {
+      await Future.wait([
+        ref.read(userStatisticsProvider.notifier).refresh(),
+        ref.read(assetStatisticsProvider.notifier).refresh(),
+        ref.read(categoryStatisticsProvider.notifier).refresh(),
+        ref.read(locationStatisticsProvider.notifier).refresh(),
+        ref.read(scanLogStatisticsProvider.notifier).refresh(),
+        ref.read(notificationStatisticsProvider.notifier).refresh(),
+        ref.read(assetMovementsStatisticsProvider.notifier).refresh(),
+        ref.read(issueReportsStatisticsProvider.notifier).refresh(),
+        ref.read(maintenanceSchedulesStatisticsProvider.notifier).refresh(),
+        ref.read(maintenanceRecordsStatisticsProvider.notifier).refresh(),
+      ]);
+    }
+
     return Scaffold(
       body: ScreenWrapper(
         child: RefreshIndicator(
-          onRefresh: () async {
-            await Future.wait([
-              ref.read(userStatisticsProvider.notifier).refresh(),
-              ref.read(assetStatisticsProvider.notifier).refresh(),
-              ref.read(categoryStatisticsProvider.notifier).refresh(),
-              ref.read(locationStatisticsProvider.notifier).refresh(),
-              ref.read(scanLogStatisticsProvider.notifier).refresh(),
-              ref.read(notificationStatisticsProvider.notifier).refresh(),
-              ref.read(assetMovementsStatisticsProvider.notifier).refresh(),
-              ref.read(issueReportsStatisticsProvider.notifier).refresh(),
-              ref
-                  .read(maintenanceSchedulesStatisticsProvider.notifier)
-                  .refresh(),
-              ref.read(maintenanceRecordsStatisticsProvider.notifier).refresh(),
-            ]);
-          },
+          onRefresh: refresh,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSummaryCards(
-                  context,
-                  userStats: userStats.statistics,
-                  assetStats: assetStats.statistics,
-                  isUserLoading: userStats.isLoading,
-                  isAssetLoading: assetStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildAssetOverview(
-                  context,
-                  assetStats.statistics,
-                  assetStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildUserRoleDistribution(
-                  context,
-                  userStats.statistics,
-                  userStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildAssetStatusChart(
-                  context,
-                  assetStats.statistics,
-                  assetStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildAssetConditionChart(
-                  context,
-                  assetStats.statistics,
-                  assetStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildAssetMovementTrends(
-                  context,
-                  assetMovementStats.statistics,
-                  assetMovementStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildIssueReportStatistics(
-                  context,
-                  issueReportStats.statistics,
-                  issueReportStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildMaintenanceScheduleChart(
-                  context,
-                  maintenanceScheduleStats.statistics,
-                  maintenanceScheduleStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildMaintenanceRecordChart(
-                  context,
-                  maintenanceRecordStats.statistics,
-                  maintenanceRecordStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildCategoryLocationStats(
-                  context,
-                  categoryStats: categoryStats.statistics,
-                  locationStats: locationStats.statistics,
-                  isCategoryLoading: categoryStats.isLoading,
-                  isLocationLoading: locationStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildActivityStats(
-                  context,
-                  scanLogStats: scanLogStats.statistics,
-                  notificationStats: notificationStats.statistics,
-                  assetMovementStats: assetMovementStats.statistics,
-                  issueReportStats: issueReportStats.statistics,
-                  isScanLogLoading: scanLogStats.isLoading,
-                  isNotificationLoading: notificationStats.isLoading,
-                  isAssetMovementLoading: assetMovementStats.isLoading,
-                  isIssueReportLoading: issueReportStats.isLoading,
-                ),
-                const SizedBox(height: 24),
-                _buildMaintenanceStats(
-                  context,
-                  scheduleStats: maintenanceScheduleStats.statistics,
-                  recordStats: maintenanceRecordStats.statistics,
-                  isScheduleLoading: maintenanceScheduleStats.isLoading,
-                  isRecordLoading: maintenanceRecordStats.isLoading,
-                ),
+                if (isLoading || hasData) ...[
+                  _buildSummaryCards(
+                    context,
+                    userStats: userStats.statistics,
+                    assetStats: assetStats.statistics,
+                    isUserLoading: userStats.isLoading,
+                    isAssetLoading: assetStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetOverview(
+                    context,
+                    assetStats.statistics,
+                    assetStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildUserRoleDistribution(
+                    context,
+                    userStats.statistics,
+                    userStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetStatusChart(
+                    context,
+                    assetStats.statistics,
+                    assetStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetConditionChart(
+                    context,
+                    assetStats.statistics,
+                    assetStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildAssetMovementTrends(
+                    context,
+                    assetMovementStats.statistics,
+                    assetMovementStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildIssueReportStatistics(
+                    context,
+                    issueReportStats.statistics,
+                    issueReportStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildMaintenanceScheduleChart(
+                    context,
+                    maintenanceScheduleStats.statistics,
+                    maintenanceScheduleStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildMaintenanceRecordChart(
+                    context,
+                    maintenanceRecordStats.statistics,
+                    maintenanceRecordStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildCategoryLocationStats(
+                    context,
+                    categoryStats: categoryStats.statistics,
+                    locationStats: locationStats.statistics,
+                    isCategoryLoading: categoryStats.isLoading,
+                    isLocationLoading: locationStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildActivityStats(
+                    context,
+                    scanLogStats: scanLogStats.statistics,
+                    notificationStats: notificationStats.statistics,
+                    assetMovementStats: assetMovementStats.statistics,
+                    issueReportStats: issueReportStats.statistics,
+                    isScanLogLoading: scanLogStats.isLoading,
+                    isNotificationLoading: notificationStats.isLoading,
+                    isAssetMovementLoading: assetMovementStats.isLoading,
+                    isIssueReportLoading: issueReportStats.isLoading,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildMaintenanceStats(
+                    context,
+                    scheduleStats: maintenanceScheduleStats.statistics,
+                    recordStats: maintenanceRecordStats.statistics,
+                    isScheduleLoading: maintenanceScheduleStats.isLoading,
+                    isRecordLoading: maintenanceRecordStats.isLoading,
+                  ),
+                ] else if (failure != null && !hasData) ...[
+                  AppErrorState(
+                    title: 'Gagal Memuat Data',
+                    description: failure.message,
+                    icon: Icons.cloud_off_outlined,
+                    onRetry: refresh,
+                    retryButtonText: 'Coba Lagi',
+                  ),
+                ],
               ],
             ),
           ),
