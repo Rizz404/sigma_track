@@ -165,33 +165,25 @@ class NotificationModel extends Equatable {
 }
 
 class NotificationTranslationModel extends Equatable {
-  final String id;
-  final String notificationId;
   final String langCode;
   final String title;
   final String message;
 
   const NotificationTranslationModel({
-    required this.id,
-    required this.notificationId,
     required this.langCode,
     required this.title,
     required this.message,
   });
 
   @override
-  List<Object> get props => [id, notificationId, langCode, title, message];
+  List<Object> get props => [langCode, title, message];
 
   NotificationTranslationModel copyWith({
-    String? id,
-    String? notificationId,
     String? langCode,
     String? title,
     String? message,
   }) {
     return NotificationTranslationModel(
-      id: id ?? this.id,
-      notificationId: notificationId ?? this.notificationId,
       langCode: langCode ?? this.langCode,
       title: title ?? this.title,
       message: message ?? this.message,
@@ -199,19 +191,11 @@ class NotificationTranslationModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'notificationId': notificationId,
-      'langCode': langCode,
-      'title': title,
-      'message': message,
-    };
+    return {'langCode': langCode, 'title': title, 'message': message};
   }
 
   factory NotificationTranslationModel.fromMap(Map<String, dynamic> map) {
     return NotificationTranslationModel(
-      id: map.getField<String>('id'),
-      notificationId: map.getField<String>('notificationId'),
       langCode: map.getField<String>('langCode'),
       title: map.getField<String>('title'),
       message: map.getField<String>('message'),
@@ -225,5 +209,5 @@ class NotificationTranslationModel extends Equatable {
 
   @override
   String toString() =>
-      'NotificationTranslationModel(id: $id, notificationId: $notificationId, langCode: $langCode, title: $title, message: $message)';
+      'NotificationTranslationModel(langCode: $langCode, title: $title, message: $message)';
 }

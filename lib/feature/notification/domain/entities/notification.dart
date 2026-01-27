@@ -112,20 +112,16 @@ class Notification extends Equatable {
 }
 
 class NotificationTranslation extends Equatable {
-  final String id;
-  final String notificationId;
   final String langCode;
   final String title;
   final String message;
 
   const NotificationTranslation({
-    required this.id,
-    required this.notificationId,
     required this.langCode,
     required this.title,
     required this.message,
   });
 
   @override
-  List<Object> get props => [id, notificationId, langCode, title, message];
+  List<Object> get props => [langCode, title, message];
 }

@@ -50,8 +50,6 @@ extension NotificationEntityMapper on Notification {
 extension NotificationTranslationModelMapper on NotificationTranslationModel {
   NotificationTranslation toEntity() {
     return NotificationTranslation(
-      id: id,
-      notificationId: notificationId,
       langCode: langCode,
       title: title,
       message: message,
@@ -62,8 +60,6 @@ extension NotificationTranslationModelMapper on NotificationTranslationModel {
 extension NotificationTranslationEntityMapper on NotificationTranslation {
   NotificationTranslationModel toModel() {
     return NotificationTranslationModel(
-      id: id,
-      notificationId: notificationId,
       langCode: langCode,
       title: title,
       message: message,
