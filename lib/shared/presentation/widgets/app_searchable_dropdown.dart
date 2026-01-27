@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -89,79 +91,67 @@ class AppSearchableDropdown<T> extends StatefulWidget {
 
 class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   final LayerLink _layerLink = LayerLink();
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _searchFocusNode = FocusNode();
   final TextEditingController _searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
   late GlobalKey<FormBuilderFieldState> _fieldKey;
 
   OverlayEntry? _overlayEntry;
   T? _selectedItem;
-  DateTime? _lastSearchTime;
+  Timer? _debounceTimer;
+  ScrollController? _scrollController;
+  bool _isDropdownOpen = false;
 
   @override
   void initState() {
     super.initState();
     _fieldKey = GlobalKey<FormBuilderFieldState>();
     _selectedItem = widget.initialValue;
-    _setupScrollListener();
-  }
-
-  void _setupScrollListener() {
-    _scrollController.addListener(() {
-      // * Trigger load more saat scroll 80% dari max extent
-      if (_scrollController.hasClients &&
-          widget.onLoadMore != null &&
-          widget.hasMore &&
-          !widget.isLoadingMore) {
-        final maxScroll = _scrollController.position.maxScrollExtent;
-        final currentScroll = _scrollController.position.pixels;
-        final threshold = maxScroll * 0.8;
-
-        if (currentScroll >= threshold) {
-          widget.onLoadMore!();
-        }
-      }
-    });
   }
 
   @override
   void didUpdateWidget(covariant AppSearchableDropdown<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     // * Update selected item jika initialValue berubah (untuk mode edit)
     if (widget.initialValue != oldWidget.initialValue) {
       _selectedItem = widget.initialValue;
+    }
+
+    // * Rebuild overlay saat items/loading state berubah
+    if (_overlayEntry != null) {
+      if (widget.items != oldWidget.items ||
+          widget.isLoading != oldWidget.isLoading ||
+          widget.isLoadingMore != oldWidget.isLoadingMore ||
+          widget.hasMore != oldWidget.hasMore) {
+        // * Schedule rebuild for next frame to avoid calling during build
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _overlayEntry?.markNeedsBuild();
+        });
+      }
     }
   }
 
   @override
   void dispose() {
     _removeOverlay();
-    _focusNode.dispose();
+    _searchFocusNode.dispose();
     _searchController.dispose();
-    _scrollController.dispose();
+    _debounceTimer?.cancel();
+    _scrollController?.dispose();
     super.dispose();
   }
 
   void _performSearch(String query) {
-    _debounceSearch(query);
-  }
-
-  void _debounceSearch(String query) {
-    _lastSearchTime = DateTime.now();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (_lastSearchTime != null &&
-          DateTime.now().difference(_lastSearchTime!) >=
-              const Duration(milliseconds: 500)) {
-        widget.onSearch(query);
-        _updateOverlay();
-      }
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 400), () {
+      widget.onSearch(query);
     });
   }
 
   void _toggleDropdown() {
     if (!widget.enabled) return;
 
-    if (_overlayEntry != null) {
+    if (_isDropdownOpen) {
       _hideDropdown();
     } else {
       _showDropdown();
@@ -169,17 +159,40 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
   }
 
   void _showDropdown() {
+    if (_isDropdownOpen) return;
+
+    _scrollController?.dispose();
+    _scrollController = ScrollController();
+    _setupScrollListener();
+
     _removeOverlay();
     _overlayEntry = _createOverlayEntry();
     Overlay.of(context).insert(_overlayEntry!);
-    _focusNode.requestFocus();
+    _isDropdownOpen = true;
+
+    // * Request focus ke search field
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _searchFocusNode.requestFocus();
+    });
+
+    setState(() {});
   }
 
   void _hideDropdown() {
+    if (!_isDropdownOpen) return;
+
     _removeOverlay();
     _searchController.clear();
-    // Reset search when closing
+    _debounceTimer?.cancel();
+    _isDropdownOpen = false;
+
+    // * Reset search saat close
     widget.onSearch('');
+
+    // * Unfocus untuk mencegah focus jumping
+    FocusScope.of(context).unfocus();
+
+    setState(() {});
   }
 
   void _removeOverlay() {
@@ -187,8 +200,23 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
     _overlayEntry = null;
   }
 
-  void _updateOverlay() {
-    _overlayEntry?.markNeedsBuild();
+  void _setupScrollListener() {
+    _scrollController?.addListener(() {
+      if (_scrollController == null || !_scrollController!.hasClients) return;
+
+      // * Trigger loadMore saat scroll 80% dari max extent
+      if (widget.onLoadMore != null &&
+          widget.hasMore &&
+          !widget.isLoadingMore) {
+        final maxScroll = _scrollController!.position.maxScrollExtent;
+        final currentScroll = _scrollController!.position.pixels;
+        final threshold = maxScroll * 0.8;
+
+        if (currentScroll >= threshold) {
+          widget.onLoadMore!();
+        }
+      }
+    });
   }
 
   void _selectItem(T item) {
@@ -201,6 +229,16 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
 
     widget.onChanged?.call(item);
     _hideDropdown();
+  }
+
+  void _clearSelection() {
+    _fieldKey.currentState?.didChange(null);
+
+    setState(() {
+      _selectedItem = null;
+    });
+
+    widget.onChanged?.call(null);
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -219,7 +257,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
         : (spaceBelow - 8).clamp(200.0, maxHeight);
 
     return OverlayEntry(
-      builder: (context) => Positioned(
+      builder: (overlayContext) => Positioned(
         width: size.width,
         child: CompositedTransformFollower(
           link: _layerLink,
@@ -227,22 +265,25 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
           offset: shouldShowAbove
               ? Offset(0, -(availableHeight + 4))
               : Offset(0, size.height + 4),
-          child: Material(
-            elevation: 16,
-            borderRadius: BorderRadius.circular(12),
-            color: context.colors.surface,
-            child: Container(
-              constraints: BoxConstraints(maxHeight: availableHeight),
-              decoration: BoxDecoration(
-                border: Border.all(color: context.colors.border),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildSearchHeader(),
-                  Flexible(child: _buildItemsList()),
-                ],
+          child: TapRegion(
+            onTapOutside: (_) => _hideDropdown(),
+            child: Material(
+              elevation: 16,
+              borderRadius: BorderRadius.circular(12),
+              color: context.colors.surface,
+              child: Container(
+                constraints: BoxConstraints(maxHeight: availableHeight),
+                decoration: BoxDecoration(
+                  border: Border.all(color: context.colors.border),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildSearchHeader(),
+                    Flexible(child: _buildItemsList()),
+                  ],
+                ),
               ),
             ),
           ),
@@ -259,7 +300,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       ),
       child: TextField(
         controller: _searchController,
-        focusNode: _focusNode,
+        focusNode: _searchFocusNode,
         onChanged: _performSearch,
         decoration: InputDecoration(
           hintText: context.l10n.appSearchFieldHint,
@@ -329,13 +370,21 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
       );
     }
 
+    // * Calculate extra item count for loading/end indicators
+    int extraItems = 0;
+    if (widget.isLoadingMore) {
+      extraItems = 1;
+    } else if (!widget.hasMore && items.isNotEmpty) {
+      extraItems = 1;
+    }
+
     return ListView.builder(
       controller: _scrollController,
       padding: const EdgeInsets.all(8),
       shrinkWrap: true,
-      itemCount: items.length + (widget.isLoadingMore ? 1 : 0),
+      itemCount: items.length + extraItems,
       itemBuilder: (context, index) {
-        // * Show loading indicator di bottom
+        // * Loading indicator saat loadMore
         if (index == items.length && widget.isLoadingMore) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -347,6 +396,20 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation(context.colors.primary),
                 ),
+              ),
+            ),
+          );
+        }
+
+        // * End of list message
+        if (index == items.length && !widget.hasMore) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Center(
+              child: AppText(
+                'Tidak ada data lagi',
+                style: AppTextStyle.bodySmall,
+                color: context.colors.textTertiary,
               ),
             ),
           );
@@ -459,13 +522,35 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
                       color: context.colors.textTertiary,
                     ),
                     prefixIcon: widget.prefixIcon,
-                    suffixIcon: Icon(
-                      _overlayEntry != null
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                      color: widget.enabled
-                          ? context.colors.textSecondary
-                          : context.colors.textDisabled,
+                    suffixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // * Clear button saat ada selection
+                        if (_selectedItem != null && widget.enabled)
+                          IconButton(
+                            icon: Icon(
+                              Icons.clear,
+                              size: 20,
+                              color: context.colors.textSecondary,
+                            ),
+                            onPressed: _clearSelection,
+                            splashRadius: 20,
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(
+                              minWidth: 32,
+                              minHeight: 32,
+                            ),
+                          ),
+                        Icon(
+                          _isDropdownOpen
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                          color: widget.enabled
+                              ? context.colors.textSecondary
+                              : context.colors.textDisabled,
+                        ),
+                        const SizedBox(width: 8),
+                      ],
                     ),
                     filled: true,
                     fillColor: widget.fillColor ?? context.colors.surface,
