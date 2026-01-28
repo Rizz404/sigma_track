@@ -267,5 +267,9 @@
   "sharedTimePlaceholder": "JJ:MM",
   "@sharedTimePlaceholder": {
     "description": "Time placeholder"
+  },
+  "sharedRetry": "Coba Lagi",
+  "@sharedRetry": {
+    "description": "Retry button label"
   }
 }

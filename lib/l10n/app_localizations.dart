@@ -8504,6 +8504,12 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'HH:MM'**
   String get sharedTimePlaceholder;
+
+  /// Retry button label
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get sharedRetry;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -4609,4 +4609,7 @@ class L10nId extends L10n {
 
   @override
   String get sharedTimePlaceholder => 'JJ:MM';
+
+  @override
+  String get sharedRetry => 'Coba Lagi';
 }

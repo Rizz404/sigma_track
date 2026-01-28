@@ -4571,4 +4571,7 @@ class L10nEn extends L10n {
 
   @override
   String get sharedTimePlaceholder => 'HH:MM';
+
+  @override
+  String get sharedRetry => 'Retry';
 }

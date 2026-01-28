@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_track/core/extensions/localization_extension.dart';
 import 'package:sigma_track/core/extensions/theme_extension.dart';
 import 'package:sigma_track/shared/presentation/widgets/app_text.dart';
 
@@ -54,7 +55,7 @@ class AppErrorState extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: Text(retryButtonText ?? 'Coba Lagi'),
+                label: Text(retryButtonText ?? context.l10n.sharedRetry),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 32,

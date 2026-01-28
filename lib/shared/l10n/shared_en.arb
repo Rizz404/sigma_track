@@ -267,5 +267,9 @@
   "sharedTimePlaceholder": "HH:MM",
   "@sharedTimePlaceholder": {
     "description": "Time placeholder"
+  },
+  "sharedRetry": "Retry",
+  "@sharedRetry": {
+    "description": "Retry button label"
   }
 }

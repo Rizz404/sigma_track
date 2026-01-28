@@ -4409,4 +4409,7 @@ class L10nJa extends L10n {
 
   @override
   String get sharedTimePlaceholder => 'HH:MM';
+
+  @override
+  String get sharedRetry => '再試行';
 }
