@@ -4399,7 +4399,7 @@ class L10nId extends L10n {
 
   @override
   String userValidationImageSize(int size) {
-    return 'Ukuran gambar terlalu besar (maksimal 5MB)';
+    return 'Ukuran gambar terlalu besar (maksimal 10MB)';
   }
 
   @override

@@ -434,7 +434,7 @@
   "@userValidationPasswordMismatch": {
     "description": "Validation error when passwords do not match"
   },
-  "userValidationImageSize": "画像サイズが大きすぎます (最大5MB)",
+  "userValidationImageSize": "画像サイズが大きすぎます (最大10MB)",
   "@userValidationImageSize": {
     "description": "Validation error for image size"
   },

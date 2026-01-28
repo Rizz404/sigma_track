@@ -3,7 +3,9 @@ class ApiConstant {
 
   // static const String baseUrl =
   //     'https://rizz-inventory-api.up.railway.app/api/v1';
-  static const String baseUrl = 'https://sigma-track.duckdns.org/api/v1';
+  static const String baseUrlPrimary = 'https://sigma-track.mooo.com/api/v1';
+  static const String baseUrlBackup = 'https://sigma-track.duckdns.org/api/v1';
+  static const String baseUrl = baseUrlPrimary;
   static const String apiKey = 'e2532d69-280d-5c79-87b2-ece28d026973';
   static const int defaultReceiveTimeout =
       180000; // * 3 minutes for bulk/upload operations

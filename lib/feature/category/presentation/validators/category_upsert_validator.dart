@@ -85,9 +85,9 @@ class CategoryUpsertValidator {
         return 'Only image files are allowed (jpg, jpeg, png, gif, webp)';
       }
 
-      // * Max 5MB
-      if (file.size > 5 * 1024 * 1024) {
-        return 'Image size must not exceed 5MB';
+      // * Max 10MB
+      if (file.size > 10 * 1024 * 1024) {
+        return 'Image size must not exceed 10MB';
       }
     }
     return null;

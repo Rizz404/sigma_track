@@ -66,9 +66,9 @@ class UserUpdateProfileValidator {
         return context.l10n.userValidationImageOnly;
       }
 
-      // * Max 5MB
-      if (file.size > 5 * 1024 * 1024) {
-        return context.l10n.userValidationImageSize(5);
+      // * Max 10MB
+      if (file.size > 10 * 1024 * 1024) {
+        return context.l10n.userValidationImageSize(10);
       }
     }
     return null;

@@ -4204,7 +4204,7 @@ class L10nJa extends L10n {
 
   @override
   String userValidationImageSize(int size) {
-    return '画像サイズが大きすぎます (最大5MB)';
+    return '画像サイズが大きすぎます (最大10MB)';
   }
 
   @override
