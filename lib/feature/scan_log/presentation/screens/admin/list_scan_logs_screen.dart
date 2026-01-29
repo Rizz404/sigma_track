@@ -46,7 +46,6 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedScanLogIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -56,7 +55,6 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -595,11 +593,8 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.scanLogSearchScanLogs,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(scanLogsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(scanLogsProvider.notifier).search(value);
       },
     );
   }

@@ -40,7 +40,6 @@ class _MyListIssueReportsScreenState
     extends ConsumerState<MyListIssueReportsScreen> {
   final _scrollController = ScrollController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -50,7 +49,6 @@ class _MyListIssueReportsScreenState
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -293,11 +291,8 @@ class _MyListIssueReportsScreenState
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.issueReportSearchMyIssueReports,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(myIssueReportsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(myIssueReportsProvider.notifier).search(value);
       },
     );
   }

@@ -49,7 +49,6 @@ class _ListIssueReportsScreenState
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedIssueReportIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -59,7 +58,6 @@ class _ListIssueReportsScreenState
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -639,11 +637,8 @@ class _ListIssueReportsScreenState
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.issueReportSearchIssueReports,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(issueReportsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(issueReportsProvider.notifier).search(value);
       },
     );
   }

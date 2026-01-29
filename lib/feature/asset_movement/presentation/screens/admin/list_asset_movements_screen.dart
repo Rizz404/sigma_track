@@ -50,7 +50,6 @@ class _ListAssetMovementsScreenState
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedAssetMovementIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -60,7 +59,6 @@ class _ListAssetMovementsScreenState
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -691,11 +689,8 @@ class _ListAssetMovementsScreenState
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.assetMovementSearchAssetMovements,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(assetMovementsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(assetMovementsProvider.notifier).search(value);
       },
     );
   }

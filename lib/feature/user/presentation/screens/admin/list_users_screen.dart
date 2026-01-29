@@ -43,7 +43,6 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedUserIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -53,7 +52,6 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -502,11 +500,8 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.userSearchUsers,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(usersProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(usersProvider.notifier).search(value);
       },
     );
   }

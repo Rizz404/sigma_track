@@ -38,7 +38,6 @@ class MyListAssetsScreen extends ConsumerStatefulWidget {
 class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
   final _scrollController = ScrollController();
   final _filterFormKey = GlobalKey<FormBuilderState>();
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -48,7 +47,6 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -288,11 +286,8 @@ class _MyListAssetsScreenState extends ConsumerState<MyListAssetsScreen> {
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.assetSearchMyAssets,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(myAssetsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(myAssetsProvider.notifier).search(value);
       },
     );
   }

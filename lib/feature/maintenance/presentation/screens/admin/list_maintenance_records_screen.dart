@@ -45,7 +45,6 @@ class _ListMaintenanceRecordsScreenState
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedMaintenanceRecordIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -55,7 +54,6 @@ class _ListMaintenanceRecordsScreenState
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -504,11 +502,8 @@ class _ListMaintenanceRecordsScreenState
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.maintenanceRecordSearch,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(maintenanceRecordsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(maintenanceRecordsProvider.notifier).search(value);
       },
     );
   }

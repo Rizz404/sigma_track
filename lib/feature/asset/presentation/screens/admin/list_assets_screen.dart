@@ -50,7 +50,6 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedAssetIds = {};
   bool _isSelectMode = false;
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -60,7 +59,6 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -627,11 +625,8 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
     return AppSearchField(
       name: 'search',
       hintText: context.l10n.assetSearchAssets,
-      onChanged: (value) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-          ref.read(assetsProvider.notifier).search(value);
-        });
+      onDebouncedChanged: (value) {
+        ref.read(assetsProvider.notifier).search(value);
       },
     );
   }

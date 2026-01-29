@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sigma_track/core/extensions/localization_extension.dart';
@@ -33,6 +35,7 @@ class AppSearchField<T> extends StatefulWidget {
   final double? suggestionsMaxHeight;
   final EdgeInsetsGeometry? suggestionsPadding;
   final int debounceMilliseconds;
+  final ValueChanged<String>? onDebouncedChanged;
   final String? initialDisplayText;
 
   AppSearchField({
@@ -63,7 +66,8 @@ class AppSearchField<T> extends StatefulWidget {
     this.enableLoadMore = true,
     this.suggestionsMaxHeight = 300,
     this.suggestionsPadding,
-    this.debounceMilliseconds = 300,
+    this.debounceMilliseconds = 500,
+    this.onDebouncedChanged,
     this.initialDisplayText,
   }) : assert(
          !enableAutocomplete || onSearch != null,
@@ -108,6 +112,9 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
     _removeOverlay();
     _focusNode.dispose();
     _scrollController.dispose();
+    _focusNode.dispose();
+    _scrollController.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 
@@ -169,8 +176,31 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
     }
   }
 
+  DateTime? _lastSearchTime;
+  Timer? _debounceTimer;
+
+  void _debounceSearch(String query) {
+    _lastSearchTime = DateTime.now();
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(
+      Duration(milliseconds: widget.debounceMilliseconds),
+      () {
+        if (_lastSearchTime != null &&
+            DateTime.now().difference(_lastSearchTime!) >=
+                Duration(milliseconds: widget.debounceMilliseconds)) {
+          // Trigger autocomplete search
+          _performSearch(query);
+          // Trigger debounced callback
+          widget.onDebouncedChanged?.call(query);
+        }
+      },
+    );
+  }
+
   void _onTextChanged(String? value) {
     final hasText = value?.isNotEmpty ?? false;
+    final query = value?.trim() ?? '';
+
     if (_hasText != hasText) {
       setState(() {
         _hasText = hasText;
@@ -178,22 +208,10 @@ class _AppSearchFieldState<T> extends State<AppSearchField<T>> {
     }
     widget.onChanged?.call(value ?? '');
 
-    if (widget.enableAutocomplete) {
-      final searchQuery = value?.trim() ?? '';
-      _debounceSearch(value ?? searchQuery);
+    // Always debounce if callback exists or autocomplete is enabled
+    if (widget.enableAutocomplete || widget.onDebouncedChanged != null) {
+      _debounceSearch(query);
     }
-  }
-
-  DateTime? _lastSearchTime;
-  void _debounceSearch(String query) {
-    _lastSearchTime = DateTime.now();
-    Future.delayed(Duration(milliseconds: widget.debounceMilliseconds), () {
-      if (_lastSearchTime != null &&
-          DateTime.now().difference(_lastSearchTime!) >=
-              Duration(milliseconds: widget.debounceMilliseconds)) {
-        _performSearch(query);
-      }
-    });
   }
 
   void _clearText() {

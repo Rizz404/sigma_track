@@ -143,7 +143,7 @@ class _AppSearchableDropdownState<T> extends State<AppSearchableDropdown<T>> {
 
   void _performSearch(String query) {
     _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 400), () {
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       widget.onSearch(query);
     });
   }
