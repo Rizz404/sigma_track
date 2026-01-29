@@ -427,9 +427,9 @@ class UsersNotifier extends AutoDisposeNotifier<UsersState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.usersFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.usersFilter.copyWith(cursor: () => null);
     state = state.copyWith(isLoading: true);
-    state = await _loadUsers(usersFilter: currentFilter);
+    state = await _loadUsers(usersFilter: resetCursorFilter);
   }
 }

@@ -70,8 +70,10 @@ class _ListNotificationsScreenState
   }
 
   Future<void> _onRefresh() async {
-    _selectedNotificationIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedNotificationIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(notificationsProvider.notifier).refresh();
   }
 

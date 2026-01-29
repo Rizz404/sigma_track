@@ -440,11 +440,13 @@ class MaintenanceSchedulesNotifier
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.maintenanceSchedulesFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.maintenanceSchedulesFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
     state = await _loadMaintenanceSchedules(
-      maintenanceSchedulesFilter: currentFilter,
+      maintenanceSchedulesFilter: resetCursorFilter,
     );
   }
 }

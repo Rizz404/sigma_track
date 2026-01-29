@@ -73,8 +73,10 @@ class _ListAssetMovementsScreenState
   }
 
   Future<void> _onRefresh() async {
-    _selectedAssetMovementIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedAssetMovementIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(assetMovementsProvider.notifier).refresh();
   }
 

@@ -435,11 +435,13 @@ class MaintenanceRecordsNotifier
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.maintenanceRecordsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.maintenanceRecordsFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
     state = await _loadMaintenanceRecords(
-      maintenanceRecordsFilter: currentFilter,
+      maintenanceRecordsFilter: resetCursorFilter,
     );
   }
 }

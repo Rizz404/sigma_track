@@ -405,9 +405,9 @@ class AssetsNotifier extends AutoDisposeNotifier<AssetsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.assetsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.assetsFilter.copyWith(cursor: () => null);
     state = state.copyWith(isLoading: true);
-    state = await _loadAssets(assetsFilter: currentFilter);
+    state = await _loadAssets(assetsFilter: resetCursorFilter);
   }
 }

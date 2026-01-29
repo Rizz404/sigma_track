@@ -400,9 +400,11 @@ class CategoriesNotifier extends AutoDisposeNotifier<CategoriesState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.categoriesFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.categoriesFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
-    state = await _loadCategories(categoriesFilter: currentFilter);
+    state = await _loadCategories(categoriesFilter: resetCursorFilter);
   }
 }

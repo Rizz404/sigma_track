@@ -68,8 +68,10 @@ class _ListMaintenanceRecordsScreenState
   }
 
   Future<void> _onRefresh() async {
-    _selectedMaintenanceRecordIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedMaintenanceRecordIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(maintenanceRecordsProvider.notifier).refresh();
   }
 

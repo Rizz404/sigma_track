@@ -63,8 +63,10 @@ class _ListLocationsScreenState extends ConsumerState<ListLocationsScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _selectedLocationIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedLocationIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(locationsProvider.notifier).refresh();
   }
 

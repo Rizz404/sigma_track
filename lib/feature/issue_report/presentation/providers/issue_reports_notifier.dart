@@ -406,9 +406,11 @@ class IssueReportsNotifier extends AutoDisposeNotifier<IssueReportsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.issueReportsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.issueReportsFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
-    state = await _loadIssueReports(issueReportsFilter: currentFilter);
+    state = await _loadIssueReports(issueReportsFilter: resetCursorFilter);
   }
 }

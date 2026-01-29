@@ -41,6 +41,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   final _filterFormKey = GlobalKey<FormBuilderState>();
   final Set<String> _selectedCategoryIds = {};
   bool _isSelectMode = false;
+  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
 
   @override
   void dispose() {
+    _debounceTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -62,8 +64,10 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _selectedCategoryIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedCategoryIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(categoriesProvider.notifier).refresh();
   }
 
@@ -467,7 +471,10 @@ class _ListCategoriesScreenState extends ConsumerState<ListCategoriesScreen> {
       name: 'search',
       hintText: context.l10n.categorySearchCategories,
       onChanged: (value) {
-        ref.read(categoriesProvider.notifier).search(value);
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          ref.read(categoriesProvider.notifier).search(value);
+        });
       },
     );
   }

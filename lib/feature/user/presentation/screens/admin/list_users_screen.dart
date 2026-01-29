@@ -66,8 +66,10 @@ class _ListUsersScreenState extends ConsumerState<ListUsersScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _selectedUserIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedUserIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(usersProvider.notifier).refresh();
   }
 

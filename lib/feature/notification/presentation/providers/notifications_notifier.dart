@@ -214,17 +214,16 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
         );
 
         state = state.copyWith(isLoading: true);
-
-        state = await _loadNotifications(
+        final newState = await _loadNotifications(
           notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
-          notifications: state.notifications,
-          notificationsFilter: state.notificationsFilter,
+          notifications: newState.notifications,
+          notificationsFilter: newState.notificationsFilter,
           mutationType: MutationType.create,
           message: success.message ?? 'Notification created',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -263,17 +262,16 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
         );
 
         state = state.copyWith(isLoading: true);
-
-        state = await _loadNotifications(
+        final newState = await _loadNotifications(
           notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
-          notifications: state.notifications,
-          notificationsFilter: state.notificationsFilter,
+          notifications: newState.notifications,
+          notificationsFilter: newState.notificationsFilter,
           mutationType: MutationType.update,
           message: success.message ?? 'Notification updated',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -312,17 +310,16 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
         );
 
         state = state.copyWith(isLoading: true);
-
-        state = await _loadNotifications(
+        final newState = await _loadNotifications(
           notificationsFilter: resetCursorFilter,
         );
 
         state = NotificationsState.mutationSuccess(
-          notifications: state.notifications,
-          notificationsFilter: state.notificationsFilter,
+          notifications: newState.notifications,
+          notificationsFilter: newState.notificationsFilter,
           mutationType: MutationType.delete,
           message: success.message ?? 'Notification deleted',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -432,10 +429,12 @@ class NotificationsNotifier extends AutoDisposeNotifier<NotificationsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.notificationsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.notificationsFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
-    state = await _loadNotifications(notificationsFilter: currentFilter);
+    state = await _loadNotifications(notificationsFilter: resetCursorFilter);
   }
 
   Future<void> markAsRead(String id) async {

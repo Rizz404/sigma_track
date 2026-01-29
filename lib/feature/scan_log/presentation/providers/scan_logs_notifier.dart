@@ -187,15 +187,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
         );
 
         state = state.copyWith(isLoading: true);
-
-        state = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
+        final newState = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         state = ScanLogsState.mutationSuccess(
-          scanLogs: state.scanLogs,
-          scanLogsFilter: state.scanLogsFilter,
+          scanLogs: newState.scanLogs,
+          scanLogsFilter: newState.scanLogsFilter,
           mutationType: MutationType.create,
           message: success.message ?? 'Scan log created',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -232,15 +231,14 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
         );
 
         state = state.copyWith(isLoading: true);
-
-        state = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
+        final newState = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
 
         state = ScanLogsState.mutationSuccess(
-          scanLogs: state.scanLogs,
-          scanLogsFilter: state.scanLogsFilter,
+          scanLogs: newState.scanLogs,
+          scanLogsFilter: newState.scanLogsFilter,
           mutationType: MutationType.delete,
           message: success.message ?? 'Scan log deleted',
-          cursor: state.cursor,
+          cursor: newState.cursor,
         );
       },
     );
@@ -342,9 +340,9 @@ class ScanLogsNotifier extends AutoDisposeNotifier<ScanLogsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.scanLogsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.scanLogsFilter.copyWith(cursor: () => null);
     state = state.copyWith(isLoading: true);
-    state = await _loadScanLogs(scanLogsFilter: currentFilter);
+    state = await _loadScanLogs(scanLogsFilter: resetCursorFilter);
   }
 }

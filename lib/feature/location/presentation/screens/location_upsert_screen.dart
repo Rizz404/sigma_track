@@ -261,6 +261,10 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
       // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
+        // * Clear validation errors when starting mutation
+        if (validationErrors != null) {
+          setState(() => validationErrors = null);
+        }
       } else {
         context.loaderOverlay.hide();
       }

@@ -146,9 +146,13 @@ class _AssetMovementUpsertForUserScreenState
     ref.listen<AssetMovementsState>(assetMovementsProvider, (previous, next) {
       // * Handle loading state
       if (next.isMutating) {
-        context.loaderOverlay.show();
+        if (context.mounted) context.loaderOverlay.show();
+        // * Clear validation errors when starting mutation
+        if (validationErrors != null) {
+          setState(() => validationErrors = null);
+        }
       } else {
-        context.loaderOverlay.hide();
+        if (context.mounted) context.loaderOverlay.hide();
       }
 
       // * Handle mutation success
@@ -185,33 +189,27 @@ class _AssetMovementUpsertForUserScreenState
         ),
         endDrawer: const AppEndDrawer(),
         endDrawerEnableOpenDragGesture: false,
-        body: Column(
-          children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: FormBuilder(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildAssetMovementInfoSection(),
-                        const SizedBox(height: 24),
-                        _buildTranslationsSection(),
-                        const SizedBox(height: 24),
-                        AppValidationErrors(errors: validationErrors),
-                        if (validationErrors != null &&
-                            validationErrors!.isNotEmpty)
-                          const SizedBox(height: 16),
-                        const SizedBox(height: 80),
-                      ],
-                    ),
-                  ),
-                ),
+        body: ScreenWrapper(
+          child: FormBuilder(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildAssetMovementInfoSection(),
+                  const SizedBox(height: 24),
+                  _buildTranslationsSection(),
+                  const SizedBox(height: 24),
+                  AppValidationErrors(errors: validationErrors),
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    const SizedBox(height: 16),
+                  const SizedBox(height: 24),
+                  _buildActionButtons(),
+                  const SizedBox(height: 24),
+                ],
               ),
             ),
-            _buildStickyActionButtons(),
-          ],
+          ),
         ),
       ),
     );
@@ -474,14 +472,11 @@ class _AssetMovementUpsertForUserScreenState
     );
   }
 
-  Widget _buildStickyActionButtons() {
+  Widget _buildActionButtons() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: context.colors.surface,
-        border: Border(top: BorderSide(color: context.colors.border)),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: SafeArea(
+        top: false,
         child: Row(
           children: [
             Expanded(

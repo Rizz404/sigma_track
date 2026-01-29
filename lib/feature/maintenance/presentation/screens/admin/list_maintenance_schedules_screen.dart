@@ -68,8 +68,10 @@ class _ListMaintenanceSchedulesScreenState
   }
 
   Future<void> _onRefresh() async {
-    _selectedMaintenanceScheduleIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedMaintenanceScheduleIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(maintenanceSchedulesProvider.notifier).refresh();
   }
 

@@ -68,6 +68,10 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
     final isActive = formData['isActive'] as bool?;
 
     if (_isEdit) {
+      if (widget.user == null) {
+        AppToast.error(context.l10n.userOperationFailed);
+        return;
+      }
       final params = UpdateUserUsecaseParams.fromChanges(
         id: widget.user!.id,
         original: widget.user!,
@@ -103,6 +107,10 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
       // * Handle loading state
       if (next.isMutating) {
         context.loaderOverlay.show();
+        // * Clear validation errors when starting mutation
+        if (validationErrors != null) {
+          setState(() => validationErrors = null);
+        }
       } else {
         context.loaderOverlay.hide();
       }

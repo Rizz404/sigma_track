@@ -72,8 +72,10 @@ class _ListIssueReportsScreenState
   }
 
   Future<void> _onRefresh() async {
-    _selectedIssueReportIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedIssueReportIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(issueReportsProvider.notifier).refresh();
   }
 

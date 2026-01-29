@@ -592,9 +592,11 @@ class AssetMovementsNotifier extends AutoDisposeNotifier<AssetMovementsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.assetMovementsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.assetMovementsFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
-    state = await _loadAssetMovements(assetMovementsFilter: currentFilter);
+    state = await _loadAssetMovements(assetMovementsFilter: resetCursorFilter);
   }
 }

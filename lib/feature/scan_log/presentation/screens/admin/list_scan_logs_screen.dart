@@ -69,8 +69,10 @@ class _ListScanLogsScreenState extends ConsumerState<ListScanLogsScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _selectedScanLogIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedScanLogIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(scanLogsProvider.notifier).refresh();
   }
 

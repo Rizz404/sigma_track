@@ -779,6 +779,10 @@ class _AssetUpsertScreenState extends ConsumerState<AssetUpsertScreen> {
       // * Handle loading state
       if (next.isMutating && !_isBulkProcessing) {
         context.loaderOverlay.show();
+        // * Clear validation errors when starting mutation
+        if (validationErrors != null) {
+          setState(() => validationErrors = null);
+        }
       } else if (!_isBulkProcessing) {
         context.loaderOverlay.hide();
       }

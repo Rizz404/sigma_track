@@ -399,9 +399,11 @@ class LocationsNotifier extends AutoDisposeNotifier<LocationsState> {
   }
 
   Future<void> refresh() async {
-    // * Preserve current filter when refreshing
-    final currentFilter = state.locationsFilter;
+    // * Preserve current filter but reset cursor when refreshing
+    final resetCursorFilter = state.locationsFilter.copyWith(
+      cursor: () => null,
+    );
     state = state.copyWith(isLoading: true);
-    state = await _loadLocations(locationsFilter: currentFilter);
+    state = await _loadLocations(locationsFilter: resetCursorFilter);
   }
 }

@@ -73,8 +73,10 @@ class _ListAssetsScreenState extends ConsumerState<ListAssetsScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _selectedAssetIds.clear();
-    _isSelectMode = false;
+    setState(() {
+      _selectedAssetIds.clear();
+      _isSelectMode = false;
+    });
     await ref.read(assetsProvider.notifier).refresh();
   }
 
