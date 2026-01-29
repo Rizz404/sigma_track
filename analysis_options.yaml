@@ -43,6 +43,4 @@ linter:
     sort_pub_dependencies: false
     prefer_if_elements_to_conditional_expressions: false
 
-    strong-mode:
-      implicit-casts: false
-      implicit-dynamic: false
+

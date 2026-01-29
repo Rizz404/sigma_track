@@ -147,31 +147,25 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
         ),
         endDrawer: const AppEndDrawer(),
         endDrawerEnableOpenDragGesture: false,
-        body: Column(
-          children: [
-            Expanded(
-              child: ScreenWrapper(
-                child: FormBuilder(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        _buildUserInfoSection(),
-                        const SizedBox(height: 24),
-                        AppValidationErrors(errors: validationErrors),
-                        if (validationErrors != null &&
-                            validationErrors!.isNotEmpty)
-                          const SizedBox(height: 16),
-                        const SizedBox(height: 80),
-                      ],
-                    ),
-                  ),
-                ),
+        body: ScreenWrapper(
+          child: FormBuilder(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildUserInfoSection(),
+                  const SizedBox(height: 24),
+                  AppValidationErrors(errors: validationErrors),
+                  if (validationErrors != null && validationErrors!.isNotEmpty)
+                    const SizedBox(height: 16),
+                  const SizedBox(height: 24),
+                  _buildActionButtons(),
+                  const SizedBox(height: 24),
+                ],
               ),
             ),
-            _buildStickyActionButtons(),
-          ],
+          ),
         ),
       ),
     );
@@ -309,20 +303,9 @@ class _UserUpsertScreenState extends ConsumerState<UserUpsertScreen> {
     );
   }
 
-  Widget _buildStickyActionButtons() {
+  Widget _buildActionButtons() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: context.colors.surface,
-        border: Border(top: BorderSide(color: context.colors.border, width: 1)),
-        boxShadow: [
-          BoxShadow(
-            color: context.colors.divider,
-            blurRadius: 8,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: SafeArea(
         top: false,
         child: Row(
