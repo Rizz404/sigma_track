@@ -538,7 +538,7 @@ enum UserSortBy {
 
 enum ExportFormat {
   pdf('pdf'),
-  excel('excel');
+  excel('xlsx');
 
   const ExportFormat(this.value);
   final String value;
