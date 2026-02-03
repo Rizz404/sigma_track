@@ -238,7 +238,7 @@ class AppRouter {
     }
 
     if (currentIsAuthenticated && isGoingToAuth) {
-      if (currentIsAdmin || currentIsStaff) {
+      if (currentIsAdmin) {
         return RouteConstant.adminDashboard;
       }
       if (currentIsStaff) {
