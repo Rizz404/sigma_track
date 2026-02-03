@@ -700,11 +700,11 @@
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
   },
-  "assetOnlyAdminCanEdit": "Hanya admin yang dapat mengedit aset",
+  "assetOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit aset",
   "@assetOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetOnlyAdminCanDelete": "Hanya admin yang dapat menghapus aset",
+  "assetOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus aset",
   "@assetOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -1734,11 +1734,11 @@
   "@assetMovementUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetMovementOnlyAdminCanEdit": "Hanya admin yang dapat mengedit perpindahan aset",
+  "assetMovementOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit perpindahan aset",
   "@assetMovementOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetMovementOnlyAdminCanDelete": "Hanya admin yang dapat menghapus perpindahan aset",
+  "assetMovementOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus perpindahan aset",
   "@assetMovementOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -2985,11 +2985,11 @@
   "@issueReportUpdatedAt": {
     "description": "Updated at label"
   },
-  "issueReportOnlyAdminCanEdit": "Hanya admin yang dapat mengedit laporan masalah",
+  "issueReportOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit laporan masalah",
   "@issueReportOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "issueReportOnlyAdminCanDelete": "Hanya admin yang dapat menghapus laporan masalah",
+  "issueReportOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus laporan masalah",
   "@issueReportOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -3877,11 +3877,11 @@
   "@maintenanceScheduleUnknownUser": {
     "description": "Unknown user text"
   },
-  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin yang dapat mengedit jadwal pemeliharaan",
+  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit jadwal pemeliharaan",
   "@maintenanceScheduleOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin yang dapat menghapus jadwal pemeliharaan",
+  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus jadwal pemeliharaan",
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -4243,11 +4243,11 @@
   "@maintenanceRecordUnknownAsset": {
     "description": "Unknown asset text"
   },
-  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin yang dapat mengedit catatan pemeliharaan",
+  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit catatan pemeliharaan",
   "@maintenanceRecordOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin yang dapat menghapus catatan pemeliharaan",
+  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus catatan pemeliharaan",
   "@maintenanceRecordOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -4569,7 +4569,7 @@
   "@notificationDelete": {
     "description": "Delete button label"
   },
-  "notificationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus notifikasi",
+  "notificationOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus notifikasi",
   "@notificationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -4917,7 +4917,7 @@
   "@scanLogDelete": {
     "description": "Delete button label"
   },
-  "scanLogOnlyAdminCanDelete": "Hanya admin yang dapat menghapus log pemindaian",
+  "scanLogOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus log pemindaian",
   "@scanLogOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

@@ -38,7 +38,7 @@
   "@notificationDelete": {
     "description": "Delete button label"
   },
-  "notificationOnlyAdminCanDelete": "通知を削除できるのは管理者のみです",
+  "notificationOnlyAdminCanDelete": "通知を削除できるのは管理者とスタッフのみです",
   "@notificationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

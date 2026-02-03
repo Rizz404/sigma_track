@@ -643,10 +643,11 @@ class L10nEn extends L10n {
   String get assetDataMatrixImage => 'Data Matrix Image';
 
   @override
-  String get assetOnlyAdminCanEdit => 'Only admin can edit assets';
+  String get assetOnlyAdminCanEdit => 'Only admin and staff can edit assets';
 
   @override
-  String get assetOnlyAdminCanDelete => 'Only admin can delete assets';
+  String get assetOnlyAdminCanDelete =>
+      'Only admin and staff can delete assets';
 
   @override
   String get assetFailedToLoad => 'Failed to load asset';
@@ -1401,11 +1402,11 @@ class L10nEn extends L10n {
 
   @override
   String get assetMovementOnlyAdminCanEdit =>
-      'Only admin can edit asset movements';
+      'Only admin and staff can edit asset movements';
 
   @override
   String get assetMovementOnlyAdminCanDelete =>
-      'Only admin can delete asset movements';
+      'Only admin and staff can delete asset movements';
 
   @override
   String get assetMovementFailedToLoad => 'Failed to load asset movement';
@@ -2397,11 +2398,12 @@ class L10nEn extends L10n {
   String get issueReportUpdatedAt => 'Updated At';
 
   @override
-  String get issueReportOnlyAdminCanEdit => 'Only admin can edit issue reports';
+  String get issueReportOnlyAdminCanEdit =>
+      'Only admin and staff can edit issue reports';
 
   @override
   String get issueReportOnlyAdminCanDelete =>
-      'Only admin can delete issue reports';
+      'Only admin and staff can delete issue reports';
 
   @override
   String get issueReportFailedToLoad => 'Failed to load issue report';
@@ -3080,11 +3082,11 @@ class L10nEn extends L10n {
 
   @override
   String get maintenanceScheduleOnlyAdminCanEdit =>
-      'Only admin can edit maintenance schedules';
+      'Only admin and staff can edit maintenance schedules';
 
   @override
   String get maintenanceScheduleOnlyAdminCanDelete =>
-      'Only admin can delete maintenance schedules';
+      'Only admin and staff can delete maintenance schedules';
 
   @override
   String get maintenanceScheduleOnlyAdminCanCopy =>
@@ -3357,11 +3359,11 @@ class L10nEn extends L10n {
 
   @override
   String get maintenanceRecordOnlyAdminCanEdit =>
-      'Only admin can edit maintenance records';
+      'Only admin and staff can edit maintenance records';
 
   @override
   String get maintenanceRecordOnlyAdminCanDelete =>
-      'Only admin can delete maintenance records';
+      'Only admin and staff can delete maintenance records';
 
   @override
   String get maintenanceRecordFailedToLoad =>
@@ -3610,7 +3612,7 @@ class L10nEn extends L10n {
 
   @override
   String get notificationOnlyAdminCanDelete =>
-      'Only admin can delete notifications';
+      'Only admin and staff can delete notifications';
 
   @override
   String get notificationDeleted => 'Notification deleted';
@@ -3877,7 +3879,8 @@ class L10nEn extends L10n {
   String get scanLogDelete => 'Delete';
 
   @override
-  String get scanLogOnlyAdminCanDelete => 'Only admin can delete scan logs';
+  String get scanLogOnlyAdminCanDelete =>
+      'Only admin and staff can delete scan logs';
 
   @override
   String get scanLogDeleted => 'Scan log deleted';

@@ -1266,13 +1266,13 @@ abstract class L10n {
   /// Error message for non-admin trying to edit
   ///
   /// In en, this message translates to:
-  /// **'Only admin can edit assets'**
+  /// **'Only admin and staff can edit assets'**
   String get assetOnlyAdminCanEdit;
 
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete assets'**
+  /// **'Only admin and staff can delete assets'**
   String get assetOnlyAdminCanDelete;
 
   /// Error message when asset fails to load
@@ -2634,13 +2634,13 @@ abstract class L10n {
   /// Error message for non-admin trying to edit
   ///
   /// In en, this message translates to:
-  /// **'Only admin can edit asset movements'**
+  /// **'Only admin and staff can edit asset movements'**
   String get assetMovementOnlyAdminCanEdit;
 
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete asset movements'**
+  /// **'Only admin and staff can delete asset movements'**
   String get assetMovementOnlyAdminCanDelete;
 
   /// Error message when asset movement fails to load
@@ -4518,13 +4518,13 @@ abstract class L10n {
   /// Error message for non-admin trying to edit
   ///
   /// In en, this message translates to:
-  /// **'Only admin can edit issue reports'**
+  /// **'Only admin and staff can edit issue reports'**
   String get issueReportOnlyAdminCanEdit;
 
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete issue reports'**
+  /// **'Only admin and staff can delete issue reports'**
   String get issueReportOnlyAdminCanDelete;
 
   /// Error message when issue report fails to load
@@ -5766,13 +5766,13 @@ abstract class L10n {
   /// Error message for non-admin trying to edit
   ///
   /// In en, this message translates to:
-  /// **'Only admin can edit maintenance schedules'**
+  /// **'Only admin and staff can edit maintenance schedules'**
   String get maintenanceScheduleOnlyAdminCanEdit;
 
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete maintenance schedules'**
+  /// **'Only admin and staff can delete maintenance schedules'**
   String get maintenanceScheduleOnlyAdminCanDelete;
 
   /// Error message for non-admin trying to copy
@@ -6252,13 +6252,13 @@ abstract class L10n {
   /// Error message for non-admin trying to edit
   ///
   /// In en, this message translates to:
-  /// **'Only admin can edit maintenance records'**
+  /// **'Only admin and staff can edit maintenance records'**
   String get maintenanceRecordOnlyAdminCanEdit;
 
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete maintenance records'**
+  /// **'Only admin and staff can delete maintenance records'**
   String get maintenanceRecordOnlyAdminCanDelete;
 
   /// Error message when record fails to load
@@ -6696,7 +6696,7 @@ abstract class L10n {
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete notifications'**
+  /// **'Only admin and staff can delete notifications'**
   String get notificationOnlyAdminCanDelete;
 
   /// Success message for notification deletion
@@ -7176,7 +7176,7 @@ abstract class L10n {
   /// Error message for non-admin trying to delete
   ///
   /// In en, this message translates to:
-  /// **'Only admin can delete scan logs'**
+  /// **'Only admin and staff can delete scan logs'**
   String get scanLogOnlyAdminCanDelete;
 
   /// Success message for scan log deletion

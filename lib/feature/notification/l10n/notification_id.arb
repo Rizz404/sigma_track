@@ -38,7 +38,7 @@
   "@notificationDelete": {
     "description": "Delete button label"
   },
-  "notificationOnlyAdminCanDelete": "Hanya admin yang dapat menghapus notifikasi",
+  "notificationOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus notifikasi",
   "@notificationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

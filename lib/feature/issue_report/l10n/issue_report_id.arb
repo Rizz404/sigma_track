@@ -86,11 +86,11 @@
   "@issueReportUpdatedAt": {
     "description": "Updated at label"
   },
-  "issueReportOnlyAdminCanEdit": "Hanya admin yang dapat mengedit laporan masalah",
+  "issueReportOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit laporan masalah",
   "@issueReportOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "issueReportOnlyAdminCanDelete": "Hanya admin yang dapat menghapus laporan masalah",
+  "issueReportOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus laporan masalah",
   "@issueReportOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

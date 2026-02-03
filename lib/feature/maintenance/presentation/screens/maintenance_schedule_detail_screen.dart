@@ -44,8 +44,9 @@ class _MaintenanceScheduleDetailScreenState
   Future<void> _handleEdit(MaintenanceSchedule schedule) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       final result = await context.push<MaintenanceSchedule?>(
         RouteConstant.adminMaintenanceScheduleUpsert,
         extra: schedule,
@@ -64,8 +65,9 @@ class _MaintenanceScheduleDetailScreenState
   void _handleDelete(MaintenanceSchedule schedule) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.maintenanceScheduleOnlyAdminCanDelete);
       return;
     }
@@ -174,6 +176,7 @@ class _MaintenanceScheduleDetailScreenState
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -185,6 +188,7 @@ class _MaintenanceScheduleDetailScreenState
         schedule: schedule,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -194,6 +198,7 @@ class _MaintenanceScheduleDetailScreenState
     required MaintenanceSchedule? schedule,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -223,7 +228,7 @@ class _MaintenanceScheduleDetailScreenState
                   : _buildContent(schedule),
             ),
           ),
-          if (!isLoading && schedule != null && isAdmin)
+          if (!isLoading && schedule != null && (isAdmin || isStaff))
             AppDetailActionButtons(
               onEdit: () => _handleEdit(schedule),
               onDelete: () => _handleDelete(schedule),

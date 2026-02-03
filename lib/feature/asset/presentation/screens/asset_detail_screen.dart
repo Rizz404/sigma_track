@@ -123,8 +123,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   Future<void> _handleEdit(Asset asset) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       final result = await context.push<Asset?>(
         RouteConstant.adminAssetUpsert,
         extra: asset,
@@ -143,8 +144,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   void _handleCopy(Asset asset) {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       context.push(
         RouteConstant.adminAssetUpsert,
         extra: {'copyFromAsset': asset},
@@ -157,8 +159,9 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
   void _handleDelete(Asset asset) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.assetOnlyAdminCanDelete);
       return;
     }
@@ -262,6 +265,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(title: asset?.assetName ?? context.l10n.assetDetail),
@@ -271,6 +275,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
         asset: asset,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -280,6 +285,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
     required Asset? asset,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -309,7 +315,7 @@ class _AssetDetailScreenState extends ConsumerState<AssetDetailScreen> {
                   : _buildContent(asset),
             ),
           ),
-          if (!isLoading && asset != null && isAdmin)
+          if (!isLoading && asset != null && (isAdmin || isStaff))
             AppDetailActionButtons(
               onEdit: () => _handleEdit(asset),
               onDelete: () => _handleDelete(asset),

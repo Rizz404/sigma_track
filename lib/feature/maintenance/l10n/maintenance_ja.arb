@@ -23,8 +23,8 @@
   "maintenanceScheduleNo": "いいえ",
   "maintenanceScheduleUnknownAsset": "不明な資産",
   "maintenanceScheduleUnknownUser": "不明なユーザー",
-  "maintenanceScheduleOnlyAdminCanEdit": "管理者のみがメンテナンススケジュールを編集できます",
-  "maintenanceScheduleOnlyAdminCanDelete": "管理者のみがメンテナンススケジュールを削除できます",
+  "maintenanceScheduleOnlyAdminCanEdit": "管理者とスタッフのみがメンテナンススケジュールを編集できます",
+  "maintenanceScheduleOnlyAdminCanDelete": "管理者とスタッフのみがメンテナンススケジュールを削除できます",
   "maintenanceScheduleOnlyAdminCanCopy": "管理者のみがメンテナンススケジュールをコピーできます",
   "@maintenanceScheduleOnlyAdminCanCopy": {
     "description": "Error message for non-admin trying to copy"
@@ -110,8 +110,8 @@
   "maintenanceRecordActualCost": "実際のコスト",
   "maintenanceRecordActualCostValue": "{cost}",
   "maintenanceRecordUnknownAsset": "不明な資産",
-  "maintenanceRecordOnlyAdminCanEdit": "管理者のみがメンテナンス記録を編集できます",
-  "maintenanceRecordOnlyAdminCanDelete": "管理者のみがメンテナンス記録を削除できます",
+  "maintenanceRecordOnlyAdminCanEdit": "管理者とスタッフのみがメンテナンス記録を編集できます",
+  "maintenanceRecordOnlyAdminCanDelete": "管理者とスタッフのみがメンテナンス記録を削除できます",
   "maintenanceRecordOnlyAdminCanCopy": "管理者のみがメンテナンス記録をコピーできます",
   "@maintenanceRecordOnlyAdminCanCopy": {
     "description": "Error message for non-admin trying to copy"

@@ -86,11 +86,11 @@
   "@issueReportUpdatedAt": {
     "description": "Updated at label"
   },
-  "issueReportOnlyAdminCanEdit": "Only admin can edit issue reports",
+  "issueReportOnlyAdminCanEdit": "Only admin and staff can edit issue reports",
   "@issueReportOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "issueReportOnlyAdminCanDelete": "Only admin can delete issue reports",
+  "issueReportOnlyAdminCanDelete": "Only admin and staff can delete issue reports",
   "@issueReportOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

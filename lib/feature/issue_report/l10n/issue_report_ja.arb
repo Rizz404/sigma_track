@@ -86,11 +86,11 @@
   "@issueReportUpdatedAt": {
     "description": "Updated at label"
   },
-  "issueReportOnlyAdminCanEdit": "問題報告を編集できるのは管理者のみです",
+  "issueReportOnlyAdminCanEdit": "問題報告を編集できるのは管理者とスタッフのみです",
   "@issueReportOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "issueReportOnlyAdminCanDelete": "問題報告を削除できるのは管理者のみです",
+  "issueReportOnlyAdminCanDelete": "問題報告を削除できるのは管理者とスタッフのみです",
   "@issueReportOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

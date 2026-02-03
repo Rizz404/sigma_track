@@ -80,11 +80,11 @@
   "@assetMovementUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetMovementOnlyAdminCanEdit": "資産移動を編集できるのは管理者のみです",
+  "assetMovementOnlyAdminCanEdit": "資産移動を編集できるのは管理者とスタッフのみです",
   "@assetMovementOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetMovementOnlyAdminCanDelete": "資産移動を削除できるのは管理者のみです",
+  "assetMovementOnlyAdminCanDelete": "資産移動を削除できるのは管理者とスタッフのみです",
   "@assetMovementOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

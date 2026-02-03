@@ -98,11 +98,11 @@
   "@maintenanceScheduleUnknownUser": {
     "description": "Unknown user text"
   },
-  "maintenanceScheduleOnlyAdminCanEdit": "Only admin can edit maintenance schedules",
+  "maintenanceScheduleOnlyAdminCanEdit": "Only admin and staff can edit maintenance schedules",
   "@maintenanceScheduleOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceScheduleOnlyAdminCanDelete": "Only admin can delete maintenance schedules",
+  "maintenanceScheduleOnlyAdminCanDelete": "Only admin and staff can delete maintenance schedules",
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -464,11 +464,11 @@
   "@maintenanceRecordUnknownAsset": {
     "description": "Unknown asset text"
   },
-  "maintenanceRecordOnlyAdminCanEdit": "Only admin can edit maintenance records",
+  "maintenanceRecordOnlyAdminCanEdit": "Only admin and staff can edit maintenance records",
   "@maintenanceRecordOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceRecordOnlyAdminCanDelete": "Only admin can delete maintenance records",
+  "maintenanceRecordOnlyAdminCanDelete": "Only admin and staff can delete maintenance records",
   "@maintenanceRecordOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

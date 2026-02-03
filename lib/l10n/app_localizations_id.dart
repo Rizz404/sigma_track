@@ -643,10 +643,12 @@ class L10nId extends L10n {
   String get assetDataMatrixImage => 'Gambar Data Matrix';
 
   @override
-  String get assetOnlyAdminCanEdit => 'Hanya admin yang dapat mengedit aset';
+  String get assetOnlyAdminCanEdit =>
+      'Hanya admin dan staff yang dapat mengedit aset';
 
   @override
-  String get assetOnlyAdminCanDelete => 'Hanya admin yang dapat menghapus aset';
+  String get assetOnlyAdminCanDelete =>
+      'Hanya admin dan staff yang dapat menghapus aset';
 
   @override
   String get assetFailedToLoad => 'Gagal memuat aset';
@@ -1399,11 +1401,11 @@ class L10nId extends L10n {
 
   @override
   String get assetMovementOnlyAdminCanEdit =>
-      'Hanya admin yang dapat mengedit perpindahan aset';
+      'Hanya admin dan staff yang dapat mengedit perpindahan aset';
 
   @override
   String get assetMovementOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus perpindahan aset';
+      'Hanya admin dan staff yang dapat menghapus perpindahan aset';
 
   @override
   String get assetMovementFailedToLoad => 'Gagal memuat perpindahan aset';
@@ -2406,11 +2408,11 @@ class L10nId extends L10n {
 
   @override
   String get issueReportOnlyAdminCanEdit =>
-      'Hanya admin yang dapat mengedit laporan masalah';
+      'Hanya admin dan staff yang dapat mengedit laporan masalah';
 
   @override
   String get issueReportOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus laporan masalah';
+      'Hanya admin dan staff yang dapat menghapus laporan masalah';
 
   @override
   String get issueReportFailedToLoad => 'Gagal memuat laporan masalah';
@@ -3101,11 +3103,11 @@ class L10nId extends L10n {
 
   @override
   String get maintenanceScheduleOnlyAdminCanEdit =>
-      'Hanya admin yang dapat mengedit jadwal pemeliharaan';
+      'Hanya admin dan staff yang dapat mengedit jadwal pemeliharaan';
 
   @override
   String get maintenanceScheduleOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus jadwal pemeliharaan';
+      'Hanya admin dan staff yang dapat menghapus jadwal pemeliharaan';
 
   @override
   String get maintenanceScheduleOnlyAdminCanCopy =>
@@ -3380,11 +3382,11 @@ class L10nId extends L10n {
 
   @override
   String get maintenanceRecordOnlyAdminCanEdit =>
-      'Hanya admin yang dapat mengedit catatan pemeliharaan';
+      'Hanya admin dan staff yang dapat mengedit catatan pemeliharaan';
 
   @override
   String get maintenanceRecordOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus catatan pemeliharaan';
+      'Hanya admin dan staff yang dapat menghapus catatan pemeliharaan';
 
   @override
   String get maintenanceRecordFailedToLoad =>
@@ -3637,7 +3639,7 @@ class L10nId extends L10n {
 
   @override
   String get notificationOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus notifikasi';
+      'Hanya admin dan staff yang dapat menghapus notifikasi';
 
   @override
   String get notificationDeleted => 'Notifikasi dihapus';
@@ -3907,7 +3909,7 @@ class L10nId extends L10n {
 
   @override
   String get scanLogOnlyAdminCanDelete =>
-      'Hanya admin yang dapat menghapus log pemindaian';
+      'Hanya admin dan staff yang dapat menghapus log pemindaian';
 
   @override
   String get scanLogDeleted => 'Log pemindaian dihapus';

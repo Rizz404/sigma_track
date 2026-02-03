@@ -98,11 +98,11 @@
   "@maintenanceScheduleUnknownUser": {
     "description": "Unknown user text"
   },
-  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin yang dapat mengedit jadwal pemeliharaan",
+  "maintenanceScheduleOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit jadwal pemeliharaan",
   "@maintenanceScheduleOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin yang dapat menghapus jadwal pemeliharaan",
+  "maintenanceScheduleOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus jadwal pemeliharaan",
   "@maintenanceScheduleOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -464,11 +464,11 @@
   "@maintenanceRecordUnknownAsset": {
     "description": "Unknown asset text"
   },
-  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin yang dapat mengedit catatan pemeliharaan",
+  "maintenanceRecordOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit catatan pemeliharaan",
   "@maintenanceRecordOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin yang dapat menghapus catatan pemeliharaan",
+  "maintenanceRecordOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus catatan pemeliharaan",
   "@maintenanceRecordOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

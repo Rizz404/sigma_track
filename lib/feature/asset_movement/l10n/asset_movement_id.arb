@@ -80,11 +80,11 @@
   "@assetMovementUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetMovementOnlyAdminCanEdit": "Hanya admin yang dapat mengedit perpindahan aset",
+  "assetMovementOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit perpindahan aset",
   "@assetMovementOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetMovementOnlyAdminCanDelete": "Hanya admin yang dapat menghapus perpindahan aset",
+  "assetMovementOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus perpindahan aset",
   "@assetMovementOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

@@ -114,11 +114,11 @@
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
   },
-  "assetOnlyAdminCanEdit": "Hanya admin yang dapat mengedit aset",
+  "assetOnlyAdminCanEdit": "Hanya admin dan staff yang dapat mengedit aset",
   "@assetOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetOnlyAdminCanDelete": "Hanya admin yang dapat menghapus aset",
+  "assetOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus aset",
   "@assetOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

@@ -34,7 +34,7 @@
   "@scanLogDelete": {
     "description": "Delete button label"
   },
-  "scanLogOnlyAdminCanDelete": "Only admin can delete scan logs",
+  "scanLogOnlyAdminCanDelete": "Only admin and staff can delete scan logs",
   "@scanLogOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

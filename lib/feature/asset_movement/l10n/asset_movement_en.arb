@@ -80,11 +80,11 @@
   "@assetMovementUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetMovementOnlyAdminCanEdit": "Only admin can edit asset movements",
+  "assetMovementOnlyAdminCanEdit": "Only admin and staff can edit asset movements",
   "@assetMovementOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetMovementOnlyAdminCanDelete": "Only admin can delete asset movements",
+  "assetMovementOnlyAdminCanDelete": "Only admin and staff can delete asset movements",
   "@assetMovementOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

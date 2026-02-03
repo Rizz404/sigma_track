@@ -642,10 +642,10 @@ class L10nJa extends L10n {
   String get assetDataMatrixImage => 'データマトリックス画像';
 
   @override
-  String get assetOnlyAdminCanEdit => '資産を編集できるのは管理者のみです';
+  String get assetOnlyAdminCanEdit => '資産を編集できるのは管理者とスタッフのみです';
 
   @override
-  String get assetOnlyAdminCanDelete => '資産を削除できるのは管理者のみです';
+  String get assetOnlyAdminCanDelete => '資産を削除できるのは管理者とスタッフのみです';
 
   @override
   String get assetFailedToLoad => '資産の読み込みに失敗しました';
@@ -1371,10 +1371,10 @@ class L10nJa extends L10n {
   String get assetMovementUpdatedAt => '更新日時';
 
   @override
-  String get assetMovementOnlyAdminCanEdit => '資産移動を編集できるのは管理者のみです';
+  String get assetMovementOnlyAdminCanEdit => '資産移動を編集できるのは管理者とスタッフのみです';
 
   @override
-  String get assetMovementOnlyAdminCanDelete => '資産移動を削除できるのは管理者のみです';
+  String get assetMovementOnlyAdminCanDelete => '資産移動を削除できるのは管理者とスタッフのみです';
 
   @override
   String get assetMovementFailedToLoad => '資産移動の読み込みに失敗しました';
@@ -2327,10 +2327,10 @@ class L10nJa extends L10n {
   String get issueReportUpdatedAt => '更新日時';
 
   @override
-  String get issueReportOnlyAdminCanEdit => '問題報告を編集できるのは管理者のみです';
+  String get issueReportOnlyAdminCanEdit => '問題報告を編集できるのは管理者とスタッフのみです';
 
   @override
-  String get issueReportOnlyAdminCanDelete => '問題報告を削除できるのは管理者のみです';
+  String get issueReportOnlyAdminCanDelete => '問題報告を削除できるのは管理者とスタッフのみです';
 
   @override
   String get issueReportFailedToLoad => '問題報告の読み込みに失敗しました';
@@ -2978,11 +2978,12 @@ class L10nJa extends L10n {
   String get maintenanceScheduleUnknownUser => '不明なユーザー';
 
   @override
-  String get maintenanceScheduleOnlyAdminCanEdit => '管理者のみがメンテナンススケジュールを編集できます';
+  String get maintenanceScheduleOnlyAdminCanEdit =>
+      '管理者とスタッフのみがメンテナンススケジュールを編集できます';
 
   @override
   String get maintenanceScheduleOnlyAdminCanDelete =>
-      '管理者のみがメンテナンススケジュールを削除できます';
+      '管理者とスタッフのみがメンテナンススケジュールを削除できます';
 
   @override
   String get maintenanceScheduleOnlyAdminCanCopy =>
@@ -3237,10 +3238,11 @@ class L10nJa extends L10n {
   String get maintenanceRecordUnknownAsset => '不明な資産';
 
   @override
-  String get maintenanceRecordOnlyAdminCanEdit => '管理者のみがメンテナンス記録を編集できます';
+  String get maintenanceRecordOnlyAdminCanEdit => '管理者とスタッフのみがメンテナンス記録を編集できます';
 
   @override
-  String get maintenanceRecordOnlyAdminCanDelete => '管理者のみがメンテナンス記録を削除できます';
+  String get maintenanceRecordOnlyAdminCanDelete =>
+      '管理者とスタッフのみがメンテナンス記録を削除できます';
 
   @override
   String get maintenanceRecordFailedToLoad => 'メンテナンス記録の読み込みに失敗しました';
@@ -3472,7 +3474,7 @@ class L10nJa extends L10n {
   String get notificationDelete => '削除';
 
   @override
-  String get notificationOnlyAdminCanDelete => '通知を削除できるのは管理者のみです';
+  String get notificationOnlyAdminCanDelete => '通知を削除できるのは管理者とスタッフのみです';
 
   @override
   String get notificationDeleted => '通知が削除されました';
@@ -3727,7 +3729,7 @@ class L10nJa extends L10n {
   String get scanLogDelete => '削除';
 
   @override
-  String get scanLogOnlyAdminCanDelete => 'スキャンログを削除できるのは管理者のみです';
+  String get scanLogOnlyAdminCanDelete => 'スキャンログを削除できるのは管理者とスタッフのみです';
 
   @override
   String get scanLogDeleted => 'スキャンログが削除されました';

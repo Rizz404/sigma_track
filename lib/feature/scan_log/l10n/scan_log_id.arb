@@ -34,7 +34,7 @@
   "@scanLogDelete": {
     "description": "Delete button label"
   },
-  "scanLogOnlyAdminCanDelete": "Hanya admin yang dapat menghapus log pemindaian",
+  "scanLogOnlyAdminCanDelete": "Hanya admin dan staff yang dapat menghapus log pemindaian",
   "@scanLogOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

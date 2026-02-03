@@ -35,8 +35,9 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
   void _handleDelete(ScanLog scanLog) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.scanLogOnlyAdminCanDelete);
       return;
     }
@@ -108,6 +109,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.scanLogDetail),
@@ -117,6 +119,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
         scanLog: scanLog,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -126,6 +129,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
     required ScanLog? scanLog,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -155,7 +159,7 @@ class _ScanLogDetailScreenState extends ConsumerState<ScanLogDetailScreen> {
                   : _buildContent(scanLog),
             ),
           ),
-          if (!isLoading && scanLog != null && isAdmin)
+          if (!isLoading && scanLog != null && (isAdmin || isStaff))
             AppDetailActionButtons(onDelete: () => _handleDelete(scanLog)),
         ],
       ),

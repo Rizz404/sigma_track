@@ -39,8 +39,9 @@ class _AssetMovementDetailScreenState
   Future<void> _handleEdit(AssetMovement assetMovement) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.assetMovementOnlyAdminCanEdit);
       return;
     }
@@ -102,8 +103,9 @@ class _AssetMovementDetailScreenState
   void _handleDelete(AssetMovement assetMovement) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.assetMovementOnlyAdminCanDelete);
       return;
     }
@@ -181,6 +183,7 @@ class _AssetMovementDetailScreenState
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.assetMovementDetail),
@@ -190,6 +193,7 @@ class _AssetMovementDetailScreenState
         assetMovement: assetMovement,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -199,6 +203,7 @@ class _AssetMovementDetailScreenState
     required AssetMovement? assetMovement,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -228,7 +233,7 @@ class _AssetMovementDetailScreenState
                   : _buildContent(assetMovement),
             ),
           ),
-          if (!isLoading && assetMovement != null && isAdmin)
+          if (!isLoading && assetMovement != null && (isAdmin || isStaff))
             AppDetailActionButtons(
               onEdit: () => _handleEdit(assetMovement),
               onDelete: () => _handleDelete(assetMovement),

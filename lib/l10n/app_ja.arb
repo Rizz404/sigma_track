@@ -700,11 +700,11 @@
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
   },
-  "assetOnlyAdminCanEdit": "資産を編集できるのは管理者のみです",
+  "assetOnlyAdminCanEdit": "資産を編集できるのは管理者とスタッフのみです",
   "@assetOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetOnlyAdminCanDelete": "資産を削除できるのは管理者のみです",
+  "assetOnlyAdminCanDelete": "資産を削除できるのは管理者とスタッフのみです",
   "@assetOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -1734,11 +1734,11 @@
   "@assetMovementUpdatedAt": {
     "description": "Updated at label"
   },
-  "assetMovementOnlyAdminCanEdit": "資産移動を編集できるのは管理者のみです",
+  "assetMovementOnlyAdminCanEdit": "資産移動を編集できるのは管理者とスタッフのみです",
   "@assetMovementOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetMovementOnlyAdminCanDelete": "資産移動を削除できるのは管理者のみです",
+  "assetMovementOnlyAdminCanDelete": "資産移動を削除できるのは管理者とスタッフのみです",
   "@assetMovementOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -2985,11 +2985,11 @@
   "@issueReportUpdatedAt": {
     "description": "Updated at label"
   },
-  "issueReportOnlyAdminCanEdit": "問題報告を編集できるのは管理者のみです",
+  "issueReportOnlyAdminCanEdit": "問題報告を編集できるのは管理者とスタッフのみです",
   "@issueReportOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "issueReportOnlyAdminCanDelete": "問題報告を削除できるのは管理者のみです",
+  "issueReportOnlyAdminCanDelete": "問題報告を削除できるのは管理者とスタッフのみです",
   "@issueReportOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -3802,8 +3802,8 @@
   "maintenanceScheduleNo": "いいえ",
   "maintenanceScheduleUnknownAsset": "不明な資産",
   "maintenanceScheduleUnknownUser": "不明なユーザー",
-  "maintenanceScheduleOnlyAdminCanEdit": "管理者のみがメンテナンススケジュールを編集できます",
-  "maintenanceScheduleOnlyAdminCanDelete": "管理者のみがメンテナンススケジュールを削除できます",
+  "maintenanceScheduleOnlyAdminCanEdit": "管理者とスタッフのみがメンテナンススケジュールを編集できます",
+  "maintenanceScheduleOnlyAdminCanDelete": "管理者とスタッフのみがメンテナンススケジュールを削除できます",
   "maintenanceScheduleOnlyAdminCanCopy": "管理者のみがメンテナンススケジュールをコピーできます",
   "@maintenanceScheduleOnlyAdminCanCopy": {
     "description": "Error message for non-admin trying to copy"
@@ -3889,8 +3889,8 @@
   "maintenanceRecordActualCost": "実際のコスト",
   "maintenanceRecordActualCostValue": "{cost}",
   "maintenanceRecordUnknownAsset": "不明な資産",
-  "maintenanceRecordOnlyAdminCanEdit": "管理者のみがメンテナンス記録を編集できます",
-  "maintenanceRecordOnlyAdminCanDelete": "管理者のみがメンテナンス記録を削除できます",
+  "maintenanceRecordOnlyAdminCanEdit": "管理者とスタッフのみがメンテナンス記録を編集できます",
+  "maintenanceRecordOnlyAdminCanDelete": "管理者とスタッフのみがメンテナンス記録を削除できます",
   "maintenanceRecordOnlyAdminCanCopy": "管理者のみがメンテナンス記録をコピーできます",
   "@maintenanceRecordOnlyAdminCanCopy": {
     "description": "Error message for non-admin trying to copy"
@@ -4032,7 +4032,7 @@
   "@notificationDelete": {
     "description": "Delete button label"
   },
-  "notificationOnlyAdminCanDelete": "通知を削除できるのは管理者のみです",
+  "notificationOnlyAdminCanDelete": "通知を削除できるのは管理者とスタッフのみです",
   "@notificationOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
@@ -4380,7 +4380,7 @@
   "@scanLogDelete": {
     "description": "Delete button label"
   },
-  "scanLogOnlyAdminCanDelete": "スキャンログを削除できるのは管理者のみです",
+  "scanLogOnlyAdminCanDelete": "スキャンログを削除できるのは管理者とスタッフのみです",
   "@scanLogOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },

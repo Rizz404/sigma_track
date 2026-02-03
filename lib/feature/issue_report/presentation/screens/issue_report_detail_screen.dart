@@ -39,8 +39,9 @@ class _IssueReportDetailScreenState
   Future<void> _handleEdit(IssueReport issueReport) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       final result = await context.push<IssueReport?>(
         RouteConstant.issueReportUpsert,
         extra: issueReport,
@@ -59,8 +60,9 @@ class _IssueReportDetailScreenState
   void _handleDelete(IssueReport issueReport) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.issueReportOnlyAdminCanDelete);
       return;
     }
@@ -137,6 +139,7 @@ class _IssueReportDetailScreenState
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -148,6 +151,7 @@ class _IssueReportDetailScreenState
         issueReport: issueReport,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -157,6 +161,7 @@ class _IssueReportDetailScreenState
     required IssueReport? issueReport,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -186,7 +191,7 @@ class _IssueReportDetailScreenState
                   : _buildContent(issueReport),
             ),
           ),
-          if (!isLoading && issueReport != null && isAdmin)
+          if (!isLoading && issueReport != null && (isAdmin || isStaff))
             AppDetailActionButtons(
               onEdit: () => _handleEdit(issueReport),
               onDelete: () => _handleDelete(issueReport),

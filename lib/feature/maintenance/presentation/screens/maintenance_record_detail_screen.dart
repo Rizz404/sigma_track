@@ -44,8 +44,9 @@ class _MaintenanceRecordDetailScreenState
   Future<void> _handleEdit(MaintenanceRecord record) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       final result = await context.push<MaintenanceRecord?>(
         RouteConstant.adminMaintenanceRecordUpsert,
         extra: record,
@@ -64,8 +65,9 @@ class _MaintenanceRecordDetailScreenState
   void _handleDelete(MaintenanceRecord record) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.maintenanceRecordOnlyAdminCanDelete);
       return;
     }
@@ -160,6 +162,7 @@ class _MaintenanceRecordDetailScreenState
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -171,6 +174,7 @@ class _MaintenanceRecordDetailScreenState
         record: record,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -180,6 +184,7 @@ class _MaintenanceRecordDetailScreenState
     required MaintenanceRecord? record,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -209,7 +214,7 @@ class _MaintenanceRecordDetailScreenState
                   : _buildContent(record),
             ),
           ),
-          if (!isLoading && record != null && isAdmin)
+          if (!isLoading && record != null && (isAdmin || isStaff))
             AppDetailActionButtons(
               onEdit: () => _handleEdit(record),
               onDelete: () => _handleDelete(record),

@@ -53,8 +53,9 @@ class _NotificationDetailScreenState
   void _handleDelete(notification_entity.Notification notification) async {
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
-    if (!isAdmin) {
+    if (!isAdmin && !isStaff) {
       AppToast.warning(context.l10n.notificationOnlyAdminCanDelete);
       return;
     }
@@ -138,6 +139,7 @@ class _NotificationDetailScreenState
 
     final authState = ref.read(authNotifierProvider).valueOrNull;
     final isAdmin = authState?.user?.role == UserRole.admin;
+    final isStaff = authState?.user?.role == UserRole.staff;
 
     return Scaffold(
       appBar: CustomAppBar(title: context.l10n.notificationDetail),
@@ -147,6 +149,7 @@ class _NotificationDetailScreenState
         notification: notification,
         isLoading: isLoading,
         isAdmin: isAdmin,
+        isStaff: isStaff,
         errorMessage: errorMessage,
       ),
     );
@@ -156,6 +159,7 @@ class _NotificationDetailScreenState
     required notification_entity.Notification? notification,
     required bool isLoading,
     required bool isAdmin,
+    required bool isStaff,
     String? errorMessage,
   }) {
     if (errorMessage != null) {
@@ -185,7 +189,7 @@ class _NotificationDetailScreenState
                   : _buildContent(notification),
             ),
           ),
-          if (!isLoading && notification != null && isAdmin)
+          if (!isLoading && notification != null && (isAdmin || isStaff))
             AppDetailActionButtons(onDelete: () => _handleDelete(notification)),
         ],
       ),

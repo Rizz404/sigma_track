@@ -114,11 +114,11 @@
   "@assetDataMatrixImage": {
     "description": "Data matrix image section title"
   },
-  "assetOnlyAdminCanEdit": "資産を編集できるのは管理者のみです",
+  "assetOnlyAdminCanEdit": "資産を編集できるのは管理者とスタッフのみです",
   "@assetOnlyAdminCanEdit": {
     "description": "Error message for non-admin trying to edit"
   },
-  "assetOnlyAdminCanDelete": "資産を削除できるのは管理者のみです",
+  "assetOnlyAdminCanDelete": "資産を削除できるのは管理者とスタッフのみです",
   "@assetOnlyAdminCanDelete": {
     "description": "Error message for non-admin trying to delete"
   },
