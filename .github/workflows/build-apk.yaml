@@ -36,6 +36,9 @@ jobs:
       - name: Build APK Release (fat APK)
         run: flutter build apk --release
 
+      - name: List build outputs
+        run: ls -la build/app/outputs/flutter-apk/
+
       # - name: Build APK Split per ABI
       #   run: flutter build apk --release --split-per-abi
 
@@ -43,7 +46,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release-fat
-          path: build/app/outputs/flutter-apk/Sigma_Asset-release.apk
+          path: build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: error
 
       # - name: Upload APK (armeabi-v7a)
       #   uses: actions/upload-artifact@v4
@@ -84,7 +88,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/app-release-fat/Sigma_Asset-release.apk
+            artifacts/app-release-fat/*.apk
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
