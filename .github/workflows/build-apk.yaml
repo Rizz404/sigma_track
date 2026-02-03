@@ -36,33 +36,32 @@ jobs:
       - name: Build APK Release (fat APK)
         run: flutter build apk --release
 
-      - name: Build APK Split per ABI
-        run: flutter build apk --release --split-per-abi
+      # - name: Build APK Split per ABI
+      #   run: flutter build apk --release --split-per-abi
 
-      # Upload satu per satu biar nggak di-zip otomatis sama GitHub
       - name: Upload Release APK (fat)
         uses: actions/upload-artifact@v4
         with:
           name: app-release-fat
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/Sigma_Asset-release.apk
 
-      - name: Upload APK (armeabi-v7a)
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-armeabi-v7a
-          path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+      # - name: Upload APK (armeabi-v7a)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-release-armeabi-v7a
+      #     path: build/app/outputs/flutter-apk/Sigma_Asset-armeabi-v7a-release.apk
 
-      - name: Upload APK (arm64-v8a)
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-arm64-v8a
-          path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+      # - name: Upload APK (arm64-v8a)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-release-arm64-v8a
+      #     path: build/app/outputs/flutter-apk/Sigma_Asset-arm64-v8a-release.apk
 
-      - name: Upload APK (x86_64)
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-x86_64
-          path: build/app/outputs/flutter-apk/app-x86_64-release.apk
+      # - name: Upload APK (x86_64)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-release-x86_64
+      #     path: build/app/outputs/flutter-apk/Sigma_Asset-x86_64-release.apk
 
   # Optional: Create GitHub Release when tag is pushed
   release:
@@ -84,12 +83,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # Nah, path-nya sesuain sama folder hasil download tadi
           files: |
-            artifacts/app-release-fat/app-release.apk
-            artifacts/app-release-armeabi-v7a/app-armeabi-v7a-release.apk
-            artifacts/app-release-arm64-v8a/app-arm64-v8a-release.apk
-            artifacts/app-release-x86_64/app-x86_64-release.apk
+            artifacts/app-release-fat/Sigma_Asset-release.apk
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
