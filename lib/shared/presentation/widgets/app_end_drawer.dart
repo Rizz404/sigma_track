@@ -84,55 +84,37 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.home,
                   title: context.l10n.appEndDrawerHome,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.home);
-                  },
+                  route: RouteConstant.home,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.qr_code_scanner,
                   title: context.l10n.appEndDrawerScanAsset,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.scanAsset);
-                  },
+                  route: RouteConstant.scanAsset,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.inventory_2,
                   title: context.l10n.appEndDrawerMyAssets,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.myAssets);
-                  },
+                  route: RouteConstant.myAssets,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.notifications,
                   title: context.l10n.appEndDrawerNotifications,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.myNotifications);
-                  },
+                  route: RouteConstant.myNotifications,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.report_problem,
                   title: context.l10n.appEndDrawerMyIssueReports,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.myIssueReports);
-                  },
+                  route: RouteConstant.myIssueReports,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.person,
                   title: context.l10n.appEndDrawerProfile,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.userDetailProfile);
-                  },
+                  route: RouteConstant.userDetailProfile,
                 ),
               ],
             ),
@@ -164,19 +146,13 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.dashboard,
                   title: context.l10n.appEndDrawerDashboard,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminDashboard);
-                  },
+                  route: RouteConstant.adminDashboard,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.qr_code_scanner,
                   title: context.l10n.appEndDrawerScanAsset,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminScanAsset);
-                  },
+                  route: RouteConstant.adminScanAsset,
                 ),
                 const Divider(),
                 // * Management Section
@@ -192,46 +168,31 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.inventory_2,
                   title: context.l10n.appEndDrawerAssets,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminAssets);
-                  },
+                  route: RouteConstant.adminAssets,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.swap_horiz,
                   title: context.l10n.appEndDrawerAssetMovements,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminAssetMovements);
-                  },
+                  route: RouteConstant.adminAssetMovements,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.category,
                   title: context.l10n.appEndDrawerCategories,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminCategories);
-                  },
+                  route: RouteConstant.adminCategories,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.location_on,
                   title: context.l10n.appEndDrawerLocations,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminLocations);
-                  },
+                  route: RouteConstant.adminLocations,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.people,
                   title: context.l10n.appEndDrawerUsers,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminUsers);
-                  },
+                  route: RouteConstant.adminUsers,
                 ),
                 const Divider(),
                 // * Maintenance Section
@@ -247,19 +208,13 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.schedule,
                   title: context.l10n.appEndDrawerMaintenanceSchedules,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminMaintenanceSchedules);
-                  },
+                  route: RouteConstant.adminMaintenanceSchedules,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history,
                   title: context.l10n.appEndDrawerMaintenanceRecords,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminMaintenanceRecords);
-                  },
+                  route: RouteConstant.adminMaintenanceRecords,
                 ),
                 const Divider(),
                 // * Reports Section
@@ -275,38 +230,26 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.report_problem,
                   title: context.l10n.appEndDrawerIssueReports,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminIssueReports);
-                  },
+                  route: RouteConstant.adminIssueReports,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history_toggle_off,
                   title: context.l10n.appEndDrawerScanLogs,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminScanLogs);
-                  },
+                  route: RouteConstant.adminScanLogs,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.notifications,
                   title: context.l10n.appEndDrawerNotifications,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminNotifications);
-                  },
+                  route: RouteConstant.adminNotifications,
                 ),
                 const Divider(),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.person,
                   title: context.l10n.appEndDrawerProfile,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.adminUserDetailProfile);
-                  },
+                  route: RouteConstant.adminUserDetailProfile,
                 ),
               ],
             ),
@@ -338,19 +281,13 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.dashboard,
                   title: context.l10n.appEndDrawerDashboard,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffDashboard);
-                  },
+                  route: RouteConstant.staffDashboard,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.qr_code_scanner,
                   title: context.l10n.appEndDrawerScanAsset,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffScanAsset);
-                  },
+                  route: RouteConstant.staffScanAsset,
                 ),
                 const Divider(),
                 // * Management Section
@@ -366,19 +303,13 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.inventory_2,
                   title: context.l10n.appEndDrawerAssets,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffAssets);
-                  },
+                  route: RouteConstant.staffAssets,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.swap_horiz,
                   title: context.l10n.appEndDrawerAssetMovements,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffAssetMovements);
-                  },
+                  route: RouteConstant.staffAssetMovements,
                 ),
                 const Divider(),
                 // * Maintenance Section
@@ -394,19 +325,13 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.schedule,
                   title: context.l10n.appEndDrawerMaintenanceSchedules,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffMaintenanceSchedules);
-                  },
+                  route: RouteConstant.staffMaintenanceSchedules,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history,
                   title: context.l10n.appEndDrawerMaintenanceRecords,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffMaintenanceRecords);
-                  },
+                  route: RouteConstant.staffMaintenanceRecords,
                 ),
                 const Divider(),
                 // * Reports Section
@@ -422,38 +347,26 @@ class AppEndDrawer extends ConsumerWidget {
                   context: context,
                   icon: Icons.report_problem,
                   title: context.l10n.appEndDrawerIssueReports,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffIssueReports);
-                  },
+                  route: RouteConstant.staffIssueReports,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.history_toggle_off,
                   title: context.l10n.appEndDrawerScanLogs,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffScanLogs);
-                  },
+                  route: RouteConstant.staffScanLogs,
                 ),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.notifications,
                   title: context.l10n.appEndDrawerNotifications,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffNotifications);
-                  },
+                  route: RouteConstant.staffNotifications,
                 ),
                 const Divider(),
                 _buildDrawerTile(
                   context: context,
                   icon: Icons.person,
                   title: context.l10n.appEndDrawerProfile,
-                  onTap: () {
-                    context.pop();
-                    context.push(RouteConstant.staffUserDetailProfile);
-                  },
+                  route: RouteConstant.staffUserDetailProfile,
                 ),
               ],
             ),
@@ -545,12 +458,36 @@ class AppEndDrawer extends ConsumerWidget {
     required BuildContext context,
     required IconData icon,
     required String title,
-    required VoidCallback onTap,
+    required String route,
   }) {
+    final currentLocation = GoRouterState.of(context).uri.path;
+    final isActive = currentLocation == route;
+
     return ListTile(
-      leading: Icon(icon, color: context.colorScheme.onSurface),
-      title: AppText(title, style: AppTextStyle.bodyLarge),
-      onTap: onTap,
+      leading: Icon(
+        icon,
+        color: isActive
+            ? context.colorScheme.primary
+            : context.colorScheme.onSurface,
+      ),
+      title: AppText(
+        title,
+        style: AppTextStyle.bodyLarge,
+        color: isActive ? context.colorScheme.primary : null,
+        fontWeight: isActive ? FontWeight.bold : null,
+      ),
+      selected: isActive,
+      selectedTileColor: context.colorScheme.primaryContainer.withOpacity(0.3),
+      onTap: () {
+        if (isActive) {
+          // * Close drawer saja jika sudah di route yang sama
+          context.pop();
+        } else {
+          // * Navigate ke route baru
+          context.pop();
+          context.push(route);
+        }
+      },
     );
   }
 
