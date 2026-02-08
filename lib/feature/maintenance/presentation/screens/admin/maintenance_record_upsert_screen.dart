@@ -65,6 +65,7 @@ class _MaintenanceRecordUpsertScreenState
   // * Helper to get source record for initialization (copy or edit)
   MaintenanceRecord? get _sourceRecord =>
       widget.copyFromRecord ?? widget.maintenanceRecord;
+  bool _showAllTranslations = false;
 
   // * OLD IMPLEMENTATION: Search maintenance schedules function
   // * Commented out - no backend search feature yet
@@ -505,6 +506,9 @@ class _MaintenanceRecordUpsertScreenState
   }
 
   Widget _buildTranslationsSection() {
+    // * Get current language code in backend format (en-US, ja-JP, id-ID)
+    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+
     return Card(
       color: context.colors.surface,
       elevation: 0,
@@ -517,30 +521,123 @@ class _MaintenanceRecordUpsertScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              context.l10n.maintenanceRecordTranslations,
-              style: AppTextStyle.titleMedium,
-              fontWeight: FontWeight.bold,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        context.l10n.maintenanceRecordTranslations,
+                        style: AppTextStyle.titleMedium,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(height: 4),
+                      AppText(
+                        _showAllTranslations
+                            ? 'Edit all translations manually'
+                            : 'Auto-translate enabled · Edit current language',
+                        style: AppTextStyle.bodySmall,
+                        color: context.colors.textSecondary,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _showAllTranslations = !_showAllTranslations;
+                    });
+                  },
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _showAllTranslations
+                          ? context.colorScheme.primary.withValues(alpha: 0.1)
+                          : context.colors.surfaceVariant.withValues(
+                              alpha: 0.5,
+                            ),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: _showAllTranslations
+                            ? context.colorScheme.primary
+                            : context.colors.border,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _showAllTranslations
+                              ? Icons.translate
+                              : Icons.translate_outlined,
+                          size: 18,
+                          color: _showAllTranslations
+                              ? context.colorScheme.primary
+                              : context.colors.textSecondary,
+                        ),
+                        const SizedBox(width: 6),
+                        AppText(
+                          _showAllTranslations ? 'All' : 'Current',
+                          style: AppTextStyle.labelSmall,
+                          color: _showAllTranslations
+                              ? context.colorScheme.primary
+                              : context.colors.textSecondary,
+                          fontWeight: _showAllTranslations
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
-            _buildTranslationFields(
-              'en-US',
-              context.l10n.maintenanceRecordEnglish,
-            ),
-            const SizedBox(height: 12),
-            _buildTranslationFields(
-              'ja-JP',
-              context.l10n.maintenanceRecordJapanese,
-            ),
-            const SizedBox(height: 12),
-            _buildTranslationFields(
-              'id-ID',
-              context.l10n.maintenanceRecordIndonesian,
-            ),
+            if (_showAllTranslations) ...[
+              _buildTranslationFields(
+                'en-US',
+                context.l10n.maintenanceRecordEnglish,
+              ),
+              const SizedBox(height: 12),
+              _buildTranslationFields(
+                'ja-JP',
+                context.l10n.maintenanceRecordJapanese,
+              ),
+              const SizedBox(height: 12),
+              _buildTranslationFields(
+                'id-ID',
+                context.l10n.maintenanceRecordIndonesian,
+              ),
+            ] else ...[
+              _buildTranslationFields(
+                currentLangCode,
+                _getLanguageName(currentLangCode),
+              ),
+            ],
           ],
         ),
       ),
     );
+  }
+
+  String _getLanguageName(String langCode) {
+    switch (langCode) {
+      case 'en-US':
+        return context.l10n.maintenanceRecordEnglish;
+      case 'ja-JP':
+        return context.l10n.maintenanceRecordJapanese;
+      case 'id-ID':
+        return context.l10n.maintenanceRecordIndonesian;
+      default:
+        return langCode;
+    }
   }
 
   Widget _buildTranslationFields(String langCode, String langName) {
