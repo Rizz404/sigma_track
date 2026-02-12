@@ -22,9 +22,7 @@ class LocationUpsertValidator {
   }
 
   static String? validateLocationName(BuildContext context, String? value, {bool isUpdate = false}) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return context.l10n.locationValidationNameRequired;
-    }
+    // * Translation fields are optional - backend auto-translates
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
         return context.l10n.locationValidationNameMinLength;

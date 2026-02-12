@@ -42,9 +42,7 @@ class CategoryUpsertValidator {
     String? value, {
     bool isUpdate = false,
   }) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return context.l10n.categoryValidationNameRequired;
-    }
+    // * Translation fields are optional - backend auto-translates
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
         return context.l10n.categoryValidationNameMinLength;
@@ -61,9 +59,7 @@ class CategoryUpsertValidator {
     String? value, {
     bool isUpdate = false,
   }) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return context.l10n.categoryValidationDescriptionRequired;
-    }
+    // * Translation fields are optional - backend auto-translates
     if (value != null && value.isNotEmpty) {
       if (value.length < 10) {
         return context.l10n.categoryValidationDescriptionMinLength;

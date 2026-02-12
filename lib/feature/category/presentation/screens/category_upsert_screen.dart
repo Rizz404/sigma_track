@@ -544,13 +544,11 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
             label: context.l10n.categoryCategoryName,
             placeHolder: context.l10n.categoryEnterCategoryName,
             initialValue: translation?.categoryName,
-            validator: langCode == 'en-US'
-                ? (value) => CategoryUpsertValidator.validateCategoryName(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  )
-                : null,
+            validator: (value) => CategoryUpsertValidator.validateCategoryName(
+              context,
+              value,
+              isUpdate: _isEdit,
+            ),
           ),
         ],
       ),

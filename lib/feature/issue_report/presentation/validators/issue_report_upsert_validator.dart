@@ -67,9 +67,7 @@ class IssueReportUpsertValidator {
     required BuildContext context,
     bool isUpdate = false,
   }) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return context.l10n.issueReportValidationTitleRequired;
-    }
+    // * Translation fields are optional - backend auto-translates
     if (value != null && value.isNotEmpty) {
       if (value.length > 200) {
         return context.l10n.issueReportValidationTitleMaxLength;

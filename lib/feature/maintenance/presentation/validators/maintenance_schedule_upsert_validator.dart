@@ -41,9 +41,7 @@ class MaintenanceScheduleUpsertValidator {
   }
 
   static String? validateTitle(String? value, {bool isUpdate = false}) {
-    if (!isUpdate && (value == null || value.isEmpty)) {
-      return 'Title is required';
-    }
+    // * Translation fields are optional - backend auto-translates
     if (value != null && value.isNotEmpty) {
       if (value.length < 3) {
         return 'Title must be at least 3 characters';

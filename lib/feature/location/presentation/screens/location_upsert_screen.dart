@@ -635,13 +635,11 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
             label: context.l10n.locationName,
             placeHolder: context.l10n.locationEnterLocationName,
             initialValue: translation?.locationName,
-            validator: langCode == 'en-US'
-                ? (value) => LocationUpsertValidator.validateLocationName(
-                    context,
-                    value,
-                    isUpdate: _isEdit,
-                  )
-                : null,
+            validator: (value) => LocationUpsertValidator.validateLocationName(
+              context,
+              value,
+              isUpdate: _isEdit,
+            ),
           ),
         ],
       ),
