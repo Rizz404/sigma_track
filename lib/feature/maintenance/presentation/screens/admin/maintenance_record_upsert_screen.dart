@@ -123,6 +123,12 @@ class _MaintenanceRecordUpsertScreenState
       }
     }
 
+    // ! Validate translations - backend requires at least one translation
+    if (!_isEdit && translations.isEmpty) {
+      AppToast.warning(context.l10n.maintenanceRecordFillRequiredFields);
+      return;
+    }
+
     final scheduleId = formData['scheduleId'] as String;
     final assetId = formData['assetId'] as String;
     final maintenanceDate = formData['maintenanceDate'] as DateTime;
@@ -507,7 +513,7 @@ class _MaintenanceRecordUpsertScreenState
 
   Widget _buildTranslationsSection() {
     // * Get current language code in backend format (en-US, ja-JP, id-ID)
-    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+    final currentLangCode = context.backendLocaleCode;
 
     return Card(
       color: context.colors.surface,

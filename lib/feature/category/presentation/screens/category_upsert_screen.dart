@@ -96,6 +96,12 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
       }
     }
 
+    // ! Validate translations - backend requires at least one translation
+    if (!_isEdit && translations.isEmpty) {
+      AppToast.warning(context.l10n.categoryFillRequiredFields);
+      return;
+    }
+
     final parentId = formData['parentId'] as String?;
     final categoryCode = formData['categoryCode'] as String;
 
@@ -387,7 +393,7 @@ class _CategoryUpsertScreenState extends ConsumerState<CategoryUpsertScreen> {
 
   Widget _buildTranslationsSection() {
     // * Get current language code in backend format (en-US, ja-JP, id-ID)
-    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+    final currentLangCode = context.backendLocaleCode;
 
     return Card(
       color: context.colors.surface,

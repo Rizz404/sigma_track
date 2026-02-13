@@ -94,6 +94,12 @@ class _IssueReportUpsertScreenState
       }
     }
 
+    // ! Validate translations - backend requires at least one translation
+    if (!_isEdit && translations.isEmpty) {
+      AppToast.warning(context.l10n.issueReportFillRequiredFields);
+      return;
+    }
+
     final assetId = formData['assetId'] as String;
 
     // * NEW IMPLEMENTATION: Get current user ID from provider in create mode
@@ -429,7 +435,7 @@ class _IssueReportUpsertScreenState
 
   Widget _buildTranslationsSection() {
     // * Get current language code in backend format (en-US, ja-JP, id-ID)
-    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+    final currentLangCode = context.backendLocaleCode;
 
     return Card(
       color: context.colors.surface,

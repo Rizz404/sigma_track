@@ -120,6 +120,12 @@ class _MaintenanceScheduleUpsertScreenState
       }
     }
 
+    // ! Validate translations - backend requires at least one translation
+    if (!_isEdit && translations.isEmpty) {
+      AppToast.warning(context.l10n.maintenanceScheduleFillRequiredFields);
+      return;
+    }
+
     final assetId = formData['assetId'] as String;
     final maintenanceType = formData['maintenanceType'] as String?;
     final isRecurring = formData['isRecurring'] as bool? ?? false;
@@ -526,7 +532,7 @@ class _MaintenanceScheduleUpsertScreenState
 
   Widget _buildTranslationsSection() {
     // * Get current language code in backend format (en-US, ja-JP, id-ID)
-    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+    final currentLangCode = context.backendLocaleCode;
 
     return Card(
       color: context.colors.surface,
