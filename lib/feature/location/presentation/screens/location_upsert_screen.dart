@@ -203,7 +203,8 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
     final translations = <dynamic>[];
     for (final langCode in Language.values.map((e) => e.backendCode)) {
-      final locationName = formData['${langCode}_locationName'] as String?;
+      final fieldName = '${langCode}_locationName';
+      final locationName = formData[fieldName] as String?;
 
       if (locationName != null && locationName.isNotEmpty) {
         if (_isEdit) {
@@ -222,6 +223,12 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
           );
         }
       }
+    }
+
+    // ! Validate translations - backend requires at least one translation
+    if (!_isEdit && translations.isEmpty) {
+      AppToast.warning(context.l10n.locationFillRequiredFields);
+      return;
     }
 
     final locationCode = formData['locationCode'] as String;
@@ -482,7 +489,7 @@ class _LocationUpsertScreenState extends ConsumerState<LocationUpsertScreen> {
 
   Widget _buildTranslationsSection() {
     // * Get current language code in backend format (en-US, ja-JP, id-ID)
-    final currentLangCode = Localizations.localeOf(context).toLanguageTag();
+    final currentLangCode = context.backendLocaleCode;
 
     return Card(
       color: context.colors.surface,
